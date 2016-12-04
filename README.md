@@ -2,6 +2,8 @@
 
 This repository offers the [RFC documents](https://tools.ietf.org/rfc/index) as downloadable docset for tools like [Dash](https://kapeli.com/dash).
 
+![RFC Docset](https://raw.githubusercontent.com/nlohmann/rfc-docset/master/screenshot.png)
+
 ## Features
 
 Within [Dash](https://kapeli.com/dash), the docset has the following features:
@@ -20,12 +22,14 @@ Just open file `rfc.docset` with Dash. There will be a new entry "RFC" in the do
 
 The docset can be built from scratch as follows
 
-	# remove current docset
-	rm -fr rfc.docset
-	# download RFCs
-	make -C html -j10
-	# recreate the docset
-	./create_docset.py
+```sh
+# remove current docset
+rm -fr rfc.docset
+# download RFCs
+make -C html -j10
+# recreate the docset
+./create_docset.py
+```
 
 ## License
 
