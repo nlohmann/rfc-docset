@@ -402,9 +402,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>
    [<a href="#ref-1" title="&quot;Key words for use in RFCs to indicate requirement levels&quot;">1</a>] and indicate requirement levels for compliant STUN
    implementations.
 
@@ -708,7 +708,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>  Binding Requests</span>
 
-   A STUN server MUST be prepared to receive Binding Requests on four
+   A STUN server <em>MUST</em> be prepared to receive Binding Requests on four
    address/port combinations - (A1, P1), (A2, P1), (A1, P2), and (A2,
    P2).  (A1, P1) represent the primary address and port, and these are
    the ones obtained through the client discovery procedures below.
@@ -716,33 +716,33 @@ Table of Contents
    are arbitrary.  A2 and P2 are advertised by the server through the
    CHANGED-ADDRESS attribute, as described below.
 
-   It is RECOMMENDED that the server check the Binding Request for a
+   It is <em>RECOMMENDED</em> that the server check the Binding Request for a
    MESSAGE-INTEGRITY attribute.  If not present, and the server requires
    integrity checks on the request, it generates a Binding Error
    Response with an ERROR-CODE attribute with response code 401.  If the
    MESSAGE-INTEGRITY attribute was present, the server computes the HMAC
    over the request as described in <a href="#section-11.2.8">Section 11.2.8</a>.  The key to use
    depends on the shared secret mechanism.  If the STUN Shared Secret
-   Request was used, the key MUST be the one associated with the
+   Request was used, the key <em>MUST</em> be the one associated with the
    USERNAME attribute present in the request.  If the USERNAME attribute
-   was not present, the server MUST generate a Binding Error Response.
-   The Binding Error Response MUST include an ERROR-CODE attribute with
+   was not present, the server <em>MUST</em> generate a Binding Error Response.
+   The Binding Error Response <em>MUST</em> include an ERROR-CODE attribute with
    response code 432.  If the USERNAME is present, but the server
    doesn't remember the shared secret for that USERNAME (because it
-   timed out, for example), the server MUST generate a Binding Error
-   Response.  The Binding Error Response MUST include an ERROR-CODE
+   timed out, for example), the server <em>MUST</em> generate a Binding Error
+   Response.  The Binding Error Response <em>MUST</em> include an ERROR-CODE
    attribute with response code 430.  If the server does know the shared
    secret, but the computed HMAC differs from the one in the request,
-   the server MUST generate a Binding Error Response with an ERROR-CODE
+   the server <em>MUST</em> generate a Binding Error Response with an ERROR-CODE
    attribute with response code 431.  The Binding Error Response is sent
    to the IP address and port the Binding Request came from, and sent
    from the IP address and port the Binding Request was sent to.
 
    Assuming the message integrity check passed, processing continues.
-   The server MUST check for any attributes in the request with values
+   The server <em>MUST</em> check for any attributes in the request with values
    less than or equal to 0x7fff which it does not understand.  If it
-   encounters any, the server MUST generate a Binding Error Response,
-   and it MUST include an ERROR-CODE attribute with a 420 response code.
+   encounters any, the server <em>MUST</em> generate a Binding Error Response,
+   and it <em>MUST</em> include an ERROR-CODE attribute with a 420 response code.
 
 
 
@@ -754,30 +754,30 @@ Table of Contents
 <span class="grey"><a href="./rfc3489.html">RFC 3489</a>                          STUN                        March 2003</span>
 
 
-   That response MUST contain an UNKNOWN-ATTRIBUTES attribute listing
+   That response <em>MUST</em> contain an UNKNOWN-ATTRIBUTES attribute listing
    the attributes with values less than or equal to 0x7fff which were
    not understood.  The Binding Error Response is sent to the IP address
    and port the Binding Request came from, and sent from the IP address
    and port the Binding Request was sent to.
 
-   Assuming the request was correctly formed, the server MUST generate a
-   single Binding Response.  The Binding Response MUST contain the same
+   Assuming the request was correctly formed, the server <em>MUST</em> generate a
+   single Binding Response.  The Binding Response <em>MUST</em> contain the same
    transaction ID contained in the Binding Request.  The length in the
-   message header MUST contain the total length of the message in bytes,
-   excluding the header.  The Binding Response MUST have a message type
+   message header <em>MUST</em> contain the total length of the message in bytes,
+   excluding the header.  The Binding Response <em>MUST</em> have a message type
    of "Binding Response".
 
-   The server MUST add a MAPPED-ADDRESS attribute to the Binding
-   Response.  The IP address component of this attribute MUST be set to
+   The server <em>MUST</em> add a MAPPED-ADDRESS attribute to the Binding
+   Response.  The IP address component of this attribute <em>MUST</em> be set to
    the source IP address observed in the Binding Request.  The port
-   component of this attribute MUST be set to the source port observed
+   component of this attribute <em>MUST</em> be set to the source port observed
    in the Binding Request.
 
    If the RESPONSE-ADDRESS attribute was absent from the Binding
    Request, the destination address and port of the Binding Response
-   MUST be the same as the source address and port of the Binding
+   <em>MUST</em> be the same as the source address and port of the Binding
    Request.  Otherwise, the destination address and port of the Binding
-   Response MUST be the value of the IP address and port in the
+   Response <em>MUST</em> be the value of the IP address and port in the
    RESPONSE-ADDRESS attribute.
 
    The source address and port of the Binding Response depend on the
@@ -792,16 +792,16 @@ Table of Contents
    Dp is P1, Cp is P2.  If Dp is P2, Cp is P1.  If the "change port"
    flag was set in CHANGE-REQUEST attribute of the Binding Request, and
    the "change IP" flag was not set, the source IP address of the
-   Binding Response MUST be Da and the source port of the Binding
-   Response MUST be Cp.  If the "change IP" flag was set in the Binding
+   Binding Response <em>MUST</em> be Da and the source port of the Binding
+   Response <em>MUST</em> be Cp.  If the "change IP" flag was set in the Binding
    Request, and the "change port" flag was not set, the source IP
-   address of the Binding Response MUST be Ca and the source port of the
-   Binding Response MUST be Dp.  When both flags are set, the source IP
-   address of the Binding Response MUST be Ca and the source port of the
-   Binding Response MUST be Cp.  If neither flag is set, or if the
+   address of the Binding Response <em>MUST</em> be Ca and the source port of the
+   Binding Response <em>MUST</em> be Dp.  When both flags are set, the source IP
+   address of the Binding Response <em>MUST</em> be Ca and the source port of the
+   Binding Response <em>MUST</em> be Cp.  If neither flag is set, or if the
    CHANGE-REQUEST attribute is absent entirely, the source IP address of
-   the Binding Response MUST be Da and the source port of the Binding
-   Response MUST be Dp.
+   the Binding Response <em>MUST</em> be Da and the source port of the Binding
+   Response <em>MUST</em> be Dp.
 
 
 
@@ -819,39 +819,39 @@ Table of Contents
 
    Table 1: Impact of Flags on Packet Source and CHANGED-ADDRESS
 
-   The server MUST add a SOURCE-ADDRESS attribute to the Binding
+   The server <em>MUST</em> add a SOURCE-ADDRESS attribute to the Binding
    Response, containing the source address and port used to send the
    Binding Response.
 
-   The server MUST add a CHANGED-ADDRESS attribute to the Binding
+   The server <em>MUST</em> add a CHANGED-ADDRESS attribute to the Binding
    Response.  This contains the source IP address and port that would be
    used if the client had set the "change IP" and "change port" flags in
    the Binding Request.  As summarized in Table 1, these are Ca and Cp,
    respectively, regardless of the value of the CHANGE-REQUEST flags.
 
    If the Binding Request contained both the USERNAME and MESSAGE-
-   INTEGRITY attributes, the server MUST add a MESSAGE-INTEGRITY
+   INTEGRITY attributes, the server <em>MUST</em> add a MESSAGE-INTEGRITY
    attribute to the Binding Response.  The attribute contains an HMAC
    [<a href="#ref-13" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">13</a>] over the response, as described in <a href="#section-11.2.8">Section 11.2.8</a>.  The key to
    use depends on the shared secret mechanism.  If the STUN Shared
-   Secret Request was used, the key MUST be the one associated with the
+   Secret Request was used, the key <em>MUST</em> be the one associated with the
    USERNAME attribute present in the Binding Request.
 
    If the Binding Request contained a RESPONSE-ADDRESS attribute, the
-   server MUST add a REFLECTED-FROM attribute to the response.  If the
+   server <em>MUST</em> add a REFLECTED-FROM attribute to the response.  If the
    Binding Request was authenticated using a username obtained from a
-   Shared Secret Request, the REFLECTED-FROM attribute MUST contain the
+   Shared Secret Request, the REFLECTED-FROM attribute <em>MUST</em> contain the
    source IP address and port where that Shared Secret Request came
    from.  If the username present in the request was not allocated using
-   a Shared Secret Request, the REFLECTED-FROM attribute MUST contain
+   a Shared Secret Request, the REFLECTED-FROM attribute <em>MUST</em> contain
    the source address and port of the entity which obtained the
    username, as best can be verified with the mechanism used to allocate
    the username.  If the username was not present in the request, and
    the server was willing to process the request, the REFLECTED-FROM
-   attribute SHOULD contain the source IP address and port where the
+   attribute <em>SHOULD</em> contain the source IP address and port where the
    request came from.
 
-   The server SHOULD NOT retransmit the response.  Reliability is
+   The server <em>SHOULD NOT</em> retransmit the response.  Reliability is
    achieved by having the client periodically resend the request, each
    of which triggers a response from the server.
 
@@ -870,16 +870,16 @@ Table of Contents
 
    Shared Secret Requests are always received on TLS connections.  When
    the server receives a request from the client to establish a TLS
-   connection, it MUST proceed with TLS, and SHOULD present a site
+   connection, it <em>MUST</em> proceed with TLS, and <em>SHOULD</em> present a site
    certificate.  The TLS ciphersuite TLS_RSA_WITH_AES_128_CBC_SHA [<a href="#ref-4" title="&quot;Advanced Encryption Standard (AES) Ciphersuites for Transport Layer Security (TLS)&quot;">4</a>]
-   SHOULD be used.  Client TLS authentication MUST NOT be done, since
+   <em>SHOULD</em> be used.  Client TLS authentication <em>MUST NOT</em> be done, since
    the server is not allocating any resources to clients, and the
    computational burden can be a source of attacks.
 
-   If the server receives a Shared Secret Request, it MUST verify that
+   If the server receives a Shared Secret Request, it <em>MUST</em> verify that
    the request arrived on a TLS connection.  If it did not receive the
-   request over TLS, it MUST generate a Shared Secret Error Response,
-   and it MUST include an ERROR-CODE attribute with a 433 response code.
+   request over TLS, it <em>MUST</em> generate a Shared Secret Error Response,
+   and it <em>MUST</em> include an ERROR-CODE attribute with a 433 response code.
    The destination for the error response depends on the transport on
    which the request was received.  If the Shared Secret Request was
    received over TCP, the Shared Secret Error Response is sent over the
@@ -887,32 +887,32 @@ Table of Contents
    Request was receive over UDP, the Shared Secret Error Response is
    sent to the source IP address and port that the request came from.
 
-   The server MUST check for any attributes in the request with values
+   The server <em>MUST</em> check for any attributes in the request with values
    less than or equal to 0x7fff which it does not understand.  If it
-   encounters any, the server MUST generate a Shared Secret Error
-   Response, and it MUST include an ERROR-CODE attribute with a 420
-   response code.  That response MUST contain an UNKNOWN-ATTRIBUTES
+   encounters any, the server <em>MUST</em> generate a Shared Secret Error
+   Response, and it <em>MUST</em> include an ERROR-CODE attribute with a 420
+   response code.  That response <em>MUST</em> contain an UNKNOWN-ATTRIBUTES
    attribute listing the attributes with values less than or equal to
    0x7fff which were not understood.  The Shared Secret Error Response
    is sent over the TLS connection.
 
-   All Shared Secret Error Responses MUST contain the same transaction
+   All Shared Secret Error Responses <em>MUST</em> contain the same transaction
    ID contained in the Shared Secret Request. The length in the message
-   header MUST contain the total length of the message in bytes,
-   excluding the header.  The Shared Secret Error Response MUST have a
+   header <em>MUST</em> contain the total length of the message in bytes,
+   excluding the header.  The Shared Secret Error Response <em>MUST</em> have a
    message type of "Shared Secret Error Response" (0x0112).
 
    Assuming the request was properly constructed, the server creates a
-   Shared Secret Response.  The Shared Secret Response MUST contain the
+   Shared Secret Response.  The Shared Secret Response <em>MUST</em> contain the
    same transaction ID contained in the Shared Secret Request.  The
-   length in the message header MUST contain the total length of the
+   length in the message header <em>MUST</em> contain the total length of the
    message in bytes, excluding the header.  The Shared Secret Response
-   MUST have a message type of "Shared Secret Response".  The Shared
-   Secret Response MUST contain a USERNAME attribute and a PASSWORD
+   <em>MUST</em> have a message type of "Shared Secret Response".  The Shared
+   Secret Response <em>MUST</em> contain a USERNAME attribute and a PASSWORD
    attribute.  The USERNAME attribute serves as an index to the
    password, which is contained in the PASSWORD attribute.  The server
    can use any mechanism it chooses to generate the username.  However,
-   the username MUST be valid for a period of at least 10 minutes.
+   the username <em>MUST</em> be valid for a period of at least 10 minutes.
    Validity means that the server can compute the password for that
 
 
@@ -922,17 +922,17 @@ Table of Contents
 <span class="grey"><a href="./rfc3489.html">RFC 3489</a>                          STUN                        March 2003</span>
 
 
-   username.  There MUST be a single password for each username.  In
+   username.  There <em>MUST</em> be a single password for each username.  In
    other words, the server cannot, 10 minutes later, assign a different
-   password to the same username.  The server MUST hand out a different
+   password to the same username.  The server <em>MUST</em> hand out a different
    username for each distinct Shared Secret Request.  Distinct, in this
-   case, implies a different transaction ID.  It is RECOMMENDED that the
-   server explicitly invalidate the username after ten minutes.  It MUST
+   case, implies a different transaction ID.  It is <em>RECOMMENDED</em> that the
+   server explicitly invalidate the username after ten minutes.  It <em>MUST</em>
    invalidate the username after 30 minutes.  The PASSWORD contains the
-   password bound to that username.  The password MUST have at least 128
+   password bound to that username.  The password <em>MUST</em> have at least 128
    bits.  The likelihood that the server assigns the same password for
-   two different usernames MUST be vanishingly small, and the passwords
-   MUST be unguessable.  In other words, they MUST be a
+   two different usernames <em>MUST</em> be vanishingly small, and the passwords
+   <em>MUST</em> be unguessable.  In other words, they <em>MUST</em> be a
    cryptographically random function of the username.
 
    These requirements can still be met using a stateless server, by
@@ -959,7 +959,7 @@ Table of Contents
    was not tampered with, using the hmac present in the username.
 
    The Shared Secret Response is sent over the same TLS connection the
-   request was received on.  The server SHOULD keep the connection open,
+   request was received on.  The server <em>SHOULD</em> keep the connection open,
    and let the client close it.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Client Behavior</span>
@@ -999,14 +999,14 @@ Table of Contents
    to timeout.  This occurs 9.5 seconds after the first request is sent,
    for both Shared Secret Requests and Binding Requests.  See <a href="#section-9.3">Section</a>
    <a href="#section-9.3">9.3</a> for details on transaction timeouts for Binding Requests.  If a
-   failure occurs, the client SHOULD create a new request, which is
+   failure occurs, the client <em>SHOULD</em> create a new request, which is
    identical to the previous, but has a different transaction ID and
    MESSAGE INTEGRITY attribute (the HMAC will change because the
    transaction ID has changed).  That request is sent to the next
    element in the list as specified by <a href="./rfc2782.html">RFC 2782</a>.
 
    The default port for STUN requests is 3478, for both TCP and UDP.
-   Administrators SHOULD use this port in their SRV records, but MAY use
+   Administrators <em>SHOULD</em> use this port in their SRV records, but <em>MAY</em> use
    others.
 
    If no SRV records were found, the client performs an A record lookup
@@ -1025,7 +1025,7 @@ Table of Contents
    a shared secret between client and server, used as the keying
    material for an HMAC used in both the Binding Request and Binding
    Response.  STUN allows for the shared secret to be obtained in any
-   way (for example, Kerberos [<a href="#ref-14" title="&quot;The kerberos Network Authentication Service (V5)&quot;">14</a>]).  However, it MUST have at least 128
+   way (for example, Kerberos [<a href="#ref-14" title="&quot;The kerberos Network Authentication Service (V5)&quot;">14</a>]).  However, it <em>MUST</em> have at least 128
 
 
 
@@ -1036,14 +1036,14 @@ Table of Contents
 
    bits of randomness.  In order to ensure interoperability, this
    specification describes a TLS-based mechanism.  This mechanism,
-   described in this section, MUST be implemented by clients and
+   described in this section, <em>MUST</em> be implemented by clients and
    servers.
 
    First, the client determines the IP address and port that it will
    open a TCP connection to.  This is done using the discovery
    procedures in <a href="#section-9.1">Section 9.1</a>.  The client opens up the connection to
    that address and port, and immediately begins TLS negotiation [<a href="#ref-2" title="&quot;The TLS protocol Version 1.0&quot;">2</a>].
-   The client MUST verify the identity of the server.  To do that, it
+   The client <em>MUST</em> verify the identity of the server.  To do that, it
    follows the identification procedures defined in Section 3.1 of <a href="./rfc2818.html">RFC</a>
    <a href="./rfc2818.html">2818</a> [<a href="#ref-5" title="&quot;HTTP over TLS&quot;">5</a>]. Those procedures assume the client is dereferencing a URI.
    For purposes of usage with this specification, the client treats the
@@ -1052,7 +1052,7 @@ Table of Contents
 
    Once the connection is opened, the client sends a Shared Secret
    request.  This request has no attributes, just the header.  The
-   transaction ID in the header MUST meet the requirements outlined for
+   transaction ID in the header <em>MUST</em> meet the requirements outlined for
    the transaction ID in a binding request, described in <a href="#section-9.3">Section 9.3</a>
    below.  The server generates a response, which can either be a Shared
    Secret Response or a Shared Secret Error Response.
@@ -1063,7 +1063,7 @@ Table of Contents
    for the Binding Error Response.
 
    If a client receives a Shared Secret Response with an attribute whose
-   type is greater than 0x7fff, the attribute MUST be ignored.  If the
+   type is greater than 0x7fff, the attribute <em>MUST</em> be ignored.  If the
    client receives a Shared Secret Response with an attribute whose type
    is less than or equal to 0x7fff, the response is ignored.
 
@@ -1071,9 +1071,9 @@ Table of Contents
    lived username and password, encoded in the USERNAME and PASSWORD
    attributes, respectively.
 
-   The client MAY generate multiple Shared Secret Requests on the
-   connection, and it MAY do so before receiving Shared Secret Responses
-   to previous Shared Secret Requests.  The client SHOULD close the
+   The client <em>MAY</em> generate multiple Shared Secret Requests on the
+   connection, and it <em>MAY</em> do so before receiving Shared Secret Responses
+   to previous Shared Secret Requests.  The client <em>SHOULD</em> close the
    connection as soon as it has finished obtaining usernames and
    passwords.
 
@@ -1095,11 +1095,11 @@ Table of Contents
    A Binding Request formulated by the client follows the syntax rules
    defined in <a href="#section-11">Section 11</a>.  Any two requests that are not bit-wise
    identical, and not sent to the same server from the same IP address
-   and port, MUST carry different transaction IDs. The transaction ID
-   MUST be uniformly and randomly distributed between 0 and 2**128 - 1.
+   and port, <em>MUST</em> carry different transaction IDs. The transaction ID
+   <em>MUST</em> be uniformly and randomly distributed between 0 and 2**128 - 1.
    The large range is needed because the transaction ID serves as a form
    of randomization, helping to prevent replays of previously signed
-   responses from the server.  The message type of the request MUST be
+   responses from the server.  The message type of the request <em>MUST</em> be
    "Binding Request".
 
    The RESPONSE-ADDRESS attribute is optional in the Binding Request.
@@ -1112,7 +1112,7 @@ Table of Contents
    the application is trying to accomplish.  See <a href="#section-10">Section 10</a> for some
    example uses.
 
-   The client SHOULD add a MESSAGE-INTEGRITY and USERNAME attribute to
+   The client <em>SHOULD</em> add a MESSAGE-INTEGRITY and USERNAME attribute to
    the Binding Request.  This MESSAGE-INTEGRITY attribute contains an
    HMAC [<a href="#ref-13" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">13</a>].  The value of the username, and the key to use in the
    MESSAGE-INTEGRITY attribute depend on the shared secret mechanism.
@@ -1122,12 +1122,12 @@ Table of Contents
    PASSWORD attribute obtained from the same Shared Secret Response.
 
    Once formulated, the client sends the Binding Request.  Reliability
-   is accomplished through client retransmissions.  Clients SHOULD
+   is accomplished through client retransmissions.  Clients <em>SHOULD</em>
    retransmit the request starting with an interval of 100ms, doubling
    every retransmit until the interval reaches 1.6s.  Retransmissions
    continue with intervals of 1.6s until a response is received, or a
    total of 9 requests have been sent. If no response is received by 1.6
-   seconds after the last request has been sent, the client SHOULD
+   seconds after the last request has been sent, the client <em>SHOULD</em>
    consider the transaction to have failed. In other words, requests
    would be sent at times 0ms, 100ms, 300ms, 700ms, 1500ms, 3100ms,
    4700ms, 6300ms, and 7900ms. At 9500ms, the client considers the
@@ -1153,46 +1153,46 @@ Table of Contents
 
    If the response is a Binding Error Response, the client checks the
    response code from the ERROR-CODE attribute of the response.  For a
-   400 response code, the client SHOULD display the reason phrase to the
-   user.  For a 420 response code, the client SHOULD retry the request,
+   400 response code, the client <em>SHOULD</em> display the reason phrase to the
+   user.  For a 420 response code, the client <em>SHOULD</em> retry the request,
    this time omitting any attributes listed in the UNKNOWN-ATTRIBUTES
    attribute of the response.  For a 430 response code, the client
-   SHOULD obtain a new shared secret, and retry the Binding Request with
+   <em>SHOULD</em> obtain a new shared secret, and retry the Binding Request with
    a new transaction.  For 401 and 432 response codes, if the client had
    omitted the USERNAME or MESSAGE-INTEGRITY attribute as indicated by
-   the error, it SHOULD try again with those attributes.  For a 431
-   response code, the client SHOULD alert the user, and MAY try the
+   the error, it <em>SHOULD</em> try again with those attributes.  For a 431
+   response code, the client <em>SHOULD</em> alert the user, and <em>MAY</em> try the
    request again after obtaining a new username and password.  For a 500
-   response code, the client MAY wait several seconds and then retry the
-   request.  For a 600 response code, the client MUST NOT retry the
-   request, and SHOULD display the reason phrase to the user.  Unknown
+   response code, the client <em>MAY</em> wait several seconds and then retry the
+   request.  For a 600 response code, the client <em>MUST NOT</em> retry the
+   request, and <em>SHOULD</em> display the reason phrase to the user.  Unknown
    attributes between 400 and 499 are treated like a 400, unknown
    attributes between 500 and 599 are treated like a 500, and unknown
    attributes between 600 and 699 are treated like a 600.  Any response
-   between 100 and 399 MUST result in the cessation of request
+   between 100 and 399 <em>MUST</em> result in the cessation of request
    retransmissions, but otherwise is discarded.
 
    If a client receives a response with an attribute whose type is
-   greater than 0x7fff, the attribute MUST be ignored.  If the client
+   greater than 0x7fff, the attribute <em>MUST</em> be ignored.  If the client
    receives a response with an attribute whose type is less than or
-   equal to 0x7fff, request retransmissions MUST cease, but the entire
+   equal to 0x7fff, request retransmissions <em>MUST</em> cease, but the entire
    response is otherwise ignored.
 
-   If the response is a Binding Response, the client SHOULD check the
+   If the response is a Binding Response, the client <em>SHOULD</em> check the
    response for a MESSAGE-INTEGRITY attribute.  If not present, and the
-   client placed a MESSAGE-INTEGRITY attribute into the request, it MUST
+   client placed a MESSAGE-INTEGRITY attribute into the request, it <em>MUST</em>
    discard the response.  If present, the client computes the HMAC over
    the response as described in <a href="#section-11.2.8">Section 11.2.8</a>.  The key to use depends
    on the shared secret mechanism.  If the STUN Shared Secret Request
-   was used, the key MUST be same as used to compute the MESSAGE-
+   was used, the key <em>MUST</em> be same as used to compute the MESSAGE-
    INTEGRITY attribute in the request.  If the computed HMAC differs
-   from the one in the response, the client MUST discard the response,
-   and SHOULD alert the user about a possible attack.  If the computed
+   from the one in the response, the client <em>MUST</em> discard the response,
+   and <em>SHOULD</em> alert the user about a possible attack.  If the computed
    HMAC matches the one from the response, processing continues.
 
    Reception of a response (either Binding Error Response or Binding
    Response) to a Binding Request will terminate retransmissions of that
-   request.  However, clients MUST continue to listen for responses to a
+   request.  However, clients <em>MUST</em> continue to listen for responses to a
    Binding Request for 10 seconds after the first response.  If it
 
 
@@ -1205,17 +1205,17 @@ Table of Contents
    receives any responses in this interval with different message types
    (Binding Responses and Binding Error Responses, for example) or
    different MAPPED-ADDRESSes, it is an indication of a possible attack.
-   The client MUST NOT use the MAPPED-ADDRESS from any of the responses
-   it received (either the first or the additional ones), and SHOULD
+   The client <em>MUST NOT</em> use the MAPPED-ADDRESS from any of the responses
+   it received (either the first or the additional ones), and <em>SHOULD</em>
    alert the user.
 
    Furthermore, if a client receives more than twice as many Binding
-   Responses as the number of Binding Requests it sent, it MUST NOT use
-   the MAPPED-ADDRESS from any of those responses, and SHOULD alert the
+   Responses as the number of Binding Requests it sent, it <em>MUST NOT</em> use
+   the MAPPED-ADDRESS from any of those responses, and <em>SHOULD</em> alert the
    user about a potential attack.
 
    If the Binding Response is authenticated, and the MAPPED-ADDRESS was
-   not discarded because of a potential attack, the CLIENT MAY use the
+   not discarded because of a potential attack, the CLIENT <em>MAY</em> use the
    MAPPED-ADDRESS and SOURCE-ADDRESS attributes.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Use Cases</span>
@@ -1630,9 +1630,9 @@ Table of Contents
    the client or server cannot process the message unless it understands
    the attribute.
 
-   The MESSAGE-INTEGRITY attribute MUST be the last attribute within a
+   The MESSAGE-INTEGRITY attribute <em>MUST</em> be the last attribute within a
    message.  Any attributes that are known, but are not supposed to be
-   present in a message (MAPPED-ADDRESS in a request, for example) MUST
+   present in a message (MAPPED-ADDRESS in a request, for example) <em>MUST</em>
    be ignored.
 
    Table 2 indicates which attributes are present in which messages.  An
@@ -1763,7 +1763,7 @@ Table of Contents
 
 
    The value of USERNAME is a variable length opaque value.  Its length
-   MUST be a multiple of 4 (measured in bytes) in order to guarantee
+   <em>MUST</em> be a multiple of 4 (measured in bytes) in order to guarantee
    alignment of attributes on word boundaries.
 
 <span class="h4"><a class="selflink" name="section-11.2.7" href="#section-11.2.7">11.2.7</a> PASSWORD</span>
@@ -1772,7 +1772,7 @@ Table of Contents
    always present in a Shared Secret Response, along with the USERNAME.
 
    The value of PASSWORD is a variable length value that is to be used
-   as a shared secret.  Its length MUST be a multiple of 4 (measured in
+   as a shared secret.  Its length <em>MUST</em> be a multiple of 4 (measured in
    bytes) in order to guarantee alignment of attributes on word
    boundaries.
 
@@ -1785,7 +1785,7 @@ Table of Contents
    header, up to and including the attribute preceding the MESSAGE-
    INTEGRITY attribute. That text is then padded with zeroes so as to be
    a multiple of 64 bytes.  As a result, the MESSAGE-INTEGRITY attribute
-   MUST be the last attribute in any STUN message.  The key used as
+   <em>MUST</em> be the last attribute in any STUN message.  The key used as
    input to HMAC depends on the context.
 
 <span class="h4"><a class="selflink" name="section-11.2.9" href="#section-11.2.9">11.2.9</a> ERROR-CODE</span>
@@ -1796,7 +1796,7 @@ Table of Contents
    consistent in its code assignments and semantics with SIP [<a href="#ref-10" title="&quot;SIP: Session Initiation Protocol&quot;">10</a>] and
    HTTP [<a href="#ref-15" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">15</a>].  The reason phrase is meant for user consumption, and can
    be anything appropriate for the response code.  The lengths of the
-   reason phrases MUST be a multiple of 4 (measured in bytes).  This can
+   reason phrases <em>MUST</em> be a multiple of 4 (measured in bytes).  This can
    be accomplished by added spaces to the end of the text, if necessary.
    Recommended reason phrases for the defined response codes are
    presented below.
@@ -1827,8 +1827,8 @@ Table of Contents
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The class represents the hundreds digit of the response code.  The
-   value MUST be between 1 and 6.  The number represents the response
-   code modulo 100, and its value MUST be between 0 and 99.
+   value <em>MUST</em> be between 1 and 6.  The number represents the response
+   code modulo 100, and its value <em>MUST</em> be between 0 and 99.
 
    The following response codes, along with their recommended reason
    phrases (in brackets) are defined at this time:
@@ -1883,7 +1883,7 @@ Table of Contents
    The attribute contains a list of 16 bit values, each of which
    represents an attribute type that was not understood by the server.
    If the number of unknown attributes is an odd number, one of the
-   attributes MUST be repeated in the list, so that the total length of
+   attributes <em>MUST</em> be repeated in the list, so that the total length of
    the list is a multiple of 4 bytes.
 
    0                   1                   2                   3
@@ -1916,10 +1916,10 @@ Table of Contents
 
    STUN servers create state through the Shared Secret Request
    mechanism.  To prevent being swamped with traffic, a STUN server
-   SHOULD limit the number of simultaneous TLS connections it will hold
+   <em>SHOULD</em> limit the number of simultaneous TLS connections it will hold
    open by dropping an existing connection when a new connection request
    arrives (based on an Least Recently Used (LRU) policy, for example).
-   Similarly, it SHOULD limit the number of shared secrets it will
+   Similarly, it <em>SHOULD</em> limit the number of shared secrets it will
    store, in the event that the server is storing the shared secrets.
 
 
@@ -2184,7 +2184,7 @@ Table of Contents
    STUN provides mechanisms to counter the approaches described above,
    and additional, non-STUN techniques can be used as well.
 
-   First off, it is RECOMMENDED that networks with STUN clients
+   First off, it is <em>RECOMMENDED</em> that networks with STUN clients
    implement ingress source filtering (<a href="./rfc2827.html">RFC 2827</a> [<a href="#ref-7" title="&quot;Network Ingress Filtering: Defeating Denial of Service Attacks which employ IP Source Address Spoofing&quot;">7</a>]).  This is
    particularly important for the NATs themselves.  As <a href="#section-12.2.3">Section 12.2.3</a>
    explains, NATs which do not perform this check can be used as
@@ -2192,7 +2192,7 @@ Table of Contents
    default mode of operation.  We strongly advise people that purchase
    NATs to ensure that this capability is present and enabled.
 
-   Secondly, it is RECOMMENDED that STUN servers be run on hosts
+   Secondly, it is <em>RECOMMENDED</em> that STUN servers be run on hosts
    dedicated to STUN, with all UDP and TCP ports disabled except for the
    STUN ports.  This is to prevent viruses and Trojan horses from
    infecting STUN servers, in order to prevent their compromise.  This
@@ -2215,8 +2215,8 @@ Table of Contents
    layer protocols.  If encryption and message integrity are provided
    within those protocols, the eavesdropping and identity assumption
    attacks can be prevented.  As such, applications that make use of
-   STUN addresses in application protocols SHOULD use integrity and
-   encryption, even if a SHOULD level strength is not specified for that
+   STUN addresses in application protocols <em>SHOULD</em> use integrity and
+   encryption, even if a <em>SHOULD</em> level strength is not specified for that
    protocol.  For example, multimedia applications using STUN addresses
    to receive RTP traffic would use secure RTP [<a href="#ref-16" title="&quot;The secure real-time transport protocol&quot;">16</a>].
 

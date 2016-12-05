@@ -314,8 +314,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions and Definitions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Reason for Change</span>
@@ -401,7 +401,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  The Change</span>
 
-   An element sending or receiving a 2xx to an INVITE transaction MUST
+   An element sending or receiving a 2xx to an INVITE transaction <em>MUST</em>
    NOT destroy any matching INVITE transaction state.  This state is
    necessary to ensure correct processing of retransmissions of the
    request and the retransmission of the 2xx and ACK that follow.
@@ -417,19 +417,19 @@ Table of Contents
 
 
    An element encountering an unrecoverable transport error when trying
-   to send a response to an INVITE request MUST NOT immediately destroy
+   to send a response to an INVITE request <em>MUST NOT</em> immediately destroy
    the associated INVITE server transaction state.  This state is
    necessary to ensure correct processing of retransmissions of the
    request.
 
-   When receiving any SIP response, a transaction-stateful proxy MUST
+   When receiving any SIP response, a transaction-stateful proxy <em>MUST</em>
    compare the transaction identifier in that response against its
-   existing transaction state machines.  The proxy MUST NOT forward the
+   existing transaction state machines.  The proxy <em>MUST NOT</em> forward the
    response if there is no matching transaction state machine.
 
    When receiving an ACK that matches an existing INVITE server
    transaction and that does not contain a branch parameter containing
-   the magic cookie defined in <a href="./rfc3261.html">RFC 3261</a>, the matching transaction MUST
+   the magic cookie defined in <a href="./rfc3261.html">RFC 3261</a>, the matching transaction <em>MUST</em>
    be checked to see if it is in the "Accepted" state.  If it is, then
    the ACK must be passed directly to the transaction user instead of
    being absorbed by the transaction state machine.  This is necessary
@@ -458,7 +458,7 @@ Table of Contents
 
    If the SIP element's TU (Transaction User) issues a 2xx response for
    this transaction while the state machine is in the "Proceeding"
-   state, the state machine MUST transition to the "Accepted" state and
+   state, the state machine <em>MUST</em> transition to the "Accepted" state and
    set Timer L to 64*T1, where T1 is the round-trip time estimate
    defined in <a href="./rfc3261.html#section-17.1.1.1">Section&nbsp;17.1.1.1 of [RFC3261]</a>.
 
@@ -477,24 +477,24 @@ Table of Contents
    absorbed by the machine without changing its state.  These
    retransmissions are not passed onto the TU.  <a href="./rfc3261.html">RFC 3261</a> requires the TU
    to periodically retransmit the 2xx response until it receives an ACK.
-   The server transaction MUST NOT generate 2xx retransmissions on its
+   The server transaction <em>MUST NOT</em> generate 2xx retransmissions on its
    own.  Any retransmission of the 2xx response passed from the TU to
-   the transaction while in the "Accepted" state MUST be passed to the
+   the transaction while in the "Accepted" state <em>MUST</em> be passed to the
    transport layer for transmission.  Any ACKs received from the network
-   while in the "Accepted" state MUST be passed directly to the TU and
+   while in the "Accepted" state <em>MUST</em> be passed directly to the TU and
    not absorbed.
 
    When Timer L fires and the state machine is in the "Accepted" state,
-   the machine MUST transition to the "Terminated" state.  Once the
-   transaction is in the "Terminated" state, it MUST be destroyed
+   the machine <em>MUST</em> transition to the "Terminated" state.  Once the
+   transaction is in the "Terminated" state, it <em>MUST</em> be destroyed
    immediately.  Timer L reflects the amount of time the server
    transaction could receive 2xx responses for retransmission from the
    TU while it is waiting to receive an ACK.
 
-   A server transaction MUST NOT discard transaction state based only on
+   A server transaction <em>MUST NOT</em> discard transaction state based only on
    encountering a non-recoverable transport error when sending a
    response.  Instead, the associated INVITE server transaction state
-   machine MUST remain in its current state.  (Timers will eventually
+   machine <em>MUST</em> remain in its current state.  (Timers will eventually
    cause it to transition to the "Terminated" state).  This allows
    retransmissions of the INVITE to be absorbed instead of being
    processed as a new request.
@@ -651,16 +651,16 @@ Table of Contents
    response or any additional 2xx responses from other branches of a
    downstream fork of the matching request.  If a 2xx response is
    received while the client INVITE state machine is in the "Calling" or
-   "Proceeding" states, it MUST transition to the "Accepted" state, pass
+   "Proceeding" states, it <em>MUST</em> transition to the "Accepted" state, pass
    the 2xx response to the TU, and set Timer M to 64*T1.  A 2xx response
-   received while in the "Accepted" state MUST be passed to the TU and
+   received while in the "Accepted" state <em>MUST</em> be passed to the TU and
    the machine remains in the "Accepted" state.  The client transaction
-   MUST NOT generate an ACK to any 2xx response on its own.  The TU
+   <em>MUST NOT</em> generate an ACK to any 2xx response on its own.  The TU
    responsible for the transaction will generate the ACK.
 
    When Timer M fires and the state machine is in the "Accepted" state,
-   the machine MUST transition to the "Terminated" state.  Once the
-   transaction is in the "Terminated" state, it MUST be destroyed
+   the machine <em>MUST</em> transition to the "Terminated" state.  Once the
+   transaction is in the "Terminated" state, it <em>MUST</em> be destroyed
    immediately.
 
    Any response received that does not match an existing client
@@ -740,9 +740,9 @@ Table of Contents
 
    This document changes the behavior of transaction-stateful proxies to
    not forward stray INVITE responses.  When receiving any SIP response,
-   a transaction-stateful proxy MUST compare the transaction identifier
+   a transaction-stateful proxy <em>MUST</em> compare the transaction identifier
    in that response against its existing transaction state machines.
-   The proxy MUST NOT forward the response if there is no matching
+   The proxy <em>MUST NOT</em> forward the response if there is no matching
    transaction state machine.
 
 
@@ -782,7 +782,7 @@ Table of Contents
       When a response is received by an element, it first tries to
       locate a client transaction (<a href="#section-17.1.3">Section 17.1.3</a>) matching the
       response.  If a transaction is found, the response is handed to
-      the client transaction.  If none is found, the element MUST NOT
+      the client transaction.  If none is found, the element <em>MUST NOT</em>
       forward the response.
 
 <span class="h3"><a class="selflink" name="section-8.3" href="#section-8.3">8.3</a>.  Page 114</span>
@@ -790,7 +790,7 @@ Table of Contents
    <a href="#section-16.7">Section 16.7</a>, part 9, first paragraph.  Replace this sentence:
 
       If the server transaction is no longer available to handle the
-      transmission, the element MUST forward the response statelessly by
+      transmission, the element <em>MUST</em> forward the response statelessly by
       sending it to the server transport.
 
    with
@@ -814,17 +814,17 @@ Table of Contents
    through the end of the section with:
 
       When in either the "Calling" or "Proceeding" states, reception of
-      a response with status code from 300-699 MUST cause the client
+      a response with status code from 300-699 <em>MUST</em> cause the client
       transaction to transition to "Completed".  The client transaction
-      MUST pass the received response up to the TU, and the client
-      transaction MUST generate an ACK request, even if the transport is
+      <em>MUST</em> pass the received response up to the TU, and the client
+      transaction <em>MUST</em> generate an ACK request, even if the transport is
       reliable (guidelines for constructing the ACK from the response
       are given in <a href="#section-17.1.1.3">Section 17.1.1.3</a>), and then pass the ACK to the
-      transport layer for transmission.  The ACK MUST be sent to the
+      transport layer for transmission.  The ACK <em>MUST</em> be sent to the
       same address, port, and transport to which the original request
       was sent.
 
-      The client transaction MUST start Timer D when it enters the
+      The client transaction <em>MUST</em> start Timer D when it enters the
       "Completed" state for any reason, with a value of at least 32
       seconds for unreliable transports, and a value of zero seconds for
       reliable transports.  Timer D reflects the amount of time that the
@@ -838,23 +838,23 @@ Table of Contents
       Timer D on T1.
 
       Any retransmissions of a response with status code 300-699 that
-      are received while in the "Completed" state MUST cause the ACK to
+      are received while in the "Completed" state <em>MUST</em> cause the ACK to
       be re-passed to the transport layer for retransmission, but the
-      newly received response MUST NOT be passed up to the TU.
+      newly received response <em>MUST NOT</em> be passed up to the TU.
 
       A retransmission of the response is defined as any response that
       would match the same client transaction based on the rules of
       <a href="#section-17.1.3">Section 17.1.3</a>.
 
       If Timer D fires while the client transaction is in the
-      "Completed" state, the client transaction MUST move to the
+      "Completed" state, the client transaction <em>MUST</em> move to the
       "Terminated" state.
 
       When a 2xx response is received while in either the "Calling" or
-      "Proceeding" states, the client transaction MUST transition to the
-      "Accepted" state, and Timer M MUST be started with a value of
-      64*T1.  The 2xx response MUST be passed up to the TU.  The client
-      transaction MUST NOT generate an ACK to the 2xx response -- its
+      "Proceeding" states, the client transaction <em>MUST</em> transition to the
+      "Accepted" state, and Timer M <em>MUST</em> be started with a value of
+      64*T1.  The 2xx response <em>MUST</em> be passed up to the TU.  The client
+      transaction <em>MUST NOT</em> generate an ACK to the 2xx response -- its
       handling is delegated to the TU.  A UAC core will send an ACK to
 
 
@@ -875,14 +875,14 @@ Table of Contents
       transaction user will wait for such messages.
 
       Any 2xx responses that match this client transaction and that are
-      received while in the "Accepted" state MUST be passed up to the
-      TU.  The client transaction MUST NOT generate an ACK to the 2xx
+      received while in the "Accepted" state <em>MUST</em> be passed up to the
+      TU.  The client transaction <em>MUST NOT</em> generate an ACK to the 2xx
       response.  The client transaction takes no further action.
 
       If Timer M fires while the client transaction is in the "Accepted"
-      state, the client transaction MUST move to the "Terminated" state.
+      state, the client transaction <em>MUST</em> move to the "Terminated" state.
 
-      The client transaction MUST be destroyed the instant it enters the
+      The client transaction <em>MUST</em> be destroyed the instant it enters the
       "Terminated" state.
 
 
@@ -981,10 +981,10 @@ Table of Contents
    <a href="#section-17.2.1">Section 17.2.1</a>, paragraph 4, is replaced with:
 
       If, while in the "Proceeding" state, the TU passes a 2xx response
-      to the server transaction, the server transaction MUST pass this
+      to the server transaction, the server transaction <em>MUST</em> pass this
       response to the transport layer for transmission.  It is not
       retransmitted by the server transaction; retransmissions of 2xx
-      responses are handled by the TU.  The server transaction MUST then
+      responses are handled by the TU.  The server transaction <em>MUST</em> then
       transition to the "Accepted" state.
 
 <span class="h3"><a class="selflink" name="section-8.6" href="#section-8.6">8.6</a>.  Page 136</span>
@@ -1101,11 +1101,11 @@ Table of Contents
       already retransmit their 2xx responses if necessary.
 
       While in the "Accepted" state, if the TU passes a 2xx response,
-      the server transaction MUST pass the response to the transport
+      the server transaction <em>MUST</em> pass the response to the transport
       layer for transmission.
 
       When the INVITE server transaction enters the "Accepted" state,
-      Timer L MUST be set to fire in 64*T1 for all transports.  This
+      Timer L <em>MUST</em> be set to fire in 64*T1 for all transports.  This
       value matches both Timer B in the next upstream client state
       machine (the amount of time the previous hop will wait for a
       response when no provisionals have been sent) and the amount of
@@ -1114,9 +1114,9 @@ Table of Contents
       INVITE server transaction is in the "Accepted" state, then the ACK
       must be passed up to the TU.  If Timer L fires while the INVITE
       server transaction is in the "Accepted" state, the transaction
-      MUST transition to the "Terminated" state.
+      <em>MUST</em> transition to the "Terminated" state.
 
-      Once the transaction is in the "Terminated" state, it MUST be
+      Once the transaction is in the "Terminated" state, it <em>MUST</em> be
       destroyed immediately.
 
 <span class="h3"><a class="selflink" name="section-8.8" href="#section-8.8">8.8</a>.  Page 141</span>
@@ -1125,8 +1125,8 @@ Table of Contents
 
       First, the procedures in [4] are followed, which attempt to
       deliver the response to a backup.  If those should all fail, based
-      on the definition of failure in [4], the server transaction SHOULD
-      inform the TU that a failure has occurred, and MUST remain in the
+      on the definition of failure in [4], the server transaction <em>SHOULD</em>
+      inform the TU that a failure has occurred, and <em>MUST</em> remain in the
       current state.
 
 
@@ -1150,9 +1150,9 @@ Table of Contents
 
       The client transport uses the matching procedures of <a href="#section-17.1.3">Section</a>
       <a href="#section-17.1.3">17.1.3</a> to attempt to match the response to an existing
-      transaction.  If there is a match, the response MUST be passed to
+      transaction.  If there is a match, the response <em>MUST</em> be passed to
       that transaction.  Otherwise, any element other than a stateless
-      proxy MUST silently discard the response.
+      proxy <em>MUST</em> silently discard the response.
 
 <span class="h3"><a class="selflink" name="section-8.10" href="#section-8.10">8.10</a>.  Page 146</span>
 

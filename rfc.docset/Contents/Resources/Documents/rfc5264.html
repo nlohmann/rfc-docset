@@ -322,9 +322,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Definitions and Document Conventions</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>, <a href="./bcp14.html">BCP 14</a>
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>, <a href="./bcp14.html">BCP 14</a>
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>], and indicate requirement levels for compliant
    implementations.
 
@@ -435,7 +435,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Content-Type for Partial Publications</span>
 
    The entities supporting the partial publication extension described
-   in this document MUST support the 'application/pidf-diff+xml' content
+   in this document <em>MUST</em> support the 'application/pidf-diff+xml' content
    type defined in the partial PIDF format [<a href="./rfc5262.html" title="&quot;Presence Information Data Format (PIDF) Extension for Partial Presence&quot;">RFC5262</a>], in addition to the
    baseline 'application/pidf+xml' content type defined in [<a href="./rfc3863.html" title="&quot;Presence Information Data Format (PIDF)&quot;">RFC3863</a>].
 
@@ -463,13 +463,13 @@ Table of Contents
 
    If the initial PUBLISH request returns a 415 (Unsupported Media
    Type), it means that the compositor did not understand the partial
-   publication format.  In this case, the PUA MUST follow normal
+   publication format.  In this case, the PUA <em>MUST</em> follow normal
    procedures for handling a 400-class response, as specified in <a href="#section-8.1.3.5">Section</a>
-   <a href="#section-8.1.3.5">8.1.3.5</a> of [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>].  Specifically, the PUA SHOULD retry the
+   <a href="#section-8.1.3.5">8.1.3.5</a> of [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>].  Specifically, the PUA <em>SHOULD</em> retry the
    publication using the default PIDF content type, namely 'application/
    pidf+xml'.  In addition, to find out a priori whether a specific
    presence compositor supports partial presence publication, the PUA
-   MAY use the OPTIONS method, as described in [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>].
+   <em>MAY</em> use the OPTIONS method, as described in [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>].
 
 
 
@@ -481,7 +481,7 @@ Table of Contents
    To construct a full-state publication, the PUA uses the following
    process:
 
-   o  The Content-Type header field in the PUBLISH request MUST be set
+   o  The Content-Type header field in the PUBLISH request <em>MUST</em> be set
       to the value 'application/pidf-diff+xml'.
 
    o  The document in the body of the request is populated with a &lt;pidf-
@@ -490,13 +490,13 @@ Table of Contents
 
    o  Under the &lt;pidf-full&gt; root element exists all of the children of a
       PIDF [<a href="./rfc3863.html" title="&quot;Presence Information Data Format (PIDF)&quot;">RFC3863</a>] &lt;presence&gt; element.  This document contains the
-      full state of which the PUA is aware, and MAY include elements
+      full state of which the PUA is aware, and <em>MAY</em> include elements
       from any extension namespace.
 
    To construct a partial publication, the following process is
    followed:
 
-   o  The Content-Type header field in the PUBLISH request MUST be set
+   o  The Content-Type header field in the PUBLISH request <em>MUST</em> be set
       to the value 'application/pidf-diff+xml'.
 
    o  The document in the body of the request is populated with a &lt;pidf-
@@ -505,13 +505,13 @@ Table of Contents
 
    o  Under the &lt;pidf-diff&gt; root element exists a set of patch
       operations that communicate the changes to the presentity's
-      presence information.  These operations MUST be constructed in
+      presence information.  These operations <em>MUST</em> be constructed in
       sequence, and as defined in the partial PIDF format [<a href="./rfc5262.html" title="&quot;Presence Information Data Format (PIDF) Extension for Partial Presence&quot;">RFC5262</a>].
 
    The PUA is free to decide the granularity by which changes in the
    presentity's presence information are communicated to the presence
    compositor.  In order to reduce unnecessary network traffic, the PUA
-   SHOULD batch several patch operations in a single PUBLISH request.
+   <em>SHOULD</em> batch several patch operations in a single PUBLISH request.
 
       A reasonable granularity might be to batch state changes resulting
       from related UI events together in a single PUBLISH request.  For
@@ -520,7 +520,7 @@ Table of Contents
       might change as a result.
 
    If the size of the delta state becomes more than the size of the full
-   state, the PUA SHOULD instead send a modifying publication carrying
+   state, the PUA <em>SHOULD</em> instead send a modifying publication carrying
    full state, unless this size comparison is not possible.
 
       To an implementation that generates state deltas directly out of
@@ -552,12 +552,12 @@ Table of Contents
    element, the publication contains full presence information, and the
    next step applies:
 
-   o  The compositor MUST take the received presence document under the
+   o  The compositor <em>MUST</em> take the received presence document under the
       &lt;pidf-full&gt; as the local presence document, replacing any previous
       publications.
 
    If any errors are encountered before the entire publication is
-   completely processed, the compositor MUST reject the request with a
+   completely processed, the compositor <em>MUST</em> reject the request with a
    500 (Server Internal Error) response, and revert back to its
    original, locally stored presence information.
 
@@ -570,17 +570,17 @@ Table of Contents
 
    o  If the publication containing the &lt;pidf-diff&gt; root element is a
       modifying publication (i.e., contains an If-Match header field
-      with a valid entity-tag), the compositor MUST apply the included
+      with a valid entity-tag), the compositor <em>MUST</em> apply the included
       patch operations in sequence against its locally stored presence
       document.
 
    o  Else, the publication is an initial publication, for which only
-      &lt;pidf-full&gt; is allowed.  Therefore, the publication MUST be
+      &lt;pidf-full&gt; is allowed.  Therefore, the publication <em>MUST</em> be
       rejected with an appropriate error response, such as a 400
       (Invalid Partial Publication).
 
    If a publication carrying partial presence information expires
-   without the PUA refreshing it, the compositor MUST clear the entire,
+   without the PUA refreshing it, the compositor <em>MUST</em> clear the entire,
    full state publication.
 
 
@@ -596,8 +596,8 @@ Table of Contents
       if a particular partial publication were to expire.
 
    If the compositor encounters errors while processing the
-   'application/pidf-diff+xml' document, it MUST reject the request with
-   a 400 (Bad Request) response.  In addition, the compositor MAY
+   'application/pidf-diff+xml' document, it <em>MUST</em> reject the request with
+   a 400 (Bad Request) response.  In addition, the compositor <em>MAY</em>
    include diagnostics information in the body of the response, using an
    appropriate error condition element defined in <a href="./rfc5261.html#section-5.1">Section&nbsp;5.1. of
    [RFC5261]</a>.
@@ -605,7 +605,7 @@ Table of Contents
    If any other errors are encountered before the entire partial
    publication is completely processed, including all of the patch
    operations in the 'application/pidf-diff+xml' body, the compositor
-   MUST reject the request with a 500 (Server Internal Error) response,
+   <em>MUST</em> reject the request with a 500 (Server Internal Error) response,
    and revert back to its original, locally stored presence information.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Security Considerations</span>

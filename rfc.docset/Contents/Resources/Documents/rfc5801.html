@@ -430,8 +430,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The document uses many terms and function names defined in [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface Version 2, Update 1&quot;">RFC2743</a>],
@@ -457,7 +457,7 @@ Table of Contents
    implementation can only support the mechanisms for which it knows the
    SASL name.  If GSS_Inquire_SASLname_for_mech() fails and the GS2
    implementation cannot map the OID to a SASL mechanism name via some
-   other means, then the GS2 implementation MUST NOT use the given GSS-
+   other means, then the GS2 implementation <em>MUST NOT</em> use the given GSS-
    API mechanism.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Generating SASL Mechanism Names from GSS-API OIDs</span>
@@ -604,7 +604,7 @@ Table of Contents
    as the security context tokens of the GSS-API mechanism, except for
    the initial security context token.
 
-   The client and server MAY send GSS-API error tokens (tokens output by
+   The client and server <em>MAY</em> send GSS-API error tokens (tokens output by
    GSS_Init_sec_context() or GSS_Accept_sec_context() when the major
    status code is other than GSS_S_COMPLETE or GSS_S_CONTINUE_NEEDED).
    As this indicates an error condition, after sending the token, the
@@ -613,13 +613,13 @@ Table of Contents
    The initial security context token is modified as follows:
 
    o  The initial context token header (see <a href="./rfc2743.html#section-3.1">Section&nbsp;3.1 of [RFC2743]</a>)
-      MUST be removed if present.  If the header is not present, the
-      client MUST send a "gs2-nonstd-flag" flag (see below).  On the
-      server side, this header MUST be recomputed and restored prior to
+      <em>MUST</em> be removed if present.  If the header is not present, the
+      client <em>MUST</em> send a "gs2-nonstd-flag" flag (see below).  On the
+      server side, this header <em>MUST</em> be recomputed and restored prior to
       passing the token to GSS_Accept_sec_context, except when the "gs2-
       nonstd-flag" is sent.
 
-   o  A GS2 header MUST be prefixed to the resulting initial context
+   o  A GS2 header <em>MUST</em> be prefixed to the resulting initial context
       token.  This header has the form "gs2-header" given below in ABNF
       [<a href="./rfc5234.html" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">RFC5234</a>].
 
@@ -672,7 +672,7 @@ Table of Contents
    When the "gs2-nonstd-flag" flag is present, the client did not find/
    remove a token header (<a href="./rfc2743.html#section-3.1">[RFC2743], Section&nbsp;3.1</a>) from the initial token
    returned by GSS_Init_sec_context.  This signals to the server that it
-   MUST NOT re-add the data that is normally removed by the client.
+   <em>MUST NOT</em> re-add the data that is normally removed by the client.
 
    The "gs2-cb-flag" signals the channel binding mode.  One of "p", "n",
    or "y" is used.  A "p" means the client supports and used a channel
@@ -688,7 +688,7 @@ Table of Contents
    o  The NUL character is forbidden as required by <a href="./rfc4422.html#section-3.4.1">section&nbsp;3.4.1 of
       [RFC4422]</a>.
 
-   o  The server MUST replace any "," (comma) in the string with "=2C".
+   o  The server <em>MUST</em> replace any "," (comma) in the string with "=2C".
 
 
 
@@ -698,7 +698,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5801.html">RFC 5801</a>                       SASL GS2-*                      July 2010</span>
 
 
-   o  The server MUST replace any "=" (equals) in the string with "=3D".
+   o  The server <em>MUST</em> replace any "=" (equals) in the string with "=3D".
 
    Upon receipt of this value, the server verifies its correctness
    according to the used SASL protocol profile.  Failed verification
@@ -715,24 +715,24 @@ Table of Contents
 
    Use of channel binding is negotiated as follows:
 
-   o  Servers that support the use of channel binding SHOULD advertise
+   o  Servers that support the use of channel binding <em>SHOULD</em> advertise
       both the non-PLUS and PLUS-variant of each GS2 mechanism name.  If
-      the server cannot support channel binding, it SHOULD advertise
+      the server cannot support channel binding, it <em>SHOULD</em> advertise
       only the non-PLUS-variant.  If the server would never succeed in
       the authentication of the non-PLUS-variant due to policy reasons,
-      it MUST advertise only the PLUS-variant.
+      it <em>MUST</em> advertise only the PLUS-variant.
 
    o  If the client supports channel binding and the server does not
       appear to (i.e., the client did not see the -PLUS name advertised
-      by the server), then the client MUST NOT use an "n" gs2-cb-flag.
+      by the server), then the client <em>MUST NOT</em> use an "n" gs2-cb-flag.
 
    o  Clients that support mechanism negotiation and channel binding
-      MUST use a "p" gs2-cb-flag when the server offers the PLUS-variant
+      <em>MUST</em> use a "p" gs2-cb-flag when the server offers the PLUS-variant
       of the desired GS2 mechanism.
 
-   o  If the client does not support channel binding, then it MUST use
+   o  If the client does not support channel binding, then it <em>MUST</em> use
       an "n" gs2-cb-flag.  Conversely, if the client requires the use of
-      channel binding then it MUST use a "p" gs2-cb-flag.  Clients that
+      channel binding then it <em>MUST</em> use a "p" gs2-cb-flag.  Clients that
       do not support mechanism negotiation never use a "y" gs2-cb-flag,
       they use either "p" or "n" according to whether they require and
       support the use of channel binding or whether they do not,
@@ -755,12 +755,12 @@ Table of Contents
 
 
       PLUS-variant of the mechanism chosen by the client), then the
-      server MUST fail authentication.  If the client channel binding
+      server <em>MUST</em> fail authentication.  If the client channel binding
       flag was "p" and the server does not support the indicated channel
-      binding type, then the server MUST fail authentication.
+      binding type, then the server <em>MUST</em> fail authentication.
 
    o  If the client used an "n" gs2-cb-flag and the server requires the
-      use of channel binding, then the server MUST fail authentication.
+      use of channel binding, then the server <em>MUST</em> fail authentication.
 
      FLAG CLIENT CB SUPPORT   SERVER CB SUPPORT DISPOSITION
      ---- -----------------   ----------------- -----------
@@ -792,10 +792,10 @@ Table of Contents
    structure [<a href="./rfc5554.html" title="&quot;Clarifications and Extensions to the Generic Security Service Application Program Interface (GSS-API) for the Use of Channel Bindings&quot;">RFC5554</a>].
 
    The initiator-address-type and acceptor-address-type fields of the
-   GSS-CHANNEL-BINDINGS structure MUST be set to 0.  The initiator-
-   address and acceptor-address fields MUST be the empty string.
+   GSS-CHANNEL-BINDINGS structure <em>MUST</em> be set to 0.  The initiator-
+   address and acceptor-address fields <em>MUST</em> be the empty string.
 
-   The application-data field MUST be set to the gs2-header, excluding
+   The application-data field <em>MUST</em> be set to the gs2-header, excluding
    the initial [gs2-nonstd-flag ","] part, concatenated with, when a
    gs2-cb-flag of "p" is used, the application's channel binding data.
 
@@ -819,14 +819,14 @@ Table of Contents
    'tls-unique' is the default channel binding type for any application
    that doesn't specify one.
 
-   Servers MUST implement the "tls-unique" [<a href="./rfc5929.html" title="&quot;Channel Bindings for TLS&quot;">RFC5929</a>] channel binding
-   type, if they implement any channel binding.  Clients SHOULD
+   Servers <em>MUST</em> implement the "tls-unique" [<a href="./rfc5929.html" title="&quot;Channel Bindings for TLS&quot;">RFC5929</a>] channel binding
+   type, if they implement any channel binding.  Clients <em>SHOULD</em>
    implement the "tls-unique" channel binding type, if they implement
-   any channel binding.  Clients and servers SHOULD choose the highest-
+   any channel binding.  Clients and servers <em>SHOULD</em> choose the highest-
    layer/innermost end-to-end TLS channel as the channel to which to
    bind.
 
-   Servers MUST choose the channel binding type indicated by the client,
+   Servers <em>MUST</em> choose the channel binding type indicated by the client,
    or fail authentication if they don't support it.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Examples</span>
@@ -940,7 +940,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Authentication Conditions</span>
 
-   Authentication MUST NOT succeed if any one of the following
+   Authentication <em>MUST NOT</em> succeed if any one of the following
    conditions are true:
 
    o  If GSS_Init/Accept_sec_context returns anything other than
@@ -982,12 +982,12 @@ Table of Contents
 
    GS2 does not use any GSS-API per-message tokens.  Therefore, the per-
    message token ret_flags from GSS_Init_sec_context() and
-   GSS_Accept_sec_context() are irrelevant; implementations SHOULD NOT
+   GSS_Accept_sec_context() are irrelevant; implementations <em>SHOULD NOT</em>
    set the per-message req_flags.
 
-   The mutual_req_flag MUST be set.  Clients MUST check that the
+   The mutual_req_flag <em>MUST</em> be set.  Clients <em>MUST</em> check that the
    corresponding ret_flag is set when the context is fully established,
-   else authentication MUST fail.
+   else authentication <em>MUST</em> fail.
 
    Use or non-use of deleg_req_flag and anon_req_flag is an
    implementation-specific detail.  SASL and GS2 implementors are
@@ -1284,7 +1284,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-13.2" href="#section-13.2">13.2</a>.  Resolving the Problem</span>
 
    If the Kerberos V5 mechanism is supported under GS2 in a server, the
-   server SHOULD also support Kerberos V5 through the "GSSAPI"
+   server <em>SHOULD</em> also support Kerberos V5 through the "GSSAPI"
    mechanism, to avoid interoperability problems with older clients.
 
    Reasons for violating this recommendation may include security
@@ -1295,12 +1295,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-13.3" href="#section-13.3">13.3</a>.  Additional Recommendations</span>
 
-   If the application requires SASL security layers, then it MUST use
+   If the application requires SASL security layers, then it <em>MUST</em> use
    the SASL "GSSAPI" mechanism [<a href="./rfc4752.html" title="&quot;The Kerberos V5 (&quot;">RFC4752</a>] instead of "GS2-KRB5" or "GS2-
    KRB5-PLUS".
 
    If the application can use channel binding to an external channel,
-   then it is RECOMMENDED that it select Kerberos V5 through the GS2
+   then it is <em>RECOMMENDED</em> that it select Kerberos V5 through the GS2
    mechanism rather than the "GSSAPI" mechanism.
 
 
@@ -1341,11 +1341,11 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-14.3" href="#section-14.3">14.3</a>.  Resolving the Problems</span>
 
-   GSS-API mechanisms that negotiate other mechanisms MUST NOT be used
-   with the GS2 SASL mechanism.  Specifically, SPNEGO [<a href="./rfc4178.html" title="&quot;The Simple and Protected Generic Security Service Application Program Interface (GSS-API) Negotiation Mechanism&quot;">RFC4178</a>] MUST NOT
+   GSS-API mechanisms that negotiate other mechanisms <em>MUST NOT</em> be used
+   with the GS2 SASL mechanism.  Specifically, SPNEGO [<a href="./rfc4178.html" title="&quot;The Simple and Protected Generic Security Service Application Program Interface (GSS-API) Negotiation Mechanism&quot;">RFC4178</a>] <em>MUST NOT</em>
    be used as a GS2 mechanism.  To make this easier for SASL
    implementations, we assign a symbolic SASL mechanism name to the
-   SPNEGO GSS-API mechanism, "SPNEGO".  SASL client implementations MUST
+   SPNEGO GSS-API mechanism, "SPNEGO".  SASL client implementations <em>MUST</em>
    NOT choose the SPNEGO mechanism under any circumstances.
 
    The GSS_C_MA_MECH_NEGO attribute of GSS_Inquire_attrs_for_mech
@@ -1390,16 +1390,16 @@ Table of Contents
    IANA has placed a statement to that effect in the SASL Mechanisms
    registry.
 
-   The IANA is further advised that GS2 SASL mechanism names MUST NOT
+   The IANA is further advised that GS2 SASL mechanism names <em>MUST NOT</em>
    end in "-PLUS" except as a version of another mechanism name simply
    suffixed with "-PLUS".
 
    The SASL names for the Kerberos V5 GSS-API mechanism [<a href="./rfc4121.html" title="&quot;The Kerberos Version 5 Generic Security Service Application Program Interface (GSS-API) Mechanism: Version 2&quot;">RFC4121</a>]
-   [<a href="./rfc1964.html" title="&quot;The Kerberos Version 5 GSS-API Mechanism&quot;">RFC1964</a>] used via GS2 SHALL be "GS2-KRB5" and "GS2-KRB5-PLUS".
+   [<a href="./rfc1964.html" title="&quot;The Kerberos Version 5 GSS-API Mechanism&quot;">RFC1964</a>] used via GS2 <em>SHALL</em> be "GS2-KRB5" and "GS2-KRB5-PLUS".
 
-   The SASL names for the SPNEGO GSS-API mechanism used via GS2 SHALL be
+   The SASL names for the SPNEGO GSS-API mechanism used via GS2 <em>SHALL</em> be
    "SPNEGO" and "SPNEGO-PLUS".  As described in <a href="#section-14">Section 14</a>, the SASL
-   "SPNEGO" and "SPNEGO-PLUS" MUST NOT be used.  These names are
+   "SPNEGO" and "SPNEGO-PLUS" <em>MUST NOT</em> be used.  These names are
    provided as a convenience for SASL library implementors.
 
 <span class="h2"><a class="selflink" name="section-16" href="#section-16">16</a>.  Security Considerations</span>
@@ -1413,7 +1413,7 @@ Table of Contents
    bridge.
 
    Because GS2 does not support security layers, it is strongly
-   RECOMMENDED that channel binding to a secure external channel be
+   <em>RECOMMENDED</em> that channel binding to a secure external channel be
    used.  Successful channel binding eliminates the possibility of man-
    in-the-middle (MITM) attacks, provided that the external channel and
    its channel binding data are secure and that the GSS-API mechanism
@@ -1435,7 +1435,7 @@ Table of Contents
    negotiation -- if there is no MITM, then the external secure channel
    will have protected the SASL mechanism negotiation.
 
-   The channel binding data MAY be sent (by the actual GSS-API mechanism
+   The channel binding data <em>MAY</em> be sent (by the actual GSS-API mechanism
    used) without confidentiality protection and knowledge of it is
    assumed to provide no advantage to an MITM (who can, in any case,
    compute the channel binding data independently).  If the external
@@ -1445,7 +1445,7 @@ Table of Contents
    channel binding data, see [<a href="./rfc5056.html" title="&quot;On the Use of Channel Bindings to Secure Channels&quot;">RFC5056</a>].
 
    When constructing the input_name_string for GSS_Import_name with the
-   GSS_C_NT_HOSTBASED_SERVICE name type, the client SHOULD NOT
+   GSS_C_NT_HOSTBASED_SERVICE name type, the client <em>SHOULD NOT</em>
    canonicalize the server's fully qualified domain name using an
    insecure or untrusted directory service, such as the Domain Name
    System [<a href="./rfc1034.html" title="&quot;Domain names - concepts and facilities&quot;">RFC1034</a>] without DNS Security (DNSSEC) [<a href="./rfc4033.html" title="&quot;DNS Security Introduction and Requirements&quot;">RFC4033</a>].

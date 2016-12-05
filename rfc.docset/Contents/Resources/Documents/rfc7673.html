@@ -371,9 +371,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this memo are to be interpreted as described in
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this memo are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document uses the definitions for "secure", "insecure", "bogus",
@@ -419,16 +419,16 @@ Table of Contents
 
 
    For this specification to apply, the entire chain of DNS RRset(s)
-   returned MUST be "secure" according to DNSSEC validation (<a href="./rfc4035.html#section-5">Section&nbsp;5
+   returned <em>MUST</em> be "secure" according to DNSSEC validation (<a href="./rfc4035.html#section-5">Section&nbsp;5
    of [RFC4035]</a>).  In the case where the answer is obtained via a chain
    of CNAME and/or DNAME aliases, the whole chain of CNAME and DNAME
-   RRsets MUST also be secure.
+   RRsets <em>MUST</em> also be secure.
 
    If the SRV lookup fails because the RRset is "bogus" (or the lookup
-   fails for reasons other than no records), the client MUST abort its
+   fails for reasons other than no records), the client <em>MUST</em> abort its
    attempt to connect to the desired service.  If the lookup result is
    "insecure" (or no SRV records exist), this protocol does not apply
-   and the client SHOULD fall back to its non-DNSSEC, non-DANE (and
+   and the client <em>SHOULD</em> fall back to its non-DNSSEC, non-DANE (and
    possibly non-SRV) behavior.
 
    When the lookup returns a "secure" RRset (possibly via a chain of
@@ -448,16 +448,16 @@ Table of Contents
    A and/or AAAA queries, performs DNSSEC validation on the address
    (A or AAAA) response, and continues as follows, based on the results:
 
-   o  If a returned RRSet is "secure", the client MUST perform a TLSA
+   o  If a returned RRSet is "secure", the client <em>MUST</em> perform a TLSA
       query for that target server connection endpoint, as described in
       the next section.
 
-   o  If no returned RRsets are "secure", the client MUST NOT perform a
+   o  If no returned RRsets are "secure", the client <em>MUST NOT</em> perform a
       TLSA query for that target server connection endpoint; the TLSA
       query will most likely fail or produce spurious results.
 
    o  If the address record lookup fails (a validation status of either
-      "bogus" or "indeterminate"), the client MUST NOT connect to this
+      "bogus" or "indeterminate"), the client <em>MUST NOT</em> connect to this
       connection endpoint; instead, it uses the next most appropriate
       SRV target.  This helps prevent downgrade attacks.
 
@@ -476,7 +476,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  TLSA Queries</span>
 
-   The client SHALL construct the TLSA query name as described in
+   The client <em>SHALL</em> construct the TLSA query name as described in
    <a href="./rfc6698.html#section-3">Section&nbsp;3 of [RFC6698]</a>, based on the fields from the SRV record: the
    port number from the SRV RDATA, the transport protocol from the SRV
    query name, and the TLSA base domain from the SRV target server
@@ -492,23 +492,23 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Impact on TLS Usage</span>
 
-   The client SHALL determine if the TLSA records returned in the
+   The client <em>SHALL</em> determine if the TLSA records returned in the
    previous step are usable according to <a href="./rfc6698.html#section-4.1">Section&nbsp;4.1 of [RFC6698]</a>.  This
    affects the use of TLS as follows:
 
-   o  If the TLSA response is "secure" and usable, then the client MUST
+   o  If the TLSA response is "secure" and usable, then the client <em>MUST</em>
       use TLS when connecting to the target server.  The TLSA records
       are used when validating the server's certificate as described in
       <a href="#section-4">Section 4</a>.
 
    o  If the TLSA response is "bogus" or "indeterminate" (or the lookup
-      fails for reasons other than no records), then the client MUST NOT
+      fails for reasons other than no records), then the client <em>MUST NOT</em>
       connect to the target server (the client can still use other SRV
       targets).
 
    o  If the TLSA response is "insecure" (or no TLSA records exist),
-      then the client SHALL proceed as if the target server had no TLSA
-      records.  It MAY connect to the target server with or without TLS,
+      then the client <em>SHALL</em> proceed as if the target server had no TLSA
+      records.  It <em>MAY</em> connect to the target server with or without TLS,
       subject to the policies of the application protocol or client
       implementation.
 
@@ -532,7 +532,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  TLS Checks</span>
 
-   When connecting to a server, the client MUST use TLS if the responses
+   When connecting to a server, the client <em>MUST</em> use TLS if the responses
    to the SRV and TLSA queries were "secure" as described above.  The
    rules described in the next two sections -- <a href="#section-4.2">Section 4.2</a> for cases
    where there is at least one usable TLSA record, and <a href="#section-4.1">Section 4.1</a>
@@ -541,17 +541,17 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  SRV Records Only</span>
 
    If the client received zero usable TLSA certificate associations, it
-   SHALL validate the server's TLS certificate using the normal PKIX
+   <em>SHALL</em> validate the server's TLS certificate using the normal PKIX
    rules [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>] or protocol-specific rules (e.g., following
    [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>]) without further input from the TLSA records.  In this
    case, the client uses the information in the server certificate and
    the DNSSEC validation status of the SRV query in its authentication
-   checks.  It SHOULD use the Server Name Indication extension (TLS SNI)
+   checks.  It <em>SHOULD</em> use the Server Name Indication extension (TLS SNI)
    [<a href="./rfc6066.html" title="&quot;Transport Layer Security (TLS) Extensions: Extension Definitions&quot;">RFC6066</a>] or its functional equivalent in the relevant application
    protocol (e.g., in the Extensible Messaging and Presence Protocol
    (XMPP) [<a href="./rfc6120.html" title="&quot;Extensible Messaging and Presence Protocol (XMPP): Core&quot;">RFC6120</a>], this is the 'to' address of the initial stream
-   header).  The preferred name SHALL be chosen as follows, and the
-   client SHALL verify the identity asserted by the server's certificate
+   header).  The preferred name <em>SHALL</em> be chosen as follows, and the
+   client <em>SHALL</em> verify the identity asserted by the server's certificate
    according to <a href="./rfc6125.html#section-6">Section&nbsp;6 of [RFC6125]</a>, using a list of reference
    identifiers constructed as follows (note again that in <a href="./rfc6125.html">RFC 6125</a> the
    terms "source domain" and "derived domain" refer to the same things
@@ -560,13 +560,13 @@ Table of Contents
    "im.example.com" and a target server hostname of
    "xmpp23.hosting.example.net".
 
-   SRV is insecure:  The reference identifiers SHALL include the service
-      domain name and MUST NOT include the SRV target server hostname
+   SRV is insecure:  The reference identifiers <em>SHALL</em> include the service
+      domain name and <em>MUST NOT</em> include the SRV target server hostname
       (e.g., include "im.example.com" but not
       "xmpp23.hosting.example.net").  The service domain name is the
       preferred name for TLS SNI or its equivalent.
 
-   SRV is secure:  The reference identifiers SHALL include both the
+   SRV is secure:  The reference identifiers <em>SHALL</em> include both the
       service domain name and the SRV target server hostname (e.g.,
       include both "im.example.com" and "xmpp23.hosting.example.net").
       The service domain name is still the preferred name for TLS SNI or
@@ -589,12 +589,12 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  TLSA Records</span>
 
    If the client received one or more usable TLSA certificate
-   associations, it SHALL process them as described in <a href="./rfc6698.html#section-2.1">Section&nbsp;2.1 of
+   associations, it <em>SHALL</em> process them as described in <a href="./rfc6698.html#section-2.1">Section&nbsp;2.1 of
    [RFC6698]</a>.
 
    If the TLS server's certificate -- or the public key of the server's
    certificate -- matches a usable TLSA record with certificate usage
-   DANE-EE, the client MUST ignore validation checks from [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>] and
+   DANE-EE, the client <em>MUST</em> ignore validation checks from [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>] and
    reference identifier checks from [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>].  The information in such
    a TLSA record supersedes the non-key information in the certificate.
 
@@ -626,8 +626,8 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Guidance for Server Operators</span>
 
    To conform to this specification, the published SRV records and
-   subsequent address (A and AAAA) records MUST be secured with DNSSEC.
-   There SHOULD also be at least one TLSA record published that
+   subsequent address (A and AAAA) records <em>MUST</em> be secured with DNSSEC.
+   There <em>SHOULD</em> also be at least one TLSA record published that
    authenticates the server's certificate.
 
    When using TLSA records with certificate usage DANE-EE, it is not
@@ -647,7 +647,7 @@ Table of Contents
    with TLS.
 
    For TLSA records with certificate usage types other than DANE-EE, the
-   certificate(s) MUST contain an identifier that matches:
+   certificate(s) <em>MUST</em> contain an identifier that matches:
 
    o  the service domain name (the "source domain" in [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>] terms,
       which is the SRV query domain), and/or

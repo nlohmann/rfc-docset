@@ -285,8 +285,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -446,7 +446,7 @@ Table of Contents
    Note: There is another elliptic curve domain parameter, a cofactor,
    h, that is defined by the requirement that the size of the full
    elliptic curve group (including "0") be the product of h and q.
-   Elliptic curve groups used with Dragonfly authentication MUST have a
+   Elliptic curve groups used with Dragonfly authentication <em>MUST</em> have a
    cofactor of one (1).
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Finite Field Cryptography</span>
@@ -511,7 +511,7 @@ Table of Contents
    which there are not fixed roles and either party may initiate the
    exchange (and both parties may implement it simultaneously).
 
-   Prior to beginning the Dragonfly exchange, the two peers MUST derive
+   Prior to beginning the Dragonfly exchange, the two peers <em>MUST</em> derive
    a secret element in the chosen domain parameter set.  Two "hunting-
    and-pecking" techniques to determine a secret element, one for ECC
 
@@ -594,7 +594,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Derivation of the Password Element</span>
 
-   Prior to beginning the exchange of information, the peers MUST derive
+   Prior to beginning the exchange of information, the peers <em>MUST</em> derive
    a secret element, called the Password Element (PE), in the group
    defined by the chosen domain parameter set.  From the point of view
    of an attacker who does not know the password, the PE will be a
@@ -603,9 +603,9 @@ Table of Contents
    secret string into an element in a selected group can be used -- for
    instance, the technique in [<a href="#ref-hash2ec" title="&quot;Efficient Indifferentiable Hashing into Ordinary Elliptic Curves&quot;">hash2ec</a>] for ECC groups.  If a different
    technique than the ones described here is used, the secret string
-   SHOULD include the identities of the peers.
+   <em>SHOULD</em> include the identities of the peers.
 
-   To fix the PE, both peers MUST have a common view of the password.
+   To fix the PE, both peers <em>MUST</em> have a common view of the password.
    If there is any password processing necessary (for example, to
    support internationalization), the processed password is then used as
    the shared credential.  If either side wants to store a hashed
@@ -641,7 +641,7 @@ Table of Contents
    requires more than n iterations of the hunting-and-pecking loop to
    find an ECC PE is roughly (q/2p)^n and to find an FFC PE is roughly
    (q/p)^n, both of which rapidly approach zero (0) as n increases.  The
-   security parameter, k, SHOULD be set sufficiently large such that the
+   security parameter, k, <em>SHOULD</em> be set sufficiently large such that the
    probability that finding the PE would take more than k iterations is
    sufficiently small (see <a href="#section-4">Section 4</a>).
 
@@ -671,7 +671,7 @@ Table of Contents
    seed = (temp mod (p - 1)) + 1
 
    The string bound to the derived temporary value is for illustrative
-   purposes only.  Implementations of the Dragonfly key exchange SHOULD
+   purposes only.  Implementations of the Dragonfly key exchange <em>SHOULD</em>
    use a usage-specific label with the KDF.
 
    Note: The base is stretched to 64 more bits than are needed so that
@@ -691,7 +691,7 @@ Table of Contents
 
 
    If the protocol performing the Dragonfly exchange has the ability to
-   exchange random nonces, those SHOULD be added to the computation of
+   exchange random nonces, those <em>SHOULD</em> be added to the computation of
    the base to ensure that each run of the protocol produces a different
    PE.
 
@@ -778,7 +778,7 @@ Table of Contents
 
    Checking whether a value is a quadratic residue modulo a prime can
    leak information about that value in a side-channel attack.
-   Therefore, it is RECOMMENDED that the technique used to determine if
+   Therefore, it is <em>RECOMMENDED</em> that the technique used to determine if
    the value is a quadratic residue modulo p blind the value with a
    random number so that the blinded value can take on all numbers
    between 1 and p-1 with equal probability while not changing its
@@ -900,9 +900,9 @@ Table of Contents
          scalar = (private + mask) modulo q
          Element = inverse(scalar-op(mask, PE))
 
-   If the scalar is less than two (2), the private and mask MUST be
+   If the scalar is less than two (2), the private and mask <em>MUST</em> be
    thrown away and new values generated.  Once a valid scalar and
-   Element are generated, the mask is no longer needed and MUST be
+   Element are generated, the mask is no longer needed and <em>MUST</em> be
    irretrievably destroyed.
 
 
@@ -918,14 +918,14 @@ Table of Contents
    scalar and Element, deemed peer-scalar and Peer-Element.  If the peer
    has sent an identical scalar and Element -- i.e., if scalar equals
    peer-scalar and Element equals Peer-Element -- it is sign of a
-   reflection attack, and the exchange MUST be aborted.  If the values
+   reflection attack, and the exchange <em>MUST</em> be aborted.  If the values
    differ, peer-scalar and Peer-Element must be validated.  For the
-   peer-scalar to be valid, it MUST be between 1 and q exclusive.
+   peer-scalar to be valid, it <em>MUST</em> be between 1 and q exclusive.
    Validation of the Peer-Element depends on the type of cryptosystem --
    validation of an (x,y) pair as an ECC element is specified in
    <a href="#section-2.1">Section 2.1</a>, and validation of a number as an FFC element is
    specified in <a href="#section-2.2">Section 2.2</a>.  If either the peer-scalar or Peer-Element
-   fail validation, then the exchange MUST be terminated and
+   fail validation, then the exchange <em>MUST</em> be terminated and
    authentication fails.  If both the peer-scalar and Peer-Element are
    valid, they are used with the Password Element to derive a shared
    secret, ss:
@@ -936,7 +936,7 @@ Table of Contents
 
    To enforce key separation and cryptographic hygiene, the shared
    secret is stretched into two subkeys -- a key confirmation key, kck,
-   and a master key, mk.  Each of the subkeys SHOULD be at least the
+   and a master key, mk.  Each of the subkeys <em>SHOULD</em> be at least the
    length of the prime used in the selected group.
 
          kck | mk = KDF-n(ss, "Dragonfly Key Derivation")
@@ -959,7 +959,7 @@ Table of Contents
                             Element | Peer-Element | &lt;sender-id&gt;)
 
    Where &lt;sender-id&gt; is the identity of the sender of the confirm
-   message.  This identity SHALL be that contributed by the sender of
+   message.  This identity <em>SHALL</em> be that contributed by the sender of
    the confirm message in generation of the base in <a href="#section-3.2">Section 3.2</a>.
 
 
@@ -976,7 +976,7 @@ Table of Contents
    peer's confirmation is not valid, authentication fails.
 
    If authentication fails, all ephemeral state created as part of the
-   particular run of the Dragonfly exchange MUST be irretrievably
+   particular run of the Dragonfly exchange <em>MUST</em> be irretrievably
    destroyed.  If authentication does not fail, mk can be exported as an
    authenticated and secret key that can be used by another protocol,
    for instance IPsec, to protect other data.
@@ -1000,22 +1000,22 @@ Table of Contents
    possible passwords, the probability becomes 1/(d-x).  As x grows, so
    does the probability of success.  Therefore, it is possible for an
    adversary to determine the password through repeated brute-force,
-   active, guessing attacks.  Users of the Dragonfly key exchange SHOULD
+   active, guessing attacks.  Users of the Dragonfly key exchange <em>SHOULD</em>
    ensure that the size of the pool from which the password was drawn,
    d, is sufficiently large to make this attack preventable.
-   Implementations of Dragonfly SHOULD support countermeasures to deal
+   Implementations of Dragonfly <em>SHOULD</em> support countermeasures to deal
    with this attack -- for instance, by refusing authentication attempts
    for a certain amount of time, after the number of failed
    authentication attempts reaches a certain threshold.  No such
    threshold or amount of time is recommended in this memo.
 
    Due to the problems with using groups that contain a small subgroup,
-   it is RECOMMENDED that implementations of Dragonfly not allow for the
+   it is <em>RECOMMENDED</em> that implementations of Dragonfly not allow for the
    specification of a group's complete domain parameter to be sent
    in-line, but instead use a common repository and pass an identifier
    to a domain parameter set whose strength has been rigorously proven
    and that does not have small subgroups.  If a group's complete domain
-   parameter set is passed in-line, it SHOULD NOT be used with Dragonfly
+   parameter set is passed in-line, it <em>SHOULD NOT</em> be used with Dragonfly
    unless it directly matches a known good group.
 
 
@@ -1026,7 +1026,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7664.html">RFC 7664</a>                        Dragonfly                  November 2015</span>
 
 
-   It is RECOMMENDED that an implementation set the security parameter,
+   It is <em>RECOMMENDED</em> that an implementation set the security parameter,
    k, to a value of at least forty (40) which will put the probability
    that more than forty iterations are needed in the order of one in one
    trillion (1:1,000,000,000,000).

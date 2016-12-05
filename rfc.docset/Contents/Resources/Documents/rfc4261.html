@@ -315,8 +315,8 @@ Glossary
 
 Conventions used in this document
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  COPS Over TLS</span>
@@ -368,7 +368,7 @@ Conventions used in this document
 
    The TLS Integrity object is used by the PDP and the PEP to start the
    TLS negotiation.  This object should be included only in the Client-
-   Open or Client-Accept messages.  It MUST NOT be included in any other
+   Open or Client-Accept messages.  It <em>MUST NOT</em> be included in any other
    COPS message.
 
             0         1          2          3
@@ -387,7 +387,7 @@ Conventions used in this document
                   This flag indicates that the sender of the message
                   wishes to initiate a TLS handshake.
 
-   The Client-Type of any message containing this object MUST be 0.
+   The Client-Type of any message containing this object <em>MUST</em> be 0.
    Client-Type 0 is used to negotiate COPS connection level security and
    must only be used during the connection establishment phase.  Please
    refer to <a href="./rfc2748.html#section-4.1">section&nbsp;4.1 of [RFC2748]</a> for more details.
@@ -413,24 +413,24 @@ Conventions used in this document
 
    Sub-code (octet 2) contains the unknown object's C-Num, and (octet 3)
    contains unknown object's C-Type.  If the PEP or PDP does not support
-   TLS, the C-Num specified MUST be 16 and the C-Type MUST be 2.  This
+   TLS, the C-Num specified <em>MUST</em> be 16 and the C-Type <em>MUST</em> be 2.  This
    demonstrates that the TLS version of the Integrity object is not
    known.
 
-   This error code MUST be used by either PEP or PDP to indicate a
+   This error code <em>MUST</em> be used by either PEP or PDP to indicate a
    security-related connection closure if it cannot support a TLS
    connection for the COPS protocol.
 
    If the PDP wishes to negotiate a different security mechanism than
-   requested by the PEP in the Client-Open, it MUST send the following
+   requested by the PEP in the Client-Open, it <em>MUST</em> send the following
    error code:
 
    Error Code:                  15= Authentication Required
 
    Where the Sub-code (octet 2) contains the C-Num=16 value for the
-   Integrity Object and (octet 3) MUST specify the PDP
+   Integrity Object and (octet 3) <em>MUST</em> specify the PDP
    required/preferred Integrity object C-Type.  If the server does not
-   support any form of COPS-Security, it MUST set the Sub-code (octet 2)
+   support any form of COPS-Security, it <em>MUST</em> set the Sub-code (octet 2)
    to 16 and (octet 3) to zero instead, signifying that no type of the
    Integrity object is supported.
 
@@ -440,16 +440,16 @@ Conventions used in this document
    The PEP can initiate a negotiation via a Client-Open message, while a
    PDP can initiate a negotiation via a Client-Accept message.
 
-   Once the TLS connection is established, all COPS data MUST be sent as
+   Once the TLS connection is established, all COPS data <em>MUST</em> be sent as
    TLS "application data".
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  PEP Initiated Security Negotiation</span>
 
-   A PEP MAY initiate a TLS security negotiation with a PDP using the
-   Client-Open message.  To do this, the Client-Open message MUST have a
-   Client-Type of 0 and MUST include the Integrity-TLS object.
+   A PEP <em>MAY</em> initiate a TLS security negotiation with a PDP using the
+   Client-Open message.  To do this, the Client-Open message <em>MUST</em> have a
+   Client-Type of 0 and <em>MUST</em> include the Integrity-TLS object.
 
-   Upon receiving the Client-Open message, the PDP SHOULD respond with a
+   Upon receiving the Client-Open message, the PDP <em>SHOULD</em> respond with a
    Client-Accept message containing the Integrity-TLS object.
 
    Note that in order to carry the Integrity-TLS object, the contents of
@@ -476,7 +476,7 @@ Conventions used in this document
    replace or obsolete the existing Client-Accept message format, which
    can continue to be used for non-secure COPS session negotiations.
 
-   Upon receiving the appropriate Client-Accept message, the PEP SHOULD
+   Upon receiving the appropriate Client-Accept message, the PEP <em>SHOULD</em>
    initiate the TLS handshake.
 
    The message exchange is as follows:
@@ -487,16 +487,16 @@ Conventions used in this document
       C/S: &lt;...further messages...&gt;
 
    In case the PDP does not wish to open a secure connection with the
-   PEP, it MUST reply with a Client-Close message and close the
-   connection.  The Client-Close message MUST include the error code 15=
+   PEP, it <em>MUST</em> reply with a Client-Close message and close the
+   connection.  The Client-Close message <em>MUST</em> include the error code 15=
    Authentication required, with the Sub-code (octet 2) set to 16 for
    the Integrity object's C-Num, and (octet 3) set to the C-Type
    corresponding to the server's preferred Integrity type, or zero for
    no security.
 
    A PEP requiring the Integrity-TLS object in a Client-Accept message
-   MUST close the connection if the Integrity-TLS object is missing.
-   The ensuing Client-Close message MUST include the error code 15=
+   <em>MUST</em> close the connection if the Integrity-TLS object is missing.
+   The ensuing Client-Close message <em>MUST</em> include the error code 15=
    Authentication required, with the Sub-code (octet 2) containing the
    required Integrity object's C-Num=16, and (octet 3) containing the
    required Integrity object's C-Type=2.
@@ -505,15 +505,15 @@ Conventions used in this document
 
    The PEP initially opens a TCP connection with the PDP on the standard
    COPS port and sends a Client-Open message.  This Client-Open message
-   MUST have a Client-Type of 0.
+   <em>MUST</em> have a Client-Type of 0.
 
-   The PDP SHOULD then reply with a Client-Accept message.  In order to
-   signal the PEP to start the TLS handshake, the PDP MUST include the
+   The PDP <em>SHOULD</em> then reply with a Client-Accept message.  In order to
+   signal the PEP to start the TLS handshake, the PDP <em>MUST</em> include the
    Integrity-TLS object in the Client-Accept message.
 
    Upon receiving the Client-Accept message with the Integrity-TLS
-   object, the PEP SHOULD initiate the TLS handshake.  If for any reason
-   the PEP cannot initiate the handshake, it MUST close the connection.
+   object, the PEP <em>SHOULD</em> initiate the TLS handshake.  If for any reason
+   the PEP cannot initiate the handshake, it <em>MUST</em> close the connection.
 
 
 
@@ -530,17 +530,17 @@ Conventions used in this document
       &lt;TLS handshake&gt;
       C/S: &lt;...further messages...&gt;
 
-   After receiving the Client-Accept, the PEP MUST NOT send any messages
+   After receiving the Client-Accept, the PEP <em>MUST NOT</em> send any messages
    until the TLS handshake is complete.  Upon receiving any message from
-   the PEP before the TLS handshake starts, the PDP MUST issue a
+   the PEP before the TLS handshake starts, the PDP <em>MUST</em> issue a
    Client-Close message with an error code 15= Authentication Required.
 
    A PDP wishing to negotiate security with a PEP having an existing
-   non-secure connection MUST send a Client-Close with the error code
+   non-secure connection <em>MUST</em> send a Client-Close with the error code
    15= Authentication required, with the Sub-code (octet 2) containing
    the required Integrity object's C-Num=16, and (octet 3) containing
    the required Integrity object's C-Type=2, and then wait for the PEP
-   to reconnect.  Upon receiving the Client-Open message, it SHOULD use
+   to reconnect.  Upon receiving the Client-Open message, it <em>SHOULD</em> use
    the Client-Accept message to initiate security negotiation.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Connection Closure</span>
@@ -566,10 +566,10 @@ Conventions used in this document
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  PEP System Behavior</span>
 
-   PEP implementations MUST treat premature closes as errors and any
+   PEP implementations <em>MUST</em> treat premature closes as errors and any
    data received as potentially truncated.  The COPS protocol allows the
    PEP system to find out whether truncation took place.  A PEP system
-   detecting an incomplete close SHOULD recover gracefully.
+   detecting an incomplete close <em>SHOULD</em> recover gracefully.
 
 
 
@@ -579,15 +579,15 @@ Conventions used in this document
 <span class="grey"><a href="./rfc4261.html">RFC 4261</a>                     COPS Over TLS                 December 2005</span>
 
 
-   PEP systems SHOULD send a closure alert before closing the
-   connection.  PEPs unprepared to receive any more data MAY choose not
+   PEP systems <em>SHOULD</em> send a closure alert before closing the
+   connection.  PEPs unprepared to receive any more data <em>MAY</em> choose not
    to wait for the PDP system's closure alert and simply close the
    connection, thus generating an incomplete close on the PDP side.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  PDP System Behavior</span>
 
    COPS permits a PEP to close the connection at any time, and requires
-   PDPs to recover gracefully.  In particular, PDPs SHOULD be prepared
+   PDPs to recover gracefully.  In particular, PDPs <em>SHOULD</em> be prepared
    to receive an incomplete close from the PEP, since a PEP often shuts
    down for operational reasons unrelated to the transfer of policy
    information between the PEP and PDP.
@@ -597,35 +597,35 @@ Conventions used in this document
       PEP may have already sent the closure alert and dropped the
       connection.
 
-   PDP systems MUST attempt to initiate an exchange of closure alerts
-   with the PEP system before closing the connection.  PDP systems MAY
+   PDP systems <em>MUST</em> attempt to initiate an exchange of closure alerts
+   with the PEP system before closing the connection.  PDP systems <em>MAY</em>
    close the connection after sending the closure alert, thus generating
    an incomplete close on the PEP side.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Endpoint Identification and Access Control</span>
 
-   All PEP implementations of COPS/TLS MUST support an access control
+   All PEP implementations of COPS/TLS <em>MUST</em> support an access control
    mechanism to identify authorized PDPs.  This requirement provides a
    level of assurance that the policy arriving at the PEP is actually
-   valid.  PEP deployments SHOULD require the use of this access control
+   valid.  PEP deployments <em>SHOULD</em> require the use of this access control
    mechanism for operation of COPS over TLS.  When access control is
-   enabled, the PEP implementation MUST NOT initiate COPS/TLS
+   enabled, the PEP implementation <em>MUST NOT</em> initiate COPS/TLS
    connections to systems not authorized as PDPs by the access control
    mechanism.
 
-   Similarly, PDP COPS/TLS implementations MUST support an access
+   Similarly, PDP COPS/TLS implementations <em>MUST</em> support an access
    control mechanism permitting them to restrict their services to
-   authorized PEP systems only.  However, deployments MAY choose not to
+   authorized PEP systems only.  However, deployments <em>MAY</em> choose not to
    use an access control mechanism at the PDP, as organizations might
    not consider the types of policy being deployed as sensitive, and
    therefore do not need to incur the expense of managing credentials
    for the PEP systems.  If access controls are used, however, the PDP
-   implementation MUST terminate COPS/TLS connections from unauthorized
+   implementation <em>MUST</em> terminate COPS/TLS connections from unauthorized
    PEP systems and log an error if an auditable logging mechanism is
    present.
 
-   Implementations of COPS/TLS MUST use X.509 v3 certificates conforming
-   to [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>] to identify PDP and PEP systems.  COPS/TLS systems MUST
+   Implementations of COPS/TLS <em>MUST</em> use X.509 v3 certificates conforming
+   to [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>] to identify PDP and PEP systems.  COPS/TLS systems <em>MUST</em>
    perform certificate verification processing conforming to [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>].
 
 
@@ -636,10 +636,10 @@ Conventions used in this document
 
 
    If a subjectAltName extension of type dNSName or iPAddress is present
-   in the PDP's certificate, it MUST be used as the PDP identity.  If
-   both types are present, dNSName SHOULD be used as the PDP identity.
+   in the PDP's certificate, it <em>MUST</em> be used as the PDP identity.  If
+   both types are present, dNSName <em>SHOULD</em> be used as the PDP identity.
    If neither type is present, the most specific Common Name field in
-   the Subject field of the certificate SHOULD be used.
+   the Subject field of the certificate <em>SHOULD</em> be used.
 
    Matching is performed using the matching rules specified by
    [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>].  If more than one identity of a given type is present in
@@ -657,13 +657,13 @@ Conventions used in this document
    requirement for PEP systems to register with a certificate authority,
    and COPS over TLS uses one-way authentication, of the PDP to the PEP.
 
-   When PEP systems are access controlled, PEPs MUST be the subjects of
+   When PEP systems are access controlled, PEPs <em>MUST</em> be the subjects of
    end entity certificates [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>].  In this case, COPS over TLS uses
-   two-way authentication, and the PDP MUST perform the same identity
+   two-way authentication, and the PDP <em>MUST</em> perform the same identity
    checks for the PEPs as described above for the PDP.
 
    When access controls are in effect at the PDP, PDP implementations
-   MUST have a mechanism to securely acquire the trust anchor for each
+   <em>MUST</em> have a mechanism to securely acquire the trust anchor for each
    authorized Certification Authority (CA) that issues certificates to
    supported PEPs.
 
@@ -674,12 +674,12 @@ Conventions used in this document
    authorized to connect to.  This policy provides the PEP with the
    hostname or IP address of the PDP.  How this bootstrap policy
    information arrives at the PEP is outside the scope of this document.
-   However, all PEP implementations MUST provide a mechanism to securely
+   However, all PEP implementations <em>MUST</em> provide a mechanism to securely
    deliver or configure the bootstrap policy.
 
-   All PEP implementations MUST be able to securely acquire the trust
+   All PEP implementations <em>MUST</em> be able to securely acquire the trust
    anchor for each authorized Certification Authority (CA) that issues
-   PDP certificates.  Also, the PEPs MUST support a mechanism to
+   PDP certificates.  Also, the PEPs <em>MUST</em> support a mechanism to
    securely acquire an access control list (ACL) or filter identifying
    the set of authorized PDPs associated with each CA.  Deployments must
    take care to avoid circular dependencies in accessing trust anchors
@@ -695,38 +695,38 @@ Conventions used in this document
    manually.
 
    PEP deployments that participate in multiple domains, such as those
-   on mobile platforms, MAY use different CAs and access control lists
+   on mobile platforms, <em>MAY</em> use different CAs and access control lists
    in each domain.
 
    If the PDP hostname or IP address is available via the bootstrap
-   policy, the PEP MUST check it against the PDP's identity as presented
+   policy, the PEP <em>MUST</em> check it against the PDP's identity as presented
    in the PDP's TLS Certificate message.
 
    In some cases, the bootstrap policy will identify the authorized PDP
    only by an IP address of the PDP system.  In this case, the
-   subjectAltName MUST be present in the certificate, and it MUST
+   subjectAltName <em>MUST</em> be present in the certificate, and it <em>MUST</em>
    include an iPAddress format matching the expected name of the policy
    server.
 
    If the hostname of the PDP does not match the identity in the
-   certificate, a PEP on a user-oriented system MUST either notify the
-   user (PEP systems MAY afford the user the opportunity to continue
+   certificate, a PEP on a user-oriented system <em>MUST</em> either notify the
+   user (PEP systems <em>MAY</em> afford the user the opportunity to continue
    with the connection in any case) or terminate the connection with a
-   bad certificate error.  PEPs on unattended systems MUST log the error
-   to an appropriate audit log (if available) and MUST terminate the
-   connection with a bad certificate error.  Unattended PEP systems MAY
+   bad certificate error.  PEPs on unattended systems <em>MUST</em> log the error
+   to an appropriate audit log (if available) and <em>MUST</em> terminate the
+   connection with a bad certificate error.  Unattended PEP systems <em>MAY</em>
    provide a configuration setting that disables this check, but then
-   MUST provide a setting that enables it.
+   <em>MUST</em> provide a setting that enables it.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>. Cipher Suite Requirements</span>
 
-   Implementations MUST support the TLS_RSA_WITH_3DES_EDE_CBC_SHA cipher
+   Implementations <em>MUST</em> support the TLS_RSA_WITH_3DES_EDE_CBC_SHA cipher
    suite.  All other cipher suites are optional.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Backward Compatibility</span>
 
-   The PEP and PDP SHOULD be backward compatible with peers that have
-   not been modified to support COPS/TLS.  They SHOULD handle errors
+   The PEP and PDP <em>SHOULD</em> be backward compatible with peers that have
+   not been modified to support COPS/TLS.  They <em>SHOULD</em> handle errors
    generated in response to the Integrity-TLS object.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  IANA Considerations</span>
@@ -772,10 +772,10 @@ Conventions used in this document
 
 <span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  Security Considerations</span>
 
-   A COPS PDP and PEP MUST check the results of the TLS negotiation to
+   A COPS PDP and PEP <em>MUST</em> check the results of the TLS negotiation to
    see whether an acceptable degree of authentication and privacy have
    been achieved.  If the negotiation has resulted in unacceptable
-   algorithms or key lengths, either side MAY choose to terminate the
+   algorithms or key lengths, either side <em>MAY</em> choose to terminate the
    connection.
 
    A man-in-the-middle attack can be launched by deleting the

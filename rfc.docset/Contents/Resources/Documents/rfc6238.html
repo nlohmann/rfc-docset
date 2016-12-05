@@ -330,15 +330,15 @@ Table of Contents
    derived from a time reference and a time step, replaces the counter C
    in the HOTP computation.
 
-   TOTP implementations MAY use HMAC-SHA-256 or HMAC-SHA-512 functions,
+   TOTP implementations <em>MAY</em> use HMAC-SHA-256 or HMAC-SHA-512 functions,
    based on SHA-256 or SHA-512 [<a href="#ref-SHA2" title="&quot;FIPS PUB 180-3: Secure Hash Standard (SHS)&quot;">SHA2</a>] hash functions, instead of the
    HMAC-SHA-1 function that has been specified for the HOTP computation
    in [<a href="./rfc4226.html" title="&quot;HOTP: An HMAC-Based One-Time Password Algorithm&quot;">RFC4226</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Notation and Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Algorithm Requirements</span>
@@ -347,17 +347,17 @@ Table of Contents
    designing the TOTP algorithm.
 
    R1: The prover (e.g., token, soft token) and verifier (authentication
-       or validation server) MUST know or be able to derive the current
+       or validation server) <em>MUST</em> know or be able to derive the current
        Unix time (i.e., the number of seconds elapsed since midnight UTC
        of January 1, 1970) for OTP generation.  See [<a href="#ref-UT" title="&quot;Unix time&quot;">UT</a>] for a more
        detailed definition of the commonly known "Unix time".  The
        precision of the time used by the prover affects how often the
        clock synchronization should be done; see <a href="#section-6">Section 6</a>.
 
-   R2: The prover and verifier MUST either share the same secret or the
+   R2: The prover and verifier <em>MUST</em> either share the same secret or the
        knowledge of a secret transformation to generate a shared secret.
 
-   R3: The algorithm MUST use HOTP [<a href="./rfc4226.html" title="&quot;HOTP: An HMAC-Based One-Time Password Algorithm&quot;">RFC4226</a>] as a key building block.
+   R3: The algorithm <em>MUST</em> use HOTP [<a href="./rfc4226.html" title="&quot;HOTP: An HMAC-Based One-Time Password Algorithm&quot;">RFC4226</a>] as a key building block.
 
 
 
@@ -366,14 +366,14 @@ Table of Contents
 <span class="grey"><a href="./rfc6238.html">RFC 6238</a>                      HOTPTimeBased                     May 2011</span>
 
 
-   R4: The prover and verifier MUST use the same time-step value X.
+   R4: The prover and verifier <em>MUST</em> use the same time-step value X.
 
-   R5: There MUST be a unique secret (key) for each prover.
+   R5: There <em>MUST</em> be a unique secret (key) for each prover.
 
-   R6: The keys SHOULD be randomly generated or derived using key
+   R6: The keys <em>SHOULD</em> be randomly generated or derived using key
        derivation algorithms.
 
-   R7: The keys MAY be stored in a tamper-resistant device and SHOULD be
+   R7: The keys <em>MAY</em> be stored in a tamper-resistant device and <em>SHOULD</em> be
        protected against unauthorized access and usage.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  TOTP Algorithm</span>
@@ -403,7 +403,7 @@ Table of Contents
    Unix time is 59 seconds, and T = 2 if the current Unix time is
    60 seconds.
 
-   The implementation of this algorithm MUST support a time value T
+   The implementation of this algorithm <em>MUST</em> support a time value T
    larger than a 32-bit integer when it is beyond the year 2038.  The
    value of the system parameters X and T0 are pre-established during
    the provisioning process and communicated between a prover and
@@ -438,19 +438,19 @@ Table of Contents
    The analysis demonstrates that the best possible attack against the
    HOTP function is the brute force attack.
 
-   As indicated in the algorithm requirement section, keys SHOULD be
+   As indicated in the algorithm requirement section, keys <em>SHOULD</em> be
    chosen at random or using a cryptographically strong pseudorandom
    generator properly seeded with a random value.
 
-   Keys SHOULD be of the length of the HMAC output to facilitate
+   Keys <em>SHOULD</em> be of the length of the HMAC output to facilitate
    interoperability.
 
    We RECOMMEND following the recommendations in [<a href="./rfc4086.html" title="&quot;Randomness Recommendations for Security&quot;">RFC4086</a>] for all
    pseudorandom and random number generations.  The pseudorandom numbers
-   used for generating the keys SHOULD successfully pass the randomness
+   used for generating the keys <em>SHOULD</em> successfully pass the randomness
    test specified in [<a href="#ref-CN" title="&quot;An Accurate Evaluation of Maurer's Universal Test&quot;">CN</a>], or a similar well-recognized test.
 
-   All the communications SHOULD take place over a secure channel, e.g.,
+   All the communications <em>SHOULD</em> take place over a secure channel, e.g.,
    Secure Socket Layer/Transport Layer Security (SSL/TLS) [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] or
    IPsec connections [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>].
 
@@ -461,7 +461,7 @@ Table of Contents
    re-encrypted immediately to limit exposure in the RAM to a short
    period of time.
 
-   The key store MUST be in a secure area, to avoid, as much as
+   The key store <em>MUST</em> be in a secure area, to avoid, as much as
    possible, direct attack on the validation system and secrets
    database.  Particularly, access to the key material should be limited
    to programs and processes required by the validation system only.
@@ -491,7 +491,7 @@ Table of Contents
    the actual OTP generation may not fall within the same time-step
    window that produced the same OTP.  When an OTP is generated at the
    end of a time-step window, the receiving time most likely falls into
-   the next time-step window.  A validation system SHOULD typically set
+   the next time-step window.  A validation system <em>SHOULD</em> typically set
    a policy for an acceptable OTP transmission delay window for
    validation.  The validation system should compare OTPs not only with
    the receiving timestamp but also the past timestamps that are within
@@ -535,7 +535,7 @@ Table of Contents
 
 
    Note that a prover may send the same OTP inside a given time-step
-   window multiple times to a verifier.  The verifier MUST NOT accept
+   window multiple times to a verifier.  The verifier <em>MUST NOT</em> accept
    the second attempt of the OTP after the successful validation has
    been issued for the first OTP, which ensures one-time only use of an
    OTP.

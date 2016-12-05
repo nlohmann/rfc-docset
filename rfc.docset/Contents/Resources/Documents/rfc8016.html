@@ -364,8 +364,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Notational Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document uses terminology defined in [<a href="./rfc5245.html" title="&quot;Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal for Offer/Answer Protocols&quot;">RFC5245</a>] and the following
@@ -539,7 +539,7 @@ Table of Contents
       refusing to perform it, likely due to administrative restrictions.
       The client considers the current transaction as having failed.
 
-      The client can notify the user or operator.  The client SHOULD NOT
+      The client can notify the user or operator.  The client <em>SHOULD NOT</em>
       retry sending the Allocate request containing the MOBILITY-TICKET
       with this server until it believes the problem has been fixed.
 
@@ -556,7 +556,7 @@ Table of Contents
    existing allocation, the client includes the MOBILITY-TICKET
    attribute received in the Allocate success response in the Refresh
    request.  If there has been no IP address or source port number
-   change, the client MUST NOT include a MOBILITY-TICKET attribute, as
+   change, the client <em>MUST NOT</em> include a MOBILITY-TICKET attribute, as
    this would be rejected by the server and the client would need to
    retransmit the Refresh request without the MOBILITY-TICKET attribute.
 
@@ -586,8 +586,8 @@ Table of Contents
 <span class="grey"><a href="./rfc8016.html">RFC 8016</a>                   Mobility with TURN              November 2016</span>
 
 
-   the server MUST reject the request with a 437 (Allocation Mismatch)
-   error.  If the ticket is invalid, then the server MUST reject the
+   the server <em>MUST</em> reject the request with a 437 (Allocation Mismatch)
+   error.  If the ticket is invalid, then the server <em>MUST</em> reject the
    request with a 400 (Bad Request) error.
 
    If the source IP address and port of the Refresh request with the
@@ -597,7 +597,7 @@ Table of Contents
    request is different from the stored 5-tuple allocation, the TURN
    server proceeds with a MESSAGE-INTEGRITY validation to identify that
    it is the same user that had previously created the TURN allocation.
-   If the above check is not successful, then the server MUST reject the
+   If the above check is not successful, then the server <em>MUST</em> reject the
    request with a 441 (Wrong Credentials) error.
 
    If all of the above checks pass, the TURN server understands that the
@@ -610,10 +610,10 @@ Table of Contents
    5-tuple from its state data.  The TURN server calculates the ticket
    with the new 5-tuple and sends the new ticket in the STUN MOBILITY-
    TICKET attribute as part of Refresh success response.  The new ticket
-   sent in the refresh response MUST be different from the old ticket.
+   sent in the refresh response <em>MUST</em> be different from the old ticket.
 
-   The TURN server MUST continue receiving and processing data on the
-   old 5-tuple and MUST continue transmitting data on the old-5 tuple
+   The TURN server <em>MUST</em> continue receiving and processing data on the
+   old 5-tuple and <em>MUST</em> continue transmitting data on the old-5 tuple
    until it receives a Send Indication or ChannelData message from the
    client on the new 5-tuple or a message from the client to close the
    old connection (e.g., a TLS fatal alert or TCP RST).  After receiving
@@ -629,10 +629,10 @@ Table of Contents
 
    The old ticket can only be used for the purposes of retransmission.
    If the client wants to refresh its allocation with a new server-
-   reflexive transport address, it MUST use the new ticket.  If the TURN
+   reflexive transport address, it <em>MUST</em> use the new ticket.  If the TURN
    server has not received a Refresh request with the STUN MOBILITY-
    TICKET attribute but receives Send indications or ChannelData
-   messages from a client, the TURN server MAY discard or queue those
+   messages from a client, the TURN server <em>MAY</em> discard or queue those
    Send indications or ChannelData messages (at its discretion).  Thus,
 
 
@@ -642,7 +642,7 @@ Table of Contents
 <span class="grey"><a href="./rfc8016.html">RFC 8016</a>                   Mobility with TURN              November 2016</span>
 
 
-   it is RECOMMENDED that the client avoid transmitting a Send
+   it is <em>RECOMMENDED</em> that the client avoid transmitting a Send
    indication or ChannelData message until it has received an
    acknowledgement for the Refresh request with the STUN MOBILITY-TICKET
    attribute.
@@ -685,9 +685,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Security Considerations</span>
 
-   The TURN server MUST always ensure that the ticket is authenticated
+   The TURN server <em>MUST</em> always ensure that the ticket is authenticated
    and encrypted using strong cryptographic algorithms to prevent
-   modification or eavesdropping by an attacker.  The ticket MUST be
+   modification or eavesdropping by an attacker.  The ticket <em>MUST</em> be
    constructed such that it has strong entropy to ensure that nothing
    can be gleaned by looking at the ticket alone.
 
@@ -701,7 +701,7 @@ Table of Contents
    An attacker monitoring the traffic between the TURN client and server
    can impersonate the client and refresh the allocation using the
    ticket issued to the client with the attacker's IP address and port.
-   The TURN client and server MUST use the STUN long-term credential
+   The TURN client and server <em>MUST</em> use the STUN long-term credential
    mechanism [<a href="./rfc5389.html" title="&quot;Session Traversal Utilities for NAT (STUN)&quot;">RFC5389</a>], the STUN Extension for Third-Party Authorization
    [<a href="./rfc7635.html" title="&quot;Session Traversal Utilities for NAT (STUN) Extension for Third-Party Authorization&quot;">RFC7635</a>], or a (D)TLS connection to prevent malicious users from
    impersonating the client.  With any of those three mechanisms, when
@@ -710,7 +710,7 @@ Table of Contents
    client but with a new IP address and port using the ticket it had
    previously issued to refresh the allocation.  If (D)TLS is not used
    or the (D)TLS handshake fails, and authentication also fails, then
-   the TURN client and server MUST fail and not proceed with TURN
+   the TURN client and server <em>MUST</em> fail and not proceed with TURN
    mobility.
 
    Security considerations described in [<a href="./rfc5766.html" title="&quot;Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)&quot;">RFC5766</a>] are also applicable to

@@ -481,9 +481,9 @@ Table of Contents
 
    The specific assignment of the logical values "true" and "false" with
    specific voltages of a PPS signal, if applicable, is outside the
-   scope of this specification.  However, these assignments SHOULD be
+   scope of this specification.  However, these assignments <em>SHOULD</em> be
    consistent with applicable standards.  Implementors of PPS sources
-   SHOULD document these assignments.
+   <em>SHOULD</em> document these assignments.
 
       Reminder to implementors of DCD-based PPS support:  TTL and RS-
       232C (V.24/V.28) interfaces both define the "true" state as the
@@ -497,7 +497,7 @@ Table of Contents
    require the kernel implementation to use that function name
    internally.  The current version of the API supports at most one in-
    kernel PPS consumer, and does not provide a way to explicitly name
-   it.  The implementation SHOULD impose access controls on the use of
+   it.  The implementation <em>SHOULD</em> impose access controls on the use of
    this feature.
 
    The API optionally supports an "echo" feature, in which events on the
@@ -510,8 +510,8 @@ Table of Contents
 
    The designation of an output pin for the echo signal, and sense and
    shape of the output transition, is outside the scope of this
-   specification, but SHOULD be documented for each implementation.  The
-   output pin MAY also undergo transitions at other times besides those
+   specification, but <em>SHOULD</em> be documented for each implementation.  The
+   output pin <em>MAY</em> also undergo transitions at other times besides those
    caused by PPS input events.
 
       Note: this allows an implementation of the echo feature to
@@ -530,13 +530,13 @@ Table of Contents
    specify an offset value to be applied to captured timestamps.  This
    can be used to correct for cable and/or radio-wave propagation
    delays, or to compensate for systematic jitter in the external
-   signal.  The implementation SHOULD impose access controls on the use
+   signal.  The implementation <em>SHOULD</em> impose access controls on the use
    of this feature.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> New data structures</span>
 
    The data structure declarations and symbol definitions for this API
-   will appear in the header file &lt;sys/timepps.h&gt;.  The header file MUST
+   will appear in the header file &lt;sys/timepps.h&gt;.  The header file <em>MUST</em>
    define all constants described in this specification, even if they
    are not supported by the implementation.
 
@@ -696,17 +696,17 @@ Table of Contents
 
       Note: the term "read-only" in this specification means that an
       application cannot modify the relevant data item; only the
-      implementation can modify the value.  The implementation MUST
+      implementation can modify the value.  The implementation <em>MUST</em>
       ignore attempts by the application to modify a read-only field.
 
-   As an OPTIONAL feature of the API, the implementation MAY support
+   As an <em>OPTIONAL</em> feature of the API, the implementation <em>MAY</em> support
    adding offsets to the timestamps that are captured.  (Values of type
    "struct timespec" can represent negative offsets.)  The assert_offset
    field of a pps_params_t value specifies a value to be added to
    generate a captured assert_timestamp.  The clear_offset of a
    pps_params_t value field specifies a value to be added to generate a
    captured clear_timestamp.  Since the offsets, if any, apply to all
-   users of a given PPS source, the implementation SHOULD impose access
+   users of a given PPS source, the implementation <em>SHOULD</em> impose access
    controls on the use of this feature; for example, allowing only the
    super-user to set the offset values.  The default value for both
    offsets is zero.
@@ -795,7 +795,7 @@ Table of Contents
                    mode bit is read-only.
 
    PPS_CANPOLL     This bit is reserved for future use.  An application
-                   SHOULD NOT depend on any functionality implied either
+                   <em>SHOULD NOT</em> depend on any functionality implied either
                    by its presence or by its absence.
 
 
@@ -814,28 +814,28 @@ Table of Contents
    PPS_ECHOASSERT   If set, after the capture of an assert timestamp,
                    the implementation generates a signal transition as
                    rapidly as possible on an output signal pin.  This
-                   MUST NOT affect the delay between the PPS source's
+                   <em>MUST NOT</em> affect the delay between the PPS source's
                    transition to the asserted phase and the capture of
                    the assert timestamp.
 
    PPS_ECHOCLEAR    If set, after the capture of a clear timestamp, the
                    implementation generates a signal transition as
                    rapidly as possible on an output signal pin.  This
-                   MUST NOT affect the delay between the PPS source's
+                   <em>MUST NOT</em> affect the delay between the PPS source's
                    transition to the clear phase and the capture of the
                    clear timestamp.
 
    The timestamp formats are:
 
    PPS_TSFMT_TSPEC Timestamps and offsets are represented as values of
-                   type "struct timespec".  All implementations MUST
+                   type "struct timespec".  All implementations <em>MUST</em>
                    support this format, and this format is the default
                    unless an application specifies otherwise.
 
    PPS_TSFMT_NTPFP Timestamps and offsets are represented as values of
                    type "ntp_fp_t", which corresponds to the NTP
                    "64-bit unsigned fixed-point" timestamp format [3].
-                   Support for this format is OPTIONAL.
+                   Support for this format is <em>OPTIONAL</em>.
 
    Other timestamp format bits may be defined as fields are added to the
    "pps_timeu_t" union.
@@ -900,7 +900,7 @@ Table of Contents
    The mode in which the UNIX file descriptor was originally opened
    affects what operations are allowed on the PPS handle.  The
    time_pps_setparams() and time_pps_kcbind() functions (see sections
-   3.4.2 and 3.4.4) SHOULD be prohibited by the implementation if the
+   3.4.2 and 3.4.4) <em>SHOULD</em> be prohibited by the implementation if the
    descriptor is open only for reading (O_RDONLY).
 
       Note: operations on a descriptor opened with an inappropriate mode
@@ -995,7 +995,7 @@ Table of Contents
 
       Note: an application that uses time_pps_getparams() to read the
       current offset values cannot specify which format is used.  The
-      implementation SHOULD return the offsets using the same timestamp
+      implementation <em>SHOULD</em> return the offsets using the same timestamp
       format as was used when the offsets were set.
 
    An application wishing to discover which mode bits it may set, with
@@ -1006,7 +1006,7 @@ Table of Contents
    mode bits.  A call to time_pps_getcap() returns the mode bits
    corresponding to all supported timestamp formats.
 
-   The time_pps_getcap() function MAY ignore the mode in which the
+   The time_pps_getcap() function <em>MAY</em> ignore the mode in which the
    associated UNIX file descriptor was opened, so the application might
    still receive an EBADF error on a call to time_pps_setparams(), even
    if time_pps_getcap() says that the chosen mode bits are allowed.
@@ -1073,7 +1073,7 @@ Table of Contents
    timestamps captured for the PPS source specified by the handle
    parameter.  The tsformat parameter specifies the desired timestamp
    format; if the requested timestamp format is not supported, the call
-   fails and returns an error value.  The application MUST specify
+   fails and returns an error value.  The application <em>MUST</em> specify
    exactly one timestamp format.
 
 
@@ -1144,7 +1144,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.4.4" href="#section-3.4.4">3.4.4</a> New functions: disciplining the kernel timebase</span>
 
-   The API includes one OPTIONAL function to specify if and how a PPS
+   The API includes one <em>OPTIONAL</em> function to specify if and how a PPS
    source is provided to a kernel consumer of PPS events, such as the
    code used to discipline the operating system's internal timebase.
 
@@ -1179,7 +1179,7 @@ Table of Contents
                    A variant of hardpps() constrained to use a
                    frequency-locked loop.
 
-   Implementation of any or all of these values is OPTIONAL.
+   Implementation of any or all of these values is <em>OPTIONAL</em>.
 
    The edge parameter indicates which edge of the PPS signal causes a
    timestamp to be delivered to the kernel consumer.  It may have the
@@ -1200,8 +1200,8 @@ Table of Contents
 
    The tsformat parameter specifies the format for the timestamps
    delivered to the kernel consumer.  If this value is zero, the
-   implementation MAY choose the appropriate format, or return EINVAL.
-   The implementation MAY ignore a non-zero value for this parameter.
+   implementation <em>MAY</em> choose the appropriate format, or return EINVAL.
+   The implementation <em>MAY</em> ignore a non-zero value for this parameter.
 
    The binding created by this call persists until it is changed by a
    subsequent call specifying the same kernel_consumer.  In particular,
@@ -1212,17 +1212,17 @@ Table of Contents
    PPS_CAPTUREASSERT and PPS_CAPTURECLEAR mode bits for the device.
    However, if either the edge or the tsformat parameter values are
    inconsistent with the capabilities of the PPS source, an error is
-   returned.  The implementation MAY also return an error if the
+   returned.  The implementation <em>MAY</em> also return an error if the
    tsformat value is unsupported for time_pps_kcbind(), even if it is
    supported for other uses of the API.
 
    The operating system may enforce two restrictions on the bindings
    created by time_pps_kcbind():
 
-      1. the kernel MAY return an error if an attempt is made to bind a
+      1. the kernel <em>MAY</em> return an error if an attempt is made to bind a
          kernel consumer to more than one PPS source a time.
 
-      2. the kernel MAY restrict the ability to set bindings to
+      2. the kernel <em>MAY</em> restrict the ability to set bindings to
          processes with sufficient privileges to modify the system's
          internal timebase.  (On UNIX systems, such modification is
          normally done using settimeofday() and/or adjtime(), and is
@@ -1268,7 +1268,7 @@ Table of Contents
    [<a name="ref-EINVAL" id="ref-EINVAL">EINVAL</a>]        The requested timestamp format is not supported.
 
    [<a name="ref-EOPNOTSUPP" id="ref-EOPNOTSUPP">EOPNOTSUPP</a>]    The use of the PPS API is not supported for the
-                   associated file descriptor, or this OPTIONAL
+                   associated file descriptor, or this <em>OPTIONAL</em>
                    function is not supported.
 
    [<a name="ref-EPERM" id="ref-EPERM">EPERM</a>]         The process's effective user ID does not have the
@@ -1276,16 +1276,16 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a> Compliance rules</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED","SHOULD", SHOULD NOT",
-   "MAY", and "OPTIONAL" in this document are to be interpreted as
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>","<em>SHOULD</em>", <em>SHOULD NOT</em>",
+   "<em>MAY</em>", and "<em>OPTIONAL</em>" in this document are to be interpreted as
    described in <a href="./rfc2119.html">RFC 2119</a> [1].
 
-   Some features of this specification are OPTIONAL, but others are
-   REQUIRED.
+   Some features of this specification are <em>OPTIONAL</em>, but others are
+   <em>REQUIRED</em>.
 
 <span class="h4"><a class="selflink" name="section-3.5.1" href="#section-3.5.1">3.5.1</a> Functions</span>
 
-   An implementation MUST provide these functions:
+   An implementation <em>MUST</em> provide these functions:
 
       - time_pps_create()
       - time_pps_destroy()
@@ -1294,7 +1294,7 @@ Table of Contents
       - time_pps_getcap()
       - time_pps_fetch()
 
-   An implementation MUST provide this function, but it may be
+   An implementation <em>MUST</em> provide this function, but it may be
    implemented as a function that always return an EOPNOTSUPP error,
    possibly on a per-source basis:
 
@@ -1312,28 +1312,28 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.5.2" href="#section-3.5.2">3.5.2</a> Mode bits</span>
 
-   An implementation MUST support at least one of these mode bits for
+   An implementation <em>MUST</em> support at least one of these mode bits for
    each PPS source:
 
       - PPS_CAPTUREASSERT
       - PPS_CAPTURECLEAR
 
-   and MAY support both of them.  If an implementation supports both of
-   these bits for a PPS source, it SHOULD allow them to be set
+   and <em>MAY</em> support both of them.  If an implementation supports both of
+   these bits for a PPS source, it <em>SHOULD</em> allow them to be set
    simultaneously.
 
-   An implementation MUST support this timestamp format:
+   An implementation <em>MUST</em> support this timestamp format:
 
       - PPS_TSFMT_TSPEC
 
-   An implementation MAY support these mode bits:
+   An implementation <em>MAY</em> support these mode bits:
 
       - PPS_ECHOASSERT
       - PPS_ECHOCLEAR
       - PPS_OFFSETASSERT
       - PPS_OFFSETCLEAR
 
-   An implementation MAY support this timestamp format:
+   An implementation <em>MAY</em> support this timestamp format:
 
       - PPS_TSFMT_NTPFP
 

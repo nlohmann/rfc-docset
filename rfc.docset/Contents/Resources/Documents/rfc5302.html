@@ -423,7 +423,7 @@ Table of Contents
 
    practice is to take the IS-IS metric and insert it as the MED value.
    This tends to cause external traffic to enter the domain at the point
-   closest to the exit router.  Note that the receiving domain MAY,
+   closest to the exit router.  Note that the receiving domain <em>MAY</em>,
    based upon policy, choose to ignore the MED that is advertised.
    However, current practice is to distribute the IGP metric in this way
    in order to optimize routing wherever possible.  This is possible in
@@ -482,8 +482,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Proposed Syntax and Semantics for L2-&gt;L1 Inter-Area Routes</span>
@@ -505,7 +505,7 @@ Table of Contents
    <a href="./rfc1195.html">RFC 1195</a> does not define L2-&gt;L1 inter-area routes.  A simple
    extension would be to allow an L1L2 router to advertise routes
    learned via L2 routing in its L1 LSP.  However, to prevent routing-
-   loops, L1L2 routers MUST NOT advertise L2-&gt;L1 inter-area routes that
+   loops, L1L2 routers <em>MUST NOT</em> advertise L2-&gt;L1 inter-area routes that
    they learn via L1 routing back into L2.  Therefore, there must be a
    way to distinguish L2-&gt;L1 inter-area routes from L1 intra-area
    routes.  [<a href="./rfc5305.html" title="&quot;IS-IS Extensions for Traffic Engineering&quot;">RFC5305</a>] defines the "up/down bit" for this purpose in the
@@ -517,11 +517,11 @@ Table of Contents
    on receipt.
 
    This document redefines this high-order bit in the default Metric
-   field in TLVs 128 and 130 to be the up/down bit.  L1L2 routers MUST
+   field in TLVs 128 and 130 to be the up/down bit.  L1L2 routers <em>MUST</em>
    set this bit to one for prefixes that are derived from L2 routing and
-   are advertised into L1 LSPs.  The bit MUST be set to zero for all
+   are advertised into L1 LSPs.  The bit <em>MUST</em> be set to zero for all
    other IP prefixes in L1 or L2 LSPs.  Prefixes with the up/down bit
-   set that are learned via L1 routing MUST NOT be advertised by L1L2
+   set that are learned via L1 routing <em>MUST NOT</em> be advertised by L1L2
    routers back into L2.
 
 
@@ -551,7 +551,7 @@ Table of Contents
    metrics of the external metric-type should never be seen in TLV 128.
 
    To prevent confusion, this document states again that when a router
-   computes IP routes, it MUST give the same preference to IP routes
+   computes IP routes, it <em>MUST</em> give the same preference to IP routes
    advertised in an "IP Internal Reachability Information" TLV and IP
    routes advertised in an "IP External Reachability Information" TLV.
    <a href="./rfc1195.html">RFC 1195</a> states this quite clearly in the note in paragraph 3.10.2,
@@ -565,11 +565,11 @@ Table of Contents
       order of preference of routes, and the Dijkstra calculation.
 
    However, IP routes advertised in "IP External Reachability
-   Information" with the external metric-type MUST be given less
+   Information" with the external metric-type <em>MUST</em> be given less
    preference than the same IP routes advertised with the internal
    metric-type, regardless of the value of the metrics.
 
-   While IS-IS routers MUST NOT give different preference to IP prefixes
+   While IS-IS routers <em>MUST NOT</em> give different preference to IP prefixes
    learned via "IP Internal Reachability Information" and "IP External
    Reachability Information" when executing the Dijkstra calculation,
    routers that implement multiple IGPs are free to use this distinction
@@ -608,13 +608,13 @@ Table of Contents
 
    When an L1L2 router advertises an L1 route into L2, where that L1
    route was learned via a prefix advertised in an "IP External
-   Reachability Information" TLV, that L1L2 router SHOULD advertise that
+   Reachability Information" TLV, that L1L2 router <em>SHOULD</em> advertise that
    prefix in its L2 LSP within an "IP External Reachability Information"
    TLV.  L1 routes learned via an "IP Internal Reachability Information"
-   TLV SHOULD still be advertised within an "IP Internal Reachability
+   TLV <em>SHOULD</em> still be advertised within an "IP Internal Reachability
    Information" TLV.  These rules should also be applied when
    advertising IP routes derived from L2 routing into L1.  Of course in
-   this case, the up/down bit MUST be set also.
+   this case, the up/down bit <em>MUST</em> be set also.
 
    <a href="./rfc1195.html">RFC 1195</a> defines that if a router sees the same external prefix
    advertised by two or more routers with the same external metric, it
@@ -660,7 +660,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Overview of All Types of IP Prefixes in IS-IS Link State PDUs</span>
 
    The combination IP Internal Reachability Information and external
-   metric-type is not allowed.  Also, the up/down bit MUST NOT be set in
+   metric-type is not allowed.  Also, the up/down bit <em>MUST NOT</em> be set in
    L2 LSPs.  This leaves us with 8 different types of IP advertisements
    in IS-IS.  However, there are more than 8 reasons for IP prefixes to
    be advertised in IS-IS.  The following list describes the types of IP
@@ -821,29 +821,29 @@ Table of Contents
    these defined route-types, the encoding used would allow for a few
    more potential combinations.  One of them is the combination of "IP
    Internal Reachability Information" and external metric-type.  This
-   combination SHOULD NOT be used when building an LSP.  Upon receipt of
-   an IP prefix with this combination, routers MUST ignore this prefix.
+   combination <em>SHOULD NOT</em> be used when building an LSP.  Upon receipt of
+   an IP prefix with this combination, routers <em>MUST</em> ignore this prefix.
    Another issue would be the usage of the up/down bit in L2 LSPs.
    Because IS-IS is currently defined with two levels of hierarchy,
    there should never be a need to set the up/down bit in L2 LSPs.
    However, if IS-IS would ever be extended with more than two levels of
    hierarchy, L2-only (or L1L2) routers will need to be able to accept
-   L2 IP routes with the up/down bit set.  Therefore, it is RECOMMENDED
+   L2 IP routes with the up/down bit set.  Therefore, it is <em>RECOMMENDED</em>
    that implementations ignore the up/down bit in L2 LSPs, and accept
    the prefixes in L2 LSPs regardless of whether the up/down bit is set.
    This will allow for simpler migration once more than two levels of
    hierarchy are defined.
 
    Another detail that implementors should be aware of is the fact that
-   L1L2 routers SHOULD only advertise in their L2 LSP those L1 routes
-   that they use for forwarding themselves.  They SHOULD NOT
+   L1L2 routers <em>SHOULD</em> only advertise in their L2 LSP those L1 routes
+   that they use for forwarding themselves.  They <em>SHOULD NOT</em>
    unconditionally advertise into L2 all prefixes from LSPs in the L1
    database.
 
    Not all prefixes need to be advertised up or down the hierarchy.
    Implementations might allow for additional manual filtering or
    summarization to further bring down the number of inter-area prefixes
-   they advertise in their LSPs.  It is also RECOMMENDED that the
+   they advertise in their LSPs.  It is also <em>RECOMMENDED</em> that the
    default configuration of L1L2 routers not advertise any L2 routes
    into L1 (see also <a href="#section-4">Section 4</a>).
 
@@ -869,7 +869,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5302.html">RFC 5302</a>            Domain-wide Prefix Distribution         October 2008</span>
 
 
-   Implementations that follow <a href="./rfc1195.html">RFC 1195</a> SHOULD ignore bit 8 in the
+   Implementations that follow <a href="./rfc1195.html">RFC 1195</a> <em>SHOULD</em> ignore bit 8 in the
    default Metric field when computing routes.  Therefore, even older
    implementations that do not know of the up/down bit should be able to
    accept the new L2-&gt;L1 inter-area routes.  These older implementations
@@ -878,7 +878,7 @@ Table of Contents
    routers.
 
    However, it is vital that the up/down bit is recognized by L1L2
-   routers.  As has been stated before, L1L2 routers MUST NOT advertise
+   routers.  As has been stated before, L1L2 routers <em>MUST NOT</em> advertise
    L2-&gt;L1 inter-area routes back into L2.  Therefore, if L2 routes are
    advertised down into an L1 area, it is required that all L1L2 routers
    in that area run software that understands the new up/down bit.
@@ -886,9 +886,9 @@ Table of Contents
    new up/down bit will treat the L2-&gt;L1 inter-area routes as L1 intra-
    area routes, and they will advertise these routes back into L2.  This
    can cause routing loops, sub-optimal routing, or extra routing
-   instability.  For this reason, it is RECOMMENDED that implementations
+   instability.  For this reason, it is <em>RECOMMENDED</em> that implementations
    by default not advertise any L2 routes into L1.  Implementations
-   SHOULD force the network administrator to manually configure L1L2
+   <em>SHOULD</em> force the network administrator to manually configure L1L2
    routers to advertise any L2 routes into L1.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Comparisons with Other Proposals</span>

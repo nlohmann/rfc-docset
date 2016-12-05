@@ -431,8 +431,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions and Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  SCTP with Potentially Failed (SCTP-PF) Destination State</span>
@@ -493,7 +493,7 @@ Table of Contents
         called PotentiallyFailed.Max.Retrans (PFMR).  The PFMR defines
         the new intermediate PF threshold on the destination address
         error counter.  When this threshold is exceeded, the destination
-        address is classified as PF.  The RECOMMENDED value of PFMR is
+        address is classified as PF.  The <em>RECOMMENDED</em> value of PFMR is
         0.  If PFMR is set to be greater than or equal to PMR, the
         resulting PF threshold will be so high that the destination
         address will reach the inactive state before it can be
@@ -506,28 +506,28 @@ Table of Contents
         (T3-rtx) timer expires, or each time a HEARTBEAT chunk is sent
         when idle and not acknowledged within an RTO.  When the value in
         the destination address error counter exceeds PFMR, the endpoint
-        MUST mark the destination address as in the PF state.
+        <em>MUST</em> mark the destination address as in the PF state.
 
-   3.   An SCTP-PF sender SHOULD NOT send data to destination addresses
+   3.   An SCTP-PF sender <em>SHOULD NOT</em> send data to destination addresses
         in PF state when alternative destination addresses in active
         state are available.  Specifically, this means that:
 
         i.     When there is outbound data to send and the destination
                address presently used for data transmission is in PF
-               state, the sender SHOULD choose a destination address in
+               state, the sender <em>SHOULD</em> choose a destination address in
                active state, if one exists, and use this destination
                address for data transmission.
 
         ii.    As specified in <a href="./rfc4960.html#section-6.4.1">Section&nbsp;6.4.1 of [RFC4960]</a>, when the
                sender retransmits data that has timed out, they should
                attempt to pick a new destination address for data
-               retransmission.  In this case, the sender SHOULD choose
+               retransmission.  In this case, the sender <em>SHOULD</em> choose
                an alternate destination transport address in active
                state, if one exists.
 
         iii.   When there is outbound data to send and the SCTP user
                explicitly requests to send data to a destination address
-               in PF state, the sender SHOULD send the data to an
+               in PF state, the sender <em>SHOULD</em> send the data to an
                alternate destination address in active state if one
                exists.
 
@@ -556,19 +556,19 @@ Table of Contents
         an implementation decision and are not specified within this
         document.
 
-        In all cases, the sender MUST NOT change the state of the chosen
+        In all cases, the sender <em>MUST NOT</em> change the state of the chosen
         destination address, whether this state be active or PF, and it
-        MUST NOT clear the error counter of the destination address as a
+        <em>MUST NOT</em> clear the error counter of the destination address as a
         result of choosing the destination address for data
         transmission.
 
    4.   When the destination addresses are all in PF state, or some are
-        in PF state and some in inactive state, the sender MUST choose
-        one destination address in PF state and SHOULD transmit or
+        in PF state and some in inactive state, the sender <em>MUST</em> choose
+        one destination address in PF state and <em>SHOULD</em> transmit or
         retransmit data to this destination address using the following
         rules:
 
-        i.    The sender SHOULD choose the destination in PF state with
+        i.    The sender <em>SHOULD</em> choose the destination in PF state with
               the lowest error count (fewest consecutive timeouts) for
               data transmission and transmit or retransmit data to this
               destination.
@@ -583,10 +583,10 @@ Table of Contents
               divergent source-destination pairs are an implementation
               decision and are not specified within this document.
 
-        The sender MUST NOT change the state and the error counter of
+        The sender <em>MUST NOT</em> change the state and the error counter of
         any destination addresses as the result of the selection.
 
-   5.   The HB.Interval of the Path Heartbeat function of [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>] MUST
+   5.   The HB.Interval of the Path Heartbeat function of [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>] <em>MUST</em>
         be ignored for destination addresses in PF state.  Instead,
         HEARTBEAT chunks are sent to destination addresses in PF state
 
@@ -597,12 +597,12 @@ Table of Contents
 <span class="grey"><a href="./rfc7829.html">RFC 7829</a>                         SCTP-PF                      April 2016</span>
 
 
-        once per RTO.  HEARTBEAT chunks SHOULD be sent to destination
-        addresses in PF state, but the sending of HEARTBEATs MUST honor
+        once per RTO.  HEARTBEAT chunks <em>SHOULD</em> be sent to destination
+        addresses in PF state, but the sending of HEARTBEATs <em>MUST</em> honor
         whether or not the Path Heartbeat function (<a href="./rfc4960.html#section-8.3">Section&nbsp;8.3 of
         [RFC4960]</a>) is enabled for the destination address.  That is, if
         the Path Heartbeat function is disabled for the destination
-        address in question, HEARTBEATs MUST NOT be sent.  Note that
+        address in question, HEARTBEATs <em>MUST NOT</em> be sent.  Note that
         when the Path Heartbeat function is disabled, it may take longer
         to transition a destination address in PF state back to active
         state.
@@ -615,35 +615,35 @@ Table of Contents
         chunk immediately after timeout expiration on the previous
         HEARTBEAT.  When data is being transmitted to a destination
         address in the PF state, the transmission of a HEARTBEAT chunk
-        MAY be omitted in the case where the receipt of a Selective
+        <em>MAY</em> be omitted in the case where the receipt of a Selective
         Acknowledgment (SACK) of the data or a T3-rtx timer expiration
         on the data can provide equivalent information, such as the case
         where the data chunk has been transmitted to a single
         destination address only.  Likewise, the timeout of a HEARTBEAT
-        chunk MAY be ignored if data is outstanding towards the
+        chunk <em>MAY</em> be ignored if data is outstanding towards the
         destination address.
 
    7.   When the sender receives a HEARTBEAT ACK from a HEARTBEAT sent
-        to a destination address in PF state, the sender SHOULD clear
+        to a destination address in PF state, the sender <em>SHOULD</em> clear
         the error counter of the destination address and transition the
         destination address back to active state.  However, there may be
         a situation where HEARTBEAT chunks can go through while DATA
         chunks cannot.  Hence, in a situation where a HEARTBEAT ACK
         arrives while there is data outstanding towards the destination
         address to which the HEARTBEAT was sent, then an implementation
-        MAY choose to not have the HEARTBEAT ACK reset the error
+        <em>MAY</em> choose to not have the HEARTBEAT ACK reset the error
         counter, but have the error counter reset await the fate of the
         outstanding data transmission.  This situation can happen when
         data is sent to a destination address in PF state.  When the
         sender resumes data transmission on a destination address after
         a transition of the destination address from PF to active state,
-        it MUST do this following the prescriptions of <a href="./rfc4960.html#section-7.2">Section&nbsp;7.2 of
+        it <em>MUST</em> do this following the prescriptions of <a href="./rfc4960.html#section-7.2">Section&nbsp;7.2 of
         [RFC4960]</a>.
 
    8.   Additional PMR - PFMR consecutive timeouts on a destination
         address in PF state confirm the path failure, upon which the
         destination address transitions to the inactive state.  As
-        described in [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>], the sender SHOULD (i) notify the Upper
+        described in [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>], the sender <em>SHOULD</em> (i) notify the Upper
         Layer Protocol (ULP) about this state transition, and (ii)
 
 
@@ -661,12 +661,12 @@ Table of Contents
    9.   Acknowledgments for chunks that have been transmitted to
         multiple destinations (i.e., a chunk that has been retransmitted
         to a different destination address than the destination address
-        to which the chunk was first transmitted) SHOULD NOT clear the
-        error count for an inactive destination address and SHOULD NOT
+        to which the chunk was first transmitted) <em>SHOULD NOT</em> clear the
+        error count for an inactive destination address and <em>SHOULD NOT</em>
         move a destination address in PF state back to active state,
         since a sender cannot disambiguate whether the ACK was for the
         original transmission or the retransmission(s).  An SCTP sender
-        MAY clear the error counter and move a destination address back
+        <em>MAY</em> clear the error counter and move a destination address back
         to active state by information other than acknowledgments, when
         it can uniquely determine which destination, among multiple
         destination addresses, the chunk reached.  This document makes
@@ -674,8 +674,8 @@ Table of Contents
         such information could be obtained.
 
    10.  Acknowledgments for data chunks that have been transmitted to
-        one destination address only MUST clear the error counter for
-        the destination address and MUST transition a destination
+        one destination address only <em>MUST</em> clear the error counter for
+        the destination address and <em>MUST</em> transition a destination
         address in PF state back to active state.  This situation can
         happen when new data is sent to a destination address in the PF
         state.  It can also happen in situations where the destination
@@ -697,7 +697,7 @@ Table of Contents
         protocol operation thus is said to be in dormant state, the
         prescriptions given in <a href="#section-4">Section 4</a> shall be followed.
 
-   12.  The SCTP stack SHOULD expose the PF state of its destination
+   12.  The SCTP stack <em>SHOULD</em> expose the PF state of its destination
         addresses to the ULP as well as provide the means to notify the
         ULP of state transitions of its destination addresses from
         active to PF, and vice versa.  However, it is recommended that
@@ -732,15 +732,15 @@ Table of Contents
    argument presumes that RTO &lt;&lt; HB.Interval of [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>].  With the
    design goal that SCTP-PF shall provide the same level of disruption
    tolerance as a standard SCTP implementation with the same PMR and AMR
-   setting, we prescribe that an SCTP-PF implementation SHOULD operate
+   setting, we prescribe that an SCTP-PF implementation <em>SHOULD</em> operate
    as described in <a href="#section-4.1">Section 4.1</a> during dormant state.
 
-   An SCTP-PF implementation MAY choose a different dormant state
+   An SCTP-PF implementation <em>MAY</em> choose a different dormant state
    operation than the one described in <a href="#section-4.1">Section 4.1</a> provided that the
    solution chosen does not decrease the fault tolerance of the SCTP-PF
    operation.
 
-   The prescription below for SCTP-PF dormant state handling MUST NOT be
+   The prescription below for SCTP-PF dormant state handling <em>MUST NOT</em> be
    coupled to the value of the PFMR, but solely to the activation of
    SCTP-PF logic in an SCTP implementation.
 
@@ -768,18 +768,18 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  SCTP Dormant State Procedure</span>
 
    1.  When the destination addresses are all in inactive state and data
-       is available for transfer, the sender MUST choose one destination
+       is available for transfer, the sender <em>MUST</em> choose one destination
        and transmit data to this destination address.
 
-   2.  The sender MUST NOT change the state of the chosen destination
-       address (it remains in inactive state) and MUST NOT clear the
+   2.  The sender <em>MUST NOT</em> change the state of the chosen destination
+       address (it remains in inactive state) and <em>MUST NOT</em> clear the
        error counter of the destination address as a result of choosing
        the destination address for data transmission.
 
-   3.  The sender SHOULD choose the destination in inactive state with
+   3.  The sender <em>SHOULD</em> choose the destination in inactive state with
        the lowest error count (fewest consecutive timeouts) for data
        transmission.  When there are multiple destinations with the same
-       error count in inactive state, the sender SHOULD attempt to pick
+       error count in inactive state, the sender <em>SHOULD</em> attempt to pick
        the most divergent source -- destination pair from the last
        source -- destination pair where failure was observed.  Rules for
        picking the most divergent source-destination pair are an
@@ -791,7 +791,7 @@ Table of Contents
        <a href="./rfc4960.html#section-8.3">Section&nbsp;8.3 of [RFC4960]</a> in this respect.  The exact limit to
        apply is not specified in this document, but it is considered
        reasonable enough to require that the limit be an order of
-       magnitude higher than the PMR value.  A sender MAY choose to
+       magnitude higher than the PMR value.  A sender <em>MAY</em> choose to
        deploy other strategies than the strategy defined here.  The
        strategy to prioritize the last active destination address, i.e.,
        the destination address with the fewest error counts is optimal
@@ -826,16 +826,16 @@ Table of Contents
 
    1.  The sender maintains a new tunable parameter, called
        Primary.Switchover.Max.Retrans (PSMR).  For SCTP-PF
-       implementations, the PSMR MUST be set greater than or equal to
-       the PFMR value.  For implementations of [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>], the PSMR MUST
+       implementations, the PSMR <em>MUST</em> be set greater than or equal to
+       the PFMR value.  For implementations of [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>], the PSMR <em>MUST</em>
        be set greater than or equal to the PMR value.  Implementations
-       MUST reject any other values of PSMR.
+       <em>MUST</em> reject any other values of PSMR.
 
    2.  When the path error counter on a set primary path exceeds PSMR,
-       the SCTP implementation MUST autonomously select and set a new
+       the SCTP implementation <em>MUST</em> autonomously select and set a new
        primary path.
 
-   3.  The primary path selected by the SCTP implementation MUST be the
+   3.  The primary path selected by the SCTP implementation <em>MUST</em> be the
        path that, at the given time, would be chosen for data transfer.
        A previously failed primary path can be used as a data transfer
        path as per normal path selection when the present data transfer
@@ -845,19 +845,19 @@ Table of Contents
        Path Switchover operation mode is used.  This means that no
        forced switchback to a previously failed primary path is
        performed.  An SCTP-PF implementation of Primary Path Switchover
-       MUST support the setting of PSMR = PFMR.  An SCTP-PF
-       implementation of Primary Path Switchover MAY support setting of
+       <em>MUST</em> support the setting of PSMR = PFMR.  An SCTP-PF
+       implementation of Primary Path Switchover <em>MAY</em> support setting of
        PSMR &gt; PFMR.
 
    5.  For standard SCTP, the recommended value of PSMR is PMR when
        Primary Path Switchover is used.  This means that no forced
        switchback to a previously failed primary path is performed.  A
-       standard SCTP implementation of Primary Path Switchover MUST
+       standard SCTP implementation of Primary Path Switchover <em>MUST</em>
        support the setting of PSMR = PMR.  A standard SCTP
-       implementation of Primary Path Switchover MAY support larger
+       implementation of Primary Path Switchover <em>MAY</em> support larger
        settings of PSMR &gt; PMR.
 
-   6.  It MUST be possible to disable the Primary Path Switchover
+   6.  It <em>MUST</em> be possible to disable the Primary Path Switchover
        operation and obtain the standard switchback operation of
        [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>].
 
@@ -879,8 +879,8 @@ Table of Contents
 
    is suboptimal in certain situations, especially in scenarios where a
    number of equally good paths are available, an SCTP implementation
-   MAY support also, as alternative behavior, the Primary Path
-   Switchover mode of operation and MAY enable it based on applications'
+   <em>MAY</em> support also, as alternative behavior, the Primary Path
+   Switchover mode of operation and <em>MAY</em> enable it based on applications'
    requests.
 
    For an SCTP implementation that implements the Primary Path
@@ -893,7 +893,7 @@ Table of Contents
    This document does not alter the value recommendation for the SCTP
    Protocol Parameters defined in [<a href="./rfc4960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC4960</a>].
 
-   The following protocol parameter is RECOMMENDED:
+   The following protocol parameter is <em>RECOMMENDED</em>:
 
       PotentiallyFailed.Max.Retrans (PFMR) - 0
 
@@ -1327,7 +1327,7 @@ Table of Contents
 
    Otherwise, the SCTP sender considers its peer reachable even when all
    destinations are INACTIVE.  To avoid this dormant state operation,
-   standard SCTP implementation SHOULD reduce Association.Max.Retrans
+   standard SCTP implementation <em>SHOULD</em> reduce Association.Max.Retrans
    accordingly whenever it reduces Path.Max.Retrans.  However, smaller
    Association.Max.Retrans value decreases the fault tolerance of SCTP
    as it increases the chances of association termination during minor

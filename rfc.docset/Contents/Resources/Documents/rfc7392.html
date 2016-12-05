@@ -304,8 +304,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Language and Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document uses the terminology defined in [<a href="./rfc7267.html" title="&quot;Dynamic Placement of Multi-Segment Pseudowires&quot;">RFC7267</a>], [<a href="./rfc4447.html" title="&quot;Pseudowire Setup and Maintenance Using the Label Distribution Protocol (LDP)&quot;">RFC4447</a>],
@@ -331,10 +331,10 @@ Table of Contents
 
    An S-PE address is used to identify a given S-PE among the set of
    S-PEs belonging to the Packet Switched Networks (PSNs) that may be
-   used by an MS-PW.  Each S-PE MUST be assigned an address as specified
+   used by an MS-PW.  Each S-PE <em>MUST</em> be assigned an address as specified
    in <a href="./rfc7267.html#section-3.2">Section&nbsp;3.2 of [RFC7267]</a>.  An S-PE that is capable of dynamic
    MS-PW signaling, but has not been assigned an S-PE address, and that
-   receives a Label Mapping message for a dynamic MS-PW MUST follow the
+   receives a Label Mapping message for a dynamic MS-PW <em>MUST</em> follow the
    procedures in <a href="./rfc7267.html#section-3.2">Section&nbsp;3.2 of [RFC7267]</a>.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Explicit Route TLV (ER-TLV)</span>
@@ -438,7 +438,7 @@ Table of Contents
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
       U/F
-            These bits MUST be set to zero and the procedures of
+            These bits <em>MUST</em> be set to zero and the procedures of
             [<a href="./rfc5036.html" title="&quot;LDP Specification&quot;">RFC5036</a>] followed when the TLV is not known to the
             receiving node.
 
@@ -484,7 +484,7 @@ Table of Contents
    from a set of possible alternatives.  The mechanism for making a
    selection from this set is implementation specific and is outside the
    scope of this document.  The mechanism used to select a particular
-   path is also outside the scope of this document, but each node MUST
+   path is also outside the scope of this document, but each node <em>MUST</em>
    determine a loop-free path if it is to signal the MS-PW.  <a href="./rfc6073.html#section-7.6">[RFC6073],
    Section&nbsp;7.6</a> provides a mechanism by which a node can check that the
    path taken by an MS-PW does not include loops.
@@ -494,9 +494,9 @@ Table of Contents
    supplied from a management application.
 
    If a loop-free path cannot be found by an ST-PE or S-PE, then a node
-   MUST NOT attempt to signal the MS-PW.  For an S-PE, if it cannot
+   <em>MUST NOT</em> attempt to signal the MS-PW.  For an S-PE, if it cannot
    determine a loop-free path, then the received Label Mapping message
-   MUST be released with a status code of "PW Loop Detected" as per
+   <em>MUST</em> be released with a status code of "PW Loop Detected" as per
    <a href="./rfc7267.html#section-4.2.3">Section&nbsp;4.2.3 of [RFC7267]</a>.
 
    To determine the next hop for the MS-PW path, a node performs the
@@ -504,18 +504,18 @@ Table of Contents
    address has been assigned to the node, as per <a href="#section-3.1">Section 3.1</a>, above.
 
    1.  The node receiving the Label Mapping message that contains an
-       ER-TLV MUST evaluate the first ER-Hop.  If the L bit is not set
+       ER-TLV <em>MUST</em> evaluate the first ER-Hop.  If the L bit is not set
        in the first ER-Hop and if the node is not part of the abstract
        node described by the first ER-Hop (i.e., it does not lie within
        the prefix as determined by the prefix length specified in the
        ER-Hop TLV), it has received the message in error.  Therefore,
-       the node MUST reply with a Label Release message with a "Bad
+       the node <em>MUST</em> reply with a Label Release message with a "Bad
        Initial ER-Hop Error" (0x04000004) status code.  If the L bit is
        set and the local node is not part of the abstract node described
        by the first ER-Hop, the node selects a next hop that is along
        the path to the abstract node described by the first ER-Hop.  If
        there is no ER-Hop TLV contained in the ER-TLV, the message is
-       also in error, and the node SHOULD return a "Bad Explicit Routing
+       also in error, and the node <em>SHOULD</em> return a "Bad Explicit Routing
        TLV Error" (0x04000001) status code in a Label Release message
        sent to the upstream node.  Note that this statement does not
 
@@ -527,14 +527,14 @@ Table of Contents
 
 
        preclude a Label Mapping message with no ER-TLV.  If a Label
-       Mapping message with no ER-TLV is received, then it MUST be
+       Mapping message with no ER-TLV is received, then it <em>MUST</em> be
        processed as per [<a href="./rfc7267.html" title="&quot;Dynamic Placement of Multi-Segment Pseudowires&quot;">RFC7267</a>].
 
    2.  If there are no further ER-Hop TLVs following the first ER-Hop
        TLV, this indicates the end of the explicit route.  The Explicit
-       Route TLV MUST be removed from the Label Mapping message.  This
+       Route TLV <em>MUST</em> be removed from the Label Mapping message.  This
        node may or may not be the end of the PW.  Processing continues
-       as per <a href="#section-4.2">Section 4.2</a>, where a new Explicit Route TLV MAY be added
+       as per <a href="#section-4.2">Section 4.2</a>, where a new Explicit Route TLV <em>MAY</em> be added
        to the Label Mapping message.
 
    3.  If a second ER-Hop TLV does exist, and the node is also a part of
@@ -555,14 +555,14 @@ Table of Contents
        second ER-Hop.  If no such path exists, then there are two cases:
 
        A.  If the second ER-Hop is a strict ER Hop, then there is an
-           error, and the node MUST return a Label Release message to
+           error, and the node <em>MUST</em> return a Label Release message to
            the upstream node with a "Bad Strict Node Error" (0x04000002)
            status code.
 
        B.  Otherwise, if the second ER-Hop is a loose ER Hop, then the
            node selects any next hop that is along the path to the next
            abstract node.  If no path exists within the MPLS domain,
-           then there is an error, and the node MUST return a Label
+           then there is an error, and the node <em>MUST</em> return a Label
            Release message to the upstream node with a "Bad Loose Node
            Error" (0x04000003) status code.
 
@@ -584,20 +584,20 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Adding ER Hops to the Explicit Route TLV</span>
 
-   After selecting a next hop, the node MAY alter the explicit route in
+   After selecting a next hop, the node <em>MAY</em> alter the explicit route in
    the following ways.
 
    If, as part of executing the algorithm in <a href="#section-4.1">Section 4.1</a>, the Explicit
-   Route TLV is removed, then the node MAY add a new Explicit Route TLV.
+   Route TLV is removed, then the node <em>MAY</em> add a new Explicit Route TLV.
 
    Otherwise, if the node is a member of the abstract node for the first
-   ER-Hop, then a series of ER Hops MAY be inserted before the First ER
-   Hop or the first ER-Hop MAY be replaced.  Each ER Hop in this series
-   MUST denote an abstract node that is a subset of the current abstract
+   ER-Hop, then a series of ER Hops <em>MAY</em> be inserted before the First ER
+   Hop or the first ER-Hop <em>MAY</em> be replaced.  Each ER Hop in this series
+   <em>MUST</em> denote an abstract node that is a subset of the current abstract
    node.
 
    Alternately, if the first ER-Hop is a loose ER Hop, an arbitrary
-   series of ER Hops MAY be inserted prior to the first ER-Hop.
+   series of ER Hops <em>MAY</em> be inserted prior to the first ER-Hop.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  IANA Considerations</span>
 

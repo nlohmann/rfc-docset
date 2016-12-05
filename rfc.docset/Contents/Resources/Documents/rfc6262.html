@@ -285,8 +285,8 @@ Table of Contents
    frames per packet and introduces redundancy for robustness against
    packet loss and bit errors.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -314,7 +314,7 @@ Table of Contents
    first (base) layer is mandatory while the other (enhancement) layers
    can be safely discarded.  Information about the particular frame
    structure is available from the payload header.  In order to adjust
-   outgoing bandwidth, the gateway MUST read the frame(s) structure from
+   outgoing bandwidth, the gateway <em>MUST</em> read the frame(s) structure from
    the payload header, define which enhancement layers to discard, and
    compose a new RTP packet according to this specification.
 
@@ -369,16 +369,16 @@ Table of Contents
 
    The RTP timestamp corresponds to the sampling instant of the first
    sample encoded for the first frame-block in the packet.  The
-   timestamp clock frequency SHALL be 16 kHz.  The duration of one frame
+   timestamp clock frequency <em>SHALL</em> be 16 kHz.  The duration of one frame
    is 20 ms, which corresponds to 320 samples per frame.  Thus, the
    timestamp is increased by 320 for each consecutive frame.  The
    timestamp is also used to recover the correct decoding order of the
    frame-blocks.
 
-   The RTP header marker bit (M) SHALL be set to 1 whenever the first
+   The RTP header marker bit (M) <em>SHALL</em> be set to 1 whenever the first
    frame-block carried in the packet is the first frame-block in a
    talkspurt (see definition of talkspurt in <a href="./rfc3551.html#section-4.1">Section&nbsp;4.1 of [RFC3551]</a>).
-   For all other packets, the marker bit SHALL be set to zero (M=0).
+   For all other packets, the marker bit <em>SHALL</em> be set to zero (M=0).
 
    The assignment of an RTP payload type for the format defined in this
    memo is outside the scope of this document.  The RTP profiles in use
@@ -421,20 +421,20 @@ Table of Contents
                        |T| CR  | BR  |D|A|GR |R|
                        +-+-+-+-+-+-+-+-+-+-+-+-+
 
-   o  T (1 bit): Reserved.  MUST always be set to 0.  Receiver MAY
+   o  T (1 bit): Reserved.  <em>MUST</em> always be set to 0.  Receiver <em>MAY</em>
       discard packet if the 'T' bit is not equal to 0.
 
    o  CR (3 bits): Coding rate index - top enchantment layer available.
       The CR value 7 (NO_DATA) indicates that there is no speech data
-      (and thus no speech TOC) in the payload.  This MAY be used to
+      (and thus no speech TOC) in the payload.  This <em>MAY</em> be used to
       transmit redundancy data only.
 
    o  BR (3 bits): Base rate index - base layer bitrate.  Speech payload
       can be scaled to any rate index between BR and CR.  Packets with
-      BR = 6 or BR &gt; CR MUST be discarded.  Redundancy data is also
+      BR = 6 or BR &gt; CR <em>MUST</em> be discarded.  Redundancy data is also
       considered to have a base rate of BR.
 
-   o  D (1 bit): Reserved.  MUST always be set to 1.  Receiver MAY
+   o  D (1 bit): Reserved.  <em>MUST</em> always be set to 1.  Receiver <em>MAY</em>
       discard packet if the 'D' bit is zero.
 
    o  A (1 bit): Byte alignment.  The value of 1 specifies that padding
@@ -451,7 +451,7 @@ Table of Contents
       payload presence.
 
    Note that the values of 'T' and 'D' bits are fixed; any other values
-   are not allowed by specification.  Padding bits ('P' bits) MUST
+   are not allowed by specification.  Padding bits ('P' bits) <em>MUST</em>
    always be set to zero.
 
 
@@ -482,7 +482,7 @@ Table of Contents
                     |      7     |   NO_DATA    |
                     +------------+--------------+
 
-   The value of 6 is reserved.  If receiving this value, the packet MUST
+   The value of 6 is reserved.  If receiving this value, the packet <em>MUST</em>
    be discarded.
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Speech Payload Table of Contents</span>
@@ -500,7 +500,7 @@ Table of Contents
    o  E (1 bit): Frame existence indicator.  The value of 0 indicates
       speech data is not present for the corresponding frame.  The IP-MR
       encoder sets the 'E' flag to 0 for the periods of silence in DTX
-      mode.  Applications MUST set this bit to 0 if the frame is known
+      mode.  Applications <em>MUST</em> set this bit to 0 if the frame is known
       to be damaged.
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Speech Payload Data</span>
@@ -527,7 +527,7 @@ Table of Contents
    +- - -+------------+------------+------------+------------+   ALWAYS
          |&lt;- aligned  |&lt;- aligned  |&lt;- aligned  |&lt;- aligned  |&lt;- ALIGNED
 
-   Marked regions MUST be padded only if the 'A' bit is set to '1'.
+   Marked regions <em>MUST</em> be padded only if the 'A' bit is set to '1'.
 
    The compressed frame structure is as follows:
 
@@ -540,7 +540,7 @@ Table of Contents
    |&lt;- CR rate -------------------------------------------------------&gt;|
 
    <a href="#appendix-A">Appendix A</a> of this document provides a helper routine written in "C"
-   that MUST be used to extract sensitivity classes and bounds for the
+   that <em>MUST</em> be used to extract sensitivity classes and bounds for the
    enchantment layers from the compressed frame data.
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  Redundancy Payload Header</span>
@@ -580,11 +580,11 @@ Table of Contents
 
    A receiver can reconstruct the base layer of preceding packets
    completely (CL=6) or partially (0&lt;CL&lt; 6) based on the sensitivity
-   classes delivered.  A decoder MUST discard the redundancy payload if
+   classes delivered.  A decoder <em>MUST</em> discard the redundancy payload if
    'CL' is equal to 0 or 7.
 
    Note that the index of the base rate and grouping parameter is not
-   transmitted for the redundancy payload.  Applications MUST assume
+   transmitted for the redundancy payload.  Applications <em>MUST</em> assume
    that 'BR' and 'GR' are the same as for the current packet.
 
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  Redundancy Payload Table of Contents</span>
@@ -638,9 +638,9 @@ Table of Contents
    rates (CRs) of preceding and pre-preceding packets are the same as
    for the current packet.
 
-   A receiver MAY use redundancy data to compensate for packet loss
-   (note that in this case, the 'CL' field MUST also be passed to the
-   decoder).  The helper routine provided in <a href="#appendix-A">Appendix A</a> MUST be used to
+   A receiver <em>MAY</em> use redundancy data to compensate for packet loss
+   (note that in this case, the 'CL' field <em>MUST</em> also be passed to the
+   decoder).  The helper routine provided in <a href="#appendix-A">Appendix A</a> <em>MUST</em> be used to
    extract sensitivity classes' length for each frame.  The following
    pseudocode describes the sequence of operations:
 
@@ -808,13 +808,13 @@ Table of Contents
    and can be as low as 7.7 kbps.  It is up to the application to keep
    the balance between coding quality (high BR) and bitstream
    scalability (low BR).  Because coding quality depends on coding rate
-   (CR) rather than base rate (BR), it is NOT RECOMMENDED to use high BR
+   (CR) rather than base rate (BR), it is NOT <em>RECOMMENDED</em> to use high BR
    values for real-time communications.
 
-   Applications MAY utilize bitstream redundancy to combat packet loss.
+   Applications <em>MAY</em> utilize bitstream redundancy to combat packet loss.
    However, the gateway is free to chose any option to reduce the
    transmission rate; the coding layer or redundancy bits can be
-   dropped.  Due to this fact, it is NOT RECOMMENDED for applications to
+   dropped.  Due to this fact, it is NOT <em>RECOMMENDED</em> for applications to
    increase the total bitrate when adding redundancy in response to
    packet loss.
 
@@ -939,7 +939,7 @@ Table of Contents
    o  The media type ("audio") goes in SDP "m=" as the media name.
 
    o  The media subtype (payload format name) goes in SDP "a=rtpmap" as
-      the encoding name.  The RTP clock rate in "a=rtpmap" MUST be
+      the encoding name.  The RTP clock rate in "a=rtpmap" <em>MUST</em> be
       16000.
 
    o  The parameter "ptime" goes in the SDP "a=ptime" attribute.
@@ -1061,7 +1061,7 @@ Table of Contents
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT <em>SHALL</em> THE COPYRIGHT
    OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,

@@ -366,8 +366,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    "TFO" refers to TCP Fast Open.  "Client" refers to TCP's active open
@@ -386,7 +386,7 @@ Table of Contents
    (discussed in the following subsections) that make TFO unsuitable for
    certain applications.
 
-   Therefore, TCP implementations MUST NOT use TFO by default, but only
+   Therefore, TCP implementations <em>MUST NOT</em> use TFO by default, but only
    use TFO if requested explicitly by the application on a per-service-
    port basis.  Applications need to evaluate TFO applicability as
    described in <a href="#section-6">Section 6</a> before using TFO.
@@ -601,7 +601,7 @@ Table of Contents
    Kind            1 byte: value = 34
    Length          1 byte: range 6 to 18 (bytes); limited by
                            remaining space in the options field.
-                           The number MUST be even.
+                           The number <em>MUST</em> be even.
    Cookie          0, or 4 to 16 bytes (Length - 2)
 
    The Fast Open option is used to request or to send a Fast Open
@@ -613,14 +613,14 @@ Table of Contents
 
    The minimum cookie size is 4 bytes.  Although the diagram shows a
    cookie aligned on 32-bit boundaries, alignment is not required.
-   Options with invalid Length values or without the SYN flag set MUST
+   Options with invalid Length values or without the SYN flag set <em>MUST</em>
    be ignored.
 
 <span class="h4"><a class="selflink" name="section-4.1.2" href="#section-4.1.2">4.1.2</a>.  Server Cookie Handling</span>
 
    The server is in charge of cookie generation and authentication.  The
-   cookie SHOULD be a MAC tag with the following properties.  We use
-   "SHOULD" because, in some cases, the cookie may be trivially
+   cookie <em>SHOULD</em> be a MAC tag with the following properties.  We use
+   "<em>SHOULD</em>" because, in some cases, the cookie may be trivially
    generated as discussed in <a href="#section-7.3">Section 7.3</a>.
 
    1. The cookie authenticates the client's (source) IP address of the
@@ -680,7 +680,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.1.3" href="#section-4.1.3">4.1.3</a>.  Client Cookie Handling</span>
 
-   The client MUST cache cookies from servers for later Fast Open
+   The client <em>MUST</em> cache cookies from servers for later Fast Open
    connections.  For a multihomed client, the cookies are dependent on
    the client and server IP addresses.  Hence, the client should cache
    at most one (most recently received) cookie per client and server IP
@@ -717,12 +717,12 @@ Table of Contents
    may cause problems that offset the performance benefit of Fast Open.
    For example, the unusually large SYN may trigger IP fragmentation and
    may confuse firewalls or middleboxes, causing SYN retransmission and
-   other side effects.  Therefore, the client MAY limit the cached MSS
+   other side effects.  Therefore, the client <em>MAY</em> limit the cached MSS
    to 1460 bytes for IPv4 or 1440 for IPv6.
 
 <span class="h5"><a class="selflink" name="section-4.1.3.1" href="#section-4.1.3.1">4.1.3.1</a>.  Client Caching Negative Responses</span>
 
-   The client MUST cache negative responses from the server in order to
+   The client <em>MUST</em> cache negative responses from the server in order to
    avoid potential connection failures.  Negative responses include the
    server not acknowledging the data in the SYN, ICMP error messages,
    and (most importantly) no response (SYN-ACK) from the server at all,
@@ -733,7 +733,7 @@ Table of Contents
    Fast Open, the client may never be able to connect to the specific
    server.
 
-   For any negative responses, the client SHOULD disable Fast Open on
+   For any negative responses, the client <em>SHOULD</em> disable Fast Open on
    the specific path (the source and destination IP addresses and ports)
    at least temporarily.  Since TFO is enabled on a per-service-port
    basis, but cookies are independent of service ports, the client's
@@ -764,14 +764,14 @@ Table of Contents
    The server keeps two variables per listening socket (IP address and
    port):
 
-   FastOpenEnabled: default is off.  It MUST be turned on explicitly by
+   FastOpenEnabled: default is off.  It <em>MUST</em> be turned on explicitly by
       the application.  When this flag is off, the server does not
-      perform any TFO-related operations and MUST ignore all cookie
+      perform any TFO-related operations and <em>MUST</em> ignore all cookie
       options.
 
    PendingFastOpenRequests: tracks the number of TFO connections in SYN-
       RCVD state.  If this variable goes over a preset system limit, the
-      server MUST disable TFO for all new connection requests until
+      server <em>MUST</em> disable TFO for all new connection requests until
       PendingFastOpenRequests drops below the system limit.  This
       variable is used for defending some vulnerabilities discussed in
       the "Security Considerations" section (<a href="#section-5">Section 5</a>).
@@ -781,7 +781,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  Fast Open Cookie Request</span>
 
-   Any client attempting TFO MUST first request a cookie from the server
+   Any client attempting TFO <em>MUST</em> first request a cookie from the server
    with the following steps:
 
    1. The client sends a SYN packet with a Fast Open option with a
@@ -796,7 +796,7 @@ Table of Contents
       replaces the cookie and other information as described in the
       "Client Cookie Handling" section (<a href="#section-4.1.3">Section 4.1.3</a>).  Otherwise, if
       the SYN-ACK is first seen and not a (spurious) retransmission, the
-      client MAY remove the server information from the cookie cache.
+      client <em>MAY</em> remove the server information from the cookie cache.
       If the SYN-ACK is a spurious retransmission, the client does
       nothing to the cookie cache for the reasons below.
 
@@ -832,7 +832,7 @@ Table of Contents
 
    Client: Sending SYN
 
-   To open a TFO connection, the client MUST have obtained a cookie from
+   To open a TFO connection, the client <em>MUST</em> have obtained a cookie from
    the server:
 
    1. Send a SYN packet.
@@ -848,7 +848,7 @@ Table of Contents
       accordingly.
 
    To deal with network or servers dropping SYN packets with payload or
-   unknown options, when the SYN timer fires, the client SHOULD
+   unknown options, when the SYN timer fires, the client <em>SHOULD</em>
    retransmit a SYN packet without data and Fast Open options.
 
    Server: Receiving SYN and responding with SYN-ACK
@@ -873,20 +873,20 @@ Table of Contents
    4. Buffer the data and notify the application.  Set the FastOpened
       flag and increment PendingFastOpenRequests.
 
-   5. Send the SYN-ACK packet.  The packet MAY include a Fast Open
+   5. Send the SYN-ACK packet.  The packet <em>MAY</em> include a Fast Open
       option.  If the FastOpened flag is set, the packet acknowledges
       the SYN and data sequence.  Otherwise, it acknowledges only the
-      SYN sequence.  The server MAY include data in the SYN-ACK packet
+      SYN sequence.  The server <em>MAY</em> include data in the SYN-ACK packet
       if the response data is readily available.  Some applications may
       favor delaying the SYN-ACK, allowing the application to process
       the request in order to produce a response, but this is left up to
       the implementation.
 
    6. Advance to the SYN-RCVD state.  If the FastOpened flag is set, the
-      server MUST follow [<a href="./rfc5681.html" title="&quot;TCP Congestion Control&quot;">RFC5681</a>] (based on [<a href="./rfc3390.html" title="&quot;Increasing TCP's Initial Window&quot;">RFC3390</a>]) to set the
+      server <em>MUST</em> follow [<a href="./rfc5681.html" title="&quot;TCP Congestion Control&quot;">RFC5681</a>] (based on [<a href="./rfc3390.html" title="&quot;Increasing TCP's Initial Window&quot;">RFC3390</a>]) to set the
       initial congestion window for sending more data packets.
 
-   If the SYN-ACK timer fires, the server SHOULD retransmit a SYN-ACK
+   If the SYN-ACK timer fires, the server <em>SHOULD</em> retransmit a SYN-ACK
    segment with neither data nor Fast Open options for compatibility
    reasons.
 
@@ -899,7 +899,7 @@ Table of Contents
 
    Client: Receiving SYN-ACK
 
-   The client SHOULD perform the following steps upon receiving the SYN-
+   The client <em>SHOULD</em> perform the following steps upon receiving the SYN-
    ACK:
 
    1. If the SYN-ACK has a Fast Open option, an MSS option, or both,
@@ -912,7 +912,7 @@ Table of Contents
    3. Advance to the ESTABLISHED state.
 
    Note there is no latency penalty if the server does not acknowledge
-   the data in the original SYN packet.  The client SHOULD retransmit
+   the data in the original SYN packet.  The client <em>SHOULD</em> retransmit
    any unacknowledged data in the first ACK packet in step 2.  The data
    exchange will start after the handshake like a regular TCP
    connection.
@@ -1113,9 +1113,9 @@ Table of Contents
    SYN data packet is duplicated and also the duplicate arrives after
    the receiver has cleared the original SYN's connection state, the
    replay is thought to be uncommon in practice.  Nevertheless, a client
-   that cannot handle receiving the same SYN data more than once MUST
+   that cannot handle receiving the same SYN data more than once <em>MUST</em>
    NOT enable TFO to send data in a SYN.  Similarly, a server that
-   cannot accept receiving the same SYN data more than once MUST NOT
+   cannot accept receiving the same SYN data more than once <em>MUST NOT</em>
    enable TFO to receive data in a SYN.  Further investigation is needed
    to judge the probability of receiving duplicated SYN or SYN-ACK
    packets with data in networks that are not Tier 1.
@@ -1130,7 +1130,7 @@ Table of Contents
    application data unit once the rest of it is delivered after the
    initial handshake, diminishing TFO's benefit.
 
-   To the extent possible, applications SHOULD reuse the connection to
+   To the extent possible, applications <em>SHOULD</em> reuse the connection to
    take advantage of TCP's built-in congestion control and reduce
    connection setup overhead.  An application that employs too many
    short-lived connections will negatively impact network stability, as
@@ -1378,11 +1378,11 @@ Table of Contents
    registry.  See <a href="#section-4.1.1">Section 4.1.1</a>.  The length of this new TCP option is
    variable, and the Meaning as shown in the "TCP Option Kind Numbers"
    registry is set to "TCP Fast Open Cookie".  Current and new
-   implementations SHOULD use option (34).  Existing implementations
+   implementations <em>SHOULD</em> use option (34).  Existing implementations
    that are using experimental option 254 per [<a href="./rfc6994.html" title="&quot;Shared Use of Experimental TCP Options&quot;">RFC6994</a>] with magic
    number 0xF989 (16 bits) as allocated in the IANA "TCP Experimental
    Option Experiment Identifiers (TCP ExIDs)" registry by this document,
-   SHOULD migrate to use this new option (34) by default.
+   <em>SHOULD</em> migrate to use this new option (34) by default.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  References</span>
 

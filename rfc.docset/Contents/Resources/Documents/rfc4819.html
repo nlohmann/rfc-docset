@@ -342,13 +342,13 @@ Table of Contents
 
    This protocol requires that the user be able to authenticate in some
    fashion before it can be used.  If password authentication is used,
-   servers SHOULD provide a configuration option to disable the use of
+   servers <em>SHOULD</em> provide a configuration option to disable the use of
    password authentication after the first public key is added.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-5" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">5</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Public Key Subsystem Overview</span>
@@ -392,19 +392,19 @@ Table of Contents
         boolean   want reply
         string    "publickey"
 
-   Client implementations SHOULD reject this request; it is normally
+   Client implementations <em>SHOULD</em> reject this request; it is normally
    sent only by the client.
 
-   If want reply is TRUE, the server MUST respond with
+   If want reply is TRUE, the server <em>MUST</em> respond with
    SSH_MSG_CHANNEL_SUCCESS if the Public Key Subsystem was successfully
    started, or SSH_MSG_CHANNEL_FAILURE if the server failed to start or
    does not support the Public Key Subsystem.
 
-   The server SHOULD respond with SSH_MSG_CHANNEL_FAILURE if the user is
+   The server <em>SHOULD</em> respond with SSH_MSG_CHANNEL_FAILURE if the user is
    not allowed access to the Public Key Subsystem (for example, because
    the user authenticated with a restricted public key).
 
-   It is RECOMMENDED that clients request and check the reply for this
+   It is <em>RECOMMENDED</em> that clients request and check the reply for this
    request.
 
 
@@ -432,7 +432,7 @@ Table of Contents
 
    The length field describes the length of the name field and of the
    request/response-specific data, but does not include the length of
-   the length field itself.  The client MUST receive acknowledgement of
+   the length field itself.  The client <em>MUST</em> receive acknowledgement of
    each request prior to sending a new request.
 
    The version packet, as well as all requests and responses described
@@ -450,8 +450,8 @@ Table of Contents
         string    description [<a href="#ref-7" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">7</a>]
         string    language tag [<a href="#ref-6" title="&quot;Tags for Identifying Languages&quot;">6</a>]
 
-   A status message MUST be sent for any unrecognized packets, and the
-   request SHOULD NOT close the subsystem.
+   A status message <em>MUST</em> be sent for any unrecognized packets, and the
+   request <em>SHOULD NOT</em> close the subsystem.
 
 <span class="h4"><a class="selflink" name="section-3.3.1" href="#section-3.3.1">3.3.1</a>.  Status Codes</span>
 
@@ -477,13 +477,13 @@ Table of Contents
 <span class="grey"><a href="./rfc4819.html">RFC 4819</a>           Secure Shell Public Key Subsystem          March 2007</span>
 
 
-   If a request completed successfully, the server MUST send the status
+   If a request completed successfully, the server <em>MUST</em> send the status
    code SSH_PUBLICKEY_SUCCESS.  The meaning of the failure codes is as
    implied by their names.
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  The Version Packet</span>
 
-   Both sides MUST start a connection by sending a version packet that
+   Both sides <em>MUST</em> start a connection by sending a version packet that
    indicates the version of the protocol they are using.
 
         string "version"
@@ -499,16 +499,16 @@ Table of Contents
    subsystem and notify the other side by sending an
    SSH_MSG_CHANNEL_CLOSE message.  Before closing the subsystem, a
    status message with the status SSH_PUBLICKEY_VERSION_NOT_SUPPORTED
-   SHOULD be sent.  Note that, normally, status messages are only sent
+   <em>SHOULD</em> be sent.  Note that, normally, status messages are only sent
    by the server (in response to requests from the client).  This is the
    only occasion on which the client sends a status message.
 
-   Both sides MUST wait to receive this version before continuing.  The
-   "version" packet MUST NOT be sent again after this initial exchange.
+   Both sides <em>MUST</em> wait to receive this version before continuing.  The
+   "version" packet <em>MUST NOT</em> be sent again after this initial exchange.
    The SSH_PUBLICKEY_VERSION_NOT_SUPPORTED status code must not be sent
    in response to any other request.
 
-   Implementations MAY use the first 15 bytes of the version packet as a
+   Implementations <em>MAY</em> use the first 15 bytes of the version packet as a
    "magic cookie" to avoid processing spurious output from the user's
    shell (as described in Section 6.5 of [<a href="#ref-4" title="&quot;The Secure Shell (SSH) Connection Protocol&quot;">4</a>]).  These bytes will always
    be:
@@ -552,19 +552,19 @@ Table of Contents
          bool      critical
         repeated attribute-count times
 
-   The server MUST attempt to store the public key for the user in the
+   The server <em>MUST</em> attempt to store the public key for the user in the
    appropriate location so the public key can be used for subsequent
    public key authentications.  If the overwrite field is false and the
-   specified key already exists, the server MUST return
+   specified key already exists, the server <em>MUST</em> return
    SSH_PUBLICKEY_KEY_ALREADY_PRESENT.  If the server returns this, the
-   client SHOULD provide an option to the user to overwrite the key.  If
+   client <em>SHOULD</em> provide an option to the user to overwrite the key.  If
    the overwrite field is true and the specified key already exists, but
-   cannot be overwritten, the server MUST return
+   cannot be overwritten, the server <em>MUST</em> return
    SSH_PUBLICKEY_ACCESS_DENIED.
 
    Attribute names are defined following the same scheme laid out for
    algorithm names in [<a href="#ref-1" title="&quot;The Secure Shell (SSH) Protocol Architecture&quot;">1</a>].  If the server does not implement a critical
-   attribute, it MUST fail the add, with the status code
+   attribute, it <em>MUST</em> fail the add, with the status code
    SSH_PUBLICKEY_ATTRIBUTE_NOT_SUPPORTED.  For the purposes of a
    critical attribute, mere storage of the attribute is not sufficient
    -- rather, the server must understand and implement the intent of the
@@ -575,9 +575,9 @@ Table of Contents
    "comment"
 
    The value of the comment attribute contains user-specified text about
-   the public key.  The server SHOULD make every effort to preserve this
+   the public key.  The server <em>SHOULD</em> make every effort to preserve this
    value and return it with the key during any subsequent list
-   operation.  The server MUST NOT attempt to interpret or act upon the
+   operation.  The server <em>MUST NOT</em> attempt to interpret or act upon the
    content of the comment field in any way.  The comment attribute must
    be specified in UTF-8 format [<a href="#ref-7" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">7</a>].
 
@@ -590,17 +590,17 @@ Table of Contents
 
 
    The comment field is useful so the user can identify the key without
-   resorting to comparing its fingerprint.  This attribute SHOULD NOT be
+   resorting to comparing its fingerprint.  This attribute <em>SHOULD NOT</em> be
    critical.
 
    "comment-language"
 
-   If this attribute is specified, it MUST immediately follow a
+   If this attribute is specified, it <em>MUST</em> immediately follow a
    "comment" attribute and specify the language for that attribute [<a href="#ref-6" title="&quot;Tags for Identifying Languages&quot;">6</a>].
-   The client MAY specify more than one comment if it additionally
+   The client <em>MAY</em> specify more than one comment if it additionally
    specifies a different language for each of those comments.  The
-   server SHOULD attempt to store each comment with its language
-   attribute.  This attribute SHOULD NOT be critical.
+   server <em>SHOULD</em> attempt to store each comment with its language
+   attribute.  This attribute <em>SHOULD NOT</em> be critical.
 
    "command-override"
 
@@ -612,13 +612,13 @@ Table of Contents
    and "shell" requests should be denied.  If no "command-override"
    attribute is specified, all "exec" and "shell" requests should be
    permitted (as long as they satisfy other security or authorization
-   checks the server may perform).  This attribute SHOULD be critical.
+   checks the server may perform).  This attribute <em>SHOULD</em> be critical.
 
    "subsystem"
 
    "subsystem" specifies a comma-separated list of subsystems that may
    be started (using a "subsystem" request) when this key is in use.
-   This attribute SHOULD be critical.  If the value is empty, no
+   This attribute <em>SHOULD</em> be critical.  If the value is empty, no
    subsystems may be started.  If the "subsystem" attribute is not
    specified, no restrictions are placed on which subsystems may be
    started when authenticated using this key.
@@ -626,14 +626,14 @@ Table of Contents
    "x11"
 
    "x11" specifies that X11 forwarding may not be performed when this
-   key is in use.  The attribute-value field SHOULD be empty for this
-   attribute.  This attribute SHOULD be critical.
+   key is in use.  The attribute-value field <em>SHOULD</em> be empty for this
+   attribute.  This attribute <em>SHOULD</em> be critical.
 
    "shell"
 
    "shell" specifies that session channel "shell" requests should be
-   denied when this key is in use.  The attribute-value field SHOULD be
-   empty for this attribute.  This attribute SHOULD be critical.
+   denied when this key is in use.  The attribute-value field <em>SHOULD</em> be
+   empty for this attribute.  This attribute <em>SHOULD</em> be critical.
 
 
 
@@ -648,28 +648,28 @@ Table of Contents
    "exec"
 
    "exec" specifies that session channel "exec" requests should be
-   denied when this key is in use.  The attribute-value field SHOULD be
-   empty for this attribute.  This attribute SHOULD be critical.
+   denied when this key is in use.  The attribute-value field <em>SHOULD</em> be
+   empty for this attribute.  This attribute <em>SHOULD</em> be critical.
 
    "agent"
 
    "agent" specifies that session channel "auth-agent-req" requests
    should be denied when this key is in use.  The attribute-value field
-   SHOULD be empty for this attribute.  This attribute SHOULD be
+   <em>SHOULD</em> be empty for this attribute.  This attribute <em>SHOULD</em> be
    critical.
 
    "env"
 
    "env" specifies that session channel "env" requests should be denied
-   when this key is in use.  The attribute-value field SHOULD be empty
-   for this attribute.  This attribute SHOULD be critical.
+   when this key is in use.  The attribute-value field <em>SHOULD</em> be empty
+   for this attribute.  This attribute <em>SHOULD</em> be critical.
 
    "from"
 
    "from" specifies a comma-separated list of hosts from which the key
    may be used.  If a host not in this list attempts to use this key for
-   authorization purposes, the authorization attempt MUST be denied.
-   The server SHOULD make a log entry regarding this.  The server MAY
+   authorization purposes, the authorization attempt <em>MUST</em> be denied.
+   The server <em>SHOULD</em> make a log entry regarding this.  The server <em>MAY</em>
    provide a method for administrators to disallow the appearance of a
    host in this list.  The server should use whatever method is
    appropriate for its platform to identify the host -- e.g., for IP-
@@ -684,7 +684,7 @@ Table of Contents
    accepted, except those to hosts specified in the comma-separated list
    supplied as a value to this attribute.  If the value of this
    attribute is empty, all "direct-tcpip" requests should be refused
-   when using this key.  This attribute SHOULD be critical.
+   when using this key.  This attribute <em>SHOULD</em> be critical.
 
    "reverse-forward"
 
@@ -692,7 +692,7 @@ Table of Contents
    be accepted, except for the port numbers in the comma-separated list
    supplied as a value to this attribute.  If the value of this
    attribute is empty, all "tcpip-forward" requests should be refused
-   when using this key.  This attribute SHOULD be critical.
+   when using this key.  This attribute <em>SHOULD</em> be critical.
 
 
 
@@ -701,7 +701,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4819.html">RFC 4819</a>           Secure Shell Public Key Subsystem          March 2007</span>
 
 
-   In addition to the attributes specified by the client, the server MAY
+   In addition to the attributes specified by the client, the server <em>MAY</em>
    provide a method for administrators to enforce certain attributes
    compulsorily.
 
@@ -713,7 +713,7 @@ Table of Contents
         string    public key algorithm name
         string    public key blob
 
-   The server MUST attempt to remove the public key for the user from
+   The server <em>MUST</em> attempt to remove the public key for the user from
    the appropriate location, so that the public key cannot be used for
    subsequent authentications.
 
@@ -738,10 +738,10 @@ Table of Contents
    some order, client implementations should not rely on responses being
    in any order.
 
-   Following the last "publickey" response, a status packet MUST be
+   Following the last "publickey" response, a status packet <em>MUST</em> be
    sent.
 
-   Implementations SHOULD support this request.
+   Implementations <em>SHOULD</em> support this request.
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Listing Server Capabilities</span>
 
@@ -767,7 +767,7 @@ Table of Contents
    compulsorily applied to any added keys (irrespective of whether the
    attribute has been specified by the client) due to administrative
    settings on the server.  If the server does not support
-   administrative settings of this nature, it MUST return false in the
+   administrative settings of this nature, it <em>MUST</em> return false in the
    compulsory field.  An example of use of the "compulsory" attribute
    would be a server with a configuration file specifying that the user
    is not permitted shell access.  Given this, the server would return
@@ -776,10 +776,10 @@ Table of Contents
    key, the server would also apply the "shell" attribute, rendering it
    impossible for the user to use a shell.
 
-   Following the last "attribute" response, a status packet MUST be
+   Following the last "attribute" response, a status packet <em>MUST</em> be
    sent.
 
-   An implementation MAY choose not to support this request.
+   An implementation <em>MAY</em> choose not to support this request.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Security Considerations</span>
 
@@ -835,10 +835,10 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-6.2.1" href="#section-6.2.1">6.2.1</a>.  Conventions for Names</span>
 
-   All names registered by the IANA in the following sections MUST be
-   printable US-ASCII strings, and MUST NOT contain the characters
+   All names registered by the IANA in the following sections <em>MUST</em> be
+   printable US-ASCII strings, and <em>MUST NOT</em> contain the characters
    at-sign ("@"), comma (","), or whitespace or control characters
-   (ASCII codes 32 or less).  Names are case-sensitive, and MUST NOT be
+   (ASCII codes 32 or less).  Names are case-sensitive, and <em>MUST NOT</em> be
    longer than 64 characters.
 
    A provision is made here for locally extensible names.  The IANA will
@@ -846,12 +846,12 @@ Table of Contents
    Names with the at-sign in them will have the format of
    "name@domainname" (without the double quotes) where the part
    preceding the at-sign is the name.  The format of the part preceding
-   the at-sign is not specified; however, these names MUST be printable
-   US-ASCII strings, and MUST NOT contain the comma character (","), or
+   the at-sign is not specified; however, these names <em>MUST</em> be printable
+   US-ASCII strings, and <em>MUST NOT</em> contain the comma character (","), or
    whitespace, or control characters (ASCII codes 32 or less).  The part
-   following the at-sign MUST be a valid, fully qualified Internet
+   following the at-sign <em>MUST</em> be a valid, fully qualified Internet
    domain name [<a href="#ref-10" title="&quot;Domain names - concepts and facilities&quot;">10</a>] controlled by the person or organization defining
-   the name.  Names are case-sensitive, and MUST NOT be longer than 64
+   the name.  Names are case-sensitive, and <em>MUST NOT</em> be longer than 64
    characters.  It is up to each domain how it manages its local
    namespace.  It has been noted that these names resemble STD 11 [<a href="#ref-9" title="&quot;Standard for the format of ARPA Internet text messages&quot;">9</a>]
    email addresses.  This is purely coincidental and actually has
@@ -871,7 +871,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-6.2.2" href="#section-6.2.2">6.2.2</a>.  Future Assignments of Names</span>
 
-   Requests for assignments of new Names MUST be done through the IETF
+   Requests for assignments of new Names <em>MUST</em> be done through the IETF
    Consensus method as described in [<a href="#ref-11" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">11</a>].
 
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  Public Key Subsystem Request Names</span>
@@ -984,7 +984,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-6.6.3" href="#section-6.6.3">6.6.3</a>.  Future Assignments</span>
 
    Requests for assignments of new status codes in the range of 0 to 191
-   MUST be done through the Standards Action method as described in
+   <em>MUST</em> be done through the Standards Action method as described in
    [<a href="#ref-11" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">11</a>].
 
    The IANA will not control the status code range of 192 through 255.

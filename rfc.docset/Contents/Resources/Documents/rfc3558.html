@@ -277,8 +277,8 @@ Table of Contents
    scenario, based on network conditions, bandwidth availability, delay
    requirements, and packet-loss tolerance.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-3" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">3</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Background</span>
@@ -416,7 +416,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>. Interleaved/Bundled Packet Format</span>
 
    This format is used to send one or more vocoder frames per packet.
-   Interleaving or bundling MAY be used.  The RTP packet for this format
+   Interleaving or bundling <em>MAY</em> be used.  The RTP packet for this format
    is as follows:
 
     0                   1                   2                   3
@@ -449,7 +449,7 @@ Table of Contents
    The fields are specified as follows:
 
    Reserved (RR): 2 bits
-      Reserved bits.  MUST be set to zero by sender, SHOULD be ignored
+      Reserved bits.  <em>MUST</em> be set to zero by sender, <em>SHOULD</em> be ignored
       by receiver.
 
    Interleave Length (LLL): 3 bits
@@ -470,10 +470,10 @@ Table of Contents
 
 
    Interleave Index (NNN): 3 bits
-      Indicates the index within an interleave group.  MUST have a value
+      Indicates the index within an interleave group.  <em>MUST</em> have a value
       less than or equal to the value of LLL.  Values of NNN greater
       than the value of LLL are invalid.  Packet with invalid NNN values
-      SHOULD be ignored by the receiver.
+      <em>SHOULD</em> be ignored by the receiver.
 
    Mode Request (MMM): 3 bits
       The Mode Request field is used to signal Mode Request information.
@@ -487,10 +487,10 @@ Table of Contents
 
    Padding (padding): 0 or 4 bits
       This padding ensures that codec data frames start on an octet
-      boundary.  When the frame count is odd, the sender MUST add 4 bits
+      boundary.  When the frame count is odd, the sender <em>MUST</em> add 4 bits
       of padding following the last TOC.  When the frame count is even,
-      the sender MUST NOT add padding bits.  If padding is present, the
-      padding bits MUST be set to zero by sender, and SHOULD be ignored
+      the sender <em>MUST NOT</em> add padding bits.  If padding is present, the
+      padding bits <em>MUST</em> be set to zero by sender, and <em>SHOULD</em> be ignored
       by receiver.
 
    The Table of Contents field (ToC) provides information on the codec
@@ -537,12 +537,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>. Determining the Format of Packets</span>
 
-   All receivers SHOULD be able to process both packet formats.  The
-   sender MAY choose to use one or both packet formats.
+   All receivers <em>SHOULD</em> be able to process both packet formats.  The
+   sender <em>MAY</em> choose to use one or both packet formats.
 
-   A receiver MUST have prior knowledge of the packet format to
+   A receiver <em>MUST</em> have prior knowledge of the packet format to
    correctly decode the RTP packets.  When packets of both formats are
-   used within the same session, different RTP payload type values MUST
+   used within the same session, different RTP payload type values <em>MUST</em>
    be used for each format to distinguish the packet formats.  The
    association of payload type number with the packet format is done
    out-of-band, for example by SDP during the setup of a session.
@@ -553,7 +553,7 @@ Table of Contents
 
    Each codec data frame in a Interleaved/Bundled packet has a
    corresponding Table of Contents (ToC) entry.  The ToC entry indicates
-   the rate of the codec frame.  (Header-Free packets MUST NOT have a
+   the rate of the codec frame.  (Header-Free packets <em>MUST NOT</em> have a
    ToC field.)
 
    Each ToC entry is occupies four bits.  The format of the bits is
@@ -591,12 +591,12 @@ Table of Contents
      2     1/4        5    (40 bits; not valid for EVRC)
      3     1/2       10    (80 bits)
      4     1         22    (171 bits; 5 padded at end with zeros)
-     5     Erasure    0    (SHOULD NOT be transmitted by sender)
+     5     Erasure    0    (<em>SHOULD NOT</em> be transmitted by sender)
 
-   All values not listed in the above table MUST be considered reserved.
-   A ToC entry with a reserved Frame Type value SHOULD be considered
+   All values not listed in the above table <em>MUST</em> be considered reserved.
+   A ToC entry with a reserved Frame Type value <em>SHOULD</em> be considered
    invalid.  Note that the EVRC codec does not have 1/4 rate frames,
-   thus frame type value 2 MUST be considered a reserved value when the
+   thus frame type value 2 <em>MUST</em> be considered a reserved value when the
    EVRC codec is in use.
 
    Other vocoders that use this packet format need to specify their own
@@ -604,7 +604,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>. Codec Data Frames</span>
 
-   The output of the vocoder MUST be converted into codec data frames
+   The output of the vocoder <em>MUST</em> be converted into codec data frames
    for inclusion in the RTP payload.  The conversions for EVRC and SMV
    codecs are specified below.  (Note: Because the EVRC codec does not
    have Rate 1/4 frames, the specifications of 1/4 frames does not apply
@@ -622,7 +622,7 @@ Table of Contents
    been placed in the codec data frame.
 
    The remaining unused bits of the last octet of the codec data frame
-   MUST be set to zero.  Note that in EVRC and SMV this is only
+   <em>MUST</em> be set to zero.  Note that in EVRC and SMV this is only
    applicable to Rate 1 frames (171 bits) as the Rate 1/2 (80 bits),
    Rate 1/4 (40 bits, SMV only) and Rate 1/8 frames (16 bits) fit
    exactly into a whole number of octets.
@@ -662,7 +662,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>. Interleaving Codec Data Frames</span>
 
-   As indicated in <a href="#section-4.1">Section 4.1</a>, more than one codec data frame MAY be
+   As indicated in <a href="#section-4.1">Section 4.1</a>, more than one codec data frame <em>MAY</em> be
    included in a single Interleaved/Bundled packet by a sender.  This is
    accomplished by interleaving or bundling.
 
@@ -682,8 +682,8 @@ Table of Contents
    can be viewed as a reduced case of interleaving) with reduced
    complexity.  The bundling case is discussed in detail in <a href="#section-7">Section 7</a>.
 
-   Senders MAY support interleaving and/or bundling.  All receivers that
-   support Interleave/Bundling packet format MUST support both
+   Senders <em>MAY</em> support interleaving and/or bundling.  All receivers that
+   support Interleave/Bundling packet format <em>MUST</em> support both
    interleaving and bundling.
 
 
@@ -717,24 +717,24 @@ Table of Contents
       total of B frames
 
    Within each interleave group, the RTP packets making up the
-   interleave group MUST be transmitted in value-increasing order of the
+   interleave group <em>MUST</em> be transmitted in value-increasing order of the
    NNN field.  While this does not guarantee reduced end-to-end delay on
    the receiving end, when packets are delivered in order by the
    underlying transport, delay will be reduced to the minimum possible.
 
-   Receivers MAY signal the maximum number of codec data frames (i.e.,
+   Receivers <em>MAY</em> signal the maximum number of codec data frames (i.e.,
    the maximum acceptable bundling value B) they can handle in a single
-   RTP packet using the OPTIONAL maxptime RTP mode parameter identified
+   RTP packet using the <em>OPTIONAL</em> maxptime RTP mode parameter identified
    in <a href="#section-12">Section 12</a>.
 
-   Receivers MAY signal the maximum interleave length (i.e., the maximum
+   Receivers <em>MAY</em> signal the maximum interleave length (i.e., the maximum
    acceptable LLL value in the Interleaving Octet) they will accept
-   using the OPTIONAL maxinterleave RTP mode parameter identified in
+   using the <em>OPTIONAL</em> maxinterleave RTP mode parameter identified in
    <a href="#section-12">Section 12</a>.
 
    The parameters maxptime and maxinterleave are exchanged at the
    initial setup of the session.  In one-to-one sessions, the sender
-   MUST respect these values set be the receiver, and MUST NOT
+   <em>MUST</em> respect these values set be the receiver, and <em>MUST NOT</em>
    interleave/bundle more packets than what the receiver signals that it
    can handle.  This ensures that the receiver can allocate a known
    amount of buffer space that will be sufficient for all
@@ -755,22 +755,22 @@ Table of Contents
 
    Additionally, senders have the following restrictions:
 
-   o  MUST NOT bundle more codec data frames in a single RTP packet than
+   o  <em>MUST NOT</em> bundle more codec data frames in a single RTP packet than
       indicated by maxptime (see <a href="#section-12">Section 12</a>) if it is signaled.
 
-   o  SHOULD NOT bundle more codec data frames in a single RTP packet
+   o  <em>SHOULD NOT</em> bundle more codec data frames in a single RTP packet
       than will fit in the MTU of the underlying network.
 
    o  Once beginning a session with a given maximum interleaving value
-      set by maxinterleave in <a href="#section-12">Section 12</a>, MUST NOT increase the
+      set by maxinterleave in <a href="#section-12">Section 12</a>, <em>MUST NOT</em> increase the
       interleaving value (LLL) to exceed the maximum interleaving value
       that is signaled.
 
-   o  MAY change the interleaving value, but MUST do so only between
+   o  <em>MAY</em> change the interleaving value, but <em>MUST</em> do so only between
       interleave groups.
 
-   o  Silence suppression MUST only be used between interleave groups.
-      A ToC with Frame Type 0 (Blank Frame, <a href="#section-5.1">Section 5.1</a>) MUST be used
+   o  Silence suppression <em>MUST</em> only be used between interleave groups.
+      A ToC with Frame Type 0 (Blank Frame, <a href="#section-5.1">Section 5.1</a>) <em>MUST</em> be used
       within interleaving groups if the codec outputs a blank frame.
       The M bit in the RTP header is not set for these blank frames, as
       the stream is continuous in time.  Because there is only one time
@@ -784,7 +784,7 @@ Table of Contents
    packets with sequence numbers from S-N mod 65536 to S-N+L mod 65536
    inclusive.  In other words, the interleave group always consists of
    L+1 RTP packets with sequential sequence numbers.  The bundling value
-   for all RTP packets in an interleave group MUST be the same.
+   for all RTP packets in an interleave group <em>MUST</em> be the same.
 
    The receiver determines the expected bundling value for all RTP
    packets in an interleave group by the number of codec data frames
@@ -819,10 +819,10 @@ Table of Contents
 
    Furthermore, the additional restrictions on senders are reduced to:
 
-   o  MUST NOT bundle more codec data frames in a single RTP packet than
+   o  <em>MUST NOT</em> bundle more codec data frames in a single RTP packet than
       indicated by maxptime (see <a href="#section-12">Section 12</a>) if it is signaled.
 
-   o  SHOULD NOT bundle more codec data frames in a single RTP packet
+   o  <em>SHOULD NOT</em> bundle more codec data frames in a single RTP packet
       than will fit in the MTU of the underlying network.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>. Handling Missing Codec Data Frames</span>
@@ -834,7 +834,7 @@ Table of Contents
    Using the information from packet sequence number, time stamp, and
    the M bit, the receiver can detect missing codec data frames from RTP
    packet loss and/or silence suppression, and generate corresponding
-   erasure frames.  Erasure frames MUST also be used in storage format
+   erasure frames.  Erasure frames <em>MUST</em> also be used in storage format
    to record missing frames.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>. Implementation Issues</span>
@@ -850,7 +850,7 @@ Table of Contents
    On the other hand, interleaving can greatly increase the end-to-end
    delay.  Where an interactive session is desired, either
    Interleaved/Bundled packet format with interleaving length (field
-   LLL) 0 or Header-Free packet format is RECOMMENDED.
+   LLL) 0 or Header-Free packet format is <em>RECOMMENDED</em>.
 
 
 
@@ -862,28 +862,28 @@ Table of Contents
 
 
    When end-to-end delay is not a primary concern, an interleaving
-   length (field LLL) of 4 or 5 is RECOMMENDED as it offers a reasonable
+   length (field LLL) of 4 or 5 is <em>RECOMMENDED</em> as it offers a reasonable
    compromise between robustness and latency.
 
 <span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>. Validation of Received Packets</span>
 
-   When receiving an RTP packet, the receiver SHOULD check the validity
+   When receiving an RTP packet, the receiver <em>SHOULD</em> check the validity
    of the ToC fields and match the length of the packet with what is
    indicated by the ToC fields.  If any invalidity or mismatch is
-   detected, it is RECOMMENDED to discard the received packet to avoid
+   detected, it is <em>RECOMMENDED</em> to discard the received packet to avoid
    potential severe degradation of the speech quality.  The discarded
    packet is treated following the same procedure as a lost packet, and
    the discarded data will be replaced with erasure frames.
 
    On receipt of an RTP packet with an invalid value of the LLL or NNN
-   fields, the RTP packet SHOULD be treated as lost by the receiver for
+   fields, the RTP packet <em>SHOULD</em> be treated as lost by the receiver for
    the purpose of generating erasure frames as described in <a href="#section-8">Section 8</a>.
 
    On receipt of an RTP packet in an interleave group with other than
-   the expected frame count value, the receiver MAY discard codec data
+   the expected frame count value, the receiver <em>MAY</em> discard codec data
    frames off the end of the RTP packet or add erasure codec data frames
    to the end of the packet in order to manufacture a substitute packet
-   with the expected bundling value.  The receiver MAY instead choose to
+   with the expected bundling value.  The receiver <em>MAY</em> instead choose to
    discard the whole interleave group.
 
 <span class="h3"><a class="selflink" name="section-9.3" href="#section-9.3">9.3</a>. Processing the Late Packets</span>
@@ -906,9 +906,9 @@ Table of Contents
 
    The Mode Request signal requests a particular encoding mode for the
    speech encoding in the reverse direction.  All implementations are
-   RECOMMENDED to honor the Mode Request signal.  The Mode Request
-   signal SHOULD only be used in one-to-one sessions.  In multi-party
-   sessions, any received Mode Request signals SHOULD be ignored.
+   <em>RECOMMENDED</em> to honor the Mode Request signal.  The Mode Request
+   signal <em>SHOULD</em> only be used in one-to-one sessions.  In multi-party
+   sessions, any received Mode Request signals <em>SHOULD</em> be ignored.
 
 
 
@@ -917,7 +917,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3558.html">RFC 3558</a>          RTP Payload Format for EVRC and SMV          July 2003</span>
 
 
-   In addition, the Mode Request signal MAY also be sent through non-RTP
+   In addition, the Mode Request signal <em>MAY</em> also be sent through non-RTP
    means, which is out of the scope of this specification.
 
    The three-bit Mode Request field is used to signal the receiver to
@@ -926,23 +926,23 @@ Table of Contents
    node B, it is a request for node B to change to the requested
    encoding mode for its audio encoder and therefore the bit rate of the
    RTP stream from node B to node A.  Once a node sets this field to a
-   value, it SHOULD continue to set the field to the same value in
+   value, it <em>SHOULD</em> continue to set the field to the same value in
    subsequent packets until the requested mode is different.  This
    design helps to eliminate the scenario of getting the codec stuck in
    an unintended state if one of the packets that carries the Mode
-   Request is lost.  An otherwise silent node MAY send an RTP packet
+   Request is lost.  An otherwise silent node <em>MAY</em> send an RTP packet
    containing a blank frame in order to send a Mode Request.
 
-   Each codec type using this format SHOULD define its own
-   interpretation of the Mode Request field.  Codecs SHOULD follow the
+   Each codec type using this format <em>SHOULD</em> define its own
+   interpretation of the Mode Request field.  Codecs <em>SHOULD</em> follow the
    convention that higher values of the three-bit field correspond to an
    equal or lower average output bit rate.
 
-   For the EVRC codec, the Mode Request field MUST be interpreted
+   For the EVRC codec, the Mode Request field <em>MUST</em> be interpreted
    according to Tables 2.2.1.2-1 and 2.2.1.2-2 of the EVRC codec
    specifications [<a href="#ref-1" title="&quot;Enhanced Variable Rate Codec, Speech Service Option 3 for Wideband Spread Spectrum Digital Systems&quot;">1</a>].
 
-   For SMV codec, the Mode Request field MUST be interpreted according
+   For SMV codec, the Mode Request field <em>MUST</em> be interpreted according
    to Table 2.2-2 of the SMV codec specifications [<a href="#ref-2" title="&quot;Selectable Mode Vocoder, Service Option for Wideband Spread Spectrum Communication Systems&quot;">2</a>].
 
 <span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  Storage Format</span>
@@ -962,7 +962,7 @@ Table of Contents
    most significant bits of the octet to zero.  For example, a ToC value
    of 4 (a full-rate frame) is stored as 0x04.
 
-   Speech frames lost in transmission and non-received frames MUST be
+   Speech frames lost in transmission and non-received frames <em>MUST</em> be
    stored as erasure frames (frame type 5, see definition in <a href="#section-5.1">Section</a>
    <a href="#section-5.1">5.1</a>) to maintain synchronization with the original media.
 
@@ -996,16 +996,16 @@ Table of Contents
       ptime:    Defined as usual for RTP audio (see <a href="./rfc2327.html">RFC 2327</a>).
 
       maxptime: The maximum amount of media which can be encapsulated in
-         each packet, expressed as time in milliseconds.  The time SHALL
+         each packet, expressed as time in milliseconds.  The time <em>SHALL</em>
          be calculated as the sum of the time the media present in the
-         packet represents.  The time SHOULD be a multiple of the
+         packet represents.  The time <em>SHOULD</em> be a multiple of the
          duration of a single codec data frame (20 msec).  If not
-         signaled, the default maxptime value SHALL be 200 milliseconds.
+         signaled, the default maxptime value <em>SHALL</em> be 200 milliseconds.
 
       maxinterleave: Maximum number for interleaving length (field LLL
          in the Interleaving Octet).  The interleaving lengths used in
-         the entire session MUST NOT exceed this maximum value.  If not
-         signaled, the maxinterleave length SHALL be 5.
+         the entire session <em>MUST NOT</em> exceed this maximum value.  If not
+         signaled, the maxinterleave length <em>SHALL</em> be 5.
 
    Encoding considerations:
       This type is defined for transfer of EVRC-encoded data via RTP
@@ -1109,16 +1109,16 @@ Table of Contents
 
       maxptime: The maximum amount of media which can be encapsulated
          in each packet, expressed as time in milliseconds.  The time
-         SHALL be calculated as the sum of the time the media present
-         in the packet represents.  The time SHOULD be a multiple of the
+         <em>SHALL</em> be calculated as the sum of the time the media present
+         in the packet represents.  The time <em>SHOULD</em> be a multiple of the
          duration of a single codec data frame (20 msec).  If not
-         signaled, the default maxptime value SHALL be 200
+         signaled, the default maxptime value <em>SHALL</em> be 200
          milliseconds.
 
       maxinterleave: Maximum number for interleaving length (field LLL
          in the Interleaving Octet).  The interleaving lengths used in
-         the entire session MUST NOT exceed this maximum value.  If not
-         signaled, the maxinterleave length SHALL be 5.
+         the entire session <em>MUST NOT</em> exceed this maximum value.  If not
+         signaled, the maxinterleave length <em>SHALL</em> be 5.
 
    Encoding considerations:
       This type is defined for transfer of SMV-encoded data via RTP
@@ -1296,7 +1296,7 @@ Table of Contents
    very flexible and designed to be usable by other frame-based
    vocoders.
 
-   Additional vocoders using this format MUST have properties as
+   Additional vocoders using this format <em>MUST</em> have properties as
    described in <a href="#section-3.3">Section 3.3</a>.
 
 

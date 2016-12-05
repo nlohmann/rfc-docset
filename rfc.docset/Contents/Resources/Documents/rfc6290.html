@@ -328,14 +328,14 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The term "token" refers to an octet string that an implementation can
    generate using only the properties of a protected IKE message (such
    as IKE Security Parameter Indexes (SPIs)) as input.  A conforming
-   implementation MUST be able to generate the same token from the same
+   implementation <em>MUST</em> be able to generate the same token from the same
    input even after rebooting.
 
    The term "token maker" refers to an implementation that generates a
@@ -456,7 +456,7 @@ Table of Contents
    described in <a href="#section-5">Section 5</a>.  Implementations that send such a token will
    be called "token makers".
 
-   A supporting implementation receiving such a token MUST store it (or
+   A supporting implementation receiving such a token <em>MUST</em> store it (or
    a digest thereof) along with the IKE SA.  Implementations that
    support this part of the protocol will be called "token takers".
    <a href="#section-8.1">Section 8.1</a> has considerations for which implementations need to be
@@ -474,22 +474,22 @@ Table of Contents
 
 
    When a token maker receives a protected IKE request message with
-   unknown IKE SPIs, it SHOULD generate a new token that is identical to
+   unknown IKE SPIs, it <em>SHOULD</em> generate a new token that is identical to
    the previous token, and send it to the requesting peer in an
    unprotected IKE message as described in <a href="#section-4.5">Section 4.5</a>.
 
    When a token taker receives the QCD token in an unprotected
-   notification, it MUST verify that the TOKEN_SECRET_DATA matches the
+   notification, it <em>MUST</em> verify that the TOKEN_SECRET_DATA matches the
    token stored with the matching IKE SA.  If the verification fails, or
    if the IKE SPIs in the message do not match any existing IKE SA, it
-   SHOULD log the event.  If it succeeds, it MUST silently delete the
+   <em>SHOULD</em> log the event.  If it succeeds, it <em>MUST</em> silently delete the
    IKE SA associated with the IKE_SPI fields and all dependent child
-   SAs.  This event MAY also be logged.  The token taker MUST accept
+   SAs.  This event <em>MAY</em> also be logged.  The token taker <em>MUST</em> accept
    such tokens from any IP address and port combination, so as to allow
    different kinds of high-availability configurations of the token
    maker.
 
-   A supporting token taker MAY immediately create new SAs using an
+   A supporting token taker <em>MAY</em> immediately create new SAs using an
    Initial exchange, or it may wait for subsequent traffic to trigger
    the creation of new SAs.
 
@@ -514,10 +514,10 @@ Table of Contents
        !                                                               !
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   o  Protocol ID (1 octet) MUST be 1, as this message is related to an
+   o  Protocol ID (1 octet) <em>MUST</em> be 1, as this message is related to an
       IKE SA.
 
-   o  SPI Size (1 octet) MUST be zero, in conformance with <a href="./rfc5996.html#section-3.10">Section&nbsp;3.10
+   o  SPI Size (1 octet) <em>MUST</em> be zero, in conformance with <a href="./rfc5996.html#section-3.10">Section&nbsp;3.10
       of [RFC5996]</a>.
 
 
@@ -529,7 +529,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6290.html">RFC 6290</a>                  Quick Crash Detection                June 2011</span>
 
 
-   o  QCD Token Notify Message Type (2 octets) - MUST be 16419, the
+   o  QCD Token Notify Message Type (2 octets) - <em>MUST</em> be 16419, the
       value assigned for QCD token notifications.
 
    o  TOKEN_SECRET_DATA (variable) contains a generated token as
@@ -592,7 +592,7 @@ Table of Contents
    this method.  This may be acceptable if traffic typically originates
    from the other peer.
 
-   In any case, the lack of a QCD_TOKEN notification MUST NOT be taken
+   In any case, the lack of a QCD_TOKEN notification <em>MUST NOT</em> be taken
    as an indication that the peer does not support this standard.
    Conversely, if a peer does not understand this notification, it will
    simply ignore it.  Therefore, a peer may send this notification
@@ -617,7 +617,7 @@ Table of Contents
 
       response            &lt;-- SA, Nr, [KEr], N(QCD_TOKEN)
 
-   If the initiator is also a token maker, it SHOULD initiate an
+   If the initiator is also a token maker, it <em>SHOULD</em> initiate an
    INFORMATIONAL exchange immediately after the CREATE_CHILD_SA exchange
    as follows:
 
@@ -627,7 +627,7 @@ Table of Contents
 
    For session resumption, as specified in [<a href="./rfc5723.html" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2) Session Resumption&quot;">RFC5723</a>], the situation is
    similar.  The responder, which is necessarily the peer that has
-   crashed, SHOULD send a new ticket within the protected payload of the
+   crashed, <em>SHOULD</em> send a new ticket within the protected payload of the
    IKE_SESSION_RESUME exchange.  If the Initiator is also a token maker,
    it needs to send a QCD_TOKEN in a separate INFORMATIONAL exchange.
 
@@ -654,7 +654,7 @@ Table of Contents
    <a href="#section-5.2">Section 5.2</a>, a QCD token may sometimes become invalid, although the
    IKE SA is still perfectly valid.
 
-   In such a case, the token maker MUST send the new token in a
+   In such a case, the token maker <em>MUST</em> send the new token in a
    protected message under that IKE SA.  That exchange could be a simple
    INFORMATIONAL, such as in the last figure in the previous section, or
    else it can be part of a MOBIKE INFORMATIONAL exchange such as in the
@@ -676,9 +676,9 @@ Table of Contents
      (IP_I2:4500 -&gt; IP_R1:4500)
      HDR, SK { N(COOKIE2), [N(QCD_TOKEN)] }  --&gt;
 
-   A token taker MUST accept such gratuitous QCD_TOKEN notifications as
+   A token taker <em>MUST</em> accept such gratuitous QCD_TOKEN notifications as
    long as they are carried in protected exchanges.  A token maker
-   SHOULD NOT generate them unless it is no longer able to generate the
+   <em>SHOULD NOT</em> generate them unless it is no longer able to generate the
    old QCD_TOKEN.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  Presenting the Token in an Unprotected Message</span>
@@ -711,15 +711,15 @@ Table of Contents
    headers are taken from the protected IKE request.
 
    To support a periodic rollover of the secret used for token
-   generation, the token taker MUST support at least four QCD_TOKEN
+   generation, the token taker <em>MUST</em> support at least four QCD_TOKEN
    notifications in a single packet.  The token is considered verified
-   if any of the QCD_TOKEN notifications matches.  The token maker MAY
+   if any of the QCD_TOKEN notifications matches.  The token maker <em>MAY</em>
    generate up to four QCD_TOKEN notifications, based on several
    generations of keys.
 
-   If the QCD_TOKEN verifies OK, the receiver MUST silently discard the
+   If the QCD_TOKEN verifies OK, the receiver <em>MUST</em> silently discard the
    IKE SA and all associated child SAs.  If the QCD_TOKEN cannot be
-   validated, a response MUST NOT be sent, and the event may be logged.
+   validated, a response <em>MUST NOT</em> be sent, and the event may be logged.
    <a href="#section-5">Section 5</a> defines token verification.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Token Generation and Verification</span>
@@ -731,16 +731,16 @@ Table of Contents
    The following lists the requirements for a token generation
    mechanism:
 
-   o  Tokens MUST be at least 16 octets long, and no more than 128
+   o  Tokens <em>MUST</em> be at least 16 octets long, and no more than 128
       octets long, to facilitate storage and transmission.  Tokens
-      SHOULD be indistinguishable from random data.
+      <em>SHOULD</em> be indistinguishable from random data.
 
    o  It should not be possible for an external attacker to guess the
       QCD token generated by an implementation.  Cryptographic
       mechanisms such as a pseudo-random number generator (PRNG) and
-      hash functions are RECOMMENDED.
+      hash functions are <em>RECOMMENDED</em>.
 
-   o  The token maker MUST be able to re-generate or retrieve the token
+   o  The token maker <em>MUST</em> be able to re-generate or retrieve the token
       based on the IKE SPIs even after it reboots.
 
 
@@ -753,7 +753,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6290.html">RFC 6290</a>                  Quick Crash Detection                June 2011</span>
 
 
-   o  The method of token generation MUST be such that a collision of
+   o  The method of token generation <em>MUST</em> be such that a collision of
       QCD tokens between different pairs of IKE SPI will be highly
       unlikely.
 
@@ -763,7 +763,7 @@ Table of Contents
    between several addresses, and have their tokens replaced as
    described in <a href="#section-4.4">Section 4.4</a>.  To help avoid the case where the latest
    stored token does not match the address used after the maker lost
-   state, the token taker MAY store several earlier tokens associated
+   state, the token taker <em>MAY</em> store several earlier tokens associated
    with the IKE SA, and silently discard the SA if any of them matches.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  A Stateless Method of Token Generation</span>
@@ -779,7 +779,7 @@ Table of Contents
    o  Those 32 bytes, called the "QCD_SECRET", are stored in non-
       volatile storage on the machine, and kept indefinitely.
 
-   o  If key rollover is required by policy, the implementation MAY
+   o  If key rollover is required by policy, the implementation <em>MAY</em>
       periodically generate a new QCD_SECRET and keep up to 3 previous
       generations.  When sending an unprotected QCD_TOKEN, as many as 4
       notification payloads may be sent, each from a different
@@ -824,7 +824,7 @@ Table of Contents
    as packets sent to the token maker come out the same IP address.  If
    for some reason this changes, then the token maker can replace the
    token as described in <a href="#section-4.4">Section 4.4</a>.  If IKEv2 Mobility and Multihoming
-   (MOBIKE) is used, replacing the tokens SHOULD be piggybacked on the
+   (MOBIKE) is used, replacing the tokens <em>SHOULD</em> be piggybacked on the
    INFORMATIONAL exchange with the UPDATE_SA_ADDRESSES notifications.
 
    There is a corner case where the token taker begins using a new IP
@@ -836,7 +836,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Token Lifetime</span>
 
-   The token is associated with a single IKE SA and SHOULD be deleted by
+   The token is associated with a single IKE SA and <em>SHOULD</em> be deleted by
    the token taker when the SA is deleted or expires.  More formally,
    the token is associated with the pair (SPI-I, SPI-R).
 
@@ -850,7 +850,7 @@ Table of Contents
    synchronized state, but the rest of this section is relevant even
    when there is no synchronized state.
 
-   If such a configuration is available, it is RECOMMENDED that the
+   If such a configuration is available, it is <em>RECOMMENDED</em> that the
    standby gateway be able to generate the same token as the active
    gateway.  If the method described in <a href="#section-5.1">Section 5.1</a> is used, this means
    that the QCD_SECRET field is identical in both gateways.  This has
@@ -1001,19 +1001,19 @@ Table of Contents
       perform several roles.
 
    In order to limit the effects of Denial-of-Service (DoS) attacks, a
-   token taker SHOULD limit the rate of QCD_TOKENs verified from a
+   token taker <em>SHOULD</em> limit the rate of QCD_TOKENs verified from a
    particular source.
 
    If excessive amounts of IKE requests protected with unknown IKE SPIs
-   arrive at a token maker, the IKE module SHOULD revert to the behavior
+   arrive at a token maker, the IKE module <em>SHOULD</em> revert to the behavior
    described in <a href="./rfc5996.html#section-2.21">Section&nbsp;2.21 of [RFC5996]</a> and either send an
    INVALID_IKE_SPI notification or ignore it entirely.
 
    <a href="#section-9.2">Section 9.2</a> requires that token makers never send a QCD token in the
    clear for a valid IKE SA and describes some configurations where this
    could occur.  Implementations that may be installed in such
-   configurations SHOULD automatically detect this and disable this
-   extension in unsafe configurations and MUST allow the user to control
+   configurations <em>SHOULD</em> automatically detect this and disable this
+   extension in unsafe configurations and <em>MUST</em> allow the user to control
    whether the extension is enabled or disabled.
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Response to Unknown Child SPI</span>
@@ -1034,19 +1034,19 @@ Table of Contents
 
 
    To avoid this, an implementation that has access to enough non-
-   volatile storage MAY store a mapping of child SPIs to owning IKE
+   volatile storage <em>MAY</em> store a mapping of child SPIs to owning IKE
    SPIs, or to generated tokens.  If such a mapping is available and
-   persistent across reboots, the rebooted implementation SHOULD respond
+   persistent across reboots, the rebooted implementation <em>SHOULD</em> respond
    to the IPsec packet with an INVALID_SPI notification, along with the
-   appropriate QCD_TOKEN notifications.  A token taker SHOULD verify the
+   appropriate QCD_TOKEN notifications.  A token taker <em>SHOULD</em> verify the
    QCD token that arrives with an INVALID_SPI notification the same as
    if it arrived with the IKE SPIs of the parent IKE SA.
 
    However, a persistent storage module might not be updated in a timely
    manner and could be populated with tokens relating to IKE SPIs that
-   have already been rekeyed.  A token taker MUST NOT take an invalid
+   have already been rekeyed.  A token taker <em>MUST NOT</em> take an invalid
    QCD token sent along with an INVALID_SPI notification as evidence
-   that the peer is either malfunctioning or attacking, but it SHOULD
+   that the peer is either malfunctioning or attacking, but it <em>SHOULD</em>
    limit the rate at which such notifications are processed.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Security Considerations</span>
@@ -1067,7 +1067,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  QCD Token Generation and Handling</span>
 
-   Tokens MUST be hard to guess.  This is critical, because if an
+   Tokens <em>MUST</em> be hard to guess.  This is critical, because if an
    attacker can guess the token associated with an IKE SA, they can tear
    down the IKE SA and associated tunnels at will.  When the token is
    delivered in the IKE_AUTH exchange, it is encrypted.  When it is sent
@@ -1075,10 +1075,10 @@ Table of Contents
    time this token is ever used.
 
    An aggregation of some tokens generated by one maker together with
-   the related IKE SPIs MUST NOT give an attacker the ability to guess
+   the related IKE SPIs <em>MUST NOT</em> give an attacker the ability to guess
    other tokens.  Specifically, if one taker does not properly secure
    the QCD tokens and an attacker gains access to them, this attacker
-   MUST NOT be able to guess other tokens generated by the same maker.
+   <em>MUST NOT</em> be able to guess other tokens generated by the same maker.
    This is the reason that the QCD_SECRET in <a href="#section-5.1">Section 5.1</a> needs to be
    sufficiently long.
 
@@ -1089,10 +1089,10 @@ Table of Contents
 <span class="grey"><a href="./rfc6290.html">RFC 6290</a>                  Quick Crash Detection                June 2011</span>
 
 
-   The token taker MUST store the token in a secure manner.  No attacker
+   The token taker <em>MUST</em> store the token in a secure manner.  No attacker
    should be able to gain access to a stored token.
 
-   The QCD_SECRET MUST be protected from access by other parties.
+   The QCD_SECRET <em>MUST</em> be protected from access by other parties.
    Anyone gaining access to this value will be able to delete all the
    IKE SAs for this token maker.
 
@@ -1108,12 +1108,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  QCD Token Transmission</span>
 
-   A token maker MUST NOT send a valid QCD token in an unprotected
+   A token maker <em>MUST NOT</em> send a valid QCD token in an unprotected
    message for an existing IKE SA.
 
    This requirement is obvious and easy in the case of a single gateway.
    However, some implementations use a load balancer to divide the load
-   between several physical gateways.  It MUST NOT be possible even in
+   between several physical gateways.  It <em>MUST NOT</em> be possible even in
    such a configuration to trick one gateway into sending a valid QCD
    token for an IKE SA that is valid on another gateway.  This is true
    whether the attempt to trick the gateway uses the token taker's IP
@@ -1125,7 +1125,7 @@ Table of Contents
    another gateway may actually still own the SA's.  Load balancing
    configurations typically fall in this category.  In order for a load
    balancing configuration of IPsec gateways to support this
-   specification, all members MUST be able to tell whether a particular
+   specification, all members <em>MUST</em> be able to tell whether a particular
    IKE SA is active anywhere in the cluster.  One way to do this is to
    synchronize a list of active IKE SPIs among all the cluster members.
 
@@ -1165,7 +1165,7 @@ Table of Contents
       such a dictionary is impractical.  Even if we assume that one
       implementation always generates predictable IKE SPIs, the space is
       still at least 2^64 entries, so making the dictionary is extremely
-      hard.  To ensure this, token makers MUST generate unpredictable
+      hard.  To ensure this, token makers <em>MUST</em> generate unpredictable
       IKE SPIs by using a cryptographically strong pseudo-random number
       generator.
 
@@ -1268,7 +1268,7 @@ Table of Contents
    a new IKE SA with fewer rounds.
 
    The disadvantage here is that in IKEv2, an authentication exchange
-   MUST have a piggybacked Child SA set up.  Since our use-case is such
+   <em>MUST</em> have a piggybacked Child SA set up.  Since our use-case is such
    that the rebooted implementation does not have traffic flowing to the
    peer, there are no good selectors for such a Child SA.
 

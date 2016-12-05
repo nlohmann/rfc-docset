@@ -261,9 +261,9 @@ Abstract
 Specification of Requirements
 
    This document is for Informational purposes only.  If implementors
-   choose to experiment with the DB PHB, key words "MUST", "MUST NOT",
-   "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
-   "RECOMMENDED", "MAY", and "OPTIONAL" are interpreted as described in
+   choose to experiment with the DB PHB, key words "<em>MUST</em>", "<em>MUST NOT</em>",
+   "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>",
+   "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" are interpreted as described in
    <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-3" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">3</a>].
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a> Introduction</span>
@@ -320,33 +320,33 @@ Specification of Requirements
    DB PHB is a strict bound on the delay variation of packets through a
    hop.
 
-   Traffic MUST be policed and/or shaped at the source edge (for
+   Traffic <em>MUST</em> be policed and/or shaped at the source edge (for
    example, on ingress to the DS-domain as discussed in <a href="./rfc2475.html">RFC 2475</a> [<a href="#ref-5" title="&quot;An Architecture for Differentiated Services&quot;">5</a>]) in
    order to get such a bound.  However, specific policing and/or shaping
    rules are outside the scope of the DB PHB definition.  Such rules
-   MUST be defined in any per-domain behaviors (PDBs) composed from the
+   <em>MUST</em> be defined in any per-domain behaviors (PDBs) composed from the
    DB PHB.
 
    A device (hop) delivers DB behavior to appropriately marked traffic
    received on one or more interfaces (marking is specified in <a href="#section-2.4">section</a>
-   <a href="#section-2.4">2.4</a>).  A device SHALL deliver the DB behavior on an interface to DB
+   <a href="#section-2.4">2.4</a>).  A device <em>SHALL</em> deliver the DB behavior on an interface to DB
    marked traffic meeting (i.e. less than or equal) a certain arrival
    rate limit R.
 
    If more DB traffic arrives than is acceptable, the device is NOT
-   REQUIRED to deliver the DB behavior.  However, although the original
+   <em>REQUIRED</em> to deliver the DB behavior.  However, although the original
    source of DB traffic will be shaped, aggregation and upstream jitter
    ensure that the traffic arriving at any given hop cannot be assumed
-   to be so shaped.  Thus a DB implementation SHOULD have some tolerance
+   to be so shaped.  Thus a DB implementation <em>SHOULD</em> have some tolerance
    for burstiness - the ability to provide EF behavior even when the
    arrival rate exceeds the rate limit R.
 
    Different DB implementations are free to exhibit different tolerance
-   to burstiness.  (Burstiness MAY be characterized in terms of the
+   to burstiness.  (Burstiness <em>MAY</em> be characterized in terms of the
    number of back-to-back wire-rate packets to which the hop can deliver
    DB behavior.  However, since the goal of characterizing burstiness is
    to allow useful comparison of DB implementations, vendors and users
-   of DB implementations MAY choose to utilize other burstiness
+   of DB implementations <em>MAY</em> choose to utilize other burstiness
    metrics.)
 
    The DB PHB definition does NOT mandate or recommend any particular
@@ -409,11 +409,11 @@ Specification of Requirements
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a> Conformance to DB behavior</span>
 
    An implementation need not conform to the DB specification over an
-   arbitrary range of parameter values.  Instead, implementations MUST
+   arbitrary range of parameter values.  Instead, implementations <em>MUST</em>
    specify the rates, R, and scores S, for which they claim conformance
    with the DB definition in <a href="#section-2.2">section 2.2</a>, and the implementation-
    specific configuration parameters needed to deliver conformant
-   behavior.  An implementation SHOULD document the traffic burstiness
+   behavior.  An implementation <em>SHOULD</em> document the traffic burstiness
    it can tolerate while still providing DB behavior.
 
 
@@ -432,9 +432,9 @@ Specification of Requirements
    conditions under which it might do so, is outside the scope of this
    document.
 
-   The implementor MAY define additional constraints on the range of
+   The implementor <em>MAY</em> define additional constraints on the range of
    configurations in which DB behavior is delivered.  These constraints
-   MAY include limits on the total DB traffic across the device, or
+   <em>MAY</em> include limits on the total DB traffic across the device, or
    total DB traffic targeted at a given interface from all inputs.
 
    This document does not specify any requirements on DB
@@ -457,9 +457,9 @@ Specification of Requirements
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a> Mutability</span>
 
-   Packets marked for DB PHB MAY be remarked at a DS domain boundary
+   Packets marked for DB PHB <em>MAY</em> be remarked at a DS domain boundary
    only to other codepoints that satisfy the DB PHB.  Packets marked for
-   DB PHBs SHOULD NOT be demoted or promoted to another PHB by a DS
+   DB PHBs <em>SHOULD NOT</em> be demoted or promoted to another PHB by a DS
    domain.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> Tunneling</span>
@@ -542,7 +542,7 @@ Specification of Requirements
 
    If the DB PHB is implemented by a mechanism that allows unlimited
    preemption of other traffic (e.g., a priority queue), the
-   implementation MUST include some means to limit the damage DB traffic
+   implementation <em>MUST</em> include some means to limit the damage DB traffic
    could inflict on other traffic.  This will be reflected in the DB
    device's burst tolerance described in <a href="#section-2.1">section 2.1</a>.
 
@@ -597,21 +597,21 @@ Specification of Requirements
 Security Considerations
 
    To protect itself against denial of service attacks, the edge of a DS
-   domain MUST strictly police all DB marked packets to a rate
+   domain <em>MUST</em> strictly police all DB marked packets to a rate
    negotiated with the adjacent upstream domain (for example, some value
    less than or equal to the capped arrival rate R).  Packets in excess
-   of the negotiated rate MUST be dropped.  If two adjacent domains have
-   not negotiated an DB rate, the downstream domain MUST use 0 as the
+   of the negotiated rate <em>MUST</em> be dropped.  If two adjacent domains have
+   not negotiated an DB rate, the downstream domain <em>MUST</em> use 0 as the
    rate (i.e., drop all DB marked packets).
 
    Since PDBs constructed from the DB PHB will require that the upstream
    domain police and shape DB marked traffic to meet the rate negotiated
    with the downstream domain, the downstream domain's policer should
    never have to drop packets.  Thus these drops (or a summary of these
-   drops) SHOULD be noted (e.g., via rate-limited SNMP traps) as
+   drops) <em>SHOULD</em> be noted (e.g., via rate-limited SNMP traps) as
    possible security violations or serious misconfiguration.
 
-   Overflow events on an DB queue MAY also be logged as indicating
+   Overflow events on an DB queue <em>MAY</em> also be logged as indicating
    possible denial of service attacks or serious network
    misconfiguration.
 

@@ -279,8 +279,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  The Problem</span>
@@ -322,31 +322,31 @@ Table of Contents
    the inclusion of a TLV in its IIHs as described in this document.
 
    When sending an IIH on a BFD enabled interface, a router that
-   supports this extension MUST include the BFD-enabled TLV in its IIH.
-   The contents of the TLV MUST indicate what topologies/protocols
+   supports this extension <em>MUST</em> include the BFD-enabled TLV in its IIH.
+   The contents of the TLV <em>MUST</em> indicate what topologies/protocols
    [<a href="./rfc5120.html" title="&quot;M-ISIS: Multi Topology (MT) Routing in Intermediate System to Intermediate Systems (IS-ISs)&quot;">RFC5120</a>] have been enabled for BFD by including the appropriate
    Multi-Topology Identifier (MTID)/ Network Layer Protocol Identifier
    (NLPID) pairs.
 
    When sending an IIH on an interface on which BFD is NOT enabled, a
-   router MUST NOT include the BFD-enabled TLV.
+   router <em>MUST NOT</em> include the BFD-enabled TLV.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  State Definitions</span>
 
    The following definitions apply to each IS-IS neighbor:
 
    For each locally supported MTID/NLPID pair, an
-   "ISIS_TOPO_NLPID_BFD_REQUIRED" variable is assigned.  If BFD is
+   "ISIS_TOPO_NLPID_BFD_<em>REQUIRED</em>" variable is assigned.  If BFD is
    supported by both the local system and the neighbor of the MTID/
    NLPID, this variable is set to "TRUE".  Otherwise, the variable is
    set to "FALSE".
 
-   For each locally supported MTID, an "ISIS_TOPO_BFD_REQUIRED" variable
-   is set to the logical "OR" of all "ISIS_TOPO_NLPID_BFD_REQUIRED"
+   For each locally supported MTID, an "ISIS_TOPO_BFD_<em>REQUIRED</em>" variable
+   is set to the logical "OR" of all "ISIS_TOPO_NLPID_BFD_<em>REQUIRED</em>"
    variables associated with that MTID.
 
-   An "ISIS_BFD_REQUIRED" variable is set to the logical "AND" of all
-   "ISIS_TOPO_BFD_REQUIRED" variables.
+   An "ISIS_BFD_<em>REQUIRED</em>" variable is set to the logical "AND" of all
+   "ISIS_TOPO_BFD_<em>REQUIRED</em>" variables.
 
 
 
@@ -360,7 +360,7 @@ Table of Contents
 
    For each locally supported MTID/NLPID pair, an
    "ISIS_TOPO_NLPID_STATE" variable is assigned.  If
-   "ISIS_TOPO_NLPID_BFD_REQUIRED" is "TRUE", this variable follows the
+   "ISIS_TOPO_NLPID_BFD_<em>REQUIRED</em>" is "TRUE", this variable follows the
    BFD session state for that MTID/NLPID ("UP == TRUE").  Otherwise, the
    variable is set to "TRUE".
 
@@ -373,23 +373,23 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Adjacency Establishment and Maintenance</span>
 
-   Whenever "ISIS_BFD_REQUIRED" is "TRUE", the following extensions to
-   the rules for adjacency establishment and maintenance MUST apply:
+   Whenever "ISIS_BFD_<em>REQUIRED</em>" is "TRUE", the following extensions to
+   the rules for adjacency establishment and maintenance <em>MUST</em> apply:
 
-   o  "ISIS_NEIGHBOR_USEABLE" MUST be "TRUE" before the adjacency can
+   o  "ISIS_NEIGHBOR_USEABLE" <em>MUST</em> be "TRUE" before the adjacency can
       transition from "INIT" to "UP" state.
 
    o  When the IS-IS adjacency is "UP" and "ISIS_NEIGHBOR_USEABLE"
-      becomes "FALSE", the IS-IS adjacency MUST transition to "DOWN".
+      becomes "FALSE", the IS-IS adjacency <em>MUST</em> transition to "DOWN".
 
    o  On a Point-to-Point circuit whenever "ISIS_NEIGHBOR_USEABLE" is
-      "FALSE", the Three-Way adjacency state MUST be set to "DOWN" in
+      "FALSE", the Three-Way adjacency state <em>MUST</em> be set to "DOWN" in
       the Point-to-Point Three-Way Adjacency TLV [<a href="./rfc5303.html" title="&quot;Three-Way Handshake for IS-IS Point-to-Point Adjacencies&quot;">RFC5303</a>] in all
       transmitted IIHs.
 
    o  On a LAN circuit whenever "ISIS_NEIGHBOR_USEABLE" is "FALSE", the
       IS Neighbors TLV advertising the Media Access Control (MAC)
-      address of the neighbor MUST be omitted in all transmitted IIHs.
+      address of the neighbor <em>MUST</em> be omitted in all transmitted IIHs.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Advertisement of Topology-Specific IS Neighbors</span>
 
@@ -405,7 +405,7 @@ Table of Contents
    To allow for a non-disruptive transition to the use of BFD, some
    amount of time should be allowed before bringing down an "UP"
    adjacency on a BFD enabled interface when the value of
-   "ISIS_BFD_REQUIRED" becomes "TRUE" as a result of the introduction of
+   "ISIS_BFD_<em>REQUIRED</em>" becomes "TRUE" as a result of the introduction of
 
 
 
@@ -420,7 +420,7 @@ Table of Contents
    an IIH from a neighbor with whom we have an "UP" adjacency until
    "ISIS_NEIGHBOR_USEABLE" becomes "TRUE".
 
-   If the value of "ISIS_BFD_REQUIRED" becomes "FALSE" as a result of
+   If the value of "ISIS_BFD_<em>REQUIRED</em>" becomes "FALSE" as a result of
    the removal the BFD TLV or the modification (by removing a supported
    MTID/NLPID) of an existing BFD TLV in a neighbor's IIH, then BFD
    session establishment is no longer required to maintain the adjacency
@@ -428,9 +428,9 @@ Table of Contents
 
    If a BFD session is administratively shut down [<a href="./rfc5880.html" title="&quot;Bidirectional Forwarding Detection (BFD)&quot;">RFC5880</a>] and the BFD
    session state change impacts the value of "ISIS_NEIGHBOR_USEABLE",
-   then IS-IS SHOULD allow time for the corresponding MTID/NLPID to be
+   then IS-IS <em>SHOULD</em> allow time for the corresponding MTID/NLPID to be
    removed from the neighbor's BFD TLV by not updating the adjacency
-   hold time until "ISIS_BFD_REQUIRED" becomes "FALSE".  Note that while
+   hold time until "ISIS_BFD_<em>REQUIRED</em>" becomes "FALSE".  Note that while
    this allows a non-disruptive transition, it still enforces
    consistency between the administrative state of the BFD session and
    the MTID/NLPID(s) advertised in the BFD TLV.  This is necessary to
@@ -455,7 +455,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  The BFD-Enabled TLV</span>
 
-   The BFD-enabled TLV is formatted as shown below.  The TLV SHALL only
+   The BFD-enabled TLV is formatted as shown below.  The TLV <em>SHALL</em> only
    be included in an IIH and only when BFD is enabled for one or more
    supported MTID/protocols on the interface over which the IIH is being
    sent.  The NLPIDs encoded in the TLV are defined in [<a href="#ref-ISO9577" title="&quot;Protocol identification in the network layer(ISO/IEC 9577)&quot;">ISO9577</a>].

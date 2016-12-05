@@ -335,13 +335,13 @@ Table of Contents
    work the upstream recursive resolver has to perform.
 
    This EDNS0 extension is only intended to be sent by forwarding
-   resolvers to recursive resolvers.  It MUST be ignored by
+   resolvers to recursive resolvers.  It <em>MUST</em> be ignored by
    authoritative servers.
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -427,9 +427,9 @@ Table of Contents
    Section remains unchanged from a traditional DNS answer and contains
    the answer and related DNSSEC entries.
 
-   An empty CHAIN EDNS0 option MAY be sent over any transport as a
+   An empty CHAIN EDNS0 option <em>MAY</em> be sent over any transport as a
    discovery method.  A DNS server receiving such an empty CHAIN option
-   SHOULD add an empty CHAIN option in its answer to indicate that it
+   <em>SHOULD</em> add an empty CHAIN option in its answer to indicate that it
    supports the CHAIN option.
 
    The mechanisms provided by CHAIN raise various security concerns
@@ -483,7 +483,7 @@ Table of Contents
    willing to accept CHAIN queries over source IP verified transport
    respond to a zero-length CHAIN received by including a zero-length
    CHAIN option in the answer.  If not already using a source-IP-
-   verified transport, the forwarding resolver MAY then switch to a
+   verified transport, the forwarding resolver <em>MAY</em> then switch to a
    source-IP-verified transport and start sending queries with the CHAIN
    option to request a CHAIN response from the recursive resolver.
    Examples of source-IP-verified transports are the three-way TCP
@@ -509,11 +509,11 @@ Table of Contents
    contents.
 
    A forwarding resolver can request the CHAIN option with every
-   outgoing DNS query.  However, it is RECOMMENDED that forwarding
+   outgoing DNS query.  However, it is <em>RECOMMENDED</em> that forwarding
    resolvers remember which upstream recursive resolvers did not return
    the option (and additional data) with their response.  The forwarding
-   resolver SHOULD fall back to regular DNS for subsequent queries to
-   those recursive resolvers.  It MAY switch to another recursive
+   resolver <em>SHOULD</em> fall back to regular DNS for subsequent queries to
+   those recursive resolvers.  It <em>MAY</em> switch to another recursive
    resolver that does support the CHAIN option or try again later to see
    if the server has become less loaded and is now willing to answer
    with CHAIN queries.  A fallback strategy similar to that described in
@@ -525,22 +525,22 @@ Table of Contents
 <span class="grey"><a href="./rfc7901.html">RFC 7901</a>               CHAIN Query Requests in DNS             June 2016</span>
 
 
-   <a href="./rfc6891.html#section-6.2.2">[RFC6891], Section&nbsp;6.2.2</a> SHOULD be employed to avoid persistent
+   <a href="./rfc6891.html#section-6.2.2">[RFC6891], Section&nbsp;6.2.2</a> <em>SHOULD</em> be employed to avoid persistent
    interference due to non-clean paths.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Generate a Response</span>
 
    When a query containing a non-zero CHAIN option is received from a
    forwarding resolver, the upstream recursive resolver supporting CHAIN
-   MAY respond by confirming that it is returning a CHAIN.  To do so, it
-   MUST set the CHAIN option to the lowest trust point sent as part of
+   <em>MAY</em> respond by confirming that it is returning a CHAIN.  To do so, it
+   <em>MUST</em> set the CHAIN option to the lowest trust point sent as part of
    the chain, with its corresponding OPTION-LENGTH.  It extends the
    Authority Section in the DNS answer packet with the DNS RRsets
    required for validating the answer.  The added DNS RRsets start with
    the first chain element below the received closest trust point up to
    and including the NS and DS RRsets that represent the zone cut
-   (authoritative servers) of the QNAME.  The added RRsets MAY be added
-   in matching hierarchical order, but a DNS client MUST NOT depend on
+   (authoritative servers) of the QNAME.  The added RRsets <em>MAY</em> be added
+   in matching hierarchical order, but a DNS client <em>MUST NOT</em> depend on
    the order of the added RRsets for validation.  The actual DNS answer
    to the question in the Query Section is placed in the DNS Answer
    Section identical to the traditional DNS answer.  All required
@@ -551,11 +551,11 @@ Table of Contents
    Recursive resolvers that have not implemented or enabled support for
    the CHAIN option, or are otherwise unwilling to perform the
    additional work for a CHAIN query due to workload, may safely ignore
-   the option in the incoming queries.  Such a server MUST NOT include a
+   the option in the incoming queries.  Such a server <em>MUST NOT</em> include a
    CHAIN option when sending DNS answer replies back, thus indicating it
    is not able or willing to support CHAIN queries at this time.
 
-   Requests with wrongly formatted options (i.e., bogus FQDN) MUST be
+   Requests with wrongly formatted options (i.e., bogus FQDN) <em>MUST</em> be
    rejected; a FORMERR response must be returned to the sender, as
    described by [<a href="./rfc6891.html" title="&quot;Extension Mechanisms for DNS (EDNS(0))&quot;">RFC6891</a>].
 
@@ -570,8 +570,8 @@ Table of Contents
    regular DNS reply with an empty CHAIN payload.
 
    If a CHAIN answer would be bigger than the recursive resolver is
-   willing to serve, it SHOULD send a partial chain starting with the
-   data closest to the top of the chain.  The client MAY resend the
+   willing to serve, it <em>SHOULD</em> send a partial chain starting with the
+   data closest to the top of the chain.  The client <em>MAY</em> resend the
    query with an updated closest trust point until it has received the
 
 
@@ -585,19 +585,19 @@ Table of Contents
    point that was included in the CHAIN answer.
 
    If the DNS request results in a CNAME or DNAME for the Answer
-   Section, the recursive resolver MUST return these records in the
+   Section, the recursive resolver <em>MUST</em> return these records in the
    Answer Section similar to regular DNS processing.  The CNAME or DNAME
-   target MAY be placed in the Additional Section only if all supporting
+   target <em>MAY</em> be placed in the Additional Section only if all supporting
    records for DNSSEC validation of the CNAME or DNAME target are also
    added to the Authority Section.
 
-   The response from a recursive resolver to a resolver MUST NOT contain
+   The response from a recursive resolver to a resolver <em>MUST NOT</em> contain
    the CHAIN option if none was present in the resolver's original
    request.
 
-   A DNS query that contains the CHAIN option MUST also have the "DNSSEC
+   A DNS query that contains the CHAIN option <em>MUST</em> also have the "DNSSEC
    OK" (DO) bit set.  If this bit is not set, or if the "Checking
-   Disabled" (CD) bit is set, the CHAIN option received MUST be ignored.
+   Disabled" (CD) bit is set, the CHAIN option received <em>MUST</em> be ignored.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Protocol Considerations</span>
 
@@ -611,10 +611,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  NS Record Considerations</span>
 
-   CHAIN responses SHOULD include the authoritative NS RRset with its
-   RRSIG records required for validation.  It MUST NOT include the NS
+   CHAIN responses <em>SHOULD</em> include the authoritative NS RRset with its
+   RRSIG records required for validation.  It <em>MUST NOT</em> include the NS
    RRset from the parent zone, as this RRset is not signed.  If the size
-   of the answer is an important factor, the NS RRset MAY be omitted.
+   of the answer is an important factor, the NS RRset <em>MAY</em> be omitted.
 
    When a DNSSEC chain is supplied via CHAIN, the forwarding resolver is
    no longer required to use the NS RRset, as it can construct the
@@ -623,9 +623,9 @@ Table of Contents
    from forwarding resolver mode to recursive resolver mode due to a
    network topology change.  In recursive resolver mode, the NS RRsets
    are needed to find and query authoritative servers directly.  It is
-   RECOMMENDED that the DNS forwarding resolver populate its cache with
+   <em>RECOMMENDED</em> that the DNS forwarding resolver populate its cache with
    this information to avoid requiring future queries to obtain any
-   missing NS records.  Therefore, CHAIN responses MUST include the NS
+   missing NS records.  Therefore, CHAIN responses <em>MUST</em> include the NS
    RRset from the child zone, including the RRSIG records required for
    validation.
 
@@ -640,7 +640,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  Session Management</span>
 
    The use of TCP keepalive [<a href="./rfc7828.html" title="&quot;The edns-tcp-keepalive EDNS0 Option&quot;">RFC7828</a>] on DNS TCP sessions is
-   RECOMMENDED; thus, TCP sessions should not immediately be closed
+   <em>RECOMMENDED</em>; thus, TCP sessions should not immediately be closed
    after the DNS answer to the first query is received.
 
    Both DNS clients and servers are subject to resource constraints that
@@ -671,14 +671,14 @@ Table of Contents
    Successive DNS transactions between a client and server using UDP
    transport may involve responses generated by different anycast nodes,
    and the use of anycast in the implementation of a DNS server is
-   effectively undetectable by the client.  The CHAIN option SHOULD NOT
+   effectively undetectable by the client.  The CHAIN option <em>SHOULD NOT</em>
    be included in responses using UDP transport from servers provisioned
    using anycast unless all anycast server nodes are capable of
    processing the CHAIN option.
 
    Since DNS queries using CHAIN may result in longer TCP sessions,
    network topology changes may disrupt them more frequently.  Anycast
-   servers MAY make use of Multipath TCP [<a href="./rfc6824.html" title="&quot;TCP Extensions for Multipath Operation with Multiple Addresses&quot;">RFC6824</a>] to anchor the server
+   servers <em>MAY</em> make use of Multipath TCP [<a href="./rfc6824.html" title="&quot;TCP Extensions for Multipath Operation with Multiple Addresses&quot;">RFC6824</a>] to anchor the server
    side of the TCP connection to an unambiguously unicast address in
    order to avoid disruption due to topology changes.
 
@@ -710,19 +710,19 @@ Table of Contents
    amplification vector in their attack.  While TCP is not vulnerable
    for this type of abuse, the UDP protocol is vulnerable to this.
 
-   A recursive resolver MUST NOT return CHAIN answers to clients over
+   A recursive resolver <em>MUST NOT</em> return CHAIN answers to clients over
    UDP without source IP address verification.  An example of UDP-based
    source IP address verification is [<a href="./rfc7873.html" title="&quot;Domain Name System (DNS) Cookies&quot;">RFC7873</a>].  A recursive resolver
-   refusing a CHAIN option MUST respond with a zero-length CHAIN option
+   refusing a CHAIN option <em>MUST</em> respond with a zero-length CHAIN option
    to indicate support for CHAIN queries when a proper transport is
-   used.  It MUST NOT send an RCODE of REFUSED.
+   used.  It <em>MUST NOT</em> send an RCODE of REFUSED.
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  Privacy Considerations</span>
 
    A client producing CHAIN queries reveals a little more information
    about its cache contents than regular DNS clients.  This could be
    used to fingerprint a client across network reconnections.  If DNS
-   privacy is a concern, a CHAIN query client MAY try to use a DNS
+   privacy is a concern, a CHAIN query client <em>MAY</em> try to use a DNS
    transport that provides privacy, such as [<a href="./rfc7858.html" title="&quot;Specification for DNS over Transport Layer Security (TLS)&quot;">RFC7858</a>] or a trusted DNS
    server that is contacted through a VPN connection such as IPsec.
 
@@ -817,14 +817,14 @@ Table of Contents
       NOERROR.
 
    o  The upstream recursive resolver returns the DNS answer over the
-      existing TCP connection.  When all data is sent, it SHOULD keep
+      existing TCP connection.  When all data is sent, it <em>SHOULD</em> keep
       the TCP connection open to allow for additional incoming DNS
       queries -- provided it has enough resources to do so.
 
    o  The resolver on the client receives the DNS answer.  It processes
       the Authority and the Answer Sections and places the information
       in its local cache.  It ensures that no data is accepted into the
-      cache without having proper DNSSEC validation.  It MAY do so by
+      cache without having proper DNSSEC validation.  It <em>MAY</em> do so by
       looping over the entries in the Authority and Answer Sections.
       When an entry is validated for its cache, it is removed from the
       processing list.  If an entry cannot be validated, it is left in
@@ -835,7 +835,7 @@ Table of Contents
 
    o  If the cache contains a valid answer to the application's query,
       this answer is returned to the application via a regular DNS
-      answer packet.  This packet MUST NOT contain a CHAIN option.  If
+      answer packet.  This packet <em>MUST NOT</em> contain a CHAIN option.  If
       no valid answer can be returned, normal error processing is done.
       For example, an NXDOMAIN or an empty Answer Section could be
       returned depending on the error condition.

@@ -364,8 +364,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Terminology</span>
@@ -395,13 +395,13 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Node Behavior</span>
 
    A node requiring information about the presence (or absence) of
-   NAT64, and one or more Pref64::/n used for protocol translation SHALL
+   NAT64, and one or more Pref64::/n used for protocol translation <em>SHALL</em>
    send a DNS query for AAAA resource records of the Well-Known
-   IPv4-only Name (WKN) "ipv4only.arpa.".  The node MAY perform the DNS
+   IPv4-only Name (WKN) "ipv4only.arpa.".  The node <em>MAY</em> perform the DNS
    query in both IPv6-only and dual-stack access networks.
 
    When sending a DNS AAAA resource record query for the WKN, a node
-   MUST set the "Checking Disabled (CD)" bit to zero [<a href="./rfc4035.html" title="&quot;Protocol Modifications for the DNS Security Extensions&quot;">RFC4035</a>], as
+   <em>MUST</em> set the "Checking Disabled (CD)" bit to zero [<a href="./rfc4035.html" title="&quot;Protocol Modifications for the DNS Security Extensions&quot;">RFC4035</a>], as
    otherwise the DNS64 server will not perform IPv6 address synthesis
    (<a href="./rfc6147.html#section-3">Section&nbsp;3 of [RFC6147]</a>) and hence would not reveal the Pref64::/n
    used for protocol translation.
@@ -428,30 +428,30 @@ Table of Contents
    in any location defined by [<a href="./rfc6052.html" title="&quot;IPv6 Addressing of IPv4/IPv6 Translators&quot;">RFC6052</a>], the response will not disturb
    the Pref64::/n learning procedure.
 
-   A node MUST look through all of the received AAAA resource records to
+   A node <em>MUST</em> look through all of the received AAAA resource records to
    collect one or more Pref64::/n.  The Pref64::/n list might include
    the Well-Known Prefix 64:ff9b::/96 [<a href="./rfc6052.html" title="&quot;IPv6 Addressing of IPv4/IPv6 Translators&quot;">RFC6052</a>] or one or more Network-
-   Specific Prefixes.  In the case of NSPs, the node SHALL determine the
+   Specific Prefixes.  In the case of NSPs, the node <em>SHALL</em> determine the
    used address format by searching the received IPv6 addresses for the
-   WKN's well-known IPv4 addresses.  The node SHALL assume the well-
+   WKN's well-known IPv4 addresses.  The node <em>SHALL</em> assume the well-
    known IPv4 addresses might be found at the locations specified by
-   <a href="./rfc6052.html#section-2.2">[RFC6052], Section&nbsp;2.2</a>.  The node MUST check on octet boundaries to
+   <a href="./rfc6052.html#section-2.2">[RFC6052], Section&nbsp;2.2</a>.  The node <em>MUST</em> check on octet boundaries to
    ensure a 32-bit well-known IPv4 address value is present only once in
    an IPv6 address.  In case another instance of the value is found
-   inside the IPv6 address, the node SHALL repeat the search with the
+   inside the IPv6 address, the node <em>SHALL</em> repeat the search with the
    other well-known IPv4 address.
 
-   If only one Pref64::/n was present in the DNS response, a node SHALL
+   If only one Pref64::/n was present in the DNS response, a node <em>SHALL</em>
    use that Pref64::/n for both local synthesis and for detecting
    synthesis done by the DNS64 server on the network.
 
    If more than one Pref64::/n was present in the DNS response, a node
-   SHOULD use all of them when determining whether other received IPv6
-   addresses are synthetic.  The node MUST use all learned Pref64::/n
+   <em>SHOULD</em> use all of them when determining whether other received IPv6
+   addresses are synthetic.  The node <em>MUST</em> use all learned Pref64::/n
    when performing local IPv6 address synthesis and use the prefixes in
    the order received from the DNS64 server.  That is, when the node is
    providing a list of locally synthesized IPv6 addresses to upper
-   layers, IPv6 addresses MUST be synthesized by using all discovered
+   layers, IPv6 addresses <em>MUST</em> be synthesized by using all discovered
    Pref64::/n prefixes in the received order.
 
    If the well-known IPv4 addresses are not found within the standard
@@ -461,7 +461,7 @@ Table of Contents
    cannot be determined and the heuristic procedure has failed.
    Developers can, over time, learn of IPv6-translated address formats
    that are extensions or alternatives to the standard formats.  At that
-   point, developers MAY add additional steps to the described discovery
+   point, developers <em>MAY</em> add additional steps to the described discovery
    procedure.  The additional steps are outside the scope of the present
    document.
 
@@ -473,7 +473,7 @@ Table of Contents
 
 
    In case a node does not receive a positive DNS reply to the AAAA
-   resource record query, the node MAY perform a DNS A resource record
+   resource record query, the node <em>MAY</em> perform a DNS A resource record
    query for the well-known name.  Receiving a positive reply to the DNS
    A resource record query indicates that the recursive DNS server that
    is used is not a DNS64 server.
@@ -483,20 +483,20 @@ Table of Contents
    access network filtered out the well-known query, or something went
    wrong in the DNS resolution.  All unsuccessful cases result in a node
    being unable to perform local IPv6 address synthesis.  In the case of
-   timeout, the node SHOULD retransmit the DNS query like any other DNS
+   timeout, the node <em>SHOULD</em> retransmit the DNS query like any other DNS
    query the node makes [<a href="./rfc1035.html" title="&quot;Domain names - implementation and specification&quot;">RFC1035</a>].  In the case of a negative response
-   (NXDOMAIN, NODATA), the node MUST obey the Time to Live (TTL)
+   (NXDOMAIN, NODATA), the node <em>MUST</em> obey the Time to Live (TTL)
    [<a href="./rfc1035.html" title="&quot;Domain names - implementation and specification&quot;">RFC1035</a>] of the response before resending the AAAA resource record
-   query.  The node MAY monitor for DNS replies with IPv6 addresses
+   query.  The node <em>MAY</em> monitor for DNS replies with IPv6 addresses
    constructed from the WKP, in which case if any are observed, the node
-   SHOULD use the WKP as if it were learned during the query for the
+   <em>SHOULD</em> use the WKP as if it were learned during the query for the
    well-known name.
 
    To save Internet resources if possible, a node should perform
    Pref64::/n discovery only when needed (e.g., when local synthesis is
    required, when a new network interface is connected to a new network,
-   and so forth).  The node SHALL cache the replies it receives during
-   the Pref64::/n discovery procedure, and it SHOULD repeat the
+   and so forth).  The node <em>SHALL</em> cache the replies it receives during
+   the Pref64::/n discovery procedure, and it <em>SHOULD</em> repeat the
    discovery process ten seconds before the TTL of the Well-Known Name's
    synthetic AAAA resource record expires.
 
@@ -508,9 +508,9 @@ Table of Contents
    This may result in denial-of-service, redirection, man-in-the-middle,
    or other attacks.
 
-   To mitigate against attacks, the node SHOULD communicate with a
+   To mitigate against attacks, the node <em>SHOULD</em> communicate with a
    trusted DNS64 server over a secure channel or use DNSSEC.  NAT64
-   operators SHOULD provide facilities for validating discovery of
+   operators <em>SHOULD</em> provide facilities for validating discovery of
    Pref64::/n via a secure channel and/or DNSSEC protection.
 
    It is important to understand that DNSSEC only validates that the
@@ -532,7 +532,7 @@ Table of Contents
 
    If the operator has chosen to support nodes performing validation of
    discovered Pref64::/n with DNSSEC, the operator of the NAT64 device
-   MUST perform the following configurations.
+   <em>MUST</em> perform the following configurations.
 
    1.  Have one or more fully qualified domain names for the NAT64
        translator entities (later referred to as NAT64 FQDN).  In the
@@ -542,19 +542,19 @@ Table of Contents
        to more than one Pref64::/n, or whether there will be a dedicated
        NAT64 FQDN per Pref64::/n.
 
-   2.  Each NAT64 FQDN MUST have one or more DNS AAAA resource records
+   2.  Each NAT64 FQDN <em>MUST</em> have one or more DNS AAAA resource records
        containing Pref64::WKA (Pref64::/n combined with WKA).
 
-   3.  Each Pref64::WKA MUST have a PTR resource record that points to
+   3.  Each Pref64::WKA <em>MUST</em> have a PTR resource record that points to
        the corresponding NAT64 FQDN.
 
    4.  Sign the NAT64 FQDNs' AAAA and A resource records with DNSSEC.
 
 <span class="h4"><a class="selflink" name="section-3.1.2" href="#section-3.1.2">3.1.2</a>.  DNSSEC Requirements for the Node</span>
 
-   A node SHOULD prefer a secure channel to talk to a DNS64 server
+   A node <em>SHOULD</em> prefer a secure channel to talk to a DNS64 server
    whenever possible.  In addition, a node that implements a DNSSEC
-   validating resolver MAY use the following procedure to validate
+   validating resolver <em>MAY</em> use the following procedure to validate
    discovery of the Pref64::/n.
 
    1.  Heuristically find Pref64::/n candidates by making a AAAA
@@ -571,7 +571,7 @@ Table of Contents
        <a href="./rfc6672.html">6672</a> [<a href="./rfc6672.html" title="&quot;DNAME Redirection in the DNS&quot;">RFC6672</a>].  The ultimate response will include one or more
        NAT64 FQDNs.
 
-   3.  The node SHOULD compare the domains of learned NAT64 FQDNs to a
+   3.  The node <em>SHOULD</em> compare the domains of learned NAT64 FQDNs to a
        list of the node's trusted domains and choose a NAT64 FQDN that
        matches.  The means for a node to learn the trusted domains is
 
@@ -586,15 +586,15 @@ Table of Contents
 
        implementation specific.  If the node has no trust for the
        domain, the discovery procedure is not secure, and the remaining
-       steps described below MUST NOT be performed.
+       steps described below <em>MUST NOT</em> be performed.
 
    4.  Send a DNS AAAA resource record query for the NAT64 FQDN.
 
    5.  Verify the DNS AAAA resource record contains Pref64::WKA
        addresses received at step 1.  It is possible that the NAT64 FQDN
-       has multiple AAAA records, in which case the node MUST check if
+       has multiple AAAA records, in which case the node <em>MUST</em> check if
        any of the addresses match the ones obtained in step 1.  The node
-       MUST ignore other responses and not use them for local IPv6
+       <em>MUST</em> ignore other responses and not use them for local IPv6
        address synthesis.
 
    6.  Perform DNSSEC validation of the DNS AAAA response.
@@ -604,7 +604,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Connectivity Check</span>
 
-   After learning a Pref64::/n, the node SHOULD perform a connectivity
+   After learning a Pref64::/n, the node <em>SHOULD</em> perform a connectivity
    check to ensure the learned Pref64::/n is functional.  It could be
    non-functional for a variety of reasons -- the discovery failed to
    work as expected, the IPv6 path to the NAT64 is down, the NAT64 is
@@ -618,16 +618,16 @@ Table of Contents
    implementations should carefully weigh which approach is appropriate
    for their application and the network.
 
-   The node SHOULD use an implementation-specific connectivity check
+   The node <em>SHOULD</em> use an implementation-specific connectivity check
    server and a protocol of the implementation's choice, but if that is
-   not possible, a node MAY do a PTR resource record query of the
+   not possible, a node <em>MAY</em> do a PTR resource record query of the
    Pref64::WKA to get a NAT64 FQDN.  The node then does an A resource
    query of the NAT64 FQDN, which will return zero or more A resource
    records pointing to connectivity check servers used by the network
    operator.  A negative response to the PTR or A resource query means
    there are no connectivity check servers available.  A network
    operator that provides NAT64 services for a mix of nodes with and
-   without implementation-specific connectivity check servers SHOULD
+   without implementation-specific connectivity check servers <em>SHOULD</em>
    assist nodes in their connectivity checks by mapping each NAT64 FQDN
    to one or more DNS A resource records with IPv4 address(es) pointing
    to connectivity check server(s).  The connectivity check approach
@@ -641,7 +641,7 @@ Table of Contents
 
 
    register A records for each different domain using a WKP.  The
-   network operator MUST disable ICMPv6 rate limiting for connectivity
+   network operator <em>MUST</em> disable ICMPv6 rate limiting for connectivity
    check messages.
 
    If multiple connectivity check servers are available for use, the
@@ -654,19 +654,19 @@ Table of Contents
    The connectivity check protocol used with connectivity check servers
    pointed to by the NAT64 FQDN's A resource records is ICMPv6
    [<a href="./rfc4443.html" title="&quot;Internet Control Message Protocol (ICMPv6) for the Internet Protocol Version 6 (IPv6) Specification&quot;">RFC4443</a>].  The node performing a connectivity check against these
-   servers SHALL send an ICMPv6 Echo Request to an IPv6 address
+   servers <em>SHALL</em> send an ICMPv6 Echo Request to an IPv6 address
    synthesized by combining discovered Pref64::/n with an IPv4 address
    of the server as specified in [<a href="./rfc6052.html" title="&quot;IPv6 Addressing of IPv4/IPv6 Translators&quot;">RFC6052</a>].  This will test the IPv6
    path to the NAT64, the NAT64's operation, and the IPv4 path all the
    way to the connectivity check server.  If no response is received for
-   the ICMPv6 Echo Request, the node SHALL send another ICMPv6 Echo
+   the ICMPv6 Echo Request, the node <em>SHALL</em> send another ICMPv6 Echo
    Request a second later.  If still no response is received, the node
-   SHALL send a third ICMPv6 Echo Request two seconds later.  If an
+   <em>SHALL</em> send a third ICMPv6 Echo Request two seconds later.  If an
    ICMPv6 Echo Response is received, the node knows the IPv6 path to the
    connectivity check server is functioning normally.  If no response is
    received after three transmissions and after three seconds have
    elapsed since the last ICMPv6 Echo Request, the node learns this
-   Pref64::/n might not be functioning, and the node MAY choose a
+   Pref64::/n might not be functioning, and the node <em>MAY</em> choose a
    different Pref64::/n (if available), choose to alert the user, or
    proceed anyway assuming the failure is temporary or is caused by the
    connectivity check itself.  After all, ICMPv6 is unreliable by
@@ -674,19 +674,19 @@ Table of Contents
    anything other than network failure to transport ICMPv6 messages.
 
    If no separate connectivity check is performed before local IPv6
-   address synthesis, a node MAY monitor success of connection attempts
+   address synthesis, a node <em>MAY</em> monitor success of connection attempts
    performed with locally synthesized IPv6 addresses.  Based on success
    of these connections, and based on possible ICMPv6 error messages
-   received (such as Destination Unreachable messages), the node MAY
-   cease to perform local address synthesis and MAY restart the
+   received (such as Destination Unreachable messages), the node <em>MAY</em>
+   cease to perform local address synthesis and <em>MAY</em> restart the
    Pref64::/n discovery procedures.
 
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  No Connectivity Checks against "ipv4only.arpa."</span>
 
-   Clients MUST NOT send a connectivity check to an address returned by
+   Clients <em>MUST NOT</em> send a connectivity check to an address returned by
    the "ipv4only.arpa." query.  This is because, by design, no server
    will be operated on the Internet at that address as such.  Similarly,
-   network operators MUST NOT operate a server on that address.  The
+   network operators <em>MUST NOT</em> operate a server on that address.  The
    reason this address isn't used for connectivity checks is that
 
 
@@ -829,12 +829,12 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Operational Considerations for Hosting the IPv4-Only Well-Known Name</span>
 
-   The authoritative name server for the well-known name SHALL have DNS
+   The authoritative name server for the well-known name <em>SHALL</em> have DNS
    record TTL set to at least 60 minutes in order to improve
    effectiveness of DNS caching.  The exact TTL value will be determined
    and tuned based on operational experiences.
 
-   The domain serving the well-known name MUST be signed with DNSSEC.
+   The domain serving the well-known name <em>MUST</em> be signed with DNSSEC.
    See also <a href="#section-7">Section 7</a>.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Operational Considerations for DNS64 Operator</span>
@@ -865,7 +865,7 @@ Table of Contents
 
 
    Besides choosing how many Pref64::/n prefixes to respond and what TTL
-   to use, DNS64 servers MUST NOT interfere with or perform other
+   to use, DNS64 servers <em>MUST NOT</em> interfere with or perform other
    special procedures for the queries related to the well-known name.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Mapping of IPv4 Address Ranges to IPv6 Prefixes</span>
@@ -937,7 +937,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Exit Strategy</span>
 
-   A day will come when this tool is no longer needed.  A node SHOULD
+   A day will come when this tool is no longer needed.  A node <em>SHOULD</em>
    implement a configuration knob for disabling the Pref64::/n discovery
    feature.
 
@@ -980,8 +980,8 @@ Table of Contents
    detect malicious AAAA resource records.  Therefore, the zone serving
    the well-known name has to be protected with DNSSEC.
 
-   For Pref64::/n discovery validation, the access network SHOULD sign
-   the NAT64 translator's fully qualified domain name.  A node SHOULD
+   For Pref64::/n discovery validation, the access network <em>SHOULD</em> sign
+   the NAT64 translator's fully qualified domain name.  A node <em>SHOULD</em>
    use the algorithm described in <a href="#section-3.1">Section 3.1</a> to validate each
    discovered Pref64::/n.
 

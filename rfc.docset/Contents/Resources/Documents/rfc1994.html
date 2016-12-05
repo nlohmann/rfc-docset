@@ -251,7 +251,7 @@ Table of Contents
    proceeding to the Network-Layer Protocol phase.
 
    By default, authentication is not mandatory.  If authentication of
-   the link is desired, an implementation MUST specify the
+   the link is desired, an implementation <em>MUST</em> specify the
    Authentication-Protocol Configuration Option during Link
    Establishment phase.
 
@@ -272,21 +272,21 @@ Table of Contents
    In this document, several words are used to signify the requirements
    of the specification.  These words are often capitalized.
 
-   MUST      This word, or the adjective "required", means that the
+   <em>MUST</em>      This word, or the adjective "required", means that the
              definition is an absolute requirement of the specification.
 
-   MUST NOT  This phrase means that the definition is an absolute
+   <em>MUST NOT</em>  This phrase means that the definition is an absolute
              prohibition of the specification.
 
-   SHOULD    This word, or the adjective "recommended", means that there
+   <em>SHOULD</em>    This word, or the adjective "recommended", means that there
              may exist valid reasons in particular circumstances to
              ignore this item, but the full implications must be
              understood and carefully weighed before choosing a
              different course.
 
-   MAY       This word, or the adjective "optional", means that this
+   <em>MAY</em>       This word, or the adjective "optional", means that this
              item is one of an allowed set of alternatives.  An
-             implementation which does not include this option MUST be
+             implementation which does not include this option <em>MUST</em> be
              prepared to interoperate with another implementation which
              does include the option.
 
@@ -313,9 +313,9 @@ Table of Contents
 
    silently discard
              This means the implementation discards the packet without
-             further processing.  The implementation SHOULD provide the
+             further processing.  The implementation <em>SHOULD</em> provide the
              capability of logging the error, including the contents of
-             the silently discarded packet, and SHOULD record the event
+             the silently discarded packet, and <em>SHOULD</em> record the event
              in a statistics counter.
 
 
@@ -325,7 +325,7 @@ Table of Contents
 
    The Challenge-Handshake Authentication Protocol (CHAP) is used to
    periodically verify the identity of the peer using a 3-way handshake.
-   This is done upon initial link establishment, and MAY be repeated
+   This is done upon initial link establishment, and <em>MAY</em> be repeated
    anytime after the link has been established.
 
    1.    After the Link Establishment phase is complete, the
@@ -337,7 +337,7 @@ Table of Contents
    3.    The authenticator checks the response against its own
          calculation of the expected hash value.  If the values match,
          the authentication is acknowledged; otherwise the connection
-         SHOULD be terminated.
+         <em>SHOULD</em> be terminated.
 
    4.    At random intervals, the authenticator sends a new challenge to
          the peer, and repeats steps 1 to 3.
@@ -388,7 +388,7 @@ Table of Contents
       Implementation Note: To avoid sending the secret over other links
       in the network, it is recommended that the challenge and response
       values be examined at a central server, rather than each network
-      access server.  Otherwise, the secret SHOULD be sent to such
+      access server.  Otherwise, the secret <em>SHOULD</em> be sent to such
       servers in a reversably encrypted form.  Either case requires a
       trusted relationship, which is outside the scope of this
       specification.
@@ -412,8 +412,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Design Requirements</span>
 
-   The CHAP algorithm requires that the length of the secret MUST be at
-   least 1 octet.  The secret SHOULD be at least as large and
+   The CHAP algorithm requires that the length of the secret <em>MUST</em> be at
+   least 1 octet.  The secret <em>SHOULD</em> be at least as large and
    unguessable as a well-chosen password.  It is preferred that the
    secret be at least the length of the hash value for the hashing
    algorithm chosen (16 octets for MD5).  This is to ensure a
@@ -424,14 +424,14 @@ Table of Contents
    infeasible to determine the secret from the known challenge and
    response values.
 
-   Each challenge value SHOULD be unique, since repetition of a
+   Each challenge value <em>SHOULD</em> be unique, since repetition of a
    challenge value in conjunction with the same secret would permit an
    attacker to reply with a previously intercepted response.  Since it
-   is expected that the same secret MAY be used to authenticate with
-   servers in disparate geographic regions, the challenge SHOULD exhibit
+   is expected that the same secret <em>MAY</em> be used to authenticate with
+   servers in disparate geographic regions, the challenge <em>SHOULD</em> exhibit
    global and temporal uniqueness.
 
-   Each challenge value SHOULD also be unpredictable, least an attacker
+   Each challenge value <em>SHOULD</em> also be unpredictable, least an attacker
    trick a peer into responding to a predicted future challenge, and
    then use the response to masquerade as that peer to an authenticator.
 
@@ -583,34 +583,34 @@ Table of Contents
    Description
 
       The Challenge packet is used to begin the Challenge-Handshake
-      Authentication Protocol.  The authenticator MUST transmit a CHAP
+      Authentication Protocol.  The authenticator <em>MUST</em> transmit a CHAP
       packet with the Code field set to 1 (Challenge).  Additional
-      Challenge packets MUST be sent until a valid Response packet is
+      Challenge packets <em>MUST</em> be sent until a valid Response packet is
       received, or an optional retry counter expires.
 
-      A Challenge packet MAY also be transmitted at any time during the
+      A Challenge packet <em>MAY</em> also be transmitted at any time during the
       Network-Layer Protocol phase to ensure that the connection has not
       been altered.
 
-      The peer SHOULD expect Challenge packets during the Authentication
+      The peer <em>SHOULD</em> expect Challenge packets during the Authentication
       phase and the Network-Layer Protocol phase.  Whenever a Challenge
-      packet is received, the peer MUST transmit a CHAP packet with the
+      packet is received, the peer <em>MUST</em> transmit a CHAP packet with the
       Code field set to 2 (Response).
 
       Whenever a Response packet is received, the authenticator compares
       the Response Value with its own calculation of the expected value.
-      Based on this comparison, the authenticator MUST send a Success or
+      Based on this comparison, the authenticator <em>MUST</em> send a Success or
       Failure packet (described below).
 
          Implementation Notes: Because the Success might be lost, the
-         authenticator MUST allow repeated Response packets during the
+         authenticator <em>MUST</em> allow repeated Response packets during the
          Network-Layer Protocol phase after completing the
          Authentication phase.  To prevent discovery of alternative
          Names and Secrets, any Response packets received having the
-         current Challenge Identifier MUST return the same reply Code
+         current Challenge Identifier <em>MUST</em> return the same reply Code
          previously returned for that specific Challenge (the message
-         portion MAY be different).  Any Response packets received
-         during any other phase MUST be silently discarded.
+         portion <em>MAY</em> be different).  Any Response packets received
+         during any other phase <em>MUST</em> be silently discarded.
 
          When the Failure is lost, and the authenticator terminates the
          link, the LCP Terminate-Request and Terminate-Ack provide an
@@ -653,10 +653,10 @@ Table of Contents
 
    Identifier
 
-      The Identifier field is one octet.  The Identifier field MUST be
+      The Identifier field is one octet.  The Identifier field <em>MUST</em> be
       changed each time a Challenge is sent.
 
-      The Response Identifier MUST be copied from the Identifier field
+      The Response Identifier <em>MUST</em> be copied from the Identifier field
       of the Challenge which caused the Response.
 
    Value-Size
@@ -672,7 +672,7 @@ Table of Contents
       The Challenge Value is a variable stream of octets.  The
       importance of the uniqueness of the Challenge Value and its
       relationship to the secret is described above.  The Challenge
-      Value MUST be changed each time a Challenge is sent.  The length
+      Value <em>MUST</em> be changed each time a Challenge is sent.  The length
       of the Challenge Value depends upon the method used to generate
       the octets, and is independent of the hash algorithm used.
 
@@ -694,7 +694,7 @@ Table of Contents
 
       The Name field is one or more octets representing the
       identification of the system transmitting the packet.  There are
-      no limitations on the content of this field.  For example, it MAY
+      no limitations on the content of this field.  For example, it <em>MAY</em>
       contain ASCII character strings or globally unique identifiers in
       ASN.1 syntax.  The Name should not be NUL or CR/LF terminated.
       The size is determined from the Length field.
@@ -705,12 +705,12 @@ Table of Contents
    Description
 
       If the Value received in a Response is equal to the expected
-      value, then the implementation MUST transmit a CHAP packet with
+      value, then the implementation <em>MUST</em> transmit a CHAP packet with
       the Code field set to 3 (Success).
 
       If the Value received in a Response is not equal to the expected
-      value, then the implementation MUST transmit a CHAP packet with
-      the Code field set to 4 (Failure), and SHOULD take action to
+      value, then the implementation <em>MUST</em> transmit a CHAP packet with
+      the Code field set to 4 (Failure), and <em>SHOULD</em> take action to
       terminate the link.
 
    A summary of the Success and Failure packet format is shown below.
@@ -731,7 +731,7 @@ Table of Contents
    Identifier
 
       The Identifier field is one octet and aids in matching requests
-      and replies.  The Identifier field MUST be copied from the
+      and replies.  The Identifier field <em>MUST</em> be copied from the
       Identifier field of the Response which caused this reply.
 
 
@@ -750,7 +750,7 @@ Table of Contents
 
       The Message field is zero or more octets, and its contents are
       implementation dependent.  It is intended to be human readable,
-      and MUST NOT affect operation of the protocol.  It is recommended
+      and <em>MUST NOT</em> affect operation of the protocol.  It is recommended
       that the message contain displayable ASCII characters 32 through
       126 decimal.  Mechanisms for extension to other character sets are
       the topic of future research.  The size is determined from the
@@ -763,7 +763,7 @@ Security Considerations
    Security issues are the primary topic of this RFC.
 
    The interaction of the authentication protocols within PPP are highly
-   implementation dependent.  This is indicated by the use of SHOULD
+   implementation dependent.  This is indicated by the use of <em>SHOULD</em>
    throughout the document.
 
    For example, upon failure of authentication, some implementations do
@@ -784,7 +784,7 @@ Security Considerations
    acceptable for different protocols to be used in each direction.
    This will, of course, depend on the specific protocols negotiated.
 
-   The secret SHOULD NOT be the same in both directions.  This allows an
+   The secret <em>SHOULD NOT</em> be the same in both directions.  This allows an
    attacker to replay the peer's challenge, accept the computed
    response, and use that response to authenticate.
 
@@ -808,7 +808,7 @@ Security Considerations
    Instead, for each user name there should be an indication of exactly
    one method used to authenticate that user name.  If a user needs to
    make use of different authentication methods under different
-   circumstances, then distinct user names SHOULD be employed, each of
+   circumstances, then distinct user names <em>SHOULD</em> be employed, each of
    which identifies exactly one authentication method.
 
    Passwords and other secrets should be stored at the respective ends

@@ -312,8 +312,8 @@ Table of Contents
    Conventions for notations are as in Section 1.1 of [<a href="#ref-Sieve" title="&quot;Sieve: An Email Filtering Language&quot;">Sieve</a>], including
    the use of [<a href="#ref-Kwds" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Kwds</a>].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-Kwds" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Kwds</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Definition</span>
@@ -341,7 +341,7 @@ Table of Contents
 
    The ":from" tag overrides the default sender of the notification
    message.  "Sender", here, refers to the value used in the [<a href="./rfc5322.html" title="&quot;Internet Message Format&quot;">RFC5322</a>]
-   "From" header.  Implementations MAY also use this value in the
+   "From" header.  Implementations <em>MAY</em> also use this value in the
    [<a href="./rfc5321.html" title="&quot;Simple Mail Transfer Protocol&quot;">RFC5321</a>] "MAIL FROM" command (the "envelope sender"), or they may
    prefer to establish a mailbox that receives bounces from notification
    messages.
@@ -358,7 +358,7 @@ Table of Contents
 
    The ":importance" tag has no special meaning for this notification
    mechanism, and this specification puts no restriction on its use.
-   Implementations MAY use the value of ":importance" to set a priority
+   Implementations <em>MAY</em> use the value of ":importance" to set a priority
    or importance indication on the notification message (perhaps a
    visual indication, or perhaps making use of one of the non-standard
    but commonly used message headers).
@@ -371,36 +371,36 @@ Table of Contents
 
    The value of this tag, if it is present, is used as the subject of
    the notification message, and overrides all other mechanisms for
-   determining the subject (as described below).  Its value SHOULD NOT
+   determining the subject (as described below).  Its value <em>SHOULD NOT</em>
    normally be truncated, though it may be sensible to truncate an
    excessively long value.
 
 <span class="h3"><a class="selflink" name="section-2.7" href="#section-2.7">2.7</a>.  Other Definitions</span>
 
    Because the receipt of an email message is generating another email
-   message, implementations MUST take steps to avoid mail loops.  The
-   REQUIRED inclusion of an "Auto-Submitted:" field, as described in the
+   message, implementations <em>MUST</em> take steps to avoid mail loops.  The
+   <em>REQUIRED</em> inclusion of an "Auto-Submitted:" field, as described in the
    message composition guidelines, will also help in loop detection and
    avoidance.
 
-   Implementations SHOULD NOT trigger notifications for messages
+   Implementations <em>SHOULD NOT</em> trigger notifications for messages
    containing "Auto-Submitted:" header fields with any value other than
    "No".
 
-   Implementations MUST allow messages with empty envelope senders to
+   Implementations <em>MUST</em> allow messages with empty envelope senders to
    trigger notifications.
 
    Because this notification method uses a store-and-forward system for
    delivery of the notification message, the Sieve processor should not
    have a need to retry notifications.  Therefore, implementations of
-   this method SHOULD use normal mechanisms for submitting SMTP messages
+   this method <em>SHOULD</em> use normal mechanisms for submitting SMTP messages
    and for retrying the initial submission.  Once the notification
-   message is submitted, implementations MUST NOT resubmit it, as this
+   message is submitted, implementations <em>MUST NOT</em> resubmit it, as this
    is likely to result in multiple notifications, and increases the
    danger of message loops.
 
-   Implementations SHOULD consider limiting notification messages.  In
-   particular, they SHOULD NOT sent duplicate notifications to the same
+   Implementations <em>SHOULD</em> consider limiting notification messages.  In
+   particular, they <em>SHOULD NOT</em> sent duplicate notifications to the same
    address from the same script invocation.  Batching of notifications
 
 
@@ -419,42 +419,42 @@ Table of Contents
    guidelines (see [<a href="./rfc5322.html" title="&quot;Internet Message Format&quot;">RFC5322</a>] for references to message header fields):
 
    o  If the envelope sender of the triggering message is empty, the
-      envelope sender of the notification message MUST be empty as well,
+      envelope sender of the notification message <em>MUST</em> be empty as well,
       to avoid message loops.  Otherwise, the envelope sender of the
-      notification message SHOULD be set to the value of the ":from" tag
+      notification message <em>SHOULD</em> be set to the value of the ":from" tag
       to the notify action, if one is specified, has email address
       syntax, and is valid according to the implementation-specific
       security checks (see Section 3.3 of [<a href="#ref-Notify" title="&quot;Sieve Email Filtering: Extension for Notifications&quot;">Notify</a>]).  If ":from" is not
       specified or is not valid, the envelope sender of the notification
-      message SHOULD be set either to the envelope "to" field from the
+      message <em>SHOULD</em> be set either to the envelope "to" field from the
       triggering message, as used by Sieve, or to an email address
       associated with the notification system, at the discretion of the
-      implementation.  This MUST NOT be overridden by a "from" URI
-      header, and any such URI header MUST be ignored.
+      implementation.  This <em>MUST NOT</em> be overridden by a "from" URI
+      header, and any such URI header <em>MUST</em> be ignored.
 
-   o  The envelope recipient(s) of the notification message SHOULD be
+   o  The envelope recipient(s) of the notification message <em>SHOULD</em> be
       set to the address(es) specified in the URI (including any URI
       headers where the hname is "to" or "cc").
 
-   o  The header field "Auto-Submitted: auto-notified" MUST be included
+   o  The header field "Auto-Submitted: auto-notified" <em>MUST</em> be included
       in the notification message (see <a href="#section-2.7.1">Section 2.7.1</a>).  This is to
       reduce the likelihood of message loops, by tagging this as an
       automatically generated message.  Among other results, it will
       inform other notification systems not to generate further
       notifications. mailto URI headers with hname "auto-submitted" are
-      considered unsafe and MUST be ignored.
+      considered unsafe and <em>MUST</em> be ignored.
 
-   o  The "From:" header field of the notification message SHOULD be set
+   o  The "From:" header field of the notification message <em>SHOULD</em> be set
       to the value of the ":from" tag to the notify action, if one is
       specified, has email address syntax, and is valid according to the
       implementation-specific security checks (see Section 3.3 of
       [<a href="#ref-Notify" title="&quot;Sieve Email Filtering: Extension for Notifications&quot;">Notify</a>]).  If ":from" is not specified or is not valid, the
-      "From:" header field of the notification message SHOULD be set
+      "From:" header field of the notification message <em>SHOULD</em> be set
       either to the envelope "to" field from the triggering message, as
       used by Sieve, or to an email address associated with the
       notification system, at the discretion of the implementation.
-      This MUST NOT be overridden by a "from" URI header, and any such
-      URI header MUST be ignored.
+      This <em>MUST NOT</em> be overridden by a "from" URI header, and any such
+      URI header <em>MUST</em> be ignored.
 
 
 
@@ -466,39 +466,39 @@ Table of Contents
 <span class="grey"><a href="./rfc5436.html">RFC 5436</a>          Sieve Notification Mechanism: mailto      January 2009</span>
 
 
-   o  The "To:" header field of the notification message SHOULD be set
+   o  The "To:" header field of the notification message <em>SHOULD</em> be set
       to the address(es) specified in the URI (including any URI headers
       where the hname is "to").
 
-   o  The "Subject:" field of the notification message SHOULD contain
+   o  The "Subject:" field of the notification message <em>SHOULD</em> contain
       the value defined by the ":message" tag, as described in [<a href="#ref-Notify" title="&quot;Sieve Email Filtering: Extension for Notifications&quot;">Notify</a>].
       If there is no ":message" tag and there is a "subject" header on
-      the URI, then that value SHOULD be used.  If the "subject" header
-      is also absent, the subject SHOULD be retained from the triggering
+      the URI, then that value <em>SHOULD</em> be used.  If the "subject" header
+      is also absent, the subject <em>SHOULD</em> be retained from the triggering
       message.  Note that Sieve [<a href="#ref-Variables" title="&quot;Sieve Extension: Variables&quot;">Variables</a>] can be used to advantage
       here, as shown in the example in <a href="#section-3">Section 3</a>.
 
-   o  The "References:" field of the notification message MAY be set to
-      refer to the triggering message, and MAY include references from
+   o  The "References:" field of the notification message <em>MAY</em> be set to
+      refer to the triggering message, and <em>MAY</em> include references from
       the triggering message.
 
    o  If the mailto URI contains a "body" header, the value of that
-      header SHOULD be used as the body of the notification message.  If
+      header <em>SHOULD</em> be used as the body of the notification message.  If
       there is no "body" header, it is up to the implementation whether
       to leave the body empty or to use an excerpt of the original
       message.
 
-   o  The "Received:" fields from the triggering message MAY be retained
+   o  The "Received:" fields from the triggering message <em>MAY</em> be retained
       in the notification message, as these could provide useful trace/
       history/diagnostic information.  The "Auto-Submitted" header field
-      MUST be placed above these (see <a href="#section-2.7.1">Section 2.7.1</a>).  URI headers with
-      hname "received" are considered unsafe, and MUST be ignored.
+      <em>MUST</em> be placed above these (see <a href="#section-2.7.1">Section 2.7.1</a>).  URI headers with
+      hname "received" are considered unsafe, and <em>MUST</em> be ignored.
 
    o  Other header fields of the notification message that are normally
       related to an individual new message (such as "Message-ID" and
       "Date") are generated for the notification message in the normal
-      manner, and MUST NOT be copied from the triggering message.  Any
-      URI headers with those names MUST be ignored.  Further, the "Date"
+      manner, and <em>MUST NOT</em> be copied from the triggering message.  Any
+      URI headers with those names <em>MUST</em> be ignored.  Further, the "Date"
       header serves as the notification timestamp defined in [<a href="#ref-Notify" title="&quot;Sieve Email Filtering: Extension for Notifications&quot;">Notify</a>].
 
    o  All other header fields of the notification message either are as
@@ -511,7 +511,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.7.1" href="#section-2.7.1">2.7.1</a>.  The Auto-Submitted Header Field</span>
 
-   The header field "Auto-Submitted: auto-notified" MUST be included in
+   The header field "Auto-Submitted: auto-notified" <em>MUST</em> be included in
    the notification message (see [<a href="./rfc3834.html" title="&quot;Recommendations for Automatic Responses to Electronic Mail&quot;">RFC3834</a>]).  The "Auto-Submitted"
    header field is considered a "trace field", similar to "Received"
 
@@ -524,11 +524,11 @@ Table of Contents
 
    header fields (see [<a href="./rfc5321.html" title="&quot;Simple Mail Transfer Protocol&quot;">RFC5321</a>]).  If the implementation retains the
    "Received" fields from the triggering message (see above), the "Auto-
-   Submitted" field MUST be placed above those "Received" fields,
+   Submitted" field <em>MUST</em> be placed above those "Received" fields,
    serving as a boundary between the ones from the triggering message
    and those that will be part of the notification message.
 
-   The header field "Auto-Submitted: auto-notified" MUST include one or
+   The header field "Auto-Submitted: auto-notified" <em>MUST</em> include one or
    both of the following parameters:
 
    o  owner-email - specifies an email address, determined by the
@@ -643,7 +643,7 @@ Table of Contents
 
    The automated sending of email messages exposes the system to mail
    loops, which can cause operational problems.  Implementations of this
-   specification MUST protect themselves against mail loops; see
+   specification <em>MUST</em> protect themselves against mail loops; see
    <a href="#section-2.7">Section 2.7</a> for discussion of this and some suggestions.  Other
    possible mitigations for mail loops involve types of service
    limitations.  For example, the number of notifications generated for
@@ -657,7 +657,7 @@ Table of Contents
    Ultimately, human intervention may be necessary to re-enable
    notifications that have been disabled because a loop was detected, or
    to terminate a very slow loop that's under the automatic-detection
-   radar.  Administrative mechanisms MUST be available to handle these
+   radar.  Administrative mechanisms <em>MUST</em> be available to handle these
    sorts of situations.
 
    Email addresses specified as recipients of notifications might not be
@@ -678,7 +678,7 @@ Table of Contents
    source domain of the notification message (see <a href="#section-2.7.1">Section 2.7.1</a>).  That
    value will allow the domain to track down the script's owner and have
    the script corrected or disabled.  Domains that enable this extension
-   MUST be prepared to respond to such complaints, in order to limit the
+   <em>MUST</em> be prepared to respond to such complaints, in order to limit the
    damage caused by a faulty script.
 
 

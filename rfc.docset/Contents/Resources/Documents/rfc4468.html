@@ -271,7 +271,7 @@ Table of Contents
 
    This specification defines an extension to the standard Message
    Submission [<a href="./rfc4409.html" title="&quot;Message Submission for Mail&quot;">RFC4409</a>] protocol to permit data to be fetched from an
-   IMAP server at message submission time.  This MAY be used in
+   IMAP server at message submission time.  This <em>MAY</em> be used in
    conjunction with the CHUNKING [<a href="./rfc3030.html" title="&quot;SMTP Service Extensions for Transmission of Large and Binary MIME Messages&quot;">RFC3030</a>] mechanism so that chunks of
    the message can come from an external IMAP server.  This provides the
    ability to forward an email message without first downloading it to
@@ -279,7 +279,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "SHOULD", "SHOULD NOT", and "MAY"
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", and "<em>MAY</em>"
    in this document are to be interpreted as defined in "Key words for
    use in RFCs to Indicate Requirement Levels" [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
@@ -310,15 +310,15 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  SMTP Submission Extension Registration</span>
 
    1.  The name of this submission extension is "BURL".  This extends
-       the Message Submission protocol on port 587 and MUST NOT be
+       the Message Submission protocol on port 587 and <em>MUST NOT</em> be
        advertised by a regular SMTP [<a href="./rfc2821.html" title="&quot;Simple Mail Transfer Protocol&quot;">RFC2821</a>] server on port 25 that
        acts as a relay for incoming mail from other SMTP relays.
 
    2.  The EHLO keyword value associated with the extension is "BURL".
 
    3.  The BURL EHLO keyword will have zero or more arguments.  The only
-       argument defined at this time is the "imap" argument, which MUST
-       be present in order to use IMAP URLs with BURL.  Clients MUST
+       argument defined at this time is the "imap" argument, which <em>MUST</em>
+       be present in order to use IMAP URLs with BURL.  Clients <em>MUST</em>
        ignore other arguments after the BURL EHLO keyword unless they
        are defined by a subsequent IETF standards track specification.
        The arguments that appear after the BURL EHLO keyword may change
@@ -337,19 +337,19 @@ Table of Contents
    TO headers, and a BURL command with the "LAST" tag.  The BURL command
    will include an IMAP URL pointing to a fully formed message ready for
    injection into the SMTP infrastructure.  If PIPELINING [<a href="./rfc2920.html" title="&quot;SMTP Service Extension for Command Pipelining&quot;">RFC2920</a>] is
-   advertised, the client MAY send the entire transaction in one round
+   advertised, the client <em>MAY</em> send the entire transaction in one round
    trip.  If no valid RCPT TO address is supplied, the BURL command will
    simply fail, and no resolution of the BURL URL argument will be
    performed.  If at least one valid RCPT TO address is supplied, then
    the BURL URL argument will be resolved before the server responds to
    the command.
 
-   A more sophisticated BURL transaction MAY occur when the server also
+   A more sophisticated BURL transaction <em>MAY</em> occur when the server also
    advertises CHUNKING [<a href="./rfc3030.html" title="&quot;SMTP Service Extensions for Transmission of Large and Binary MIME Messages&quot;">RFC3030</a>].  In this case, the BURL and BDAT
    commands may be interleaved until one of them terminates the
    transaction with the "LAST" argument.  If PIPELINING [<a href="./rfc2920.html" title="&quot;SMTP Service Extension for Command Pipelining&quot;">RFC2920</a>] is
    also advertised, then the client may pipeline the entire transaction
-   in one round-trip.  However, it MUST wait for the results of the
+   in one round-trip.  However, it <em>MUST</em> wait for the results of the
    "LAST" BDAT or BURL command prior to initiating a new transaction.
 
 
@@ -373,7 +373,7 @@ Table of Contents
    server's domain.
 
    Subsequent to a successful SMTP AUTH command, the submission server
-   MAY indicate a prearranged trust relationship with a specific IMAP
+   <em>MAY</em> indicate a prearranged trust relationship with a specific IMAP
    server by including a BURL EHLO keyword argument of the form
    "imap://imap.example.com".  In this case, the submission server will
    permit a regular IMAP URL referring to messages or parts of messages
@@ -393,13 +393,13 @@ Table of Contents
 
    When the submit server resolves a URLAUTH IMAP URL, it uses submit
    server credentials when authenticating to the IMAP server.  The
-   authentication identity and password used for submit credentials MUST
+   authentication identity and password used for submit credentials <em>MUST</em>
    be configurable.  The string "submit" is suggested as a default value
    for the authentication identity, with no default for the password.
    Typically, the authorization identity is empty in this case; thus the
    IMAP server will derive the authorization identity from the
    authentication identity.  If the IMAP URL uses the "submit+" access
-   identifier prefix, the submit server MUST refuse the BURL command
+   identifier prefix, the submit server <em>MUST</em> refuse the BURL command
    unless the userid in the URL's &lt;access&gt; token matches the submit
    client's authorization identity.
 
@@ -415,10 +415,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4468.html">RFC 4468</a>           Message Submission BURL Extension            May 2006</span>
 
 
-   server SHOULD forward the client's credentials if and only if the
+   server <em>SHOULD</em> forward the client's credentials if and only if the
    submit server knows that the IMAP server is in the same
    administrative domain.  If the submit server supports SASL mechanisms
-   other than PLAIN, it MUST implement a configuration in which the
+   other than PLAIN, it <em>MUST</em> implement a configuration in which the
    submit server's embedded IMAP client uses STARTTLS and SASL PLAIN
    with the submit server's authentication identity and password (for
    the respective IMAP server) and the submit client's authorization
@@ -529,17 +529,17 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  8-Bit and Binary</span>
 
-   A submit server that advertises BURL MUST also advertise 8BITMIME
+   A submit server that advertises BURL <em>MUST</em> also advertise 8BITMIME
    [<a href="./rfc1652.html" title="&quot;SMTP Service Extension for 8bit-MIMEtransport&quot;">RFC1652</a>] and perform the down conversion described in that
    specification on the resulting complete message if 8-bit data is
    received with the BURL command and passed to a 7-bit server.  If the
    URL argument to BURL refers to binary data, then the submit server
-   MAY refuse the command or down convert as described in Binary SMTP
+   <em>MAY</em> refuse the command or down convert as described in Binary SMTP
    [<a href="./rfc3030.html" title="&quot;SMTP Service Extensions for Transmission of Large and Binary MIME Messages&quot;">RFC3030</a>].
 
-   The Submit server MAY refuse to accept a BURL command or combination
+   The Submit server <em>MAY</em> refuse to accept a BURL command or combination
    of BURL and BDAT commands that result in un-encoded 8-bit data in
-   mail or MIME [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>] headers.  Alternatively, the server MAY accept
+   mail or MIME [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>] headers.  Alternatively, the server <em>MAY</em> accept
    such data and down convert to MIME header encoding [<a href="./rfc2047.html" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part Three: Message Header Extensions for Non-ASCII Text&quot;">RFC2047</a>].
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Updates to <a href="./rfc3463.html">RFC 3463</a></span>
@@ -565,7 +565,7 @@ Table of Contents
 
    This section includes example response codes to the BURL command.
    Other text may be used with the same response codes.  This list is
-   not exhaustive, and BURL clients MUST tolerate any valid SMTP
+   not exhaustive, and BURL clients <em>MUST</em> tolerate any valid SMTP
    response code.  Most of these examples include the appropriate
    enhanced status code [<a href="./rfc3463.html" title="&quot;Enhanced Mail System Status Codes&quot;">RFC3463</a>].
 
@@ -709,7 +709,7 @@ Table of Contents
    When a client uses SMTP STARTTLS to send a BURL command that
    references non-public information, there is a user expectation that
    the entire message content will be treated confidentially.  To
-   address this expectation, the message submission server SHOULD use
+   address this expectation, the message submission server <em>SHOULD</em> use
    STARTTLS or a mechanism providing equivalent data confidentiality
    when fetching the content referenced by that URL.
 

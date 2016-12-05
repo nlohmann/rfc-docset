@@ -345,9 +345,9 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements</span>
 
    In this document, several words are used to signify the requirements
-   of the specification.  The key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" in this document are to be interpreted as described in
+   of the specification.  The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -398,8 +398,8 @@ Table of Contents
    queries, is FF02:0:0:0:0:0:1:3.
 
    Typically, a host is configured as both an LLMNR sender and a
-   responder.  A host MAY be configured as a sender, but not a
-   responder.  However, a host configured as a responder MUST act as a
+   responder.  A host <em>MAY</em> be configured as a sender, but not a
+   responder.  However, a host configured as a responder <em>MUST</em> act as a
    sender, if only to verify the uniqueness of names as described in
    <a href="#section-4">Section 4</a>.  This document does not specify how names are chosen or
    configured.  This may occur via any mechanism, including DHCPv4
@@ -435,10 +435,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  LLMNR Packet Format</span>
 
    LLMNR is based on the DNS packet format defined in [<a href="./rfc1035.html" title="&quot;Domain names - implementation and specification&quot;">RFC1035</a>] <a href="#section-4">Section</a>
-   <a href="#section-4">4</a> for both queries and responses.  LLMNR implementations SHOULD send
+   <a href="#section-4">4</a> for both queries and responses.  LLMNR implementations <em>SHOULD</em> send
    UDP queries and responses only as large as are known to be
    permissible without causing fragmentation.  When in doubt, a maximum
-   packet size of 512 octets SHOULD be used.  LLMNR implementations MUST
+   packet size of 512 octets <em>SHOULD</em> be used.  LLMNR implementations <em>MUST</em>
    accept UDP queries and responses as large as the smaller of the link
    MTU or 9194 octets (Ethernet jumbo frame size of 9KB (9216) minus 22
    octets for the header, VLAN tag and Cyclic Redundancy Check (CRC)).
@@ -478,7 +478,7 @@ Table of Contents
            any kind of query.  This identifier is copied from the query
            to the response and can be used by the sender to match
            responses to outstanding queries.  The ID field in a query
-           SHOULD be set to a pseudo-random value.  For advice on
+           <em>SHOULD</em> be set to a pseudo-random value.  For advice on
            generation of pseudo-random values, please consult [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].
 
    QR      Query/Response.  A 1-bit field, which, if set, indicates that
@@ -490,9 +490,9 @@ Table of Contents
            copied into the response.  This specification defines the
            behavior of standard queries and responses (opcode value of
            zero).  Future specifications may define the use of other
-           opcodes with LLMNR.  LLMNR senders and responders MUST
+           opcodes with LLMNR.  LLMNR senders and responders <em>MUST</em>
            support standard queries (opcode value of zero).  LLMNR
-           queries with unsupported OPCODE values MUST be silently
+           queries with unsupported OPCODE values <em>MUST</em> be silently
            discarded by responders.
 
    C       Conflict.  When set within a query, the 'C'onflict bit
@@ -500,25 +500,25 @@ Table of Contents
            to this query.  In an LLMNR response, if the name is
            considered UNIQUE, then the 'C' bit is clear; otherwise, it
            is set.  LLMNR senders do not retransmit queries with the 'C'
-           bit set.  Responders MUST NOT respond to LLMNR queries with
+           bit set.  Responders <em>MUST NOT</em> respond to LLMNR queries with
            the 'C' bit set, but may start the uniqueness verification
            process, as described in <a href="#section-4.2">Section 4.2</a>.
 
    TC      TrunCation.  The 'TC' bit specifies that this message was
            truncated due to length greater than that permitted on the
-           transmission channel.  The 'TC' bit MUST NOT be set in an
+           transmission channel.  The 'TC' bit <em>MUST NOT</em> be set in an
            LLMNR query and, if set, is ignored by an LLMNR responder.
            If the 'TC' bit is set in an LLMNR response, then the sender
-           SHOULD resend the LLMNR query over TCP using the unicast
+           <em>SHOULD</em> resend the LLMNR query over TCP using the unicast
            address of the responder as the destination address.  If the
-           sender receives a response to the TCP query, then it SHOULD
+           sender receives a response to the TCP query, then it <em>SHOULD</em>
            discard the UDP response with the TC bit set.  See  [<a href="./rfc2181.html" title="&quot;Clarifications to the DNS Specification&quot;">RFC2181</a>]
            and <a href="#section-2.4">Section 2.4</a> of this specification for further discussion
            of the 'TC' bit.
 
    T       Tentative.  The 'T'entative bit is set in a response if the
            responder is authoritative for the name, but has not yet
-           verified the uniqueness of the name.  A responder MUST ignore
+           verified the uniqueness of the name.  A responder <em>MUST</em> ignore
            the 'T' bit in a query, if set.  A response with the 'T' bit
 
 
@@ -530,29 +530,29 @@ Table of Contents
 
            set is silently discarded by the sender, except if it is a
            uniqueness query, in which case, a conflict has been detected
-           and a responder MUST resolve the conflict as described in
+           and a responder <em>MUST</em> resolve the conflict as described in
            <a href="#section-4.1">Section 4.1</a>.
 
    Z       Reserved for future use.  Implementations of this
-           specification MUST set these bits to zero in both queries and
+           specification <em>MUST</em> set these bits to zero in both queries and
            responses.  If these bits are set in a LLMNR query or
-           response, implementations of this specification MUST ignore
+           response, implementations of this specification <em>MUST</em> ignore
            them.  Since reserved bits could conceivably be used for
            different purposes than in DNS, implementers are advised not
            to enable processing of these bits in an LLMNR implementation
            starting from a DNS code base.
 
    RCODE   Response code.  This 4-bit field is set as part of LLMNR
-           responses.  In an LLMNR query, the sender MUST set RCODE to
+           responses.  In an LLMNR query, the sender <em>MUST</em> set RCODE to
            zero; the responder ignores the RCODE and assumes it to be
-           zero.  The response to a multicast LLMNR query MUST have
-           RCODE set to zero.  A sender MUST silently discard an LLMNR
+           zero.  The response to a multicast LLMNR query <em>MUST</em> have
+           RCODE set to zero.  A sender <em>MUST</em> silently discard an LLMNR
            response with a non-zero RCODE sent in response to a
            multicast query.
 
            If an LLMNR responder is authoritative for the name in a
            multicast query, but an error is encountered, the responder
-           SHOULD send an LLMNR response with an RCODE of zero, no RRs
+           <em>SHOULD</em> send an LLMNR response with an RCODE of zero, no RRs
            in the answer section, and the TC bit set.  This will cause
            the query to be resent using TCP, and allow the inclusion of
            a non-zero RCODE in the response to the TCP query.
@@ -567,11 +567,11 @@ Table of Contents
            (BADSIG)).
 
            Since LLMNR responders only respond to LLMNR queries for
-           names for which they are authoritative, LLMNR responders MUST
+           names for which they are authoritative, LLMNR responders <em>MUST</em>
            NOT respond with an RCODE of 3; instead, they should not
            respond at all.
 
-           LLMNR implementations MUST support EDNS0 [<a href="./rfc2671.html" title="&quot;Extension Mechanisms for DNS (EDNS0)&quot;">RFC2671</a>] and
+           LLMNR implementations <em>MUST</em> support EDNS0 [<a href="./rfc2671.html" title="&quot;Extension Mechanisms for DNS (EDNS0)&quot;">RFC2671</a>] and
            extended RCODE values.
 
 
@@ -585,21 +585,21 @@ Table of Contents
 
 
    QDCOUNT An unsigned 16-bit integer specifying the number of entries
-           in the question section.  A sender MUST place only one
+           in the question section.  A sender <em>MUST</em> place only one
            question into the question section of an LLMNR query.  LLMNR
-           responders MUST silently discard LLMNR queries with QDCOUNT
-           not equal to one.  LLMNR senders MUST silently discard LLMNR
+           responders <em>MUST</em> silently discard LLMNR queries with QDCOUNT
+           not equal to one.  LLMNR senders <em>MUST</em> silently discard LLMNR
            responses with QDCOUNT not equal to one.
 
    ANCOUNT An unsigned 16-bit integer specifying the number of resource
-           records in the answer section.  LLMNR responders MUST
+           records in the answer section.  LLMNR responders <em>MUST</em>
            silently discard LLMNR queries with ANCOUNT not equal to
            zero.
 
    NSCOUNT An unsigned 16-bit integer specifying the number of name
            server resource records in the authority records section.
            Authority record section processing is described in <a href="#section-2.9">Section</a>
-           <a href="#section-2.9">2.9</a>.  LLMNR responders MUST silently discard LLMNR queries
+           <a href="#section-2.9">2.9</a>.  LLMNR responders <em>MUST</em> silently discard LLMNR queries
            with NSCOUNT not equal to zero.
 
    ARCOUNT An unsigned 16-bit integer specifying the number of resource
@@ -608,11 +608,11 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Sender Behavior</span>
 
-   A sender MAY send an LLMNR query for any legal resource record type
+   A sender <em>MAY</em> send an LLMNR query for any legal resource record type
    (e.g., A, AAAA, PTR, SRV) to the link-scope multicast address.  As
-   described in <a href="#section-2.4">Section 2.4</a>, a sender MAY also send a unicast query.
+   described in <a href="#section-2.4">Section 2.4</a>, a sender <em>MAY</em> also send a unicast query.
 
-   The sender MUST anticipate receiving no responses to some LLMNR
+   The sender <em>MUST</em> anticipate receiving no responses to some LLMNR
    queries, in the event that no responders are available within the
    link-scope.  If no response is received, a resolver treats it as a
    response that the name does not exist (RCODE=3 is returned).  A
@@ -621,16 +621,16 @@ Table of Contents
    received.
 
    When multiple valid LLMNR responses are received with the 'C' bit
-   set, they SHOULD be concatenated and treated in the same manner that
+   set, they <em>SHOULD</em> be concatenated and treated in the same manner that
    multiple RRs received from the same DNS server would be.  However,
-   responses with the 'C' bit set SHOULD NOT be concatenated with
+   responses with the 'C' bit set <em>SHOULD NOT</em> be concatenated with
    responses with the 'C' bit clear; instead, only the responses with
-   the 'C' bit set SHOULD be returned.  If valid LLMNR response(s) are
+   the 'C' bit set <em>SHOULD</em> be returned.  If valid LLMNR response(s) are
    received along with error response(s), then the error responses are
    silently discarded.
 
    Since the responder may order the RRs in the response so as to
-   indicate preference, the sender SHOULD preserve ordering in the
+   indicate preference, the sender <em>SHOULD</em> preserve ordering in the
    response to the querying application.
 
 
@@ -642,12 +642,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Responder Behavior</span>
 
-   An LLMNR response MUST be sent to the sender via unicast.
+   An LLMNR response <em>MUST</em> be sent to the sender via unicast.
 
    Upon configuring an IP address, responders typically will synthesize
    corresponding A, AAAA and PTR RRs so as to be able to respond to
    LLMNR queries for these RRs.  An SOA RR is synthesized only when a
-   responder has another RR in addition to the SOA RR;  the SOA RR MUST
+   responder has another RR in addition to the SOA RR;  the SOA RR <em>MUST</em>
    NOT be the only RR that a responder has.  However, in general,
    whether RRs are manually or automatically created is an
    implementation decision.
@@ -676,16 +676,16 @@ Table of Contents
 
    In responding to queries:
 
-   (a)  Responders MUST listen on UDP port 5355 on the link-scope
+   (a)  Responders <em>MUST</em> listen on UDP port 5355 on the link-scope
         multicast address(es) defined in <a href="#section-2">Section 2</a>, and on TCP port 5355
         on the unicast address(es) that could be set as the source
         address(es) when the responder responds to the LLMNR query.
 
-   (b)  Responders MUST direct responses to the port from which the
+   (b)  Responders <em>MUST</em> direct responses to the port from which the
         query was sent.  When queries are received via TCP, this is an
         inherent part of the transport protocol.  For queries received
-        by UDP, the responder MUST take note of the source port and use
-        that as the destination port in the response.  Responses MUST
+        by UDP, the responder <em>MUST</em> take note of the source port and use
+        that as the destination port in the response.  Responses <em>MUST</em>
         always be sent from the port to which they were directed.
 
 
@@ -696,18 +696,18 @@ Table of Contents
 <span class="grey"><a href="./rfc4795.html">RFC 4795</a>                         LLMNR                      January 2007</span>
 
 
-   (c)  Responders MUST respond to LLMNR queries for names and addresses
+   (c)  Responders <em>MUST</em> respond to LLMNR queries for names and addresses
         for which they are authoritative.  This applies to both forward
         and reverse lookups, with the exception of queries with the 'C'
         bit set, which do not elicit a response.
 
-   (d)  Responders MUST NOT respond to LLMNR queries for names for which
+   (d)  Responders <em>MUST NOT</em> respond to LLMNR queries for names for which
         they are not authoritative.
 
-   (e)  Responders MUST NOT respond using data from the LLMNR or DNS
+   (e)  Responders <em>MUST NOT</em> respond using data from the LLMNR or DNS
         resolver cache.
 
-   (f)  If a responder is authoritative for a name, it MUST respond with
+   (f)  If a responder is authoritative for a name, it <em>MUST</em> respond with
         RCODE=0 and an empty answer section, if the type of query does
         not match an RR that the responder has.
 
@@ -759,7 +759,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a>.  Unicast Queries and Responses</span>
 
-   Unicast queries SHOULD be sent when:
+   Unicast queries <em>SHOULD</em> be sent when:
 
    (a) A sender repeats a query after it received a response with the TC
        bit set to the previous LLMNR multicast query, or
@@ -767,13 +767,13 @@ Table of Contents
    (b) The sender queries for a PTR RR of a fully formed IP address
        within the "in-addr.arpa" or "ip6.arpa" zones.
 
-   Unicast LLMNR queries MUST be done using TCP and the responses MUST
-   be sent using the same TCP connection as the query.  Senders MUST
-   support sending TCP queries, and responders MUST support listening
+   Unicast LLMNR queries <em>MUST</em> be done using TCP and the responses <em>MUST</em>
+   be sent using the same TCP connection as the query.  Senders <em>MUST</em>
+   support sending TCP queries, and responders <em>MUST</em> support listening
    for TCP queries.  If the sender of a TCP query receives a response to
-   that query not using TCP, the response MUST be silently discarded.
+   that query not using TCP, the response <em>MUST</em> be silently discarded.
 
-   Unicast UDP queries MUST be silently discarded.
+   Unicast UDP queries <em>MUST</em> be silently discarded.
 
    A unicast PTR RR query for an off-link address will not elicit a
    response, but instead, an ICMP Time to Live (TTL) or Hop Limit
@@ -781,7 +781,7 @@ Table of Contents
    ICMP message in response to a TCP connection setup attempt can return
    immediately, treating this as a response that no such name exists
    (RCODE=3 is returned).  An implementation that cannot process ICMP
-   messages MAY send multicast UDP queries for PTR RRs.  Since TCP
+   messages <em>MAY</em> send multicast UDP queries for PTR RRs.  Since TCP
    implementations will not retransmit prior to RTOmin, a considerable
    period will elapse before TCP retransmits multiple times, resulting
    in a long timeout for TCP PTR RR queries sent to an off-link
@@ -789,14 +789,14 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.5" href="#section-2.5">2.5</a>.  "Off-Link" Detection</span>
 
-   A sender MUST select a source address for LLMNR queries that is
+   A sender <em>MUST</em> select a source address for LLMNR queries that is
    assigned on the interface on which the query is sent.  The
-   destination address of an LLMNR query MUST be a link-scope multicast
+   destination address of an LLMNR query <em>MUST</em> be a link-scope multicast
    address or a unicast address.
 
-   A responder MUST select a source address for responses that is
+   A responder <em>MUST</em> select a source address for responses that is
    assigned on the interface on which the query was received.  The
-   destination address of an LLMNR response MUST be a unicast address.
+   destination address of an LLMNR response <em>MUST</em> be a unicast address.
 
 
 
@@ -808,23 +808,23 @@ Table of Contents
 <span class="grey"><a href="./rfc4795.html">RFC 4795</a>                         LLMNR                      January 2007</span>
 
 
-   On receiving an LLMNR query, the responder MUST check whether it was
+   On receiving an LLMNR query, the responder <em>MUST</em> check whether it was
    sent to an LLMNR multicast addresses defined in <a href="#section-2">Section 2</a>.  If it was
-   sent to another multicast address, then the query MUST be silently
+   sent to another multicast address, then the query <em>MUST</em> be silently
    discarded.
 
    <a href="#section-2.4">Section 2.4</a> discusses use of TCP for LLMNR queries and responses.  In
-   composing an LLMNR query using TCP, the sender MUST set the Hop Limit
+   composing an LLMNR query using TCP, the sender <em>MUST</em> set the Hop Limit
    field in the IPv6 header and the TTL field in the IPv4 header of the
-   response to one (1).  The responder SHOULD set the TTL or Hop Limit
+   response to one (1).  The responder <em>SHOULD</em> set the TTL or Hop Limit
    settings on the TCP listen socket to one (1) so that SYN-ACK packets
    will have TTL (IPv4) or Hop Limit (IPv6) set to one (1).  This
    prevents an incoming connection from off-link since the sender will
    not receive a SYN-ACK from the responder.
 
    For UDP queries and responses, the Hop Limit field in the IPv6 header
-   and the TTL field in the IPV4 header MAY be set to any value.
-   However, it is RECOMMENDED that the value 255 be used for
+   and the TTL field in the IPV4 header <em>MAY</em> be set to any value.
+   However, it is <em>RECOMMENDED</em> that the value 255 be used for
    compatibility with early implementations of [<a href="./rfc3927.html" title="&quot;Dynamic Configuration of IPv4 Link-Local Addresses&quot;">RFC3927</a>].
 
    Implementation note:
@@ -839,20 +839,20 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-2.6" href="#section-2.6">2.6</a>.  Responder Responsibilities</span>
 
    It is the responsibility of the responder to ensure that RRs returned
-   in LLMNR responses MUST only include values that are valid on the
+   in LLMNR responses <em>MUST</em> only include values that are valid on the
    local interface, such as IPv4 or IPv6 addresses valid on the local
    link or names defended using the mechanism described in <a href="#section-4">Section 4</a>.
    IPv4 Link-Local addresses are defined in [<a href="./rfc3927.html" title="&quot;Dynamic Configuration of IPv4 Link-Local Addresses&quot;">RFC3927</a>].  IPv6 Link-Local
    addresses are defined in [<a href="./rfc4291.html" title="&quot;IP Version 6 Addressing Architecture&quot;">RFC4291</a>].  In particular:
 
    (a) If a link-scope IPv6 address is returned in a AAAA RR, that
-       address MUST be valid on the local link over which LLMNR is used.
+       address <em>MUST</em> be valid on the local link over which LLMNR is used.
 
-   (b) If an IPv4 address is returned, it MUST be reachable through the
+   (b) If an IPv4 address is returned, it <em>MUST</em> be reachable through the
        link over which LLMNR is used.
 
    (c) If a name is returned (for example in a CNAME, MX, or SRV RR),
-       the name MUST be resolvable on the local link over which LLMNR is
+       the name <em>MUST</em> be resolvable on the local link over which LLMNR is
        used.
 
 
@@ -868,41 +868,41 @@ Table of Contents
    order in which the addresses are returned is as follows:
 
    (d) If the source address of the query is a link-scope address, then
-       the responder SHOULD include a link-scope address first in the
+       the responder <em>SHOULD</em> include a link-scope address first in the
        response, if available.
 
    (e) If the source address of the query is a routable address, then
-       the responder MUST include a routable address first in the
+       the responder <em>MUST</em> include a routable address first in the
        response, if available.
 
 <span class="h3"><a class="selflink" name="section-2.7" href="#section-2.7">2.7</a>.  Retransmission and Jitter</span>
 
    An LLMNR sender uses the timeout interval LLMNR_TIMEOUT to determine
-   when to retransmit an LLMNR query.  An LLMNR sender SHOULD either
+   when to retransmit an LLMNR query.  An LLMNR sender <em>SHOULD</em> either
    estimate the LLMNR_TIMEOUT for each interface or set a reasonably
    high initial timeout.  Suggested constants are described in <a href="#section-7">Section</a>
    <a href="#section-7">7</a>.
 
    If an LLMNR query sent over UDP is not resolved within LLMNR_TIMEOUT,
-   then a sender SHOULD repeat the transmission of the query in order to
+   then a sender <em>SHOULD</em> repeat the transmission of the query in order to
    ensure that it was received by a host capable of responding to it.
-   An LLMNR query SHOULD NOT be sent more than three times.
+   An LLMNR query <em>SHOULD NOT</em> be sent more than three times.
 
    Where LLMNR queries are sent using TCP, retransmission is handled by
-   the transport layer.  Queries with the 'C' bit set MUST be sent using
-   multicast UDP and MUST NOT be retransmitted.
+   the transport layer.  Queries with the 'C' bit set <em>MUST</em> be sent using
+   multicast UDP and <em>MUST NOT</em> be retransmitted.
 
    An LLMNR sender cannot know in advance if a query sent using
    multicast will receive no response, one response, or more than one
-   response.  An LLMNR sender MUST wait for LLMNR_TIMEOUT if no response
+   response.  An LLMNR sender <em>MUST</em> wait for LLMNR_TIMEOUT if no response
    has been received, or if it is necessary to collect all potential
    responses, such as if a uniqueness verification query is being made.
-   Otherwise, an LLMNR sender SHOULD consider a multicast query answered
+   Otherwise, an LLMNR sender <em>SHOULD</em> consider a multicast query answered
    after the first response is received, if that response has the 'C'
    bit clear.
 
    However, if the first response has the 'C' bit set, then the sender
-   SHOULD wait for LLMNR_TIMEOUT + JITTER_INTERVAL in order to collect
+   <em>SHOULD</em> wait for LLMNR_TIMEOUT + JITTER_INTERVAL in order to collect
    all possible responses.  When multiple valid answers are received,
    they may first be concatenated, and then treated in the same manner
    that multiple RRs received from the same DNS server would.  A unicast
@@ -921,13 +921,13 @@ Table of Contents
 
 
    Since it is possible for a response with the 'C' bit clear to be
-   followed by a response with the 'C' bit set, an LLMNR sender SHOULD
+   followed by a response with the 'C' bit set, an LLMNR sender <em>SHOULD</em>
    be prepared to process additional responses for the purposes of
    conflict detection, even after it has considered a query answered.
 
    In order to avoid synchronization, the transmission of each LLMNR
-   query and response SHOULD be delayed by a time randomly selected from
-   the interval 0 to JITTER_INTERVAL.  This delay MAY be avoided by
+   query and response <em>SHOULD</em> be delayed by a time randomly selected from
+   the interval 0 to JITTER_INTERVAL.  This delay <em>MAY</em> be avoided by
    responders responding with names that they have previously determined
    to be UNIQUE (see <a href="#section-4">Section 4</a> for details).
 
@@ -935,36 +935,36 @@ Table of Contents
 
    The responder should insert a pre-configured TTL value in the records
    returned in an LLMNR response.  A default value of 30 seconds is
-   RECOMMENDED.  In highly dynamic environments (such as mobile ad-hoc
+   <em>RECOMMENDED</em>.  In highly dynamic environments (such as mobile ad-hoc
    networks), the TTL value may need to be reduced.
 
    Due to the TTL minimalization necessary when caching an RRset, all
-   TTLs in an RRset MUST be set to the same value.
+   TTLs in an RRset <em>MUST</em> be set to the same value.
 
 <span class="h3"><a class="selflink" name="section-2.9" href="#section-2.9">2.9</a>.  Use of the Authority and Additional Sections</span>
 
    Unlike the DNS, LLMNR is a peer-to-peer protocol and does not have a
    concept of delegation.  In LLMNR, the NS resource record type may be
    stored and queried for like any other type, but it has no special
-   delegation semantics as it does in the DNS.  Responders MAY have NS
+   delegation semantics as it does in the DNS.  Responders <em>MAY</em> have NS
    records associated with the names for which they are authoritative,
-   but they SHOULD NOT include these NS records in the authority
+   but they <em>SHOULD NOT</em> include these NS records in the authority
    sections of responses.
 
-   Responders SHOULD insert an SOA record into the authority section of
+   Responders <em>SHOULD</em> insert an SOA record into the authority section of
    a negative response, to facilitate negative caching as specified in
    [<a href="./rfc2308.html" title="&quot;Negative Caching of DNS Queries (DNS NCACHE)&quot;">RFC2308</a>].  The TTL of this record is set from the minimum of the
    MINIMUM field of the SOA record and the TTL of the SOA itself, and
    indicates how long a resolver may cache the negative answer.  The
-   owner name of the SOA record (MNAME) MUST be set to the query name.
-   The RNAME, SERIAL, REFRESH, RETRY, and EXPIRE values MUST be ignored
-   by senders.  Negative responses without SOA records SHOULD NOT be
+   owner name of the SOA record (MNAME) <em>MUST</em> be set to the query name.
+   The RNAME, SERIAL, REFRESH, RETRY, and EXPIRE values <em>MUST</em> be ignored
+   by senders.  Negative responses without SOA records <em>SHOULD NOT</em> be
    cached.
 
    In LLMNR, the additional section is primarily intended for use by
    EDNS0, TSIG, and SIG(0).  As a result, unless the 'C' bit is set,
-   senders MAY only include pseudo RR-types in the additional section of
-   a query; unless the 'C' bit is set, responders MUST ignore the
+   senders <em>MAY</em> only include pseudo RR-types in the additional section of
+   a query; unless the 'C' bit is set, responders <em>MUST</em> ignore the
    additional section of queries containing other RR types.
 
 
@@ -976,25 +976,25 @@ Table of Contents
 <span class="grey"><a href="./rfc4795.html">RFC 4795</a>                         LLMNR                      January 2007</span>
 
 
-   In queries where the 'C' bit is set, the sender SHOULD include the
+   In queries where the 'C' bit is set, the sender <em>SHOULD</em> include the
    conflicting RRs in the additional section.  Since conflict
-   notifications are advisory, responders SHOULD log information from
-   the additional section, but otherwise MUST ignore the additional
+   notifications are advisory, responders <em>SHOULD</em> log information from
+   the additional section, but otherwise <em>MUST</em> ignore the additional
    section.
 
-   Senders MUST NOT cache RRs from the authority or additional section
+   Senders <em>MUST NOT</em> cache RRs from the authority or additional section
    of a response as answers, though they may be used for other purposes,
    such as negative caching.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Usage Model</span>
 
-   By default, an LLMNR sender SHOULD send LLMNR queries only for
+   By default, an LLMNR sender <em>SHOULD</em> send LLMNR queries only for
    single-label names.  Stub resolvers supporting both DNS and LLMNR
-   SHOULD avoid sending DNS queries for single-label names, in order to
-   reduce unnecessary DNS queries.  An LLMNR sender SHOULD NOT be
+   <em>SHOULD</em> avoid sending DNS queries for single-label names, in order to
+   reduce unnecessary DNS queries.  An LLMNR sender <em>SHOULD NOT</em> be
    enabled to send a query for any name, except where security
    mechanisms (described in <a href="#section-5.3">Section 5.3</a>) can be utilized.  An LLMNR
-   query SHOULD only be sent for the originally requested name; a
+   query <em>SHOULD</em> only be sent for the originally requested name; a
    searchlist is not used to form additional LLMNR queries.
 
    LLMNR is a peer-to-peer name resolution protocol that is not intended
@@ -1004,7 +1004,7 @@ Table of Contents
    LLMNR is given higher priority than DNS among the enabled name
    resolution mechanisms, this would allow the LLMNR cache, once
    poisoned, to take precedence over the DNS cache.  As a result, use of
-   LLMNR as a primary name resolution mechanism is NOT RECOMMENDED.
+   LLMNR as a primary name resolution mechanism is NOT <em>RECOMMENDED</em>.
 
    Instead, it is recommended that LLMNR be utilized as a secondary name
    resolution mechanism, for use in situations where hosts are not
@@ -1014,7 +1014,7 @@ Table of Contents
    server does not have the desired RRs.
 
    When LLMNR is configured as a secondary name resolution mechanism,
-   LLMNR queries SHOULD only be sent when all of the following
+   LLMNR queries <em>SHOULD</em> only be sent when all of the following
    conditions are met:
 
 
@@ -1033,12 +1033,12 @@ Table of Contents
 
 
    (1) No manual or automatic DNS configuration has been performed.  If
-       DNS server address(es) have been configured, a host SHOULD
+       DNS server address(es) have been configured, a host <em>SHOULD</em>
        attempt to reach DNS servers over all protocols on which DNS
        server address(es) are configured, prior to sending LLMNR
        queries.  For dual-stack hosts configured with DNS server
        address(es) for one protocol but not another, this implies that
-       DNS queries SHOULD be sent over the protocol configured with a
+       DNS queries <em>SHOULD</em> be sent over the protocol configured with a
        DNS server, prior to sending LLMNR queries.
 
    (2) All attempts to resolve the name via DNS on all interfaces have
@@ -1046,7 +1046,7 @@ Table of Contents
        DNS servers did not respond, or because they responded to DNS
        queries with RCODE=3 (Authoritative Name Error) or RCODE=0, and
        an empty answer section.  Where a single resolver call generates
-       DNS queries for A and AAAA RRs, an implementation MAY choose not
+       DNS queries for A and AAAA RRs, an implementation <em>MAY</em> choose not
        to send LLMNR queries if any of the DNS queries is successful.
 
    Where LLMNR is used as a secondary name resolution mechanism, its
@@ -1090,10 +1090,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  LLMNR Configuration</span>
 
-   LLMNR usage MAY be configured manually or automatically on a per-
-   interface basis.  By default, LLMNR responders SHOULD be enabled on
+   LLMNR usage <em>MAY</em> be configured manually or automatically on a per-
+   interface basis.  By default, LLMNR responders <em>SHOULD</em> be enabled on
    all interfaces, at all times.  Where this is considered undesirable,
-   LLMNR SHOULD be disabled, so that hosts will neither listen on the
+   LLMNR <em>SHOULD</em> be disabled, so that hosts will neither listen on the
    link-scope multicast address, nor will they send queries to that
    address.
 
@@ -1178,15 +1178,15 @@ Table of Contents
    DNS server may wish to periodically attempt to obtain DNS
    configuration if permitted by the configuration mechanism in use.  In
    the absence of other guidance, a default retry interval of one (1)
-   minute is RECOMMENDED.
+   minute is <em>RECOMMENDED</em>.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Conflict Resolution</span>
 
-   By default, a responder SHOULD be configured to behave as though its
+   By default, a responder <em>SHOULD</em> be configured to behave as though its
    name is UNIQUE on each interface on which LLMNR is enabled.  However,
    it is also possible to configure multiple responders to be
    authoritative for the same name.  For example, multiple responders
-   MAY respond to a query for an A or AAAA type record for a cluster
+   <em>MAY</em> respond to a query for an A or AAAA type record for a cluster
    name (assigned to multiple hosts in the cluster).
 
 
@@ -1209,14 +1209,14 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Uniqueness Verification</span>
 
    Prior to sending an LLMNR response with the 'T' bit clear, a
-   responder configured with a UNIQUE name MUST verify that there is no
+   responder configured with a UNIQUE name <em>MUST</em> verify that there is no
    other host within the scope of LLMNR query propagation that is
    authoritative for the same name on that interface.
 
    Once a responder has verified that its name is UNIQUE, if it receives
-   an LLMNR query for that name with the 'C' bit clear, it MUST respond
+   an LLMNR query for that name with the 'C' bit clear, it <em>MUST</em> respond
    with the 'T' bit clear.  Prior to verifying that its name is UNIQUE,
-   a responder MUST set the 'T' bit in responses.
+   a responder <em>MUST</em> set the 'T' bit in responses.
 
    Uniqueness verification is carried out when the host:
 
@@ -1234,18 +1234,18 @@ Table of Contents
      - verifies the acquisition of a new IP address and configuration on
        an interface
 
-   To verify uniqueness, a responder MUST send an LLMNR query with the
+   To verify uniqueness, a responder <em>MUST</em> send an LLMNR query with the
    'C' bit clear, over all protocols on which it responds to LLMNR
-   queries (IPv4 and/or IPv6).  It is RECOMMENDED that responders verify
+   queries (IPv4 and/or IPv6).  It is <em>RECOMMENDED</em> that responders verify
    uniqueness of a name by sending a query for the name with type='ANY'.
 
    If no response is received, the sender retransmits the query, as
-   specified in <a href="#section-2.7">Section 2.7</a>.  If a response is received, the sender MUST
+   specified in <a href="#section-2.7">Section 2.7</a>.  If a response is received, the sender <em>MUST</em>
    check if the source address matches the address of any of its
    interfaces; if so, then the response is not considered a conflict,
    since it originates from the sender.  To avoid triggering conflict
    detection, a responder that detects that it is connected to the same
-   link on multiple interfaces SHOULD set the 'C' bit in responses.
+   link on multiple interfaces <em>SHOULD</em> set the 'C' bit in responses.
 
 
 
@@ -1256,12 +1256,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4795.html">RFC 4795</a>                         LLMNR                      January 2007</span>
 
 
-   If a response is received with the 'T' bit clear, the responder MUST
+   If a response is received with the 'T' bit clear, the responder <em>MUST</em>
    NOT use the name in response to LLMNR queries received over any
    protocol (IPv4 or IPv6).  If a response is received with the 'T' bit
-   set, the responder MUST check if the source IP address in the
+   set, the responder <em>MUST</em> check if the source IP address in the
    response is lexicographically smaller than the source IP address in
-   the query.  If so, the responder MUST NOT use the name in response to
+   the query.  If so, the responder <em>MUST NOT</em> use the name in response to
    LLMNR queries received over any protocol (IPv4 or IPv6).  For the
    purpose of uniqueness verification, the contents of the answer
    section in a response is irrelevant.
@@ -1271,7 +1271,7 @@ Table of Contents
    may actually be detrimental.  For example, if network links are
    joined only briefly, and are separated again before any new
    communication is initiated, temporary conflicts are benign and no
-   forced reconfiguration is required.  LLMNR responders SHOULD NOT
+   forced reconfiguration is required.  LLMNR responders <em>SHOULD NOT</em>
    periodically attempt uniqueness verification.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Conflict Detection and Defense</span>
@@ -1282,25 +1282,25 @@ Table of Contents
    the same link, trying to use the same name.
 
    In order to enable ongoing detection of name conflicts, when an LLMNR
-   sender receives multiple LLMNR responses to a query, it MUST check if
+   sender receives multiple LLMNR responses to a query, it <em>MUST</em> check if
    the 'C' bit is clear in any of the responses.  If so, the sender
 
-   SHOULD send another query for the same name, type, and class, this
+   <em>SHOULD</em> send another query for the same name, type, and class, this
    time with the 'C' bit set, with the potentially conflicting resource
    records included in the additional section.
 
    Queries with the 'C' bit set are considered advisory, and responders
-   MUST verify the existence of a conflict before acting on it.  A
-   responder receiving a query with the 'C' bit set MUST NOT respond.
+   <em>MUST</em> verify the existence of a conflict before acting on it.  A
+   responder receiving a query with the 'C' bit set <em>MUST NOT</em> respond.
 
-   If the query is for a UNIQUE name, then the responder MUST send its
+   If the query is for a UNIQUE name, then the responder <em>MUST</em> send its
    own query for the same name, type, and class, with the 'C' bit clear.
-   If a response is received, the sender MUST check if the source
+   If a response is received, the sender <em>MUST</em> check if the source
    address matches the address of any of its interfaces; if so, then the
    response is not considered a conflict, since it originates from the
    sender.  To avoid triggering conflict detection, a responder that
    detects that it is connected to the same link on multiple interfaces
-   SHOULD set the 'C' bit in responses.
+   <em>SHOULD</em> set the 'C' bit in responses.
 
 
 
@@ -1312,14 +1312,14 @@ Table of Contents
 <span class="grey"><a href="./rfc4795.html">RFC 4795</a>                         LLMNR                      January 2007</span>
 
 
-   An LLMNR responder MUST NOT ignore conflicts once detected, and
-   SHOULD log them.  Upon detecting a conflict, an LLMNR responder MUST
+   An LLMNR responder <em>MUST NOT</em> ignore conflicts once detected, and
+   <em>SHOULD</em> log them.  Upon detecting a conflict, an LLMNR responder <em>MUST</em>
    immediately stop using the conflicting name in response to LLMNR
    queries received over any supported protocol, if the source IP
    address in the response is lexicographically smaller than the source
    IP address in the uniqueness verification query.
 
-   After stopping the use of a name, the responder MAY elect to
+   After stopping the use of a name, the responder <em>MAY</em> elect to
    configure a new name.  However, since name reconfiguration may be
    disruptive, this is not required, and a responder may have been
    configured to respond to multiple names so that alternative names may
@@ -1332,7 +1332,7 @@ Table of Contents
    A multi-homed host may elect to configure LLMNR on only one of its
    active interfaces.  In many situations, this will be adequate.
    However, should a host need to configure LLMNR on more than one of
-   its active interfaces, there are some additional precautions it MUST
+   its active interfaces, there are some additional precautions it <em>MUST</em>
    take.  Implementers who are not planning to support LLMNR on multiple
    interfaces simultaneously may skip this section.
 
@@ -1543,7 +1543,7 @@ Table of Contents
    Where a pre-arranged security configuration is possible, the
    following security mechanisms may be used:
 
-   (a)  LLMNR implementations MAY support TSIG [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>] and/or SIG(0)
+   (a)  LLMNR implementations <em>MAY</em> support TSIG [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>] and/or SIG(0)
         [<a href="./rfc2931.html" title="&quot;DNS Request and Transaction Signatures ( SIG(0)s )&quot;">RFC2931</a>] security mechanisms.  "DNS Name Service based on
         Secure Multicast DNS for IPv6 Mobile Ad Hoc Networks" [<a href="#ref-LLMNRSec" title="&quot;DNS Name Service based on Secure Multicast DNS for IPv6 Mobile Ad Hoc Networks&quot;">LLMNRSec</a>]
         describes the use of TSIG to secure LLMNR, based on group keys.
@@ -1552,7 +1552,7 @@ Table of Contents
         is a member of the group.
 
    (b)  IPsec Encapsulating Security Payload (ESP) with a NULL
-        encryption algorithm MAY be used to authenticate unicast LLMNR
+        encryption algorithm <em>MAY</em> be used to authenticate unicast LLMNR
         queries and responses, or LLMNR responses to multicast queries.
         In a small network without a certificate authority, this can be
         most easily accomplished through configuration of a group pre-
@@ -1560,9 +1560,9 @@ Table of Contents
         protect against forgery by an attacker with access to the group
         pre-shared key.
 
-   (c)  LLMNR implementations MAY support DNSSEC [<a href="./rfc4033.html" title="&quot;DNS Security Introduction and Requirements&quot;">RFC4033</a>].  In order to
-        support DNSSEC, LLMNR implementations MAY be configured with
-        trust anchors, or they MAY make use of keys obtained from DNS
+   (c)  LLMNR implementations <em>MAY</em> support DNSSEC [<a href="./rfc4033.html" title="&quot;DNS Security Introduction and Requirements&quot;">RFC4033</a>].  In order to
+        support DNSSEC, LLMNR implementations <em>MAY</em> be configured with
+        trust anchors, or they <em>MAY</em> make use of keys obtained from DNS
         queries.  Since LLMNR does not support "delegated trust" (CD or
         AD bits), LLMNR implementations cannot make use of DNSSEC unless
         they are DNSSEC-aware and support validation.  Unlike approaches
@@ -1573,16 +1573,16 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Cache and Port Separation</span>
 
    In order to prevent responses to LLMNR queries from polluting the DNS
-   cache, LLMNR implementations MUST use a distinct, isolated cache for
+   cache, LLMNR implementations <em>MUST</em> use a distinct, isolated cache for
    LLMNR on each interface.  LLMNR operates on a separate port from DNS,
    reducing the likelihood that a DNS server will unintentionally
    respond to an LLMNR query.
 
    If a DNS server is running on a host that supports LLMNR, the LLMNR
-   responder on that host MUST respond to LLMNR queries only for the
-   RRSets relating to the host on which the server is running, but MUST
+   responder on that host <em>MUST</em> respond to LLMNR queries only for the
+   RRSets relating to the host on which the server is running, but <em>MUST</em>
    NOT respond for other records for which the DNS server is
-   authoritative.  DNS servers MUST NOT send LLMNR queries in order to
+   authoritative.  DNS servers <em>MUST NOT</em> send LLMNR queries in order to
    resolve DNS queries.
 
 

@@ -389,8 +389,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    We use terminology and definitions from the base RELOAD specification
@@ -564,11 +564,11 @@ Table of Contents
    same address realm and/or can directly route to each other.  In such
    a scenario, the network administrator can indicate preference for DRR
    in the peer's configuration file.  Peers in such a system would
-   always try DRR first, but peers MUST also support SRR in case DRR
+   always try DRR first, but peers <em>MUST</em> also support SRR in case DRR
    fails.  During the process of establishing a direct connection with
    the sending peer, if the responding peer receives a request with SRR
    as the preferred routing mode (or it fails to establish the direct
-   connection), the responding peer SHOULD NOT use DRR but instead
+   connection), the responding peer <em>SHOULD NOT</em> use DRR but instead
    switch to SRR.  The simple policy is to try DRR and, if this fails,
    switch to SRR for all connections.  In a finer-grained policy, a peer
    would keep a list of unreachable peers based on trying DRR and then
@@ -607,16 +607,16 @@ Table of Contents
    section, we give some informative suggestions for how to transition
    between the routing modes in RELOAD.
 
-   According to [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>], SRR MUST be supported.  An overlay MAY be
+   According to [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>], SRR <em>MUST</em> be supported.  An overlay <em>MAY</em> be
    configured to use alternative routing algorithms, and alternative
-   routing algorithms MAY be selected on a per-message basis.  That is,
+   routing algorithms <em>MAY</em> be selected on a per-message basis.  That is,
    a node in an overlay that supports SRR and some other routing
    algorithm -- for example, DRR -- might use SRR some of the time and
    DRR some of the time.  A node joining the overlay should get the
    preferred routing mode from the configuration file.  If an overlay
    runs within a private network and all peers in the system can reach
-   each other directly, peers MAY send most of the transactions with
-   DRR.  However, DRR SHOULD NOT be used in the open Internet or if the
+   each other directly, peers <em>MAY</em> send most of the transactions with
+   DRR.  However, DRR <em>SHOULD NOT</em> be used in the open Internet or if the
    administrator does not feel he has enough information about the
    overlay network topology.  A new overlay configuration element
    specifying the usage of DRR is defined in <a href="#section-6">Section 6</a>.
@@ -654,7 +654,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Basic Requirements</span>
 
-   All peers MUST be able to process requests for routing in SRR and MAY
+   All peers <em>MUST</em> be able to process requests for routing in SRR and <em>MAY</em>
    support DRR routing requests.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Modification to RELOAD Message Structure</span>
@@ -679,8 +679,8 @@ Table of Contents
    Flag: 0x08 IGNORE-STATE-KEEPING
 
    If IGNORE-STATE-KEEPING is set, any peer receiving this message but
-   who is not the destination of the message SHOULD forward the message
-   with the full Via List and SHOULD NOT maintain any internal state.
+   who is not the destination of the message <em>SHOULD</em> forward the message
+   with the full Via List and <em>SHOULD NOT</em> maintain any internal state.
 
 
 
@@ -757,17 +757,17 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.3.1" href="#section-5.3.1">5.3.1</a>.  Creating a Request for DRR</span>
 
-   When using DRR for a transaction, the sending peer MUST set the
+   When using DRR for a transaction, the sending peer <em>MUST</em> set the
    IGNORE-STATE-KEEPING flag in the ForwardingHeader.  Additionally, the
-   peer MUST construct and include a ForwardingOption structure in the
+   peer <em>MUST</em> construct and include a ForwardingOption structure in the
    ForwardingHeader.  When constructing the ForwardingOption structure,
-   the fields MUST be set as follows:
+   the fields <em>MUST</em> be set as follows:
 
-   1)  The type MUST be set to extensive_routing_mode.
+   1)  The type <em>MUST</em> be set to extensive_routing_mode.
 
-   2)  The ExtensiveRoutingModeOption structure MUST be used for the
+   2)  The ExtensiveRoutingModeOption structure <em>MUST</em> be used for the
        option field within the ForwardingOption structure.  The fields
-       MUST be defined as follows:
+       <em>MUST</em> be defined as follows:
 
        2.1)  routemode set to 0x01 (DRR).
 
@@ -776,7 +776,7 @@ Table of Contents
        2.3)  ipaddressport set to the peer's associated transport
              address.
 
-       2.4)  The destination structure MUST contain one value, defined
+       2.4)  The destination structure <em>MUST</em> contain one value, defined
              as type "node" and set with the sending peer's own values.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Request and Response Processing</span>
@@ -790,12 +790,12 @@ Table of Contents
 
    When the destination peer receives a request, it will check the
    options in the forwarding header.  If the destination peer cannot
-   understand the extensive_routing_mode option in the request, it MUST
+   understand the extensive_routing_mode option in the request, it <em>MUST</em>
    attempt to use SRR to return an "Error_Unknown_Extension" response
    (defined in Sections <a href="#section-6.3.3.1">6.3.3.1</a> and <a href="#section-14.9">14.9</a> of [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>]) to the sending
    peer.
 
-   If the routing mode is DRR, the destination peer MUST construct the
+   If the routing mode is DRR, the destination peer <em>MUST</em> construct the
    Destination List for the response with only one entry, using the
    requesting peer's Node-ID from the Via List in the request as the
    value.
@@ -810,7 +810,7 @@ Table of Contents
 
 
    In the event that the routing mode is set to DRR and there is not
-   exactly one destination, the destination peer MUST try to return an
+   exactly one destination, the destination peer <em>MUST</em> try to return an
    "Error_Unknown_Extension" response (defined in Sections <a href="#section-6.3.3.1">6.3.3.1</a> and
    14.9 of [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>]) to the sending peer using SRR.
 
@@ -819,15 +819,15 @@ Table of Contents
    the ipaddressport field in the option using the specific transport
    mode in the ForwardingOption.  If the destination peer receives a
    retransmit with SRR preference on the message it is trying to respond
-   to now, the responding peer SHOULD abort the DRR response and
+   to now, the responding peer <em>SHOULD</em> abort the DRR response and
    use SRR.
 
 <span class="h4"><a class="selflink" name="section-5.4.2" href="#section-5.4.2">5.4.2</a>.  Sending Peer: Receiving a Response</span>
 
    Upon receiving a response, the peer follows the rules in [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>].
-   The peer SHOULD note if DRR worked, in order to decide whether to
+   The peer <em>SHOULD</em> note if DRR worked, in order to decide whether to
    offer DRR again.  If the peer does not receive a response until the
-   timeout, it SHOULD resend the request using SRR.
+   timeout, it <em>SHOULD</em> resend the request using SRR.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Overlay Configuration Extension</span>
 
@@ -865,7 +865,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7263.html">RFC 7263</a>                       P2PSIP DRR                      June 2014</span>
 
 
-   <a href="./rfc6940.html#section-13.6">Section&nbsp;13.6 of [RFC6940]</a>, the entire DRR routing message MUST be
+   <a href="./rfc6940.html#section-13.6">Section&nbsp;13.6 of [RFC6940]</a>, the entire DRR routing message <em>MUST</em> be
    digitally signed and sent over via a protected channel to protect the
    DRR routing information.
 

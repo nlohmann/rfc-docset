@@ -227,8 +227,8 @@ Abstract
 
 Terminology
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
@@ -361,7 +361,7 @@ Terminology
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>   Processing and Acting Upon SACK Information</span>
 
    For the purposes of the algorithm defined in this document the
-   scoreboard SHOULD implement the following functions:
+   scoreboard <em>SHOULD</em> implement the following functions:
 
    Update ():
 
@@ -370,7 +370,7 @@ Terminology
       scoreboard data structure, and the total number of octets SACKed
       should be recorded.
 
-      Note: SACK information is advisory and therefore SACKed data MUST
+      Note: SACK information is advisory and therefore SACKed data <em>MUST</em>
       NOT be removed from TCP's retransmission buffer until the data is
       cumulatively acknowledged [<a href="./rfc2018.html" title="&quot;TCP Selective Acknowledgment Options&quot;">RFC2018</a>].
 
@@ -386,7 +386,7 @@ Terminology
    SetPipe ():
 
       This routine traverses the sequence space from HighACK to HighData
-      and MUST set the "pipe" variable to an estimate of the number of
+      and <em>MUST</em> set the "pipe" variable to an estimate of the number of
       octets that are currently in transit between the TCP sender and
       the TCP receiver.  After initializing pipe to zero the following
       steps are taken for each octet 'S1' in the sequence space between
@@ -425,14 +425,14 @@ Terminology
       This routine uses the scoreboard data structure maintained by the
       Update() function to determine what to transmit based on the SACK
       information that has arrived from the data receiver (and hence
-      been marked in the scoreboard).  NextSeg () MUST return the
+      been marked in the scoreboard).  NextSeg () <em>MUST</em> return the
       sequence number range of the next segment that is to be
       transmitted, per the following rules:
 
       (1) If there exists a smallest unSACKed sequence number 'S2' that
           meets the following three criteria for determining loss, the
           sequence range of one segment of up to SMSS octets starting
-          with S2 MUST be returned.
+          with S2 <em>MUST</em> be returned.
 
           (1.a) S2 is greater than HighRxt.
 
@@ -445,13 +445,13 @@ Terminology
           exists available unsent data and the receiver's advertised
           window allows, the sequence range of one segment of up to SMSS
           octets of previously unsent data starting with sequence number
-          HighData+1 MUST be returned.
+          HighData+1 <em>MUST</em> be returned.
 
       (3) If the conditions for rules (1) and (2) fail, but there exists
           an unSACKed sequence number 'S3' that meets the criteria for
           detecting loss given in steps (1.a) and (1.b) above
           (specifically excluding step (1.c)) then one segment of up to
-          SMSS octets starting with S3 MAY be returned.
+          SMSS octets starting with S3 <em>MAY</em> be returned.
 
           Note that rule (3) is a sort of retransmission "last resort".
           It allows for retransmission of sequence numbers even when the
@@ -483,7 +483,7 @@ Terminology
           implementors.
 
       (4) If the conditions for each of (1), (2), and (3) are not met,
-          then NextSeg () MUST indicate failure, and no segment is
+          then NextSeg () <em>MUST</em> indicate failure, and no segment is
           returned.
 
    Note: The SACK-based loss recovery algorithm outlined in this
@@ -496,7 +496,7 @@ Terminology
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>   Algorithm Details</span>
 
    Upon the receipt of any ACK containing SACK information, the
-   scoreboard MUST be updated via the Update () routine.
+   scoreboard <em>MUST</em> be updated via the Update () routine.
 
    Upon the receipt of the first (DupThresh - 1) duplicate ACKs, the
    scoreboard is to be updated as normal.  Note: The first and second
@@ -505,12 +505,12 @@ Terminology
    [<a href="./rfc3042.html" title="&quot;Enhancing TCP's Loss Recovery Using Limited Transmit&quot;">RFC3042</a>].
 
    When a TCP sender receives the duplicate ACK corresponding to
-   DupThresh ACKs, the scoreboard MUST be updated with the new SACK
+   DupThresh ACKs, the scoreboard <em>MUST</em> be updated with the new SACK
    information (via Update ()).  If no previous loss event has occurred
    on the connection or the cumulative acknowledgment point is beyond
-   the last value of RecoveryPoint, a loss recovery phase SHOULD be
+   the last value of RecoveryPoint, a loss recovery phase <em>SHOULD</em> be
    initiated, per the fast retransmit algorithm outlined in [<a href="./rfc2581.html" title="&quot;TCP Congestion Control&quot;">RFC2581</a>].
-   The following steps MUST be taken:
+   The following steps <em>MUST</em> be taken:
 
    (1) RecoveryPoint = HighData
 
@@ -548,18 +548,18 @@ Terminology
    (5) In order to take advantage of potential additional available
        cwnd, proceed to step (C) below.
 
-   Once a TCP is in the loss recovery phase the following procedure MUST
+   Once a TCP is in the loss recovery phase the following procedure <em>MUST</em>
    be used for each arriving ACK:
 
    (A) An incoming cumulative ACK for a sequence number greater than
        RecoveryPoint signals the end of loss recovery and the loss
-       recovery phase MUST be terminated.  Any information contained in
+       recovery phase <em>MUST</em> be terminated.  Any information contained in
        the scoreboard for sequence numbers greater than the new value of
-       HighACK SHOULD NOT be cleared when leaving the loss recovery
+       HighACK <em>SHOULD NOT</em> be cleared when leaving the loss recovery
        phase.
 
    (B) Upon receipt of an ACK that does not cover RecoveryPoint the
-       following actions MUST be taken:
+       following actions <em>MUST</em> be taken:
 
        (B.1) Use Update () to record the new SACK information conveyed
        by the incoming ACK.
@@ -567,10 +567,10 @@ Terminology
        (B.2) Use SetPipe () to re-calculate the number of octets still
        in the network.
 
-   (C) If cwnd - pipe &gt;= 1 SMSS the sender SHOULD transmit one or more
+   (C) If cwnd - pipe &gt;= 1 SMSS the sender <em>SHOULD</em> transmit one or more
        segments as follows:
 
-       (C.1) The scoreboard MUST be queried via NextSeg () for the
+       (C.1) The scoreboard <em>MUST</em> be queried via NextSeg () for the
        sequence number range of the next segment to transmit (if any),
 
 
@@ -587,7 +587,7 @@ Terminology
        steps C.1 -- C.5).
 
        (C.2) If any of the data octets sent in (C.1) are below HighData,
-       HighRxt MUST be set to the highest sequence number of the
+       HighRxt <em>MUST</em> be set to the highest sequence number of the
        retransmitted segment.
 
        (C.3) If any of the data octets sent in (C.1) are above HighData,
@@ -604,23 +604,23 @@ Terminology
 
    In order to avoid memory deadlocks, the TCP receiver is allowed to
    discard data that has already been selectively acknowledged.  As a
-   result, [<a href="./rfc2018.html" title="&quot;TCP Selective Acknowledgment Options&quot;">RFC2018</a>] suggests that a TCP sender SHOULD expunge the SACK
+   result, [<a href="./rfc2018.html" title="&quot;TCP Selective Acknowledgment Options&quot;">RFC2018</a>] suggests that a TCP sender <em>SHOULD</em> expunge the SACK
    information gathered from a receiver upon a retransmission timeout
    "since the timeout might indicate that the data receiver has
-   reneged."  Additionally, a TCP sender MUST "ignore prior SACK
+   reneged."  Additionally, a TCP sender <em>MUST</em> "ignore prior SACK
    information in determining which data to retransmit."  However, a
-   SACK TCP sender SHOULD still use all SACK information made available
+   SACK TCP sender <em>SHOULD</em> still use all SACK information made available
    during the slow start phase of loss recovery following an RTO.
 
    If an RTO occurs during loss recovery as specified in this document,
-   RecoveryPoint MUST be set to HighData.  Further, the new value of
-   RecoveryPoint MUST be preserved and the loss recovery algorithm
-   outlined in this document MUST be terminated.  In addition, a new
-   recovery phase (as described in <a href="#section-5">section 5</a>) MUST NOT be initiated
+   RecoveryPoint <em>MUST</em> be set to HighData.  Further, the new value of
+   RecoveryPoint <em>MUST</em> be preserved and the loss recovery algorithm
+   outlined in this document <em>MUST</em> be terminated.  In addition, a new
+   recovery phase (as described in <a href="#section-5">section 5</a>) <em>MUST NOT</em> be initiated
    until HighACK is greater than or equal to the new value of
    RecoveryPoint.
 
-   As described in Sections <a href="#section-4">4</a> and <a href="#section-5">5</a>, Update () SHOULD continue to be
+   As described in Sections <a href="#section-4">4</a> and <a href="#section-5">5</a>, Update () <em>SHOULD</em> continue to be
    used appropriately upon receipt of ACKs.  This will allow the slow
    start recovery period to benefit from all available information
    provided by the receiver, despite the fact that SACK information was
@@ -628,7 +628,7 @@ Terminology
 
    If there are segments missing from the receiver's buffer following
    processing of the retransmitted segment, the corresponding ACK will
-   contain SACK information.  In this case, a TCP sender SHOULD use this
+   contain SACK information.  In this case, a TCP sender <em>SHOULD</em> use this
    SACK information when determining what data should be sent in each
 
 
@@ -661,7 +661,7 @@ Terminology
    Therefore we give implementers the latitude to use the standard
    [<a href="./rfc2988.html" title="&quot;Computing TCP's Retransmission Timer&quot;">RFC2988</a>] style RTO management or, optionally, a more careful variant
    that re-arms the RTO timer on each retransmission that is sent during
-   recovery MAY be used.  This provides a more conservative timer than
+   recovery <em>MAY</em> be used.  This provides a more conservative timer than
    specified in [<a href="./rfc2988.html" title="&quot;Computing TCP's Retransmission Timer&quot;">RFC2988</a>], and so may not always be an attractive
    alternative.  However, in some cases it may prevent needless
    retransmissions, go-back-N transmission and further reduction of the

@@ -333,7 +333,7 @@ Table of Contents
    The update in this document targets the operation of TCP in such
    rate-limited cases.
 
-   Standard TCP states that a TCP sender SHOULD set cwnd to no more than
+   Standard TCP states that a TCP sender <em>SHOULD</em> set cwnd to no more than
    the Restart Window (RW) before beginning transmission if the TCP
    sender has not sent data in an interval exceeding the retransmission
    timeout, i.e., when an application becomes idle [<a href="./rfc5681.html" title="&quot;TCP Congestion Control&quot;">RFC5681</a>].  [<a href="./rfc2861.html" title="&quot;TCP Congestion Window Validation&quot;">RFC2861</a>]
@@ -549,8 +549,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The document assumes familiarity with the terminology of TCP
@@ -655,16 +655,16 @@ Table of Contents
    Round-Trip Time (RTT).  Using the variables defined in [<a href="./rfc6675.html" title="&quot;A Conservative Loss Recovery Algorithm Based on Selective Acknowledgment (SACK) for TCP&quot;">RFC6675</a>], a
    value could be measured by caching the value of HighACK and, after
    one RTT, measuring the difference between the cached HighACK value
-   and the current HighACK value.  A sender MAY count TCP DupACKs that
+   and the current HighACK value.  A sender <em>MAY</em> count TCP DupACKs that
    acknowledge new data when collecting the pipeACK sample.  Other
    equivalent methods may be used.
 
    A sender is not required to continuously update the pipeACK variable
-   after each received ACK but SHOULD perform a pipeACK sample at least
+   after each received ACK but <em>SHOULD</em> perform a pipeACK sample at least
    once per RTT when it has sent unacknowledged segments.
 
-   The pipeACK variable MAY consider multiple pipeACK samples over the
-   pipeACK Sampling Period.  The value of the pipeACK variable MUST NOT
+   The pipeACK variable <em>MAY</em> consider multiple pipeACK samples over the
+   pipeACK Sampling Period.  The value of the pipeACK variable <em>MUST NOT</em>
    exceed the maximum (highest value) within the pipeACK Sampling
    Period.  This specification defines the pipeACK Sampling Period as
    Max(3*RTT, 1 second).  This period enables a sender to compensate for
@@ -679,7 +679,7 @@ Table of Contents
    measurement of a pipeACK sample.  (<a href="#section-4.5">Section 4.5</a> provides examples of
    implementation.)
 
-   The pipeACK variable MUST NOT be updated during TCP Fast Recovery.
+   The pipeACK variable <em>MUST NOT</em> be updated during TCP Fast Recovery.
    That is, the sender stops collecting pipeACK samples during loss
    recovery.  The method RECOMMENDS enabling the TCP SACK option
    [<a href="./rfc2018.html" title="&quot;TCP Selective Acknowledgment Options&quot;">RFC2018</a>] and RECOMMENDS the method defined in [<a href="./rfc6675.html" title="&quot;A Conservative Loss Recovery Algorithm Based on Selective Acknowledgment (SACK) for TCP&quot;">RFC6675</a>] to recover
@@ -768,7 +768,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  TCP Congestion Control during the Non-validated Phase</span>
 
-   A TCP sender implementing this specification MUST enter the non-
+   A TCP sender implementing this specification <em>MUST</em> enter the non-
    validated phase when the pipeACK is less than (1/2)*cwnd.  (The note
    at the end of <a href="#section-4.4.1">Section 4.4.1</a> describes why pipeACK&lt;=(1/2)*cwnd is
    expected to be a safe value.)
@@ -781,7 +781,7 @@ Table of Contents
    when the sender receives an indication of congestion.
 
    After a fixed period of time (the non-validated period (NVP)), the
-   sender adjusts the cwnd (<a href="#section-4.4.3">Section 4.4.3</a>).  The NVP SHOULD NOT exceed
+   sender adjusts the cwnd (<a href="#section-4.4.3">Section 4.4.3</a>).  The NVP <em>SHOULD NOT</em> exceed
    five minutes.  <a href="#section-5">Section 5</a> discusses the rationale for choosing a safe
    value for this period.
 
@@ -790,18 +790,18 @@ Table of Contents
    o  A sender determines whether to increase the cwnd based upon
       whether it is cwnd-limited (see <a href="#section-4.5.3">Section 4.5.3</a>):
 
-      *  A sender that is cwnd-limited MAY use the standard TCP method
+      *  A sender that is cwnd-limited <em>MAY</em> use the standard TCP method
          to increase cwnd (i.e., the standard method permits a TCP
          sender that fully utilises the cwnd to increase the cwnd each
          time it receives an ACK).
 
-      *  A sender that is not cwnd-limited MUST NOT increase the cwnd
+      *  A sender that is not cwnd-limited <em>MUST NOT</em> increase the cwnd
          when ACK packets are received in this phase (i.e., needs to
          avoid growing the cwnd when it has not recently sent using the
          current size of cwnd).
 
    o  If the sender receives an indication of congestion while in the
-      non-validated phase (i.e., detects loss), the sender MUST exit the
+      non-validated phase (i.e., detects loss), the sender <em>MUST</em> exit the
       non-validated phase (reducing the cwnd as defined in
       <a href="#section-4.4.1">Section 4.4.1</a>).
 
@@ -815,10 +815,10 @@ Table of Contents
 
 
    o  If the Retransmission Timeout (RTO) expires while in the non-
-      validated phase, the sender MUST exit the non-validated phase.  It
+      validated phase, the sender <em>MUST</em> exit the non-validated phase.  It
       then resumes using the standard TCP RTO mechanism [<a href="./rfc5681.html" title="&quot;TCP Congestion Control&quot;">RFC5681</a>].
 
-   o  A sender with a pipeACK variable greater than (1/2)*cwnd SHOULD
+   o  A sender with a pipeACK variable greater than (1/2)*cwnd <em>SHOULD</em>
       enter the validated phase.  (A rate-limited sender will not
       normally be impacted by whether it is in a validated or non-
       validated phase, since it will normally not increase FlightSize to
@@ -830,7 +830,7 @@ Table of Contents
    condition that occurs when a sender is in the non-validated phase and
    receives an ACK that acknowledges received data, the cwnd was fully
    utilised, and more data is awaiting transmission than may be sent
-   with the current cwnd.  The sender MAY then use the standard method
+   with the current cwnd.  The sender <em>MAY</em> then use the standard method
    to increase the cwnd.  (Note that if the sender succeeds in sending
    these new segments, the updated cwnd and pipeACK variables will
    eventually result in a transition to the validated phase.)
@@ -844,8 +844,8 @@ Table of Contents
    does not have a validated value, a new cwnd value needs to be
    selected based on the utilised rate.
 
-   A sender that detects a packet drop MUST record the current
-   FlightSize in the variable LossFlightSize and MUST calculate a safe
+   A sender that detects a packet drop <em>MUST</em> record the current
+   FlightSize in the variable LossFlightSize and <em>MUST</em> calculate a safe
    cwnd for loss recovery using the method below:
 
            cwnd = (Max(pipeACK,LossFlightSize))/2.
@@ -858,7 +858,7 @@ Table of Contents
    significantly increasing its transmission rate during the recovery
    period.
 
-   At the end of the recovery phase, the TCP sender MUST reset the cwnd
+   At the end of the recovery phase, the TCP sender <em>MUST</em> reset the cwnd
    using the method below:
 
            cwnd = (Max(pipeACK,LossFlightSize) - R)/2.
@@ -879,10 +879,10 @@ Table of Contents
    the calculated cwnd is reduced by at least R before the window is
    halved.
 
-   The calculated cwnd value MUST NOT be reduced below 1 TCP Maximum
+   The calculated cwnd value <em>MUST NOT</em> be reduced below 1 TCP Maximum
    Segment Size (MSS).
 
-   After completing the loss recovery phase, the sender MUST
+   After completing the loss recovery phase, the sender <em>MUST</em>
    re-initialise the pipeACK variable to the "undefined" value.  This
    ensures that standard TCP methods are used immediately after
    completing loss recovery until a new pipeACK value can be determined.
@@ -943,7 +943,7 @@ Table of Contents
    This document recommends using a method to avoid line-rate bursts
    after an idle or rate-limited interval when there is less reliable
    information about the capacity of the network path.  A TCP sender in
-   the non-validated phase SHOULD control the maximum burst size, e.g.,
+   the non-validated phase <em>SHOULD</em> control the maximum burst size, e.g.,
    using a rate-based pacing algorithm in which a sender paces out the
    cwnd over its estimate of the RTT, or some other method, to prevent
    many segments being transmitted contiguously at line-rate.  The most
@@ -957,7 +957,7 @@ Table of Contents
    An application that remains in the non-validated phase for a period
    greater than the NVP is required to adjust its congestion control
    state.  If the sender exits the non-validated phase after this
-   period, it MUST update the ssthresh:
+   period, it <em>MUST</em> update the ssthresh:
 
          ssthresh = max(ssthresh, 3*cwnd/4).
 
@@ -967,7 +967,7 @@ Table of Contents
    otherwise suffer an unwanted additional delay in recovering the
    sending rate.)
 
-   The sender MUST then update cwnd to be not greater than:
+   The sender <em>MUST</em> then update cwnd to be not greater than:
 
             cwnd = max((1/2)*cwnd, IW).
 

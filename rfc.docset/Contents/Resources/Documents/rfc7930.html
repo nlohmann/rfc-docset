@@ -347,8 +347,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -361,29 +361,29 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Changes to Packet Processing</span>
 
    The maximum length of a RADIUS message is increased from 4096 to
-   65535.  A RADIUS Server implementing this specification MUST be able
-   to receive a RADIUS packet of maximum length.  Servers MAY have a
+   65535.  A RADIUS Server implementing this specification <em>MUST</em> be able
+   to receive a RADIUS packet of maximum length.  Servers <em>MAY</em> have a
    maximum size over which they choose to return an error, as discussed
    in <a href="#section-5">Section 5</a>, rather than processing a received packet; this size
-   MUST be at least 4096 octets.
+   <em>MUST</em> be at least 4096 octets.
 
-   Clients implementing this specification MUST be able to receive a
-   RADIUS packet of maximum length; that is, clients MUST NOT close a
+   Clients implementing this specification <em>MUST</em> be able to receive a
+   RADIUS packet of maximum length; that is, clients <em>MUST NOT</em> close a
    TCP connection simply because a large packet is sent over it.
-   Clients MAY include the Response-Length attribute defined in
+   Clients <em>MAY</em> include the Response-Length attribute defined in
    <a href="#section-6">Section 6</a> to indicate the maximum size of a packet that they can
-   successfully process.  Clients MAY silently discard a packet greater
-   than some configured size; this size MUST be at least 4096 octets.
-   Clients MUST NOT retransmit an unmodified request whose response is
+   successfully process.  Clients <em>MAY</em> silently discard a packet greater
+   than some configured size; this size <em>MUST</em> be at least 4096 octets.
+   Clients <em>MUST NOT</em> retransmit an unmodified request whose response is
    larger than the client can process, as subsequent responses will
    likely continue to be too large.
 
-   Proxies MUST be able to receive a RADIUS packet of maximum length
-   without closing the TCP connection.  Proxies SHOULD be able to
+   Proxies <em>MUST</em> be able to receive a RADIUS packet of maximum length
+   without closing the TCP connection.  Proxies <em>SHOULD</em> be able to
    process and forward packets of maximum length.  When a proxy receives
    a request over a transport with a 4096-octet maximum length and the
    proxy forwards that request over a transport with a larger maximum
-   length, the proxy MUST include the Response-Length attribute with a
+   length, the proxy <em>MUST</em> include the Response-Length attribute with a
    value of 4096.
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Status-Server Considerations</span>
@@ -391,7 +391,7 @@ Table of Contents
    This section extends processing of Status-Server messages as
    described in Sections <a href="#section-4.1">4.1</a> and <a href="#section-4.2">4.2</a> of [<a href="./rfc5997.html" title="&quot;Use of Status-Server Packets in the Remote Authentication Dial In User Service (RADIUS) Protocol&quot;">RFC5997</a>].
 
-   Clients implementing this specification SHOULD include the Response-
+   Clients implementing this specification <em>SHOULD</em> include the Response-
    Length attribute in Status-Server requests.  Servers are already
    required to ignore unknown attributes received in this message.  By
    including the attribute, the client indicates how large of a response
@@ -401,7 +401,7 @@ Table of Contents
    which triggers the server behavior below.
 
    If a server implementing this specification receives a Response-
-   Length attribute in a Status-Server request, it MUST include a
+   Length attribute in a Status-Server request, it <em>MUST</em> include a
    Response-Length attribute indicating the maximum size request it can
    process in its response to the Status-Server request.
 
@@ -419,41 +419,41 @@ Table of Contents
    An implementation of [<a href="./rfc6613.html" title="&quot;RADIUS over TCP&quot;">RFC6613</a>] will silently discard any RADIUS
    packet larger than 4096 octets and will close the TCP connection.
    This section provides guidelines for interoperability with these
-   implementations.  These guidelines are stated at the SHOULD level.
+   implementations.  These guidelines are stated at the <em>SHOULD</em> level.
    In some environments, support for large packets will be important
    enough that roaming or other agreements will mandate their support.
    In these environments, all implementations might be required to
    support this specification, thus removing the need for
    interoperability with <a href="./rfc6613.html">RFC 6613</a>.  It is likely that these guidelines
-   will be relaxed to the MAY level and support for this specification
+   will be relaxed to the <em>MAY</em> level and support for this specification
    made a requirement if RADIUS over TLS and TCP are moved to the
    Standards Track in the future.
 
-   Clients SHOULD provide configuration for the maximum size of a
-   request sent to each server.  Servers SHOULD provide configuration
+   Clients <em>SHOULD</em> provide configuration for the maximum size of a
+   request sent to each server.  Servers <em>SHOULD</em> provide configuration
    for the maximum size of a response sent to each client.  If dynamic
-   discovery mechanisms are supported, configuration SHOULD be provided
+   discovery mechanisms are supported, configuration <em>SHOULD</em> be provided
    for the default maximum size of RADIUS packets sent to clients and
    servers.  If an implementation provides more granular configuration
-   for some classes of dynamic resources, then the implementation SHOULD
+   for some classes of dynamic resources, then the implementation <em>SHOULD</em>
    also provide configuration of default maximum packet sizes at the
    same granularity.  As an example, an implementation that provided
    granular configuration for resources using a particular trust anchor
-   or belonging to a particular roaming consortium SHOULD provide
+   or belonging to a particular roaming consortium <em>SHOULD</em> provide
    default packet size configuration at the same granularity.
 
    If a client sends a request larger than 4096 octets and the TCP
-   connection is closed without a response, the client SHOULD treat the
+   connection is closed without a response, the client <em>SHOULD</em> treat the
    request as if a "Request Too Big" error (<a href="#section-5">Section 5</a>) specifying a
    maximum size of 4096 is received.  Clients or proxies sending
    multiple requests over a single TCP connection without waiting for
-   responses SHOULD implement capability discovery as discussed in
+   responses <em>SHOULD</em> implement capability discovery as discussed in
    <a href="#section-3.2">Section 3.2</a>.
 
-   By default, a server SHOULD NOT generate a response larger than 4096
-   octets.  The Response-Length attribute MAY be included in a request
+   By default, a server <em>SHOULD NOT</em> generate a response larger than 4096
+   octets.  The Response-Length attribute <em>MAY</em> be included in a request
    to indicate that larger responses are acceptable.  Other attributes
-   or configurations MAY be used as an indicator that large responses
+   or configurations <em>MAY</em> be used as an indicator that large responses
    are likely to be acceptable.
 
 
@@ -471,7 +471,7 @@ Table of Contents
 
 
    A proxy that implements both this specification and RADIUS
-   fragmentation [<a href="./rfc7499.html" title="&quot;Support of Fragmentation of RADIUS Packets&quot;">RFC7499</a>] SHOULD use RADIUS fragmentation when the
+   fragmentation [<a href="./rfc7499.html" title="&quot;Support of Fragmentation of RADIUS Packets&quot;">RFC7499</a>] <em>SHOULD</em> use RADIUS fragmentation when the
    following conditions are met:
 
    1.  A RADIUS packet is being forwarded towards a next hop whose
@@ -528,7 +528,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Discovery</span>
 
-   As discussed in <a href="#section-2.1">Section 2.1</a>, a client MAY send a Status-Server
+   As discussed in <a href="#section-2.1">Section 2.1</a>, a client <em>MAY</em> send a Status-Server
    message to discover whether an authentication or accounting server
    supports this specification.  The client includes a Response-Length
    attribute; this signals the server to include a Response-Length
@@ -545,8 +545,8 @@ Table of Contents
    packet indicates to the client that the server is unable to process
    the request for some reason.
 
-   A Protocol-Error packet MUST contain an Original-Packet-Code
-   attribute, along with an Error-Cause attribute.  Other attributes MAY
+   A Protocol-Error packet <em>MUST</em> contain an Original-Packet-Code
+   attribute, along with an Error-Cause attribute.  Other attributes <em>MAY</em>
    be included if desired.  The Original-Packet-Code contains the code
    from the request that generated the protocol error so that clients
    can disambiguate requests with different codes and the same ID.
@@ -555,10 +555,10 @@ Table of Contents
    Access-Request packet.  The identifier is copied from the original
    request.
 
-   Clients processing Protocol-Error MUST ignore unknown or unexpected
+   Clients processing Protocol-Error <em>MUST</em> ignore unknown or unexpected
    attributes.
 
-   This RADIUS code is hop by hop.  Proxies MUST NOT forward a Protocol-
+   This RADIUS code is hop by hop.  Proxies <em>MUST NOT</em> forward a Protocol-
    Error packet they receive.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Too Big Response</span>
@@ -568,7 +568,7 @@ Table of Contents
 
       The code is Protocol-Error.
 
-      The Response-Length attribute MUST be included and its value is
+      The Response-Length attribute <em>MUST</em> be included and its value is
       the maximum size of request that will be processed.
 
       The Error-Cause attribute is included with a value of 601.
@@ -611,10 +611,10 @@ Table of Contents
    |                      |           | Protocol-Error response.       |
    +----------------------+-----------+--------------------------------+
 
-   The Response-Length attribute MAY be included in any RADIUS request.
+   The Response-Length attribute <em>MAY</em> be included in any RADIUS request.
    In this context, it indicates the maximum length of a response the
    client is prepared to receive.  Values are between 4096 and 65535.
-   The attribute MAY also be included in a response to a Status-Server
+   The attribute <em>MAY</em> also be included in a response to a Status-Server
    message.  In this case, the attribute indicates the maximum size
    RADIUS request that is permitted.
 

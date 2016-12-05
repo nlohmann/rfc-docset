@@ -270,8 +270,8 @@ Copyright Notice
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Protocol Extensions</span>
@@ -328,7 +328,7 @@ Copyright Notice
    To prevent the possible propagation of Confederation-related path
    segments outside of a Confederation, the path segment types
    AS_CONFED_SEQUENCE and AS_CONFED_SET [<a href="./rfc5065.html" title="&quot;Autonomous System Confederations for BGP&quot;">RFC5065</a>] are declared invalid
-   for the AS4_PATH attribute and MUST NOT be included in the AS4_PATH
+   for the AS4_PATH attribute and <em>MUST NOT</em> be included in the AS4_PATH
    attribute of an UPDATE message.
 
    Similarly, this document defines a new BGP path attribute called
@@ -364,27 +364,27 @@ Copyright Notice
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Interaction between NEW BGP Speakers</span>
 
-   A BGP speaker that supports four-octet AS numbers SHALL advertise
+   A BGP speaker that supports four-octet AS numbers <em>SHALL</em> advertise
    this to its peers using BGP Capabilities Advertisements.  The AS
-   number of the BGP speaker MUST be carried in the Capability Value
+   number of the BGP speaker <em>MUST</em> be carried in the Capability Value
    field of the "support for four-octet AS number capability".
 
    When a NEW BGP speaker processes an OPEN message from another NEW BGP
-   speaker, it MUST use the AS number encoded in the Capability Value
+   speaker, it <em>MUST</em> use the AS number encoded in the Capability Value
    field of the "support for four-octet AS number capability" in lieu of
    the "My Autonomous System" field of the OPEN message.
 
    A BGP speaker that advertises such a capability to a particular peer,
    and receives from that peer the advertisement of such a capability,
-   MUST encode AS numbers as four-octet entities in both the AS_PATH
+   <em>MUST</em> encode AS numbers as four-octet entities in both the AS_PATH
    attribute and the AGGREGATOR attribute in the updates it sends to the
-   peer and MUST assume that these attributes in the updates received
+   peer and <em>MUST</em> assume that these attributes in the updates received
    from the peer encode AS numbers as four-octet entities.
 
-   The new attributes, AS4_PATH and AS4_AGGREGATOR, MUST NOT be carried
+   The new attributes, AS4_PATH and AS4_AGGREGATOR, <em>MUST NOT</em> be carried
    in an UPDATE message between NEW BGP speakers.  A NEW BGP speaker
    that receives the AS4_PATH attribute or the AS4_AGGREGATOR attribute
-   in an UPDATE message from another NEW BGP speaker MUST discard the
+   in an UPDATE message from another NEW BGP speaker <em>MUST</em> discard the
    path attribute and continue processing the UPDATE message.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Interaction between NEW and OLD BGP Speakers</span>
@@ -395,7 +395,7 @@ Copyright Notice
    possible only if the NEW BGP speaker has a two-octet AS number.
    However, this document does not assume that an Autonomous System with
    NEW BGP speakers has to have a globally unique two-octet AS number --
-   AS_TRANS MUST be used when the NEW BGP speaker does not have a
+   AS_TRANS <em>MUST</em> be used when the NEW BGP speaker does not have a
    two-octet AS number (even if multiple Autonomous Systems would
    use it).
 
@@ -414,13 +414,13 @@ Copyright Notice
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  Generating Updates</span>
 
-   When communicating with an OLD BGP speaker, a NEW BGP speaker MUST
+   When communicating with an OLD BGP speaker, a NEW BGP speaker <em>MUST</em>
    send the AS path information in the AS_PATH attribute encoded with
-   two-octet AS numbers.  The NEW BGP speaker MUST also send the AS path
+   two-octet AS numbers.  The NEW BGP speaker <em>MUST</em> also send the AS path
    information in the AS4_PATH attribute (encoded with four-octet AS
    numbers), except for the case where all of the AS path information is
    composed of mappable four-octet AS numbers only.  In this case, the
-   NEW BGP speaker MUST NOT send the AS4_PATH attribute.
+   NEW BGP speaker <em>MUST NOT</em> send the AS4_PATH attribute.
 
    In the AS_PATH attribute encoded with two-octet AS numbers,
    non-mappable four-octet AS numbers are represented by the well-known
@@ -432,7 +432,7 @@ Copyright Notice
    The NEW BGP speaker constructs the AS4_PATH attribute from the AS
    path information.  Whenever the AS path information contains the
    AS_CONFED_SEQUENCE or AS_CONFED_SET path segment, the NEW BGP speaker
-   MUST exclude such path segments from the AS4_PATH attribute being
+   <em>MUST</em> exclude such path segments from the AS4_PATH attribute being
    constructed.
 
    The AS4_PATH attribute, being optional transitive, will be carried
@@ -442,16 +442,16 @@ Copyright Notice
 
    Similarly, if the NEW BGP speaker has to send the AGGREGATOR
    attribute, and if the aggregating Autonomous System's AS number is a
-   non-mappable four-octet AS number, then the speaker MUST use the
+   non-mappable four-octet AS number, then the speaker <em>MUST</em> use the
    AS4_AGGREGATOR attribute and set the AS number field in the existing
    AGGREGATOR attribute to the reserved AS number, AS_TRANS.  Note that
-   if the AS number is mappable, then the AS4_AGGREGATOR attribute MUST
+   if the AS number is mappable, then the AS4_AGGREGATOR attribute <em>MUST</em>
    NOT be sent.
 
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  Processing Received Updates</span>
 
    When a NEW BGP speaker receives an update from an OLD BGP speaker, it
-   MUST be prepared to receive the AS4_PATH attribute along with the
+   <em>MUST</em> be prepared to receive the AS4_PATH attribute along with the
    existing AS_PATH attribute.  If the AS4_PATH attribute is also
    received, both of the attributes will be used to construct the exact
    AS path information, and therefore the information carried by both of
@@ -490,25 +490,25 @@ Copyright Notice
    combined seamlessly, resulting in incomplete AS path information in
    these cases.
 
-   A NEW BGP speaker MUST also be prepared to receive the AS4_AGGREGATOR
+   A NEW BGP speaker <em>MUST</em> also be prepared to receive the AS4_AGGREGATOR
    attribute along with the AGGREGATOR attribute from an OLD BGP
    speaker.  When both of the attributes are received, if the AS number
    in the AGGREGATOR attribute is not AS_TRANS, then:
 
-      -  the AS4_AGGREGATOR attribute and the AS4_PATH attribute SHALL
+      -  the AS4_AGGREGATOR attribute and the AS4_PATH attribute <em>SHALL</em>
          be ignored,
 
-      -  the AGGREGATOR attribute SHALL be taken as the information
+      -  the AGGREGATOR attribute <em>SHALL</em> be taken as the information
          about the aggregating node, and
 
-      -  the AS_PATH attribute SHALL be taken as the AS path
+      -  the AS_PATH attribute <em>SHALL</em> be taken as the AS path
          information.
 
    Otherwise,
 
-      -  the AGGREGATOR attribute SHALL be ignored,
+      -  the AGGREGATOR attribute <em>SHALL</em> be ignored,
 
-      -  the AS4_AGGREGATOR attribute SHALL be taken as the information
+      -  the AS4_AGGREGATOR attribute <em>SHALL</em> be taken as the information
          about the aggregating node, and
 
       -  the AS path information would need to be constructed, as in all
@@ -531,17 +531,17 @@ Copyright Notice
 
    If the number of AS numbers in the AS_PATH attribute is less than the
    number of AS numbers in the AS4_PATH attribute, then the AS4_PATH
-   attribute SHALL be ignored, and the AS_PATH attribute SHALL be taken
+   attribute <em>SHALL</em> be ignored, and the AS_PATH attribute <em>SHALL</em> be taken
    as the AS path information.
 
    If the number of AS numbers in the AS_PATH attribute is larger than
    or equal to the number of AS numbers in the AS4_PATH attribute, then
-   the AS path information SHALL be constructed by taking as many AS
+   the AS path information <em>SHALL</em> be constructed by taking as many AS
    numbers and path segments as necessary from the leading part of the
    AS_PATH attribute, and then prepending them to the AS4_PATH attribute
    so that the AS path information has a number of AS numbers identical
    to that of the AS_PATH attribute.  Note that a valid
-   AS_CONFED_SEQUENCE or AS_CONFED_SET path segment SHALL be prepended
+   AS_CONFED_SEQUENCE or AS_CONFED_SET path segment <em>SHALL</em> be prepended
    if it is either the leading path segment or is adjacent to a path
    segment that is prepended.
 
@@ -580,22 +580,22 @@ Copyright Notice
 <span class="grey"><a href="./rfc6793.html">RFC 6793</a>         BGP Support for 4-Octet AS Number Space   December 2012</span>
 
 
-   The AS4_PATH attribute and AS4_AGGREGATOR attribute MUST NOT be
+   The AS4_PATH attribute and AS4_AGGREGATOR attribute <em>MUST NOT</em> be
    carried in an UPDATE message between NEW BGP speakers.  A NEW BGP
    speaker that receives the AS4_PATH attribute or the AS4_AGGREGATOR
-   attribute in an UPDATE message from another NEW BGP speaker MUST
+   attribute in an UPDATE message from another NEW BGP speaker <em>MUST</em>
    discard the path attribute and continue processing the UPDATE
-   message.  This case SHOULD be logged locally for analysis.
+   message.  This case <em>SHOULD</em> be logged locally for analysis.
 
    In addition, the path segment types AS_CONFED_SEQUENCE and
-   AS_CONFED_SET [<a href="./rfc5065.html" title="&quot;Autonomous System Confederations for BGP&quot;">RFC5065</a>] MUST NOT be carried in the AS4_PATH attribute
+   AS_CONFED_SET [<a href="./rfc5065.html" title="&quot;Autonomous System Confederations for BGP&quot;">RFC5065</a>] <em>MUST NOT</em> be carried in the AS4_PATH attribute
    of an UPDATE message.  A NEW BGP speaker that receives these path
    segment types in the AS4_PATH attribute of an UPDATE message from an
-   OLD BGP speaker MUST discard these path segments, adjust the relevant
+   OLD BGP speaker <em>MUST</em> discard these path segments, adjust the relevant
    attribute fields accordingly, and continue processing the UPDATE
-   message.  This case SHOULD be logged locally for analysis.
+   message.  This case <em>SHOULD</em> be logged locally for analysis.
 
-   The AS4_PATH attribute in an UPDATE message SHALL be considered
+   The AS4_PATH attribute in an UPDATE message <em>SHALL</em> be considered
    malformed under the following conditions:
 
       -  the attribute length is not a multiple of two or is too small
@@ -610,17 +610,17 @@ Copyright Notice
          AS_CONFED_SET.
 
    A NEW BGP speaker that receives a malformed AS4_PATH attribute in an
-   UPDATE message from an OLD BGP speaker MUST discard the attribute and
-   continue processing the UPDATE message.  The error SHOULD be logged
+   UPDATE message from an OLD BGP speaker <em>MUST</em> discard the attribute and
+   continue processing the UPDATE message.  The error <em>SHOULD</em> be logged
    locally for analysis.
 
-   The AS4_AGGREGATOR attribute in an UPDATE message SHALL be considered
+   The AS4_AGGREGATOR attribute in an UPDATE message <em>SHALL</em> be considered
    malformed if the attribute length is not 8.
 
    A NEW BGP speaker that receives a malformed AS4_AGGREGATOR attribute
-   in an UPDATE message from an OLD BGP speaker MUST discard the
+   in an UPDATE message from an OLD BGP speaker <em>MUST</em> discard the
    attribute and continue processing the UPDATE message.  The error
-   SHOULD be logged locally for analysis.
+   <em>SHOULD</em> be logged locally for analysis.
 
 
 
@@ -639,7 +639,7 @@ Copyright Notice
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Transition</span>
 
    When an Autonomous System is using a two-octet AS number, then the
-   BGP speakers within that Autonomous System MAY be upgraded to support
+   BGP speakers within that Autonomous System <em>MAY</em> be upgraded to support
    the four-octet AS number extensions on a piecemeal basis.  There is
    no requirement for a coordinated upgrade of the four-octet AS number
    capability in this case.  However, if an Autonomous System wishes to

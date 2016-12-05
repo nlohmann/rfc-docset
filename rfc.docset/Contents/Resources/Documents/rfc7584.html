@@ -380,7 +380,7 @@ Table of Contents
    <a href="./rfc7092.html#section-3.1.3">Section&nbsp;3.1.3 of [RFC7092]</a> defines a SDP-Modifying Signaling-only
    B2BUA that operates in the signaling plane only and is not in the
    media path, but it does modify SDP bodies and is thus aware of and
-   understands SDP syntax and semantics.  Such B2BUA MUST follow the
+   understands SDP syntax and semantics.  Such B2BUA <em>MUST</em> follow the
    behavior mentioned in <a href="#section-3">Section 3</a>.
 
    <a href="./rfc7092.html#section-3.2">Section&nbsp;3.2 of [RFC7092]</a> describes three different categories of
@@ -402,13 +402,13 @@ Table of Contents
 
    When B2BUAs that operate on the media plane (media relay, media
    aware, or media termination) are involved in a session between two
-   endpoints performing ICE, then it MUST follow the behavior described
+   endpoints performing ICE, then it <em>MUST</em> follow the behavior described
    in <a href="#section-4">Section 4</a>.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -436,7 +436,7 @@ Table of Contents
    An SDP-Modifying Signaling-only B2BUA is one that operates in the
    signaling plane only and is not in the media path, but it modifies
    SDP bodies as described in <a href="./rfc7092.html#section-3.1.3">Section&nbsp;3.1.3 of [RFC7092]</a>.  Such B2BUAs
-   MUST NOT change the IP address in the "c=" line, the port in the "m="
+   <em>MUST NOT</em> change the IP address in the "c=" line, the port in the "m="
    line, and the ICE semantics of SDP, as doing so can cause an ice-
    mismatch.
 
@@ -445,13 +445,13 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Overview</span>
 
    When one or both of the endpoints are behind a NAT, and there is a
-   B2BUA between the endpoints, the B2BUAs MUST support ICE or at a
+   B2BUA between the endpoints, the B2BUAs <em>MUST</em> support ICE or at a
    minimum support ICE lite functionality as described in [<a href="./rfc5245.html" title="&quot;Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal for Offer/Answer Protocols&quot;">RFC5245</a>].
-   Such B2BUAs MUST use the mechanism described in <a href="./rfc5245.html#section-2.2">Section&nbsp;2.2 of
+   Such B2BUAs <em>MUST</em> use the mechanism described in <a href="./rfc5245.html#section-2.2">Section&nbsp;2.2 of
    [RFC5245]</a> to demultiplex STUN packets that arrive on the RTP/RTCP
    port.
 
-   The subsequent sections describe the behavior B2BUAs MUST follow for
+   The subsequent sections describe the behavior B2BUAs <em>MUST</em> follow for
    handling ICE messages.  A B2BUA can terminate ICE and thus have two
    ICE contexts with either endpoint.  The reason for ICE termination
    could be due to the need for B2BUA to be in the media path (e.g.,
@@ -481,21 +481,21 @@ Table of Contents
    A B2BUA that wishes to always be in the media path follows these
    steps:
 
-   o  When a B2BUA sends out the SDP, it MUST advertise support for ICE
-      and MAY include B2BUA's candidates of different types for each
+   o  When a B2BUA sends out the SDP, it <em>MUST</em> advertise support for ICE
+      and <em>MAY</em> include B2BUA's candidates of different types for each
       component of each media stream.
 
    o  If the B2BUA is in ICE lite mode as described in <a href="./rfc5245.html#section-2.7">Section&nbsp;2.7 of
-      [RFC5245]</a>, then it MUST send an a=ice-lite attribute and MUST
+      [RFC5245]</a>, then it <em>MUST</em> send an a=ice-lite attribute and <em>MUST</em>
       include B2BUA host candidates for each component of each media
       stream.
 
-   o  If the B2BUA supports full ICE, then it MAY include B2BUA's
+   o  If the B2BUA supports full ICE, then it <em>MAY</em> include B2BUA's
       candidates of different types for each component of each media
       stream.
 
-   o  The B2BUA MUST generate new username and password values for ice-
-      ufrag and ice-pwd attributes when it sends out the SDP and MUST
+   o  The B2BUA <em>MUST</em> generate new username and password values for ice-
+      ufrag and ice-pwd attributes when it sends out the SDP and <em>MUST</em>
       NOT propagate the ufrag password values it received in the
       incoming SDP.  This ensures that the short-term credentials used
       for both the legs are different.  The short-term credentials
@@ -504,9 +504,9 @@ Table of Contents
       the peer.  The B2BUA terminates the ICE messages on each leg and
       does not propagate them.
 
-   o  The B2BUA MUST NOT propagate the candidate list received in the
+   o  The B2BUA <em>MUST NOT</em> propagate the candidate list received in the
       incoming SDP to the outbound SDP and instead only advertise its
-      candidate list.  The B2BUA MUST also add its default candidate in
+      candidate list.  The B2BUA <em>MUST</em> also add its default candidate in
       the "c=" line (IP address) and "m=" line (port).  In this way, the
       B2BUA will be always in the media path.
 
@@ -656,7 +656,7 @@ Table of Contents
       password values it received in the incoming SDP to the outgoing
       SDP and then sends out the SDP.
 
-   o  The B2BUA's candidates MAY have lower priority than the candidates
+   o  The B2BUA's candidates <em>MAY</em> have lower priority than the candidates
       provided by the endpoint, this way the endpoint and remote peer
       candidate pairs are tested first before trying candidate pairs
       with B2BUA's candidates.
@@ -797,7 +797,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  STUN Handling in B2BUA with Forked Signaling</span>
 
    Because of forking, a B2BUA might receive multiple answers for a
-   single outbound INVITE.  When this occurs, the B2BUA SHOULD follow
+   single outbound INVITE.  When this occurs, the B2BUA <em>SHOULD</em> follow
    Sections <a href="#section-3.2">3.2</a> or <a href="#section-3.3">3.3</a> for all of those received answers.
 
 
@@ -820,7 +820,7 @@ Table of Contents
    contains HMAC-SHA1 of the STUN message, and the Hashed Message
    Authentication Code (HMAC) is computed using the key exchanged in the
    signaling channel.  The signaling channel between the endpoints and
-   B2BUA MUST be encrypted so that the key is not visible to
+   B2BUA <em>MUST</em> be encrypted so that the key is not visible to
    eavesdroppers, otherwise the security benefits of short-term
    authentication would be lost.
 

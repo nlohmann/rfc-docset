@@ -473,8 +473,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  The PORT_SET Option</span>
@@ -497,7 +497,7 @@ Table of Contents
    set of ports.  The requested number of ports in that set is indicated
    in the option.
 
-   The maximum occurrences of the PORT_SET option MUST be limited to 1.
+   The maximum occurrences of the PORT_SET option <em>MUST</em> be limited to 1.
    The reason is that the Suggested External Port Set depends on the
    data contained in the MAP Opcode header.  Having two PORT_SET options
    with a single MAP Opcode header would imply having two overlapping
@@ -542,9 +542,9 @@ Table of Contents
    The fields are as follows:
 
    Port Set Size:  A 16-bit unsigned integer.  Number of ports
-      requested.  MUST NOT be zero.
+      requested.  <em>MUST NOT</em> be zero.
 
-   First Internal Port:  In a request, this field MUST be set equal to
+   First Internal Port:  In a request, this field <em>MUST</em> be set equal to
       the Internal Port field in the MAP Opcode by the PCP client.  In a
       response, this field indicates the First Internal Port of the port
       set mapped by the PCP server, which may differ from the value sent
@@ -552,7 +552,7 @@ Table of Contents
       field, which by necessity is always identical in matched requests
       and responses.
 
-   Reserved:  MUST be set to zero when sending; MUST be ignored when
+   Reserved:  <em>MUST</em> be set to zero when sending; <em>MUST</em> be ignored when
       receiving.
 
    P (parity bit):  1 if parity preservation is requested; 0 otherwise.
@@ -592,25 +592,25 @@ Table of Contents
    To retrieve a set of ports, the PCP client adds a PORT_SET option to
    its PCP MAP request.  If parity preservation is required (i.e., an
    even port to be mapped to an even port and an odd port to be mapped
-   to an odd port), the PCP client MUST set the parity bit (to 1) to ask
+   to an odd port), the PCP client <em>MUST</em> set the parity bit (to 1) to ask
    the PCP server to preserve the port parity.
 
-   The PCP client MUST NOT include more than one PORT_SET option in a
+   The PCP client <em>MUST NOT</em> include more than one PORT_SET option in a
    PCP MAP request.  If several port sets are needed, the PCP client
-   MUST issue separate PCP MAP requests, each potentially including a
-   PORT_SET option.  These individual PCP MAP requests MUST include
+   <em>MUST</em> issue separate PCP MAP requests, each potentially including a
+   PORT_SET option.  These individual PCP MAP requests <em>MUST</em> include
    distinct Internal Ports.
 
    If the PCP client does not know the exact number of ports it
-   requires, it MAY then set the Port Set Size to 0xffff, indicating
+   requires, it <em>MAY</em> then set the Port Set Size to 0xffff, indicating
    that it is willing to accept as many ports as the PCP server can
    offer.
 
-   A PCP client SHOULD NOT send a PORT_SET option for single-port PCP
+   A PCP client <em>SHOULD NOT</em> send a PORT_SET option for single-port PCP
    MAP requests (including creation, renewal, and deletion), because
    that needlessly increases processing on the server.
 
-   PREFER_FAILURE MUST NOT appear in a request with a PORT_SET option.
+   PREFER_FAILURE <em>MUST NOT</em> appear in a request with a PORT_SET option.
    As a reminder, PREFER_FAILURE was specifically designed for the
    Universal Plug and Play (UPnP) Internet Gateway Device - Port Control
    Protocol Interworking Function (IGD-PCP IWF) [<a href="./rfc6970.html" title="&quot;Universal Plug and Play (UPnP) Internet Gateway Device - Port Control Protocol Interworking Function (IGD-PCP IWF)&quot;">RFC6970</a>].  The reasons
@@ -618,7 +618,7 @@ Table of Contents
    <a href="./rfc6887.html#section-13.2">Section&nbsp;13.2 of [RFC6887]</a>.
 
    When the PCP-controlled device supports delegation of multiple port
-   sets for a given PCP client, the PCP client MAY re-initiate a PCP
+   sets for a given PCP client, the PCP client <em>MAY</em> re-initiate a PCP
    request to get another port set when it has exhausted all the ports
    within the port set.
 
@@ -645,23 +645,23 @@ Table of Contents
    o  If a PREFER_FAILURE option is present, a MALFORMED_OPTION error is
       returned.
 
-   The PCP server MAY map fewer ports than the value of Port Set Size
-   from the request.  It MUST NOT map more ports than the PCP client
+   The PCP server <em>MAY</em> map fewer ports than the value of Port Set Size
+   from the request.  It <em>MUST NOT</em> map more ports than the PCP client
    asked for.  Internal Ports outside the range of Port Set Size ports
-   starting from the Internal Port MUST NOT be mapped by the PCP server.
+   starting from the Internal Port <em>MUST NOT</em> be mapped by the PCP server.
 
    If the requested port set cannot be fully satisfied, the PCP server
-   SHOULD map as many ports as possible and SHOULD map at least one port
+   <em>SHOULD</em> map as many ports as possible and <em>SHOULD</em> map at least one port
    (which is the same behavior as if Port Set Size is set to 1).
 
    If the PCP server ends up mapping only a single port, for any reason,
-   the PORT_SET option MUST NOT be present in the response.  In
+   the PORT_SET option <em>MUST NOT</em> be present in the response.  In
    particular, if the PCP server receives a single-port PCP MAP request
    that includes a PORT_SET option, the PORT_SET option is silently
    ignored, and the request is handled as a single-port PCP MAP request.
 
    If the port parity preservation is requested (P = 1), the PCP server
-   MAY preserve port parity.  In that case, the External Port is set to
+   <em>MAY</em> preserve port parity.  In that case, the External Port is set to
    a value having the same parity as the First Internal Port.
 
    If the mapping is successful, the MAP response's Assigned External
@@ -677,12 +677,12 @@ Table of Contents
    the PCP client cannot conclude that the PCP server does not support
    the PORT_SET option.  It may just be that the PCP server does support
    PORT_SET but decided to allocate only a single port, for reasons that
-   are its own.  If the client wishes to obtain more ports, it MAY send
+   are its own.  If the client wishes to obtain more ports, it <em>MAY</em> send
    additional PCP MAP requests (see <a href="#section-6.4">Section 6.4</a>), which the PCP server
    may or may not grant according to local policy.
 
    If port-set capability is added to or removed from a running PCP
-   server, the server MAY reset its Epoch time and send an ANNOUNCE
+   server, the server <em>MAY</em> reset its Epoch time and send an ANNOUNCE
    message as described in the PCP specification (<a href="./rfc6887.html#section-14.1">[RFC6887],
    Section&nbsp;14.1</a>).  This causes PCP clients to retry, and those using
    PORT_SET will now receive a different response.
@@ -701,7 +701,7 @@ Table of Contents
    is, the lifetime of all port mappings in the set is set to the
    Assigned Lifetime at once.
 
-   A PCP client attempting to refresh or delete a port-set mapping MUST
+   A PCP client attempting to refresh or delete a port-set mapping <em>MUST</em>
    include the PORT_SET option in its request.
 
 <span class="h4"><a class="selflink" name="section-4.4.1" href="#section-4.4.1">4.4.1</a>.  Overlap Conditions</span>
@@ -894,12 +894,12 @@ Table of Contents
 
    If the PCP server is configured to allocate multiple port-set
    allocations for one subscriber, the same Assigned External IP Address
-   SHOULD be assigned to the subscriber in multiple port-set responses.
+   <em>SHOULD</em> be assigned to the subscriber in multiple port-set responses.
 
    To optimize the number of mapping entries maintained by the PCP
-   server, it is RECOMMENDED to configure the PCP server to assign the
+   server, it is <em>RECOMMENDED</em> to configure the PCP server to assign the
    maximum allowed Port Set Size in a single response.  This policy
-   SHOULD be configurable.
+   <em>SHOULD</em> be configurable.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  High Availability</span>
 
@@ -955,7 +955,7 @@ Table of Contents
    mapping will be different, and the First Internal Port in both
    responses would then be 5.
 
-   To avoid surprises, PCP clients MUST ensure that port-set mapping
+   To avoid surprises, PCP clients <em>MUST</em> ensure that port-set mapping
    requests do not inadvertently overlap.  For example, a host's
    operating system could include a central PCP client process through
    which port-set mapping requests would be arbitrated.  Alternatively,

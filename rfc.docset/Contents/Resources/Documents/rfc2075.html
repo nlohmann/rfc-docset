@@ -251,14 +251,14 @@ Implementation Details
    datagram.
 
       NOTE: If the TTL is zero or less after decrementing, the datagram
-      MUST not be echoed.  In general, an echo host is required to do
+      <em>MUST</em> not be echoed.  In general, an echo host is required to do
       all the various sanity checks that a router or host would do to an
       IP datagram before accepting the datagram for echoing (see STD 3,
       <a href="./rfc1122.html">RFC 1122</a>, and <a href="./rfc1812.html">RFC 1812</a>).
 
-      The TTL MUST be decremented for security reasons noted below.
+      The TTL <em>MUST</em> be decremented for security reasons noted below.
       Observe, however, that the effect is that hosts using an echo path
-      through an echo host SHOULD set their TTL to twice the normal
+      through an echo host <em>SHOULD</em> set their TTL to twice the normal
       value to be sure of achieving connectivity over the echo path.
 
    If an arriving IP datagram has options, the echo host's
@@ -267,10 +267,10 @@ Implementation Details
    certain situations, other special actions may have to take place.
 
    If the datagram contains an incomplete source route option (i.e. the
-   echo host is not the final destination), the datagram MUST be
+   echo host is not the final destination), the datagram <em>MUST</em> be
    discarded.  If the datagram contains a complete source route option,
-   the source route option MUST be reversed, and the datagram (with
-   source and destination IP addresses exchanged and updated TTL) MUST
+   the source route option <em>MUST</em> be reversed, and the datagram (with
+   source and destination IP addresses exchanged and updated TTL) <em>MUST</em>
    be sent back along the reverse source route.
 
    More generally, the goal with any option is to update the option such
@@ -287,9 +287,9 @@ Implementation Details
    balance these two issues, the following rules are suggested:
 
       1. If the first entry in the timestamp option contains the IP
-      address of the source host, the entry SHOULD be rewritten to
+      address of the source host, the entry <em>SHOULD</em> be rewritten to
       contain the IP address of the echo host, and the timestamp option
-      pointer SHOULD be truncated so that this timestamp is the only one
+      pointer <em>SHOULD</em> be truncated so that this timestamp is the only one
 
 
 
@@ -304,39 +304,39 @@ Implementation Details
       echo host).
 
       2. If the first entry in the timestamp option does not contain the
-      IP address of the source host, the entry SHOULD be echoed back
-      unchanged. The echo host SHOULD NOT appear in the timestamp
+      IP address of the source host, the entry <em>SHOULD</em> be echoed back
+      unchanged. The echo host <em>SHOULD NOT</em> appear in the timestamp
       option.  (This approach retains the entire history of the path,
       though observe that on a symmetric route, it means every router
       may appear twice in the path).
 
    Finally, if the IP datagram contains an ICMP packet (i.e. the IP
-   protocol field value is 1), the datagram SHOULD be discarded.  The
+   protocol field value is 1), the datagram <em>SHOULD</em> be discarded.  The
    reason for this rule is that the most likely reason for receiving an
    ICMP datagram is that an echoed datagram has encountered a problem at
    some router in the path and the router has sent back an ICMP
    datagram.  Echoing the ICMP datagram back to the router may confuse
-   the router and thus SHOULD be avoided.  (This rule simply follows the
+   the router and thus <em>SHOULD</em> be avoided.  (This rule simply follows the
    Internet maxim of being conservative in what we send).
 
    However, in some cases the ICMP datagram will have useful information
    for the source host which it would be desirable to echo.  A
-   sophisticated echo host MAY choose to echo ICMP datagrams according
+   sophisticated echo host <em>MAY</em> choose to echo ICMP datagrams according
    to the following rules:
 
       1. Any ICMP datagram in which the destination address in the
       encapsulated IP header (the header within the ICMP datagram)
-      matches the source address of the ICMP datagram MAY be safely
+      matches the source address of the ICMP datagram <em>MAY</em> be safely
       echoed.
 
       2. ICMP Source Quench and ICMP Destination Unreachable with a code
-      of 4 (fragmentation needed and DF set) MAY be sent to the
+      of 4 (fragmentation needed and DF set) <em>MAY</em> be sent to the
       *destination* of the encapsulated IP datagram if the source IP
       address of the encapsulated IP datagram is that of the echo host.
-      When the ICMP message is sent on, it SHOULD be rewritten as an
+      When the ICMP message is sent on, it <em>SHOULD</em> be rewritten as an
       ICMP message from the echo host to the source.
 
-      3. All other ICMP messages MUST be discarded.
+      3. All other ICMP messages <em>MUST</em> be discarded.
 
    These rules were chosen to try to ensure that end-to-end ICMP
    messages are passed through, as are messages from routers which are
@@ -378,7 +378,7 @@ Security Considerations
    addresses on datagrams arriving at an exterior interface is a
    standard firewall filter) but since the primary purpose of echo hosts
    is for wide scale Internet testing, there seems no reason to invite
-   danger.  So we recommend that echo hosts SHOULD NOT be placed inside
+   danger.  So we recommend that echo hosts <em>SHOULD NOT</em> be placed inside
    firewalls.
 
    Second, address spoofing can be used to cause flooding of the
@@ -413,8 +413,8 @@ Security Considerations
    A third variation of the flooding trick is to place a multicast or
    broadcast address as the source of the IP datagram sent to an echo
    server.  Since this results in an illegal arriving IP datagram, the
-   echo server MUST discard the datagram.  (This warning serves as a
-   reminder that echo servers MUST do the standard checks for an illegal
+   echo server <em>MUST</em> discard the datagram.  (This warning serves as a
+   reminder that echo servers <em>MUST</em> do the standard checks for an illegal
    datagram before echoing).
 
 Implementation Note
@@ -427,7 +427,7 @@ Implementation Note
    implementation mistake to make is to accidentally put the non-echo
    address of a host into an echoed packet.  For a variety of reasons
    (including security and correct operation of echo paths) implementors
-   MUST ensure this NEVER happens.
+   <em>MUST</em> ensure this NEVER happens.
 
 Acknowledgements
 

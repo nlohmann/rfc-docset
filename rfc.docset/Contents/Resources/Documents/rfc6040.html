@@ -481,8 +481,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Table 1 recaps the names of the ECN codepoints [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>].
@@ -697,7 +697,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6040.html">RFC 6040</a>                     ECN Tunnelling                November 2010</span>
 
 
-   be followed.  However, alternate ECN tunnelling schemes SHOULD be
+   be followed.  However, alternate ECN tunnelling schemes <em>SHOULD</em> be
    avoided whenever possible as the deployment burden of handling
    exceptional PHBs in implementations of all affected tunnels should
    not be underestimated.  There is no requirement for a PHB definition
@@ -706,7 +706,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Default Tunnel Ingress Behaviour</span>
 
-   Two modes of encapsulation are defined here; a REQUIRED 'normal mode'
+   Two modes of encapsulation are defined here; a <em>REQUIRED</em> 'normal mode'
    and a 'compatibility mode', which is for backward compatibility with
    tunnel decapsulators that do not understand ECN.  Note that these are
    modes of the ingress tunnel endpoint only, not the whole tunnel.
@@ -718,7 +718,7 @@ Table of Contents
    changing the ECN field.
 
    In normal mode, an encapsulator compliant with this specification
-   MUST construct the outer encapsulating IP header by copying the
+   <em>MUST</em> construct the outer encapsulating IP header by copying the
    two-bit ECN field of the incoming IP header.  In compatibility mode,
    it clears the ECN field in the outer header to the Not-ECT codepoint
    (the IPv4 header checksum also changes whenever the ECN field is
@@ -741,7 +741,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Default Tunnel Egress Behaviour</span>
 
    To decapsulate the inner header at the tunnel egress, a compliant
-   tunnel egress MUST set the outgoing ECN field to the codepoint at the
+   tunnel egress <em>MUST</em> set the outgoing ECN field to the codepoint at the
    intersection of the appropriate arriving inner header (row) and outer
    header (column) in Figure 4 (the IPv4 header checksum also changes
 
@@ -779,21 +779,21 @@ Table of Contents
    This table for decapsulation behaviour is derived from the following
    logic:
 
-   o  If the inner ECN field is Not-ECT, the decapsulator MUST NOT
+   o  If the inner ECN field is Not-ECT, the decapsulator <em>MUST NOT</em>
       propagate any other ECN codepoint onwards.  This is because the
       inner Not-ECT marking is set by transports that rely on dropped
       packets as an indication of congestion and would not understand or
       respond to any other ECN codepoint [<a href="./rfc4774.html" title="&quot;Specifying Alternate Semantics for the Explicit Congestion Notification (ECN) Field&quot;">RFC4774</a>].  Specifically:
 
       *  If the inner ECN field is Not-ECT and the outer ECN field is
-         CE, the decapsulator MUST drop the packet.
+         CE, the decapsulator <em>MUST</em> drop the packet.
 
       *  If the inner ECN field is Not-ECT and the outer ECN field is
-         Not-ECT, ECT(0), or ECT(1), the decapsulator MUST forward the
+         Not-ECT, ECT(0), or ECT(1), the decapsulator <em>MUST</em> forward the
          outgoing packet with the ECN field cleared to Not-ECT.
 
    o  In all other cases where the inner supports ECN, the decapsulator
-      MUST set the outgoing ECN field to the more severe marking of the
+      <em>MUST</em> set the outgoing ECN field to the more severe marking of the
       outer and inner ECN fields, where the ranking of severity from
       highest to lowest is CE, ECT(1), ECT(0), Not-ECT.  This in no way
       precludes cases where ECT(1) and ECT(0) have the same severity;
@@ -812,20 +812,20 @@ Table of Contents
       indicated in Figure 4 by '(!!!)' or '(!)', where '(!!!)' means the
       combination is CU and always potentially dangerous, while '(!)'
       means it is CU and possibly dangerous.  In these cases,
-      particularly the more dangerous ones, the decapsulator SHOULD log
-      the event and MAY also raise an alarm.
+      particularly the more dangerous ones, the decapsulator <em>SHOULD</em> log
+      the event and <em>MAY</em> also raise an alarm.
 
       Just because the highlighted combinations are currently unused,
       does not mean that all the other combinations are always valid.
       Some are only valid if they have arrived from a particular type of
       legacy ingress, and dangerous otherwise.  Therefore, an
-      implementation MAY allow an operator to configure logging and
+      implementation <em>MAY</em> allow an operator to configure logging and
       alarms for such additional header combinations known to be
       dangerous or CU for the particular configuration of tunnel
       endpoints deployed at run-time.
 
-      Alarms SHOULD be rate-limited so that the anomalous combinations
-      will not amplify into a flood of alarm messages.  It MUST be
+      Alarms <em>SHOULD</em> be rate-limited so that the anomalous combinations
+      will not amplify into a flood of alarm messages.  It <em>MUST</em> be
       possible to suppress alarms or logging, e.g., if it becomes
       apparent that a combination that previously was not used has
       started to be used for legitimate purposes such as a new standards
@@ -847,10 +847,10 @@ Table of Contents
    header copying or zeroing, respectively).  Note that these are modes
    of the ingress tunnel endpoint only, not the tunnel as a whole.
 
-   To comply with this specification, a tunnel ingress MUST at least
+   To comply with this specification, a tunnel ingress <em>MUST</em> at least
    implement normal mode.  Unless it will never be used with legacy
    tunnel egress nodes (<a href="./rfc2003.html">RFC 2003</a>, <a href="./rfc2401.html">RFC 2401</a>, or <a href="./rfc2481.html">RFC 2481</a> or the limited
-   functionality mode of <a href="./rfc3168.html">RFC 3168</a>), an ingress MUST also implement
+   functionality mode of <a href="./rfc3168.html">RFC 3168</a>), an ingress <em>MUST</em> also implement
    compatibility mode for backward compatibility with tunnel egresses
    that do not propagate explicit congestion notifications [<a href="./rfc4774.html" title="&quot;Specifying Alternate Semantics for the Explicit Congestion Notification (ECN) Field&quot;">RFC4774</a>].
 
@@ -898,14 +898,14 @@ Table of Contents
 
       If dynamic tunnel endpoint discovery might pair an ingress with a
       legacy egress (<a href="./rfc2003.html">RFC 2003</a>, <a href="./rfc2401.html">RFC 2401</a>, or <a href="./rfc2481.html">RFC 2481</a> or the limited
-      functionality mode of <a href="./rfc3168.html">RFC 3168</a>), the ingress MUST implement both
+      functionality mode of <a href="./rfc3168.html">RFC 3168</a>), the ingress <em>MUST</em> implement both
       normal and compatibility mode.  If the tunnel discovery process is
       arranged to only ever find a tunnel egress that propagates ECN
       (<a href="./rfc3168.html">RFC 3168</a> full functionality mode, <a href="./rfc4301.html">RFC 4301</a>, or this present
       specification), then a tunnel ingress can be compliant with the
       present specification without implementing compatibility mode.
 
-      While a compliant tunnel ingress is discovering an egress, it MUST
+      While a compliant tunnel ingress is discovering an egress, it <em>MUST</em>
       send packets in compatibility mode in case the egress it discovers
       is a legacy egress.  If, through the discovery protocol, the
       egress indicates that it is compliant with the present
@@ -922,10 +922,10 @@ Table of Contents
 
 
       that implies it does not understand a request to work to any of
-      these ECN specifications, the tunnel ingress MUST remain in
+      these ECN specifications, the tunnel ingress <em>MUST</em> remain in
       compatibility mode.
 
-   If an ingress claims compliance with this specification, it MUST NOT
+   If an ingress claims compliance with this specification, it <em>MUST NOT</em>
    permanently disable ECN processing across the tunnel (i.e., only
    using compatibility mode).  It is true that such a tunnel ingress is
    at least safe with the ECN behaviour of any egress it may encounter,
@@ -934,10 +934,10 @@ Table of Contents
 
    Instead, if the ingress knows that the egress does support
    propagation of ECN (full functionality mode of <a href="./rfc3168.html">RFC 3168</a> or <a href="./rfc4301.html">RFC 4301</a>
-   or the present specification), it SHOULD use normal mode, in order to
+   or the present specification), it <em>SHOULD</em> use normal mode, in order to
    support ECN where possible.  Note that this section started by saying
-   an ingress "MUST implement" normal mode, while it has just said an
-   ingress "SHOULD use" normal mode.  This distinction is deliberate, to
+   an ingress "<em>MUST</em> implement" normal mode, while it has just said an
+   ingress "<em>SHOULD</em> use" normal mode.  This distinction is deliberate, to
    allow the mode to be turned off in exceptional circumstances but to
    ensure all implementations make normal mode available.
 
@@ -963,7 +963,7 @@ Table of Contents
    functionality mode.  Or an <a href="./rfc3168.html">RFC 3168</a> tunnel ingress might try to
    negotiate to use limited functionality or full functionality mode
    [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>].  In all these cases, a decapsulating tunnel egress
-   compliant with this specification MUST agree to any of these
+   compliant with this specification <em>MUST</em> agree to any of these
    requests, since it will behave identically in all these cases.
 
 
@@ -977,15 +977,15 @@ Table of Contents
 <span class="grey"><a href="./rfc6040.html">RFC 6040</a>                     ECN Tunnelling                November 2010</span>
 
 
-   If no ECN-related mode is requested, a compliant tunnel egress MUST
+   If no ECN-related mode is requested, a compliant tunnel egress <em>MUST</em>
    continue without raising any error or warning, because its egress
    behaviour is compatible with all the legacy ingress behaviours that
    do not negotiate capabilities.
 
-   A compliant tunnel egress SHOULD raise a warning alarm about any
+   A compliant tunnel egress <em>SHOULD</em> raise a warning alarm about any
    requests to enter modes it does not recognise but, for 'forward
    compatibility' with standards actions possibly defined after it was
-   implemented, it SHOULD continue operating.
+   implemented, it <em>SHOULD</em> continue operating.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Updates to Earlier RFCs</span>
 
@@ -1018,9 +1018,9 @@ Table of Contents
 
    Modes:  <a href="./rfc4301.html">RFC 4301</a> tunnel endpoints do not need modes and are not
       updated by the modes in the present specification.  Effectively,
-      an <a href="./rfc4301.html">RFC 4301</a> IPsec ingress solely uses the REQUIRED normal mode of
+      an <a href="./rfc4301.html">RFC 4301</a> IPsec ingress solely uses the <em>REQUIRED</em> normal mode of
       encapsulation, which is unchanged from <a href="./rfc4301.html">RFC 4301</a> encapsulation.  It
-      will never need the OPTIONAL compatibility mode as explained in
+      will never need the <em>OPTIONAL</em> compatibility mode as explained in
       <a href="#section-4.3">Section 4.3</a>.
 
 

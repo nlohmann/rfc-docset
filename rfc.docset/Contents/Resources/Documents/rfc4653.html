@@ -404,8 +404,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Readers should be familiar with the TCP terminology (e.g.,
@@ -549,10 +549,10 @@ Table of Contents
         lost and needs to be retransmitted (which TCP-NCR delays by
         one RTT when compared with current loss recovery schemes).
 
-   A TCP-NCR implementation MUST use either Careful Limited Transmit or
+   A TCP-NCR implementation <em>MUST</em> use either Careful Limited Transmit or
    Aggressive Limited Transmit.
 
-   A constant MUST be set, depending on which variant of extended
+   A constant <em>MUST</em> be set, depending on which variant of extended
    Limited Transmit is used, as follows:
 
        Careful Limited Transmit
@@ -612,15 +612,15 @@ Table of Contents
    security implications of having only a gross understanding of the
    number of outstanding segments in the network.
 
-   A TCP connection using the Nagle algorithm [RFC896, <a href="./rfc1122.html">RFC1122</a>] MAY
+   A TCP connection using the Nagle algorithm [RFC896, <a href="./rfc1122.html">RFC1122</a>] <em>MAY</em>
    employ the TCP-NCR algorithm.  If a TCP implementation does implement
-   TCP-NCR, the implementation MUST follow the various specifications
+   TCP-NCR, the implementation <em>MUST</em> follow the various specifications
    provided in Sections <a href="#section-3.1">3.1</a> - <a href="#section-3.4">3.4</a>.  If the Nagle algorithm is not being
    used, there is no way to accurately calculate the number of
    outstanding segments in the network (and, therefore, no good way to
    derive an appropriate duplicate ACK threshold) without adding state
    to the TCP sender.  A TCP connection that does not employ the Nagle
-   algorithm SHOULD NOT use TCP-NCR.  We envision that NCR could be
+   algorithm <em>SHOULD NOT</em> use TCP-NCR.  We envision that NCR could be
    adapted to an implementation that carefully tracks the sequence
    numbers transmitted in each segment.  However, we leave this as
    future work.
@@ -628,13 +628,13 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Initialization</span>
 
    When entering a period of loss/reordering detection and Extended
-   Limited Transmit, a TCP-NCR MUST initialize several state variables.
-   A TCP MUST enter Extended Limited Transmit upon receiving the first
+   Limited Transmit, a TCP-NCR <em>MUST</em> initialize several state variables.
+   A TCP <em>MUST</em> enter Extended Limited Transmit upon receiving the first
    ACK with a SACK block after the reception of an ACK that (a) did not
    contain SACK information and (b) did increase the connection's
    cumulative ACK point.  The initializations are:
 
-   (I.1) The TCP MUST save the current FlightSize.
+   (I.1) The TCP <em>MUST</em> save the current FlightSize.
 
          FlightSizePrev = FlightSize
 
@@ -646,7 +646,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4653.html">RFC 4653</a>            Improving the Robustness of TCP          August 2006</span>
 
 
-   (I.2) The TCP MUST set a variable for tracking the number of
+   (I.2) The TCP <em>MUST</em> set a variable for tracking the number of
          segments for which an ACK does not trigger a transmission
          during Careful Limited Transmit.
 
@@ -655,7 +655,7 @@ Table of Contents
          (Note: Skipped is not used during Aggressive Limited
          Transmit.)
 
-   (I.3) The TCP MUST set DupThresh (from [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>]) based on the
+   (I.3) The TCP <em>MUST</em> set DupThresh (from [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>]) based on the
          current FlightSize.
 
          DupThresh = max (LT_F * (FlightSize / SMSS),3)
@@ -663,19 +663,19 @@ Table of Contents
          Note: We keep the lower bound of DupThresh = 3 from
          [RFC2581, <a href="./rfc3517.html">RFC3517</a>].
 
-   In addition to the above steps, the incoming ACK MUST be processed
+   In addition to the above steps, the incoming ACK <em>MUST</em> be processed
    with the E series of steps in <a href="#section-3.3">Section 3.3</a>.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Terminating Extended Limited Transmit and Preventing Bursts</span>
 
-   Extended Limited Transmit MUST be terminated at the start of loss
+   Extended Limited Transmit <em>MUST</em> be terminated at the start of loss
    recovery as outlined in <a href="#section-3.4">Section 3.4</a>.
 
    The arrival of an ACK that advances the cumulative ACK point while in
    Extended Limited Transmit, but before loss recovery is triggered,
    signals that a series of duplicate ACKs was caused by reordering and
    not congestion.  Therefore, the receipt of an ACK that extends the
-   cumulative ACK point MUST terminate Extended Limited Transmit.  As
+   cumulative ACK point <em>MUST</em> terminate Extended Limited Transmit.  As
    described below (in (T.4)), an ACK that extends the cumulative ACK
    point and *also* contains SACK information will also trigger the
    beginning of a new Extended Limited Transmit phase.
@@ -687,7 +687,7 @@ Table of Contents
    Therefore, to mitigate this bursting when a TCP-NCR in the Extended
    Limited Transmit phase receives an ACK that updates the cumulative
    ACK point (regardless of whether the ACK contains SACK information),
-   the following steps MUST be taken:
+   the following steps <em>MUST</em> be taken:
 
 
 
@@ -702,7 +702,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4653.html">RFC 4653</a>            Improving the Robustness of TCP          August 2006</span>
 
 
-   (T.1) A TCP MUST reset cwnd to:
+   (T.1) A TCP <em>MUST</em> reset cwnd to:
 
          cwnd = min (FlightSize + SMSS,FlightSizePrev)
 
@@ -710,7 +710,7 @@ Table of Contents
          amount of data outstanding, a situation that would cause a
          line rate burst.
 
-   (T.2) A TCP MUST set ssthresh to:
+   (T.2) A TCP <em>MUST</em> set ssthresh to:
 
          ssthresh = FlightSizePrev
 
@@ -725,28 +725,28 @@ Table of Contents
 
    (T.4) When an incoming ACK extends the cumulative ACK point and also
          contains SACK information, the initializations in steps (I.2)
-         and (I.3) from <a href="#section-3.1">Section 3.1</a> MUST be taken (but step (I.1) MUST
+         and (I.3) from <a href="#section-3.1">Section 3.1</a> <em>MUST</em> be taken (but step (I.1) <em>MUST</em>
          NOT be executed) to re-start Extended Limited Transmit.  In
          addition, the series of steps in <a href="#section-3.3">Section 3.3</a> (the "E" steps)
-         MUST be taken.
+         <em>MUST</em> be taken.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Extended Limited Transmit</span>
 
    On each ACK containing SACK information that arrives after TCP-NCR
    has entered the Extended Limited Transmit phase (as outlined in
    <a href="#section-3.1">Section 3.1</a>) and before Extended Limited Transmit terminates, the
-   sender MUST use the following procedure.
+   sender <em>MUST</em> use the following procedure.
 
-   (E.1) The SetPipe () procedure from [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>] MUST be used to set
+   (E.1) The SetPipe () procedure from [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>] <em>MUST</em> be used to set
          the "pipe" variable (which represents the number of bytes
          still considered "in the network").  Note: the current value
-         of DupThresh MUST be used by SetPipe () to produce an accurate
+         of DupThresh <em>MUST</em> be used by SetPipe () to produce an accurate
          assessment of the amount of data still considered in the
          network.
 
    (E.2) If the comparison in equation (1), below, holds and there are
          SMSS bytes of previously unsent data available for
-         transmission, then the sender MUST transmit one segment of SMSS
+         transmission, then the sender <em>MUST</em> transmit one segment of SMSS
          bytes.
 
            (pipe + Skipped) &lt;= (FlightSizePrev - SMSS)              (1)
@@ -762,20 +762,20 @@ Table of Contents
          can be transmitted (due to lack of data from the application
          or the advertised window limit), skip to step (E.6).
 
-   (E.3) Pipe MUST be incremented by SMSS bytes.
+   (E.3) Pipe <em>MUST</em> be incremented by SMSS bytes.
 
-   (E.4) If using Careful Limited Transmit, Skipped MUST be incremented
+   (E.4) If using Careful Limited Transmit, Skipped <em>MUST</em> be incremented
          by SMSS bytes to ensure that the next SMSS bytes of SACKed data
          processed does not trigger a Limited Transmit transmission
          (since the goal of Careful Limited Transmit is to send upon
          receipt of every second duplicate ACK).
 
-   (E.5) A TCP MUST return to step (E.2) to ensure that as many bytes
+   (E.5) A TCP <em>MUST</em> return to step (E.2) to ensure that as many bytes
          as are appropriate are transmitted.  This provides robustness
          to ACK loss that can be (largely) compensated for using SACK
          information.
 
-   (E.6) DupThresh MUST be reset via:
+   (E.6) DupThresh <em>MUST</em> be reset via:
 
            DupThresh = max (LT_F * (FlightSize / SMSS),3)
 
@@ -786,10 +786,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Entering Loss Recovery</span>
 
    When a segment is deemed lost via the algorithms in [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>],
-   Extended Limited Transmit MUST be terminated, leaving the algorithms
+   Extended Limited Transmit <em>MUST</em> be terminated, leaving the algorithms
    in [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>] to govern TCP's behavior.  One slight change to
-   [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>] MUST be made, however.  In <a href="#section-5">Section 5</a>, step (2) of [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>]
-   MUST be changed to:
+   [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>] <em>MUST</em> be made, however.  In <a href="#section-5">Section 5</a>, step (2) of [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>]
+   <em>MUST</em> be changed to:
 
        (2) ssthresh = cwnd = (FlightSizePrev / 2)
 
@@ -798,7 +798,7 @@ Table of Contents
    increased by Extended Limited Transmit.
 
    Note: Once the algorithm in [<a href="./rfc3517.html" title="&quot;A Conservative Selective Acknowledgment (SACK)-based Loss Recovery Algorithm for TCP&quot;">RFC3517</a>] takes over from Extended
-   Limited Transmit, the DupThresh value MUST be held constant until the
+   Limited Transmit, the DupThresh value <em>MUST</em> be held constant until the
    loss recovery phase is terminated.
 
 

@@ -1113,7 +1113,7 @@ routingTreeRoot OBJECT-CLASS ::= {
    routingInformation OBJECT-CLASS ::= {
        SUBCLASS OF top
        KIND auxiliary
-       MAY CONTAIN {
+       <em>MAY</em> CONTAIN {
            subtreeInformation|
            routingFilter|
            routingFailureAction|
@@ -1154,8 +1154,8 @@ routingTreeRoot OBJECT-CLASS ::= {
    RoutingFilter ::= SEQUENCE{
            attribute-type OBJECT-IDENTIFIER,
            weight RouteWeight,
-           dda-key String OPTIONAL,
-           regex-match IA5String OPTIONAL,
+           dda-key String <em>OPTIONAL</em>,
+           regex-match IA5String <em>OPTIONAL</em>,
            node DistinguishedName }                                   40
 
    String ::= CHOICE {PrintableString, TeletexString}
@@ -1179,11 +1179,11 @@ routingTreeRoot OBJECT-CLASS ::= {
    MTAInfo ::= SEQUENCE {                                             60
                name DistinguishedName,
                weight [<a href="#ref-1" title="models and services">1</a>] RouteWeight DEFAULT preferred-access,
-               mta-attributes [<a href="#ref-2">2</a>] SET OF Attribute OPTIONAL,
+               mta-attributes [<a href="#ref-2">2</a>] SET OF Attribute <em>OPTIONAL</em>,
                ae-info  SEQUENCE OF SEQUENCE {
                    aEQualifier PrintableString,
                    ae-weight RouteWeight DEFAULT preferred-access,
-                   ae-attributes SET OF Attribute OPTIONAL} OPTIONAL
+                   ae-attributes SET OF Attribute <em>OPTIONAL</em>} <em>OPTIONAL</em>
    }
 
    RouteWeight ::= INTEGER  {endpoint(0),                             70
@@ -1684,7 +1684,7 @@ routingTreeRoot OBJECT-CLASS ::= {
    routedUA OBJECT-CLASS ::= {
        SUBCLASS OF {routingInformation}
        KIND auxiliary
-       MAY CONTAIN {
+       <em>MAY</em> CONTAIN {
                            -- from X.402
            mhs-deliverable-content-length|
            mhs-deliverable-content-types|
@@ -2012,7 +2012,7 @@ routingTreeRoot OBJECT-CLASS ::= {
    mTAApplicationProcess OBJECT-CLASS ::= {
        SUBCLASS OF {application-process}
        KIND auxiliary                                                 20
-       MAY CONTAIN {
+       <em>MAY</em> CONTAIN {
            mTAWillRoute|
            globalDomainID|
            routingTreeList|
@@ -2024,7 +2024,7 @@ routingTreeRoot OBJECT-CLASS ::= {
    mTA OBJECT CLASS ::= {   -- Application Entity                     30
        SUBCLASS OF {mhs-message-transfer-agent}
        KIND structural
-       MAY CONTAIN {
+       <em>MAY</em> CONTAIN {
            mTAName|
            globalDomainID|         -- per AE variant
 
@@ -2376,7 +2376,7 @@ routingTreeRoot OBJECT-CLASS ::= {
    restrictedSubtree OBJECT-CLASS ::= {
            SUBCLASS OF {top}
            KIND auxiliary
-           MAY CONTAIN {
+           <em>MAY</em> CONTAIN {
                    subtreeDeliverableContentLength|
                    subtreeDeliverableContentTypes|
                    subtreeDeliverableEITs}
@@ -2450,7 +2450,7 @@ routingTreeRoot OBJECT-CLASS ::= {
                                                                       20
    PolledMTAs ::= SEQUENCE {
            mta DistinguishedName,
-           poll-frequency INTEGER OPTIONAL --frequency in minutes
+           poll-frequency INTEGER <em>OPTIONAL</em> --frequency in minutes
            }
 
    mTAsAllowedToPoll ATTRIBUTE ::= {
@@ -2666,8 +2666,8 @@ routingTreeRoot OBJECT-CLASS ::= {
 
 
    RTSCredentials ::= SEQUENCE {
-           request [0] MTAandPassword OPTIONAL,
-           response [<a href="#ref-1" title="models and services">1</a>] MTAandPassword OPTIONAL }
+           request [0] MTAandPassword <em>OPTIONAL</em>,
+           response [<a href="#ref-1" title="models and services">1</a>] MTAandPassword <em>OPTIONAL</em> }
 
 
    MTAandPassword ::= SEQUENCE {
@@ -2714,10 +2714,10 @@ routingTreeRoot OBJECT-CLASS ::= {
        ID at-mta-will-route}
 
    MTAWillRoute ::= SEQUENCE {
-           from [0]        SET OF ORAddressPrefix OPTIONAL,
-           to [<a href="#ref-1" title="models and services">1</a>]          SET OF ORAddressPrefix OPTIONAL,
-           from-excludes [<a href="#ref-2">2</a>]       SET OF ORAddressPrefix OPTIONAL,
-           to-excludes [<a href="#ref-3" title="K. Bonacker">3</a>]         SET OF ORAddressPrefix OPTIONAL }  10
+           from [0]        SET OF ORAddressPrefix <em>OPTIONAL</em>,
+           to [<a href="#ref-1" title="models and services">1</a>]          SET OF ORAddressPrefix <em>OPTIONAL</em>,
+           from-excludes [<a href="#ref-2">2</a>]       SET OF ORAddressPrefix <em>OPTIONAL</em>,
+           to-excludes [<a href="#ref-3" title="K. Bonacker">3</a>]         SET OF ORAddressPrefix <em>OPTIONAL</em> }  10
 
    ORAddressPrefix ::= DistinguishedName
 
@@ -2859,7 +2859,7 @@ routingTreeRoot OBJECT-CLASS ::= {
                    min-size [<a href="#ref-1" title="models and services">1</a>] INTEGER,
                    max-size [<a href="#ref-2">2</a>] INTEGER,
                    content [<a href="#ref-3" title="K. Bonacker">3</a>] ContentType,
-                   eit [<a href="#ref-4" title="R.J. Kummerfeld">4</a>] ExternalEncodedInformationType } OPTIONAL
+                   eit [<a href="#ref-4" title="R.J. Kummerfeld">4</a>] ExternalEncodedInformationType } <em>OPTIONAL</em>
            }
 
                       Figure 15:  Redirect Definition
@@ -2966,8 +2966,8 @@ routingTreeRoot OBJECT-CLASS ::= {
 
    NonDeliveryReason ::= SEQUENCE {
            reason INTEGER (0..ub-reason-codes),
-           diagnostic INTEGER (0..ub-diagnostic-codes) OPTIONAL,
-           supplementaryInfo PrintableString OPTIONAL }               10
+           diagnostic INTEGER (0..ub-diagnostic-codes) <em>OPTIONAL</em>,
+           supplementaryInfo PrintableString <em>OPTIONAL</em> }               10
 
                    Figure 16:  Non Delivery Information
 
@@ -3059,8 +3059,8 @@ routingTreeRoot OBJECT-CLASS ::= {
                    -- X.400(92) continues to use MACRO notation
 
    AlternativeAddressInformation ::= SET OF SEQUENCE {
-           distinguished-name DistinguishedName OPTIONAL,
-           or-address ORAddress OPTIONAL,
+           distinguished-name DistinguishedName <em>OPTIONAL</em>,
+           or-address ORAddress <em>OPTIONAL</em>,
            other-useful-info SET OF Attribute }
 
                      Figure 17:  Bad Address Pointers
@@ -3118,7 +3118,7 @@ routingTreeRoot OBJECT-CLASS ::= {
    SelectedAccessUnit ::= SEQUENCE {
            type AccessUnitType,
            providing-MTA DistinguishedName,
-           filter SET OF ORAddress OPTIONAL }
+           filter SET OF ORAddress <em>OPTIONAL</em> }
 
                      Figure 18:  Access UnitAttributes
 
@@ -3594,7 +3594,7 @@ RoutingTreeName ::= DistinguishedName
 routingInformation OBJECT-CLASS ::= {
     SUBCLASS OF top
     KIND auxiliary
-    MAY CONTAIN {
+    <em>MAY</em> CONTAIN {
 
 
 
@@ -3635,8 +3635,8 @@ routingFilter ATTRIBUTE ::= {
 RoutingFilter ::= SEQUENCE{
         attribute-type OBJECT-IDENTIFIER,
         weight RouteWeight,
-        dda-key String OPTIONAL,
-        regex-match IA5String OPTIONAL,
+        dda-key String <em>OPTIONAL</em>,
+        regex-match IA5String <em>OPTIONAL</em>,
         node DistinguishedName }
                                                                     60
 String ::= CHOICE {PrintableString, TeletexString}
@@ -3666,11 +3666,11 @@ mTAInfo ATTRIBUTE ::= {
 MTAInfo ::= SEQUENCE {
             name DistinguishedName,                                 80
             weight [<a href="#ref-1" title="models and services">1</a>] RouteWeight DEFAULT preferred-access,
-            mta-attributes [<a href="#ref-2">2</a>] SET OF Attribute OPTIONAL,
+            mta-attributes [<a href="#ref-2">2</a>] SET OF Attribute <em>OPTIONAL</em>,
             ae-info  SEQUENCE OF SEQUENCE {
                 aEQualifier PrintableString,
                 ae-weight RouteWeight DEFAULT preferred-access,
-                ae-attributes SET OF Attribute OPTIONAL} OPTIONAL
+                ae-attributes SET OF Attribute <em>OPTIONAL</em>} <em>OPTIONAL</em>
 }
 
 RouteWeight ::= INTEGER  {endpoint(0),
@@ -3684,7 +3684,7 @@ accessMD ATTRIBUTE ::= {
 routedUA OBJECT-CLASS ::= {
     SUBCLASS OF {routingInformation}
     KIND auxiliary
-    MAY CONTAIN {                                                  100
+    <em>MAY</em> CONTAIN {                                                  100
                         -- from X.402
         mhs-deliverable-content-length|
         mhs-deliverable-content-types|
@@ -3738,7 +3738,7 @@ globalDomainID ATTRIBUTE ::= {
 mTAApplicationProcess OBJECT-CLASS ::= {
     SUBCLASS OF {application-process}
     KIND auxiliary
-    MAY CONTAIN {
+    <em>MAY</em> CONTAIN {
         mTAWillRoute|
         globalDomainID|
         routingTreeList|
@@ -3750,7 +3750,7 @@ mTAApplicationProcess OBJECT-CLASS ::= {
 mTA OBJECT CLASS ::= {   -- Application Entity
     SUBCLASS OF {mhs-message-transfer-agent}
     KIND structural
-    MAY CONTAIN {
+    <em>MAY</em> CONTAIN {
         mTAName|
         globalDomainID|         -- per AE variant                  160
         responderAuthenticationRequirements|
@@ -3798,7 +3798,7 @@ supportedMTSExtensions ATTRIBUTE ::= {
 restrictedSubtree OBJECT-CLASS ::= {
         SUBCLASS OF {top}
         KIND auxiliary
-        MAY CONTAIN {
+        <em>MAY</em> CONTAIN {
                 subtreeDeliverableContentLength|
                 subtreeDeliverableContentTypes|                    200
                 subtreeDeliverableEITs}
@@ -3846,7 +3846,7 @@ polledMTAs ATTRIBUTE ::= {
 
 PolledMTAs ::= SEQUENCE {
         mta DistinguishedName,
-        poll-frequency INTEGER OPTIONAL --frequency in minutes
+        poll-frequency INTEGER <em>OPTIONAL</em> --frequency in minutes
         }
                                                                    240
 mTAsAllowedToPoll ATTRIBUTE ::= {
@@ -3904,8 +3904,8 @@ initiatingRTSCredentials ATTRIBUTE ::= {
 
 
 RTSCredentials ::= SEQUENCE {
-        request [0] MTAandPassword OPTIONAL,
-        response [<a href="#ref-1" title="models and services">1</a>] MTAandPassword OPTIONAL }
+        request [0] MTAandPassword <em>OPTIONAL</em>,
+        response [<a href="#ref-1" title="models and services">1</a>] MTAandPassword <em>OPTIONAL</em> }
                                                                    290
 
 MTAandPassword ::= SEQUENCE {
@@ -3942,10 +3942,10 @@ mTAWillRoute ATTRIBUTE ::= {
     ID at-mta-will-route}
 
 MTAWillRoute ::= SEQUENCE {
-        from [0]        SET OF ORAddressPrefix OPTIONAL,
-        to [<a href="#ref-1" title="models and services">1</a>]          SET OF ORAddressPrefix OPTIONAL,
-        from-excludes [<a href="#ref-2">2</a>]       SET OF ORAddressPrefix OPTIONAL,   320
-        to-excludes [<a href="#ref-3" title="K. Bonacker">3</a>]         SET OF ORAddressPrefix OPTIONAL }
+        from [0]        SET OF ORAddressPrefix <em>OPTIONAL</em>,
+        to [<a href="#ref-1" title="models and services">1</a>]          SET OF ORAddressPrefix <em>OPTIONAL</em>,
+        from-excludes [<a href="#ref-2">2</a>]       SET OF ORAddressPrefix <em>OPTIONAL</em>,   320
+        to-excludes [<a href="#ref-3" title="K. Bonacker">3</a>]         SET OF ORAddressPrefix <em>OPTIONAL</em> }
 
 ORAddressPrefix ::= DistinguishedName
 
@@ -3961,7 +3961,7 @@ Redirect ::= SEQUENCE OF SEQUENCE {                                330
                 min-size [<a href="#ref-1" title="models and services">1</a>] INTEGER,
                 max-size [<a href="#ref-2">2</a>] INTEGER,
                 content [<a href="#ref-3" title="K. Bonacker">3</a>] ContentType,
-                eit [<a href="#ref-4" title="R.J. Kummerfeld">4</a>] ExternalEncodedInformationType } OPTIONAL
+                eit [<a href="#ref-4" title="R.J. Kummerfeld">4</a>] ExternalEncodedInformationType } <em>OPTIONAL</em>
         }
 
 nonDeliveryInfo ATTRIBUTE ::= {                                    340
@@ -3971,8 +3971,8 @@ nonDeliveryInfo ATTRIBUTE ::= {                                    340
 
 NonDeliveryReason ::= SEQUENCE {
         reason INTEGER (0..ub-reason-codes),
-        diagnostic INTEGER (0..ub-diagnostic-codes) OPTIONAL,
-        supplementaryInfo PrintableString OPTIONAL }
+        diagnostic INTEGER (0..ub-diagnostic-codes) <em>OPTIONAL</em>,
+        supplementaryInfo PrintableString <em>OPTIONAL</em> }
 
 badAddressSearchPoint ATTRIBUTE ::= {                              350
         SUBTYPE OF distinguishedName
@@ -3996,8 +3996,8 @@ alternativeAddressInformation EXTENSION
 
 
 AlternativeAddressInformation ::= SET OF SEQUENCE {
-        distinguished-name DistinguishedName OPTIONAL,
-        or-address ORAddress OPTIONAL,
+        distinguished-name DistinguishedName <em>OPTIONAL</em>,
+        or-address ORAddress <em>OPTIONAL</em>,
         other-useful-info SET OF Attribute }
 
 localAccessUnit ATTRIBUTE ::= {
@@ -4017,7 +4017,7 @@ accessUnitsUsed ATTRIBUTE ::= {
 SelectedAccessUnit ::= SEQUENCE {
         type AccessUnitType,
         providing-MTA DistinguishedName,
-        filter SET OF ORAddress OPTIONAL }
+        filter SET OF ORAddress <em>OPTIONAL</em> }
 mhs-ds OBJECT-IDENTIFIER ::= {iso(1) org(3) dod(6) internet(1) private(4)
           enterprises(1) isode-consortium (453) mhs-ds (7)}
 

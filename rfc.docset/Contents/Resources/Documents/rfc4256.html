@@ -267,8 +267,8 @@ Abstract
    specifically designed based on user interface issues, and omitting
    this information may lead to incompatible or awkward implementations.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC-2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Rationale</span>
@@ -311,7 +311,7 @@ Abstract
    authentication information from the client with an
    SSH_MSG_USERAUTH_INFO_REQUEST message.  The client obtains the
    information from the user and then responds with an
-   SSM_MSG_USERAUTH_INFO_RESPONSE message.  The server MUST NOT send
+   SSM_MSG_USERAUTH_INFO_RESPONSE message.  The server <em>MUST NOT</em> send
    another SSH_MSG_USERAUTH_INFO_REQUEST before it has received the
    answer from the client.
 
@@ -327,14 +327,14 @@ Abstract
       string    language tag (as defined in [<a href="./rfc3066.html" title="&quot;Tags for the Identification of Languages&quot;">RFC-3066</a>])
       string    submethods (ISO-10646 UTF-8)
 
-   The language tag is deprecated and SHOULD be the empty string.  It
+   The language tag is deprecated and <em>SHOULD</em> be the empty string.  It
    may be removed in a future revision of this specification.  Instead,
-   the server SHOULD select the language to be used based on the tags
+   the server <em>SHOULD</em> select the language to be used based on the tags
    communicated during key exchange [<a href="#ref-SSH-TRANS" title="&quot;The Secure Shell (SSH) Transport Layer Protocol&quot;">SSH-TRANS</a>].
 
-   If the language tag is not the empty string, the server SHOULD use
+   If the language tag is not the empty string, the server <em>SHOULD</em> use
    the specified language for any messages sent to the client as part of
-   this protocol.  The language tag SHOULD NOT be used for language
+   this protocol.  The language tag <em>SHOULD NOT</em> be used for language
    selection for messages outside of this protocol.  If the server does
    not support the requested language, the language to be used is
    implementation-dependent.
@@ -343,9 +343,9 @@ Abstract
    actual methods he wants to use.  It is a comma-separated list of
    authentication submethods (software or hardware) that the user
    prefers.  If the client has knowledge of the submethods preferred by
-   the user, presumably through a configuration setting, it MAY use the
+   the user, presumably through a configuration setting, it <em>MAY</em> use the
    submethods field to pass this information to the server.  Otherwise,
-   it MUST send the empty string.
+   it <em>MUST</em> send the empty string.
 
    The actual names of the submethods is something the user and the
    server need to agree upon.
@@ -371,19 +371,19 @@ Abstract
    yet prompted the user for a password, and so that information is NOT
    included with this initial message (unlike the "password" method).
 
-   The server MUST reply with an SSH_MSG_USERAUTH_SUCCESS,
+   The server <em>MUST</em> reply with an SSH_MSG_USERAUTH_SUCCESS,
    SSH_MSG_USERAUTH_FAILURE, or SSH_MSG_USERAUTH_INFO_REQUEST message.
 
-   The server SHOULD NOT reply with the SSH_MSG_USERAUTH_FAILURE message
+   The server <em>SHOULD NOT</em> reply with the SSH_MSG_USERAUTH_FAILURE message
    if the failure is based on the user name or service name; instead, it
-   SHOULD send SSH_MSG_USERAUTH_INFO_REQUEST message(s), which look just
+   <em>SHOULD</em> send SSH_MSG_USERAUTH_INFO_REQUEST message(s), which look just
    like the one(s) that would have been sent in cases where
    authentication should proceed, and then send the failure message
    (after a suitable delay, as described below).  The goal is to make it
    impossible to find valid usernames by comparing the results when
    authenticating as different users.
 
-   The server MAY reply with an SSH_MSG_USERAUTH_SUCCESS message if no
+   The server <em>MAY</em> reply with an SSH_MSG_USERAUTH_SUCCESS message if no
    authentication is required for the user in question.  However, a
    better approach, for reasons discussed above, might be to reply with
    an SSH_MSG_USERAUTH_INFO_REQUEST message and ignore (don't validate)
@@ -395,8 +395,8 @@ Abstract
    SSH_MSG_USERAUTH_INFO_REQUEST message.
 
    The server may send as many requests as are necessary to authenticate
-   the client; the client MUST be prepared to handle multiple exchanges.
-   However, the server MUST NOT ever have more than one
+   the client; the client <em>MUST</em> be prepared to handle multiple exchanges.
+   However, the server <em>MUST NOT</em> ever have more than one
    SSH_MSG_USERAUTH_INFO_REQUEST message outstanding.  That is, it may
    not send another request before the client has answered.
 
@@ -429,19 +429,19 @@ Abstract
       string    prompt[num-prompts] (ISO-10646 UTF-8)
       boolean   echo[num-prompts]
 
-   The language tag is deprecated and SHOULD be the empty string.  It
+   The language tag is deprecated and <em>SHOULD</em> be the empty string.  It
    may be removed in a future revision of this specification.  Instead,
-   the server SHOULD select the language used based on the tags
+   the server <em>SHOULD</em> select the language used based on the tags
    communicated during key exchange [<a href="#ref-SSH-TRANS" title="&quot;The Secure Shell (SSH) Transport Layer Protocol&quot;">SSH-TRANS</a>].
 
-   If the language tag is not the empty string, the server SHOULD use
+   If the language tag is not the empty string, the server <em>SHOULD</em> use
    the specified language for any messages sent to the client as part of
-   this protocol.  The language tag SHOULD NOT be used for language
+   this protocol.  The language tag <em>SHOULD NOT</em> be used for language
    selection for messages outside of this protocol.  If the server does
    not support the requested language, the language to be used is
    implementation-dependent.
 
-   The server SHOULD take into consideration that some clients may not
+   The server <em>SHOULD</em> take into consideration that some clients may not
    be able to properly display a long name or prompt field (see next
    section), and limit the lengths of those fields if possible.  For
    example, instead of an instruction field of "Enter Password" and a
@@ -451,12 +451,12 @@ Abstract
    expected that this authentication method would typically be backended
    by [<a href="#ref-PAM" title="&quot;Unified Login With Pluggable Authentication Modules (PAM)&quot;">PAM</a>] and so such choices would not be possible.
 
-   The name and instruction fields MAY be empty strings; the client MUST
-   be prepared to handle this correctly.  The prompt field(s) MUST NOT
+   The name and instruction fields <em>MAY</em> be empty strings; the client <em>MUST</em>
+   be prepared to handle this correctly.  The prompt field(s) <em>MUST NOT</em>
    be empty strings.
 
    The num-prompts field may be `0', in which case there will be no
-   prompt/echo fields in the message, but the client SHOULD still
+   prompt/echo fields in the message, but the client <em>SHOULD</em> still
    display the name and instruction fields (as described below).
 
 
@@ -474,12 +474,12 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  User Interface</span>
 
-   Upon receiving a request message, the client SHOULD prompt the user
+   Upon receiving a request message, the client <em>SHOULD</em> prompt the user
    as follows:
 
-   A command line interface (CLI) client SHOULD print the name and
+   A command line interface (CLI) client <em>SHOULD</em> print the name and
    instruction (if non-empty), adding newlines.  Then, for each prompt
-   in turn, the client SHOULD display the prompt and read the user
+   in turn, the client <em>SHOULD</em> display the prompt and read the user
    input.
 
    A graphical user interface (GUI) client has many choices on how to
@@ -487,34 +487,34 @@ Abstract
    prefixed with the application's name) as the title of a dialog window
    in which the prompt(s) are presented.  In that dialog window, the
    instruction field would be a text message, and the prompts would be
-   labels for text entry fields.  All fields SHOULD be presented to the
-   user.  For example, an implementation SHOULD NOT discard the name
-   field because its windows lack titles; instead, it SHOULD find
+   labels for text entry fields.  All fields <em>SHOULD</em> be presented to the
+   user.  For example, an implementation <em>SHOULD NOT</em> discard the name
+   field because its windows lack titles; instead, it <em>SHOULD</em> find
    another way to display this information.  If prompts are presented in
-   a dialog window, then the client SHOULD NOT present each prompt in a
+   a dialog window, then the client <em>SHOULD NOT</em> present each prompt in a
    separate window.
 
-   All clients MUST properly handle an instruction field with embedded
-   newlines.  They SHOULD also be able to display at least 30 characters
+   All clients <em>MUST</em> properly handle an instruction field with embedded
+   newlines.  They <em>SHOULD</em> also be able to display at least 30 characters
    for the name and prompts.  If the server presents names or prompts
-   longer than 30 characters, the client MAY truncate these fields to
+   longer than 30 characters, the client <em>MAY</em> truncate these fields to
    the length it can display.  If the client does truncate any fields,
-   there MUST be an obvious indication that such truncation has
-   occurred.  The instruction field SHOULD NOT be truncated.
+   there <em>MUST</em> be an obvious indication that such truncation has
+   occurred.  The instruction field <em>SHOULD NOT</em> be truncated.
 
-   Clients SHOULD use control character filtering, as discussed in
+   Clients <em>SHOULD</em> use control character filtering, as discussed in
    [<a href="#ref-SSH-ARCH" title="&quot;The Secure Shell (SSH) Protocol Architecture&quot;">SSH-ARCH</a>], to avoid attacks by including terminal control characters
    in the fields to be displayed.
 
    For each prompt, the corresponding echo field indicates whether the
-   user input should be echoed as characters are typed.  Clients SHOULD
+   user input should be echoed as characters are typed.  Clients <em>SHOULD</em>
    correctly echo/mask user input for each prompt independently of other
    prompts in the request message.  If a client does not honor the echo
-   field for whatever reason, then the client MUST err on the side of
+   field for whatever reason, then the client <em>MUST</em> err on the side of
    masking input.  A GUI client might like to have a checkbox toggling
-   echo/mask.  Clients SHOULD NOT add any additional characters to the
+   echo/mask.  Clients <em>SHOULD NOT</em> add any additional characters to the
    prompt, such as ": " (colon-space); the server is responsible for
-   supplying all text to be displayed to the user.  Clients MUST also
+   supplying all text to be displayed to the user.  Clients <em>MUST</em> also
    accept empty responses from the user and pass them on as empty
    strings.
 
@@ -531,7 +531,7 @@ Abstract
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Information Responses</span>
 
    After obtaining the requested information from the user, the client
-   MUST respond with an SSH_MSG_USERAUTH_INFO_RESPONSE message.
+   <em>MUST</em> respond with an SSH_MSG_USERAUTH_INFO_RESPONSE message.
 
    The format of the SSH_MSG_USERAUTH_INFO_RESPONSE message is as
    follows:
@@ -545,36 +545,36 @@ Abstract
    Note that the responses are encoded in ISO-10646 UTF-8.  It is up to
    the server how it interprets the responses and validates them.
    However, if the client reads the responses in some other encoding
-   (e.g., ISO 8859-1), it MUST convert the responses to ISO-10646 UTF-8
+   (e.g., ISO 8859-1), it <em>MUST</em> convert the responses to ISO-10646 UTF-8
    before transmitting.
 
    From an internationalization standpoint, it is desired that if a user
    enters responses, the authentication process will work regardless of
    what OS and client software they are using.  Doing so requires
-   normalization.  Systems supporting non-ASCII passwords SHOULD always
+   normalization.  Systems supporting non-ASCII passwords <em>SHOULD</em> always
    normalize passwords and usernames whenever they are added to the
    database, or compare them (with or without hashing) to existing
    entries in the database.  SSH implementations that both store the
-   passwords and compare them SHOULD use [<a href="#ref-SASLPREP" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLPREP</a>] for normalization.
+   passwords and compare them <em>SHOULD</em> use [<a href="#ref-SASLPREP" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLPREP</a>] for normalization.
 
    If the num-responses field does not match the num-prompts field in
-   the request message, the server MUST send a failure message.
+   the request message, the server <em>MUST</em> send a failure message.
 
    In the case that the server sends a `0' num-prompts field in the
-   request message, the client MUST send a response message with a `0'
+   request message, the client <em>MUST</em> send a response message with a `0'
    num-responses field to complete the exchange.
 
-   The responses MUST be ordered as the prompts were ordered.  That is,
-   response[n] MUST be the answer to prompt[n].
+   The responses <em>MUST</em> be ordered as the prompts were ordered.  That is,
+   response[n] <em>MUST</em> be the answer to prompt[n].
 
-   After receiving the response, the server MUST send either an
+   After receiving the response, the server <em>MUST</em> send either an
    SSH_MSG_USERAUTH_SUCCESS, SSH_MSG_USERAUTH_FAILURE, or another
    SSH_MSG_USERAUTH_INFO_REQUEST message.
 
    If the server fails to authenticate the user (through the underlying
-   authentication mechanism(s)), it SHOULD NOT send another request
+   authentication mechanism(s)), it <em>SHOULD NOT</em> send another request
    message(s) in an attempt to obtain new authentication data; instead,
-   it SHOULD send a failure message.  The only time the server should
+   it <em>SHOULD</em> send a failure message.  The only time the server should
    send multiple request messages is if additional authentication data
 
 
@@ -587,7 +587,7 @@ Abstract
    is needed (i.e., because there are multiple underlying authentication
    mechanisms that must be used to authenticate the user).
 
-   If the server intends to respond with a failure message, it MAY delay
+   If the server intends to respond with a failure message, it <em>MAY</em> delay
    for an implementation-dependent time before sending it to the client.
    It is suspected that implementations are likely to make the time
    delay configurable; a suggested default is 2 seconds.

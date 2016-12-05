@@ -317,9 +317,9 @@ Table of Contents
    PIM-SM in Any-Source Multicast (ASM) mode.  It describes two possible
    mechanisms for doing this.
 
-   The first mechanism, described in <a href="#section-2">Section 2</a>, is OPTIONAL for
+   The first mechanism, described in <a href="#section-2">Section 2</a>, is <em>OPTIONAL</em> for
    implementations, but the second mechanism, described in <a href="#section-3">Section 3</a>, is
-   REQUIRED for all implementations claiming conformance to this
+   <em>REQUIRED</em> for all implementations claiming conformance to this
    specification.
 
    Note that from a deployment point of view these two mechanisms are
@@ -384,8 +384,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Mechanism 1 - Non-transitive Mapping of IP Multicast Shared Trees</span>
@@ -399,7 +399,7 @@ Table of Contents
 
    Whenever (as a result of receiving either PIM Register or Multicast
    Source Discovery Protocol (MSDP) messages) an RP discovers a new
-   multicast source, the RP SHOULD originate a Source Active
+   multicast source, the RP <em>SHOULD</em> originate a Source Active
    auto-discovery route.  The route carries a single MCAST-VPN Network
    Layer Reachability Information (NLRI) [<a href="./rfc6514.html" title="&quot;BGP Encodings and Procedures for Multicast in MPLS/BGP IP VPNs&quot;">RFC6514</a>], constructed as
    follows:
@@ -425,13 +425,13 @@ Table of Contents
 
    To constrain distribution of the Source Active auto-discovery route
    to the Autonomous System (AS) of the advertising RP, this route
-   SHOULD carry the NO_EXPORT Community ([<a href="./rfc1997.html" title="&quot;BGP Communities Attribute&quot;">RFC1997</a>]).
+   <em>SHOULD</em> carry the NO_EXPORT Community ([<a href="./rfc1997.html" title="&quot;BGP Communities Attribute&quot;">RFC1997</a>]).
 
    Using the normal BGP procedures, the Source Active auto-discovery
    route is propagated to all other LSRs within the AS.
 
    Whenever the RP discovers that the source is no longer active, the RP
-   MUST withdraw the Source Active auto-discovery route if such a route
+   <em>MUST</em> withdraw the Source Active auto-discovery route if such a route
    was previously advertised by the RP.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Receiving Source Active Auto-discovery Routes by LSR</span>
@@ -442,7 +442,7 @@ Table of Contents
    When, as a result of receiving PIM messages on one of its IP
    multicast interfaces, an LSR creates in its Tree Information Base
    (TIB) a new (*,G) entry with a non-empty outgoing interface list that
-   contains one or more IP multicast interfaces, the LSR MUST check to
+   contains one or more IP multicast interfaces, the LSR <em>MUST</em> check to
    see if it has any Source Active auto-discovery routes for that G.  If
    there is such a route, S of that route is reachable via an MPLS
    interface, and the LSR does not have (S,G) state in its TIB for (S,G)
@@ -451,7 +451,7 @@ Table of Contents
    [<a href="./rfc6826.html" title="&quot;Multipoint LDP In-Band Signaling for Point-to- Multipoint and Multipoint-to-Multipoint Label Switched Paths&quot;">RFC6826</a>].
 
    When an LSR receives a new Source Active auto-discovery route, the
-   LSR MUST check to see if its TIB contains a (*,G) entry with the same
+   LSR <em>MUST</em> check to see if its TIB contains a (*,G) entry with the same
    G as that carried in the Source Active auto-discovery route.  If such
    an entry is found, S is reachable via an MPLS interface, and the LSR
    does not have (S,G) state in its TIB for (S,G) carried in the route,
@@ -565,7 +565,7 @@ Table of Contents
 
    Whenever such an LSR creates an (S,G) state as a result of receiving
    an mLDP Label Map with the Transit IPv4/IPv6 Source TLV for (S,G),
-   the LSR MUST originate a Source Active auto-discovery route if all of
+   the LSR <em>MUST</em> originate a Source Active auto-discovery route if all of
    the following are true:
 
    + S is reachable via one of the IP-multicast-capable interfaces,
@@ -598,7 +598,7 @@ Table of Contents
      field is set appropriately to reflect this address type.
 
    To constrain distribution of the Source Active auto-discovery route
-   to the AS of the advertising LSR, this route SHOULD carry the
+   to the AS of the advertising LSR, this route <em>SHOULD</em> carry the
    NO_EXPORT Community ([<a href="./rfc1997.html" title="&quot;BGP Communities Attribute&quot;">RFC1997</a>]).
 
    Using the normal BGP procedures, the Source Active auto-discovery
@@ -606,7 +606,7 @@ Table of Contents
 
    Whenever the LSR receiving an mLDP Label Map with the Transit
    IPv4/IPv6 Source TLV for (S,G) deletes the (S,G) state that was
-   previously created, the LSR that deletes the state MUST also withdraw
+   previously created, the LSR that deletes the state <em>MUST</em> also withdraw
    the Source Active auto-discovery route, if such a route was
    advertised when the state was created.
 
@@ -632,7 +632,7 @@ Table of Contents
    the IP interfaces, (c) at least one of the MPLS interfaces is in the
    outgoing interface (oif) list for that entry, and (d) the LSR does
    not originate an mLDP Label Mapping message for (S,G) with the
-   Transit IPv4/IPv6 Source TLV, then the LSR MUST transition the
+   Transit IPv4/IPv6 Source TLV, then the LSR <em>MUST</em> transition the
    (S,G,RPT-bit) downstream state to the Prune state.  (Conceptually,
    the PIM state machine on the LSR will act "as if" it had received
 
@@ -648,13 +648,13 @@ Table of Contents
    may result in the LSR using PIM procedures to prune S off the Shared
    (*,G) tree.
 
-   The LSR MUST keep the (S,G,RPT-bit) downstream state machine in the
+   The LSR <em>MUST</em> keep the (S,G,RPT-bit) downstream state machine in the
    Prune state for as long as (a) the outgoing interface (oif) list for
    (*,G) contains one of the MPLS interfaces, (b) the LSR has at least
    one Source Active auto-discovery route for (S,G), and (c) the LSR
    does not originate the mLDP Label Mapping message for (S,G) with the
    Transit IPv4/IPv6 Source TLV.  Once one or more of these conditions
-   become no longer valid, the LSR MUST transition the (S,G,RPT-bit)
+   become no longer valid, the LSR <em>MUST</em> transition the (S,G,RPT-bit)
    downstream state machine to the NoInfo state.
 
    Note that except for the scenario described in the first paragraph of

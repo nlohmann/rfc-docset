@@ -376,17 +376,17 @@ Table of Contents
    "silently discard"
 
       This means the implementation discards the packet without further
-      processing.  The implementation MAY provide the capability of
+      processing.  The implementation <em>MAY</em> provide the capability of
       logging the error, including the contents of the silently
-      discarded packet, and SHOULD record the event in a statistics
+      discarded packet, and <em>SHOULD</em> record the event in a statistics
       counter.
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  Requirements Language</span>
 
    In this document, several words are used to signify the requirements
-   of the specification.  The key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" in this document are to be interpreted as described in
+   of the specification.  The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Overview</span>
@@ -394,13 +394,13 @@ Table of Contents
    Status-Server packets are sent by a RADIUS client to a RADIUS server
    in order to test the status of that server.  The destination of a
    Status-Server packet is set to the IP address and port of the server
-   that is being tested.  A single Status-Server packet MUST be included
-   within a UDP datagram.  A Message-Authenticator attribute MUST be
+   that is being tested.  A single Status-Server packet <em>MUST</em> be included
+   within a UDP datagram.  A Message-Authenticator attribute <em>MUST</em> be
    included so as to provide per-packet authentication and integrity
    protection.
 
-   RADIUS proxies or servers MUST NOT forward Status-Server packets.  A
-   RADIUS server or proxy implementing this specification SHOULD respond
+   RADIUS proxies or servers <em>MUST NOT</em> forward Status-Server packets.  A
+   RADIUS server or proxy implementing this specification <em>SHOULD</em> respond
    to a Status-Server packet with an Access-Accept (authentication port)
    or Accounting-Response (accounting port).  An Access-Challenge
 
@@ -411,13 +411,13 @@ Table of Contents
 <span class="grey"><a href="./rfc5997.html">RFC 5997</a>                 Status-Server Practices             August 2010</span>
 
 
-   response is NOT RECOMMENDED.  An Access-Reject response MAY be used.
+   response is NOT <em>RECOMMENDED</em>.  An Access-Reject response <em>MAY</em> be used.
    The list of attributes that are permitted in Status-Server packets,
    and in Access-Accept or Accounting-Response packets responding to
    Status-Server packets, is provided in <a href="#section-5">Section 5</a>.  <a href="#section-6">Section 6</a> provides
    several examples.
 
-   Since a Status-Server packet MUST NOT be forwarded by a RADIUS proxy
+   Since a Status-Server packet <em>MUST NOT</em> be forwarded by a RADIUS proxy
    or server, the client is provided with an indication of the status of
    that server only, since no RADIUS proxies are on the path between the
    RADIUS client and server.  As servers respond to a Status-Server
@@ -525,9 +525,9 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.1.1" href="#section-2.1.1">2.1.1</a>.  Recommendation against Access-Request</span>
 
-   For the reasons outlined above, NAS implementors SHOULD NOT generate
+   For the reasons outlined above, NAS implementors <em>SHOULD NOT</em> generate
    Access-Request packets solely to see if a server is alive.
-   Similarly, site administrators SHOULD NOT configure test users whose
+   Similarly, site administrators <em>SHOULD NOT</em> configure test users whose
    sole reason for existence is to enable such queries via Access-
    Request packets.
 
@@ -557,9 +557,9 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a>.  Recommendation against Accounting-Request</span>
 
-   For the reasons outlined above, NAS implementors SHOULD NOT generate
+   For the reasons outlined above, NAS implementors <em>SHOULD NOT</em> generate
    Accounting-Request packets solely to see if a server is alive.
-   Similarly, site administrators SHOULD NOT configure accounting
+   Similarly, site administrators <em>SHOULD NOT</em> configure accounting
    policies whose sole reason for existence is to enable such queries
    via Accounting-Request packets.
 
@@ -586,7 +586,7 @@ Table of Contents
    do not include all of the text or diagrams of that section here, but
    instead explain the differences required to implement Status-Server.
 
-   The Authenticator field of Status-Server packets MUST be generated
+   The Authenticator field of Status-Server packets <em>MUST</em> be generated
    using the same method as that used for the Request Authenticator
    field of Access-Request packets, as given below.
 
@@ -596,31 +596,31 @@ Table of Contents
    for Status-Server requests to be in conflict with Access-Request or
    Accounting-Request packets with the same Identifier.  In <a href="#section-4.2">Section 4.2</a>
    below, we describe a method for avoiding these problems.  This method
-   MUST be used to avoid conflicts between Status-Server and other
+   <em>MUST</em> be used to avoid conflicts between Status-Server and other
    packet types.
 
       Request Authenticator
 
          In Status-Server packets, the Authenticator value is a 16-octet
          random number called the Request Authenticator.  The value
-         SHOULD be unpredictable and unique over the lifetime of a
+         <em>SHOULD</em> be unpredictable and unique over the lifetime of a
          secret (the password shared between the client and the RADIUS
          server), since repetition of a request value in conjunction
          with the same secret would permit an attacker to reply with a
          previously intercepted response.  Since it is expected that the
-         same secret MAY be used to authenticate with servers in
+         same secret <em>MAY</em> be used to authenticate with servers in
          disparate geographic regions, the Request Authenticator field
-         SHOULD exhibit global and temporal uniqueness.  See [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>]
+         <em>SHOULD</em> exhibit global and temporal uniqueness.  See [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>]
          for suggestions as to how random numbers may be generated.
 
          The Request Authenticator value in a Status-Server packet
-         SHOULD also be unpredictable, lest an attacker trick a server
+         <em>SHOULD</em> also be unpredictable, lest an attacker trick a server
          into responding to a predicted future request, and then use the
          response to masquerade as that server to a future Status-Server
          request from a client.
 
    Similarly, the Response Authenticator field of an Access-Accept
-   packet sent in response to Status-Server queries MUST be generated
+   packet sent in response to Status-Server queries <em>MUST</em> be generated
    using the same method as used for calculating the Response
    Authenticator of the Access-Accept sent in response to an Access-
    Request, with the Status-Server Request Authenticator taking the
@@ -636,13 +636,13 @@ Table of Contents
 
 
    The Response Authenticator field of an Accounting-Response packet
-   sent in response to Status-Server queries MUST be generated using the
+   sent in response to Status-Server queries <em>MUST</em> be generated using the
    same method as used for calculating the Response Authenticator of the
    Accounting-Response sent in response to an Accounting-Request, with
    the Status-Server Request Authenticator taking the place of the
    Accounting-Request Request Authenticator.
 
-   Note that when a server responds to a Status-Server request, it MUST
+   Note that when a server responds to a Status-Server request, it <em>MUST</em>
    NOT send more than one Response packet.
 
       Response Authenticator
@@ -661,27 +661,27 @@ Table of Contents
 
          where + denotes concatenation.
 
-   In addition to the above requirements, all Status-Server packets MUST
+   In addition to the above requirements, all Status-Server packets <em>MUST</em>
    include a Message-Authenticator attribute.  Failure to do so would
    mean that the packets could be trivially spoofed.
 
-   Status-Server packets MAY include NAS-Identifier, and one of
+   Status-Server packets <em>MAY</em> include NAS-Identifier, and one of
    NAS-IP-Address or NAS-IPv6-Address.  These attributes are not
    necessary for the operation of Status-Server, but may be useful
    information to a server that receives those packets.
 
-   Other attributes SHOULD NOT be included in a Status-Server packet,
-   and MUST be ignored if they are included.  User authentication
+   Other attributes <em>SHOULD NOT</em> be included in a Status-Server packet,
+   and <em>MUST</em> be ignored if they are included.  User authentication
    credentials such as User-Name, User-Password, CHAP-Password,
-   EAP-Message MUST NOT appear in a Status-Server packet sent to a
+   EAP-Message <em>MUST NOT</em> appear in a Status-Server packet sent to a
    RADIUS authentication port.  User or NAS accounting attributes such
-   as Acct-Session-Id, Acct-Status-Type, Acct-Input-Octets MUST NOT
+   as Acct-Session-Id, Acct-Status-Type, Acct-Input-Octets <em>MUST NOT</em>
    appear in a Status-Server packet sent to a RADIUS accounting port.
 
-   The Access-Accept MAY contain a Reply-Message or Message-
-   Authenticator attribute.  It SHOULD NOT contain other attributes.
+   The Access-Accept <em>MAY</em> contain a Reply-Message or Message-
+   Authenticator attribute.  It <em>SHOULD NOT</em> contain other attributes.
    The Accounting-Response packets sent in response to a Status-Server
-   query SHOULD NOT contain any attributes.  As the intent is to
+   query <em>SHOULD NOT</em> contain any attributes.  As the intent is to
 
 
 
@@ -757,39 +757,39 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Client Requirements</span>
 
-   Clients SHOULD permit administrators to globally enable or disable
-   the generation of Status-Server packets.  The default SHOULD be that
+   Clients <em>SHOULD</em> permit administrators to globally enable or disable
+   the generation of Status-Server packets.  The default <em>SHOULD</em> be that
    it is disabled.  As it is undesirable to send queries to servers that
-   do not support Status-Server, clients SHOULD also have a per-server
+   do not support Status-Server, clients <em>SHOULD</em> also have a per-server
    configuration indicating whether or not to enable Status-Server for a
-   particular destination.  The default SHOULD be that it is disabled.
+   particular destination.  The default <em>SHOULD</em> be that it is disabled.
 
-   The client SHOULD use a watchdog timer, such as is defined in <a href="#section-2.2.1">Section</a>
+   The client <em>SHOULD</em> use a watchdog timer, such as is defined in <a href="#section-2.2.1">Section</a>
    <a href="#section-2.2.1">2.2.1</a> of [<a href="./rfc5080.html" title="&quot;Common Remote Authentication Dial In User Service (RADIUS) Implementation Issues and Suggested Fixes&quot;">RFC5080</a>], to determine when to send Status-Server packets.
 
-   When Status-Server packets are sent from a client, they MUST NOT be
-   retransmitted.  Instead, the Identity field MUST be changed every
+   When Status-Server packets are sent from a client, they <em>MUST NOT</em> be
+   retransmitted.  Instead, the Identity field <em>MUST</em> be changed every
    time a packet is transmitted.  The old packet should be discarded,
    and a new Status-Server packet should be generated and sent, with new
    Identity and Authenticator fields.
 
-   Clients MUST include the Message-Authenticator attribute in all
+   Clients <em>MUST</em> include the Message-Authenticator attribute in all
    Status-Server packets.  Failure to do so would mean that the packets
    could be trivially spoofed, leading to potential denial-of-service
-   (DoS) attacks.  Other attributes SHOULD NOT appear in a Status-Server
+   (DoS) attacks.  Other attributes <em>SHOULD NOT</em> appear in a Status-Server
    packet, except as outlined below in <a href="#section-5">Section 5</a>.  As the intent of the
    packet is a simple status query, there is little reason for any
    additional attributes to appear in Status-Server packets.
 
-   The client MAY increment packet counters as a result of sending a
+   The client <em>MAY</em> increment packet counters as a result of sending a
    Status-Server request or of receiving a Response packet.  The client
-   MUST NOT perform any other action that is normally performed when it
+   <em>MUST NOT</em> perform any other action that is normally performed when it
    receives a Response packet, such as permitting a user to have login
    access to a port.
 
-   Clients MAY send Status-Server requests to the RADIUS destination
+   Clients <em>MAY</em> send Status-Server requests to the RADIUS destination
    ports from the same source port used to send normal Request packets.
-   Other clients MAY choose to send Status-Server requests from a unique
+   Other clients <em>MAY</em> choose to send Status-Server requests from a unique
    source port that is not used to send Request packets.
 
    The above suggestion for a unique source port for Status-Server
@@ -807,15 +807,15 @@ Table of Contents
    in response to a Request packet.  Therefore, the best way to
    distinguish them from other traffic is to have a unique port.
 
-   A client MAY send a Status-Server packet from a source port also used
-   to send Request packets.  In that case, the Identifier field MUST be
+   A client <em>MAY</em> send a Status-Server packet from a source port also used
+   to send Request packets.  In that case, the Identifier field <em>MUST</em> be
    unique across all outstanding Request packets for that source port,
    independent of the value of the RADIUS Code field for those
    outstanding requests.  Once the client has either received a response
    to the Status-Server packet or determined that the Status-Server
    packet has timed out, it may reuse that Identifier in another packet.
 
-   Robust implementations SHOULD accept any Response packet as a valid
+   Robust implementations <em>SHOULD</em> accept any Response packet as a valid
    response to a Status-Server packet, subject to the validation
    requirements defined above for the Response Authenticator.  The Code
    field of the packet matters less than the fact that a valid, signed
@@ -824,11 +824,11 @@ Table of Contents
    That is, prior to accepting the response as valid, the client should
    check that the Response packet Code field is either Access-Accept (2)
    or Accounting-Response (5).  If the Code does not match any of these
-   values, the packet MUST be silently discarded.  The client MUST then
+   values, the packet <em>MUST</em> be silently discarded.  The client <em>MUST</em> then
    validate the Response Authenticator via the algorithm given above in
    <a href="#section-3">Section 3</a>.  If the Response Authenticator is not valid, the packet
-   MUST be silently discarded.  If the Response Authenticator is valid,
-   then the packet MUST be deemed to be a valid response from the
+   <em>MUST</em> be silently discarded.  If the Response Authenticator is valid,
+   then the packet <em>MUST</em> be deemed to be a valid response from the
    server.
 
    If the client instead discarded the response because the packet Code
@@ -841,16 +841,16 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Server Requirements</span>
 
-   Servers SHOULD permit administrators to globally enable or disable
-   the acceptance of Status-Server packets.  The default SHOULD be that
-   acceptance is enabled.  Servers SHOULD also permit administrators to
+   Servers <em>SHOULD</em> permit administrators to globally enable or disable
+   the acceptance of Status-Server packets.  The default <em>SHOULD</em> be that
+   acceptance is enabled.  Servers <em>SHOULD</em> also permit administrators to
    enable or disable acceptance of Status-Server packets on a per-client
-   basis.  The default SHOULD be that acceptance is enabled.
+   basis.  The default <em>SHOULD</em> be that acceptance is enabled.
 
    Status-Server packets originating from clients that are not permitted
-   to send the server Request packets MUST be silently discarded.  If a
+   to send the server Request packets <em>MUST</em> be silently discarded.  If a
    server does not support Status-Server packets, or is configured not
-   to respond to them, then it MUST silently discard the packet.
+   to respond to them, then it <em>MUST</em> silently discard the packet.
 
 
 
@@ -869,31 +869,31 @@ Table of Contents
    port 1812.  However, as the category of [<a href="./rfc2866.html" title="&quot;RADIUS Accounting&quot;">RFC2866</a>] is Informational,
    this conflict is acceptable.
 
-   Servers SHOULD silently discard Status-Server packets if they
+   Servers <em>SHOULD</em> silently discard Status-Server packets if they
    determine that a client is sending too many Status-Server requests in
    a particular time period.  The method used by a server to make this
    determination is implementation specific and out of scope for this
    specification.
 
    If a server supports Status-Server packets, and is configured to
-   respond to them, and receives a packet from a known client, it MUST
+   respond to them, and receives a packet from a known client, it <em>MUST</em>
    validate the Message-Authenticator attribute as defined in <a href="./rfc3579.html#section-3.2">[RFC3579],
-   Section&nbsp;3.2</a>.  Packets failing that validation MUST be silently
+   Section&nbsp;3.2</a>.  Packets failing that validation <em>MUST</em> be silently
    discarded.
 
-   Servers SHOULD NOT otherwise discard Status-Server packets if they
+   Servers <em>SHOULD NOT</em> otherwise discard Status-Server packets if they
    have recently sent the client a Response packet.  The query may have
    originated from an administrator who does not have access to the
    Response packet stream or one who is interested in obtaining
    additional information about the server.
 
-   The server MAY prioritize the handling of Status-Server packets over
+   The server <em>MAY</em> prioritize the handling of Status-Server packets over
    the handling of other requests, subject to the rate limiting
    described above.
 
-   The server MAY decide not to respond to a Status-Server, depending on
+   The server <em>MAY</em> decide not to respond to a Status-Server, depending on
    local-site policy.  For example, a server that is running but is
-   unable to perform its normal activities MAY silently discard Status-
+   unable to perform its normal activities <em>MAY</em> silently discard Status-
    Server packets.  This situation can happen, for example, when a
    server requires access to a database for normal operation, but the
    connection to that database is down.  Or, it may happen when the
@@ -902,9 +902,9 @@ Table of Contents
    Some server implementations require that Access-Request packets be
    accepted only on "authentication" ports (e.g., 1812/udp), and that
    Accounting-Request packets be accepted only on "accounting" ports
-   (e.g., 1813/udp).  Those implementations SHOULD reply to Status-
+   (e.g., 1813/udp).  Those implementations <em>SHOULD</em> reply to Status-
    Server packets sent to an "authentication" port with an Access-Accept
-   packet and SHOULD reply to Status-Server packets sent to an
+   packet and <em>SHOULD</em> reply to Status-Server packets sent to an
    "accounting" port with an Accounting-Response packet.
 
 
@@ -918,11 +918,11 @@ Table of Contents
    Some server implementations accept both Access-Request and
    Accounting-Request packets on the same port, and they do not
    distinguish between "authentication only" ports and "accounting only"
-   ports.  Those implementations SHOULD reply to Status-Server packets
+   ports.  Those implementations <em>SHOULD</em> reply to Status-Server packets
    with an Access-Accept packet.
 
-   The server MAY increment packet counters as a result of receiving a
-   Status-Server packet or sending a Response packet.  The server SHOULD
+   The server <em>MAY</em> increment packet counters as a result of receiving a
+   Status-Server packet or sending a Response packet.  The server <em>SHOULD</em>
    NOT perform any other action that is normally performed when it
    receives a Request packet, other than sending a Response packet.
 
@@ -947,20 +947,20 @@ Table of Contents
    Once the server has been deemed responsive, normal RADIUS requests
    may be sent to it again.  This determination should be made
    separately for each server with which the client has a relationship.
-   The same algorithm SHOULD be used for both authentication and
-   accounting ports.  The client MUST treat each destination (IP, port)
+   The same algorithm <em>SHOULD</em> be used for both authentication and
+   accounting ports.  The client <em>MUST</em> treat each destination (IP, port)
    combination as a unique server for the purposes of this
    determination.
 
-   Clients SHOULD use a retransmission mechanism similar to that given
+   Clients <em>SHOULD</em> use a retransmission mechanism similar to that given
    in <a href="./rfc5080.html#section-2.2.1">Section&nbsp;2.2.1 of [RFC5080]</a>.  If a reliable transport is used for
-   RADIUS, then the watchdog timer algorithm specified in [<a href="./rfc3539.html" title="&quot;Authentication, Authorization and Accounting (AAA) Transport Profile&quot;">RFC3539</a>] MUST
+   RADIUS, then the watchdog timer algorithm specified in [<a href="./rfc3539.html" title="&quot;Authentication, Authorization and Accounting (AAA) Transport Profile&quot;">RFC3539</a>] <em>MUST</em>
    be used.
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Proxy Server Handling of Status-Server</span>
 
    Many RADIUS servers can act as proxy servers, and can forward
-   requests to another RADIUS server.  Such servers MUST NOT proxy
+   requests to another RADIUS server.  Such servers <em>MUST NOT</em> proxy
    Status-Server packets.  The purpose of Status-Server as specified
    here is to permit the client to query the responsiveness of a server
 
@@ -975,9 +975,9 @@ Table of Contents
    queries would negate any usefulness that may be gained by
    implementing support for them.
 
-   Proxy servers MAY be configured to respond to Status-Server queries
-   from clients, and they MAY act as clients sending Status-Server
-   queries to other servers.  However, those activities MUST be
+   Proxy servers <em>MAY</em> be configured to respond to Status-Server queries
+   from clients, and they <em>MAY</em> act as clients sending Status-Server
+   queries to other servers.  However, those activities <em>MUST</em> be
    independent of one another.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  Limitations of Status-Server</span>
@@ -1051,7 +1051,7 @@ Table of Contents
    solution.
 
    When a server has responded recently to a request from a client, that
-   client MUST mark the server as "responsive".  In the above case, a
+   client <em>MUST</em> mark the server as "responsive".  In the above case, a
    RADIUS proxy may be responding to requests destined for Realm A, but
    not responding to requests destined for Realm B.  The client
    therefore considers the server to be responsive, as it is receiving
@@ -1091,7 +1091,7 @@ Table of Contents
    situations where three or more links are broken, requests from the
    NAS may still reach a RADIUS server.
 
-   It is RECOMMENDED, therefore, that implementations desiring the most
+   It is <em>RECOMMENDED</em>, therefore, that implementations desiring the most
    benefit from Status-Server also implement server failover.  The
    combination of these two practices will maximize network reliability
    and stability.
@@ -1107,26 +1107,26 @@ Table of Contents
    packets of unknown type that were received".  [<a href="./rfc4671.html" title="&quot;RADIUS Accounting Server MIB for IPv6&quot;">RFC4671</a>] defines a
    similar counter named radiusAccServTotalUnknownTypes.
    Implementations not supporting Status-Server or implementations that
-   are configured not to respond to Status-Server packets MUST use these
+   are configured not to respond to Status-Server packets <em>MUST</em> use these
    counters to track received Status-Server packets.
 
    If, however, Status-Server is supported and the server is configured
    to respond as described above, then the counters defined in [<a href="./rfc4669.html" title="&quot;RADIUS Authentication Server MIB for IPv6&quot;">RFC4669</a>]
-   and [<a href="./rfc4671.html" title="&quot;RADIUS Accounting Server MIB for IPv6&quot;">RFC4671</a>] MUST NOT be used to track Status-Server requests or
+   and [<a href="./rfc4671.html" title="&quot;RADIUS Accounting Server MIB for IPv6&quot;">RFC4671</a>] <em>MUST NOT</em> be used to track Status-Server requests or
    responses to those requests.  That is, when a server fully implements
-   Status-Server, the counters defined in [<a href="./rfc4669.html" title="&quot;RADIUS Authentication Server MIB for IPv6&quot;">RFC4669</a>] and [<a href="./rfc4671.html" title="&quot;RADIUS Accounting Server MIB for IPv6&quot;">RFC4671</a>] MUST
+   Status-Server, the counters defined in [<a href="./rfc4669.html" title="&quot;RADIUS Authentication Server MIB for IPv6&quot;">RFC4669</a>] and [<a href="./rfc4671.html" title="&quot;RADIUS Accounting Server MIB for IPv6&quot;">RFC4671</a>] <em>MUST</em>
    be unaffected by the transmission or reception of packets relating to
    Status-Server.
 
    If a server supports Status-Server and the [<a href="./rfc4669.html" title="&quot;RADIUS Authentication Server MIB for IPv6&quot;">RFC4669</a>] or [<a href="./rfc4671.html" title="&quot;RADIUS Accounting Server MIB for IPv6&quot;">RFC4671</a>] MIB
-   modules, then it SHOULD also support vendor-specific MIB extensions
+   modules, then it <em>SHOULD</em> also support vendor-specific MIB extensions
    dedicated solely to tracking Status-Server requests and responses.
    Any definition of the server MIB modules for Status-Server is outside
    of the scope of this document.
 
 <span class="h4"><a class="selflink" name="section-4.6.2" href="#section-4.6.2">4.6.2</a>.  Interaction with RADIUS Client MIB Modules</span>
 
-   Clients implementing Status-Server MUST NOT increment [<a href="./rfc4668.html" title="&quot;RADIUS Authentication Client MIB for IPv6&quot;">RFC4668</a>] or
+   Clients implementing Status-Server <em>MUST NOT</em> increment [<a href="./rfc4668.html" title="&quot;RADIUS Authentication Client MIB for IPv6&quot;">RFC4668</a>] or
    [<a href="./rfc4670.html" title="&quot;RADIUS Accounting Client MIB for IPv6&quot;">RFC4670</a>] counters upon reception of Response packets to Status-
    Server queries.  That is, when a server fully implements Status-
 
@@ -1139,12 +1139,12 @@ Table of Contents
 <span class="grey"><a href="./rfc5997.html">RFC 5997</a>                 Status-Server Practices             August 2010</span>
 
 
-   Server, the counters defined in [<a href="./rfc4668.html" title="&quot;RADIUS Authentication Client MIB for IPv6&quot;">RFC4668</a>] and [<a href="./rfc4670.html" title="&quot;RADIUS Accounting Client MIB for IPv6&quot;">RFC4670</a>] MUST be
+   Server, the counters defined in [<a href="./rfc4668.html" title="&quot;RADIUS Authentication Client MIB for IPv6&quot;">RFC4668</a>] and [<a href="./rfc4670.html" title="&quot;RADIUS Accounting Client MIB for IPv6&quot;">RFC4670</a>] <em>MUST</em> be
    unaffected by the transmission or reception of packets relating to
    Status-Server.
 
    If an implementation supports Status-Server and the [<a href="./rfc4668.html" title="&quot;RADIUS Authentication Client MIB for IPv6&quot;">RFC4668</a>] or
-   [<a href="./rfc4670.html" title="&quot;RADIUS Accounting Client MIB for IPv6&quot;">RFC4670</a>] MIB modules, then it SHOULD also support vendor-specific
+   [<a href="./rfc4670.html" title="&quot;RADIUS Accounting Client MIB for IPv6&quot;">RFC4670</a>] MIB modules, then it <em>SHOULD</em> also support vendor-specific
    MIB extensions dedicated solely to tracking Status-Server requests
    and responses.  Any definition of the client MIB modules for Status-
    Server is outside of the scope of this document.
@@ -1153,7 +1153,7 @@ Table of Contents
 
    The following table provides a guide to which attributes may be found
    in Status-Server packets, and in what quantity.  Attributes other
-   than the ones listed below SHOULD NOT be found in a Status-Server
+   than the ones listed below <em>SHOULD NOT</em> be found in a Status-Server
    packet.
 
       Status-  Access-  Accounting-
@@ -1171,18 +1171,18 @@ Table of Contents
       0-1      0        0            95      NAS-IPv6-Address (Note 1)
       0        0        0            103-121 Digest-*
 
-      Note 1: A Status-Server packet SHOULD contain one of
+      Note 1: A Status-Server packet <em>SHOULD</em> contain one of
       (NAS-IP-Address or NAS-IPv6-Address), or NAS-Identifier, or both
       NAS-Identifier and one of (NAS-IP-Address or NAS-IPv6-Address).
 
    The following table defines the meaning of the above table entries.
 
-   0     This attribute MUST NOT be present in packet.
-   0+    Zero or more instances of this attribute MAY be present in
+   0     This attribute <em>MUST NOT</em> be present in packet.
+   0+    Zero or more instances of this attribute <em>MAY</em> be present in
          packet.
-   0-1   Zero or one instance of this attribute MAY be present in
+   0-1   Zero or one instance of this attribute <em>MAY</em> be present in
          packet.
-   1     Exactly one instance of this attribute MUST be present in
+   1     Exactly one instance of this attribute <em>MUST</em> be present in
          packet.
 
 
@@ -1363,7 +1363,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5997.html">RFC 5997</a>                 Status-Server Practices             August 2010</span>
 
 
-   We reiterate that Status-Server packets MUST contain a Message-
+   We reiterate that Status-Server packets <em>MUST</em> contain a Message-
    Authenticator attribute.  Early implementations supporting Status-
    Server did not enforce this requirement, and were vulnerable to the
    following attacks:
@@ -1392,7 +1392,7 @@ Table of Contents
    Server packet means that any RADIUS client or server may be
    vulnerable to the attacks outlined above.  For this reason,
    implementations of this specification that fail to require use of the
-   Message-Authenticator attribute are NOT RECOMMENDED.
+   Message-Authenticator attribute are NOT <em>RECOMMENDED</em>.
 
    Where this document differs from [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>] is that it defines a new
    request/response method in RADIUS: the Status-Server request.  As

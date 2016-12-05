@@ -318,8 +318,8 @@ Abstract
       ERROR = 17 (BADKEY)
       ERROR = 18 (BADTIME)
 
-   1.8. The key words "MUST", "REQUIRED", "SHOULD", "RECOMMENDED",  and
-   "MAY" in this document are to be interpreted as described in [RFC
+   1.8. The key words "<em>MUST</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>RECOMMENDED</em>",  and
+   "<em>MAY</em>" in this document are to be interpreted as described in [RFC
    2119].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a> - TSIG RR Format</span>
@@ -328,7 +328,7 @@ Abstract
 
    To provide secret key authentication, we use a new RR type whose
    mnemonic is TSIG and whose type code is 250.  TSIG is a meta-RR and
-   MUST not be cached.  TSIG RRs are used for authentication between DNS
+   <em>MUST</em> not be cached.  TSIG RRs are used for authentication between DNS
    entities that have established a shared secret key.  TSIG RRs are
    dynamically computed to cover a particular DNS transaction and are
    not DNS RRs in the usual sense.
@@ -342,7 +342,7 @@ Abstract
    MD5" (see [<a href="./rfc1321.html" title="&quot;The MD5 Message-Digest Algorithm&quot;">RFC1321</a>], [<a href="./rfc2104.html" title="&quot;HMAC-MD5: Keyed-MD5 for Message Authentication&quot;">RFC2104</a>]).  The "HMAC-MD5" algorithm is
    mandatory to implement for interoperability.  Other algorithms can be
    specified at a later date.  Names and definitions of new algorithms
-   MUST be registered with IANA.  All multi-octet integers in the TSIG
+   <em>MUST</em> be registered with IANA.  All multi-octet integers in the TSIG
    record are sent in network byte order (see [RFC1035 2.3.2]).
 
 
@@ -446,17 +446,17 @@ Abstract
    then be stored in a TSIG which is appended to the additional data
    section (the ARCOUNT is incremented to reflect this).  If the TSIG
    record cannot be added without causing the message to be truncated,
-   the server MUST alter the response so that a TSIG can be included.
+   the server <em>MUST</em> alter the response so that a TSIG can be included.
    This response consists of only the question and a TSIG record, and
-   has the TC bit set and RCODE 0 (NOERROR).  The client SHOULD at this
+   has the TC bit set and RCODE 0 (NOERROR).  The client <em>SHOULD</em> at this
    point retry the request using TCP (per [RFC1035 4.2.2]).
 
    3.2. TSIG processing on incoming messages
 
-   If an incoming message contains a TSIG record, it MUST be the last
+   If an incoming message contains a TSIG record, it <em>MUST</em> be the last
    record in the additional section.  Multiple TSIG records are not
    allowed.  If a TSIG record is present in any other position, the
-   packet is dropped and a response with RCODE 1 (FORMERR) MUST be
+   packet is dropped and a response with RCODE 1 (FORMERR) <em>MUST</em> be
    returned.  Upon receipt of a message with a correctly placed TSIG RR,
    the TSIG RR is copied to a safe location, removed from the DNS
 
@@ -470,12 +470,12 @@ Abstract
    Message, and decremented out of the DNS message header's ARCOUNT.  At
    this point the keyed message digest operation is performed.  If the
    algorithm name or key name is unknown to the recipient, or if the
-   message digests do not match, the whole DNS message MUST be
+   message digests do not match, the whole DNS message <em>MUST</em> be
    discarded.  If the message is a query, a response with RCODE 9
-   (NOTAUTH) MUST be sent back to the originator with TSIG ERROR 17
+   (NOTAUTH) <em>MUST</em> be sent back to the originator with TSIG ERROR 17
    (BADKEY) or TSIG ERROR 16 (BADSIG).  If no key is available to sign
-   this message it MUST be sent unsigned (MAC size == 0 and empty MAC).
-   A message to the system operations log SHOULD be generated, to warn
+   this message it <em>MUST</em> be sent unsigned (MAC size == 0 and empty MAC).
+   A message to the system operations log <em>SHOULD</em> be generated, to warn
    the operations staff of a possible security incident in progress.
    Care should be taken to ensure that logging of this type of event
    does not open the system to a denial of service attack.
@@ -585,7 +585,7 @@ TSIG RDATA   Other Data       exactly as transmitted
 
    Client performs the message digest operation and appends a TSIG
    record to the additional data section and transmits the request to
-   the server.  The client MUST store the message digest from the
+   the server.  The client <em>MUST</em> store the message digest from the
    request while awaiting an answer.  The digest components for a
    request are:
 
@@ -593,7 +593,7 @@ TSIG RDATA   Other Data       exactly as transmitted
       TSIG Variables (request)
 
    Note that some older name servers will not accept requests with a
-   nonempty additional data section.  Clients SHOULD only attempt signed
+   nonempty additional data section.  Clients <em>SHOULD</em> only attempt signed
    transactions with servers who are known to support TSIG and share
    some secret key with the client -- so, this is not a problem in
    practice.
@@ -601,7 +601,7 @@ TSIG RDATA   Other Data       exactly as transmitted
    4.2. TSIG on Answers
 
    When a server has generated a response to a signed request, it signs
-   the response using the same algorithm and key.  The server MUST not
+   the response using the same algorithm and key.  The server <em>MUST</em> not
    generate a signed response to an unsigned request.  The digest
    components are:
 
@@ -612,9 +612,9 @@ TSIG RDATA   Other Data       exactly as transmitted
    4.3. TSIG on TSIG Error returns
 
    When a server detects an error relating to the key or MAC, the server
-   SHOULD send back an unsigned error message (MAC size == 0 and empty
+   <em>SHOULD</em> send back an unsigned error message (MAC size == 0 and empty
    MAC).  If an error is detected relating to the TSIG validity period,
-   the server SHOULD send back a signed error message.  The digest
+   the server <em>SHOULD</em> send back a signed error message.  The digest
    components are:
 
       Request MAC (if the request MAC validated)
@@ -623,7 +623,7 @@ TSIG RDATA   Other Data       exactly as transmitted
 
    The reason that the request is not included in this digest in some
    cases is to make it possible for the client to verify the error.  If
-   the error is not a TSIG error the response MUST be generated as
+   the error is not a TSIG error the response <em>MUST</em> be generated as
    specified in [4.2].
 
 
@@ -640,10 +640,10 @@ TSIG RDATA   Other Data       exactly as transmitted
    A DNS TCP session can include multiple DNS envelopes.  This is, for
    example, commonly used by zone transfer.  Using TSIG on such a
    connection can protect the connection from hijacking and provide data
-   integrity.  The TSIG MUST be included on the first and last DNS
+   integrity.  The TSIG <em>MUST</em> be included on the first and last DNS
    envelopes.  It can be optionally placed on any intermediary
    envelopes.  It is expensive to include it on every envelopes, but it
-   MUST be placed on at least every 100'th envelope.  The first envelope
+   <em>MUST</em> be placed on at least every 100'th envelope.  The first envelope
    is processed as a standard answer, and subsequent messages have the
    following digest components:
 
@@ -653,36 +653,36 @@ TSIG RDATA   Other Data       exactly as transmitted
 
    This allows the client to rapidly detect when the session has been
    altered; at which point it can close the connection and retry.  If a
-   client TSIG verification fails, the client MUST close the connection.
+   client TSIG verification fails, the client <em>MUST</em> close the connection.
    If the client does not receive TSIG records frequently enough (as
-   specified above) it SHOULD assume the connection has been hijacked
-   and it SHOULD close the connection.  The client SHOULD treat this the
+   specified above) it <em>SHOULD</em> assume the connection has been hijacked
+   and it <em>SHOULD</em> close the connection.  The client <em>SHOULD</em> treat this the
    same way as they would any other interrupted transfer (although the
    exact behavior is not specified).
 
    4.5. Server TSIG checks
 
    Upon receipt of a message, server will check if there is a TSIG RR.
-   If one exists, the server is REQUIRED to return a TSIG RR in the
-   response.  The server MUST perform the following checks in the
+   If one exists, the server is <em>REQUIRED</em> to return a TSIG RR in the
+   response.  The server <em>MUST</em> perform the following checks in the
    following order, check KEY, check TIME values, check MAC.
 
    4.5.1. KEY check and error handling
 
    If a non-forwarding server does not recognize the key used by the
-   client, the server MUST generate an error response with RCODE 9
-   (NOTAUTH) and TSIG ERROR 17 (BADKEY).  This response MUST be unsigned
-   as specified in [4.3].  The server SHOULD log the error.
+   client, the server <em>MUST</em> generate an error response with RCODE 9
+   (NOTAUTH) and TSIG ERROR 17 (BADKEY).  This response <em>MUST</em> be unsigned
+   as specified in [4.3].  The server <em>SHOULD</em> log the error.
 
    4.5.2. TIME check and error handling
 
    If the server time is outside the time interval specified by the
-   request (which is: Time Signed, plus/minus Fudge), the server MUST
+   request (which is: Time Signed, plus/minus Fudge), the server <em>MUST</em>
    generate an error response with RCODE 9 (NOTAUTH) and TSIG ERROR 18
-   (BADTIME).  The server SHOULD also cache the most recent time signed
-   value in a message generated by a key, and SHOULD return BADTIME if a
+   (BADTIME).  The server <em>SHOULD</em> also cache the most recent time signed
+   value in a message generated by a key, and <em>SHOULD</em> return BADTIME if a
    message received later has an earlier time signed value.  A response
-   indicating a BADTIME error MUST be signed by the same key as the
+   indicating a BADTIME error <em>MUST</em> be signed by the same key as the
 
 
 
@@ -691,19 +691,19 @@ TSIG RDATA   Other Data       exactly as transmitted
 <span class="grey"><a href="./rfc2845.html">RFC 2845</a>                        DNS TSIG                        May 2000</span>
 
 
-   request.  It MUST include the client's current time in the time
+   request.  It <em>MUST</em> include the client's current time in the time
    signed field, the server's current time (a u_int48_t) in the other
    data field, and 6 in the other data length field.  This is done so
    that the client can verify a message with a BADTIME error without the
    verification failing due to another BADTIME error.  The data signed
-   is specified in [4.3].  The server SHOULD log the error.
+   is specified in [4.3].  The server <em>SHOULD</em> log the error.
 
    4.5.3. MAC check and error handling
 
-   If a TSIG fails to verify, the server MUST generate an error response
+   If a TSIG fails to verify, the server <em>MUST</em> generate an error response
    as specified in [4.3] with RCODE 9 (NOTAUTH) and TSIG ERROR 16
-   (BADSIG).  This response MUST be unsigned as specified in [4.3].  The
-   server SHOULD log the error.
+   (BADSIG).  This response <em>MUST</em> be unsigned as specified in [4.3].  The
+   server <em>SHOULD</em> log the error.
 
    4.6. Client processing of answer
 
@@ -712,21 +712,21 @@ TSIG RDATA   Other Data       exactly as transmitted
    Otherwise, the response is treated as having a format error and
    discarded.  The client then extracts the TSIG, adjusts the ARCOUNT,
    and calculates the keyed digest in the same way as the server.  If
-   the TSIG does not validate, that response MUST be discarded, unless
-   the RCODE is 9 (NOTAUTH), in which case the client SHOULD attempt to
+   the TSIG does not validate, that response <em>MUST</em> be discarded, unless
+   the RCODE is 9 (NOTAUTH), in which case the client <em>SHOULD</em> attempt to
    verify the response as if it were a TSIG Error response, as specified
    in [4.3].  A message containing an unsigned TSIG record or a TSIG
-   record which fails verification SHOULD not be considered an
-   acceptable response; the client SHOULD log an error and continue to
+   record which fails verification <em>SHOULD</em> not be considered an
+   acceptable response; the client <em>SHOULD</em> log an error and continue to
    wait for a signed response until the request times out.
 
    4.6.1. Key error handling
 
    If an RCODE on a response is 9 (NOTAUTH), and the response TSIG
    validates, and the TSIG key is different from the key used on the
-   request, then this is a KEY error.  The client MAY retry the request
+   request, then this is a KEY error.  The client <em>MAY</em> retry the request
    using the key specified by the server.  This should never occur, as a
-   server MUST NOT sign a response with a different key than signed the
+   server <em>MUST NOT</em> sign a response with a different key than signed the
    request.
 
    4.6.2. Time error handling
@@ -735,9 +735,9 @@ TSIG RDATA   Other Data       exactly as transmitted
    (BADTIME), or the current time does not fall in the range specified
    in the TSIG record, then this is a TIME error.  This is an indication
    that the client and server clocks are not synchronized.  In this case
-   the client SHOULD log the event.  DNS resolvers MUST NOT adjust any
+   the client <em>SHOULD</em> log the event.  DNS resolvers <em>MUST NOT</em> adjust any
    clocks in the client based on BADTIME errors, but the server's time
-   in the other data field SHOULD be logged.
+   in the other data field <em>SHOULD</em> be logged.
 
 
 
@@ -750,23 +750,23 @@ TSIG RDATA   Other Data       exactly as transmitted
    4.6.3. MAC error handling
 
    If the response RCODE is 9 (NOTAUTH) and TSIG ERROR is 16 (BADSIG),
-   this is a MAC error, and client MAY retry the request with a new
+   this is a MAC error, and client <em>MAY</em> retry the request with a new
    request ID but it would be better to try a different shared key if
-   one is available.  Client SHOULD keep track of how many MAC errors
-   are associated with each key.  Clients SHOULD log this event.
+   one is available.  Client <em>SHOULD</em> keep track of how many MAC errors
+   are associated with each key.  Clients <em>SHOULD</em> log this event.
 
    4.7. Special considerations for forwarding servers
 
-   A server acting as a forwarding server of a DNS message SHOULD check
+   A server acting as a forwarding server of a DNS message <em>SHOULD</em> check
    for the existence of a TSIG record.  If the name on the TSIG is not
    of a secret that the server shares with the originator the server
-   MUST forward the message unchanged including the TSIG.  If the name
+   <em>MUST</em> forward the message unchanged including the TSIG.  If the name
    of the TSIG is of a key this server shares with the originator, it
-   MUST process the TSIG.  If the TSIG passes all checks, the forwarding
-   server MUST, if possible, include a TSIG of his own, to the
+   <em>MUST</em> process the TSIG.  If the TSIG passes all checks, the forwarding
+   server <em>MUST</em>, if possible, include a TSIG of his own, to the
    destination or the next forwarder.  If no transaction security is
    available to the destination and the response has the AD flag (see
-   [<a href="./rfc2535.html" title="&quot;Domain Name System Security Extensions&quot;">RFC2535</a>]), the forwarder MUST unset the AD flag before adding the
+   [<a href="./rfc2535.html" title="&quot;Domain Name System Security Extensions&quot;">RFC2535</a>]), the forwarder <em>MUST</em> unset the AD flag before adding the
    TSIG to the answer.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a> - Shared Secrets</span>

@@ -599,7 +599,7 @@ Table of Contents
    o  Primary Path: The primary path is the destination and source
       address that will be put into a packet outbound to the peer
       endpoint by default.  The definition includes the source address
-      since an implementation MAY wish to specify both destination and
+      since an implementation <em>MAY</em> wish to specify both destination and
       source address to better control the return path taken by reply
       chunks and on which interface the packet is transmitted when the
       data sender is multi-homed.
@@ -614,7 +614,7 @@ Table of Contents
       including Verification Tags and the currently active set of
       Transmission Sequence Numbers (TSNs), etc.  An association can be
       uniquely identified by the transport addresses used by the
-      endpoints in the association.  Two SCTP endpoints MUST NOT have
+      endpoints in the association.  Two SCTP endpoints <em>MUST NOT</em> have
       more than one SCTP association between them at any given time.
 
    o  SCTP endpoint: The logical sender/receiver of SCTP packets.  On a
@@ -888,7 +888,7 @@ Table of Contents
    of SCTP is responsible for assembly of the complete SCTP packet and
    its disassembly at the receiving end.
 
-   During times of congestion, an SCTP implementation MAY still perform
+   During times of congestion, an SCTP implementation <em>MAY</em> still perform
    bundling even if the user has requested that SCTP not bundle.  The
    user's disabling of bundling only affects SCTP implementations that
    may delay a small period of time before transmission (to attempt to
@@ -957,18 +957,18 @@ Table of Contents
    programming the comparison of such values.  When referring to TSNs,
    the symbol "=&lt;" means "less than or equal"(modulo 2**32).
 
-   Comparisons and arithmetic on TSNs in this document SHOULD use Serial
+   Comparisons and arithmetic on TSNs in this document <em>SHOULD</em> use Serial
    Number Arithmetic as defined in [<a href="./rfc1982.html" title="&quot;Serial Number Arithmetic&quot;">RFC1982</a>] where SERIAL_BITS = 32.
 
-   An endpoint SHOULD NOT transmit a DATA chunk with a TSN that is more
+   An endpoint <em>SHOULD NOT</em> transmit a DATA chunk with a TSN that is more
    than 2**31 - 1 above the beginning TSN of its current send window.
    Doing so will cause problems in comparing TSNs.
 
    Transmission Sequence Numbers wrap around when they reach 2**32 - 1.
-   That is, the next TSN a DATA chunk MUST use after transmitting TSN =
+   That is, the next TSN a DATA chunk <em>MUST</em> use after transmitting TSN =
    2*32 - 1 is TSN = 0.
 
-   Any arithmetic done on Stream Sequence Numbers SHOULD use Serial
+   Any arithmetic done on Stream Sequence Numbers <em>SHOULD</em> use Serial
    Number Arithmetic as defined in [<a href="./rfc1982.html" title="&quot;Serial Number Arithmetic&quot;">RFC1982</a>] where SERIAL_BITS = 16.
    All other arithmetic and comparisons in this document use normal
    arithmetic.
@@ -991,8 +991,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  SCTP Packet Format</span>
@@ -1016,14 +1016,14 @@ Table of Contents
 
    Multiple chunks can be bundled into one SCTP packet up to the MTU
    size, except for the INIT, INIT ACK, and SHUTDOWN COMPLETE chunks.
-   These chunks MUST NOT be bundled with any other chunk in a packet.
+   These chunks <em>MUST NOT</em> be bundled with any other chunk in a packet.
    See <a href="#section-6.10">Section 6.10</a> for more details on chunk bundling.
 
    If a user data message doesn't fit into one SCTP packet it can be
    fragmented into multiple chunks using the procedure defined in
    <a href="#section-6.9">Section 6.9</a>.
 
-   All integer fields in an SCTP packet MUST be transmitted in network
+   All integer fields in an SCTP packet <em>MUST</em> be transmitted in network
    byte order, unless otherwise stated.
 
 
@@ -1059,28 +1059,28 @@ Table of Contents
       receiver in combination with the source IP address, the SCTP
       destination port, and possibly the destination IP address to
       identify the association to which this packet belongs.  The port
-      number 0 MUST NOT be used.
+      number 0 <em>MUST NOT</em> be used.
 
    Destination Port Number: 16 bits (unsigned integer)
 
       This is the SCTP port number to which this packet is destined.
       The receiving host will use this port number to de-multiplex the
       SCTP packet to the correct receiving endpoint/application.  The
-      port number 0 MUST NOT be used.
+      port number 0 <em>MUST NOT</em> be used.
 
    Verification Tag: 32 bits (unsigned integer)
 
       The receiver of this packet uses the Verification Tag to validate
       the sender of this SCTP packet.  On transmit, the value of this
-      Verification Tag MUST be set to the value of the Initiate Tag
+      Verification Tag <em>MUST</em> be set to the value of the Initiate Tag
       received from the peer endpoint during the association
       initialization, with the following exceptions:
 
-      -  A packet containing an INIT chunk MUST have a zero Verification
+      -  A packet containing an INIT chunk <em>MUST</em> have a zero Verification
             Tag.
 
       -  A packet containing a SHUTDOWN COMPLETE chunk with the T bit
-         set MUST have the Verification Tag copied from the packet with
+         set <em>MUST</em> have the Verification Tag copied from the packet with
          the SHUTDOWN ACK chunk.
 
       -  A packet containing an ABORT chunk may have the verification
@@ -1095,7 +1095,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   An INIT chunk MUST be the only chunk in the SCTP packet carrying it.
+   An INIT chunk <em>MUST</em> be the only chunk in the SCTP packet carrying it.
 
    Checksum: 32 bits (unsigned integer)
 
@@ -1209,11 +1209,11 @@ Table of Contents
 
       Chunks (including Type, Length, and Value fields) are padded out
       by the sender with all zero bytes to be a multiple of 4 bytes
-      long.  This padding MUST NOT be more than 3 bytes in total.  The
+      long.  This padding <em>MUST NOT</em> be more than 3 bytes in total.  The
       Chunk Length value does not include terminating padding of the
       chunk.  However, it does include padding of any variable-length
       parameter except the last parameter in the chunk.  The receiver
-      MUST ignore the padding.
+      <em>MUST</em> ignore the padding.
 
       Note: A robust implementation should accept the chunk whether or
       not the final padding has been included in the Chunk Length.
@@ -1225,11 +1225,11 @@ Table of Contents
       dependent on the Chunk Type.
 
    The total length of a chunk (including Type, Length, and Value
-   fields) MUST be a multiple of 4 bytes.  If the length of the chunk is
-   not a multiple of 4 bytes, the sender MUST pad the chunk with all
+   fields) <em>MUST</em> be a multiple of 4 bytes.  If the length of the chunk is
+   not a multiple of 4 bytes, the sender <em>MUST</em> pad the chunk with all
    zero bytes, and this padding is not included in the Chunk Length
-   field.  The sender MUST NOT pad with more than 3 bytes.  The receiver
-   MUST ignore the padding bytes.
+   field.  The sender <em>MUST NOT</em> pad with more than 3 bytes.  The receiver
+   <em>MUST</em> ignore the padding bytes.
 
    SCTP-defined chunks are described in detail in <a href="#section-3.3">Section 3.3</a>.  The
    guidelines for IETF-defined chunk extensions can be found in <a href="#section-14.1">Section</a>
@@ -1286,12 +1286,12 @@ Table of Contents
       transferred in the parameter.
 
       The total length of a parameter (including Type, Parameter Length,
-      and Value fields) MUST be a multiple of 4 bytes.  If the length of
+      and Value fields) <em>MUST</em> be a multiple of 4 bytes.  If the length of
       the parameter is not a multiple of 4 bytes, the sender pads the
       parameter at the end (i.e., after the Parameter Value field) with
       all zero bytes.  The length of the padding is not included in the
-      Parameter Length field.  A sender MUST NOT pad with more than 3
-      bytes.  The receiver MUST ignore the padding bytes.
+      Parameter Length field.  A sender <em>MUST NOT</em> pad with more than 3
+      bytes.  The receiver <em>MUST</em> ignore the padding bytes.
 
       The Parameter Types are encoded such that the highest-order 2 bits
       specify the action that must be taken if the processing endpoint
@@ -1326,16 +1326,16 @@ Table of Contents
 
    The actual SCTP parameters are defined in the specific SCTP chunk
    sections.  The rules for IETF-defined parameter extensions are
-   defined in <a href="#section-14.2">Section 14.2</a>.  Note that a parameter type MUST be unique
+   defined in <a href="#section-14.2">Section 14.2</a>.  Note that a parameter type <em>MUST</em> be unique
    across all chunks.  For example, the parameter type '5' is used to
    represent an IPv4 address (see <a href="#section-3.3.2.1">Section 3.3.2.1</a>).  The value '5' then
-   is reserved across all chunks to represent an IPv4 address and MUST
+   is reserved across all chunks to represent an IPv4 address and <em>MUST</em>
    NOT be reused with a different meaning in any other chunk.
 
 <span class="h4"><a class="selflink" name="section-3.2.2" href="#section-3.2.2">3.2.2</a>.  Reporting of Unrecognized Parameters</span>
 
    If the receiver of an INIT chunk detects unrecognized parameters and
-   has to report them according to <a href="#section-3.2.1">Section 3.2.1</a>, it MUST put the
+   has to report them according to <a href="#section-3.2.1">Section 3.2.1</a>, it <em>MUST</em> put the
    'Unrecognized Parameter' parameter(s) in the INIT ACK chunk sent in
    response to the INIT chunk.  Note that if the receiver of the INIT
    chunk is NOT going to establish an association (e.g., due to lack of
@@ -1343,14 +1343,14 @@ Table of Contents
    any ABORT being sent to the sender of the INIT.
 
    If the receiver of an INIT ACK chunk detects unrecognized parameters
-   and has to report them according to <a href="#section-3.2.1">Section 3.2.1</a>, it SHOULD bundle
+   and has to report them according to <a href="#section-3.2.1">Section 3.2.1</a>, it <em>SHOULD</em> bundle
    the ERROR chunk containing the 'Unrecognized Parameters' error cause
    with the COOKIE ECHO chunk sent in response to the INIT ACK chunk.
    If the receiver of the INIT ACK cannot bundle the COOKIE ECHO chunk
-   with the ERROR chunk, the ERROR chunk MAY be sent separately but not
+   with the ERROR chunk, the ERROR chunk <em>MAY</em> be sent separately but not
    before the COOKIE ACK has been received.
 
-   Note: Any time a COOKIE ECHO is sent in a packet, it MUST be the
+   Note: Any time a COOKIE ECHO is sent in a packet, it <em>MUST</em> be the
    first chunk.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  SCTP Chunk Definitions</span>
@@ -1377,7 +1377,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.3.1" href="#section-3.3.1">3.3.1</a>.  Payload Data (DATA) (0)</span>
 
-   The following format MUST be used for the DATA chunk:
+   The following format <em>MUST</em> be used for the DATA chunk:
 
         0                   1                   2                   3
         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1403,15 +1403,15 @@ Table of Contents
 
       The (U)nordered bit, if set to '1', indicates that this is an
       unordered DATA chunk, and there is no Stream Sequence Number
-      assigned to this DATA chunk.  Therefore, the receiver MUST ignore
+      assigned to this DATA chunk.  Therefore, the receiver <em>MUST</em> ignore
       the Stream Sequence Number field.
 
-      After reassembly (if necessary), unordered DATA chunks MUST be
+      After reassembly (if necessary), unordered DATA chunks <em>MUST</em> be
       dispatched to the upper layer by the receiver without any attempt
       to reorder.
 
       If an unordered user message is fragmented, each fragment of the
-      message MUST have its U bit set to '1'.
+      message <em>MUST</em> have its U bit set to '1'.
 
    B bit: 1 bit
 
@@ -1450,7 +1450,7 @@ Table of Contents
 
    When a user message is fragmented into multiple chunks, the TSNs are
    used by the receiver to reassemble the message.  This means that the
-   TSNs for each fragment of a fragmented user message MUST be strictly
+   TSNs for each fragment of a fragmented user message <em>MUST</em> be strictly
    sequential.
 
    Length: 16 bits (unsigned integer)
@@ -1461,7 +1461,7 @@ Table of Contents
       will have Length set to 17 (indicating 17 bytes).
 
       A DATA chunk with a User Data field of length L will have the
-      Length field set to (16 + L) (indicating 16+L bytes) where L MUST
+      Length field set to (16 + L) (indicating 16+L bytes) where L <em>MUST</em>
       be greater than 0.
 
    TSN: 32 bits (unsigned integer)
@@ -1488,7 +1488,7 @@ Table of Contents
 
 
       When a user message is fragmented by SCTP for transport, the same
-      Stream Sequence Number MUST be carried in each of the fragments of
+      Stream Sequence Number <em>MUST</em> be carried in each of the fragments of
       the message.
 
    Payload Protocol Identifier: 32 bits (unsigned integer)
@@ -1510,9 +1510,9 @@ Table of Contents
 
    User Data: variable length
 
-      This is the payload user data.  The implementation MUST pad the
+      This is the payload user data.  The implementation <em>MUST</em> pad the
       end of the data to a 4-byte boundary with all-zero bytes.  Any
-      padding MUST NOT be included in the Length field.  A sender MUST
+      padding <em>MUST NOT</em> be included in the Length field.  A sender <em>MUST</em>
       never add more than 3 bytes of padding.
 
 <span class="h4"><a class="selflink" name="section-3.3.2" href="#section-3.3.2">3.3.2</a>.  Initiation (INIT) (1)</span>
@@ -1562,7 +1562,7 @@ Table of Contents
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The INIT chunk contains the following parameters.  Unless otherwise
-   noted, each parameter MUST only be included once in the INIT chunk.
+   noted, each parameter <em>MUST</em> only be included once in the INIT chunk.
 
             Fixed Parameters                     Status
             ----------------------------------------------
@@ -1586,10 +1586,10 @@ Table of Contents
    Note 2: The ECN Capable field is reserved for future use of Explicit
    Congestion Notification.
 
-   Note 3: An INIT chunk MUST NOT contain more than one Host Name
-   Address parameter.  Moreover, the sender of the INIT MUST NOT combine
+   Note 3: An INIT chunk <em>MUST NOT</em> contain more than one Host Name
+   Address parameter.  Moreover, the sender of the INIT <em>MUST NOT</em> combine
    any other address types with the Host Name Address in the INIT.  The
-   receiver of INIT MUST ignore any other address types if the Host Name
+   receiver of INIT <em>MUST</em> ignore any other address types if the Host Name
    Address parameter is present in the received INIT chunk.
 
 
@@ -1605,9 +1605,9 @@ Table of Contents
 
    IMPLEMENTATION NOTE: If an INIT chunk is received with known
    parameters that are not optional parameters of the INIT chunk, then
-   the receiver SHOULD process the INIT chunk and send back an INIT ACK.
-   The receiver of the INIT chunk MAY bundle an ERROR chunk with the
-   COOKIE ACK chunk later.  However, restrictive implementations MAY
+   the receiver <em>SHOULD</em> process the INIT chunk and send back an INIT ACK.
+   The receiver of the INIT chunk <em>MAY</em> bundle an ERROR chunk with the
+   COOKIE ACK chunk later.  However, restrictive implementations <em>MAY</em>
    send back an ABORT chunk in response to the INIT chunk.
 
    The Chunk Flags field in INIT is reserved, and all bits in it should
@@ -1617,7 +1617,7 @@ Table of Contents
    Initiate Tag: 32 bits (unsigned integer)
 
       The receiver of the INIT (the responding end) records the value of
-      the Initiate Tag parameter.  This value MUST be placed into the
+      the Initiate Tag parameter.  This value <em>MUST</em> be placed into the
       Verification Tag field of every SCTP packet that the receiver of
       the INIT transmits within this association.
 
@@ -1625,7 +1625,7 @@ Table of Contents
       <a href="#section-5.3.1">Section 5.3.1</a> for more on the selection of the tag value.
 
       If the value of the Initiate Tag in a received INIT chunk is found
-      to be 0, the receiver MUST treat it as an error and close the
+      to be 0, the receiver <em>MUST</em> treat it as an error and close the
       association by transmitting an ABORT.
 
    Advertised Receiver Window Credit (a_rwnd): 32 bits (unsigned
@@ -1634,17 +1634,17 @@ Table of Contents
       This value represents the dedicated buffer space, in number of
       bytes, the sender of the INIT has reserved in association with
       this window.  During the life of the association, this buffer
-      space SHOULD NOT be lessened (i.e., dedicated buffers taken away
-      from this association); however, an endpoint MAY change the value
+      space <em>SHOULD NOT</em> be lessened (i.e., dedicated buffers taken away
+      from this association); however, an endpoint <em>MAY</em> change the value
       of a_rwnd it sends in SACK chunks.
 
    Number of Outbound Streams (OS): 16 bits (unsigned integer)
 
       Defines the number of outbound streams the sender of this INIT
-      chunk wishes to create in this association.  The value of 0 MUST
+      chunk wishes to create in this association.  The value of 0 <em>MUST</em>
       NOT be used.
 
-      Note: A receiver of an INIT with the OS value set to 0 SHOULD
+      Note: A receiver of an INIT with the OS value set to 0 <em>SHOULD</em>
       abort the association.
 
 
@@ -1659,25 +1659,25 @@ Table of Contents
 
       Defines the maximum number of streams the sender of this INIT
       chunk allows the peer end to create in this association.  The
-      value 0 MUST NOT be used.
+      value 0 <em>MUST NOT</em> be used.
 
       Note: There is no negotiation of the actual number of streams but
       instead the two endpoints will use the min(requested, offered).
       See <a href="#section-5.1.1">Section 5.1.1</a> for details.
 
-      Note: A receiver of an INIT with the MIS value of 0 SHOULD abort
+      Note: A receiver of an INIT with the MIS value of 0 <em>SHOULD</em> abort
       the association.
 
    Initial TSN (I-TSN): 32 bits (unsigned integer)
 
       Defines the initial TSN that the sender will use.  The valid range
-      is from 0 to 4294967295.  This field MAY be set to the value of
+      is from 0 to 4294967295.  This field <em>MAY</em> be set to the value of
       the Initiate Tag field.
 
 <span class="h5"><a class="selflink" name="section-3.3.2.1" href="#section-3.3.2.1">3.3.2.1</a>.  Optional/Variable-Length Parameters in INIT</span>
 
    The following parameters follow the Type-Length-Value format as
-   defined in <a href="#section-3.2.1">Section 3.2.1</a>.  Any Type-Length-Value fields MUST come
+   defined in <a href="#section-3.2.1">Section 3.2.1</a>.  Any Type-Length-Value fields <em>MUST</em> come
    after the fixed-length fields defined in the previous section.
 
    IPv4 Address Parameter (5)
@@ -1729,7 +1729,7 @@ Table of Contents
       Contains an IPv6 [<a href="./rfc2460.html" title="&quot;Internet Protocol, Version 6 (IPv6) Specification&quot;">RFC2460</a>] address of the sending endpoint.  It is
       binary encoded.
 
-      Note: A sender MUST NOT use an IPv4-mapped IPv6 address [<a href="./rfc4291.html" title="&quot;IP Version 6 Addressing Architecture&quot;">RFC4291</a>],
+      Note: A sender <em>MUST NOT</em> use an IPv4-mapped IPv6 address [<a href="./rfc4291.html" title="&quot;IP Version 6 Addressing Architecture&quot;">RFC4291</a>],
       but should instead use an IPv4 Address parameter for an IPv4
       address.
 
@@ -1753,7 +1753,7 @@ Table of Contents
       any additional address(es) provided within the INIT can be used as
       destinations by the endpoint receiving the INIT.  If the INIT does
       not contain any IP Address parameters, the endpoint receiving the
-      INIT MUST use the source address associated with the received IP
+      INIT <em>MUST</em> use the source address associated with the received IP
       datagram as its sole destination address for the association.
 
       Note that not using any IP Address parameters in the INIT and INIT
@@ -1789,7 +1789,7 @@ Table of Contents
       This optional parameter should be added to the INIT chunk by the
       sender when it reattempts establishing an association with a peer
       to which its previous attempt of establishing the association
-      failed due to a stale cookie operation error.  The receiver MAY
+      failed due to a stale cookie operation error.  The receiver <em>MAY</em>
       choose to ignore the suggested cookie life-span increase for its
       own security reasons.
 
@@ -1902,16 +1902,16 @@ Table of Contents
    Initiate Tag: 32 bits (unsigned integer)
 
       The receiver of the INIT ACK records the value of the Initiate Tag
-      parameter.  This value MUST be placed into the Verification Tag
+      parameter.  This value <em>MUST</em> be placed into the Verification Tag
       field of every SCTP packet that the INIT ACK receiver transmits
       within this association.
 
-      The Initiate Tag MUST NOT take the value 0.  See <a href="#section-5.3.1">Section 5.3.1</a> for
+      The Initiate Tag <em>MUST NOT</em> take the value 0.  See <a href="#section-5.3.1">Section 5.3.1</a> for
       more on the selection of the Initiate Tag value.
 
       If the value of the Initiate Tag in a received INIT ACK chunk is
-      found to be 0, the receiver MUST destroy the association
-      discarding its TCB.  The receiver MAY send an ABORT for debugging
+      found to be 0, the receiver <em>MUST</em> destroy the association
+      discarding its TCB.  The receiver <em>MAY</em> send an ABORT for debugging
       purpose.
 
    Advertised Receiver Window Credit (a_rwnd): 32 bits (unsigned
@@ -1920,13 +1920,13 @@ Table of Contents
       This value represents the dedicated buffer space, in number of
       bytes, the sender of the INIT ACK has reserved in association with
       this window.  During the life of the association, this buffer
-      space SHOULD NOT be lessened (i.e., dedicated buffers taken away
+      space <em>SHOULD NOT</em> be lessened (i.e., dedicated buffers taken away
       from this association).
 
    Number of Outbound Streams (OS): 16 bits (unsigned integer)
 
       Defines the number of outbound streams the sender of this INIT ACK
-      chunk wishes to create in this association.  The value of 0 MUST
+      chunk wishes to create in this association.  The value of 0 <em>MUST</em>
 
 
 
@@ -1935,29 +1935,29 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-      NOT be used, and the value MUST NOT be greater than the MIS value
+      NOT be used, and the value <em>MUST NOT</em> be greater than the MIS value
       sent in the INIT chunk.
 
-      Note: A receiver of an INIT ACK with the OS value set to 0 SHOULD
+      Note: A receiver of an INIT ACK with the OS value set to 0 <em>SHOULD</em>
       destroy the association discarding its TCB.
 
    Number of Inbound Streams (MIS): 16 bits (unsigned integer)
 
       Defines the maximum number of streams the sender of this INIT ACK
       chunk allows the peer end to create in this association.  The
-      value 0 MUST NOT be used.
+      value 0 <em>MUST NOT</em> be used.
 
       Note: There is no negotiation of the actual number of streams but
       instead the two endpoints will use the min(requested, offered).
       See <a href="#section-5.1.1">Section 5.1.1</a> for details.
 
-      Note: A receiver of an INIT ACK with the MIS value set to 0 SHOULD
+      Note: A receiver of an INIT ACK with the MIS value set to 0 <em>SHOULD</em>
       destroy the association discarding its TCB.
 
    Initial TSN (I-TSN): 32 bits (unsigned integer)
 
       Defines the initial TSN that the INIT ACK sender will use.  The
-      valid range is from 0 to 4294967295.  This field MAY be set to the
+      valid range is from 0 to 4294967295.  This field <em>MAY</em> be set to the
       value of the Initiate Tag field.
 
          Fixed Parameters                     Status
@@ -1991,13 +1991,13 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   Note 3: The INIT ACK chunks MUST NOT contain more than one Host Name
-   Address parameter.  Moreover, the sender of the INIT ACK MUST NOT
+   Note 3: The INIT ACK chunks <em>MUST NOT</em> contain more than one Host Name
+   Address parameter.  Moreover, the sender of the INIT ACK <em>MUST NOT</em>
    combine any other address types with the Host Name Address in the
-   INIT ACK.  The receiver of the INIT ACK MUST ignore any other address
+   INIT ACK.  The receiver of the INIT ACK <em>MUST</em> ignore any other address
    types if the Host Name Address parameter is present.
 
-   IMPLEMENTATION NOTE: An implementation MUST be prepared to receive an
+   IMPLEMENTATION NOTE: An implementation <em>MUST</em> be prepared to receive an
    INIT ACK that is quite large (more than 1500 bytes) due to the
    variable size of the State Cookie AND the variable address list.  For
    example if a responder to the INIT has 1000 IPv4 addresses it wishes
@@ -2006,10 +2006,10 @@ Table of Contents
 
    IMPLEMENTATION NOTE: If an INIT ACK chunk is received with known
    parameters that are not optional parameters of the INIT ACK chunk,
-   then the receiver SHOULD process the INIT ACK chunk and send back a
-   COOKIE ECHO.  The receiver of the INIT ACK chunk MAY bundle an ERROR
+   then the receiver <em>SHOULD</em> process the INIT ACK chunk and send back a
+   COOKIE ECHO.  The receiver of the INIT ACK chunk <em>MAY</em> bundle an ERROR
    chunk with the COOKIE ECHO chunk.  However, restrictive
-   implementations MAY send back an ABORT chunk in response to the INIT
+   implementations <em>MAY</em> send back an ABORT chunk in response to the INIT
    ACK chunk.
 
    In combination with the Source Port carried in the SCTP common
@@ -2023,7 +2023,7 @@ Table of Contents
    additional address(es) provided within the INIT ACK may be used as
    destinations by the receiver of the INIT ACK.  If the INIT ACK does
    not contain any IP Address parameters, the receiver of the INIT ACK
-   MUST use the source address associated with the received IP datagram
+   <em>MUST</em> use the source address associated with the received IP datagram
    as its sole destination address for the association.
 
    The State Cookie and Unrecognized Parameters use the Type-Length-
@@ -2049,7 +2049,7 @@ Table of Contents
 
    Parameter Value:
 
-      This parameter value MUST contain all the necessary state and
+      This parameter value <em>MUST</em> contain all the necessary state and
       parameter information required for the sender of this INIT ACK to
       create the association, along with a Message Authentication Code
       (MAC).  See <a href="#section-5.1.3">Section 5.1.3</a> for details on State Cookie definition.
@@ -2075,7 +2075,7 @@ Table of Contents
    chunks and to inform the peer endpoint of gaps in the received
    subsequences of DATA chunks as represented by their TSNs.
 
-   The SACK MUST contain the Cumulative TSN Ack, Advertised Receiver
+   The SACK <em>MUST</em> contain the Cumulative TSN Ack, Advertised Receiver
    Window Credit (a_rwnd), Number of Gap Ack Blocks, and Number of
    Duplicate TSNs fields.
 
@@ -2236,7 +2236,7 @@ Table of Contents
                            | TSN=10 |
                            ----------
 
-   then the parameter part of the SACK MUST be constructed as follows
+   then the parameter part of the SACK <em>MUST</em> be constructed as follows
    (assuming the new a_rwnd is set to 4660 by the sender):
 
                      +--------------------------------+
@@ -2333,7 +2333,7 @@ Table of Contents
       <a href="#section-3.3.6">Section 3.3.6</a>).  Note also that the HEARTBEAT message is both for
       reachability checking and for path verification (see <a href="#section-5.4">Section 5.4</a>).
       When a HEARTBEAT chunk is being used for path verification
-      purposes, it MUST hold a 64-bit random nonce.
+      purposes, it <em>MUST</em> hold a 64-bit random nonce.
 
 <span class="h4"><a class="selflink" name="section-3.3.6" href="#section-3.3.6">3.3.6</a>.  Heartbeat Acknowledgement (HEARTBEAT ACK) (5)</span>
 
@@ -2365,7 +2365,7 @@ Table of Contents
 
    Heartbeat Information: variable length
 
-      This field MUST contain the Heartbeat Information parameter of the
+      This field <em>MUST</em> contain the Heartbeat Information parameter of the
       Heartbeat Request to which this Heartbeat Acknowledgement is
       responding.
 
@@ -2387,15 +2387,15 @@ Table of Contents
 
    The ABORT chunk is sent to the peer of an association to close the
    association.  The ABORT chunk may contain Cause Parameters to inform
-   the receiver about the reason of the abort.  DATA chunks MUST NOT be
+   the receiver about the reason of the abort.  DATA chunks <em>MUST NOT</em> be
    bundled with ABORT.  Control chunks (except for INIT, INIT ACK, and
-   SHUTDOWN COMPLETE) MAY be bundled with an ABORT, but they MUST be
+   SHUTDOWN COMPLETE) <em>MAY</em> be bundled with an ABORT, but they <em>MUST</em> be
    placed before the ABORT in the SCTP packet or they will be ignored by
    the receiver.
 
    If an endpoint receives an ABORT with a format error or no TCB is
-   found, it MUST silently discard it.  Moreover, under any
-   circumstances, an endpoint that receives an ABORT MUST NOT respond to
+   found, it <em>MUST</em> silently discard it.  Moreover, under any
+   circumstances, an endpoint that receives an ABORT <em>MUST NOT</em> respond to
    that ABORT by sending an ABORT of its own.
 
         0                   1                   2                   3
@@ -2418,7 +2418,7 @@ Table of Contents
 
       The T bit is set to 0 if the sender filled in the Verification Tag
       expected by the peer.  If the Verification Tag is reflected, the T
-      bit MUST be set to 1.  Reflecting means that the sent Verification
+      bit <em>MUST</em> be set to 1.  Reflecting means that the sent Verification
       Tag is the same as the received one.
 
       Note: Special rules apply to this chunk for verification; please
@@ -2441,7 +2441,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.3.8" href="#section-3.3.8">3.3.8</a>.  Shutdown Association (SHUTDOWN) (7)</span>
 
-   An endpoint in an association MUST use this chunk to initiate a
+   An endpoint in an association <em>MUST</em> use this chunk to initiate a
    graceful close of the association with its peer.  This chunk has the
    following format.
 
@@ -2476,7 +2476,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.3.9" href="#section-3.3.9">3.3.9</a>.  Shutdown Acknowledgement (SHUTDOWN ACK) (8)</span>
 
-   This chunk MUST be used to acknowledge the receipt of the SHUTDOWN
+   This chunk <em>MUST</em> be used to acknowledge the receipt of the SHUTDOWN
    chunk at the completion of the shutdown process; see <a href="#section-9.2">Section 9.2</a> for
    details.
 
@@ -2686,7 +2686,7 @@ Table of Contents
       This field contains the difference, in microseconds, between the
       current time and the time the State Cookie expired.
 
-      The sender of this error cause MAY choose to report how long past
+      The sender of this error cause <em>MAY</em> choose to report how long past
       expiration the State Cookie is by including a non-zero value in
       the Measure of Staleness field.  If the sender does not wish to
       provide this information, it should set the Measure of Staleness
@@ -2916,10 +2916,10 @@ Table of Contents
    Cause of error
    --------------
 
-   This error cause MAY be included in ABORT chunks that are sent
+   This error cause <em>MAY</em> be included in ABORT chunks that are sent
    because of an upper-layer request.  The upper layer can specify an
    Upper Layer Abort Reason that is transported by SCTP transparently
-   and MAY be delivered to the upper-layer protocol at the peer.
+   and <em>MAY</em> be delivered to the upper-layer protocol at the peer.
 
         0                   1                   2                   3
         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -2948,10 +2948,10 @@ Table of Contents
    Cause of error
    --------------
 
-   This error cause MAY be included in ABORT chunks that are sent
+   This error cause <em>MAY</em> be included in ABORT chunks that are sent
    because an SCTP endpoint detects a protocol violation of the peer
    that is not covered by the error causes described in <a href="#section-3.3.10.1">Section 3.3.10.1</a>
-   to <a href="#section-3.3.10.12">Section 3.3.10.12</a>.  An implementation MAY provide additional
+   to <a href="#section-3.3.10.12">Section 3.3.10.12</a>.  An implementation <em>MAY</em> provide additional
    information specifying what kind of protocol violation has been
    detected.
 
@@ -2968,8 +2968,8 @@ Table of Contents
 
    This chunk is used only during the initialization of an association.
    It is sent by the initiator of an association to its peer to complete
-   the initialization process.  This chunk MUST precede any DATA chunk
-   sent within the association, but MAY be bundled with one or more DATA
+   the initialization process.  This chunk <em>MUST</em> precede any DATA chunk
+   sent within the association, but <em>MAY</em> be bundled with one or more DATA
    chunks in the same packet.
 
         0                   1                   2                   3
@@ -3004,7 +3004,7 @@ Table of Contents
       This field must contain the exact cookie received in the State
       Cookie parameter from the previous INIT ACK.
 
-      An implementation SHOULD make the cookie as small as possible to
+      An implementation <em>SHOULD</em> make the cookie as small as possible to
       ensure interoperability.
 
       Note: A Cookie Echo does NOT contain a State Cookie parameter;
@@ -3017,8 +3017,8 @@ Table of Contents
 
    This chunk is used only during the initialization of an association.
    It is used to acknowledge the receipt of a COOKIE ECHO chunk.  This
-   chunk MUST precede any DATA or SACK chunk sent within the
-   association, but MAY be bundled with one or more DATA chunks or SACK
+   chunk <em>MUST</em> precede any DATA or SACK chunk sent within the
+   association, but <em>MAY</em> be bundled with one or more DATA chunks or SACK
    chunk's in the same SCTP packet.
 
         0                   1                   2                   3
@@ -3033,7 +3033,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.3.13" href="#section-3.3.13">3.3.13</a>.  Shutdown Complete (SHUTDOWN COMPLETE) (14)</span>
 
-   This chunk MUST be used to acknowledge the receipt of the SHUTDOWN
+   This chunk <em>MUST</em> be used to acknowledge the receipt of the SHUTDOWN
    ACK chunk at the completion of the shutdown process; see <a href="#section-9.2">Section 9.2</a>
    for details.
 
@@ -3063,7 +3063,7 @@ Table of Contents
 
       The T bit is set to 0 if the sender filled in the Verification Tag
       expected by the peer.  If the Verification Tag is reflected, the T
-      bit MUST be set to 1.  Reflecting means that the sent Verification
+      bit <em>MUST</em> be set to 1.  Reflecting means that the sent Verification
       Tag is the same as the received one.
 
    Note: Special rules apply to this chunk for verification, please see
@@ -3238,34 +3238,34 @@ Table of Contents
    Notes:
 
    1)  If the State Cookie in the received COOKIE ECHO is invalid (i.e.,
-       failed to pass the integrity check), the receiver MUST silently
+       failed to pass the integrity check), the receiver <em>MUST</em> silently
        discard the packet.  Or, if the received State Cookie is expired
-       (see <a href="#section-5.1.5">Section 5.1.5</a>), the receiver MUST send back an ERROR chunk.
+       (see <a href="#section-5.1.5">Section 5.1.5</a>), the receiver <em>MUST</em> send back an ERROR chunk.
        In either case, the receiver stays in the CLOSED state.
 
-   2)  If the T1-init timer expires, the endpoint MUST retransmit INIT
-       and restart the T1-init timer without changing state.  This MUST
+   2)  If the T1-init timer expires, the endpoint <em>MUST</em> retransmit INIT
+       and restart the T1-init timer without changing state.  This <em>MUST</em>
        be repeated up to 'Max.Init.Retransmits' times.  After that, the
-       endpoint MUST abort the initialization process and report the
+       endpoint <em>MUST</em> abort the initialization process and report the
        error to the SCTP user.
 
-   3)  If the T1-cookie timer expires, the endpoint MUST retransmit
+   3)  If the T1-cookie timer expires, the endpoint <em>MUST</em> retransmit
        COOKIE ECHO and restart the T1-cookie timer without changing
-       state.  This MUST be repeated up to 'Max.Init.Retransmits' times.
-       After that, the endpoint MUST abort the initialization process
+       state.  This <em>MUST</em> be repeated up to 'Max.Init.Retransmits' times.
+       After that, the endpoint <em>MUST</em> abort the initialization process
        and report the error to the SCTP user.
 
-   4)  In the SHUTDOWN-SENT state, the endpoint MUST acknowledge any
+   4)  In the SHUTDOWN-SENT state, the endpoint <em>MUST</em> acknowledge any
        received DATA chunks without delay.
 
-   5)  In the SHUTDOWN-RECEIVED state, the endpoint MUST NOT accept any
+   5)  In the SHUTDOWN-RECEIVED state, the endpoint <em>MUST NOT</em> accept any
        new send requests from its SCTP user.
 
-   6)  In the SHUTDOWN-RECEIVED state, the endpoint MUST transmit or
+   6)  In the SHUTDOWN-RECEIVED state, the endpoint <em>MUST</em> transmit or
        retransmit data and leave this state when all data in queue is
        transmitted.
 
-   7)  In the SHUTDOWN-ACK-SENT state, the endpoint MUST NOT accept any
+   7)  In the SHUTDOWN-ACK-SENT state, the endpoint <em>MUST NOT</em> accept any
        new send requests from its SCTP user.
 
    The CLOSED state is used to indicate that an association is not
@@ -3307,23 +3307,23 @@ Table of Contents
 
    A) "A" first sends an INIT chunk to "Z".  In the INIT, "A" must
       provide its Verification Tag (Tag_A) in the Initiate Tag field.
-      Tag_A SHOULD be a random number in the range of 1 to 4294967295
+      Tag_A <em>SHOULD</em> be a random number in the range of 1 to 4294967295
       (see <a href="#section-5.3.1">Section 5.3.1</a> for Tag value selection).  After sending the
       INIT, "A" starts the T1-init timer and enters the COOKIE-WAIT
       state.
 
    B) "Z" shall respond immediately with an INIT ACK chunk.  The
-      destination IP address of the INIT ACK MUST be set to the source
+      destination IP address of the INIT ACK <em>MUST</em> be set to the source
       IP address of the INIT to which this INIT ACK is responding.  In
       the response, besides filling in other parameters, "Z" must set
       the Verification Tag field to Tag_A, and also provide its own
       Verification Tag (Tag_Z) in the Initiate Tag field.
 
-      Moreover, "Z" MUST generate and send along with the INIT ACK a
+      Moreover, "Z" <em>MUST</em> generate and send along with the INIT ACK a
       State Cookie.  See <a href="#section-5.1.3">Section 5.1.3</a> for State Cookie generation.
 
       Note: After sending out INIT ACK with the State Cookie parameter,
-      "Z" MUST NOT allocate any resources or keep any states for the new
+      "Z" <em>MUST NOT</em> allocate any resources or keep any states for the new
       association.  Otherwise, "Z" will be vulnerable to resource
       attacks.
 
@@ -3342,15 +3342,15 @@ Table of Contents
       state.
 
       Note: The COOKIE ECHO chunk can be bundled with any pending
-      outbound DATA chunks, but it MUST be the first chunk in the packet
-      and until the COOKIE ACK is returned the sender MUST NOT send any
+      outbound DATA chunks, but it <em>MUST</em> be the first chunk in the packet
+      and until the COOKIE ACK is returned the sender <em>MUST NOT</em> send any
       other packets to the peer.
 
    D) Upon reception of the COOKIE ECHO chunk, endpoint "Z" will reply
       with a COOKIE ACK chunk after building a TCB and moving to the
       ESTABLISHED state.  A COOKIE ACK chunk may be bundled with any
       pending DATA chunks (and/or SACK chunks), but the COOKIE ACK chunk
-      MUST be the first chunk in the packet.
+      <em>MUST</em> be the first chunk in the packet.
 
       IMPLEMENTATION NOTE: An implementation may choose to send the
       Communication Up notification to the SCTP user upon reception of a
@@ -3362,11 +3362,11 @@ Table of Contents
       establishment of the association with a Communication Up
       notification (see <a href="#section-10">Section 10</a>).
 
-   An INIT or INIT ACK chunk MUST NOT be bundled with any other chunk.
-   They MUST be the only chunks present in the SCTP packets that carry
+   An INIT or INIT ACK chunk <em>MUST NOT</em> be bundled with any other chunk.
+   They <em>MUST</em> be the only chunks present in the SCTP packets that carry
    them.
 
-   An endpoint MUST send the INIT ACK to the IP address from which it
+   An endpoint <em>MUST</em> send the INIT ACK to the IP address from which it
    received the INIT.
 
    Note: T1-init timer and T1-cookie timer shall follow the same rules
@@ -3375,12 +3375,12 @@ Table of Contents
    If an endpoint receives an INIT, INIT ACK, or COOKIE ECHO chunk but
    decides not to establish the new association due to missing mandatory
    parameters in the received INIT or INIT ACK, invalid parameter
-   values, or lack of local resources, it SHOULD respond with an ABORT
-   chunk.  It SHOULD also specify the cause of abort, such as the type
+   values, or lack of local resources, it <em>SHOULD</em> respond with an ABORT
+   chunk.  It <em>SHOULD</em> also specify the cause of abort, such as the type
    of the missing mandatory parameters, etc., by including the error
    cause parameters with the ABORT chunk.  The Verification Tag field in
    the common header of the outbound SCTP packet containing the ABORT
-   chunk MUST be set to the Initiate Tag value of the peer.
+   chunk <em>MUST</em> be set to the Initiate Tag value of the peer.
 
 
 
@@ -3396,11 +3396,11 @@ Table of Contents
    handling; see <a href="#section-5.1.5">Section 5.1.5</a>.
 
    After the reception of the first DATA chunk in an association the
-   endpoint MUST immediately respond with a SACK to acknowledge the DATA
+   endpoint <em>MUST</em> immediately respond with a SACK to acknowledge the DATA
    chunk.  Subsequent acknowledgements should be done as described in
    <a href="#section-6.2">Section 6.2</a>.
 
-   When the TCB is created, each endpoint MUST set its internal
+   When the TCB is created, each endpoint <em>MUST</em> set its internal
    Cumulative TSN Ack Point to the value of its transmitted Initial TSN
    minus one.
 
@@ -3409,16 +3409,16 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.1.1" href="#section-5.1.1">5.1.1</a>.  Handle Stream Parameters</span>
 
-   In the INIT and INIT ACK chunks, the sender of the chunk MUST
+   In the INIT and INIT ACK chunks, the sender of the chunk <em>MUST</em>
    indicate the number of outbound streams (OSs) it wishes to have in
    the association, as well as the maximum inbound streams (MISs) it
    will accept from the other endpoint.
 
    After receiving the stream configuration information from the other
-   side, each endpoint MUST perform the following check: If the peer's
+   side, each endpoint <em>MUST</em> perform the following check: If the peer's
    MIS is less than the endpoint's OS, meaning that the peer is
    incapable of supporting all the outbound streams the endpoint wants
-   to configure, the endpoint MUST use MIS outbound streams and MAY
+   to configure, the endpoint <em>MUST</em> use MIS outbound streams and <em>MAY</em>
    report any shortage to the upper layer.  The upper layer can then
    choose to abort the association if the resource shortage is
    unacceptable.
@@ -3453,7 +3453,7 @@ Table of Contents
       this peer by combining the resolved IP address(es) with the SCTP
       source port.
 
-      The endpoint MUST ignore any other IP Address parameters if they
+      The endpoint <em>MUST</em> ignore any other IP Address parameters if they
       are also present in the received INIT or INIT ACK chunk.
 
       The time at which the receiver of an INIT resolves the host name
@@ -3466,9 +3466,9 @@ Table of Contents
       State Cookie and release local resources.
 
       Therefore, in cases where the name translation involves potential
-      long delay, the receiver of the INIT MUST postpone the name
+      long delay, the receiver of the INIT <em>MUST</em> postpone the name
       resolution till the reception of the COOKIE ECHO chunk from the
-      peer.  In such a case, the receiver of the INIT SHOULD build the
+      peer.  In such a case, the receiver of the INIT <em>SHOULD</em> build the
       State Cookie using the received Host Name (instead of destination
       transport addresses) and send the INIT ACK to the source IP
       address from which the INIT was received.
@@ -3476,17 +3476,17 @@ Table of Contents
       The receiver of an INIT ACK shall always immediately attempt to
       resolve the name upon the reception of the chunk.
 
-      The receiver of the INIT or INIT ACK MUST NOT send user data
+      The receiver of the INIT or INIT ACK <em>MUST NOT</em> send user data
       (piggy-backed or stand-alone) to its peer until the host name is
       successfully resolved.
 
-      If the name resolution is not successful, the endpoint MUST
+      If the name resolution is not successful, the endpoint <em>MUST</em>
       immediately send an ABORT with "Unresolvable Address" error cause
       to its peer.  The ABORT shall be sent to the source IP address
       from which the last peer packet was received.
 
    C) If there are only IPv4/IPv6 addresses present in the received INIT
-      or INIT ACK chunk, the receiver MUST derive and record all the
+      or INIT ACK chunk, the receiver <em>MUST</em> derive and record all the
       transport addresses from the received chunk AND the source IP
       address that sent the INIT or INIT ACK.  The transport addresses
       are derived by the combination of SCTP source port (from the
@@ -3503,7 +3503,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   D) An INIT or INIT ACK chunk MUST be treated as belonging to an
+   D) An INIT or INIT ACK chunk <em>MUST</em> be treated as belonging to an
       already established association (or one in the process of being
       established) if the use of any of the valid address parameters
       contained within the chunk would identify an existing TCB.
@@ -3518,11 +3518,11 @@ Table of Contents
    chunk using the above rules, the endpoint shall select one of the
    transport addresses as the initial primary path.
 
-   Note: The INIT ACK MUST be sent to the source address of the INIT.
+   Note: The INIT ACK <em>MUST</em> be sent to the source address of the INIT.
 
    The sender of INIT may include a 'Supported Address Types' parameter
    in the INIT to indicate what types of address are acceptable.  When
-   this parameter is present, the receiver of INIT (initiate) MUST
+   this parameter is present, the receiver of INIT (initiate) <em>MUST</em>
    either use one of the address types indicated in the Supported
    Address Types parameter when responding to the INIT, or abort the
    association with an "Unresolvable Address" error cause if it is
@@ -3537,17 +3537,17 @@ Table of Contents
 
    IMPLEMENTATION NOTE: If an SCTP endpoint that only supports either
    IPv4 or IPv6 receives IPv4 and IPv6 addresses in an INIT or INIT ACK
-   chunk from its peer, it MUST use all the addresses belonging to the
-   supported address family.  The other addresses MAY be ignored.  The
-   endpoint SHOULD NOT respond with any kind of error indication.
+   chunk from its peer, it <em>MUST</em> use all the addresses belonging to the
+   supported address family.  The other addresses <em>MAY</em> be ignored.  The
+   endpoint <em>SHOULD NOT</em> respond with any kind of error indication.
 
    IMPLEMENTATION NOTE: If an SCTP endpoint lists in the 'Supported
    Address Types' parameter either IPv4 or IPv6, but uses the other
    family for sending the packet containing the INIT chunk, or if it
    also lists addresses of the other family in the INIT chunk, then the
    address family that is not listed in the 'Supported Address Types'
-   parameter SHOULD also be considered as supported by the receiver of
-   the INIT chunk.  The receiver of the INIT chunk SHOULD NOT respond
+   parameter <em>SHOULD</em> also be considered as supported by the receiver of
+   the INIT chunk.  The receiver of the INIT chunk <em>SHOULD NOT</em> respond
    with any kind of error indication.
 
 
@@ -3569,7 +3569,7 @@ Table of Contents
    Cookie, along with all the information necessary for it to establish
    the association.
 
-   The following steps SHOULD be taken to generate the State Cookie:
+   The following steps <em>SHOULD</em> be taken to generate the State Cookie:
 
    1)  Create an association TCB using information from both the
        received INIT and the outgoing INIT ACK chunk,
@@ -3587,18 +3587,18 @@ Table of Contents
        and the resultant MAC.
 
    After sending the INIT ACK with the State Cookie parameter, the
-   sender SHOULD delete the TCB and any other local resource related to
+   sender <em>SHOULD</em> delete the TCB and any other local resource related to
    the new association, so as to prevent resource attacks.
 
    The hashing method used to generate the MAC is strictly a private
    matter for the receiver of the INIT chunk.  The use of a MAC is
    mandatory to prevent denial-of-service attacks.  The secret key
-   SHOULD be random ([<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>] provides some information on randomness
-   guidelines); it SHOULD be changed reasonably frequently, and the
-   timestamp in the State Cookie MAY be used to determine which key
+   <em>SHOULD</em> be random ([<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>] provides some information on randomness
+   guidelines); it <em>SHOULD</em> be changed reasonably frequently, and the
+   timestamp in the State Cookie <em>MAY</em> be used to determine which key
    should be used to verify the MAC.
 
-   An implementation SHOULD make the cookie as small as possible to
+   An implementation <em>SHOULD</em> make the cookie as small as possible to
    ensure interoperability.
 
 
@@ -3618,9 +3618,9 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.1.4" href="#section-5.1.4">5.1.4</a>.  State Cookie Processing</span>
 
    When an endpoint (in the COOKIE-WAIT state) receives an INIT ACK
-   chunk with a State Cookie parameter, it MUST immediately send a
+   chunk with a State Cookie parameter, it <em>MUST</em> immediately send a
    COOKIE ECHO chunk to its peer with the received State Cookie.  The
-   sender MAY also add any pending DATA chunks to the packet after the
+   sender <em>MAY</em> also add any pending DATA chunks to the packet after the
    COOKIE ECHO chunk.
 
    The endpoint shall also start the T1-cookie timer after sending out
@@ -3638,7 +3638,7 @@ Table of Contents
    actions:
 
    1)  Compute a MAC using the TCB data carried in the State Cookie and
-       the secret key (note the timestamp in the State Cookie MAY be
+       the secret key (note the timestamp in the State Cookie <em>MAY</em> be
        used to determine which secret key to use).  [<a href="./rfc2104.html" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">RFC2104</a>] can be
        used as a guideline for generating the MAC,
 
@@ -3651,14 +3651,14 @@ Table of Contents
    3)  Compare the port numbers and the Verification Tag contained
        within the COOKIE ECHO chunk to the actual port numbers and the
        Verification Tag within the SCTP common header of the received
-       packet.  If these values do not match, the packet MUST be
+       packet.  If these values do not match, the packet <em>MUST</em> be
        silently discarded.
 
    4)  Compare the creation timestamp in the State Cookie to the current
        local time.  If the elapsed time is longer than the lifespan
        carried in the State Cookie, then the packet, including the
-       COOKIE ECHO and any attached DATA chunks, SHOULD be discarded,
-       and the endpoint MUST transmit an ERROR chunk with a "Stale
+       COOKIE ECHO and any attached DATA chunks, <em>SHOULD</em> be discarded,
+       and the endpoint <em>MUST</em> transmit an ERROR chunk with a "Stale
        Cookie" error cause to the peer endpoint.
 
 
@@ -3676,15 +3676,15 @@ Table of Contents
        carried in the COOKIE ECHO and enter the ESTABLISHED state.
 
    6)  Send a COOKIE ACK chunk to the peer acknowledging receipt of the
-       COOKIE ECHO.  The COOKIE ACK MAY be bundled with an outbound DATA
-       chunk or SACK chunk; however, the COOKIE ACK MUST be the first
+       COOKIE ECHO.  The COOKIE ACK <em>MAY</em> be bundled with an outbound DATA
+       chunk or SACK chunk; however, the COOKIE ACK <em>MUST</em> be the first
        chunk in the SCTP packet.
 
    7)  Immediately acknowledge any DATA chunk bundled with the COOKIE
        ECHO with a SACK (subsequent DATA chunk acknowledgement should
        follow the rules defined in <a href="#section-6.2">Section 6.2</a>).  As mentioned in step
        6, if the SACK is bundled with the COOKIE ACK, the COOKIE ACK
-       MUST appear first in the SCTP packet.
+       <em>MUST</em> appear first in the SCTP packet.
 
    If a COOKIE ECHO is received from an endpoint with which the receiver
    of the COOKIE ECHO has an existing association, the procedures in
@@ -3790,7 +3790,7 @@ Table of Contents
    times before "A" considers "Z" unreachable and reports the failure to
    its upper layer (and thus the association enters the CLOSED state).
 
-   When retransmitting the INIT, the endpoint MUST follow the rules
+   When retransmitting the INIT, the endpoint <em>MUST</em> follow the rules
    defined in <a href="#section-6.3">Section 6.3</a> to determine the proper timer value.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Handle Duplicate or Unexpected INIT, INIT ACK, COOKIE ECHO, and</span>
@@ -3845,21 +3845,21 @@ Table of Contents
    endpoint is attempting, at about the same time, to establish an
    association with the other endpoint.
 
-   Upon receipt of an INIT in the COOKIE-WAIT state, an endpoint MUST
+   Upon receipt of an INIT in the COOKIE-WAIT state, an endpoint <em>MUST</em>
    respond with an INIT ACK using the same parameters it sent in its
    original INIT chunk (including its Initiate Tag, unchanged).  When
-   responding, the endpoint MUST send the INIT ACK back to the same
+   responding, the endpoint <em>MUST</em> send the INIT ACK back to the same
    address that the original INIT (sent by this endpoint) was sent.
 
-   Upon receipt of an INIT in the COOKIE-ECHOED state, an endpoint MUST
+   Upon receipt of an INIT in the COOKIE-ECHOED state, an endpoint <em>MUST</em>
    respond with an INIT ACK using the same parameters it sent in its
    original INIT chunk (including its Initiate Tag, unchanged), provided
    that no NEW address has been added to the forming association.  If
    the INIT message indicates that a new address has been added to the
-   association, then the entire INIT MUST be discarded, and NO changes
-   should be made to the existing association.  An ABORT SHOULD be sent
-   in response that MAY include the error 'Restart of an association
-   with new addresses'.  The error SHOULD list the addresses that were
+   association, then the entire INIT <em>MUST</em> be discarded, and NO changes
+   should be made to the existing association.  An ABORT <em>SHOULD</em> be sent
+   in response that <em>MAY</em> include the error 'Restart of an association
+   with new addresses'.  The error <em>SHOULD</em> list the addresses that were
    added to the restarting association.
 
    When responding in either state (COOKIE-WAIT or COOKIE-ECHOED) with
@@ -3868,12 +3868,12 @@ Table of Contents
    Cookie with the INIT ACK.  The endpoint uses the parameters sent in
    its INIT to calculate the State Cookie.
 
-   After that, the endpoint MUST NOT change its state, the T1-init timer
-   shall be left running, and the corresponding TCB MUST NOT be
+   After that, the endpoint <em>MUST NOT</em> change its state, the T1-init timer
+   shall be left running, and the corresponding TCB <em>MUST NOT</em> be
    destroyed.  The normal procedures for handling State Cookies when a
    TCB exists will resolve the duplicate INITs to a single association.
 
-   For an endpoint that is in the COOKIE-ECHOED state, it MUST populate
+   For an endpoint that is in the COOKIE-ECHOED state, it <em>MUST</em> populate
    its Tie-Tags within both the association TCB and inside the State
    Cookie (see <a href="#section-5.2.2">Section 5.2.2</a> for a description of the Tie-Tags).
 
@@ -3882,9 +3882,9 @@ Table of Contents
 
    Unless otherwise stated, upon receipt of an unexpected INIT for this
    association, the endpoint shall generate an INIT ACK with a State
-   Cookie.  Before responding, the endpoint MUST check to see if the
+   Cookie.  Before responding, the endpoint <em>MUST</em> check to see if the
    unexpected INIT adds new addresses to the association.  If new
-   addresses are added to the association, the endpoint MUST respond
+   addresses are added to the association, the endpoint <em>MUST</em> respond
    with an ABORT, copying the 'Initiate Tag' of the unexpected INIT into
    the 'Verification Tag' of the outbound packet carrying the ABORT.  In
 
@@ -3895,30 +3895,30 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   the ABORT response, the cause of error MAY be set to 'restart of an
-   association with new addresses'.  The error SHOULD list the addresses
+   the ABORT response, the cause of error <em>MAY</em> be set to 'restart of an
+   association with new addresses'.  The error <em>SHOULD</em> list the addresses
    that were added to the restarting association.  If no new addresses
    are added, when responding to the INIT in the outbound INIT ACK, the
-   endpoint MUST copy its current Tie-Tags to a reserved place within
+   endpoint <em>MUST</em> copy its current Tie-Tags to a reserved place within
    the State Cookie and the association's TCB.  We shall refer to these
    locations inside the cookie as the Peer's-Tie-Tag and the Local-Tie-
    Tag.  We will refer to the copy within an association's TCB as the
    Local Tag and Peer's Tag.  The outbound SCTP packet containing this
-   INIT ACK MUST carry a Verification Tag value equal to the Initiate
-   Tag found in the unexpected INIT.  And the INIT ACK MUST contain a
+   INIT ACK <em>MUST</em> carry a Verification Tag value equal to the Initiate
+   Tag found in the unexpected INIT.  And the INIT ACK <em>MUST</em> contain a
    new Initiate Tag (randomly generated; see <a href="#section-5.3.1">Section 5.3.1</a>).  Other
-   parameters for the endpoint SHOULD be copied from the existing
+   parameters for the endpoint <em>SHOULD</em> be copied from the existing
    parameters of the association (e.g., number of outbound streams) into
    the INIT ACK and cookie.
 
    After sending out the INIT ACK or ABORT, the endpoint shall take no
    further actions; i.e., the existing association, including its
-   current state, and the corresponding TCB MUST NOT be changed.
+   current state, and the corresponding TCB <em>MUST NOT</em> be changed.
 
    Note: Only when a TCB exists and the association is not in a COOKIE-
    WAIT or SHUTDOWN-ACK-SENT state are the Tie-Tags populated with a
    value other than 0.  For a normal association INIT (i.e., the
-   endpoint is in the CLOSED state), the Tie-Tags MUST be set to 0
+   endpoint is in the CLOSED state), the Tie-Tags <em>MUST</em> be set to 0
    (indicating that no previous TCB existed).
 
 <span class="h4"><a class="selflink" name="section-5.2.3" href="#section-5.2.3">5.2.3</a>.  Unexpected INIT ACK</span>
@@ -3952,7 +3952,7 @@ Table of Contents
 
 
        the packet, including the COOKIE ECHO and any DATA chunks, should
-       be discarded.  The endpoint also MUST transmit an ERROR chunk
+       be discarded.  The endpoint also <em>MUST</em> transmit an ERROR chunk
        with a "Stale Cookie" error cause to the peer endpoint (this is
        case C or D in <a href="#section-5.2">Section 5.2</a>).
 
@@ -4007,20 +4007,20 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-      -  Any SCTP DATA chunks MAY be retained (this is an
+      -  Any SCTP DATA chunks <em>MAY</em> be retained (this is an
          implementation-specific option).
 
-      -  A notification of RESTART SHOULD be sent to the ULP instead of
+      -  A notification of RESTART <em>SHOULD</em> be sent to the ULP instead of
          a "COMMUNICATION LOST" notification.
 
       All the congestion control parameters (e.g., cwnd, ssthresh)
-      related to this peer MUST be reset to their initial values (see
+      related to this peer <em>MUST</em> be reset to their initial values (see
       <a href="#section-6.2.1">Section 6.2.1</a>).
 
       After this, the endpoint shall enter the ESTABLISHED state.
 
       If the endpoint is in the SHUTDOWN-ACK-SENT state and recognizes
-      that the peer has restarted (Action A), it MUST NOT set up a new
+      that the peer has restarted (Action A), it <em>MUST NOT</em> set up a new
       association but instead resend the SHUTDOWN ACK and send an ERROR
       chunk with a "Cookie Received While Shutting Down" error cause to
       its peer.
@@ -4030,7 +4030,7 @@ Table of Contents
       after responding to the local endpoint's INIT.  Thus, it may have
       picked a new Verification Tag, not being aware of the previous tag
       it had sent this endpoint.  The endpoint should stay in or enter
-      the ESTABLISHED state, but it MUST update its peer's Verification
+      the ESTABLISHED state, but it <em>MUST</em> update its peer's Verification
       Tag from the State Cookie, stop any init or cookie timers that may
       be running, and send a COOKIE ACK.
 
@@ -4038,7 +4038,7 @@ Table of Contents
       Before it arrived, the local endpoint sent an INIT and received an
       INIT ACK and finally sent a COOKIE ECHO with the peer's same tag
       but a new tag of its own.  The cookie should be silently
-      discarded.  The endpoint SHOULD NOT change states and should leave
+      discarded.  The endpoint <em>SHOULD NOT</em> change states and should leave
       any timers running.
 
    D) When both local and remote tags match, the endpoint should enter
@@ -4156,7 +4156,7 @@ Table of Contents
    3)  Send a new INIT chunk to the endpoint, adding a Cookie
        Preservative parameter requesting an extension to the life time
        of the State Cookie.  When calculating the time extension, an
-       implementation SHOULD use the RTT information measured based on
+       implementation <em>SHOULD</em> use the RTT information measured based on
        the previous COOKIE ECHO / ERROR exchange, and should add no more
        than 1 second beyond the measured RTT, due to long State Cookie
        life times making the endpoint more subject to a replay attack.
@@ -4189,8 +4189,8 @@ Table of Contents
    association.
 
    Moreover, the Verification Tag value used by either endpoint in a
-   given association MUST NOT change during the life time of an
-   association.  A new Verification Tag value MUST be used each time the
+   given association <em>MUST NOT</em> change during the life time of an
+   association.  A new Verification Tag value <em>MUST</em> be used each time the
    endpoint tears down and then reestablishes an association to the same
    peer.
 
@@ -4243,37 +4243,37 @@ Table of Contents
    <a href="#section-8.2">8.2</a>.  When probing UNCONFIRMED addresses, however, the association
    overall error count is NOT incremented.
 
-   The number of HEARTBEATS sent at each RTO SHOULD be limited by the
+   The number of HEARTBEATS sent at each RTO <em>SHOULD</em> be limited by the
    HB.Max.Burst parameter.  It is an implementation decision as to how
    to distribute HEARTBEATS to the peer's addresses for path
    verification.
 
-   Whenever a path is confirmed, an indication MAY be given to the upper
+   Whenever a path is confirmed, an indication <em>MAY</em> be given to the upper
    layer.
 
-   An endpoint MUST NOT send any chunks to an UNCONFIRMED address, with
+   An endpoint <em>MUST NOT</em> send any chunks to an UNCONFIRMED address, with
    the following exceptions:
 
-   -  A HEARTBEAT including a nonce MAY be sent to an UNCONFIRMED
+   -  A HEARTBEAT including a nonce <em>MAY</em> be sent to an UNCONFIRMED
       address.
 
-   -  A HEARTBEAT ACK MAY be sent to an UNCONFIRMED address.
+   -  A HEARTBEAT ACK <em>MAY</em> be sent to an UNCONFIRMED address.
 
-   -  A COOKIE ACK MAY be sent to an UNCONFIRMED address, but it MUST be
+   -  A COOKIE ACK <em>MAY</em> be sent to an UNCONFIRMED address, but it <em>MUST</em> be
       bundled with a HEARTBEAT including a nonce.  An implementation
-      that does NOT support bundling MUST NOT send a COOKIE ACK to an
+      that does NOT support bundling <em>MUST NOT</em> send a COOKIE ACK to an
       UNCONFIRMED address.
 
-   -  A COOKIE ECHO MAY be sent to an UNCONFIRMED address, but it MUST
-      be bundled with a HEARTBEAT including a nonce, and the packet MUST
+   -  A COOKIE ECHO <em>MAY</em> be sent to an UNCONFIRMED address, but it <em>MUST</em>
+      be bundled with a HEARTBEAT including a nonce, and the packet <em>MUST</em>
       NOT exceed the path MTU.  If the implementation does NOT support
       bundling or if the bundled COOKIE ECHO plus HEARTBEAT (including
-      nonce) would exceed the path MTU, then the implementation MUST NOT
+      nonce) would exceed the path MTU, then the implementation <em>MUST NOT</em>
       send a COOKIE ECHO to an UNCONFIRMED address.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  User Data Transfer</span>
 
-   Data transmission MUST only happen in the ESTABLISHED, SHUTDOWN-
+   Data transmission <em>MUST</em> only happen in the ESTABLISHED, SHUTDOWN-
    PENDING, and SHUTDOWN-RECEIVED states.  The only exception to this is
    that DATA chunks are allowed to be bundled with an outbound COOKIE
    ECHO chunk when in the COOKIE-WAIT state.
@@ -4287,20 +4287,20 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   DATA chunks MUST only be received according to the rules below in
+   DATA chunks <em>MUST</em> only be received according to the rules below in
    ESTABLISHED, SHUTDOWN-PENDING, and SHUTDOWN-SENT.  A DATA chunk
-   received in CLOSED is out of the blue and SHOULD be handled per
-   <a href="#section-8.4">Section 8.4</a>.  A DATA chunk received in any other state SHOULD be
+   received in CLOSED is out of the blue and <em>SHOULD</em> be handled per
+   <a href="#section-8.4">Section 8.4</a>.  A DATA chunk received in any other state <em>SHOULD</em> be
    discarded.
 
-   A SACK MUST be processed in ESTABLISHED, SHUTDOWN-PENDING, and
-   SHUTDOWN-RECEIVED.  An incoming SACK MAY be processed in COOKIE-
-   ECHOED.  A SACK in the CLOSED state is out of the blue and SHOULD be
+   A SACK <em>MUST</em> be processed in ESTABLISHED, SHUTDOWN-PENDING, and
+   SHUTDOWN-RECEIVED.  An incoming SACK <em>MAY</em> be processed in COOKIE-
+   ECHOED.  A SACK in the CLOSED state is out of the blue and <em>SHOULD</em> be
    processed according to the rules in <a href="#section-8.4">Section 8.4</a>.  A SACK chunk
-   received in any other state SHOULD be discarded.
+   received in any other state <em>SHOULD</em> be discarded.
 
-   An SCTP receiver MUST be able to receive a minimum of 1500 bytes in
-   one SCTP packet.  This means that an SCTP endpoint MUST NOT indicate
+   An SCTP receiver <em>MUST</em> be able to receive a minimum of 1500 bytes in
+   one SCTP packet.  This means that an SCTP endpoint <em>MUST NOT</em> indicate
    less than 1500 bytes in its initial a_rwnd sent in the INIT or INIT
    ACK.
 
@@ -4374,20 +4374,20 @@ Table of Contents
          into a single SCTP packet for transmission, as long as the
          final size of the packet does not exceed the current path MTU.
          The receiver will unbundle the packet back into the original
-         chunks.  Control chunks MUST come before DATA chunks in the
+         chunks.  Control chunks <em>MUST</em> come before DATA chunks in the
          packet.
 
                 Figure 6: Illustration of User Data Transfer
 
    The fragmentation and bundling mechanisms, as detailed in <a href="#section-6.9">Section 6.9</a>
-   and <a href="#section-6.10">Section 6.10</a>, are OPTIONAL to implement by the data sender, but
-   they MUST be implemented by the data receiver, i.e., an endpoint MUST
+   and <a href="#section-6.10">Section 6.10</a>, are <em>OPTIONAL</em> to implement by the data sender, but
+   they <em>MUST</em> be implemented by the data receiver, i.e., an endpoint <em>MUST</em>
    properly receive and process bundled or fragmented data.
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Transmission of DATA Chunks</span>
 
    This document is specified as if there is a single retransmission
-   timer per destination transport address, but implementations MAY have
+   timer per destination transport address, but implementations <em>MAY</em> have
    a retransmission timer for each DATA chunk.
 
 
@@ -4399,10 +4399,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   The following general rules MUST be applied by the data sender for
+   The following general rules <em>MUST</em> be applied by the data sender for
    transmission and/or retransmission of outbound DATA chunks:
 
-   A) At any given time, the data sender MUST NOT transmit new data to
+   A) At any given time, the data sender <em>MUST NOT</em> transmit new data to
       any destination transport address if its peer's rwnd indicates
       that the peer has no buffer space (i.e., rwnd is 0; see <a href="#section-6.2.1">Section</a>
       <a href="#section-6.2.1">6.2.1</a>).  However, regardless of the value of rwnd (including if it
@@ -4413,24 +4413,24 @@ Table of Contents
       receiver to the data sender.
 
       When the receiver's advertised window is zero, this probe is
-      called a zero window probe.  Note that a zero window probe SHOULD
+      called a zero window probe.  Note that a zero window probe <em>SHOULD</em>
       only be sent when all outstanding DATA chunks have been
       cumulatively acknowledged and no DATA chunks are in flight.  Zero
-      window probing MUST be supported.
+      window probing <em>MUST</em> be supported.
 
       If the sender continues to receive new packets from the receiver
       while doing zero window probing, the unacknowledged window probes
       should not increment the error counter for the association or any
-      destination transport address.  This is because the receiver MAY
+      destination transport address.  This is because the receiver <em>MAY</em>
       keep its window closed for an indefinite time.  Refer to <a href="#section-6.2">Section</a>
       <a href="#section-6.2">6.2</a> on the receiver behavior when it advertises a zero window.
-      The sender SHOULD send the first zero window probe after 1 RTO
-      when it detects that the receiver has closed its window and SHOULD
+      The sender <em>SHOULD</em> send the first zero window probe after 1 RTO
+      when it detects that the receiver has closed its window and <em>SHOULD</em>
       increase the probe interval exponentially afterwards.  Also note
-      that the cwnd SHOULD be adjusted according to <a href="#section-7.2.1">Section 7.2.1</a>.  Zero
+      that the cwnd <em>SHOULD</em> be adjusted according to <a href="#section-7.2.1">Section 7.2.1</a>.  Zero
       window probing does not affect the calculation of cwnd.
 
-      The sender MUST also have an algorithm for sending new DATA chunks
+      The sender <em>MUST</em> also have an algorithm for sending new DATA chunks
       to avoid silly window syndrome (SWS) as described in [<a href="./rfc0813.html" title="&quot;Window and Acknowledgement Strategy in TCP&quot;">RFC0813</a>].
       The algorithm can be similar to the one described in <a href="#section-4.2.3.4">Section</a>
       <a href="#section-4.2.3.4">4.2.3.4</a> of [<a href="./rfc1122.html" title="&quot;Requirements for Internet Hosts - Communication Layers&quot;">RFC1122</a>].
@@ -4442,7 +4442,7 @@ Table of Contents
       due to the SACK having been lost in transit from the data receiver
       to the data sender.
 
-   B) At any given time, the sender MUST NOT transmit new data to a
+   B) At any given time, the sender <em>MUST NOT</em> transmit new data to a
       given transport address if it has cwnd or more bytes of data
       outstanding to that transport address.
 
@@ -4456,26 +4456,26 @@ Table of Contents
 
 
    C) When the time comes for the sender to transmit, before sending new
-      DATA chunks, the sender MUST first transmit any outstanding DATA
+      DATA chunks, the sender <em>MUST</em> first transmit any outstanding DATA
       chunks that are marked for retransmission (limited by the current
       cwnd).
 
    D) When the time comes for the sender to transmit new DATA chunks,
-      the protocol parameter Max.Burst SHOULD be used to limit the
-      number of packets sent.  The limit MAY be applied by adjusting
+      the protocol parameter Max.Burst <em>SHOULD</em> be used to limit the
+      number of packets sent.  The limit <em>MAY</em> be applied by adjusting
       cwnd as follows:
 
       if((flightsize + Max.Burst*MTU) &lt; cwnd) cwnd = flightsize +
       Max.Burst*MTU
 
-      Or it MAY be applied by strictly limiting the number of packets
+      Or it <em>MAY</em> be applied by strictly limiting the number of packets
       emitted by the output routine.
 
    E) Then, the sender can send out as many new DATA chunks as rule A
       and rule B allow.
 
-   Multiple DATA chunks committed for transmission MAY be bundled in a
-   single packet.  Furthermore, DATA chunks being retransmitted MAY be
+   Multiple DATA chunks committed for transmission <em>MAY</em> be bundled in a
+   single packet.  Furthermore, DATA chunks being retransmitted <em>MAY</em> be
    bundled with new DATA chunks, as long as the resulting packet size
    does not exceed the path MTU.  A ULP may request that no bundling is
    performed, but this should only turn off any delays that an SCTP
@@ -4490,17 +4490,17 @@ Table of Contents
    the current MTU.  See <a href="#section-6.2">Section 6.2</a>.
 
    IMPLEMENTATION NOTE: When the window is full (i.e., transmission is
-   disallowed by rule A and/or rule B), the sender MAY still accept send
-   requests from its upper layer, but MUST transmit no more DATA chunks
+   disallowed by rule A and/or rule B), the sender <em>MAY</em> still accept send
+   requests from its upper layer, but <em>MUST</em> transmit no more DATA chunks
    until some or all of the outstanding DATA chunks are acknowledged and
    transmission is allowed by rule A and rule B again.
 
    Whenever a transmission or retransmission is made to any address, if
    the T3-rtx timer of that address is not currently running, the sender
-   MUST start that timer.  If the timer for that address is already
-   running, the sender MUST restart the timer if the earliest (i.e.,
+   <em>MUST</em> start that timer.  If the timer for that address is already
+   running, the sender <em>MUST</em> restart the timer if the earliest (i.e.,
    lowest TSN) outstanding DATA chunk sent to that address is being
-   retransmitted.  Otherwise, the data sender MUST NOT restart the
+   retransmitted.  Otherwise, the data sender <em>MUST NOT</em> restart the
    timer.
 
 
@@ -4515,39 +4515,39 @@ Table of Contents
    adjusted according to the timer rules defined in Sections <a href="#section-6.3.2">6.3.2</a> and
    6.3.3.
 
-   Note: The data sender SHOULD NOT use a TSN that is more than 2**31 -
+   Note: The data sender <em>SHOULD NOT</em> use a TSN that is more than 2**31 -
    1 above the beginning TSN of the current send window.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Acknowledgement on Reception of DATA Chunks</span>
 
-   The SCTP endpoint MUST always acknowledge the reception of each valid
+   The SCTP endpoint <em>MUST</em> always acknowledge the reception of each valid
    DATA chunk when the DATA chunk received is inside its receive window.
 
-   When the receiver's advertised window is 0, the receiver MUST drop
+   When the receiver's advertised window is 0, the receiver <em>MUST</em> drop
    any new incoming DATA chunk with a TSN larger than the largest TSN
    received so far.  If the new incoming DATA chunk holds a TSN value
-   less than the largest TSN received so far, then the receiver SHOULD
+   less than the largest TSN received so far, then the receiver <em>SHOULD</em>
    drop the largest TSN held for reordering and accept the new incoming
    DATA chunk.  In either case, if such a DATA chunk is dropped, the
-   receiver MUST immediately send back a SACK with the current receive
+   receiver <em>MUST</em> immediately send back a SACK with the current receive
    window showing only DATA chunks received and accepted so far.  The
-   dropped DATA chunk(s) MUST NOT be included in the SACK, as they were
-   not accepted.  The receiver MUST also have an algorithm for
+   dropped DATA chunk(s) <em>MUST NOT</em> be included in the SACK, as they were
+   not accepted.  The receiver <em>MUST</em> also have an algorithm for
    advertising its receive window to avoid receiver silly window
    syndrome (SWS), as described in [<a href="./rfc0813.html" title="&quot;Window and Acknowledgement Strategy in TCP&quot;">RFC0813</a>].  The algorithm can be
    similar to the one described in <a href="./rfc1122.html#section-4.2.3.3">Section&nbsp;4.2.3.3 of [RFC1122]</a>.
 
    The guidelines on delayed acknowledgement algorithm specified in
-   <a href="./rfc2581.html#section-4.2">Section&nbsp;4.2 of [RFC2581]</a> SHOULD be followed.  Specifically, an
-   acknowledgement SHOULD be generated for at least every second packet
-   (not every second DATA chunk) received, and SHOULD be generated
+   <a href="./rfc2581.html#section-4.2">Section&nbsp;4.2 of [RFC2581]</a> <em>SHOULD</em> be followed.  Specifically, an
+   acknowledgement <em>SHOULD</em> be generated for at least every second packet
+   (not every second DATA chunk) received, and <em>SHOULD</em> be generated
    within 200 ms of the arrival of any unacknowledged DATA chunk.  In
    some situations, it may be beneficial for an SCTP transmitter to be
    more conservative than the algorithms detailed in this document
-   allow.  However, an SCTP transmitter MUST NOT be more aggressive than
+   allow.  However, an SCTP transmitter <em>MUST NOT</em> be more aggressive than
    the following algorithms allow.
 
-   An SCTP receiver MUST NOT generate more than one SACK for every
+   An SCTP receiver <em>MUST NOT</em> generate more than one SACK for every
    incoming packet, other than to update the offered window as the
    receiving application consumes new data.
 
@@ -4556,9 +4556,9 @@ Table of Contents
    statically or dynamically, in order to meet the specific timing
    requirement of the protocol being carried.
 
-   An implementation MUST NOT allow the maximum delay to be configured
-   to be more than 500 ms.  In other words, an implementation MAY lower
-   this value below 500 ms but MUST NOT raise it above 500 ms.
+   An implementation <em>MUST NOT</em> allow the maximum delay to be configured
+   to be more than 500 ms.  In other words, an implementation <em>MAY</em> lower
+   this value below 500 ms but <em>MUST NOT</em> raise it above 500 ms.
 
 
 
@@ -4567,15 +4567,15 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   Acknowledgements MUST be sent in SACK chunks unless shutdown was
-   requested by the ULP, in which case an endpoint MAY send an
+   Acknowledgements <em>MUST</em> be sent in SACK chunks unless shutdown was
+   requested by the ULP, in which case an endpoint <em>MAY</em> send an
    acknowledgement in the SHUTDOWN chunk.  A SACK chunk can acknowledge
    the reception of multiple DATA chunks.  See <a href="#section-3.3.4">Section 3.3.4</a> for SACK
-   chunk format.  In particular, the SCTP endpoint MUST fill in the
+   chunk format.  In particular, the SCTP endpoint <em>MUST</em> fill in the
    Cumulative TSN Ack field to indicate the latest sequential TSN (of a
    valid DATA chunk) it has received.  Any received DATA chunks with TSN
    greater than the value in the Cumulative TSN Ack field are reported
-   in the Gap Ack Block fields.  The SCTP endpoint MUST report as many
+   in the Gap Ack Block fields.  The SCTP endpoint <em>MUST</em> report as many
    Gap Ack Blocks as can fit in a single SACK chunk limited by the
    current path MTU.
 
@@ -4584,19 +4584,19 @@ Table of Contents
    chunk to acknowledge DATA chunks received out of order.
 
    When a packet arrives with duplicate DATA chunk(s) and with no new
-   DATA chunk(s), the endpoint MUST immediately send a SACK with no
+   DATA chunk(s), the endpoint <em>MUST</em> immediately send a SACK with no
    delay.  If a packet arrives with duplicate DATA chunk(s) bundled with
-   new DATA chunks, the endpoint MAY immediately send a SACK.  Normally,
+   new DATA chunks, the endpoint <em>MAY</em> immediately send a SACK.  Normally,
    receipt of duplicate DATA chunks will occur when the original SACK
    chunk was lost and the peer's RTO has expired.  The duplicate TSN
-   number(s) SHOULD be reported in the SACK as duplicate.
+   number(s) <em>SHOULD</em> be reported in the SACK as duplicate.
 
-   When an endpoint receives a SACK, it MAY use the duplicate TSN
+   When an endpoint receives a SACK, it <em>MAY</em> use the duplicate TSN
    information to determine if SACK loss is occurring.  Further use of
    this data is for future study.
 
    The data receiver is responsible for maintaining its receive buffers.
-   The data receiver SHOULD notify the data sender in a timely manner of
+   The data receiver <em>SHOULD</em> notify the data sender in a timely manner of
    changes in its ability to receive data.  How an implementation
    manages its receive buffers is dependent on many factors (e.g.,
    operating system, memory management system, amount of memory, etc.).
@@ -4627,13 +4627,13 @@ Table of Contents
       receive buffers, increment a_rwnd by the number of bytes delivered
       to the upper layer.  This is, in effect, opening up rwnd on the
       data sender and allowing it to send more data.  The data receiver
-      SHOULD NOT increment a_rwnd unless it has released bytes from its
+      <em>SHOULD NOT</em> increment a_rwnd unless it has released bytes from its
       receive buffer.  For example, if the receiver is holding
       fragmented DATA chunks in a reassembly queue, it should not
       increment a_rwnd.
 
-   D) When sending a SACK, the data receiver SHOULD place the current
-      value of a_rwnd into the a_rwnd field.  The data receiver SHOULD
+   D) When sending a SACK, the data receiver <em>SHOULD</em> place the current
+      value of a_rwnd into the a_rwnd field.  The data receiver <em>SHOULD</em>
       take into account that the data sender will not retransmit DATA
       chunks that are acked via the Cumulative TSN Ack (i.e., will drop
       from its retransmit queue).
@@ -4645,12 +4645,12 @@ Table of Contents
    holding data in its receive buffers while reassembling a fragmented
    user message from its peer when it runs out of receive buffer space.
    It may drop these DATA chunks even though it has acknowledged them in
-   Gap Ack Blocks.  If a data receiver drops DATA chunks, it MUST NOT
+   Gap Ack Blocks.  If a data receiver drops DATA chunks, it <em>MUST NOT</em>
    include them in Gap Ack Blocks in subsequent SACKs until they are
    received again via retransmission.  In addition, the endpoint should
    take into account the dropped data when calculating its a_rwnd.
 
-   An endpoint SHOULD NOT revoke a SACK and discard data.  Only in
+   An endpoint <em>SHOULD NOT</em> revoke a SACK and discard data.  Only in
    extreme circumstances should an endpoint use this procedure (such as
    out of buffer space).  The data receiver should take into account
    that dropping data that has been acked in Gap Ack Blocks can result
@@ -4708,10 +4708,10 @@ Table of Contents
            Figure 7:  Delayed Acknowledgement Example
 
    If an endpoint receives a DATA chunk with no user data (i.e., the
-   Length field is set to 16), it MUST send an ABORT with error cause
+   Length field is set to 16), it <em>MUST</em> send an ABORT with error cause
    set to "No User Data".
 
-   An endpoint SHOULD NOT send a DATA chunk with no user data part.
+   An endpoint <em>SHOULD NOT</em> send a DATA chunk with no user data part.
 
 <span class="h4"><a class="selflink" name="section-6.2.1" href="#section-6.2.1">6.2.1</a>.  Processing a Received SACK</span>
 
@@ -4742,7 +4742,7 @@ Table of Contents
    out-of-order SACKs, the data sender must use heuristics to determine
    if a SACK is new.
 
-   An endpoint SHOULD use the following rules to calculate the rwnd,
+   An endpoint <em>SHOULD</em> use the following rules to calculate the rwnd,
    using the a_rwnd value, the Cumulative TSN Ack, and Gap Ack Blocks in
    a received SACK.
 
@@ -4848,8 +4848,8 @@ Table of Contents
 
 
    C4)  When data is in flight and when allowed by rule C5 below, a new
-        RTT measurement MUST be made each round trip.  Furthermore, new
-        RTT measurements SHOULD be made no more than once per round trip
+        RTT measurement <em>MUST</em> be made each round trip.  Furthermore, new
+        RTT measurements <em>SHOULD</em> be made no more than once per round trip
         for a given destination transport address.  There are two
         reasons for this recommendation: First, it appears that
         measuring more frequently often does not in practice yield any
@@ -4862,7 +4862,7 @@ Table of Contents
         and RTO.Beta as given in rule C3.  However, the exact nature of
         these adjustments remains a research issue.
 
-   C5)  Karn's algorithm: RTT measurements MUST NOT be made using
+   C5)  Karn's algorithm: RTT measurements <em>MUST NOT</em> be made using
         packets that were retransmitted (and thus for which it is
         ambiguous whether the reply was for the first instance of the
         chunk or for a later instance)
@@ -5033,11 +5033,11 @@ Table of Contents
    destination addresses of a multi-homed peer endpoint as the primary
    path (see <a href="#section-5.1.2">Section 5.1.2</a> and <a href="#section-10.1">Section 10.1</a> for details).
 
-   By default, an endpoint SHOULD always transmit to the primary path,
+   By default, an endpoint <em>SHOULD</em> always transmit to the primary path,
    unless the SCTP user explicitly specifies the destination transport
    address (and possibly source transport address) to use.
 
-   An endpoint SHOULD transmit reply chunks (e.g., SACK, HEARTBEAT ACK,
+   An endpoint <em>SHOULD</em> transmit reply chunks (e.g., SACK, HEARTBEAT ACK,
    etc.) to the same destination transport address from which it
    received the DATA or control chunk to which it is replying.  This
    rule should also be followed if the endpoint is bundling DATA chunks
@@ -5049,13 +5049,13 @@ Table of Contents
    which the DATA or control chunks being acknowledged were received.
 
    When a receiver of a duplicate DATA chunk sends a SACK to a multi-
-   homed endpoint, it MAY be beneficial to vary the destination address
+   homed endpoint, it <em>MAY</em> be beneficial to vary the destination address
    and not use the source address of the DATA chunk.  The reason is that
    receiving a duplicate from a multi-homed endpoint might indicate that
    the return path (as specified in the source address of the DATA
    chunk) for the SACK is broken.
 
-   Furthermore, when its peer is multi-homed, an endpoint SHOULD try to
+   Furthermore, when its peer is multi-homed, an endpoint <em>SHOULD</em> try to
    retransmit a chunk that timed out to an active destination transport
    address that is different from the last destination address to which
    the DATA chunk was sent.
@@ -5100,7 +5100,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.5" href="#section-6.5">6.5</a>.  Stream Identifier and Stream Sequence Number</span>
 
-   Every DATA chunk MUST carry a valid stream identifier.  If an
+   Every DATA chunk <em>MUST</em> carry a valid stream identifier.  If an
    endpoint receives a DATA chunk with an invalid stream identifier, it
    shall acknowledge the reception of the DATA chunk following the
    normal procedure, immediately send an ERROR chunk with cause set to
@@ -5108,14 +5108,14 @@ Table of Contents
    DATA chunk.  The endpoint may bundle the ERROR chunk in the same
    packet as the SACK as long as the ERROR follows the SACK.
 
-   The Stream Sequence Number in all the streams MUST start from 0 when
+   The Stream Sequence Number in all the streams <em>MUST</em> start from 0 when
    the association is established.  Also, when the Stream Sequence
-   Number reaches the value 65535 the next Stream Sequence Number MUST
+   Number reaches the value 65535 the next Stream Sequence Number <em>MUST</em>
    be set to 0.
 
 <span class="h3"><a class="selflink" name="section-6.6" href="#section-6.6">6.6</a>.  Ordered and Unordered Delivery</span>
 
-   Within a stream, an endpoint MUST deliver DATA chunks received with
+   Within a stream, an endpoint <em>MUST</em> deliver DATA chunks received with
    the U flag set to 0 to the upper layer according to the order of
    their Stream Sequence Number.  If DATA chunks arrive out of order of
 
@@ -5127,7 +5127,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   their Stream Sequence Number, the endpoint MUST hold the received
+   their Stream Sequence Number, the endpoint <em>MUST</em> hold the received
    DATA chunks from delivery to the ULP until they are reordered.
 
    However, an SCTP endpoint can indicate that no ordered delivery is
@@ -5151,7 +5151,7 @@ Table of Contents
 
    The 'Stream Sequence Number' field in a DATA chunk with U flag set to
    1 has no significance.  The sender can fill it with arbitrary value,
-   but the receiver MUST ignore the field.
+   but the receiver <em>MUST</em> ignore the field.
 
    Note: When transmitting ordered and unordered data, an endpoint does
    not increment its Stream Sequence Number when transmitting a DATA
@@ -5161,7 +5161,7 @@ Table of Contents
 
    Upon the reception of a new DATA chunk, an endpoint shall examine the
    continuity of the TSNs received.  If the endpoint detects a gap in
-   the received DATA chunk sequence, it SHOULD send a SACK with Gap Ack
+   the received DATA chunk sequence, it <em>SHOULD</em> send a SACK with Gap Ack
    Blocks immediately.  The data receiver continues sending a SACK after
    receipt of each SCTP packet that doesn't fill the gap.
 
@@ -5171,7 +5171,7 @@ Table of Contents
 
    Multiple gaps can be reported in one single SACK (see <a href="#section-3.3.4">Section 3.3.4</a>).
 
-   When its peer is multi-homed, the SCTP endpoint SHOULD always try to
+   When its peer is multi-homed, the SCTP endpoint <em>SHOULD</em> always try to
    send the SACK to the same destination address from which the last
    DATA chunk was received.
 
@@ -5183,12 +5183,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   Upon the reception of a SACK, the endpoint MUST remove all DATA
+   Upon the reception of a SACK, the endpoint <em>MUST</em> remove all DATA
    chunks that have been acknowledged by the SACK's Cumulative TSN Ack
-   from its transmit queue.  The endpoint MUST also treat all the DATA
+   from its transmit queue.  The endpoint <em>MUST</em> also treat all the DATA
    chunks with TSNs not included in the Gap Ack Blocks reported by the
    SACK as "missing".  The number of "missing" reports for each
-   outstanding DATA chunk MUST be recorded by the data sender in order
+   outstanding DATA chunk <em>MUST</em> be recorded by the data sender in order
    to make retransmission decisions.  See <a href="#section-7.2.4">Section 7.2.4</a> for details.
 
    The following example shows the use of SACK to report a gap.
@@ -5211,19 +5211,19 @@ Table of Contents
    The maximum number of Gap Ack Blocks that can be reported within a
    single SACK chunk is limited by the current path MTU.  When a single
    SACK cannot cover all the Gap Ack Blocks needed to be reported due to
-   the MTU limitation, the endpoint MUST send only one SACK, reporting
+   the MTU limitation, the endpoint <em>MUST</em> send only one SACK, reporting
    the Gap Ack Blocks from the lowest to highest TSNs, within the size
    limit set by the MTU, and leave the remaining highest TSN numbers
    unacknowledged.
 
 <span class="h3"><a class="selflink" name="section-6.8" href="#section-6.8">6.8</a>.  CRC32c Checksum Calculation</span>
 
-   When sending an SCTP packet, the endpoint MUST strengthen the data
+   When sending an SCTP packet, the endpoint <em>MUST</em> strengthen the data
    integrity of the transmission by including the CRC32c checksum value
    calculated on the packet, as described below.
 
    After the packet is constructed (containing the SCTP common header
-   and one or more control or DATA chunks), the transmitter MUST
+   and one or more control or DATA chunks), the transmitter <em>MUST</em>
 
    1)  fill in the proper Verification Tag in the SCTP common header and
        initialize the checksum field to '0's,
@@ -5242,7 +5242,7 @@ Table of Contents
    3)  put the resultant value into the checksum field in the common
        header, and leave the rest of the bits unchanged.
 
-   When an SCTP packet is received, the receiver MUST first check the
+   When an SCTP packet is received, the receiver <em>MUST</em> first check the
    CRC32c checksum as follows:
 
    1)  Store the received CRC32c checksum value aside.
@@ -5252,30 +5252,30 @@ Table of Contents
        whole received packet.
 
    3)  Verify that the calculated CRC32c checksum is the same as the
-       received CRC32c checksum.  If it is not, the receiver MUST treat
+       received CRC32c checksum.  If it is not, the receiver <em>MUST</em> treat
        the packet as an invalid SCTP packet.
 
    The default procedure for handling invalid SCTP packets is to
    silently discard them.
 
-   Any hardware implementation SHOULD be done in a way that is
+   Any hardware implementation <em>SHOULD</em> be done in a way that is
    verifiable by the software.
 
 <span class="h3"><a class="selflink" name="section-6.9" href="#section-6.9">6.9</a>.  Fragmentation and Reassembly</span>
 
-   An endpoint MAY support fragmentation when sending DATA chunks, but
-   it MUST support reassembly when receiving DATA chunks.  If an
-   endpoint supports fragmentation, it MUST fragment a user message if
+   An endpoint <em>MAY</em> support fragmentation when sending DATA chunks, but
+   it <em>MUST</em> support reassembly when receiving DATA chunks.  If an
+   endpoint supports fragmentation, it <em>MUST</em> fragment a user message if
    the size of the user message to be sent causes the outbound SCTP
    packet size to exceed the current MTU.  If an implementation does not
-   support fragmentation of outbound user messages, the endpoint MUST
+   support fragmentation of outbound user messages, the endpoint <em>MUST</em>
    return an error to its upper layer and not attempt to send the user
    message.
 
    Note: If an implementation that supports fragmentation makes
    available to its upper layer a mechanism to turn off fragmentation,
-   it may do so.  However, in so doing, it MUST react just like an
-   implementation that does NOT support fragmentation, i.e., it MUST
+   it may do so.  However, in so doing, it <em>MUST</em> react just like an
+   implementation that does NOT support fragmentation, i.e., it <em>MUST</em>
    reject sends that exceed the current Path MTU (P-MTU).
 
    IMPLEMENTATION NOTE: In this error case, the Send primitive discussed
@@ -5299,31 +5299,31 @@ Table of Contents
    Instead, if the PMTU has been reduced, then IP fragmentation must be
    used.  Please see <a href="#section-7.3">Section 7.3</a> for details of PMTU discovery.
 
-   When determining when to fragment, the SCTP implementation MUST take
+   When determining when to fragment, the SCTP implementation <em>MUST</em> take
    into account the SCTP packet header as well as the DATA chunk
-   header(s).  The implementation MUST also take into account the space
+   header(s).  The implementation <em>MUST</em> also take into account the space
    required for a SACK chunk if bundling a SACK chunk with the DATA
    chunk.
 
    Fragmentation takes the following steps:
 
-   1)  The data sender MUST break the user message into a series of DATA
+   1)  The data sender <em>MUST</em> break the user message into a series of DATA
        chunks such that each chunk plus SCTP overhead fits into an IP
        datagram smaller than or equal to the association Path MTU.
 
-   2)  The transmitter MUST then assign, in sequence, a separate TSN to
+   2)  The transmitter <em>MUST</em> then assign, in sequence, a separate TSN to
        each of the DATA chunks in the series.  The transmitter assigns
        the same SSN to each of the DATA chunks.  If the user indicates
        that the user message is to be delivered using unordered
        delivery, then the U flag of each DATA chunk of the user message
-       MUST be set to 1.
+       <em>MUST</em> be set to 1.
 
-   3)  The transmitter MUST also set the B/E bits of the first DATA
+   3)  The transmitter <em>MUST</em> also set the B/E bits of the first DATA
        chunk in the series to '10', the B/E bits of the last DATA chunk
        in the series to '01', and the B/E bits of all other DATA chunks
        in the series to '00'.
 
-   An endpoint MUST recognize fragmented DATA chunks by examining the
+   An endpoint <em>MUST</em> recognize fragmented DATA chunks by examining the
    B/E bits in each of the received DATA chunks, and queue the
    fragmented DATA chunks for reassembly.  Once the user message is
    reassembled, SCTP shall pass the reassembled user message to the
@@ -5340,7 +5340,7 @@ Table of Contents
    An endpoint bundles chunks by simply including multiple chunks in one
    outbound SCTP packet.  The total size of the resultant IP datagram,
 
-   including the SCTP packet and IP headers, MUST be less that or equal
+   including the SCTP packet and IP headers, <em>MUST</em> be less that or equal
    to the current Path MTU.
 
 
@@ -5355,9 +5355,9 @@ Table of Contents
    choose a size no larger than the latest MTU of the current primary
    path.
 
-   When bundling control chunks with DATA chunks, an endpoint MUST place
+   When bundling control chunks with DATA chunks, an endpoint <em>MUST</em> place
    control chunks first in the outbound SCTP packet.  The transmitter
-   MUST transmit DATA chunks within an SCTP packet in increasing order
+   <em>MUST</em> transmit DATA chunks within an SCTP packet in increasing order
    of TSN.
 
    Note: Since control chunks must be placed first in a packet and since
@@ -5365,18 +5365,18 @@ Table of Contents
    chunks, DATA chunks cannot be bundled with SHUTDOWN or SHUTDOWN ACK
    chunks.
 
-   Partial chunks MUST NOT be placed in an SCTP packet.  A partial chunk
+   Partial chunks <em>MUST NOT</em> be placed in an SCTP packet.  A partial chunk
    is a chunk that is not completely contained in the SCTP packet; i.e.,
    the SCTP packet is too short to contain all the bytes of the chunk as
    indicated by the chunk length.
 
-   An endpoint MUST process received chunks in their order in the
+   An endpoint <em>MUST</em> process received chunks in their order in the
    packet.  The receiver uses the Chunk Length field to determine the
    end of a chunk and beginning of the next chunk taking account of the
    fact that all chunks end on a 4-byte boundary.  If the receiver
-   detects a partial chunk, it MUST drop the chunk.
+   detects a partial chunk, it <em>MUST</em> drop the chunk.
 
-   An endpoint MUST NOT bundle INIT, INIT ACK, or SHUTDOWN COMPLETE with
+   An endpoint <em>MUST NOT</em> bundle INIT, INIT ACK, or SHUTDOWN COMPLETE with
    any other chunks.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Congestion Control</span>
@@ -5482,12 +5482,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  SCTP Slow-Start and Congestion Avoidance</span>
 
-   The slow-start and congestion avoidance algorithms MUST be used by an
+   The slow-start and congestion avoidance algorithms <em>MUST</em> be used by an
    endpoint to control the amount of data being injected into the
    network.  The congestion control in SCTP is employed in regard to the
    association, not to an individual stream.  In some situations, it may
    be beneficial for an SCTP sender to be more conservative than the
-   algorithms allow; however, an SCTP sender MUST NOT be more aggressive
+   algorithms allow; however, an SCTP sender <em>MUST NOT</em> be more aggressive
    than the following algorithms allow.
 
    Like TCP, an SCTP endpoint uses the following three control variables
@@ -5523,7 +5523,7 @@ Table of Contents
    partial_bytes_acked, which is used during congestion avoidance phase
    to facilitate cwnd adjustment.
 
-   Unlike TCP, an SCTP sender MUST keep a set of these control variables
+   Unlike TCP, an SCTP sender <em>MUST</em> keep a set of these control variables
    cwnd, ssthresh, and partial_bytes_acked for EACH destination address
    of its peer (when its peer is multi-homed).  Only one rwnd is kept
    for the whole association (no matter if the peer is multi-homed or
@@ -5538,26 +5538,26 @@ Table of Contents
    after repairing loss detected by the retransmission timer.
 
    o  The initial cwnd before DATA transmission or after a sufficiently
-      long idle period MUST be set to min(4*MTU, max (2*MTU, 4380
+      long idle period <em>MUST</em> be set to min(4*MTU, max (2*MTU, 4380
       bytes)).
 
-   o  The initial cwnd after a retransmission timeout MUST be no more
+   o  The initial cwnd after a retransmission timeout <em>MUST</em> be no more
       than 1*MTU.
 
-   o  The initial value of ssthresh MAY be arbitrarily high (for
-      example, implementations MAY use the size of the receiver
+   o  The initial value of ssthresh <em>MAY</em> be arbitrarily high (for
+      example, implementations <em>MAY</em> use the size of the receiver
       advertised window).
 
    o  Whenever cwnd is greater than zero, the endpoint is allowed to
       have cwnd bytes of data outstanding on that transport address.
 
-   o  When cwnd is less than or equal to ssthresh, an SCTP endpoint MUST
+   o  When cwnd is less than or equal to ssthresh, an SCTP endpoint <em>MUST</em>
       use the slow-start algorithm to increase cwnd only if the current
       congestion window is being fully utilized, an incoming SACK
       advances the Cumulative TSN Ack Point, and the data sender is not
       in Fast Recovery.  Only when these three conditions are met can
-      the cwnd be increased; otherwise, the cwnd MUST not be increased.
-      If these conditions are met, then cwnd MUST be increased by, at
+      the cwnd be increased; otherwise, the cwnd <em>MUST</em> not be increased.
+      If these conditions are met, then cwnd <em>MUST</em> be increased by, at
       most, the lesser of 1) the total size of the previously
       outstanding DATA chunk(s) acknowledged, and 2) the destination's
       path MTU.  This upper bound protects against the ACK-Splitting
@@ -5576,7 +5576,7 @@ Table of Contents
 
 
    the received SACK does not advance the Cumulative TSN Ack Point, the
-   endpoint MUST NOT adjust the cwnd of any of the destination
+   endpoint <em>MUST NOT</em> adjust the cwnd of any of the destination
    addresses.
 
    Because an endpoint's cwnd is not tied to its Cumulative TSN Ack
@@ -5660,15 +5660,15 @@ Table of Contents
 
    In the absence of data loss, an endpoint performs delayed
    acknowledgement.  However, whenever an endpoint notices a hole in the
-   arriving TSN sequence, it SHOULD start sending a SACK back every time
+   arriving TSN sequence, it <em>SHOULD</em> start sending a SACK back every time
    a packet arrives carrying data until the hole is filled.
 
    Whenever an endpoint receives a SACK that indicates that some TSNs
-   are missing, it SHOULD wait for two further miss indications (via
+   are missing, it <em>SHOULD</em> wait for two further miss indications (via
    subsequent SACKs for a total of three missing reports) on the same
    TSNs before taking action with regard to Fast Retransmit.
 
-   Miss indications SHOULD follow the HTNA (Highest TSN Newly
+   Miss indications <em>SHOULD</em> follow the HTNA (Highest TSN Newly
    Acknowledged) algorithm.  For each incoming SACK, miss indications
    are incremented only for missing TSNs prior to the highest TSN newly
    acknowledged in the SACK.  A newly acknowledged DATA chunk is one not
@@ -5699,8 +5699,8 @@ Table of Contents
        to constraint of the path MTU of the destination transport
        address to which the packet is being sent.  Call this value K.
        Retransmit those K DATA chunks in a single packet.  When a Fast
-       Retransmit is being performed, the sender SHOULD ignore the value
-       of cwnd and SHOULD NOT delay retransmission for this single
+       Retransmit is being performed, the sender <em>SHOULD</em> ignore the value
+       of cwnd and <em>SHOULD NOT</em> delay retransmission for this single
        packet.
 
    4)  Restart the T3-rtx timer only if the last SACK acknowledged the
@@ -5720,8 +5720,8 @@ Table of Contents
        outstanding TSN as the Fast Recovery exit point.  When a SACK
        acknowledges all TSNs up to and including this exit point, Fast
        Recovery is exited.  While in Fast Recovery, the ssthresh and
-       cwnd SHOULD NOT change for any destinations due to a subsequent
-       Fast Recovery event (i.e., one SHOULD NOT reduce the cwnd further
+       cwnd <em>SHOULD NOT</em> change for any destinations due to a subsequent
+       Fast Recovery event (i.e., one <em>SHOULD NOT</em> reduce the cwnd further
        due to a subsequent Fast Retransmit).
 
    Note: Before the above adjustments, if the received SACK also
@@ -5758,13 +5758,13 @@ Table of Contents
    mechanism and strategies for determining the current end-to-end MTU
    setting as well as detecting changes in this value.
 
-   An endpoint SHOULD apply these techniques, and SHOULD do so on a
+   An endpoint <em>SHOULD</em> apply these techniques, and <em>SHOULD</em> do so on a
    per-destination-address basis.
 
    There are two important SCTP-specific points regarding Path MTU
    discovery:
 
-   1)  SCTP associations can span multiple addresses.  An endpoint MUST
+   1)  SCTP associations can span multiple addresses.  An endpoint <em>MUST</em>
        maintain separate MTU estimates for each destination address of
        its peer.
 
@@ -5787,7 +5787,7 @@ Table of Contents
    'Association.Max.Retrans', the endpoint shall consider the peer
    endpoint unreachable and shall stop transmitting any more data to it
    (and thus the association enters the CLOSED state).  In addition, the
-   endpoint MAY report the failure to the upper layer and optionally
+   endpoint <em>MAY</em> report the failure to the upper layer and optionally
    report back all outstanding user data remaining in its outbound
    queue.  The association is automatically closed when the peer
    endpoint becomes unreachable.
@@ -5815,7 +5815,7 @@ Table of Contents
    When the value in the error counter exceeds the protocol parameter
    'Path.Max.Retrans' of that destination address, the endpoint should
    mark the destination transport address as inactive, and a
-   notification SHOULD be sent to the upper layer.
+   notification <em>SHOULD</em> be sent to the upper layer.
 
    When an outstanding TSN is acknowledged or a HEARTBEAT sent to that
    address is acknowledged with a HEARTBEAT ACK, the endpoint shall
@@ -5838,10 +5838,10 @@ Table of Contents
    function is implementation specific.
 
    When the primary path is marked inactive (due to excessive
-   retransmissions, for instance), the sender MAY automatically transmit
+   retransmissions, for instance), the sender <em>MAY</em> automatically transmit
    new packets to an alternate destination address if one exists and is
    active.  If more than one alternate address is active when the
-   primary path is marked inactive, only ONE transport address SHOULD be
+   primary path is marked inactive, only ONE transport address <em>SHOULD</em> be
    chosen and used as the new destination transport address.
 
 
@@ -5857,12 +5857,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.3" href="#section-8.3">8.3</a>.  Path Heartbeat</span>
 
-   By default, an SCTP endpoint SHOULD monitor the reachability of the
+   By default, an SCTP endpoint <em>SHOULD</em> monitor the reachability of the
    idle destination transport address(es) of its peer by sending a
    HEARTBEAT chunk periodically to the destination transport
-   address(es).  HEARTBEAT sending MAY begin upon reaching the
+   address(es).  HEARTBEAT sending <em>MAY</em> begin upon reaching the
    ESTABLISHED state and is discontinued after sending either SHUTDOWN
-   or SHUTDOWN-ACK.  A receiver of a HEARTBEAT MUST respond to a
+   or SHUTDOWN-ACK.  A receiver of a HEARTBEAT <em>MUST</em> respond to a
    HEARTBEAT with a HEARTBEAT-ACK after entering the COOKIE-ECHOED state
    (INIT sender) or the ESTABLISHED state (INIT receiver), up until
    reaching the SHUTDOWN-SENT state (SHUTDOWN sender) or the SHUTDOWN-
@@ -5914,7 +5914,7 @@ Table of Contents
    IMPLEMENTATION NOTE: An alternative implementation of the heartbeat
    mechanism that can be used is to increment the error counter variable
    every time a HEARTBEAT is sent to a destination.  Whenever a
-   HEARTBEAT ACK arrives, the sender SHOULD clear the error counter of
+   HEARTBEAT ACK arrives, the sender <em>SHOULD</em> clear the error counter of
    the destination that the HEARTBEAT was sent to.  This in effect would
    clear the previously stroked error (and any other error counts as
    well).
@@ -5953,7 +5953,7 @@ Table of Contents
    more than one destination is idle).
 
    Note: When tuning the heartbeat interval, there is a side effect that
-   SHOULD be taken into account.  When this value is increased, i.e.,
+   <em>SHOULD</em> be taken into account.  When this value is increased, i.e.,
    the HEARTBEAT takes longer, the detection of lost ABORT messages
    takes longer as well.  If a peer endpoint ABORTs the association for
    any reason and the ABORT chunk is lost, the local endpoint will only
@@ -5978,12 +5978,12 @@ Table of Contents
    <a href="#section-6.8">Section 6.8</a>), but the receiver is not able to identify the
    association to which this packet belongs.
 
-   The receiver of an OOTB packet MUST do the following:
+   The receiver of an OOTB packet <em>MUST</em> do the following:
 
    1)  If the OOTB packet is to or from a non-unicast address, a
-       receiver SHOULD silently discard the packet.  Otherwise,
+       receiver <em>SHOULD</em> silently discard the packet.  Otherwise,
 
-   2)  If the OOTB packet contains an ABORT chunk, the receiver MUST
+   2)  If the OOTB packet contains an ABORT chunk, the receiver <em>MUST</em>
        silently discard the OOTB packet and take no further action.
        Otherwise,
 
@@ -5991,7 +5991,7 @@ Table of Contents
        to '0', process it as described in <a href="#section-5.1">Section 5.1</a>.  If, for whatever
        reason, the INIT cannot be processed normally and an ABORT has to
        be sent in response, the Verification Tag of the packet
-       containing the ABORT chunk MUST be the Initiate Tag of the
+       containing the ABORT chunk <em>MUST</em> be the Initiate Tag of the
        received INIT chunk, and the T bit of the ABORT chunk has to be
        set to 0, indicating that the Verification Tag is NOT reflected.
 
@@ -6025,7 +6025,7 @@ Table of Contents
 
    8)  The receiver should respond to the sender of the OOTB packet with
        an ABORT.  When sending the ABORT, the receiver of the OOTB
-       packet MUST fill in the Verification Tag field of the outbound
+       packet <em>MUST</em> fill in the Verification Tag field of the outbound
        packet with the value found in the Verification Tag field of the
        OOTB packet and set the T bit in the Chunk Flags to indicate that
        the Verification Tag is reflected.  After sending this ABORT, the
@@ -6040,12 +6040,12 @@ Table of Contents
    chunk.  The rules for sending and receiving SCTP packets containing
    one of these chunk types are discussed separately in <a href="#section-8.5.1">Section 8.5.1</a>.
 
-   When sending an SCTP packet, the endpoint MUST fill in the
+   When sending an SCTP packet, the endpoint <em>MUST</em> fill in the
    Verification Tag field of the outbound packet with the tag value in
    the Initiate Tag parameter of the INIT or INIT ACK received from its
    peer.
 
-   When receiving an SCTP packet, the endpoint MUST ensure that the
+   When receiving an SCTP packet, the endpoint <em>MUST</em> ensure that the
    value in the Verification Tag field of the received SCTP packet
    matches its own tag.  If the received Verification Tag value does not
    match the receiver's own tag value, the receiver shall silently
@@ -6056,21 +6056,21 @@ Table of Contents
 
    A) Rules for packet carrying INIT:
 
-   -   The sender MUST set the Verification Tag of the packet to 0.
+   -   The sender <em>MUST</em> set the Verification Tag of the packet to 0.
 
    -   When an endpoint receives an SCTP packet with the Verification
        Tag set to 0, it should verify that the packet contains only an
-       INIT chunk.  Otherwise, the receiver MUST silently discard the
+       INIT chunk.  Otherwise, the receiver <em>MUST</em> silently discard the
        packet.
 
    B) Rules for packet carrying ABORT:
 
-   -   The endpoint MUST always fill in the Verification Tag field of
+   -   The endpoint <em>MUST</em> always fill in the Verification Tag field of
        the outbound packet with the destination endpoint's tag value, if
        it is known.
 
    -   If the ABORT is sent in response to an OOTB packet, the endpoint
-       MUST follow the procedure described in <a href="#section-8.4">Section 8.4</a>.
+       <em>MUST</em> follow the procedure described in <a href="#section-8.4">Section 8.4</a>.
 
 
 
@@ -6079,31 +6079,31 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   -   The receiver of an ABORT MUST accept the packet if the
+   -   The receiver of an ABORT <em>MUST</em> accept the packet if the
        Verification Tag field of the packet matches its own tag and the
        T bit is not set OR if it is set to its peer's tag and the T bit
-       is set in the Chunk Flags.  Otherwise, the receiver MUST silently
+       is set in the Chunk Flags.  Otherwise, the receiver <em>MUST</em> silently
        discard the packet and take no further action.
 
    C) Rules for packet carrying SHUTDOWN COMPLETE:
 
    -   When sending a SHUTDOWN COMPLETE, if the receiver of the SHUTDOWN
-       ACK has a TCB, then the destination endpoint's tag MUST be used,
-       and the T bit MUST NOT be set.  Only where no TCB exists should
+       ACK has a TCB, then the destination endpoint's tag <em>MUST</em> be used,
+       and the T bit <em>MUST NOT</em> be set.  Only where no TCB exists should
        the sender use the Verification Tag from the SHUTDOWN ACK, and
-       MUST set the T bit.
+       <em>MUST</em> set the T bit.
 
    -   The receiver of a SHUTDOWN COMPLETE shall accept the packet if
        the Verification Tag field of the packet matches its own tag and
        the T bit is not set OR if it is set to its peer's tag and the T
-       bit is set in the Chunk Flags.  Otherwise, the receiver MUST
+       bit is set in the Chunk Flags.  Otherwise, the receiver <em>MUST</em>
        silently discard the packet and take no further action.  An
-       endpoint MUST ignore the SHUTDOWN COMPLETE if it is not in the
+       endpoint <em>MUST</em> ignore the SHUTDOWN COMPLETE if it is not in the
        SHUTDOWN-ACK-SENT state.
 
    D) Rules for packet carrying a COOKIE ECHO
 
-   -   When sending a COOKIE ECHO, the endpoint MUST use the value of
+   -   When sending a COOKIE ECHO, the endpoint <em>MUST</em> use the value of
        the Initiate Tag received in the INIT ACK.
 
    -   The receiver of a COOKIE ECHO follows the procedures in <a href="#section-5">Section</a>
@@ -6112,7 +6112,7 @@ Table of Contents
    E) Rules for packet carrying a SHUTDOWN ACK
 
    -   If the receiver is in COOKIE-ECHOED or COOKIE-WAIT state the
-       procedures in <a href="#section-8.4">Section 8.4</a> SHOULD be followed; in other words, it
+       procedures in <a href="#section-8.4">Section 8.4</a> <em>SHOULD</em> be followed; in other words, it
        should be treated as an Out Of The Blue packet.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Termination of Association</span>
@@ -6140,24 +6140,24 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  Abort of an Association</span>
 
-   When an endpoint decides to abort an existing association, it MUST
-   send an ABORT chunk to its peer endpoint.  The sender MUST fill in
-   the peer's Verification Tag in the outbound packet and MUST NOT
+   When an endpoint decides to abort an existing association, it <em>MUST</em>
+   send an ABORT chunk to its peer endpoint.  The sender <em>MUST</em> fill in
+   the peer's Verification Tag in the outbound packet and <em>MUST NOT</em>
    bundle any DATA chunk with the ABORT.  If the association is aborted
    on request of the upper layer, a User-Initiated Abort error cause
-   (see <a href="#section-3.3.10.12">Section 3.3.10.12</a>) SHOULD be present in the ABORT chunk.
+   (see <a href="#section-3.3.10.12">Section 3.3.10.12</a>) <em>SHOULD</em> be present in the ABORT chunk.
 
-   An endpoint MUST NOT respond to any received packet that contains an
+   An endpoint <em>MUST NOT</em> respond to any received packet that contains an
    ABORT chunk (also see <a href="#section-8.4">Section 8.4</a>).
 
-   An endpoint receiving an ABORT MUST apply the special Verification
+   An endpoint receiving an ABORT <em>MUST</em> apply the special Verification
    Tag check rules described in <a href="#section-8.5.1">Section 8.5.1</a>.
 
-   After checking the Verification Tag, the receiving endpoint MUST
-   remove the association from its record and SHOULD report the
+   After checking the Verification Tag, the receiving endpoint <em>MUST</em>
+   remove the association from its record and <em>SHOULD</em> report the
    termination to its upper layer.  If a User-Initiated Abort error
    cause is present in the ABORT chunk, the Upper Layer Abort Reason
-   SHOULD be made available to the upper layer.
+   <em>SHOULD</em> be made available to the upper layer.
 
 <span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  Shutdown of an Association</span>
 
@@ -6179,7 +6179,7 @@ Table of Contents
    state.  If the timer expires, the endpoint must resend the SHUTDOWN
    with the updated last sequential TSN received from its peer.
 
-   The rules in <a href="#section-6.3">Section 6.3</a> MUST be followed to determine the proper
+   The rules in <a href="#section-6.3">Section 6.3</a> <em>MUST</em> be followed to determine the proper
    timer value for T2-shutdown.  To indicate any gaps in TSN, the
    endpoint may also bundle a SACK with the SHUTDOWN chunk in the same
    SCTP packet.
@@ -6194,7 +6194,7 @@ Table of Contents
    An endpoint should limit the number of retransmissions of the
    SHUTDOWN chunk to the protocol parameter 'Association.Max.Retrans'.
    If this threshold is exceeded, the endpoint should destroy the TCB
-   and MUST report the peer endpoint unreachable to the upper layer (and
+   and <em>MUST</em> report the peer endpoint unreachable to the upper layer (and
    thus the association enters the CLOSED state).  The reception of any
    packet from its peer (i.e., as the peer sends all of its queued DATA
    chunks) should clear the endpoint's retransmission count and restart
@@ -6211,34 +6211,34 @@ Table of Contents
       that all its outstanding DATA chunks have been received by the
       SHUTDOWN sender.
 
-   Once an endpoint has reached the SHUTDOWN-RECEIVED state, it MUST NOT
+   Once an endpoint has reached the SHUTDOWN-RECEIVED state, it <em>MUST NOT</em>
    send a SHUTDOWN in response to a ULP request, and should discard
    subsequent SHUTDOWN chunks.
 
    If there are still outstanding DATA chunks left, the SHUTDOWN
-   receiver MUST continue to follow normal data transmission procedures
+   receiver <em>MUST</em> continue to follow normal data transmission procedures
    defined in <a href="#section-6">Section 6</a>, until all outstanding DATA chunks are
-   acknowledged; however, the SHUTDOWN receiver MUST NOT accept new data
+   acknowledged; however, the SHUTDOWN receiver <em>MUST NOT</em> accept new data
    from its SCTP user.
 
-   While in the SHUTDOWN-SENT state, the SHUTDOWN sender MUST
+   While in the SHUTDOWN-SENT state, the SHUTDOWN sender <em>MUST</em>
    immediately respond to each received packet containing one or more
    DATA chunks with a SHUTDOWN chunk and restart the T2-shutdown timer.
    If a SHUTDOWN chunk by itself cannot acknowledge all of the received
    DATA chunks (i.e., there are TSNs that can be acknowledged that are
    larger than the cumulative TSN, and thus gaps exist in the TSN
    sequence), or if duplicate TSNs have been received, then a SACK chunk
-   MUST also be sent.
+   <em>MUST</em> also be sent.
 
-   The sender of the SHUTDOWN MAY also start an overall guard timer
+   The sender of the SHUTDOWN <em>MAY</em> also start an overall guard timer
    'T5-shutdown-guard' to bound the overall time for the shutdown
-   sequence.  At the expiration of this timer, the sender SHOULD abort
+   sequence.  At the expiration of this timer, the sender <em>SHOULD</em> abort
    the association by sending an ABORT chunk.  If the 'T5-shutdown-
-   guard' timer is used, it SHOULD be set to the recommended value of 5
+   guard' timer is used, it <em>SHOULD</em> be set to the recommended value of 5
    times 'RTO.Max'.
 
    If the receiver of the SHUTDOWN has no more outstanding DATA chunks,
-   the SHUTDOWN receiver MUST send a SHUTDOWN ACK and start a T2-
+   the SHUTDOWN receiver <em>MUST</em> send a SHUTDOWN ACK and start a T2-
 
 
 
@@ -6268,7 +6268,7 @@ Table of Contents
    all knowledge of the association (and thus the association enters the
    CLOSED state).
 
-   An endpoint SHOULD ensure that all its outstanding DATA chunks have
+   An endpoint <em>SHOULD</em> ensure that all its outstanding DATA chunks have
    been acknowledged before initiating the shutdown procedure.
 
    An endpoint should reject any new data request from its upper layer
@@ -6304,7 +6304,7 @@ Table of Contents
 
 
    If a SHUTDOWN is received in the COOKIE-WAIT or COOKIE ECHOED state,
-   the SHUTDOWN chunk SHOULD be silently discarded.
+   the SHUTDOWN chunk <em>SHOULD</em> be silently discarded.
 
    If an endpoint is in the SHUTDOWN-SENT state and receives a SHUTDOWN
    chunk from its peer, the endpoint shall respond immediately with a
@@ -6555,7 +6555,7 @@ Table of Contents
       message).
 
    o  no-bundle flag - instructs SCTP not to bundle this user data with
-      other outbound DATA chunks.  SCTP MAY still bundle even when this
+      other outbound DATA chunks.  SCTP <em>MAY</em> still bundle even when this
       flag is present, when faced with network congestion.
 
    o  payload protocol-id - a 32-bit unsigned integer that is to be
@@ -6644,7 +6644,7 @@ Table of Contents
 
    o  partial flag - if this returned flag is set to 1, then this
       Receive contains a partial delivery of the whole message.  When
-      this flag is set, the stream id and Stream Sequence Number MUST
+      this flag is set, the stream id and Stream Sequence Number <em>MUST</em>
       accompany this receive.  When this flag is set to 0, it indicates
       that no more deliveries will be received for this Stream Sequence
       Number.
@@ -6840,7 +6840,7 @@ Table of Contents
 
    o  partial flag - if this returned flag is set to 1, then this
       message is a partial delivery of the whole message.  When this
-      flag is set, the stream id and Stream Sequence Number MUST
+      flag is set, the stream id and Stream Sequence Number <em>MUST</em>
       accompany this receive.  When this flag is set to 0, it indicates
       that no more deliveries will be received for this Stream Sequence
       Number.
@@ -6881,7 +6881,7 @@ Table of Contents
 
    o  partial flag - if this returned flag is set to 1, then this
       message is a partial delivery of the whole message.  When this
-      flag is set, the stream id and Stream Sequence Number MUST
+      flag is set, the stream id and Stream Sequence Number <em>MUST</em>
       accompany this receive.  When this flag is set to 0, it indicates
       that no more deliveries will be received for this Stream Sequence
       Number.
@@ -7119,7 +7119,7 @@ Table of Contents
    significant risk of deliberate attacks from a sophisticated
    adversary.
 
-   The SCTP Authentication extension SCTP-AUTH [<a href="./rfc4895.html" title="&quot;Authenticated Chunks for Stream Control Transmission Protocol (SCTP)&quot;">RFC4895</a>] MAY be used
+   The SCTP Authentication extension SCTP-AUTH [<a href="./rfc4895.html" title="&quot;Authenticated Chunks for Stream Control Transmission Protocol (SCTP)&quot;">RFC4895</a>] <em>MAY</em> be used
    when the threat environment requires stronger integrity protections,
    but does not require confidentiality.
 
@@ -7129,8 +7129,8 @@ Table of Contents
    signaling data payload, not to the SCTP or lower-layer protocol
    overheads.  If that is true, encryption of the SCTP user data only
    might be considered.  As with the supplementary checksum service,
-   user data encryption MAY be performed by the SCTP user application.
-   Alternately, the user application MAY use an implementation-specific
+   user data encryption <em>MAY</em> be performed by the SCTP user application.
+   Alternately, the user application <em>MAY</em> use an implementation-specific
    API to request that the IP Encapsulating Security Payload (ESP)
    [<a href="./rfc4303.html" title="&quot;IP Encapsulating Security Payload (ESP)&quot;">RFC4303</a>] be used to provide confidentiality and integrity.
 
@@ -7145,17 +7145,17 @@ Table of Contents
 
    Particularly for mobile users, the requirement for confidentiality
    might include the masking of IP addresses and ports.  In this case,
-   ESP SHOULD be used instead of application-level confidentiality.  If
+   ESP <em>SHOULD</em> be used instead of application-level confidentiality.  If
    ESP is used to protect confidentiality of SCTP traffic, an ESP
    cryptographic transform that includes cryptographic integrity
-   protection MUST be used, because if there is a confidentiality threat
+   protection <em>MUST</em> be used, because if there is a confidentiality threat
    there will also be a strong integrity threat.
 
    Whenever ESP is in use, application-level encryption is not generally
    required.
 
    Regardless of where confidentiality is provided, the Internet Key
-   Exchange Protocol version 2 (IKEv2) [<a href="./rfc4306.html" title="&quot;Internet Key Exchange (IKEv2) Protocol&quot;">RFC4306</a>] SHOULD be used for key
+   Exchange Protocol version 2 (IKEv2) [<a href="./rfc4306.html" title="&quot;Internet Key Exchange (IKEv2) Protocol&quot;">RFC4306</a>] <em>SHOULD</em> be used for key
    management.
 
    Operators should consult [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>] for more information on the
@@ -7232,7 +7232,7 @@ Table of Contents
    this type of attack is to verify that the IP addresses received from
    DNS include the source IP address of the original INIT.  If the list
    of IP addresses received from DNS does not include the source IP
-   address of the INIT, the endpoint MAY silently discard the INIT.
+   address of the INIT, the endpoint <em>MAY</em> silently discard the INIT.
    This last option will not protect against the attack against the DNS.
 
 <span class="h5"><a class="selflink" name="section-11.2.4.2" href="#section-11.2.4.2">11.2.4.2</a>.  Blind Masquerade</span>
@@ -7302,7 +7302,7 @@ Table of Contents
    fragment of a fragmented SCTP packet and unambiguously determine
    whether it corresponds to an INIT chunk (for further information,
    please refer to [<a href="./rfc1858.html" title="&quot;Security Considerations for IP Fragment Filtering&quot;">RFC1858</a>]).  Accordingly, we stress the requirements,
-   stated in <a href="#section-3.1">Section 3.1</a>, that (1) an INIT chunk MUST NOT be bundled
+   stated in <a href="#section-3.1">Section 3.1</a>, that (1) an INIT chunk <em>MUST NOT</em> be bundled
 
 
 
@@ -7312,8 +7312,8 @@ Table of Contents
 
 
    with any other chunk in a packet, and (2) a packet containing an INIT
-   chunk MUST have a zero Verification Tag.  Furthermore, we require
-   that the receiver of an INIT chunk MUST enforce these rules by
+   chunk <em>MUST</em> have a zero Verification Tag.  Furthermore, we require
+   that the receiver of an INIT chunk <em>MUST</em> enforce these rules by
    silently discarding an arriving packet  with an INIT chunk that is
    bundled with other chunks or has a non-zero verification tag and
    contains an INIT-chunk.
@@ -7321,31 +7321,31 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-11.4" href="#section-11.4">11.4</a>.  Protection of Non-SCTP-Capable Hosts</span>
 
    To provide a non-SCTP-capable host with the same level of protection
-   against attacks as for SCTP-capable ones, all SCTP stacks MUST
+   against attacks as for SCTP-capable ones, all SCTP stacks <em>MUST</em>
    implement the ICMP handling described in <a href="#appendix-C">Appendix C</a>.
 
    When an SCTP stack receives a packet containing multiple control or
    DATA chunks and the processing of the packet requires the sending of
-   multiple chunks in response, the sender of the response chunk(s) MUST
+   multiple chunks in response, the sender of the response chunk(s) <em>MUST</em>
    NOT send more than one packet.  If bundling is supported, multiple
-   response chunks that fit into a single packet MAY be bundled together
+   response chunks that fit into a single packet <em>MAY</em> be bundled together
    into one single response packet.  If bundling is not supported, then
-   the sender MUST NOT send more than one response chunk and MUST
+   the sender <em>MUST NOT</em> send more than one response chunk and <em>MUST</em>
    discard all other responses.  Note that this rule does NOT apply to a
    SACK chunk, since a SACK chunk is, in itself, a response to DATA and
    a SACK does not require a response of more DATA.
 
-   An SCTP implementation SHOULD abort the association if it receives a
+   An SCTP implementation <em>SHOULD</em> abort the association if it receives a
    SACK acknowledging a TSN that has not been sent.
 
    An SCTP implementation that receives an INIT that would require a
    large packet in response, due to the inclusion of multiple ERROR
-   parameters, MAY (at its discretion) elect to omit some or all of the
+   parameters, <em>MAY</em> (at its discretion) elect to omit some or all of the
    ERROR parameters to reduce the size of the INIT ACK.  Due to a
    combination of the size of the COOKIE parameter and the number of
    addresses a receiver of an INIT may be indicating to a peer, it is
    always possible that the INIT ACK will be larger than the original
-   INIT.  An SCTP implementation SHOULD attempt to make the INIT ACK as
+   INIT.  An SCTP implementation <em>SHOULD</em> attempt to make the INIT ACK as
    small as possible to reduce the possibility of byte amplification
    attacks.
 
@@ -7387,7 +7387,7 @@ Table of Contents
                  SCTP is implemented.
 
    Secret Key:   A secret key used by this endpoint to compute the MAC.
-                 This SHOULD be a cryptographic quality random number
+                 This <em>SHOULD</em> be a cryptographic quality random number
                  with a sufficient length.  Discussion in <a href="./rfc4086.html">RFC 4086</a> can
                  be helpful in selection of the key.
 
@@ -7414,7 +7414,7 @@ Table of Contents
                : SHUTDOWN-ACK-SENT.
 
                  Note: No "CLOSED" state is illustrated since if a
-                 association is "CLOSED" its TCB SHOULD be removed.
+                 association is "CLOSED" its TCB <em>SHOULD</em> be removed.
 
 
 
@@ -7575,11 +7575,11 @@ Table of Contents
 
    The assignment of new chunk parameter type codes is done through an
    IETF Consensus action, as defined in [<a href="./rfc2434.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC2434</a>].  Documentation of the
-   chunk parameter MUST contain the following information:
+   chunk parameter <em>MUST</em> contain the following information:
 
    a) A long and short name for the new chunk type.
 
-   b) A detailed description of the structure of the chunk, which MUST
+   b) A detailed description of the structure of the chunk, which <em>MUST</em>
       conform to the basic structure defined in <a href="#section-3.2">Section 3.2</a>.
 
 
@@ -7604,12 +7604,12 @@ Table of Contents
 
    The assignment of new chunk parameter type codes is done through an
    IETF Consensus action as defined in [<a href="./rfc2434.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC2434</a>].  Documentation of the
-   chunk parameter MUST contain the following information:
+   chunk parameter <em>MUST</em> contain the following information:
 
    a) Name of the parameter type.
 
    b) Detailed description of the structure of the parameter field.
-      This structure MUST conform to the general Type-Length-Value
+      This structure <em>MUST</em> conform to the general Type-Length-Value
       format described in <a href="#section-3.2.1">Section 3.2.1</a>.
 
    c) Detailed definition of each component of the parameter value.
@@ -7619,7 +7619,7 @@ Table of Contents
       instances of this parameter type may be found within the same
       chunk.
 
-   e) Each parameter type MUST be unique across all chunks.
+   e) Each parameter type <em>MUST</em> be unique across all chunks.
 
 <span class="h3"><a class="selflink" name="section-14.3" href="#section-14.3">14.3</a>.  IETF-Defined Additional Error Causes</span>
 
@@ -7647,7 +7647,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4960.html">RFC 4960</a>          Stream Control Transmission Protocol    September 2007</span>
 
 
-   The initial word (32 bits) of a cause code parameter MUST conform to
+   The initial word (32 bits) of a cause code parameter <em>MUST</em> conform to
    the format shown in <a href="#section-3.3.10">Section 3.3.10</a>, i.e.:
 
    -  first 2 bytes contain the cause code value
@@ -7661,7 +7661,7 @@ Table of Contents
    protocol identifiers; SCTP simply receives the identifier from the
    upper layer and carries it with the corresponding payload data.
 
-   The upper layer, i.e., the SCTP user, SHOULD standardize any specific
+   The upper layer, i.e., the SCTP user, <em>SHOULD</em> standardize any specific
    protocol identifier with IANA if it is so desired.  The use of any
    specific payload protocol identifier is out of the scope of SCTP.
 
@@ -7686,11 +7686,11 @@ Table of Contents
    or programs executed by ordinary users.  Dynamic and/or Private Ports
    are intended for temporary use, including client-side ports, out-of-
    band negotiated ports, and application testing prior to registration
-   of a dedicated port; they MUST NOT be registered.
+   of a dedicated port; they <em>MUST NOT</em> be registered.
 
    The Port Numbers registry should accept registrations for SCTP ports
    in the Well Known Ports and Registered Ports ranges.  Well Known and
-   Registered Ports SHOULD NOT be used without registration.  Although
+   Registered Ports <em>SHOULD NOT</em> be used without registration.  Although
    in some cases -- such as porting an application from TCP to SCTP --
    it may seem natural to use an SCTP port before registration
    completes, we emphasize that IANA will not guarantee registration of
@@ -7706,7 +7706,7 @@ Table of Contents
    particular Well Known and Registered Ports.  Registrations should be
    requested as early as possible.
 
-   Each port registration SHALL include the following information:
+   Each port registration <em>SHALL</em> include the following information:
 
    o  A short port name, consisting entirely of letters (A-Z and a-z),
       digits (0-9), and punctuation characters from "-_+./*" (not
@@ -7725,15 +7725,15 @@ Table of Contents
    Registrants are encouraged to follow these guidelines when submitting
    a registration.
 
-   o  A port name SHOULD NOT be registered for more than one SCTP port
+   o  A port name <em>SHOULD NOT</em> be registered for more than one SCTP port
       number.
 
-   o  A port name registered for TCP MAY be registered for SCTP as well.
-      Any such registration SHOULD use the same port number as the
+   o  A port name registered for TCP <em>MAY</em> be registered for SCTP as well.
+      Any such registration <em>SHOULD</em> use the same port number as the
       existing TCP registration.
 
-   o  Concrete intent to use a port SHOULD precede port registration.
-      For example, existing TCP ports SHOULD NOT be registered in
+   o  Concrete intent to use a port <em>SHOULD</em> precede port registration.
+      For example, existing TCP ports <em>SHOULD NOT</em> be registered in
       advance of any intent to use those ports for SCTP.
 
       This document registers the following ports.  (These registrations
@@ -7797,7 +7797,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-15" href="#section-15">15</a>.  Suggested SCTP Protocol Parameter Values</span>
 
-   The following protocol parameters are RECOMMENDED:
+   The following protocol parameters are <em>RECOMMENDED</em>:
 
       RTO.Initial - 3 seconds
       RTO.Min - 1 second
@@ -7823,7 +7823,7 @@ Table of Contents
    IMPLEMENTATION NOTE: The SCTP implementation may allow ULP to
    customize some of these protocol parameters (see <a href="#section-10">Section 10</a>).
 
-   Note: RTO.Min SHOULD be set as recommended above.
+   Note: RTO.Min <em>SHOULD</em> be set as recommended above.
 
 <span class="h2"><a class="selflink" name="section-16" href="#section-16">16</a>.  Acknowledgements</span>
 
@@ -7931,7 +7931,7 @@ Table of Contents
 
    ECN [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>] describes a proposed extension to IP that details a
    method to become aware of congestion outside of datagram loss.  This
-   is an optional feature that an implementation MAY choose to add to
+   is an optional feature that an implementation <em>MAY</em> choose to add to
    SCTP.  This appendix details the minor differences implementers will
    need to be aware of if they choose to implement this feature.  In
    general, [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>] should be followed with the following exceptions.
@@ -7943,7 +7943,7 @@ Table of Contents
    TCP flags, and the sender of the SYN-ACK sets only 1 bit.  The
    reasoning behind this is to ensure that both sides are truly ECN
    capable.  For SCTP, this is not necessary.  To indicate that an
-   endpoint is ECN capable, an endpoint SHOULD add to the INIT and or
+   endpoint is ECN capable, an endpoint <em>SHOULD</em> add to the INIT and or
    INIT ACK chunk the TLV reserved for ECN.  This TLV contains no
    parameters, and thus has the following format:
 
@@ -8112,30 +8112,30 @@ Table of Contents
 <span class="h2"><a class="selflink" name="appendix-C" href="#appendix-C">Appendix C</a>.  ICMP Handling</span>
 
    Whenever an ICMP message is received by an SCTP endpoint, the
-   following procedures MUST be followed to ensure proper utilization of
+   following procedures <em>MUST</em> be followed to ensure proper utilization of
    the information being provided by layer 3.
 
-   ICMP1) An implementation MAY ignore all ICMPv4 messages where the
+   ICMP1) An implementation <em>MAY</em> ignore all ICMPv4 messages where the
           type field is not set to "Destination Unreachable".
 
-   ICMP2) An implementation MAY ignore all ICMPv6 messages where the
+   ICMP2) An implementation <em>MAY</em> ignore all ICMPv6 messages where the
           type field is not "Destination Unreachable", "Parameter
           Problem",, or "Packet Too Big".
 
-   ICMP3) An implementation MAY ignore any ICMPv4 messages where the
+   ICMP3) An implementation <em>MAY</em> ignore any ICMPv4 messages where the
           code does not indicate "Protocol Unreachable" or
           "Fragmentation Needed".
 
-   ICMP4) An implementation MAY ignore all ICMPv6 messages of type
+   ICMP4) An implementation <em>MAY</em> ignore all ICMPv6 messages of type
           "Parameter Problem" if the code is not "Unrecognized Next
           Header Type Encountered".
 
-   ICMP5) An implementation MUST use the payload of the ICMP message (v4
+   ICMP5) An implementation <em>MUST</em> use the payload of the ICMP message (v4
           or v6) to locate the association that sent the message to
           which ICMP is responding.  If the association cannot be found,
-          an implementation SHOULD ignore the ICMP message.
+          an implementation <em>SHOULD</em> ignore the ICMP message.
 
-   ICMP6) An implementation MUST validate that the Verification Tag
+   ICMP6) An implementation <em>MUST</em> validate that the Verification Tag
           contained in the ICMP message matches the Verification Tag of
           the peer.  If the Verification Tag is not 0 and does NOT
           match, discard the ICMP message.  If it is 0 and the ICMP
@@ -8156,23 +8156,23 @@ Table of Contents
           discard the packet.
 
    ICMP7) If the ICMP message is either a v6 "Packet Too Big" or a v4
-          "Fragmentation Needed", an implementation MAY process this
+          "Fragmentation Needed", an implementation <em>MAY</em> process this
           information as defined for PATH MTU discovery.
 
    ICMP8) If the ICMP code is an "Unrecognized Next Header Type
           Encountered" or a "Protocol Unreachable", an implementation
-          MUST treat this message as an abort with the T bit set if it
+          <em>MUST</em> treat this message as an abort with the T bit set if it
           does not contain an INIT chunk.  If it does contain an INIT
           chunk and the association is in the COOKIE-WAIT state, handle
           the ICMP message like an ABORT.
 
    ICMP9) If the ICMPv6 code is "Destination Unreachable", the
-          implementation MAY mark the destination into the unreachable
+          implementation <em>MAY</em> mark the destination into the unreachable
           state or alternatively increment the path error counter.
 
    Note that these procedures differ from [<a href="./rfc1122.html" title="&quot;Requirements for Internet Hosts - Communication Layers&quot;">RFC1122</a>] and from its
    requirements for processing of port-unreachable messages and the
-   requirements that an implementation MUST abort associations in
+   requirements that an implementation <em>MUST</em> abort associations in
    response to a "protocol unreachable" message.  Port-unreachable
    messages are not processed, since an implementation will send an
    ABORT, not a port unreachable.  The stricter handling of the

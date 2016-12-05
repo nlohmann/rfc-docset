@@ -369,7 +369,7 @@ Table of Contents
    that controls storage, retrieval, and deletion of messages in it.  A
    cache stores cacheable responses in order to reduce the response time
    and network bandwidth consumption on future, equivalent requests.
-   Any client or server MAY employ a cache, though a cache cannot be
+   Any client or server <em>MAY</em> employ a cache, though a cache cannot be
    used by a server that is acting as a tunnel.
 
    A shared cache is a cache that stores responses to be reused by more
@@ -391,8 +391,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conformance and Error Handling</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Conformance criteria and considerations regarding error handling are
@@ -429,7 +429,7 @@ Table of Contents
    form ought to use an arithmetic type of at least 31 bits of
    non-negative integer range.  If a cache receives a delta-seconds
    value greater than the greatest integer it can represent, or if any
-   of its subsequent calculations overflows, the cache MUST consider the
+   of its subsequent calculations overflows, the cache <em>MUST</em> consider the
    value to be either 2147483648 (2^31) or the greatest positive integer
    it can conveniently represent.
 
@@ -446,7 +446,7 @@ Table of Contents
 
    Proper cache operation preserves the semantics of HTTP transfers
    ([<a href="./rfc7231.html" title="&quot;Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content&quot;">RFC7231</a>]) while eliminating the transfer of information already
-   held in the cache.  Although caching is an entirely OPTIONAL feature
+   held in the cache.  Although caching is an entirely <em>OPTIONAL</em> feature
    of HTTP, it can be assumed that reusing a cached response is
    desirable and that such reuse is the default behavior when no
    requirement or local configuration prevents it.  Therefore, HTTP
@@ -486,7 +486,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Storing Responses in Caches</span>
 
-   A cache MUST NOT store a response to any request, unless:
+   A cache <em>MUST NOT</em> store a response to any request, unless:
 
    o  The request method is understood by the cache and defined as being
       cacheable, and
@@ -546,26 +546,26 @@ Table of Contents
    indicated by the message framing ([<a href="./rfc7230.html" title="&quot;Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing&quot;">RFC7230</a>]) are received prior to
    the connection being closed.  If the request method is GET, the
    response status code is 200 (OK), and the entire response header
-   section has been received, a cache MAY store an incomplete response
+   section has been received, a cache <em>MAY</em> store an incomplete response
    message body if the cache entry is recorded as incomplete.  Likewise,
-   a 206 (Partial Content) response MAY be stored as if it were an
-   incomplete 200 (OK) cache entry.  However, a cache MUST NOT store
+   a 206 (Partial Content) response <em>MAY</em> be stored as if it were an
+   incomplete 200 (OK) cache entry.  However, a cache <em>MUST NOT</em> store
    incomplete or partial-content responses if it does not support the
    Range and Content-Range header fields or if it does not understand
    the range units used in those fields.
 
-   A cache MAY complete a stored incomplete response by making a
+   A cache <em>MAY</em> complete a stored incomplete response by making a
    subsequent range request ([<a href="./rfc7233.html" title="&quot;Hypertext Transfer Protocol (HTTP/1.1): Range Requests&quot;">RFC7233</a>]) and combining the successful
    response with the stored entry, as defined in <a href="#section-3.3">Section 3.3</a>.  A cache
-   MUST NOT use an incomplete response to answer requests unless the
+   <em>MUST NOT</em> use an incomplete response to answer requests unless the
    response has been made complete or the request is partial and
    specifies a range that is wholly within the incomplete response.  A
-   cache MUST NOT send a partial response to a client without explicitly
+   cache <em>MUST NOT</em> send a partial response to a client without explicitly
    marking it as such using the 206 (Partial Content) status code.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Storing Responses to Authenticated Requests</span>
 
-   A shared cache MUST NOT use a cached response to a request with an
+   A shared cache <em>MUST NOT</em> use a cached response to a request with an
    Authorization header field (<a href="./rfc7235.html#section-4.2">Section&nbsp;4.2 of [RFC7235]</a>) to satisfy any
    subsequent request unless a cache directive that allows such
    responses to be stored is present in the response.
@@ -595,13 +595,13 @@ Table of Contents
    connection closed prematurely or if the request used one or more
    Range specifiers ([<a href="./rfc7233.html" title="&quot;Hypertext Transfer Protocol (HTTP/1.1): Range Requests&quot;">RFC7233</a>]).  After several such transfers, a cache
    might have received several ranges of the same representation.  A
-   cache MAY combine these ranges into a single stored response, and
+   cache <em>MAY</em> combine these ranges into a single stored response, and
    reuse that response to satisfy later requests, if they all share the
    same strong validator and the cache complies with the client
    requirements in <a href="./rfc7233.html#section-4.3">Section&nbsp;4.3 of [RFC7233]</a>.
 
    When combining the new response with one or more stored responses, a
-   cache MUST:
+   cache <em>MUST</em>:
 
    o  delete any Warning header fields in the stored response with
       warn-code 1xx (see <a href="#section-5.5">Section 5.5</a>);
@@ -615,7 +615,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Constructing Responses from Caches</span>
 
-   When presented with a request, a cache MUST NOT reuse a stored
+   When presented with a request, a cache <em>MUST NOT</em> reuse a stored
    response, unless:
 
    o  The presented effective request URI (<a href="./rfc7230.html#section-5.5">Section&nbsp;5.5 of [RFC7230]</a>) and
@@ -659,11 +659,11 @@ Table of Contents
    cache-control extension; see <a href="#section-5.2.3">Section 5.2.3</a>.
 
    When a stored response is used to satisfy a request without
-   validation, a cache MUST generate an Age header field (<a href="#section-5.1">Section 5.1</a>),
+   validation, a cache <em>MUST</em> generate an Age header field (<a href="#section-5.1">Section 5.1</a>),
    replacing any present in the response with a value equal to the
    stored response's current_age; see <a href="#section-4.2.3">Section 4.2.3</a>.
 
-   A cache MUST write through requests with methods that are unsafe
+   A cache <em>MUST</em> write through requests with methods that are unsafe
    (<a href="./rfc7231.html#section-4.2.1">Section&nbsp;4.2.1 of [RFC7231]</a>) to the origin server; i.e., a cache is
    not allowed to generate a reply to such a request before having
    forwarded the request and having received a corresponding response.
@@ -671,19 +671,19 @@ Table of Contents
    Also, note that unsafe requests might invalidate already-stored
    responses; see <a href="#section-4.4">Section 4.4</a>.
 
-   When more than one suitable response is stored, a cache MUST use the
+   When more than one suitable response is stored, a cache <em>MUST</em> use the
    most recent response (as determined by the Date header field).  It
    can also forward the request with "Cache-Control: max-age=0" or
    "Cache-Control: no-cache" to disambiguate which response to use.
 
-   A cache that does not have a clock available MUST NOT use stored
+   A cache that does not have a clock available <em>MUST NOT</em> use stored
    responses without revalidating them upon every use.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Calculating Secondary Keys with Vary</span>
 
    When a cache receives a request that can be satisfied by a stored
    response that has a Vary header field (<a href="./rfc7231.html#section-7.1.4">Section&nbsp;7.1.4 of [RFC7231]</a>),
-   it MUST NOT use that response unless all of the selecting header
+   it <em>MUST NOT</em> use that response unless all of the selecting header
 
 
 
@@ -727,7 +727,7 @@ Table of Contents
    responses without a Vary header field), the cache will need to choose
    one to use.  When a selecting header field has a known mechanism for
    doing so (e.g., qvalues on Accept and similar request header fields),
-   that mechanism MAY be used to select preferred responses; of the
+   that mechanism <em>MAY</em> be used to select preferred responses; of the
    remainder, the most recent response (as determined by the Date header
    field) is used, as per <a href="#section-4">Section 4</a>.
 
@@ -809,18 +809,18 @@ Table of Contents
    When calculating freshness, to avoid common problems in date parsing:
 
    o  Although all date formats are specified to be case-sensitive, a
-      cache recipient SHOULD match day, week, and time-zone names
+      cache recipient <em>SHOULD</em> match day, week, and time-zone names
       case-insensitively.
 
    o  If a cache recipient's internal implementation of time has less
-      resolution than the value of an HTTP-date, the recipient MUST
+      resolution than the value of an HTTP-date, the recipient <em>MUST</em>
       internally represent a parsed Expires date as the nearest time
       equal to or earlier than the received value.
 
-   o  A cache recipient MUST NOT allow local time zones to influence the
+   o  A cache recipient <em>MUST NOT</em> allow local time zones to influence the
       calculation or comparison of an age or expiration time.
 
-   o  A cache recipient SHOULD consider a date with a zone abbreviation
+   o  A cache recipient <em>SHOULD</em> consider a date with a zone abbreviation
       other than GMT or UTC to be invalid for calculating expiration.
 
    Note that freshness applies only to cache operation; it cannot be
@@ -871,13 +871,13 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  Calculating Heuristic Freshness</span>
 
    Since origin servers do not always provide explicit expiration times,
-   a cache MAY assign a heuristic expiration time when an explicit time
+   a cache <em>MAY</em> assign a heuristic expiration time when an explicit time
    is not specified, employing algorithms that use other header field
    values (such as the Last-Modified time) to estimate a plausible
    expiration time.  This specification does not provide specific
    algorithms, but does impose worst-case constraints on their results.
 
-   A cache MUST NOT use heuristics to determine freshness when an
+   A cache <em>MUST NOT</em> use heuristics to determine freshness when an
    explicit expiration time is present in the stored response.  Because
    of the requirements in <a href="#section-3">Section 3</a>, this means that, effectively,
    heuristics can only be used on responses without explicit freshness
@@ -892,7 +892,7 @@ Table of Contents
    A typical setting of this fraction might be 10%.
 
    When a heuristic is used to calculate freshness lifetime, a cache
-   SHOULD generate a Warning header field with a 113 warn-code (see
+   <em>SHOULD</em> generate a Warning header field with a 113 warn-code (see
    <a href="#section-5.5.4">Section 5.5.4</a>) in the response if its current_age is more than 24
    hours and such a warning is not already present.
 
@@ -962,7 +962,7 @@ Table of Contents
        zero.
 
    2.  the "corrected_age_value", if all of the caches along the
-       response path implement HTTP/1.1.  A cache MUST interpret this
+       response path implement HTTP/1.1.  A cache <em>MUST</em> interpret this
        value relative to the time the request was initiated, not the
        time that the response was received.
 
@@ -985,7 +985,7 @@ Table of Contents
 
    unless the cache is confident in the value of the Age header field
    (e.g., because there are no HTTP/1.0 hops in the Via header field),
-   in which case the corrected_age_value MAY be used as the
+   in which case the corrected_age_value <em>MAY</em> be used as the
    corrected_initial_age.
 
    The current_age of a stored response can then be calculated by adding
@@ -1001,23 +1001,23 @@ Table of Contents
    or is allowed to have heuristic expiry calculated, but is not fresh
    according to the calculations in <a href="#section-4.2">Section 4.2</a>.
 
-   A cache MUST NOT generate a stale response if it is prohibited by an
+   A cache <em>MUST NOT</em> generate a stale response if it is prohibited by an
    explicit in-protocol directive (e.g., by a "no-store" or "no-cache"
    cache directive, a "must-revalidate" cache-response-directive, or an
    applicable "s-maxage" or "proxy-revalidate" cache-response-directive;
    see <a href="#section-5.2.2">Section 5.2.2</a>).
 
-   A cache MUST NOT send stale responses unless it is disconnected
+   A cache <em>MUST NOT</em> send stale responses unless it is disconnected
    (i.e., it cannot contact the origin server or otherwise find a
    forward path) or doing so is explicitly allowed (e.g., by the
    max-stale request directive; see <a href="#section-5.2.1">Section 5.2.1</a>).
 
-   A cache SHOULD generate a Warning header field with the 110 warn-code
-   (see <a href="#section-5.5.1">Section 5.5.1</a>) in stale responses.  Likewise, a cache SHOULD
+   A cache <em>SHOULD</em> generate a Warning header field with the 110 warn-code
+   (see <a href="#section-5.5.1">Section 5.5.1</a>) in stale responses.  Likewise, a cache <em>SHOULD</em>
    generate a 112 warn-code (see <a href="#section-5.5.3">Section 5.5.3</a>) in stale responses if
    the cache is disconnected.
 
-   A cache SHOULD NOT generate a new Warning header field when
+   A cache <em>SHOULD NOT</em> generate a new Warning header field when
    forwarding a response that does not have an Age header field, even if
    the response is already stale.  A cache need not validate a response
    that merely became stale in transit.
@@ -1075,9 +1075,9 @@ Table of Contents
 
    If a cache receives a request that can be satisfied by reusing one of
    its stored 200 (OK) or 206 (Partial Content) responses, the cache
-   SHOULD evaluate any applicable conditional header field preconditions
+   <em>SHOULD</em> evaluate any applicable conditional header field preconditions
    received in that request with respect to the corresponding validators
-   contained within the selected response.  A cache MUST NOT evaluate
+   contained within the selected response.  A cache <em>MUST NOT</em> evaluate
 
 
 
@@ -1104,21 +1104,21 @@ Table of Contents
    is selected by the cache.  If the field-value is "*", or if the
    field-value is a list of entity-tags and at least one of them matches
    the entity-tag of the selected stored response, a cache recipient
-   SHOULD generate a 304 (Not Modified) response (using the metadata of
+   <em>SHOULD</em> generate a 304 (Not Modified) response (using the metadata of
    the selected stored response) instead of sending that stored
    response.
 
    When a cache decides to revalidate its own stored responses for a
    request that contains an If-None-Match list of entity-tags, the cache
-   MAY combine the received list with a list of entity-tags from its own
+   <em>MAY</em> combine the received list with a list of entity-tags from its own
    stored set of responses (fresh or stale) and send the union of the
    two lists as a replacement If-None-Match header field value in the
    forwarded request.  If a stored response contains only partial
-   content, the cache MUST NOT include its entity-tag in the union
+   content, the cache <em>MUST NOT</em> include its entity-tag in the union
    unless the request is for a range that would be fully satisfied by
    that partial stored response.  If the response to the forwarded
    request is 304 (Not Modified) and has an ETag header field value with
-   an entity-tag that is not in the client's list, the cache MUST
+   an entity-tag that is not in the client's list, the cache <em>MUST</em>
    generate a 200 (OK) response for the client by reusing its
    corresponding stored response, as updated by the 304 response
    metadata (<a href="#section-4.3.4">Section 4.3.4</a>).
@@ -1126,7 +1126,7 @@ Table of Contents
    If an If-None-Match header field is not present, a request containing
    an If-Modified-Since header field (<a href="./rfc7232.html#section-3.3">Section&nbsp;3.3 of [RFC7232]</a>)
    indicates that the client wants to validate one or more of its own
-   stored responses by modification date.  A cache recipient SHOULD
+   stored responses by modification date.  A cache recipient <em>SHOULD</em>
    generate a 304 (Not Modified) response (using the metadata of the
    selected stored response) if one of the following cases is true: 1)
    the selected stored response has a Last-Modified field-value that is
@@ -1161,13 +1161,13 @@ Table of Contents
 
    o  A full response (i.e., one with a payload body) indicates that
       none of the stored responses nominated in the conditional request
-      is suitable.  Instead, the cache MUST use the full response to
-      satisfy the request and MAY replace the stored response(s).
+      is suitable.  Instead, the cache <em>MUST</em> use the full response to
+      satisfy the request and <em>MAY</em> replace the stored response(s).
 
    o  However, if a cache receives a 5xx (Server Error) response while
       attempting to validate a response, it can either forward this
       response to the requesting client, or act as if the server failed
-      to respond.  In the latter case, the cache MAY send a previously
+      to respond.  In the latter case, the cache <em>MAY</em> send a previously
       stored response (see <a href="#section-4.2.4">Section 4.2.4</a>).
 
 <span class="h4"><a class="selflink" name="section-4.3.4" href="#section-4.3.4">4.3.4</a>.  Freshening Stored Responses upon Validation</span>
@@ -1185,7 +1185,7 @@ Table of Contents
       of [RFC7232]</a>), then that strong validator identifies the selected
       representation for update.  All of the stored responses with the
       same strong validator are selected.  If none of the stored
-      responses contain the same strong validator, then the cache MUST
+      responses contain the same strong validator, then the cache <em>MUST</em>
       NOT use the new response to update any stored responses.
 
 
@@ -1209,7 +1209,7 @@ Table of Contents
       response also lacks a validator, then that stored response is
       selected for update.
 
-   If a stored response is selected for update, the cache MUST:
+   If a stored response is selected for update, the cache <em>MUST</em>:
 
    o  delete any Warning header fields in the stored response with
       warn-code 1xx (see <a href="#section-5.5">Section 5.5</a>);
@@ -1232,7 +1232,7 @@ Table of Contents
    desired even if it has changed.
 
    When a cache makes an inbound HEAD request for a given request target
-   and receives a 200 (OK) response, the cache SHOULD update or
+   and receives a 200 (OK) response, the cache <em>SHOULD</em> update or
    invalidate each of its stored GET responses that could have been
    selected for that request (see <a href="#section-4.1">Section 4.1</a>).
 
@@ -1240,9 +1240,9 @@ Table of Contents
    the stored response and HEAD response have matching values for any
    received validator fields (ETag and Last-Modified) and, if the HEAD
    response has a Content-Length header field, the value of
-   Content-Length matches that of the stored response, the cache SHOULD
+   Content-Length matches that of the stored response, the cache <em>SHOULD</em>
    update the stored response as described below; otherwise, the cache
-   SHOULD consider the stored response to be stale.
+   <em>SHOULD</em> consider the stored response to be stale.
 
 
 
@@ -1255,7 +1255,7 @@ Table of Contents
 
 
    If a cache updates a stored response with the metadata provided in a
-   HEAD response, the cache MUST:
+   HEAD response, the cache <em>MUST</em>:
 
    o  delete any Warning header fields in the stored response with
       warn-code 1xx (see <a href="#section-5.5">Section 5.5</a>);
@@ -1276,17 +1276,17 @@ Table of Contents
    origin server, intervening caches can use them to keep their contents
    up to date.
 
-   A cache MUST invalidate the effective Request URI (<a href="./rfc7230.html#section-5.5">Section&nbsp;5.5 of
+   A cache <em>MUST</em> invalidate the effective Request URI (<a href="./rfc7230.html#section-5.5">Section&nbsp;5.5 of
    [RFC7230]</a>) as well as the URI(s) in the Location and Content-Location
    response header fields (if present) when a non-error status code is
    received in response to an unsafe request method.
 
-   However, a cache MUST NOT invalidate a URI from a Location or
+   However, a cache <em>MUST NOT</em> invalidate a URI from a Location or
    Content-Location response header field if the host part of that URI
    differs from the host part in the effective request URI (<a href="./rfc7230.html#section-5.5">Section&nbsp;5.5
    of [RFC7230]</a>).  This helps prevent denial-of-service attacks.
 
-   A cache MUST invalidate the effective request URI (<a href="./rfc7230.html#section-5.5">Section&nbsp;5.5 of
+   A cache <em>MUST</em> invalidate the effective request URI (<a href="./rfc7230.html#section-5.5">Section&nbsp;5.5 of
    [RFC7230]</a>) when it receives a non-error response to a request with a
    method whose safety is unknown.
 
@@ -1340,13 +1340,13 @@ Table of Contents
    unidirectional in that the presence of a directive in a request does
    not imply that the same directive is to be given in the response.
 
-   A cache MUST obey the requirements of the Cache-Control directives
+   A cache <em>MUST</em> obey the requirements of the Cache-Control directives
    defined in this section.  See <a href="#section-5.2.3">Section 5.2.3</a> for information about how
    Cache-Control directives defined elsewhere are handled.
 
       Note: Some HTTP/1.0 caches might not implement Cache-Control.
 
-   A proxy, whether or not it implements a cache, MUST pass cache
+   A proxy, whether or not it implements a cache, <em>MUST</em> pass cache
    directives through in forwarded messages, regardless of their
    significance to that application, since the directives might be
    applicable to all recipients along the request/response chain.  It is
@@ -1357,7 +1357,7 @@ Table of Contents
    token and quoted-string syntax.  For the directives defined below
    that define arguments, recipients ought to accept both forms, even if
    one is documented to be preferred.  For any directive not defined by
-   this specification, a recipient MUST accept both forms.
+   this specification, a recipient <em>MUST</em> accept both forms.
 
 
 
@@ -1388,7 +1388,7 @@ Table of Contents
    response.
 
    This directive uses the token form of the argument syntax: e.g.,
-   'max-age=5' not 'max-age="5"'.  A sender SHOULD NOT generate the
+   'max-age=5' not 'max-age="5"'.  A sender <em>SHOULD NOT</em> generate the
    quoted-string form.
 
 <span class="h5"><a class="selflink" name="section-5.2.1.2" href="#section-5.2.1.2">5.2.1.2</a>.  max-stale</span>
@@ -1406,7 +1406,7 @@ Table of Contents
    response of any age.
 
    This directive uses the token form of the argument syntax: e.g.,
-   'max-stale=10' not 'max-stale="10"'.  A sender SHOULD NOT generate
+   'max-stale=10' not 'max-stale="10"'.  A sender <em>SHOULD NOT</em> generate
    the quoted-string form.
 
 <span class="h5"><a class="selflink" name="section-5.2.1.3" href="#section-5.2.1.3">5.2.1.3</a>.  min-fresh</span>
@@ -1429,22 +1429,22 @@ Table of Contents
    specified number of seconds.
 
    This directive uses the token form of the argument syntax: e.g.,
-   'min-fresh=20' not 'min-fresh="20"'.  A sender SHOULD NOT generate
+   'min-fresh=20' not 'min-fresh="20"'.  A sender <em>SHOULD NOT</em> generate
    the quoted-string form.
 
 <span class="h5"><a class="selflink" name="section-5.2.1.4" href="#section-5.2.1.4">5.2.1.4</a>.  no-cache</span>
 
-   The "no-cache" request directive indicates that a cache MUST NOT use
+   The "no-cache" request directive indicates that a cache <em>MUST NOT</em> use
    a stored response to satisfy the request without successful
    validation on the origin server.
 
 <span class="h5"><a class="selflink" name="section-5.2.1.5" href="#section-5.2.1.5">5.2.1.5</a>.  no-store</span>
 
-   The "no-store" request directive indicates that a cache MUST NOT
+   The "no-store" request directive indicates that a cache <em>MUST NOT</em>
    store any part of either this request or any response to it.  This
-   directive applies to both private and shared caches.  "MUST NOT
-   store" in this context means that the cache MUST NOT intentionally
-   store the information in non-volatile storage, and MUST make a
+   directive applies to both private and shared caches.  "<em>MUST NOT</em>
+   store" in this context means that the cache <em>MUST NOT</em> intentionally
+   store the information in non-volatile storage, and <em>MUST</em> make a
    best-effort attempt to remove the information from volatile storage
    as promptly as possible after forwarding it.
 
@@ -1460,14 +1460,14 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-5.2.1.6" href="#section-5.2.1.6">5.2.1.6</a>.  no-transform</span>
 
    The "no-transform" request directive indicates that an intermediary
-   (whether or not it implements a cache) MUST NOT transform the
+   (whether or not it implements a cache) <em>MUST NOT</em> transform the
    payload, as defined in <a href="./rfc7230.html#section-5.7.2">Section&nbsp;5.7.2 of [RFC7230]</a>.
 
 <span class="h5"><a class="selflink" name="section-5.2.1.7" href="#section-5.2.1.7">5.2.1.7</a>.  only-if-cached</span>
 
    The "only-if-cached" request directive indicates that the client only
    wishes to obtain a stored response.  If it receives this directive, a
-   cache SHOULD either respond using a stored response that is
+   cache <em>SHOULD</em> either respond using a stored response that is
    consistent with the other constraints of the request, or respond with
 
 
@@ -1480,20 +1480,20 @@ Table of Contents
 
    a 504 (Gateway Timeout) status code.  If a group of caches is being
    operated as a unified system with good internal connectivity, a
-   member cache MAY forward such a request within that group of caches.
+   member cache <em>MAY</em> forward such a request within that group of caches.
 
 <span class="h4"><a class="selflink" name="section-5.2.2" href="#section-5.2.2">5.2.2</a>.  Response Cache-Control Directives</span>
 
 <span class="h5"><a class="selflink" name="section-5.2.2.1" href="#section-5.2.2.1">5.2.2.1</a>.  must-revalidate</span>
 
    The "must-revalidate" response directive indicates that once it has
-   become stale, a cache MUST NOT use the response to satisfy subsequent
+   become stale, a cache <em>MUST NOT</em> use the response to satisfy subsequent
    requests without successful validation on the origin server.
 
    The must-revalidate directive is necessary to support reliable
    operation for certain protocol features.  In all circumstances a
-   cache MUST obey the must-revalidate directive; in particular, if a
-   cache cannot reach the origin server for any reason, it MUST generate
+   cache <em>MUST</em> obey the must-revalidate directive; in particular, if a
+   cache cannot reach the origin server for any reason, it <em>MUST</em> generate
    a 504 (Gateway Timeout) response.
 
    The must-revalidate directive ought to be used by servers if and only
@@ -1507,16 +1507,16 @@ Table of Contents
 
       #field-name
 
-   The "no-cache" response directive indicates that the response MUST
+   The "no-cache" response directive indicates that the response <em>MUST</em>
    NOT be used to satisfy a subsequent request without successful
    validation on the origin server.  This allows an origin server to
    prevent a cache from using it to satisfy a request without contacting
    it, even by caches that have been configured to send stale responses.
 
    If the no-cache response directive specifies one or more field-names,
-   then a cache MAY use the response to satisfy a subsequent request,
+   then a cache <em>MAY</em> use the response to satisfy a subsequent request,
    subject to any other restrictions on caching.  However, any header
-   fields in the response that have the field-name(s) listed MUST NOT be
+   fields in the response that have the field-name(s) listed <em>MUST NOT</em> be
    sent in the response to a subsequent request without successful
    revalidation with the origin server.  This allows an origin server to
    prevent the re-use of certain header fields in a response, while
@@ -1535,7 +1535,7 @@ Table of Contents
 
 
    This directive uses the quoted-string form of the argument syntax.  A
-   sender SHOULD NOT generate the token form (even if quoting appears
+   sender <em>SHOULD NOT</em> generate the token form (even if quoting appears
    not to be needed for single-entry lists).
 
    Note: Although it has been back-ported to many implementations, some
@@ -1547,11 +1547,11 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-5.2.2.3" href="#section-5.2.2.3">5.2.2.3</a>.  no-store</span>
 
-   The "no-store" response directive indicates that a cache MUST NOT
+   The "no-store" response directive indicates that a cache <em>MUST NOT</em>
    store any part of either the immediate request or response.  This
-   directive applies to both private and shared caches.  "MUST NOT
-   store" in this context means that the cache MUST NOT intentionally
-   store the information in non-volatile storage, and MUST make a
+   directive applies to both private and shared caches.  "<em>MUST NOT</em>
+   store" in this context means that the cache <em>MUST NOT</em> intentionally
+   store the information in non-volatile storage, and <em>MUST</em> make a
    best-effort attempt to remove the information from volatile storage
    as promptly as possible after forwarding it.
 
@@ -1563,12 +1563,12 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-5.2.2.4" href="#section-5.2.2.4">5.2.2.4</a>.  no-transform</span>
 
    The "no-transform" response directive indicates that an intermediary
-   (regardless of whether it implements a cache) MUST NOT transform the
+   (regardless of whether it implements a cache) <em>MUST NOT</em> transform the
    payload, as defined in <a href="./rfc7230.html#section-5.7.2">Section&nbsp;5.7.2 of [RFC7230]</a>.
 
 <span class="h5"><a class="selflink" name="section-5.2.2.5" href="#section-5.2.2.5">5.2.2.5</a>.  public</span>
 
-   The "public" response directive indicates that any cache MAY store
+   The "public" response directive indicates that any cache <em>MAY</em> store
    the response, even if the response would normally be non-cacheable or
    cacheable only within a private cache.  (See <a href="#section-3.2">Section 3.2</a> for
    additional details related to the use of public in response to a
@@ -1591,21 +1591,21 @@ Table of Contents
 
 
    The "private" response directive indicates that the response message
-   is intended for a single user and MUST NOT be stored by a shared
-   cache.  A private cache MAY store the response and reuse it for later
+   is intended for a single user and <em>MUST NOT</em> be stored by a shared
+   cache.  A private cache <em>MAY</em> store the response and reuse it for later
    requests, even if the response would normally be non-cacheable.
 
    If the private response directive specifies one or more field-names,
    this requirement is limited to the field-values associated with the
-   listed response header fields.  That is, a shared cache MUST NOT
-   store the specified field-names(s), whereas it MAY store the
+   listed response header fields.  That is, a shared cache <em>MUST NOT</em>
+   store the specified field-names(s), whereas it <em>MAY</em> store the
    remainder of the response message.
 
    The field-names given are not limited to the set of header fields
    defined by this specification.  Field names are case-insensitive.
 
    This directive uses the quoted-string form of the argument syntax.  A
-   sender SHOULD NOT generate the token form (even if quoting appears
+   sender <em>SHOULD NOT</em> generate the token form (even if quoting appears
    not to be needed for single-entry lists).
 
    Note: This usage of the word "private" only controls where the
@@ -1632,7 +1632,7 @@ Table of Contents
    of seconds.
 
    This directive uses the token form of the argument syntax: e.g.,
-   'max-age=5' not 'max-age="5"'.  A sender SHOULD NOT generate the
+   'max-age=5' not 'max-age="5"'.  A sender <em>SHOULD NOT</em> generate the
    quoted-string form.
 
 
@@ -1659,14 +1659,14 @@ Table of Contents
    proxy-revalidate response directive.
 
    This directive uses the token form of the argument syntax: e.g.,
-   's-maxage=10' not 's-maxage="10"'.  A sender SHOULD NOT generate the
+   's-maxage=10' not 's-maxage="10"'.  A sender <em>SHOULD NOT</em> generate the
    quoted-string form.
 
 <span class="h4"><a class="selflink" name="section-5.2.3" href="#section-5.2.3">5.2.3</a>.  Cache Control Extensions</span>
 
    The Cache-Control header field can be extended through the use of one
    or more cache-extension tokens, each with an optional value.  A cache
-   MUST ignore unrecognized cache directives.
+   <em>MUST</em> ignore unrecognized cache directives.
 
    Informational extensions (those that do not require a change in cache
    behavior) can be added without changing the semantics of other
@@ -1721,18 +1721,18 @@ Table of Contents
 
      Expires: Thu, 01 Dec 1994 16:00:00 GMT
 
-   A cache recipient MUST interpret invalid date formats, especially the
+   A cache recipient <em>MUST</em> interpret invalid date formats, especially the
    value "0", as representing a time in the past (i.e., "already
    expired").
 
    If a response includes a Cache-Control field with the max-age
-   directive (<a href="#section-5.2.2.8">Section 5.2.2.8</a>), a recipient MUST ignore the Expires
+   directive (<a href="#section-5.2.2.8">Section 5.2.2.8</a>), a recipient <em>MUST</em> ignore the Expires
    field.  Likewise, if a response includes the s-maxage directive
-   (<a href="#section-5.2.2.9">Section 5.2.2.9</a>), a shared cache recipient MUST ignore the Expires
+   (<a href="#section-5.2.2.9">Section 5.2.2.9</a>), a shared cache recipient <em>MUST</em> ignore the Expires
    field.  In both these cases, the value in Expires is only intended
    for recipients that have not yet implemented the Cache-Control field.
 
-   An origin server without a clock MUST NOT generate an Expires field
+   An origin server without a clock <em>MUST NOT</em> generate an Expires field
    unless its value represents a fixed time in the past (always expired)
    or its value has been associated with the resource by a system or
    user with a reliable clock.
@@ -1775,7 +1775,7 @@ Table of Contents
      extension-pragma = token [ "=" ( token / quoted-string ) ]
 
    When the Cache-Control header field is not present in a request,
-   caches MUST consider the no-cache request pragma-directive as having
+   caches <em>MUST</em> consider the no-cache request pragma-directive as having
    the same effect as if "Cache-Control: no-cache" were present (see
    <a href="#section-5.2.1">Section 5.2.1</a>).
 
@@ -1839,27 +1839,27 @@ Table of Contents
    origin server or by a cache), including multiple warnings with the
    same warn-code number that only differ in warn-text.
 
-   A user agent that receives one or more Warning header fields SHOULD
+   A user agent that receives one or more Warning header fields <em>SHOULD</em>
    inform the user of as many of them as possible, in the order that
    they appear in the response.  Senders that generate multiple Warning
    header fields are encouraged to order them with this user agent
    behavior in mind.  A sender that generates new Warning header fields
-   MUST append them after any existing Warning header fields.
+   <em>MUST</em> append them after any existing Warning header fields.
 
    Warnings are assigned three digit warn-codes.  The first digit
    indicates whether the Warning is required to be deleted from a stored
    response after validation:
 
    o  1xx warn-codes describe the freshness or validation status of the
-      response, and so they MUST be deleted by a cache after validation.
+      response, and so they <em>MUST</em> be deleted by a cache after validation.
       They can only be generated by a cache when validating a cached
-      entry, and MUST NOT be generated in any other situation.
+      entry, and <em>MUST NOT</em> be generated in any other situation.
 
    o  2xx warn-codes describe some aspect of the representation that is
       not rectified by a validation (for example, a lossy compression of
-      the representation) and they MUST NOT be deleted by a cache after
+      the representation) and they <em>MUST NOT</em> be deleted by a cache after
       validation, unless a full response is sent, in which case they
-      MUST be.
+      <em>MUST</em> be.
 
 
 
@@ -1871,7 +1871,7 @@ Table of Contents
 
 
    If a sender generates one or more 1xx warn-codes in a message to be
-   sent to a recipient known to implement only HTTP/1.0, the sender MUST
+   sent to a recipient known to implement only HTTP/1.0, the sender <em>MUST</em>
    include in each corresponding warning-value a warn-date that matches
    the Date header field in the message.  For example:
 
@@ -1886,11 +1886,11 @@ Table of Contents
 
    If a recipient that uses, evaluates, or displays Warning header
    fields receives a warn-date that is different from the Date value in
-   the same message, the recipient MUST exclude the warning-value
+   the same message, the recipient <em>MUST</em> exclude the warning-value
    containing that warn-date before storing, forwarding, or using the
    message.  This allows recipients to exclude warning-values that were
    improperly retained after a cache validation.  If all of the
-   warning-values are excluded, the recipient MUST exclude the Warning
+   warning-values are excluded, the recipient <em>MUST</em> exclude the Warning
    header field as well.
 
    The following warn-codes are defined by this specification, each with
@@ -1900,22 +1900,22 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.5.1" href="#section-5.5.1">5.5.1</a>.  Warning: 110 - "Response is Stale"</span>
 
-   A cache SHOULD generate this whenever the sent response is stale.
+   A cache <em>SHOULD</em> generate this whenever the sent response is stale.
 
 <span class="h4"><a class="selflink" name="section-5.5.2" href="#section-5.5.2">5.5.2</a>.  Warning: 111 - "Revalidation Failed"</span>
 
-   A cache SHOULD generate this when sending a stale response because an
+   A cache <em>SHOULD</em> generate this when sending a stale response because an
    attempt to validate the response failed, due to an inability to reach
    the server.
 
 <span class="h4"><a class="selflink" name="section-5.5.3" href="#section-5.5.3">5.5.3</a>.  Warning: 112 - "Disconnected Operation"</span>
 
-   A cache SHOULD generate this if it is intentionally disconnected from
+   A cache <em>SHOULD</em> generate this if it is intentionally disconnected from
    the rest of the network for a period of time.
 
 <span class="h4"><a class="selflink" name="section-5.5.4" href="#section-5.5.4">5.5.4</a>.  Warning: 113 - "Heuristic Expiration"</span>
 
-   A cache SHOULD generate this if it heuristically chose a freshness
+   A cache <em>SHOULD</em> generate this if it heuristically chose a freshness
    lifetime greater than 24 hours and the response's age is greater than
    24 hours.
 
@@ -1929,13 +1929,13 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.5.5" href="#section-5.5.5">5.5.5</a>.  Warning: 199 - "Miscellaneous Warning"</span>
 
    The warning text can include arbitrary information to be presented to
-   a human user or logged.  A system receiving this warning MUST NOT
+   a human user or logged.  A system receiving this warning <em>MUST NOT</em>
    take any automated action, besides presenting the warning to the
    user.
 
 <span class="h4"><a class="selflink" name="section-5.5.6" href="#section-5.5.6">5.5.6</a>.  Warning: 214 - "Transformation Applied"</span>
 
-   This Warning code MUST be added by a proxy if it applies any
+   This Warning code <em>MUST</em> be added by a proxy if it applies any
    transformation to the representation, such as changing the
    content-coding, media-type, or modifying the representation data,
    unless this Warning code already appears in the response.
@@ -1943,7 +1943,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.5.7" href="#section-5.5.7">5.5.7</a>.  Warning: 299 - "Miscellaneous Persistent Warning"</span>
 
    The warning text can include arbitrary information to be presented to
-   a human user or logged.  A system receiving this warning MUST NOT
+   a human user or logged.  A system receiving this warning <em>MUST NOT</em>
    take any automated action.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  History Lists</span>
@@ -1971,7 +1971,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-7.1.1" href="#section-7.1.1">7.1.1</a>.  Procedure</span>
 
-   A registration MUST include the following fields:
+   A registration <em>MUST</em> include the following fields:
 
    o  Cache Directive Name
 
@@ -2046,7 +2046,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-7.2.1" href="#section-7.2.1">7.2.1</a>.  Procedure</span>
 
-   A registration MUST include the following fields:
+   A registration <em>MUST</em> include the following fields:
 
    o  Warn Code (3 digits)
 

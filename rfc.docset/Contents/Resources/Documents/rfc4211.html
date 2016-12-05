@@ -323,7 +323,7 @@ Table Of Contents
    certificate on behalf of a Subject, by a CA requesting a cross-
    certificate from another CA, or directly by an End Entity (EE).
 
-   The key words "MUST", "REQUIRED", "SHOULD", "RECOMMENDED", and "MAY"
+   The key words "<em>MUST</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>RECOMMENDED</em>", and "<em>MAY</em>"
    in this document (in uppercase, as shown) are to be interpreted as
    described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
@@ -418,9 +418,9 @@ Table Of Contents
 
    CertReqMsg ::= SEQUENCE {
       certReq   CertRequest,
-      popo       ProofOfPossession  OPTIONAL,
+      popo       ProofOfPossession  <em>OPTIONAL</em>,
       -- content depends upon key type
-      regInfo   SEQUENCE SIZE(1..MAX) of AttributeTypeAndValue OPTIONAL
+      regInfo   SEQUENCE SIZE(1..MAX) of AttributeTypeAndValue <em>OPTIONAL</em>
    }
 
    The fields of CertReqMsg have the following meaning:
@@ -438,18 +438,18 @@ Table Of Contents
       specified in the KeyUsage field of the certificate to be issued.
       Details on this field are found in <a href="#section-4">section 4</a>.
 
-      regInfo field SHOULD contain only supplementary information
+      regInfo field <em>SHOULD</em> contain only supplementary information
       relating to the context of the certificate request, where such
       information is required to fulfill the request.  This information
       might include subscriber contact information, billing information,
       or other ancillary information useful to fulfillment of the
       request.
 
-   Information directly related to certificate content SHOULD be
+   Information directly related to certificate content <em>SHOULD</em> be
    included in the certReq content.  However, inclusion of additional
    certReq content by RAs can invalidate the popo field (depending on
    the details of the POP method used).  Therefore, data intended for
-   certificate content MAY be provided in regInfo.
+   certificate content <em>MAY</em> be provided in regInfo.
 
    It is the responsibility of a referencing CRP to define the details
    of what can be specified in the regInfo field.  This document
@@ -475,11 +475,11 @@ Table Of Contents
    to enforce POP (e.g., out-of-band procedural means versus the CRMF
    in-band message) in its certification exchanges.  Within a given CRP,
    CAs and RAs are free to choose from among the POP methods provided
-   (i.e., this is a policy issue local to an RA/CA).  A CRP SHOULD
+   (i.e., this is a policy issue local to an RA/CA).  A CRP <em>SHOULD</em>
    define either which POP methods are required, or specify a mechanism
    for clients to discover the POP methods supported.
 
-   Any CRP referencing this document MUST enforce POP by some means.
+   Any CRP referencing this document <em>MUST</em> enforce POP by some means.
    There are currently many non-PKIX operational protocols in use
    (various electronic mail protocols are one example) that do not
    explicitly check the binding between the end entity and the private
@@ -492,17 +492,17 @@ Table Of Contents
    POP is accomplished in different ways depending on the type of key
    for which a certificate is requested.  If a key can be used for
    multiple purposes (e.g., a signing and decryption RSA key), then any
-   of the methods MAY be used.  Protocol designers need to be aware that
+   of the methods <em>MAY</em> be used.  Protocol designers need to be aware that
    there can be hardware limitations on what POP methods may be usable,
    e.g., if the private key is maintained in a hardware token.
 
    This specification allows for cases where POP is validated by the CA,
    the RA, or both.  Some policies require the CA to verify POP during
-   certificate issuance, in which case the RA MUST forward the end
+   certificate issuance, in which case the RA <em>MUST</em> forward the end
    entity's CertRequest and ProofOfPossession fields unaltered to the
    CA.  (In this case, the RA could verify the POP and reject failing
    certificate requests rather than forwarding them to the CA.)  If the
-   CA is not required by policy to verify POP, then the RA SHOULD
+   CA is not required by policy to verify POP, then the RA <em>SHOULD</em>
    forward the end entity's request and proof, unaltered, to the CA as
    above.  If this is not possible (for example because the RA verifies
    POP by an out-of-band method), then the RA uses the raVerified
@@ -531,9 +531,9 @@ Table Of Contents
       raVerified indicates that the RA has performed the POP required on
       the certificate request.  This field is used by an RA when 1) the
       CA is not required to do its own POP verification and 2) the RA
-      needs to change the contents of the certReq field.  CRPs MUST
+      needs to change the contents of the certReq field.  CRPs <em>MUST</em>
       provide a method for the RA to sign the ProofOfPossession.  A
-      requestor MUST NOT set this field and an RA/CA MUST NOT accept a
+      requestor <em>MUST NOT</em> set this field and an RA/CA <em>MUST NOT</em> accept a
       ProofOfPossession where the requestor sets this field.
 
       signature is used for performing POP with signature keys.  The
@@ -589,14 +589,14 @@ Table Of Contents
        template structure.
 
    POPOSigningKey ::= SEQUENCE {
-       poposkInput         [0] POPOSigningKeyInput OPTIONAL,
+       poposkInput         [0] POPOSigningKeyInput <em>OPTIONAL</em>,
        algorithmIdentifier     AlgorithmIdentifier,
        signature               BIT STRING }
 
    The fields of POPOSigningKey have the following meaning:
 
       poposkInput contains the data to be signed, when present.  This
-      field MUST be present when the certificate template does not
+      field <em>MUST</em> be present when the certificate template does not
       contain both the public key value and a subject name value.
 
       algorithmIdentifier identifiers the signature algorithm and an
@@ -628,7 +628,7 @@ Table Of Contents
       between the CA/RA and the certificate requestor.
 
       publicKey contains a copy of the public key from the certificate
-      template.  This MUST be exactly the same value as is contained in
+      template.  This <em>MUST</em> be exactly the same value as is contained in
       the certificate template.
 
 
@@ -645,7 +645,7 @@ Table Of Contents
    The fields of PKMACValue have the following meaning:
 
       algId identifies the algorithm used to compute the MAC value.  All
-      implementations MUST support id-PasswordBasedMAC.  The details on
+      implementations <em>MUST</em> support id-PasswordBasedMAC.  The details on
       this algorithm are presented in <a href="#section-4.4">section 4.4</a>.
 
       value contains the computed MAC value.  The MAC value is computed
@@ -674,7 +674,7 @@ Table Of Contents
      -- certReq parameter in CertReqMsg, which must include both subject
      -- and publicKey) based on a key derived from the end entity's
      -- private DH key and the CA's public DH key);
-     -- the dhMAC value MUST be calculated as per the directions given
+     -- the dhMAC value <em>MUST</em> be calculated as per the directions given
      -- in <a href="./rfc2875.html">RFC 2875</a> for static DH proof-of-possession.
 
    SubsequentMessage ::= INTEGER {
@@ -733,7 +733,7 @@ Table Of Contents
       encryptedKey contains the encrypted private key matching the
       public key for which the certificate is to be issued.  It also
       contains an identification value to indicate it was constructed by
-      the requestor of the certificate.  The enveloped content type MUST
+      the requestor of the certificate.  The enveloped content type <em>MUST</em>
       be id-ct-encKeyWithID.
 
    It is expected that protocols that incorporate this specification
@@ -771,14 +771,14 @@ Table Of Contents
         identifier CHOICE {
           string               UTF8String,
           generalName          GeneralName
-        } OPTIONAL
+        } <em>OPTIONAL</em>
       }
 
       PrivateKeyInfo ::= SEQUENCE {
          version                   INTEGER,
          privateKeyAlgorithm       AlgorithmIdentifier,
          privateKey                OCTET STRING,
-         attributes                [0] IMPLICIT Attributes OPTIONAL
+         attributes                [0] IMPLICIT Attributes <em>OPTIONAL</em>
       }
 
    Attributes ::= SET OF Attribute
@@ -793,8 +793,8 @@ Table Of Contents
       identifier contains a name that the CA/RA can associate with the
       requestor.  This will generally be either the DN of a certificate
       or a text token passed and known to both the requestor and the
-      CA/RA.  This field MUST be present if the purpose is to prove
-      possession of the private key.  The field SHOULD be present if
+      CA/RA.  This field <em>MUST</em> be present if the purpose is to prove
+      possession of the private key.  The field <em>SHOULD</em> be present if
       archiving a key and the archive agent is expected to decrypt the
       key.
 
@@ -808,7 +808,7 @@ Table Of Contents
 
    The fields of PrivatekeyInfo are define as:
 
-      version MUST be the value 0
+      version <em>MUST</em> be the value 0
 
       privateKeyAlgorithm contains the identifier for the private key
       object
@@ -828,29 +828,29 @@ Table Of Contents
    When creating a PrivateKeyInfo for a D-H key, the following rules
    apply:
 
-     1. The privateKeyAlgorithm MUST be set to id-dh-private-number.
+     1. The privateKeyAlgorithm <em>MUST</em> be set to id-dh-private-number.
         The parameter for id-dh-private-number is DomainParameters
         (imported from [<a href="#ref-PKIXALG" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">PKIXALG</a>]).
 
-     2. The ASN structure for privateKey MUST be
+     2. The ASN structure for privateKey <em>MUST</em> be
 
         DH-PrivateKey ::= INTEGER
 
-     3. The attributes field MUST be omitted.
+     3. The attributes field <em>MUST</em> be omitted.
 
 <span class="h5"><a class="selflink" name="section-4.2.2.2" href="#section-4.2.2.2">4.2.2.2</a>.  DSA Private Keys</span>
 
    When creating a PrivateKeyInfo for a DSA key, the following rules
    apply:
 
-     1. The privateKeyAlgorithm MUST be set to id-dsa.  The parameters
+     1. The privateKeyAlgorithm <em>MUST</em> be set to id-dsa.  The parameters
         for id-dsa is Dss-Parms (imported from [<a href="#ref-PKIXALG" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">PKIXALG</a>]).
 
-     2. The ASN structure for privateKey MUST be
+     2. The ASN structure for privateKey <em>MUST</em> be
 
         DSA-PrivateKey ::= INTEGER
 
-     3. The attributes field MUST be omitted.
+     3. The attributes field <em>MUST</em> be omitted.
 
 
 
@@ -867,12 +867,12 @@ Table Of Contents
    When creating a PrivateKeyInfo for an RSA key, the following rules
    apply:
 
-     1. The privateKeyAlgorithm MUST be set to rsaEncryption.
+     1. The privateKeyAlgorithm <em>MUST</em> be set to rsaEncryption.
 
-     2. The ASN structure for privateKey MUST be RSAPrivateKey (defined
+     2. The ASN structure for privateKey <em>MUST</em> be RSAPrivateKey (defined
         in [<a href="#ref-PKCS1" title="&quot;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1&quot;">PKCS1</a>])
 
-     3. The attributes field MUST be omitted.
+     3. The attributes field <em>MUST</em> be omitted.
 
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  Challenge-Response Guidelines</span>
 
@@ -897,11 +897,11 @@ Table Of Contents
        mechanism to encrypt the value.
 
    3.  The second request message includes a hash of the decrypted
-       value.  This message MUST NOT be just the hash of the encrypted
+       value.  This message <em>MUST NOT</em> be just the hash of the encrypted
        value, as one should never "sign" a completely random value.  It
        is desirable to include information such as the identity string
        in the hashing process so that this can be made explicitly.  This
-       returned value MUST be included in a second proof of identity.
+       returned value <em>MUST</em> be included in a second proof of identity.
 
    It is strongly suggested that transaction identifiers and nonce
    values be required when performing indirect POP, as this allows for
@@ -937,7 +937,7 @@ Table Of Contents
    has a certificate that is known to the end entity and if the Subject
    is able to use the CA/RA's parameters.
 
-   For the DH key agreement algorithm, all implementations MUST support
+   For the DH key agreement algorithm, all implementations <em>MUST</em> support
    the static DH Proof-of-Possession.  Details on this algorithm can be
    found in <a href="./rfc2875.html#section-3">section&nbsp;3 of [RFC2875]</a>.  NOTE: If either the subject or
    issuer name in the CA certificate is empty, then the alternative name
@@ -977,15 +977,15 @@ Table Of Contents
    The fields of PEMParameter have the following meaning:
 
       salt contains a randomly generated value used in computing the key
-      of the MAC process.  The salt SHOULD be at least 8 octets (64
+      of the MAC process.  The salt <em>SHOULD</em> be at least 8 octets (64
       bits) long.
 
       owf identifies the algorithm and associated parameters used to
-      compute the key used in the MAC process.  All implementations MUST
+      compute the key used in the MAC process.  All implementations <em>MUST</em>
       support SHA-1.
 
       iterationCount identifies the number of times the hash is applied
-      during the key computation process.  The iterationCount MUST be a
+      during the key computation process.  The iterationCount <em>MUST</em> be a
       minimum of 100.  Many people suggest using values as high as 1000
       iterations as the minimum value.  The trade off here is between
       protection of the password from attacks and the time spent by the
@@ -994,8 +994,8 @@ Table Of Contents
       this may not be true with all hash functions in the future.
 
       mac identifies the algorithm and associated parameters of the MAC
-      function to be used.  All implementations MUST support HMAC-SHA1
-      [<a href="#ref-HMAC" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">HMAC</a>].  All implementations SHOULD support DES-MAC and Triple-
+      function to be used.  All implementations <em>MUST</em> support HMAC-SHA1
+      [<a href="#ref-HMAC" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">HMAC</a>].  All implementations <em>SHOULD</em> support DES-MAC and Triple-
       DES-MAC [<a href="#ref-PKCS11" title="&quot;PKCS #11 v2.11: Cryptographic Token Interface Standard&quot;">PKCS11</a>].
 
    The following is pseudo-code for the algorithm:
@@ -1039,23 +1039,23 @@ Table Of Contents
    CertRequest ::= SEQUENCE {
       certReqId     INTEGER,        -- ID for matching request and reply
       certTemplate  CertTemplate, --Selected fields of cert to be issued
-      controls      Controls OPTIONAL } -- Attributes affecting issuance
+      controls      Controls <em>OPTIONAL</em> } -- Attributes affecting issuance
 
    CertTemplate ::= SEQUENCE {
-      version      [0] Version               OPTIONAL,
-      serialNumber [1] INTEGER               OPTIONAL,
-      signingAlg   [2] AlgorithmIdentifier   OPTIONAL,
-      issuer       [3] Name                  OPTIONAL,
-      validity     [4] OptionalValidity      OPTIONAL,
-      subject      [5] Name                  OPTIONAL,
-      publicKey    [6] SubjectPublicKeyInfo  OPTIONAL,
-      issuerUID    [7] UniqueIdentifier      OPTIONAL,
-      subjectUID   [8] UniqueIdentifier      OPTIONAL,
-      extensions   [9] Extensions            OPTIONAL }
+      version      [0] Version               <em>OPTIONAL</em>,
+      serialNumber [1] INTEGER               <em>OPTIONAL</em>,
+      signingAlg   [2] AlgorithmIdentifier   <em>OPTIONAL</em>,
+      issuer       [3] Name                  <em>OPTIONAL</em>,
+      validity     [4] OptionalValidity      <em>OPTIONAL</em>,
+      subject      [5] Name                  <em>OPTIONAL</em>,
+      publicKey    [6] SubjectPublicKeyInfo  <em>OPTIONAL</em>,
+      issuerUID    [7] UniqueIdentifier      <em>OPTIONAL</em>,
+      subjectUID   [8] UniqueIdentifier      <em>OPTIONAL</em>,
+      extensions   [9] Extensions            <em>OPTIONAL</em> }
 
    OptionalValidity ::= SEQUENCE {
-      notBefore  [0] Time OPTIONAL,
-      notAfter   [1] Time OPTIONAL } --at least one must be present
+      notBefore  [0] Time <em>OPTIONAL</em>,
+      notAfter   [1] Time <em>OPTIONAL</em> } --at least one must be present
 
    Time ::= CHOICE {
       utcTime        UTCTime,
@@ -1088,12 +1088,12 @@ Table Of Contents
 
    The fields of CertTemplate have the following meaning:
 
-      version MUST be 2 if supplied.  It SHOULD be omitted.
+      version <em>MUST</em> be 2 if supplied.  It <em>SHOULD</em> be omitted.
 
-      serialNumber MUST be omitted.  This field is assigned by the CA
+      serialNumber <em>MUST</em> be omitted.  This field is assigned by the CA
       during certificate creation.
 
-      signingAlg MUST be omitted.  This field is assigned by the CA
+      signingAlg <em>MUST</em> be omitted.  This field is assigned by the CA
       during certificate creation.
 
       issuer is normally omitted.  It would be filled in with the CA
@@ -1107,7 +1107,7 @@ Table Of Contents
       the validity of an existing certificate would be placed in this
       field so that the new certificate would have the same validity
       period as the existing certificate.  If validity is not omitted,
-      then at least one of the sub-fields MUST be specified.  The sub-
+      then at least one of the sub-fields <em>MUST</em> be specified.  The sub-
       fields are as follows:
 
          notBefore contains the requested start time of the certificate.
@@ -1123,14 +1123,14 @@ Table Of Contents
       previously issued to the requestor by the CA.
 
       publicKey contains the public key for which the certificate is
-      being created.  This field MUST be filled in if the requestor
+      being created.  This field <em>MUST</em> be filled in if the requestor
       generates its own key.  The field is omitted if the key is
       generated by the RA/CA.
 
-      issuerUID MUST be omitted.  This field has been deprecated in
+      issuerUID <em>MUST</em> be omitted.  This field has been deprecated in
       [<a href="#ref-PROFILE" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">PROFILE</a>].
 
-      subjectUID MUST be omitted.  This field has been deprecated in
+      subjectUID <em>MUST</em> be omitted.  This field has been deprecated in
       [<a href="#ref-PROFILE" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">PROFILE</a>].
 
 
@@ -1149,7 +1149,7 @@ Table Of Contents
    With the exception of the publicKey field, the CA/RA is permitted to
    alter any requested field.  The returned certificate needs to be
    checked by the requestor to see if the fields have been set in an
-   acceptable manner.  CA/RA SHOULD use the template fields if possible.
+   acceptable manner.  CA/RA <em>SHOULD</em> use the template fields if possible.
 
    There are cases where all fields of the template can be omitted.  If
    the key generation is being done at the CA/RA and the identity proof
@@ -1167,7 +1167,7 @@ Table Of Contents
    The following controls are defined by this document:  regToken
    (<a href="#section-6.1">section 6.1</a>); authenticator (<a href="#section-6.2">section 6.2</a>); pkiPublicationInfo
    (<a href="#section-6.3">section 6.3</a>); pkiArchiveOptions (<a href="#section-6.4">section 6.4</a>); oldCertID (<a href="#section-6.5">section</a>
-   <a href="#section-6.5">6.5</a>); protocolEncrKey (<a href="#section-6.6">section 6.6</a>).  Each CRP MUST define the set of
+   <a href="#section-6.5">6.5</a>); protocolEncrKey (<a href="#section-6.6">section 6.6</a>).  Each CRP <em>MUST</em> define the set of
    controls supported by that protocol.  Additional controls may be
    defined by additional RFCs or by the CRP protocol itself.
 
@@ -1205,7 +1205,7 @@ Table Of Contents
    In some instances of use the value for regToken could be a text
    string or a numeric quantity such as a random number.  In the latter
    case, the value is encoded as a text string representation of the
-   binary quantity.  The encoding of regToken SHALL be UTF8String.
+   binary quantity.  The encoding of regToken <em>SHALL</em> be UTF8String.
 
    id-regCtrl-regToken            OBJECT IDENTIFIER ::= { id-regCtrl 1 }
 
@@ -1229,7 +1229,7 @@ Table Of Contents
    In some instances of use, the value for authenticator could be a text
    string or a numeric quantity such as a random number.  The value in
    the latter case is encoded as a text string representation of the
-   binary quantity.  The encoding of authenticator SHALL be UTF8String.
+   binary quantity.  The encoding of authenticator <em>SHALL</em> be UTF8String.
 
    id-regCtrl-authenticator       OBJECT IDENTIFIER ::= { id-regCtrl 2 }
 
@@ -1260,7 +1260,7 @@ Table Of Contents
         action     INTEGER {
                      dontPublish (0),
                      pleasePublish (1) },
-        pubInfos  SEQUENCE SIZE (1..MAX) OF SinglePubInfo OPTIONAL }
+        pubInfos  SEQUENCE SIZE (1..MAX) OF SinglePubInfo <em>OPTIONAL</em> }
 
    SinglePubInfo ::= SEQUENCE {
          pubMethod    INTEGER {
@@ -1268,7 +1268,7 @@ Table Of Contents
              x500        (1),
              web         (2),
              ldap        (3) },
-         pubLocation  GeneralName OPTIONAL }
+         pubLocation  GeneralName <em>OPTIONAL</em> }
 
    The fields of PKIPublicationInfo have the following meaning:
 
@@ -1278,7 +1278,7 @@ Table Of Contents
          dontPublish indicates that the requester wishes the CA/RA not
          to publish the certificate (this may indicate that the
          requester intends to publish the certificate him/herself).  If
-         dontPublish is used, the pubInfos field MUST be omitted.
+         dontPublish is used, the pubInfos field <em>MUST</em> be omitted.
 
          pleasePublish indicates that the requestor wishes the CA/RA to
          publish the certificate.
@@ -1298,7 +1298,7 @@ Table Of Contents
 
          dontCare indicates that the CA/RA can publish the certificate
          in whatever locations it chooses.  If dontCare is used, the
-         pubInfos field MUST be omitted.
+         pubInfos field <em>MUST</em> be omitted.
 
 
 
@@ -1351,13 +1351,13 @@ Table Of Contents
    EncryptedKey ::= CHOICE {
       encryptedValue        EncryptedValue, -- deprecated
       envelopedData     [0] EnvelopedData }
-      -- The encrypted private key MUST be placed in the envelopedData
+      -- The encrypted private key <em>MUST</em> be placed in the envelopedData
       -- encryptedContentInfo encryptedContent OCTET STRING.
 
    EncryptedValue ::= SEQUENCE {
-      intendedAlg   [0] AlgorithmIdentifier  OPTIONAL,
+      intendedAlg   [0] AlgorithmIdentifier  <em>OPTIONAL</em>,
       -- the intended algorithm for which the value will be used
-      symmAlg       [1] AlgorithmIdentifier  OPTIONAL,
+      symmAlg       [1] AlgorithmIdentifier  <em>OPTIONAL</em>,
 
 
 
@@ -1367,11 +1367,11 @@ Table Of Contents
 
 
       -- the symmetric algorithm used to encrypt the value
-      encSymmKey    [2] BIT STRING           OPTIONAL,
+      encSymmKey    [2] BIT STRING           <em>OPTIONAL</em>,
       -- the (encrypted) symmetric key used to encrypt the value
-      keyAlg        [3] AlgorithmIdentifier  OPTIONAL,
+      keyAlg        [3] AlgorithmIdentifier  <em>OPTIONAL</em>,
       -- algorithm used to encrypt the symmetric key
-      valueHint     [4] OCTET STRING         OPTIONAL,
+      valueHint     [4] OCTET STRING         <em>OPTIONAL</em>,
       -- a brief description or identifier of the encValue content
       -- (may be meaningful only to the sending entity, and used only
       -- if EncryptedValue might be re-examined by the sending entity
@@ -1381,13 +1381,13 @@ Table Of Contents
    -- of the EnvelopedData structure.
    --
    -- When EncryptedValue is used to carry a private key (as opposed to
-   -- a certificate), implementations MUST support the encValue field
+   -- a certificate), implementations <em>MUST</em> support the encValue field
    -- containing an encrypted PrivateKeyInfo as defined in [<a href="#ref-PKCS11" title="&quot;PKCS #11 v2.11: Cryptographic Token Interface Standard&quot;">PKCS11</a>],
    -- <a href="#section-12.11">section 12.11</a>.  If encValue contains some other format/encoding
-   -- for the private key, the first octet of valueHint MAY be used
+   -- for the private key, the first octet of valueHint <em>MAY</em> be used
    -- to indicate the format/encoding (but note that the possible values
    -- of this octet are not specified at this time).  In all cases, the
-   -- intendedAlg field MUST be used to indicate at least the OID of
+   -- intendedAlg field <em>MUST</em> be used to indicate at least the OID of
    -- the intended algorithm of the private key, unless this information
    -- is known a priori to both sender and receiver by some other means.
 
@@ -1401,7 +1401,7 @@ Table Of Contents
       to regenerate the private key.  As an example, for many RSA
       implementations one could send the first random number(s) tested
       for primality.  The structure to go here is not defined by this
-      document.  CRPs that define content for this structure MUST define
+      document.  CRPs that define content for this structure <em>MUST</em> define
       not only the content that is to go here, but also how that data is
       shrouded from unauthorized access.
 
@@ -1423,11 +1423,11 @@ Table Of Contents
 
 
       envelopedData contains the encrypted value of the private key.
-      CPRs that use this structure MUST define the entity or entities
+      CPRs that use this structure <em>MUST</em> define the entity or entities
       for whom the data is to be encrypted (the EE, escrow agents, CAs)
       and how that key or set of keys is to be determined.  Details on
       constructing an EnvelopedData structure are found in [<a href="#ref-CMS" title="&quot;Cryptographic Message Syntax (CMS)&quot;">CMS</a>].  The
-      encrypted content MUST be an id-ct-encKeyWithID.  The identifier
+      encrypted content <em>MUST</em> be an id-ct-encKeyWithID.  The identifier
       can be omitted unless this structure is also being used to do
       proof-of-possession.
 
@@ -1486,7 +1486,7 @@ Table Of Contents
 
    The %xx mechanism of [<a href="./rfc1738.html" title="&quot;Uniform Resource Locators (URL)&quot;">RFC1738</a>] is used to encode '?' (%3f) and '%'
    (%25) if they are not being used for their reserved purpose.  Names
-   MUST NOT start with a numeric character.
+   <em>MUST NOT</em> start with a numeric character.
 
    This control can appear multiple times in the regInfo structure.
    Resolution of conflicts of information is a matter of local policy on
@@ -1507,7 +1507,7 @@ Table Of Contents
    This control has the OID id-regInfo-certReq and the structure
    CertRequest.  There can only be one instance of this attribute in the
    regInfo sequence.  If this control exists in the regInfo structure,
-   then the certificate template in the request is ignored.  The RA MUST
+   then the certificate template in the request is ignored.  The RA <em>MUST</em>
    copy all data from the core template to this attribute.
 
       id-regInfo-certReq       OBJECT IDENTIFIER ::= { id-regInfo 2 }
@@ -1802,7 +1802,7 @@ Table Of Contents
 
    When they appear in id-regInfo-utf8Pairs syntax as named elements,
    the encoding of values for issuerName, subjectName, and validity
-   SHALL use the following syntax.  The characters [] indicate an
+   <em>SHALL</em> use the following syntax.  The characters [] indicate an
    optional field, ::= and | have their usual BNF meanings, and all
    other symbols (except spaces, which are insignificant) outside non-
    terminal names are terminals.  Alphabetics are case-sensitive.
@@ -1837,7 +1837,7 @@ Table Of Contents
    by a name value of one or more UTF-8 characters.  Within a name
    value, when it is necessary to disambiguate a character that has
    formatting significance at an outer level, the escape sequence %xx
-   SHALL be used, where xx represents the hex value for the encoding
+   <em>SHALL</em> be used, where xx represents the hex value for the encoding
    concerned.  The percent symbol is represented by %%.
 
       &lt;name&gt; ::= X&lt;xname&gt;|O&lt;oname&gt;|E&lt;ename&gt;|D&lt;dname&gt;|U&lt;uname&gt;|I&lt;iname&gt;
@@ -1988,30 +1988,30 @@ CertReqMessages ::= SEQUENCE SIZE (1..MAX) OF CertReqMsg
 
 CertReqMsg ::= SEQUENCE {
  certReq   CertRequest,
- popo       ProofOfPossession  OPTIONAL,
+ popo       ProofOfPossession  <em>OPTIONAL</em>,
  -- content depends upon key type
- regInfo   SEQUENCE SIZE(1..MAX) OF AttributeTypeAndValue OPTIONAL }
+ regInfo   SEQUENCE SIZE(1..MAX) OF AttributeTypeAndValue <em>OPTIONAL</em> }
 
 CertRequest ::= SEQUENCE {
  certReqId     INTEGER,          -- ID for matching request and reply
  certTemplate  CertTemplate,  -- Selected fields of cert to be issued
- controls      Controls OPTIONAL }   -- Attributes affecting issuance
+ controls      Controls <em>OPTIONAL</em> }   -- Attributes affecting issuance
 
 CertTemplate ::= SEQUENCE {
- version      [0] Version               OPTIONAL,
- serialNumber [1] INTEGER               OPTIONAL,
- signingAlg   [2] AlgorithmIdentifier   OPTIONAL,
- issuer       [3] Name                  OPTIONAL,
- validity     [4] OptionalValidity      OPTIONAL,
- subject      [5] Name                  OPTIONAL,
- publicKey    [6] SubjectPublicKeyInfo  OPTIONAL,
- issuerUID    [7] UniqueIdentifier      OPTIONAL,
- subjectUID   [8] UniqueIdentifier      OPTIONAL,
- extensions   [9] Extensions            OPTIONAL }
+ version      [0] Version               <em>OPTIONAL</em>,
+ serialNumber [1] INTEGER               <em>OPTIONAL</em>,
+ signingAlg   [2] AlgorithmIdentifier   <em>OPTIONAL</em>,
+ issuer       [3] Name                  <em>OPTIONAL</em>,
+ validity     [4] OptionalValidity      <em>OPTIONAL</em>,
+ subject      [5] Name                  <em>OPTIONAL</em>,
+ publicKey    [6] SubjectPublicKeyInfo  <em>OPTIONAL</em>,
+ issuerUID    [7] UniqueIdentifier      <em>OPTIONAL</em>,
+ subjectUID   [8] UniqueIdentifier      <em>OPTIONAL</em>,
+ extensions   [9] Extensions            <em>OPTIONAL</em> }
 
 OptionalValidity ::= SEQUENCE {
- notBefore  [0] Time OPTIONAL,
- notAfter   [1] Time OPTIONAL } -- at least one MUST be present
+ notBefore  [0] Time <em>OPTIONAL</em>,
+ notAfter   [1] Time <em>OPTIONAL</em> } -- at least one <em>MUST</em> be present
 
 Controls  ::= SEQUENCE SIZE(1..MAX) OF AttributeTypeAndValue
 AttributeTypeAndValue ::= SEQUENCE {
@@ -2027,7 +2027,7 @@ ProofOfPossession ::= CHOICE {
  keyAgreement      [3] POPOPrivKey }
 
 POPOSigningKey ::= SEQUENCE {
- poposkInput           [0] POPOSigningKeyInput OPTIONAL,
+ poposkInput           [0] POPOSigningKeyInput <em>OPTIONAL</em>,
  algorithmIdentifier   AlgorithmIdentifier,
  signature             BIT STRING }
 
@@ -2041,12 +2041,12 @@ POPOSigningKey ::= SEQUENCE {
  -- The signature (using "algorithmIdentifier") is on the
  -- DER-encoded value of poposkInput.  NOTE: If the CertReqMsg
  -- certReq CertTemplate contains the subject and publicKey values,
- -- then poposkInput MUST be omitted and the signature MUST be
+ -- then poposkInput <em>MUST</em> be omitted and the signature <em>MUST</em> be
  -- computed over the DER-encoded value of CertReqMsg certReq.  If
  -- the CertReqMsg certReq CertTemplate does not contain both the
  -- public key and subject values (i.e., if it contains only one
- -- of these, or neither), then poposkInput MUST be present and
- -- MUST be signed.
+ -- of these, or neither), then poposkInput <em>MUST</em> be present and
+ -- <em>MUST</em> be signed.
 
 
 POPOSigningKeyInput ::= SEQUENCE {
@@ -2096,7 +2096,7 @@ POPOPrivKey ::= CHOICE {
 
  -- for keyAgreement (only), possession is proven in this message
  -- (which contains a MAC (over the DER-encoded value of the
- -- certReq parameter in CertReqMsg, which MUST include both subject
+ -- certReq parameter in CertReqMsg, which <em>MUST</em> include both subject
  -- and publicKey) based on a key derived from the end entity's
  -- private DH key and the CA's public DH key);
 
@@ -2130,8 +2130,8 @@ PKIPublicationInfo ::= SEQUENCE {
 action     INTEGER {
              dontPublish (0),
              pleasePublish (1) },
-pubInfos  SEQUENCE SIZE (1..MAX) OF SinglePubInfo OPTIONAL }
-  -- pubInfos MUST NOT be present if action is "dontPublish"
+pubInfos  SEQUENCE SIZE (1..MAX) OF SinglePubInfo <em>OPTIONAL</em> }
+  -- pubInfos <em>MUST NOT</em> be present if action is "dontPublish"
   -- (if action is "pleasePublish" and pubInfos is omitted,
   -- "dontCare" is assumed)
 
@@ -2141,7 +2141,7 @@ SinglePubInfo ::= SEQUENCE {
      x500        (1),
      web         (2),
      ldap        (3) },
- pubLocation  GeneralName OPTIONAL }
+ pubLocation  GeneralName <em>OPTIONAL</em> }
 
 
 
@@ -2166,19 +2166,19 @@ PKIArchiveOptions ::= CHOICE {
 EncryptedKey ::= CHOICE {
  encryptedValue        EncryptedValue,   -- Deprecated
  envelopedData     [0] EnvelopedData }
- -- The encrypted private key MUST be placed in the envelopedData
+ -- The encrypted private key <em>MUST</em> be placed in the envelopedData
  -- encryptedContentInfo encryptedContent OCTET STRING.
 
 EncryptedValue ::= SEQUENCE {
- intendedAlg   [0] AlgorithmIdentifier  OPTIONAL,
+ intendedAlg   [0] AlgorithmIdentifier  <em>OPTIONAL</em>,
  -- the intended algorithm for which the value will be used
- symmAlg       [1] AlgorithmIdentifier  OPTIONAL,
+ symmAlg       [1] AlgorithmIdentifier  <em>OPTIONAL</em>,
  -- the symmetric algorithm used to encrypt the value
- encSymmKey    [2] BIT STRING           OPTIONAL,
+ encSymmKey    [2] BIT STRING           <em>OPTIONAL</em>,
  -- the (encrypted) symmetric key used to encrypt the value
- keyAlg        [3] AlgorithmIdentifier  OPTIONAL,
+ keyAlg        [3] AlgorithmIdentifier  <em>OPTIONAL</em>,
  -- algorithm used to encrypt the symmetric key
- valueHint     [4] OCTET STRING         OPTIONAL,
+ valueHint     [4] OCTET STRING         <em>OPTIONAL</em>,
  -- a brief description or identifier of the encValue content
  -- (may be meaningful only to the sending entity, and used only
  -- if EncryptedValue might be re-examined by the sending entity
@@ -2186,13 +2186,13 @@ EncryptedValue ::= SEQUENCE {
  encValue       BIT STRING }
  -- the encrypted value itself
 -- When EncryptedValue is used to carry a private key (as opposed to
--- a certificate), implementations MUST support the encValue field
+-- a certificate), implementations <em>MUST</em> support the encValue field
 -- containing an encrypted PrivateKeyInfo as defined in [<a href="#ref-PKCS11" title="&quot;PKCS #11 v2.11: Cryptographic Token Interface Standard&quot;">PKCS11</a>],
 -- <a href="#section-12.11">section 12.11</a>.  If encValue contains some other format/encoding
--- for the private key, the first octet of valueHint MAY be used
+-- for the private key, the first octet of valueHint <em>MAY</em> be used
 -- to indicate the format/encoding (but note that the possible values
 -- of this octet are not specified at this time).  In all cases, the
--- intendedAlg field MUST be used to indicate at least the OID of
+-- intendedAlg field <em>MUST</em> be used to indicate at least the OID of
 -- the intended algorithm of the private key, unless this information
 -- is known a priori to both sender and receiver by some other means.
 
@@ -2241,14 +2241,14 @@ EncKeyWithID ::= SEQUENCE {
   identifier CHOICE {
     string             UTF8String,
     generalName        GeneralName
-  } OPTIONAL
+  } <em>OPTIONAL</em>
 }
 
 PrivateKeyInfo ::= SEQUENCE {
    version                   INTEGER,
    privateKeyAlgorithm       AlgorithmIdentifier,
    privateKey                OCTET STRING,
-   attributes                [0] IMPLICIT Attributes OPTIONAL
+   attributes                [0] IMPLICIT Attributes <em>OPTIONAL</em>
 }
 
 Attributes ::= SET OF Attribute
@@ -2321,7 +2321,7 @@ END
       For signing keys used only for authentication, and not for non-
       repudiation, the threat is lower because users may not care about
       Alice's after-the-fact repudiation, and thus POP becomes less
-      important.  However, POP SHOULD still be done wherever feasible in
+      important.  However, POP <em>SHOULD</em> still be done wherever feasible in
       this environment, by either off-line or on-line means.
 
       POP for key management keys:  Similarly, POP for key management

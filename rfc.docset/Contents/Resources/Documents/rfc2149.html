@@ -380,7 +380,7 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a> Working of MCS</span>
 
-   An MCS MUST NOT share its ATM address with any other cluster member
+   An MCS <em>MUST NOT</em> share its ATM address with any other cluster member
    (MARS or otherwise).  However, it may share the same physical ATM
    interface (even with other MCSs or the MARS), provided that each
    logical entity has a different ATM address.  This section describes
@@ -391,18 +391,18 @@ Abstract
 
 <span class="h4"><a class="selflink" name="section-4.1.1" href="#section-4.1.1">4.1.1</a> Registration (and deregistration) with the MARS</span>
 
-   The ATM address of the MARS MUST be known to the MCS by out-of-band
+   The ATM address of the MARS <em>MUST</em> be known to the MCS by out-of-band
    means at startup.  One possible approach for doing this is for the
    network administrator to specify the MARS address at command line
-   while invoking the MCS. On startup, the MCS MUST open a point-to-
+   while invoking the MCS. On startup, the MCS <em>MUST</em> open a point-to-
    point control VC (MARSVC) with the MARS. All traffic from the MCS to
-   the MARS MUST be carried over the MARSVC. The MCS MUST register with
+   the MARS <em>MUST</em> be carried over the MARSVC. The MCS <em>MUST</em> register with
    the MARS using the MARS-MSERV message on startup.  To register, a
-   MARSMSERV MUST be sent by the MCS to the MARS over the MARSVC. On
+   MARSMSERV <em>MUST</em> be sent by the MCS to the MARS over the MARSVC. On
    receiving this MARS-MSERV, the MARS adds the MCS to the
    ServerControlVC. The ServerControlVC is maintained by the MARS with
    all MCSs as leaves, and is used to disseminate general control
-   messages to all the MCSs.  The MCS MUST terminate this VC, and MUST
+   messages to all the MCSs.  The MCS <em>MUST</em> terminate this VC, and <em>MUST</em>
    expect a copy of the MCS registration MARSMSERV on the MARS-VC from
    the MARS.
 
@@ -416,17 +416,17 @@ Abstract
 
 
    An MCS can deregister by sending a MARSUNSERV to the MARS. A copy of
-   this MARSUNSERV MUST be expected back from the MARS. The MCS will
+   this MARSUNSERV <em>MUST</em> be expected back from the MARS. The MCS will
    then be dropped from the ServerControlVC.
 
    No protocol specific group addresses are included in MCS registration
-   MARSMSERV and MARS-UNSERV. The mar$flags.register bit MUST be set,
-   the mar$cmi field MUST be set to zero, the mar$flags.sequence field
-   MUST be set to zero, the source ATM address MUST be included and a
-   null source protocol address MAY be specified in these MARSMSERV and
+   MARSMSERV and MARS-UNSERV. The mar$flags.register bit <em>MUST</em> be set,
+   the mar$cmi field <em>MUST</em> be set to zero, the mar$flags.sequence field
+   <em>MUST</em> be set to zero, the source ATM address <em>MUST</em> be included and a
+   null source protocol address <em>MAY</em> be specified in these MARSMSERV and
    MARS-UNSERV. All other fields are set as described in section 5.2.1
    of [<a href="#ref-GA96" title="&quot;Support for Multicast over UNI 3.0/3.1 based ATM networks&quot;">GA96</a>] (the MCS can be considered to be a cluster member while
-   reading that section).  It MUST keep retransmitting (<a href="#section-4.1.3">section 4.1.3</a>)
+   reading that section).  It <em>MUST</em> keep retransmitting (<a href="#section-4.1.3">section 4.1.3</a>)
    the MARSMSERV/MARS-UNSERV over the MARSVC until it receives a copy
    back.
 
@@ -437,17 +437,17 @@ Abstract
 
    The MCS can register with the MARS to support particular group(s).
    To register groups X through Y, a MARSMSERV with a &lt;min, max&gt; pair of
-   &lt;X, Y&gt; MUST be sent to the MARS. The MCS MUST expect a copy of the
+   &lt;X, Y&gt; <em>MUST</em> be sent to the MARS. The MCS <em>MUST</em> expect a copy of the
    MARSMSERV back from the MARS. The retransmission strategy outlined in
    <a href="#section-4.1.3">section 4.1.3</a> is to be followed if no copy is received.
 
-   The MCS MUST similarly use MARSUNSERV if it wants to withdraw support
-   for a specific layer 3 group.  A copy of the group MARSUNSERV MUST be
+   The MCS <em>MUST</em> similarly use MARSUNSERV if it wants to withdraw support
+   for a specific layer 3 group.  A copy of the group MARSUNSERV <em>MUST</em> be
    received, failing which the retransmission strategy in <a href="#section-4.1.3">section 4.1.3</a>
    is to be followed.
 
-   The mar$flags.register bit MUST be reset and the mar$flags.sequence
-   field MUST be set to zero in the group MARSMSERV and MARS-UNSERV. All
+   The mar$flags.register bit <em>MUST</em> be reset and the mar$flags.sequence
+   field <em>MUST</em> be set to zero in the group MARSMSERV and MARS-UNSERV. All
    other fields are set as described in section 5.2.1 of [<a href="#ref-GA96" title="&quot;Support for Multicast over UNI 3.0/3.1 based ATM networks&quot;">GA96</a>] (the MCS
    can be considered to be a cluster member when reading that section).
 
@@ -458,8 +458,8 @@ Abstract
    not receive a copy back from the MARS. This interval should be no
    shorter than 5 seconds, and a default value of 10 seconds is
    recommended.  A maximum of 5 retransmissions are permitted before a
-   failure is logged.  This MUST be considered a MARS failure, which
-   SHOULD result in the MARS reconnection mechanism described in <a href="#section-4.5.2">section</a>
+   failure is logged.  This <em>MUST</em> be considered a MARS failure, which
+   <em>SHOULD</em> result in the MARS reconnection mechanism described in <a href="#section-4.5.2">section</a>
    <a href="#section-4.5.2">4.5.2</a>.
 
 
@@ -480,13 +480,13 @@ Abstract
    -  Source ATM address
    -  first &lt;min, max&gt; pair
 
-   In addition, a valid copy MUST have the following field values:
+   In addition, a valid copy <em>MUST</em> have the following field values:
 
    -  mar$flags.punched = 0
    -  mar$flags.copy = 1
 
-   If either of the above is not true, the message MUST be dropped
-   without resetting of the MARSMSERV/MARS-UNSERV timer.  There MUST be
+   If either of the above is not true, the message <em>MUST</em> be dropped
+   without resetting of the MARSMSERV/MARS-UNSERV timer.  There <em>MUST</em> be
    only one MARSMSERV or MARS-UNSERV outstanding at a time.
 
 <span class="h4"><a class="selflink" name="section-4.1.4" href="#section-4.1.4">4.1.4</a> Processing of MARSMSERV and MARS-UNSERV</span>
@@ -497,7 +497,7 @@ Abstract
    messages by the other MCSs.
 
    If a MARSMSERV is seen that refers to a layer 3 group not supported
-   by the MCS, it MUST be used to track the Server Sequence Number
+   by the MCS, it <em>MUST</em> be used to track the Server Sequence Number
    (<a href="#section-4.5.1">section 4.5.1</a>) and then silently dropped.
 
    If a MARSMSERV is seen that refers to a layer 3 group supported by
@@ -511,7 +511,7 @@ Abstract
    As described in <a href="#section-5.1">section 5.1</a>, the MCS learns at startup whether it is
    an active or inactive MCS. After successful registration with the
    MARS, an MCS which has been designated as inactive for a particular
-   group MUST NOT register to support that group with the MARS. It
+   group <em>MUST NOT</em> register to support that group with the MARS. It
    instead proceeds as in <a href="#section-5.4">section 5.4</a>.  The active MCS for a group also
    has to do some special processing, which we describe in that section.
    The rest of <a href="#section-4">section 4</a> describes the working of a single active MCS,
@@ -533,19 +533,19 @@ Abstract
    revalidation phase (<a href="#section-4.5">section 4.5</a>) and when no outgoing VC exists for a
    received layer 3 packet (<a href="#section-4.3">section 4.3</a>).
 
-   On registering to support a particular layer 3 group, the MCS MUST
+   On registering to support a particular layer 3 group, the MCS <em>MUST</em>
    send a MARSREQUEST to the MARS. The mechanism to retrieve group
    membership and the format of MARSREQUEST and MARS-MULTI is described
-   in <a href="#section-5.1.1">section 5.1.1</a> and 5.1.2 of [<a href="#ref-GA96" title="&quot;Support for Multicast over UNI 3.0/3.1 based ATM networks&quot;">GA96</a>] respectively.  The MCS MUST use
+   in <a href="#section-5.1.1">section 5.1.1</a> and 5.1.2 of [<a href="#ref-GA96" title="&quot;Support for Multicast over UNI 3.0/3.1 based ATM networks&quot;">GA96</a>] respectively.  The MCS <em>MUST</em> use
    this mechanism for sending (and retransmitting) the MARSREQUEST and
-   processing the returned MARSMULTI(/s).  The MARS-MULTI MUST be
-   received correctly, and the MCS MUST use it to initialize its
+   processing the returned MARSMULTI(/s).  The MARS-MULTI <em>MUST</em> be
+   received correctly, and the MCS <em>MUST</em> use it to initialize its
    knowledge of group membership.
 
-   On successful reception of a MARSMULTI, the MCS MUST attempt to open
+   On successful reception of a MARSMULTI, the MCS <em>MUST</em> attempt to open
    the outgoing point-to-multipoint VC using the mechanism described in
    section 5.1.3 of [<a href="#ref-GA96" title="&quot;Support for Multicast over UNI 3.0/3.1 based ATM networks&quot;">GA96</a>], if any group members exist.  The MCS however
-   MUST start transmitting data on this VC after it has opened it
+   <em>MUST</em> start transmitting data on this VC after it has opened it
    successfully with at least one of the group members as a leaf, and
    after it has attempted to add all the group members at least once.
 
@@ -558,19 +558,19 @@ Abstract
    setup as described in the previous section.  However, it is possible
    that no group members currently exist, thus causing no VC to be
    setup.  So an MCS may have no outgoing VC to forward received layer 3
-   packets on, in which case it MUST initiate the MARSREQUEST and MARS-
+   packets on, in which case it <em>MUST</em> initiate the MARSREQUEST and MARS-
    MULTI sequence described in the previous section.  This new MARSMULTI
    could contain new members, whose MARSSJOINs may have been not
    received by the MCS (and the loss not detected due to absence of
    traffic on the ServerControlVC).
 
    If an MCS learns that there are no group members (MARSNAK received
-   from MARS), it MUST delay sending out a new MARSREQUEST for that
+   from MARS), it <em>MUST</em> delay sending out a new MARSREQUEST for that
    group for a period no less than 5 seconds and no more than 10
    seconds.
 
    Layer 3 packets received from cluster members, while no outgoing
-   point-to-multipoint VC exists for that group, MUST be silently
+   point-to-multipoint VC exists for that group, <em>MUST</em> be silently
    dropped after following the guidelines in the previous paragraphs.
    This might result in some layer 3 packets being lost until the VC is
    setup.
@@ -584,17 +584,17 @@ Abstract
 
 
    Each outgoing point-to-multipoint VC has a revalidate flag associated
-   with it.  This flag MUST be checked whenever a layer 3 packet is sent
+   with it.  This flag <em>MUST</em> be checked whenever a layer 3 packet is sent
    out on that VC. No action is taken if it is not set.  If it is set,
    the packet is sent out, the revalidation procedure (<a href="#section-4.5.3">section 4.5.3</a>)
-   MUST be initiated for this group, and the flag MUST be reset.
+   <em>MUST</em> be initiated for this group, and the flag <em>MUST</em> be reset.
 
-   In case of error on a point-to-multipoint VC, the MCS MUST initiate
+   In case of error on a point-to-multipoint VC, the MCS <em>MUST</em> initiate
    revalidation procedures for that VC as described in <a href="#section-4.5.3">section 4.5.3</a>.
    Once a point-to-multipoint VC has been setup for a particular layer 3
-   group, the MCS MUST hold the VC open and mark it as the outgoing path
+   group, the MCS <em>MUST</em> hold the VC open and mark it as the outgoing path
    for any subsequent layer 3 packets being sent for that group address.
-   A point-to-multipoint VC MUST NOT have an activity timer associated
+   A point-to-multipoint VC <em>MUST NOT</em> have an activity timer associated
    with it.  It is to remain up at all times, unless the MCS explicitly
    stops supporting that layer 3 group, or no more leaves exist on the
    VC which causes it to be shut down.  The VC is kept up inspite of
@@ -611,9 +611,9 @@ Abstract
    implementation or simulation) about the implications of keeping the
    VC open.
 
-   If the MCS supports multiple layer 3 groups, it MUST follow the
+   If the MCS supports multiple layer 3 groups, it <em>MUST</em> follow the
    procedure outlined in the four previous subsections for each group
-   that it is an active MCS. Each incoming data AALSDU MUST be examined
+   that it is an active MCS. Each incoming data AALSDU <em>MUST</em> be examined
    for determining its recipient group, before being forwarded onto the
    appropriate outgoing point-to-multipoint VC.
 
@@ -622,8 +622,8 @@ Abstract
    AN ERRL-DROP may be received during the lifetime of a point-to-
    multipoint VC indicating that a leaf node has terminated its
    participation at the ATM level.  The ATM endpoint associated with the
-   ERRL-DROP MUST be removed from the locally held set associated with
-   the VC. The revalidate flag on the VC MUST be set after a random
+   ERRL-DROP <em>MUST</em> be removed from the locally held set associated with
+   the VC. The revalidate flag on the VC <em>MUST</em> be set after a random
    interval of 1 through 10 seconds.
 
    If an ERRL-RELEASE is received for a VC, then the entire set is
@@ -651,7 +651,7 @@ Abstract
    being joined or left, and a Server Sequence Number from MARS.
 
    When a MARSSJOIN is seen which refers to (or encompasses) a layer 3
-   group (or groups) supported by the MCS, the following action MUST be
+   group (or groups) supported by the MCS, the following action <em>MUST</em> be
    taken.  The new member's ATM address is extracted from the MARSSJOIN.
    An L-MULTIADD is issued for the new member for each of those referred
    groups which have an outgoing point-to-multipoint VC. An LMULTI-RQ is
@@ -659,7 +659,7 @@ Abstract
    no outgoing VCs.
 
    When a MARSSLEAVE is seen that refers to (or encompasses) a layer 3
-   group (or groups) supported by the MCS, the following action MUST be
+   group (or groups) supported by the MCS, the following action <em>MUST</em> be
    taken.  The leaving member's ATM address is extracted.  An LMULTI-
    DROP is issued for the member for each of the refered groups which
    have an outgoing point-to-multipoint VC.
@@ -671,17 +671,17 @@ Abstract
    unavailable), 51 (user cell rate not available - UNI 3.0), 37 (user
    cell rate not available - UNI 3.1), or 41 (Temporary failure), the
    endpoint's ATM address is dropped from the locally held view of the
-   group by the MCS. Otherwise, the request MUST be re-attempted with
+   group by the MCS. Otherwise, the request <em>MUST</em> be re-attempted with
    increasing delay (initial value between 5 to 10 seconds, with delay
    value doubling after each attempt) until it either succeeds or the
    multipoint VC is released or a MARSSLEAVE is received for that group
-   member.  If the VC is open, traffic on the VC MUST continue during
+   member.  If the VC is open, traffic on the VC <em>MUST</em> continue during
    these attempts.
 
    MARSSJOIN and MARS-SLEAVE are processed differently if multiple MCSs
    share the members of the same layer 3 group (<a href="#section-5.4">section 5.4</a>).  MARSSJOIN
    and MARSSLEAVE that do not refer to (or encompass) supported groups
-   MUST be used to track the Server Sequence Number (<a href="#section-4.5.1">section 4.5.1</a>), but
+   <em>MUST</em> be used to track the Server Sequence Number (<a href="#section-4.5.1">section 4.5.1</a>), but
    are otherwise ignored.
 
 
@@ -715,7 +715,7 @@ Abstract
    during the establishment of a new group's VC (i.e.  a MARSMULTI was
    correctly received, but its mar$msn indicated that some previous MARS
    traffic had been missed on ClusterControlVC). In this case every open
-   VC, EXCEPT the one just being established, MUST have its revalidate
+   VC, EXCEPT the one just being established, <em>MUST</em> have its revalidate
    flag set at some random interval between 1 and 10 seconds from the
    time the jump in SSN was detected.  (The VC being established is
    considered already validated in this case).
@@ -754,7 +754,7 @@ Abstract
 <span class="h4"><a class="selflink" name="section-4.5.2" href="#section-4.5.2">4.5.2</a> Reconnecting to the MARS</span>
 
    The MCSs are assumed to have been configured with the ATM address of
-   at least one MARS at startup.  MCSs MAY choose to maintain a table of
+   at least one MARS at startup.  MCSs <em>MAY</em> choose to maintain a table of
    ATM addresses, each address representing alternative MARS which will
    be contacted in case of failure of the previous one.  This table is
    assumed to be ordered in descending order of preference.
@@ -779,17 +779,17 @@ Abstract
 
    The revalidation flag associated with a point-to-multipoint VC is
    checked when a layer 3 packet is to be sent out on the VC.
-   Revalidation procedures MUST be initiated for a point-to-multipoint
+   Revalidation procedures <em>MUST</em> be initiated for a point-to-multipoint
    VC that has its revalidate flag set when a layer 3 packet is being
    sent out on it.  Thus more active groups get revalidated faster than
-   less active ones.  The revalidation process MUST NOT result in
+   less active ones.  The revalidation process <em>MUST NOT</em> result in
    disruption of normal traffic on the VC being revalidated.
 
    The revalidation procedure is as follows.  The MCS reissues a
    MARSREQUEST for the VC being revalidated.  The returned set of
-   members is compared with the locally held set; LMULTI-ADDs MUST be
-   issued for new members, and LMULTI-DROPs MUST be issued for non-
-   existent ones.  The revalidate flag MUST be reset for the VC.
+   members is compared with the locally held set; LMULTI-ADDs <em>MUST</em> be
+   issued for new members, and LMULTI-DROPs <em>MUST</em> be issued for non-
+   existent ones.  The revalidate flag <em>MUST</em> be reset for the VC.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a> Multiple MCSs for a layer 3 group</span>
 
@@ -825,7 +825,7 @@ Abstract
 
       * The set of (one or more) MCSs ("mcslist") that support a
         particular IP Multicast group is predetermined and fixed.  This
-        set MUST be known to each MCS in the set at startup, and the
+        set <em>MUST</em> be known to each MCS in the set at startup, and the
         ordering of MCSs in the set is the same for all MCSs in the set.
         An implementation of this would be to maintain the set of ATM
         addresses of the MCSs in a file, an identical copy of which is
@@ -932,7 +932,7 @@ Abstract
      This is a multiplier to the HelloInterval. If an inactive MCS
      does not receive a Hello message within the interval
      HelloInterval*DeadFactor from an active MCS that advertised
-     the HelloInterval then the inactive MCS MUST consider the active
+     the HelloInterval then the inactive MCS <em>MUST</em> consider the active
      one to have failed.
 
    IP Multicast address
@@ -978,40 +978,40 @@ Abstract
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a> The Multiple MCS protocol</span>
 
    As is indicated in <a href="#section-5.1">section 5.1</a>, all the MCSs supporting the same IP
-   Multicast group MUST be started up together.  The set of MCSs
-   ("mcslist") MUST be specified to each MCS in the set at startup.
+   Multicast group <em>MUST</em> be started up together.  The set of MCSs
+   ("mcslist") <em>MUST</em> be specified to each MCS in the set at startup.
    After registering to support the group with the MARS, the first MCS
-   in the set MUST open a point-to-multipoint VC (HelloVC) with the
+   in the set <em>MUST</em> open a point-to-multipoint VC (HelloVC) with the
    remaining MCSs in the "mcslist" as leaves, and thus assumes the role
-   of active MCS. It MUST send HELLO messages HelloInterval seconds
-   apart on this VC. The Hello message sent by the active MCS MUST have
+   of active MCS. It <em>MUST</em> send HELLO messages HelloInterval seconds
+   apart on this VC. The Hello message sent by the active MCS <em>MUST</em> have
    the Receiver Len set to zero, the State field set to "Elected", with
    the other fields appropriately set.  The Receiver ATM address field
    does not exist in this HELLO message.  The initial value of
-   HelloInterval and DeadFactor MUST be the same at all MCSs at startup.
+   HelloInterval and DeadFactor <em>MUST</em> be the same at all MCSs at startup.
    The active MCS can choose to change these values by introducing the
    new value in the HELLO messages that are sent out.  The active MCS
-   MUST support the group as described in <a href="#section-4">section 4</a>.
+   <em>MUST</em> support the group as described in <a href="#section-4">section 4</a>.
 
    The other MCSs in "mcslist" determine the identity of the first MCS
-   from the "mcslist".  They MUST NOT register to support the group with
+   from the "mcslist".  They <em>MUST NOT</em> register to support the group with
    the MARS, and become inactive MCSs.  On startup, an inactive MCS
-   expects HELLO messages from the active MCS. The inactive MCS MUST
-   terminate the HelloVC.  A timer MUST be maintained, and if the
+   expects HELLO messages from the active MCS. The inactive MCS <em>MUST</em>
+   terminate the HelloVC.  A timer <em>MUST</em> be maintained, and if the
    inactive MCS does not receive HELLO message from the active one
    within a period HelloInterval*DeadFactor seconds, it assumes that the
    active MCS died, and initiates the election process as described in
    <a href="#section-5.5">section 5.5</a>.  If a HELLO message is received within this period, the
    inactive MCS does not initiate any further action, other than
-   restarting the timer.  The inactive MCSs MUST set their values of
+   restarting the timer.  The inactive MCSs <em>MUST</em> set their values of
    HelloInterval and DeadFactor to those specified by the active MCS in
    the HELLO messages.
 
-   In case of an MCS supporting multiple groups, it MUST register to
-   support those groups for which it is the first MCS, and MUST NOT
+   In case of an MCS supporting multiple groups, it <em>MUST</em> register to
+   support those groups for which it is the first MCS, and <em>MUST NOT</em>
    register for other groups.  A MARSMSERV with multiple &lt;min, max&gt;
    pairs may be used for registering multiple disjoint sets of groups.
-   Support MUST be provided for the use of a single "mcslist" for more
+   Support <em>MUST</em> be provided for the use of a single "mcslist" for more
    than one group.  This is intended to address the case wherein an MCS
    is intended to support multiple groups, with other MCSs acting as
    backups.  This subverts the need for using a different "mcslist" for
@@ -1039,26 +1039,26 @@ Abstract
    HELLO message is received within an interval of
    HelloInterval*DeadFactor seconds, or if the HelloVC is closed.  In
    this case the next MCS in "mcslist" becomes the candidate MCS. It
-   MUST open a point-to-multipoint VC to the remaining inactive MCSs
+   <em>MUST</em> open a point-to-multipoint VC to the remaining inactive MCSs
    (HelloVC) and send a HELLO message on it with the State field set to
    No-Op.  The rest of the message is formatted as described earlier.
 
    On receiving a HELLO message from a candidate MCS, an inactive MCS
-   MUST open a point-to-point VC to that candidate.  It MUST send a
+   <em>MUST</em> open a point-to-point VC to that candidate.  It <em>MUST</em> send a
    HELLO message back to it, with the Sender and Receiver fields
    appropriately set (not zero), and the State field being No-Op.  If a
    HELLO message is received by an inactive MCS from a non-candidate
    MCS, it is ignored.  If no HELLO message is received from the
    candidate with the State field set to "Elected" in HelloInterval
-   seconds, the inactive MCS MUST retransmit the HELLO. If no HELLO
+   seconds, the inactive MCS <em>MUST</em> retransmit the HELLO. If no HELLO
    message with State field set to "Elected" is received by the inactive
    MCSs within an interval of HelloInterval*DeadFactor seconds, the next
    MCS in "mcslist" is considered as the candidate MCS. Note that the
    values used for HelloInterval and DeadFactor in the election phase
    are the default ones.
 
-   The candidate MCS MUST wait for a period of HelloInterval*DeadFactor
-   seconds for receiving HELLO messages from inactive MCSs.  It MUST
+   The candidate MCS <em>MUST</em> wait for a period of HelloInterval*DeadFactor
+   seconds for receiving HELLO messages from inactive MCSs.  It <em>MUST</em>
    transmit HELLO messages with State field set to No-Op at
    HelloInterval seconds interval during this period.  If it receives
    messages from atleast half of the remaining inactive MCSs during this
@@ -1072,7 +1072,7 @@ Abstract
 
 <span class="h4"><a class="selflink" name="section-5.5.2" href="#section-5.5.2">5.5.2</a> Failure of inactive MCS</span>
 
-   If an inactive MCS drops off the HelloVC, the active MCS MUST attempt
+   If an inactive MCS drops off the HelloVC, the active MCS <em>MUST</em> attempt
    to add that MCS back to the VC for three attempts, spaced
    HelloInterval*DeadFactor seconds apart.  If even the third attempt
    fails, the inactive MCS is considered dead.
@@ -1087,7 +1087,7 @@ Abstract
 <span class="grey"><a href="./rfc2149.html">RFC 2149</a>             Multicast Server Architectures             May 1997</span>
 
 
-   An MCS, active or inactive, MUST NOT be started up once it has
+   An MCS, active or inactive, <em>MUST NOT</em> be started up once it has
    failed.  Failed MCSs can only be started up by manual intervention
    after shutting down all the MCSs, and restarting them together.
 

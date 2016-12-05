@@ -282,8 +282,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Conventions for notations are as in Sieve <a href="./rfc5228.html#section-1.1">[RFC5228], Section&nbsp;1.1</a>.
@@ -328,22 +328,22 @@ Table of Contents
    "global" commands described below have an identifier of "include" for
    use with the capability mechanism.  If any of the "include",
    "return", or "global" commands are used in a script, the "include"
-   capability MUST be listed in the "require" statement in that script.
+   capability <em>MUST</em> be listed in the "require" statement in that script.
 
    Sieve implementations need to track the use of actions in included
    scripts so that implicit "keep" behavior can be properly determined
    based on whether any actions have executed in any script.
 
    Sieve implementations are allowed to limit the total number of nested
-   included scripts, but MUST provide for a total of at least three
+   included scripts, but <em>MUST</em> provide for a total of at least three
    levels of nested scripts including the top-level script.  An error
-   MUST be generated either when the script is uploaded to the Sieve
+   <em>MUST</em> be generated either when the script is uploaded to the Sieve
    repository, or when the script is executed, if any nesting limit is
    exceeded.  If such an error is detected whilst processing a Sieve
-   script, an implicit "keep" action MUST be executed to prevent loss of
+   script, an implicit "keep" action <em>MUST</em> be executed to prevent loss of
    any messages.
 
-   Sieve implementations MUST NOT allow recursive script inclusion.
+   Sieve implementations <em>MUST NOT</em> allow recursive script inclusion.
    Both direct recursion, where script A includes script A (itself), and
    indirect recursion, where script A includes script B which includes
    script A once again, are prohibited.
@@ -357,15 +357,15 @@ Table of Contents
 <span class="grey"><a href="./rfc6609.html">RFC 6609</a>                Sieve Extension: Include                May 2012</span>
 
 
-   Sieve implementations MUST generate an error at execution time if an
-   included script is a recursive inclusion.  Implementations MUST NOT
+   Sieve implementations <em>MUST</em> generate an error at execution time if an
+   included script is a recursive inclusion.  Implementations <em>MUST NOT</em>
    generate errors for recursive includes at upload time, as this would
    force an upload ordering requirement upon script authors and
    generators.
 
-   Sieve implementations MUST generate an error at execution time if an
+   Sieve implementations <em>MUST</em> generate an error at execution time if an
    included script does not exist, except when the ":optional" parameter
-   is specified.  Implementations MUST NOT generate errors for scripts
+   is specified.  Implementations <em>MUST NOT</em> generate errors for scripts
    missing at upload time, as this would force an upload ordering
    requirement upon script authors and generators.
 
@@ -375,7 +375,7 @@ Table of Contents
    "${status}" with one particular meaning or usage, and another defines
    "${status}" with a different meaning, then if one script includes the
    other there is an issue as to which "${status}" is being referenced.
-   To solve this problem, Sieve implementations MUST follow the scoping
+   To solve this problem, Sieve implementations <em>MUST</em> follow the scoping
    rules defined in <a href="#section-3.4">Section 3.4</a> and support the "global" command defined
    there.
 
@@ -388,14 +388,14 @@ Table of Contents
    The "include" command takes an optional "location" parameter, an
    optional ":once" parameter, an optional ":optional" parameter, and a
    single string argument representing the name of the script to include
-   for processing at that point.  Implementations MUST restrict script
+   for processing at that point.  Implementations <em>MUST</em> restrict script
    names according to ManageSieve <a href="./rfc5804.html#section-1.6">[RFC5804], Section&nbsp;1.6</a>.  The script
-   name argument MUST be a constant string as defined in <a href="./rfc5229.html#section-3">[RFC5229],
-   Section&nbsp;3</a>; implementations MUST NOT expand variables in the script
+   name argument <em>MUST</em> be a constant string as defined in <a href="./rfc5229.html#section-3">[RFC5229],
+   Section&nbsp;3</a>; implementations <em>MUST NOT</em> expand variables in the script
    name argument.
 
-   The "location" parameter MUST default to ":personal" if not
-   specified.  The "location" parameter MUST NOT be specified more than
+   The "location" parameter <em>MUST</em> default to ":personal" if not
+   specified.  The "location" parameter <em>MUST NOT</em> be specified more than
    once.  The "location" has the following meanings:
 
    :personal
@@ -417,38 +417,38 @@ Table of Contents
    script if it has not already been included at any other point during
    script execution.  If the script has already been included,
    processing continues immediately following the "include" command.
-   Implementations MUST NOT generate an error if an "include :once"
+   Implementations <em>MUST NOT</em> generate an error if an "include :once"
    command names a script whose inclusion would be recursive; in this
-   case, the script MUST be considered previously included, and
+   case, the script <em>MUST</em> be considered previously included, and
    therefore "include :once" will not include it again.
 
-   Note: It is RECOMMENDED that script authors and generators use the
+   Note: It is <em>RECOMMENDED</em> that script authors and generators use the
    ":once" parameter only when including a script that performs general
    duties such as declaring global variables and making sanity checks of
    the environment.
 
    The ":optional" parameter indicates that the script may be missing.
-   Ordinarily, an implementation MUST generate an error during execution
+   Ordinarily, an implementation <em>MUST</em> generate an error during execution
    if an "include" command specifies a script that does not exist.  When
-   ":optional" is specified, implementations MUST NOT generate an error
-   for a missing script, and MUST continue as if the "include" command
+   ":optional" is specified, implementations <em>MUST NOT</em> generate an error
+   for a missing script, and <em>MUST</em> continue as if the "include" command
    had not been present.
 
-   The included script MUST be a valid Sieve script.  Implementations
-   MUST validate that each script has its own "require" statements for
+   The included script <em>MUST</em> be a valid Sieve script.  Implementations
+   <em>MUST</em> validate that each script has its own "require" statements for
    all optional capabilities used by that script.  The scope of a
    "require" statement is the script in which it immediately appears,
    and neither inherits nor passes on capabilities to other scripts
    during the course of execution.
 
-   A "stop" command in an included script MUST stop all script
+   A "stop" command in an included script <em>MUST</em> stop all script
    processing, including the processing of the scripts that include the
    immediate one.  The "return" command (described below) stops
    processing of the immediate script only, and allows the scripts that
    include it to continue.
 
-   The "include" command MAY appear anywhere in a script where a control
-   structure is legal, and MAY be used within another control structure,
+   The "include" command <em>MAY</em> appear anywhere in a script where a control
+   structure is legal, and <em>MAY</em> be used within another control structure,
    e.g., an "if" block.
 
 
@@ -585,7 +585,7 @@ Table of Contents
 
    In order to avoid problems of variables in an included script
    "overwriting" those from the script that includes it, this
-   specification requires that all variables defined in a script MUST be
+   specification requires that all variables defined in a script <em>MUST</em> be
    kept "private" to the immediate script by default -- that is, they
    are not "visible" to other scripts.  This ensures that two script
    authors cannot inadvertently cause problems by choosing the same name
@@ -595,7 +595,7 @@ Table of Contents
    script available to others.  This specification defines the new
    command "global" to declare that a variable is shared among scripts.
    Effectively, two namespaces are defined: one local to the immediate
-   script, and another shared among all scripts.  Implementations MUST
+   script, and another shared among all scripts.  Implementations <em>MUST</em>
    allow a non-global variable to have the same name as a global
    variable but have no interaction between them.
 
@@ -605,20 +605,20 @@ Table of Contents
 
    The "global" command accepts a string list argument that defines one
    or more names of variables to be stored in the global variable space.
-   Each name MUST be a constant string and conform to the syntax of
+   Each name <em>MUST</em> be a constant string and conform to the syntax of
    variable-name as defined in the "variables" extension document
    <a href="./rfc5229.html#section-3">[RFC5229], Section&nbsp;3</a>.  Match variables cannot be specified, and
-   namespace prefixes are not allowed.  An invalid name MUST be detected
+   namespace prefixes are not allowed.  An invalid name <em>MUST</em> be detected
    as a syntax error.
 
    The "global" command is only available when the script has both
    "include" and "variables" in its require line.  If the "global"
    command appears when only "include" or only "variables" has been
-   required, an error MUST be generated when the script is uploaded.
+   required, an error <em>MUST</em> be generated when the script is uploaded.
 
    If a "global" command is given the name of a variable that has
    previously been defined in the immediate script with "set", an error
-   MUST be generated either when the script is uploaded or at execution
+   <em>MUST</em> be generated either when the script is uploaded or at execution
    time.
 
    If a "global" command lists a variable that has not been defined in
@@ -643,7 +643,7 @@ Table of Contents
    variable within that script.
 
    Interpretation of a string containing a variable marked as global,
-   but without any value set, SHALL behave as any other access to an
+   but without any value set, <em>SHALL</em> behave as any other access to an
    unknown variable, as specified in the "variables" extension document
    <a href="./rfc5229.html#section-3">[RFC5229], Section&nbsp;3</a> (i.e., evaluates to an empty string).
 
@@ -714,7 +714,7 @@ Table of Contents
    variables namespace "global", in accordance with the "variables"
    extension document <a href="./rfc5229.html#section-3">[RFC5229], Section&nbsp;3</a>.  The "global" namespace has
    no sub-namespaces (e.g., 'set "global.data.from" "me@example.com";'
-   is not allowed).  The variable-name part MUST be a valid identifier
+   is not allowed).  The variable-name part <em>MUST</em> be a valid identifier
    (e.g., 'set "global.12" "value";' is not valid because "12" is not a
    valid identifier).
 
@@ -722,7 +722,7 @@ Table of Contents
    suggests that extensions should define a namespace that is the same
    as its capability string (in this case, "include" rather than
    "global").  Nevertheless, references to the "global" namespace
-   without a prior require statement for the "include" extension MUST
+   without a prior require statement for the "include" extension <em>MUST</em>
    cause an error.
 
    Example:
@@ -732,7 +732,7 @@ Table of Contents
       set "global.i_am_on_vacation" "1";
 
    Variables declared global and variables accessed via the "global"
-   namespace MUST each be one and the same.  In the following example
+   namespace <em>MUST</em> each be one and the same.  In the following example
    script, we see the variable "i_am_on_vacation" used in a "global"
    command, and again with the "global" namespace.  Consider these as
    two syntaxes with identical meaning.
@@ -764,18 +764,18 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Interaction with Other Extensions</span>
 
    When "include" is used with the "editheader" extension [<a href="./rfc5293.html" title="&quot;Sieve Email Filtering: Editheader Extension&quot;">RFC5293</a>], any
-   changes made to headers in a script MUST be propagated both to and
+   changes made to headers in a script <em>MUST</em> be propagated both to and
    from included scripts.  By way of example, if a script deletes one
    header and adds another, then includes a second script, the included
-   script MUST NOT see the removed header, and MUST see the added
+   script <em>MUST NOT</em> see the removed header, and <em>MUST</em> see the added
    header.  Likewise, if the included script adds or removes a header,
-   upon returning to the including script, subsequent actions MUST see
-   the added headers and MUST NOT see the removed headers.
+   upon returning to the including script, subsequent actions <em>MUST</em> see
+   the added headers and <em>MUST NOT</em> see the removed headers.
 
    When "include" is used with the MIME extension [<a href="./rfc5703.html" title="&quot;Sieve Email Filtering: MIME Part Tests, Iteration, Extraction, Replacement, and Enclosure&quot;">RFC5703</a>]
-   "foreverypart" control structure, the included script MUST be
+   "foreverypart" control structure, the included script <em>MUST</em> be
    presented with the current MIME part as though it were the entire
-   message.  A script SHALL NOT have any special control over the
+   message.  A script <em>SHALL NOT</em> have any special control over the
    control structure it was included from.  The "break" command in an
    included script is not valid on its own and may not terminate a
    "foreverypart" iteration in another script.  The included script can
@@ -807,20 +807,20 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Security Considerations</span>
 
-   Sieve implementations MUST ensure adequate security for the global
+   Sieve implementations <em>MUST</em> ensure adequate security for the global
    script repository to prevent unauthorized changes to global scripts.
    For example, a site policy might enable only certain users with
    administrative privileges to modify the global scripts.  Sites are
    advised against allowing all users to have write access to the sites'
    global scripts.
 
-   Sieve implementations MUST ensure that script names are checked for
+   Sieve implementations <em>MUST</em> ensure that script names are checked for
    validity and proper permissions prior to inclusion, in order to
    prevent a malicious user from gaining access to files accessible to
    the mail server software that should not be accessible to the user.
 
-   Sieve implementations MUST ensure that script names are safe for use
-   with their storage system.  An error MUST be generated either when
+   Sieve implementations <em>MUST</em> ensure that script names are safe for use
+   with their storage system.  An error <em>MUST</em> be generated either when
    the script is uploaded or at execution time for a script including a
    name that could be used as a vector to attack the storage system.  By
    way of example, the following include commands should be considered

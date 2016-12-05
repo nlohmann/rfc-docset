@@ -316,8 +316,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Heartbeat Hello Extension</span>
@@ -330,10 +330,10 @@ Table of Contents
    peer_allowed_to_send as the HeartbeatMode; the latter is indicated by
    using peer_not_allowed_to_send as the Heartbeat mode.  This decision
    can be changed with every renegotiation.  HeartbeatRequest messages
-   MUST NOT be sent to a peer indicating peer_not_allowed_to_send.  If
+   <em>MUST NOT</em> be sent to a peer indicating peer_not_allowed_to_send.  If
    an endpoint that has indicated peer_not_allowed_to_send receives a
-   HeartbeatRequest message, the endpoint SHOULD drop the message
-   silently and MAY send an unexpected_message Alert message.
+   HeartbeatRequest message, the endpoint <em>SHOULD</em> drop the message
+   silently and <em>MAY</em> send an unexpected_message Alert message.
 
    The format of the Heartbeat Hello Extension is defined by:
 
@@ -348,7 +348,7 @@ Table of Contents
    } HeartbeatExtension;
 
    Upon reception of an unknown mode, an error Alert message using
-   illegal_parameter as its AlertDescription MUST be sent in response.
+   illegal_parameter as its AlertDescription <em>MUST</em> be sent in response.
 
 
 
@@ -373,29 +373,29 @@ Table of Contents
 
    A HeartbeatRequest message can arrive almost at any time during the
    lifetime of a connection.  Whenever a HeartbeatRequest message is
-   received, it SHOULD be answered with a corresponding
+   received, it <em>SHOULD</em> be answered with a corresponding
    HeartbeatResponse message.
 
-   However, a HeartbeatRequest message SHOULD NOT be sent during
+   However, a HeartbeatRequest message <em>SHOULD NOT</em> be sent during
    handshakes.  If a handshake is initiated while a HeartbeatRequest is
-   still in flight, the sending peer MUST stop the DTLS retransmission
-   timer for it.  The receiving peer SHOULD discard the message
+   still in flight, the sending peer <em>MUST</em> stop the DTLS retransmission
+   timer for it.  The receiving peer <em>SHOULD</em> discard the message
    silently, if it arrives during the handshake.  In case of DTLS,
-   HeartbeatRequest messages from older epochs SHOULD be discarded.
+   HeartbeatRequest messages from older epochs <em>SHOULD</em> be discarded.
 
-   There MUST NOT be more than one HeartbeatRequest message in flight at
+   There <em>MUST NOT</em> be more than one HeartbeatRequest message in flight at
    a time.  A HeartbeatRequest message is considered to be in flight
    until the corresponding HeartbeatResponse message is received, or
    until the retransmit timer expires.
 
    When using an unreliable transport protocol like the Datagram
    Congestion Control Protocol (DCCP) or UDP, HeartbeatRequest messages
-   MUST be retransmitted using the simple timeout and retransmission
+   <em>MUST</em> be retransmitted using the simple timeout and retransmission
    scheme DTLS uses for flights as described in <a href="./rfc6347.html#section-4.2.4">Section&nbsp;4.2.4 of
    [RFC6347]</a>.  In particular, after a number of retransmissions without
    receiving a corresponding HeartbeatResponse message having the
-   expected payload, the DTLS connection SHOULD be terminated.  The
-   threshold used for this SHOULD be the same as for DTLS handshake
+   expected payload, the DTLS connection <em>SHOULD</em> be terminated.  The
+   threshold used for this <em>SHOULD</em> be the same as for DTLS handshake
    messages.  Please note that after the timer supervising a
    HeartbeatRequest messages expires, this message is no longer
    considered in flight.  Therefore, the HeartbeatRequest message is
@@ -419,7 +419,7 @@ Table of Contents
    Transmission Protocol (SCTP) or TCP, HeartbeatRequest messages only
    need to be sent once.  The transport layer will handle
    retransmissions.  If no corresponding HeartbeatResponse message has
-   been received after some amount of time, the DTLS/TLS connection MAY
+   been received after some amount of time, the DTLS/TLS connection <em>MAY</em>
    be terminated by the application that initiated the sending of the
    HeartbeatRequest message.
 
@@ -435,7 +435,7 @@ Table of Contents
       opaque padding[padding_length];
    } HeartbeatMessage;
 
-   The total length of a HeartbeatMessage MUST NOT exceed 2^14 or
+   The total length of a HeartbeatMessage <em>MUST NOT</em> exceed 2^14 or
    max_fragment_length when negotiated as defined in [<a href="./rfc6066.html" title="&quot;Transport Layer Security (TLS) Extensions: Extension Definitions&quot;">RFC6066</a>].
 
    type:  The message type, either heartbeat_request or
@@ -445,21 +445,21 @@ Table of Contents
 
    payload:  The payload consists of arbitrary content.
 
-   padding:  The padding is random content that MUST be ignored by the
+   padding:  The padding is random content that <em>MUST</em> be ignored by the
       receiver.  The length of a HeartbeatMessage is TLSPlaintext.length
       for TLS and DTLSPlaintext.length for DTLS.  Furthermore, the
       length of the type field is 1 byte, and the length of the
       payload_length is 2.  Therefore, the padding_length is
       TLSPlaintext.length - payload_length - 3 for TLS and
       DTLSPlaintext.length - payload_length - 3 for DTLS.  The
-      padding_length MUST be at least 16.
+      padding_length <em>MUST</em> be at least 16.
 
-   The sender of a HeartbeatMessage MUST use a random padding of at
+   The sender of a HeartbeatMessage <em>MUST</em> use a random padding of at
    least 16 bytes.  The padding of a received HeartbeatMessage message
-   MUST be ignored.
+   <em>MUST</em> be ignored.
 
    If the payload_length of a received HeartbeatMessage is too large,
-   the received HeartbeatMessage MUST be discarded silently.
+   the received HeartbeatMessage <em>MUST</em> be discarded silently.
 
 
 
@@ -473,13 +473,13 @@ Table of Contents
 
    When a HeartbeatRequest message is received and sending a
    HeartbeatResponse is not prohibited as described elsewhere in this
-   document, the receiver MUST send a corresponding HeartbeatResponse
+   document, the receiver <em>MUST</em> send a corresponding HeartbeatResponse
    message carrying an exact copy of the payload of the received
    HeartbeatRequest.
 
    If a received HeartbeatResponse message does not contain the expected
-   payload, the message MUST be discarded silently.  If it does contain
-   the expected payload, the retransmission timer MUST be stopped.
+   payload, the message <em>MUST</em> be discarded silently.  If it does contain
+   the expected payload, the retransmission timer <em>MUST</em> be stopped.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Use Cases</span>
 
@@ -510,11 +510,11 @@ Table of Contents
    HeartbeatRequest messages refreshes the NAT state of all involved
    NATs.
 
-   HeartbeatRequest messages SHOULD only be sent after an idle period
+   HeartbeatRequest messages <em>SHOULD</em> only be sent after an idle period
    that is at least multiple round-trip times long.  This idle period
-   SHOULD be configurable up to a period of multiple minutes and down to
-   a period of one second.  A default value for the idle period SHOULD
-   be configurable, but it SHOULD also be tunable on a per-peer basis.
+   <em>SHOULD</em> be configurable up to a period of multiple minutes and down to
+   a period of one second.  A default value for the idle period <em>SHOULD</em>
+   be configurable, but it <em>SHOULD</em> also be tunable on a per-peer basis.
 
 
 

@@ -325,8 +325,8 @@ Table of Figures
    variety of data transfer mechanisms and completion mechanisms to be
    used to transfer ULP messages.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Architectural Goals</span>
@@ -808,16 +808,16 @@ Table of Figures
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Reliable Delivery LLP Requirements</span>
 
-   Any protocol that can serve as an LLP to DDP MUST meet the following
+   Any protocol that can serve as an LLP to DDP <em>MUST</em> meet the following
    requirements.
 
-   1.  LLPs MUST expose MULPDU and MULPDU changes.  This is required so
+   1.  LLPs <em>MUST</em> expose MULPDU and MULPDU changes.  This is required so
        that the DDP layer can perform segmentation aligned with the
        MULPDU and can adapt as MULPDU changes come about.  The corner
        case of how to handle outstanding requests during a MULPDU change
        is covered by the requirements below.
 
-   2.  In the event of a MULPDU change, DDP MUST NOT be required by the
+   2.  In the event of a MULPDU change, DDP <em>MUST NOT</em> be required by the
        LLP to re-segment DDP Segments that have been previously posted
        to the LLP.  Note that under pathological conditions the LLP may
        change the Advertised MULPDU more frequently than the queue of
@@ -828,31 +828,31 @@ Table of Figures
        messages.  Thus, there may be no correlation between the queued
        DDP Segment(s) and the LLP's current value of MULPDU.
 
-   3.  The LLP MUST ensure that, if it accepts a DDP Segment, it will
+   3.  The LLP <em>MUST</em> ensure that, if it accepts a DDP Segment, it will
        transfer it reliably to the receiver or return with an error
        stating that the transfer failed to complete.
 
-   4.  The LLP MUST preserve DDP Segment and Message boundaries at the
+   4.  The LLP <em>MUST</em> preserve DDP Segment and Message boundaries at the
        Data Sink.
 
-   5.  The LLP MAY provide the incoming segments out of order for
-       Placement, but if it does, it MUST also provide information that
+   5.  The LLP <em>MAY</em> provide the incoming segments out of order for
+       Placement, but if it does, it <em>MUST</em> also provide information that
        specifies what the sender-specified order was.
 
-   6.  LLP MUST provide a strong digest (at least equivalent to CRC32-C)
+   6.  LLP <em>MUST</em> provide a strong digest (at least equivalent to CRC32-C)
        to cover at least the DDP Segment.  It is believed that some of
        the existing data integrity digests are not sufficient, and that
        direct memory transfer semantics requires a stronger digest than,
        for example, a simple checksum.
 
-   7.  On receive, the LLP MUST provide the length of the DDP Segment
+   7.  On receive, the LLP <em>MUST</em> provide the length of the DDP Segment
        received.  This ensures that DDP does not have to carry a length
        field in its header.
 
    8.  If an LLP does not support teardown of an LLP Stream independent
        of other LLP Streams, and a DDP error occurs on a specific DDP
-       Stream, then the LLP MUST label the associated LLP Stream as an
-       erroneous LLP Stream and MUST NOT allow any further data transfer
+       Stream, then the LLP <em>MUST</em> label the associated LLP Stream as an
+       erroneous LLP Stream and <em>MUST NOT</em> allow any further data transfer
 
 
 
@@ -865,9 +865,9 @@ Table of Figures
        on that LLP Stream after DDP requests the associated DDP Stream
        to be torn down.
 
-   9.  For a specific LLP Stream, the LLP MUST provide a mechanism to
+   9.  For a specific LLP Stream, the LLP <em>MUST</em> provide a mechanism to
        indicate that the LLP Stream has been gracefully torn down.  For
-       a specific LLP Connection, the LLP MUST provide a mechanism to
+       a specific LLP Connection, the LLP <em>MUST</em> provide a mechanism to
        indicate that the LLP Connection has been gracefully torn down.
 
        Note that, if the LLP does not allow an LLP Stream to be torn
@@ -876,9 +876,9 @@ Table of Figures
 
    10. For a specific LLP Connection, when all LLP Streams are either
        gracefully torn down or are labeled as erroneous LLP Streams, the
-       LLP Connection MUST be torn down.
+       LLP Connection <em>MUST</em> be torn down.
 
-   11. The LLP MUST NOT pass a duplicate DDP Segment to the DDP layer
+   11. The LLP <em>MUST NOT</em> pass a duplicate DDP Segment to the DDP layer
        after it has passed all the previous DDP Segments to the DDP
        layer and the associated ordering information for the previous
        DDP Segments and the current DDP Segment.
@@ -907,7 +907,7 @@ Table of Figures
    T - Tagged flag: 1 bit.
 
        Specifies the Tagged or Untagged Buffer Model.  If set to one,
-       the ULP Payload carried in this DDP Segment MUST be Placed into a
+       the ULP Payload carried in this DDP Segment <em>MUST</em> be Placed into a
        Tagged Buffer.
 
 
@@ -918,21 +918,21 @@ Table of Figures
 <span class="grey"><a href="./rfc5041.html">RFC 5041</a>               DDP Protocol Specification           October 2007</span>
 
 
-       If set to zero, the ULP Payload carried in this DDP Segment MUST
+       If set to zero, the ULP Payload carried in this DDP Segment <em>MUST</em>
        be Placed into an Untagged Buffer.
 
    L - Last flag: 1 bit.
 
        Specifies whether the DDP Segment is the last segment of a DDP
-       Message.  It MUST be set to one on the last DDP Segment of every
-       DDP Message.  It MUST NOT be set to one on any other DDP Segment.
+       Message.  It <em>MUST</em> be set to one on the last DDP Segment of every
+       DDP Message.  It <em>MUST NOT</em> be set to one on any other DDP Segment.
 
-       The DDP Segment with the L bit set to 1 MUST be posted to the LLP
+       The DDP Segment with the L bit set to 1 <em>MUST</em> be posted to the LLP
        after all other DDP Segments of the associated DDP Message have
        been posted to the LLP.  For an Untagged DDP Message, the DDP
-       Segment with the L bit set to 1 MUST carry the highest MO.
+       Segment with the L bit set to 1 <em>MUST</em> carry the highest MO.
 
-       If the Last flag is set to one, the DDP Message payload MUST be
+       If the Last flag is set to one, the DDP Message payload <em>MUST</em> be
        Delivered to the ULP after:
 
        o  Placement of all DDP Segments of this DDP Message and all
@@ -945,19 +945,19 @@ Table of Figures
 
    Rsvd - Reserved: 4 bits.
 
-       Reserved for future use by the DDP protocol.  This field MUST be
+       Reserved for future use by the DDP protocol.  This field <em>MUST</em> be
        set to zero on transmit, and not checked on receive.
 
    DV - Direct Data Placement Protocol Version: 2 bits.
 
-       The version of the DDP Protocol in use.  This field MUST be set
+       The version of the DDP Protocol in use.  This field <em>MUST</em> be set
        to one to indicate the version of the specification described in
-       this document.  The value of DV MUST be the same for all the DDP
+       this document.  The value of DV <em>MUST</em> be the same for all the DDP
        Segments transmitted or received on a DDP Stream.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  DDP Tagged Buffer Model Header</span>
 
-   Figure 4 shows the DDP Header format that MUST be used in all DDP
+   Figure 4 shows the DDP Header format that <em>MUST</em> be used in all DDP
    Segments that target Tagged Buffers.  It includes the DDP Control
    Field previously defined in <a href="#section-4.1">Section 4.1</a>.  (Note: In Figure 4, the DDP
    Header is offset by 16 bits to accommodate the MPA header defined in
@@ -993,26 +993,26 @@ Table of Figures
    RsvdULP - Reserved for use by the ULP: 8 bits.
 
        The RsvdULP field is opaque to the DDP protocol and can be
-       structured in any way by the ULP.  At the Data Source, DDP MUST
+       structured in any way by the ULP.  At the Data Source, DDP <em>MUST</em>
        set RsvdULP Field to the value specified by the ULP.  It is
        transferred unmodified from the Data Source to the Data Sink.  At
-       the Data Sink, DDP MUST provide the RsvdULP field to the ULP when
+       the Data Sink, DDP <em>MUST</em> provide the RsvdULP field to the ULP when
        the DDP Message is delivered.  Each DDP Segment within a specific
-       DDP Message MUST contain the same value for this field.  The Data
-       Source MUST ensure that each DDP Segment within a specific DDP
+       DDP Message <em>MUST</em> contain the same value for this field.  The Data
+       Source <em>MUST</em> ensure that each DDP Segment within a specific DDP
        Message contains the same value for this field.
 
    STag - Steering Tag: 32 bits.
 
        The Steering Tag identifies the Data Sink's Tagged Buffer.  The
-       STag MUST be valid for this DDP Stream.  The STag is associated
+       STag <em>MUST</em> be valid for this DDP Stream.  The STag is associated
        with the DDP Stream through a mechanism that is outside the scope
-       of the DDP Protocol specification.  At the Data Source, DDP MUST
+       of the DDP Protocol specification.  At the Data Source, DDP <em>MUST</em>
        set the STag field to the value specified by the ULP.  At the
-       Data Sink, the DDP MUST provide the STag field when the ULP
+       Data Sink, the DDP <em>MUST</em> provide the STag field when the ULP
        Message is delivered.  Each DDP Segment within a specific DDP
-       Message MUST contain the same value for this field and MUST be
-       the value supplied by the ULP.  The Data Source MUST ensure that
+       Message <em>MUST</em> contain the same value for this field and <em>MUST</em> be
+       the value supplied by the ULP.  The Data Source <em>MUST</em> ensure that
        each DDP Segment within a specific DDP Message contains the same
        value for this field.
 
@@ -1020,7 +1020,7 @@ Table of Figures
 
        The Tagged Offset specifies the offset, in octets, within the
        Data Sink's Tagged Buffer, where the Placement of ULP Payload
-       contained in the DDP Segment starts.  A DDP Message MAY start at
+       contained in the DDP Segment starts.  A DDP Message <em>MAY</em> start at
        an arbitrary TO within a Tagged Buffer.
 
 
@@ -1032,7 +1032,7 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  DDP Untagged Buffer Model Header</span>
 
-   Figure 5 shows the DDP Header format that MUST be used in all DDP
+   Figure 5 shows the DDP Header format that <em>MUST</em> be used in all DDP
    Segments that target Untagged Buffers.  It includes the DDP Control
    Field previously defined in <a href="#section-4.1">Section 4.1</a>.  (Note: In Figure 5, the DDP
    Header is offset by 16 bits to accommodate the MPA header defined in
@@ -1060,15 +1060,15 @@ Table of Figures
    RsvdULP - Reserved for use by the ULP: 40 bits.
 
        The RsvdULP field is opaque to the DDP protocol and can be
-       structured in any way by the ULP.  At the Data Source, DDP MUST
+       structured in any way by the ULP.  At the Data Source, DDP <em>MUST</em>
        set RsvdULP Field to the value specified by the ULP.  It is
        transferred unmodified from the Data Source to the Data Sink.  At
-       the Data Sink, DDP MUST provide RsvdULP field to the ULP when the
+       the Data Sink, DDP <em>MUST</em> provide RsvdULP field to the ULP when the
        ULP Message is Delivered.  Each DDP Segment within a specific DDP
-       Message MUST contain the same value for the RsvdULP field.  At
-       the Data Sink, the DDP implementation is NOT REQUIRED to verify
+       Message <em>MUST</em> contain the same value for the RsvdULP field.  At
+       the Data Sink, the DDP implementation is NOT <em>REQUIRED</em> to verify
        that the same value is present in the RsvdULP field of each DDP
-       Segment within a specific DDP Message and MAY provide the value
+       Segment within a specific DDP Message and <em>MAY</em> provide the value
        from any one of the received DDP Segment to the ULP when the ULP
        Message is Delivered.
 
@@ -1090,20 +1090,20 @@ Table of Figures
 
        The Queue Number identifies the Data Sink's Untagged Buffer queue
        referenced by this header.  Each DDP segment within a specific
-       DDP message MUST contain the same value for this field and MUST
+       DDP message <em>MUST</em> contain the same value for this field and <em>MUST</em>
        be the value supplied by the ULP at the Data Source.  The Data
-       Source MUST ensure that each DDP Segment within a specific DDP
+       Source <em>MUST</em> ensure that each DDP Segment within a specific DDP
        Message contains the same value for this field.
 
    MSN - Message Sequence Number: 32 bits.
 
-       The Message Sequence Number specifies a sequence number that MUST
+       The Message Sequence Number specifies a sequence number that <em>MUST</em>
        be increased by one (modulo 2^32) with each DDP Message targeting
        the specific Queue Number on the DDP Stream associated with this
-       DDP Segment.  The initial value for MSN MUST be one.  The MSN
-       value MUST wrap to 0 after a value of 0xFFFFFFFF.  Each DDP
-       segment within a specific DDP message MUST contain the same value
-       for this field.  The Data Source MUST ensure that each DDP
+       DDP Segment.  The initial value for MSN <em>MUST</em> be one.  The MSN
+       value <em>MUST</em> wrap to 0 after a value of 0xFFFFFFFF.  Each DDP
+       segment within a specific DDP message <em>MUST</em> contain the same value
+       for this field.  The Data Source <em>MUST</em> ensure that each DDP
        Segment within a specific DDP Message contains the same value for
        this field.
 
@@ -1112,12 +1112,12 @@ Table of Figures
        The Message Offset specifies the offset, in octets, from the
        start of the DDP Message represented by the MSN and Queue Number
        on the DDP Stream associated with this DDP Segment.  The MO
-       referencing the first octet of the DDP Message MUST be set to
+       referencing the first octet of the DDP Message <em>MUST</em> be set to
        zero by the DDP layer.
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  DDP Segment Format</span>
 
-   Each DDP Segment MUST contain a DDP Header.  Each DDP Segment may
+   Each DDP Segment <em>MUST</em> contain a DDP Header.  Each DDP Segment may
    also contain ULP Payload.  Following is the DDP Segment format:
 
         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1200,13 +1200,13 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Segmentation and Reassembly of a DDP Message</span>
 
-   At the Data Source, the DDP layer MUST segment the data contained in
+   At the Data Source, the DDP layer <em>MUST</em> segment the data contained in
    a ULP message into a series of DDP Segments, where each DDP Segment
-   contains a DDP Header and ULP Payload, and MUST be no larger than the
-   MULPDU value Advertised by the LLP.  The ULP Message Length MUST be
-   less than 2^32.  At the Data Source, the DDP layer MUST send all the
+   contains a DDP Header and ULP Payload, and <em>MUST</em> be no larger than the
+   MULPDU value Advertised by the LLP.  The ULP Message Length <em>MUST</em> be
+   less than 2^32.  At the Data Source, the DDP layer <em>MUST</em> send all the
    data contained in the ULP message.  At the Data Sink, the DDP layer
-   MUST Place the ULP Payload contained in all valid incoming DDP
+   <em>MUST</em> Place the ULP Payload contained in all valid incoming DDP
    Segments associated with a DDP Message into the ULP Buffer.
 
    DDP Message segmentation at the Data Source is accomplished by
@@ -1218,7 +1218,7 @@ Table of Figures
    For an Untagged DDP Message, the combination of the QN and MSN
    uniquely identifies a DDP Message.  The octet offset for each DDP
    Segment of a Untagged DDP Message is the MO field.  For each DDP
-   Segment of a Untagged DDP Message, the MO MUST be set to the octet
+   Segment of a Untagged DDP Message, the MO <em>MUST</em> be set to the octet
    offset from the first octet in the associated ULP Message (which is
    defined to be zero) to the first octet in the ULP Payload contained
    in the DDP Segment.
@@ -1271,10 +1271,10 @@ Table of Figures
    supports segmentation and reassembly of the Tagged DDP Message.  The
    STag is used to identify the ULP Buffer at the Data Sink, and the TO
    is used to identify the octet-offset within the ULP Buffer referenced
-   by the STag.  The ULP at the Data Source MUST specify the STag and
+   by the STag.  The ULP at the Data Source <em>MUST</em> specify the STag and
    the initial TO when the ULP Message is handed to DDP.
 
-   For each DDP Segment of a Tagged DDP Message, the TO MUST be set to
+   For each DDP Segment of a Tagged DDP Message, the TO <em>MUST</em> be set to
    the octet offset from the first octet in the associated ULP Message
    to the first octet in the ULP Payload contained in the DDP Segment,
    plus the TO assigned to the first octet in the associated ULP
@@ -1289,9 +1289,9 @@ Table of Figures
 
          1486 = 1500 (MULPDU) - 14 (for the DDP Header)
 
-   A zero-length DDP Message is allowed and MUST consume exactly one DDP
-   Segment.  Only the DDP Control and RsvdULP Fields MUST be valid for a
-   zero-length Tagged DDP Segment.  The STag and TO fields MUST NOT be
+   A zero-length DDP Message is allowed and <em>MUST</em> consume exactly one DDP
+   Segment.  Only the DDP Control and RsvdULP Fields <em>MUST</em> be valid for a
+   zero-length Tagged DDP Segment.  The STag and TO fields <em>MUST NOT</em> be
    checked for a zero-length Tagged DDP Message.
 
    For either Untagged or Tagged DDP Messages, the Data Sink is not
@@ -1312,28 +1312,28 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Ordering Among DDP Messages</span>
 
-   Messages passed through the DDP MUST conform to the ordering rules
+   Messages passed through the DDP <em>MUST</em> conform to the ordering rules
    defined in this section.
 
    At the Data Source, DDP:
 
-      * MUST transmit DDP Messages in the order they were submitted to
+      * <em>MUST</em> transmit DDP Messages in the order they were submitted to
         the DDP layer,
 
-      * SHOULD transmit DDP Segments within a DDP Message in increasing
+      * <em>SHOULD</em> transmit DDP Segments within a DDP Message in increasing
         MO order for Untagged DDP Messages, and in increasing TO order
         for Tagged DDP Messages.
 
    At the Data Sink, DDP (Note: The following rules are motivated by LLP
    implementations that separate Placement and Delivery.):
 
-      * MAY perform Placement of DDP Segments out of order,
+      * <em>MAY</em> perform Placement of DDP Segments out of order,
 
-      * MAY perform Placement of a DDP Segment more than once,
+      * <em>MAY</em> perform Placement of a DDP Segment more than once,
 
-      * MUST Deliver a DDP Message to the ULP at most once,
+      * <em>MUST</em> Deliver a DDP Message to the ULP at most once,
 
-      * MUST Deliver DDP Messages to the ULP in the order they were sent
+      * <em>MUST</em> Deliver DDP Messages to the ULP in the order they were sent
         by the Data Source.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  DDP Message Completion and Delivery</span>
@@ -1345,7 +1345,7 @@ Table of Figures
    the Data Source, completion of a DDP Message does not necessarily
    mean that the Data Sink has received the message.
 
-   At the Data Sink, DDP MUST Deliver a DDP Message if and only if all
+   At the Data Sink, DDP <em>MUST</em> Deliver a DDP Message if and only if all
    of the following are true:
 
       * the last DDP Segment of the DDP Message had its Last flag set,
@@ -1366,12 +1366,12 @@ Table of Figures
 <span class="grey"><a href="./rfc5041.html">RFC 5041</a>               DDP Protocol Specification           October 2007</span>
 
 
-   At the Data Sink, DDP MUST provide the ULP Message Length to the ULP
+   At the Data Sink, DDP <em>MUST</em> provide the ULP Message Length to the ULP
    when an Untagged DDP Message is Delivered.  The ULP Message Length
    may be calculated by adding the MO and the ULP Payload length in the
    last DDP Segment (with the Last flag set) of an Untagged DDP Message.
 
-   At the Data Sink, DDP MUST provide the RsvdULP Field of the DDP
+   At the Data Sink, DDP <em>MUST</em> provide the RsvdULP Field of the DDP
    Message to the ULP when the DDP Message is delivered.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  DDP Stream Setup and Teardown</span>
@@ -1393,11 +1393,11 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  DDP Stream Teardown</span>
 
-   DDP MUST NOT independently initiate Stream Teardown.  DDP either
+   DDP <em>MUST NOT</em> independently initiate Stream Teardown.  DDP either
    responds to a stream being torn down by the LLP or processes a
    request from the ULP to tear down a stream.  DDP Stream teardown
    disables DDP capabilities on both endpoints.  For connection-oriented
-   LLPs, DDP Stream teardown MAY result in underlying LLP Connection
+   LLPs, DDP Stream teardown <em>MAY</em> result in underlying LLP Connection
    teardown.
 
 <span class="h4"><a class="selflink" name="section-6.2.1" href="#section-6.2.1">6.2.1</a>.  DDP Graceful Teardown</span>
@@ -1407,9 +1407,9 @@ Table of Figures
    that the Data Sink stops trying to interpret the DDP Segments.
 
    If the Local Peer ULP indicates graceful teardown, the DDP layer on
-   the Local Peer SHOULD ensure that all ULP data would be transferred
+   the Local Peer <em>SHOULD</em> ensure that all ULP data would be transferred
    before the underlying LLP Stream and Connection are torn down, and
-   any further data transfer requests by the Local Peer ULP MUST return
+   any further data transfer requests by the Local Peer ULP <em>MUST</em> return
    an error.
 
 
@@ -1424,26 +1424,26 @@ Table of Figures
 
    If the DDP layer on the Local Peer receives a graceful teardown
    request from the LLP, any further data received after the request is
-   considered an error and MUST cause the DDP Stream to be abortively
+   considered an error and <em>MUST</em> cause the DDP Stream to be abortively
    torn down.
 
    If the Local Peer LLP supports a half-closed LLP Stream, on the
    receipt of an LLP graceful teardown request of the DDP Stream, DDP
-   SHOULD indicate the half-closed state to the ULP, and continue to
+   <em>SHOULD</em> indicate the half-closed state to the ULP, and continue to
    process outbound data transfer requests normally.  Following this
-   event, when the Local Peer ULP requests graceful teardown, DDP MUST
-   indicate to the LLP that it SHOULD perform a graceful close of the
+   event, when the Local Peer ULP requests graceful teardown, DDP <em>MUST</em>
+   indicate to the LLP that it <em>SHOULD</em> perform a graceful close of the
    other half of the LLP Stream.
 
    If the Local Peer LLP supports a half-closed LLP Stream, on the
    receipt of a ULP graceful half-closed teardown request of the DDP
-   Stream, DDP SHOULD keep data reception enabled on the other half of
+   Stream, DDP <em>SHOULD</em> keep data reception enabled on the other half of
    the LLP Stream.
 
 <span class="h4"><a class="selflink" name="section-6.2.2" href="#section-6.2.2">6.2.2</a>.  DDP Abortive Teardown</span>
 
    As previously mentioned, DDP does not independently terminate a DDP
-   Stream.  Thus, any of the following fatal errors on a DDP Stream MUST
+   Stream.  Thus, any of the following fatal errors on a DDP Stream <em>MUST</em>
    cause DDP to indicate to the ULP that a fatal error has occurred:
 
       * Underlying LLP Connection or LLP Stream is lost.
@@ -1453,14 +1453,14 @@ Table of Figures
       * DDP Header has one or more invalid fields.
 
    If the LLP indicates to the ULP that a fatal error has occurred, the
-   DDP layer SHOULD report the error to the ULP (see <a href="#section-7.2">Section 7.2</a>, DDP
+   DDP layer <em>SHOULD</em> report the error to the ULP (see <a href="#section-7.2">Section 7.2</a>, DDP
    Error Numbers) and complete all outstanding ULP requests with an
-   error.  If the underlying LLP Stream is still intact, DDP SHOULD
+   error.  If the underlying LLP Stream is still intact, DDP <em>SHOULD</em>
    continue to allow the ULP to transfer additional DDP Messages on the
    outgoing half connection after the fatal error was indicated to the
    ULP.  This enables the ULP to transfer an error syndrome to the
    Remote Peer.  After indicating to the ULP a fatal error has occurred,
-   the DDP Stream MUST NOT be terminated until the Local Peer ULP
+   the DDP Stream <em>MUST NOT</em> be terminated until the Local Peer ULP
    indicates to the DDP layer that the DDP Stream should be abortively
    torn down.
 
@@ -1480,11 +1480,11 @@ Table of Figures
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Error Semantics</span>
 
-   All LLP errors reported to DDP SHOULD be passed up to the ULP.
+   All LLP errors reported to DDP <em>SHOULD</em> be passed up to the ULP.
 
 <span class="h3"><a class="selflink" name="section-7.1" href="#section-7.1">7.1</a>.  Errors Detected at the Data Sink</span>
 
-   For non-zero-length Untagged DDP Segments, the DDP Segment MUST be
+   For non-zero-length Untagged DDP Segments, the DDP Segment <em>MUST</em> be
    validated before Placement by verifying:
 
    1.  The QN is valid for this stream.
@@ -1492,12 +1492,12 @@ Table of Figures
    2.  The QN and MSN have an associated buffer that allows Placement of
        the payload.
 
-       Implementers' note: DDP implementations SHOULD consider lack of
-       an associated buffer as a system fault.  DDP implementations MAY
+       Implementers' note: DDP implementations <em>SHOULD</em> consider lack of
+       an associated buffer as a system fault.  DDP implementations <em>MAY</em>
        try to recover from the system fault using LLP means in a ULP-
-       transparent way.  DDP implementations SHOULD NOT permit system
+       transparent way.  DDP implementations <em>SHOULD NOT</em> permit system
        faults to occur repeatedly or frequently.  If there is not an
-       associated buffer, DDP implementations MAY choose to disable the
+       associated buffer, DDP implementations <em>MAY</em> choose to disable the
        stream for the reception and report an error to the ULP at the
        Data Sink.
 
@@ -1522,7 +1522,7 @@ Table of Figures
        the ULP to ensure that sufficient buffers are available to handle
        the incoming DDP Segments.
 
-   For non-zero-length Tagged DDP Segments, the segment MUST be
+   For non-zero-length Tagged DDP Segments, the segment <em>MUST</em> be
    validated before Placement by verifying:
 
    1.  The STag is valid for this stream.
@@ -1547,17 +1547,17 @@ Table of Figures
        TO does not wrap.
 
    If the DDP layer detects any of the receive errors listed in this
-   section, it MUST cease placing the remainder of the DDP Segment and
-   report the error(s) to the ULP.  The DDP layer SHOULD include in the
+   section, it <em>MUST</em> cease placing the remainder of the DDP Segment and
+   report the error(s) to the ULP.  The DDP layer <em>SHOULD</em> include in the
    error report the DDP Header, the type of error, and the length of the
-   DDP segment, if available.  DDP MUST silently drop any subsequent
+   DDP segment, if available.  DDP <em>MUST</em> silently drop any subsequent
    incoming DDP Segments.  Since each of these errors represents a
-   failure of the sending ULP or protocol, DDP SHOULD enable the ULP to
+   failure of the sending ULP or protocol, DDP <em>SHOULD</em> enable the ULP to
    send one additional DDP Message before terminating the DDP Stream.
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  DDP Error Numbers</span>
 
-   The following error numbers MUST be used when reporting errors to the
+   The following error numbers <em>MUST</em> be used when reporting errors to the
    ULP.  They correspond to the checks enumerated in <a href="#section-7.1">section 7.1</a>. Each
    error is subdivided into a 4-bit Error Type and an 8-bit Error Code.
 
@@ -1648,7 +1648,7 @@ Table of Figures
 
    DDP Stream, if the PD ID of the DDP Stream is not the same as the PD
    ID of the STag targeted by the Tagged DDP Message, then the DDP
-   Segment is not Placed, and the DDP layer MUST surface a local error
+   Segment is not Placed, and the DDP layer <em>MUST</em> surface a local error
    to the ULP.  Note that the PD ID is locally defined and cannot be
    directly manipulated by the Remote Peer.
 
@@ -1658,12 +1658,12 @@ Table of Figures
    DDP Segment of a Tagged DDP Message on a DDP Stream, if the DDP
    Stream ID of the DDP Stream is not the same as the DDP Stream ID of
    the STag targeted by the Tagged DDP Message, then the DDP Segment is
-   not Placed and the DDP layer MUST surface a local error to the ULP.
+   not Placed and the DDP layer <em>MUST</em> surface a local error to the ULP.
    Note that the DDP Stream ID is locally defined and cannot be directly
    manipulated by the Remote Peer.
 
-   A ULP SHOULD associate an STag with at least one DDP Stream.  DDP
-   MUST support Protection Domain association and DDP Stream association
+   A ULP <em>SHOULD</em> associate an STag with at least one DDP Stream.  DDP
+   <em>MUST</em> support Protection Domain association and DDP Stream association
    mechanisms for associating an STag and a DDP Stream.
 
 <span class="h3"><a class="selflink" name="section-8.3" href="#section-8.3">8.3</a>.  Security Requirements</span>
@@ -1716,18 +1716,18 @@ Table of Figures
    include:
 
    1.  STags are only valid over the exact byte range established by the
-       ULP.  DDP MUST provide a mechanism for the ULP to establish and
+       ULP.  DDP <em>MUST</em> provide a mechanism for the ULP to establish and
        revoke the TO range associated with the ULP Buffer referenced by
        the STag.
    2.  STags are only valid for the duration established by the ULP.
        The ULP may revoke them at any time, in accordance with its own
-       upper layer protocol requirements.  DDP MUST provide a mechanism
+       upper layer protocol requirements.  DDP <em>MUST</em> provide a mechanism
        for the ULP to establish and revoke STag validity.
-   3.  DDP MUST provide a mechanism for the ULP to communicate the
+   3.  DDP <em>MUST</em> provide a mechanism for the ULP to communicate the
        association between a STag and a specific DDP Stream.
    4.  A ULP may only expose memory to remote access to the extent that
        it already had access to that memory itself.
-   5.  If an STag is not valid on a DDP Stream, DDP MUST pass the
+   5.  If an STag is not valid on a DDP Stream, DDP <em>MUST</em> pass the
        invalid access attempt to the ULP.  The ULP may provide a
        mechanism for terminating the DDP Stream.
 
@@ -1736,19 +1736,19 @@ Table of Figures
    solutions that relied upon exposing system buffers for incoming
    payloads.
 
-   For the DDP implementation, two components MUST be provided: an
+   For the DDP implementation, two components <em>MUST</em> be provided: an
    RDMA-enabled NIC (RNIC) and a Privileged Resource Manager (PRM).
 
 <span class="h4"><a class="selflink" name="section-8.3.1" href="#section-8.3.1">8.3.1</a>.  RNIC Requirements</span>
 
-   The RNIC MUST implement the DDP wire Protocol and perform the
+   The RNIC <em>MUST</em> implement the DDP wire Protocol and perform the
    security semantics described below.
 
-   1.  An RNIC MUST ensure that a specific DDP Stream in a specific
+   1.  An RNIC <em>MUST</em> ensure that a specific DDP Stream in a specific
        Protection Domain cannot access an STag in a different Protection
        Domain.
 
-   2.  An RNIC MUST ensure that if an STag is limited in scope to a
+   2.  An RNIC <em>MUST</em> ensure that if an STag is limited in scope to a
        single DDP Stream, no other DDP Stream can use the STag.
 
 
@@ -1758,22 +1758,22 @@ Table of Figures
 <span class="grey"><a href="./rfc5041.html">RFC 5041</a>               DDP Protocol Specification           October 2007</span>
 
 
-   3.  An RNIC MUST ensure that a Remote Peer is not able to access
+   3.  An RNIC <em>MUST</em> ensure that a Remote Peer is not able to access
        memory outside the buffer specified when the STag was enabled for
        remote access.
 
-   4.  An RNIC MUST provide a mechanism for the ULP to establish and
+   4.  An RNIC <em>MUST</em> provide a mechanism for the ULP to establish and
        revoke the association of a ULP Buffer to an STag and TO range.
 
-   5.  An RNIC MUST provide a mechanism for the ULP to establish and
+   5.  An RNIC <em>MUST</em> provide a mechanism for the ULP to establish and
        revoke read, write, or read and write access to the ULP Buffer
        referenced by an STag.
 
-   6.  An RNIC MUST ensure that the network interface can no longer
+   6.  An RNIC <em>MUST</em> ensure that the network interface can no longer
        modify an Advertised Buffer after the ULP revokes remote access
        rights for an STag.
 
-   7.  An RNIC MUST NOT enable firmware to be loaded on the RNIC
+   7.  An RNIC <em>MUST NOT</em> enable firmware to be loaded on the RNIC
        directly from an untrusted Local Peer or Remote Peer, unless the
        Peer is properly authenticated (by a mechanism outside the scope
        of this specification.  The mechanism presumably entails
@@ -1783,26 +1783,26 @@ Table of Figures
 
 <span class="h4"><a class="selflink" name="section-8.3.2" href="#section-8.3.2">8.3.2</a>.  Privileged Resources Manager Requirement</span>
 
-   The PRM MUST implement the security semantics described below.
+   The PRM <em>MUST</em> implement the security semantics described below.
 
    1.  All Non-Privileged ULP interactions with the RNIC Engine that
-       could affect other ULPs MUST be done using the Privileged
+       could affect other ULPs <em>MUST</em> be done using the Privileged
        Resource Manager as a proxy.
 
-   2.  All ULP resource allocation requests for scarce resources MUST
+   2.  All ULP resource allocation requests for scarce resources <em>MUST</em>
        also be done using a Privileged Resource Manager.
 
-   3.  The Privileged Resource Manager MUST NOT assume different ULPs
+   3.  The Privileged Resource Manager <em>MUST NOT</em> assume different ULPs
        share Partial Mutual Trust unless there is a mechanism to ensure
        that the ULPs do indeed share partial mutual trust.
 
    4.  If Non-Privileged ULPs are supported, the Privileged Resource
-       Manager MUST verify that the Non-Privileged ULP has the right to
+       Manager <em>MUST</em> verify that the Non-Privileged ULP has the right to
        access a specific Data Buffer before allowing an STag for which
        the ULP has access rights to be associated with a specific Data
        Buffer.
 
-   5.  The Privileged Resource Manager SHOULD prevent a Local Peer from
+   5.  The Privileged Resource Manager <em>SHOULD</em> prevent a Local Peer from
        allocating more than its fair share of resources.  If an RNIC
        provides the ability to share receive buffers across multiple DDP
        Streams, the combination of the RNIC and the Privileged Resource
@@ -1814,7 +1814,7 @@ Table of Figures
 <span class="grey"><a href="./rfc5041.html">RFC 5041</a>               DDP Protocol Specification           October 2007</span>
 
 
-       Manager MUST be able to detect if the Remote Peer is attempting
+       Manager <em>MUST</em> be able to detect if the Remote Peer is attempting
        to consume more than its fair share of resources so that the
        Local Peer can apply countermeasures to detect and prevent the
        attack.
@@ -1824,9 +1824,9 @@ Table of Figures
    DDP uses IP-based network services; therefore, all exchanged DDP
    Segments are vulnerable to spoofing, tampering and information
    disclosure attacks.  If a DDP Stream may be subject to impersonation
-   attacks, or stream hijacking attacks, it is highly RECOMMENDED that
+   attacks, or stream hijacking attacks, it is highly <em>RECOMMENDED</em> that
    the DDP Stream be authenticated, integrity protected, and protected
-   from replay attacks.  It MAY use confidentiality protection to
+   from replay attacks.  It <em>MAY</em> use confidentiality protection to
    protect from eavesdropping.
 
 <span class="h4"><a class="selflink" name="section-8.4.1" href="#section-8.4.1">8.4.1</a>.  Available Security Services</span>
@@ -1853,15 +1853,15 @@ Table of Figures
    The IP Storage working group has defined the normative IPsec
    requirements for IP Storage [<a href="./rfc3723.html" title="&quot;Securing Block Storage Protocols over IP&quot;">RFC3723</a>].  Portions of this
    specification are applicable to the DDP.  In particular, a compliant
-   implementation of IPsec services MUST meet the requirements as
+   implementation of IPsec services <em>MUST</em> meet the requirements as
    outlined in <a href="./rfc3723.html#section-2.3">Section&nbsp;2.3 of [RFC3723]</a>.  Without replicating the
    detailed discussion in [<a href="./rfc3723.html" title="&quot;Securing Block Storage Protocols over IP&quot;">RFC3723</a>], this includes the following
    requirements:
 
-   1.  The implementation MUST support IPsec ESP [<a href="./rfc2406.html" title="&quot;IP Encapsulating Security Payload (ESP)&quot;">RFC2406</a>], as well as
+   1.  The implementation <em>MUST</em> support IPsec ESP [<a href="./rfc2406.html" title="&quot;IP Encapsulating Security Payload (ESP)&quot;">RFC2406</a>], as well as
        the replay protection mechanisms of IPsec.  When ESP is utilized,
        per-packet data origin authentication, integrity, and replay
-       protection MUST be used.
+       protection <em>MUST</em> be used.
 
 
 
@@ -1870,27 +1870,27 @@ Table of Figures
 <span class="grey"><a href="./rfc5041.html">RFC 5041</a>               DDP Protocol Specification           October 2007</span>
 
 
-   2.  It MUST support ESP in tunnel mode and MAY implement ESP in
+   2.  It <em>MUST</em> support ESP in tunnel mode and <em>MAY</em> implement ESP in
        transport mode.
 
-   3.  It MUST support IKE [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] for peer authentication,
+   3.  It <em>MUST</em> support IKE [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] for peer authentication,
        negotiation of security associations, and key management, using
        the IPsec DOI [<a href="./rfc2407.html" title="&quot;The Internet IP Security Domain of Interpretation of ISAKMP&quot;">RFC2407</a>].
 
-   4.  It MUST NOT interpret the receipt of an IKE delete message as a
+   4.  It <em>MUST NOT</em> interpret the receipt of an IKE delete message as a
        reason for tearing down the DDP stream.  Since IPsec acceleration
        hardware may only be able to handle a limited number of active
        IPsec Security Associations (SAs), idle SAs may be dynamically
        brought down and a new SA be brought up again, if activity
        resumes.
 
-   5.  It MUST support peer authentication using a pre-shared key, and
-       MAY support certificate-based peer authentication using digital
+   5.  It <em>MUST</em> support peer authentication using a pre-shared key, and
+       <em>MAY</em> support certificate-based peer authentication using digital
        signatures.  Peer authentication using the public key encryption
-       methods [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] SHOULD NOT be used.
+       methods [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] <em>SHOULD NOT</em> be used.
 
-   6.  It MUST support IKE Main Mode and SHOULD support Aggressive Mode.
-       IKE Main Mode with pre-shared key authentication SHOULD NOT be
+   6.  It <em>MUST</em> support IKE Main Mode and <em>SHOULD</em> support Aggressive Mode.
+       IKE Main Mode with pre-shared key authentication <em>SHOULD NOT</em> be
        used when either of the peers uses a dynamically assigned IP
        address.
 
@@ -1899,7 +1899,7 @@ Table of Figures
        since compromise of the secret information nullifies the security
        properties of the IKE/IPsec protocols.
 
-   8.  It MUST follow the guidelines of <a href="./rfc3723.html#section-2.3.4">Section&nbsp;2.3.4 of [RFC3723]</a> on
+   8.  It <em>MUST</em> follow the guidelines of <a href="./rfc3723.html#section-2.3.4">Section&nbsp;2.3.4 of [RFC3723]</a> on
        the setting of IKE parameters to achieve a high level of
        interoperability without requiring extensive configuration.
 
@@ -2051,7 +2051,7 @@ Table of Figures
    affected by the reception of a DDP Segment, if that segment is placed
    before additional segments arrive.
 
-   The LLP implementation SHOULD maintain an Advertised receive window
+   The LLP implementation <em>SHOULD</em> maintain an Advertised receive window
    large enough to enable a reasonable number of segments to be
    outstanding at one time.  The amount to Advertise depends on the
    desired data rate, and the expected or actual round-trip delay

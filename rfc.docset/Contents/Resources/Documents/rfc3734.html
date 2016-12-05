@@ -253,8 +253,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used In This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key Words for Use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Session Management</span>
@@ -264,32 +264,32 @@ Table of Contents
    connection between two peers, one that initiates the connection
    request and one that responds to the connection request.  The
    initiating peer is called the "client", and the responding peer is
-   called the "server".  An EPP server MUST listen for TCP connection
+   called the "server".  An EPP server <em>MUST</em> listen for TCP connection
    requests on a standard TCP port assigned by IANA.
 
-   The client MUST issue an active OPEN call, specifying the TCP port
+   The client <em>MUST</em> issue an active OPEN call, specifying the TCP port
    number on which the server is listening for EPP connection attempts.
-   The server MUST respond with a passive OPEN call, which the client
-   MUST acknowledge to establish the connection.  The EPP server MUST
+   The server <em>MUST</em> respond with a passive OPEN call, which the client
+   <em>MUST</em> acknowledge to establish the connection.  The EPP server <em>MUST</em>
    return an EPP &lt;greeting&gt; to the client after the TCP session has been
    established.
 
    An EPP session is normally ended by the client issuing an EPP
-   &lt;logout&gt; command.  A server receiving an EPP &lt;logout&gt; command MUST
+   &lt;logout&gt; command.  A server receiving an EPP &lt;logout&gt; command <em>MUST</em>
    end the EPP session and close the TCP connection through an active
-   CLOSE call.  The client MUST respond with a passive CLOSE call.
+   CLOSE call.  The client <em>MUST</em> respond with a passive CLOSE call.
 
-   A client MAY end an EPP session by issuing an active CLOSE call.  A
-   server SHOULD respond with a passive CLOSE call.
+   A client <em>MAY</em> end an EPP session by issuing an active CLOSE call.  A
+   server <em>SHOULD</em> respond with a passive CLOSE call.
 
-   A server MAY limit the life span of an established TCP connection.
+   A server <em>MAY</em> limit the life span of an established TCP connection.
    EPP sessions that are inactive for more than a server-defined period
-   MAY be ended by a server issuing an active CLOSE call.  A server MAY
+   <em>MAY</em> be ended by a server issuing an active CLOSE call.  A server <em>MAY</em>
    also close TCP connections that have been open and active for longer
    than a server-defined period.
 
-   Peers SHOULD respond to an active CLOSE call with a passive CLOSE
-   call.  The closing peer MAY issue an ABORT call if the responding
+   Peers <em>SHOULD</em> respond to an active CLOSE call with a passive CLOSE
+   call.  The closing peer <em>MAY</em> issue an ABORT call if the responding
    peer does not respond to the active CLOSE call.
 
 
@@ -303,10 +303,10 @@ Table of Contents
 
    With the exception of the EPP server greeting, EPP messages are
    initiated by the EPP client in the form of EPP commands.  An EPP
-   server MUST return an EPP response to an EPP command on the same TCP
+   server <em>MUST</em> return an EPP response to an EPP command on the same TCP
    connection that carried the command.  If the TCP connection is closed
    after a server receives and successfully processes a command but
-   before the response can be returned to the client, the server MAY
+   before the response can be returned to the client, the server <em>MAY</em>
    attempt to undo the effects of the command to ensure a consistent
    state between the client and the server.  EPP commands are
    idempotent, so processing a command more than once produces the same
@@ -314,9 +314,9 @@ Table of Contents
    once.
 
    An EPP client streams EPP commands to an EPP server on an established
-   TCP connection.  A client MAY but SHOULD NOT establish multiple TCP
+   TCP connection.  A client <em>MAY</em> but <em>SHOULD NOT</em> establish multiple TCP
    connections to create multiple command exchange channels.  A server
-   SHOULD limit a client to a maximum number of TCP connections based on
+   <em>SHOULD</em> limit a client to a maximum number of TCP connections based on
    server capabilities and operational load.
 
    EPP describes client-server interaction as a command-response
@@ -329,12 +329,12 @@ Table of Contents
    protocol.  The amount of data that can be outstanding is limited to
    the current TCP window size.
 
-   Each EPP data unit MUST contain a single EPP message.  Commands MUST
+   Each EPP data unit <em>MUST</em> contain a single EPP message.  Commands <em>MUST</em>
    be processed independently and in the same order as sent from the
    client.
 
-   A server SHOULD impose a limit on the amount of time required for a
-   client to issue a well-formed EPP command.  A server SHOULD end an
+   A server <em>SHOULD</em> impose a limit on the amount of time required for a
+   client to issue a well-formed EPP command.  A server <em>SHOULD</em> end an
    EPP session and close an open TCP connection if a well-formed command
    is not received within the time limit.
 
@@ -413,7 +413,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Data Unit Format</span>
 
-   The data field of the TCP header MUST contain an EPP data unit.  The
+   The data field of the TCP header <em>MUST</em> contain an EPP data unit.  The
    EPP data unit contains two fields: a 32-bit header that describes the
    total length of the data unit, and the EPP XML instance.
 
@@ -429,7 +429,7 @@ Table of Contents
 
    Total Length (32 bits): The total length of the EPP data unit
    measured in octets in network (big endian) byte order.  The octets
-   contained in this field MUST be included in the total length
+   contained in this field <em>MUST</em> be included in the total length
    calculation.
 
    EPP XML Instance (variable length): The EPP XML instance carried in
@@ -489,7 +489,7 @@ Table of Contents
    EPP as-is provides only simple client authentication services using
    identifiers and plain text passwords.  A passive attack is sufficient
    to recover client identifiers and passwords, allowing trivial command
-   forgery.  Protection against most other common attacks MUST be
+   forgery.  Protection against most other common attacks <em>MUST</em> be
    provided by other layered protocols.
 
    EPP provides protection against replay attacks through command
@@ -498,19 +498,19 @@ Table of Contents
    consumption of connection resources is a possibility.
 
    When layered over TCP, the Transport Layer Security (TLS) Protocol
-   described in [<a href="./rfc2246.html" title="&quot;The TLS Protocol Version 1.0&quot;">RFC2246</a>] MUST be used to prevent eavesdropping,
+   described in [<a href="./rfc2246.html" title="&quot;The TLS Protocol Version 1.0&quot;">RFC2246</a>] <em>MUST</em> be used to prevent eavesdropping,
    tampering, and command forgery attacks.  Implementations of TLS often
-   contain a US-exportable cryptographic mode that SHOULD NOT be used to
-   protect EPP.  Clients and servers desiring high security SHOULD
+   contain a US-exportable cryptographic mode that <em>SHOULD NOT</em> be used to
+   protect EPP.  Clients and servers desiring high security <em>SHOULD</em>
    instead use TLS with cryptographic algorithms that are less
    susceptible to compromise.
 
    Mutual client and server authentication using the TLS Handshake
-   Protocol is REQUIRED.  Signatures on the complete certificate chain
-   for both client machine and server machine MUST be validated as part
+   Protocol is <em>REQUIRED</em>.  Signatures on the complete certificate chain
+   for both client machine and server machine <em>MUST</em> be validated as part
    of the TLS handshake.  Information included in the client and server
-   certificates, such as validity periods and machine names, MUST also
-   be validated.  EPP service MUST NOT be granted until successful
+   certificates, such as validity periods and machine names, <em>MUST</em> also
+   be validated.  EPP service <em>MUST NOT</em> be granted until successful
 
 
 
@@ -537,7 +537,7 @@ Table of Contents
    particular client machine.
 
    EPP TCP servers are vulnerable to common TCP denial of service
-   attacks including TCP SYN flooding.  Servers SHOULD take steps to
+   attacks including TCP SYN flooding.  Servers <em>SHOULD</em> take steps to
    minimize the impact of a denial of service attack using combinations
    of easily implemented solutions, such as deployment of firewall
    technology and border router filters to restrict inbound server

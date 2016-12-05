@@ -340,8 +340,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Document Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-8" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">8</a>].
 
    Octet fields with numeric values are given according to the
@@ -383,7 +383,7 @@ Table of Contents
    o  authority - a string of octets describing the authority against
       which this request is to be executed.  See [<a href="#ref-1" title="&quot;IRIS: The Internet Registry Information Service (IRIS) Core Protocol&quot;">1</a>] for the definition
       and description of an authority.  The number of octets in this
-      string MUST be no more and no less than the number specified by
+      string <em>MUST</em> be no more and no less than the number specified by
       the authority length.
 
    o  chunks 1..n - the request data broken into chunks (<a href="#section-6">Section 6</a>).
@@ -429,7 +429,7 @@ Table of Contents
 
    o  chunks 1..n - the response data broken into chunks (<a href="#section-6">Section 6</a>).
 
-   Servers SHOULD NOT send an RSB to a client until they have received
+   Servers <em>SHOULD NOT</em> send an RSB to a client until they have received
    the entire RQB.  Servers that do begin sending an RSB before the
    reception of the entire RQB must consider that clients will not be
    expected to start processing the RSB until they have fully sent the
@@ -446,14 +446,14 @@ Table of Contents
    1.  It contains only one chunk (see <a href="#section-6">Section 6</a>) containing version
        information (see <a href="#section-6.2">Section 6.2</a>) and the keep-open (KO) flag in the
        block header (see <a href="#section-5">Section 5</a>) has a value of 1 (meaning the
-       connection is not closing).  Servers MUST use this type of CRB to
+       connection is not closing).  Servers <em>MUST</em> use this type of CRB to
        indicate service availability.
 
    2.  It contains only one chunk (see <a href="#section-6">Section 6</a>) containing a system
        error (see 'system-error' under <a href="#section-6.4">Section 6.4</a>) and the keep-open
        (KO) flag in the block header (see <a href="#section-5">Section 5</a>) has a value of 0
        (meaning the server will close the connection immediately after
-       sending the CRB).  Servers MUST use this type of CRB when they
+       sending the CRB).  Servers <em>MUST</em> use this type of CRB when they
        can accept connections but cannot process requests.
 
 
@@ -481,7 +481,7 @@ Table of Contents
       protocol is the version defined in this document.  Otherwise, the
       rest of the bits in the header and the block may be interpreted as
       another version.  If a server receives a request for a version it
-      does not support, it SHOULD follow the behavior described in
+      does not support, it <em>SHOULD</em> follow the behavior described in
       <a href="#section-8">Section 8</a>.
 
    o  bit 2 - keep open (KO flag) - This flag is used to request that a
@@ -497,10 +497,10 @@ Table of Contents
       and a value of 0 indicates that the server expects the client to
       close the TCP session immediately following this block.
 
-   o  bits 3, 4, 5, 6, and 7 - reserved - These MUST be 0.  If a server
+   o  bits 3, 4, 5, 6, and 7 - reserved - These <em>MUST</em> be 0.  If a server
       receives a request in which any of these bits is set to 1 and the
       server does not understand the purpose for the value, the server
-      SHOULD follow the behavior described in <a href="#section-8">Section 8</a>.
+      <em>SHOULD</em> follow the behavior described in <a href="#section-8">Section 8</a>.
 
          +---------+-----------+----------+
    field | Version | Keep Open | reserved |
@@ -526,7 +526,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Chunks</span>
 
    Request and response blocks break down the request and response XML
-   data into chunks.  Request and response blocks MUST always have a
+   data into chunks.  Request and response blocks <em>MUST</em> always have a
    minimum of 1 chunk.  Each chunk has a one-octet descriptor.  The
    first bit of the descriptor determines if the chunk is the last chunk
    in the block.
@@ -542,13 +542,13 @@ Table of Contents
    o  bit 1 - data complete (DC flag) - If 1, the data in this chunk
       represents the end of the data for the chunk type given.  If this
       bit is never set to 1 in any chunk descriptor for chunks of the
-      same type in a block, clients and servers MUST NOT assume the data
+      same type in a block, clients and servers <em>MUST NOT</em> assume the data
       will continue in another block.  If the block transitions from one
       type of chunk to another without signaling completion of the data,
-      clients and servers MUST assume that the remaining data will not
+      clients and servers <em>MUST</em> assume that the remaining data will not
       be sent in a remaining chunk.
 
-   o  bits 2, 3, and 4 - reserved - These MUST be 0.
+   o  bits 2, 3, and 4 - reserved - These <em>MUST</em> be 0.
 
    o  bits 5, 6, and 7 - chunk type (CT field) - determines the type of
       data carried in the chunk.  These are the binary values for the
@@ -589,8 +589,8 @@ Table of Contents
 
                              Chunk Descriptor
 
-   A block MAY have multiple types of chunks, but all chunks of the same
-   type MUST be contiguous in a block and MUST be ordered in the block
+   A block <em>MAY</em> have multiple types of chunks, but all chunks of the same
+   type <em>MUST</em> be contiguous in a block and <em>MUST</em> be ordered in the block
    in the order in which their data is to be interpreted.  Contiguous
    chunks must be ordered by type within a block in the following way:
 
@@ -598,7 +598,7 @@ Table of Contents
        100), authentication success information chunks (type 101), or
        authentication failure information chunks (type 110), but not
        more than one type.  During the setup of security mechanisms
-       using these chunks, clients MUST NOT send subsequent requests
+       using these chunks, clients <em>MUST NOT</em> send subsequent requests
        until they have received either an authentication success or
        failure chunk.
 
@@ -608,7 +608,7 @@ Table of Contents
    3.  information chunks - either version information (type 001) or
        other information (type 011), but not both.
 
-   A block MUST have at least one type of the above chunks.
+   A block <em>MUST</em> have at least one type of the above chunks.
 
    The format for a chunk is as follows:
 
@@ -637,16 +637,16 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  No Data Types</span>
 
-   Servers and clients MUST ignore data in chunk types labeled no data.
+   Servers and clients <em>MUST</em> ignore data in chunk types labeled no data.
    There is no requirement for these types of chunks to be zero length.
-   A client MAY send "no data" to a server, and the server MUST respond
+   A client <em>MAY</em> send "no data" to a server, and the server <em>MUST</em> respond
    with either a chunk of the same type or other information (<a href="#section-6.4">Section</a>
    <a href="#section-6.4">6.4</a>).
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Version Information Types</span>
 
    Chunks of this type contain XML conformant to the schema specified in
-   [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and MUST have the &lt;versions&gt; element as the root element.
+   [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and <em>MUST</em> have the &lt;versions&gt; element as the root element.
 
    In the context of IRIS-XPC, the protocol identifiers for these
    elements are as follows:
@@ -664,9 +664,9 @@ Table of Contents
 
    This document defines no extension identifiers.
 
-   Clients MAY send a block with this type of chunk to a server.  These
-   chunks SHOULD be zero length, and servers MUST ignore any data in
-   them.  When a server receives a chunk of this type, it MUST respond
+   Clients <em>MAY</em> send a block with this type of chunk to a server.  These
+   chunks <em>SHOULD</em> be zero length, and servers <em>MUST</em> ignore any data in
+   them.  When a server receives a chunk of this type, it <em>MUST</em> respond
    with a chunk of this type.  This interchange allows a client to query
    the version information of a server.
 
@@ -677,7 +677,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  Size Information Types</span>
 
    Chunks of this type contain XML conformant to the schema specified in
-   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and MUST have the &lt;size&gt; element as the root element.
+   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and <em>MUST</em> have the &lt;size&gt; element as the root element.
 
    Octet counts provided by this information are defined as the sum of
    the count of all chunk data of a particular chunk type.  For
@@ -691,19 +691,19 @@ Table of Contents
 <span class="grey"><a href="./rfc4992.html">RFC 4992</a>            IRIS XML Pipelining with Chunks          August 2007</span>
 
 
-   Clients MUST NOT send chunks of this type, and servers MAY close down
+   Clients <em>MUST NOT</em> send chunks of this type, and servers <em>MAY</em> close down
    a session using the procedure in <a href="#section-8">Section 8</a> if a chunk of this type is
    received.
 
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a>.  Other Information Types</span>
 
    Chunks of this type contain XML conformant to the schema specified in
-   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and MUST have the &lt;other&gt; element as the root element.
+   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and <em>MUST</em> have the &lt;other&gt; element as the root element.
 
    The values for the 'type' attribute of &lt;other&gt; are as follows:
 
       'block-error' - indicates there was an error decoding a block.
-      Servers SHOULD send a block error in the following cases:
+      Servers <em>SHOULD</em> send a block error in the following cases:
 
       1.  When a request block is received containing a chunk of this
           type.
@@ -720,7 +720,7 @@ Table of Contents
       5.  When a block has not been received in its entirety and the TCP
           session has been idle for a specific period of time (i.e., a
           data block has been received but no terminating chunk for the
-          data block has been received).  Two minutes is RECOMMENDED for
+          data block has been received).  Two minutes is <em>RECOMMENDED</em> for
           this timeout value.  Note, there is a difference between an
           idle condition due to the incomplete reception of a data block
           and an idle condition between request/response transactions
@@ -733,7 +733,7 @@ Table of Contents
 
       'system-error' - indicates that the receiver cannot process the
       request due to a condition not related to this protocol.  Servers
-      SHOULD send a system-error when they are capable of responding to
+      <em>SHOULD</em> send a system-error when they are capable of responding to
       requests but not capable of processing requests.
 
 
@@ -749,7 +749,7 @@ Table of Contents
 
       'authority-error' - indicates that the intended authority
       specified in the corresponding request is not served by the
-      receiver.  Servers SHOULD send an authority error when they
+      receiver.  Servers <em>SHOULD</em> send an authority error when they
       receive a request directed to an authority other than those they
       serve.
 
@@ -760,7 +760,7 @@ Table of Contents
       request/response transactions associated with keeping the session
       open.  For the former, see 'block-error' above.
 
-   Clients MUST NOT send chunks of this type, and servers MAY close down
+   Clients <em>MUST NOT</em> send chunks of this type, and servers <em>MAY</em> close down
    a session using the procedure in <a href="#section-8">Section 8</a> if a chunk of this type is
    received.
 
@@ -790,7 +790,7 @@ Table of Contents
 
    o  mechanism data - the data used for SASL.
 
-   These fields MUST NOT span multiple chunks.  Therefore, it should be
+   These fields <em>MUST NOT</em> span multiple chunks.  Therefore, it should be
    noted that SASL data length exceeding the length of the chunk minus
    the length of SASL profile name minus one is an error.
 
@@ -807,7 +807,7 @@ Table of Contents
    is sent from clients to servers and from servers to clients and may
    require multiple request/response transactions to complete.  However,
    once a SASL exchange is complete and a server can determine
-   authentication status, the server MUST send either authentication
+   authentication status, the server <em>MUST</em> send either authentication
    success information (see <a href="#section-6.6">Section 6.6</a>) or authentication failure
    information (see <a href="#section-6.7">Section 6.7</a>).
 
@@ -819,13 +819,13 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.6" href="#section-6.6">6.6</a>.  Authentication Success Information Types</span>
 
    Chunks of this type contain XML conformant to the schema specified in
-   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and MUST have the &lt;authenticationSuccess&gt; element as the
+   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and <em>MUST</em> have the &lt;authenticationSuccess&gt; element as the
    root element.
 
    This type of chunk is only sent from a server to a client.  If a
    client sends it to a server, this will result in a block error (see
    'block-error' in <a href="#section-6.4">Section 6.4</a>).  The usage of this chunk type is
-   defined in <a href="#section-6.5">Section 6.5</a>.  A server MAY close down a session due to
+   defined in <a href="#section-6.5">Section 6.5</a>.  A server <em>MAY</em> close down a session due to
    reception of this type of chunk using the procedure in <a href="#section-8">Section 8</a>.
 
    SASL mechanisms may use the &lt;data&gt; child element to pass back
@@ -836,13 +836,13 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.7" href="#section-6.7">6.7</a>.  Authentication Failure Information Types</span>
 
    Chunks of this type contain XML conformant to the schema specified in
-   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and MUST have the &lt;authenticationFailure&gt; element as the
+   <a href="./rfc4991.html">RFC 4991</a> [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] and <em>MUST</em> have the &lt;authenticationFailure&gt; element as the
    root element.
 
    This type of chunk is only sent from a server to a client.  If a
    client sends it to a server, this will result in a block error (see
    'block-error' in <a href="#section-6.4">Section 6.4</a>).  The usage of this chunk type is
-   defined in <a href="#section-6.5">Section 6.5</a>.  A server MAY close down a session due to
+   defined in <a href="#section-6.5">Section 6.5</a>.  A server <em>MAY</em> close down a session due to
    reception of this type of chunk using the procedure in <a href="#section-8">Section 8</a>.
 
 <span class="h3"><a class="selflink" name="section-6.8" href="#section-6.8">6.8</a>.  Application Data Types</span>
@@ -862,7 +862,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Idle Sessions</span>
 
    If a server needs to close a connection due to it being idle, it
-   SHOULD do the following:
+   <em>SHOULD</em> do the following:
 
    1.  Send an unsolicited response block containing an idle timeout
        error (see 'idle-timeout' in <a href="#section-6.4">Section 6.4</a>) with the keep-open (KO)
@@ -872,7 +872,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Closing Sessions Due to an Error</span>
 
-   If a server is to close a session due to an error, it SHOULD do the
+   If a server is to close a session due to an error, it <em>SHOULD</em> do the
    following:
 
    1.  Send a response block containing either a block-error or data-
@@ -931,7 +931,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-12" href="#section-12">12</a>.  Internationalization Considerations</span>
 
    XML processors are obliged to recognize both UTF-8 and UTF-16 [<a href="#ref-3" title="&quot;The Unicode Standard, Version 3&quot;">3</a>]
-   encodings.  Use of the XML defined by [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] MUST NOT use any other
+   encodings.  Use of the XML defined by [<a href="#ref-9" title="&quot;A Common Schema for Internet Registry Information Service Transfer Protocols&quot;">9</a>] <em>MUST NOT</em> use any other
    character encodings other than UTF-8 or UTF-16.
 
 <span class="h2"><a class="selflink" name="section-13" href="#section-13">13</a>.  IANA Considerations</span>
@@ -1091,7 +1091,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-14.1" href="#section-14.1">14.1</a>.  Security Mechanisms</span>
 
-   Clients SHOULD be prepared to use the following security mechanisms
+   Clients <em>SHOULD</em> be prepared to use the following security mechanisms
    in the following manner:
 
    o  SASL/DIGEST-MD5 - for user authentication without the need of
@@ -1118,16 +1118,16 @@ Table of Contents
    o  TLS using the TLS_RSA_WITH_AES_256_CBC_SHA cipher with client-side
       certificates - for encryption and user authentication.  See [<a href="#ref-7" title="&quot;Advanced Encryption Standard (AES) Ciphersuites for Transport Layer Security (TLS)&quot;">7</a>].
 
-      Anonymous client access SHOULD be considered in one of two
+      Anonymous client access <em>SHOULD</em> be considered in one of two
       methods:
 
    1.  When no authentication has been used.
 
    2.  Using the SASL anonymous profile: SASL/ANONYMOUS
 
-   As specified by SASL/PLAIN, clients MUST NOT use the SASL/PLAIN
+   As specified by SASL/PLAIN, clients <em>MUST NOT</em> use the SASL/PLAIN
    mechanism without first encrypting the TCP session (e.g., such as
-   with TLS).  Clients MUST implement SASL/PLAIN and TLS using the
+   with TLS).  Clients <em>MUST</em> implement SASL/PLAIN and TLS using the
    TLS_RSA_WITH_3DES_EDE_CBC_SHA cipher.
 
 
@@ -1165,13 +1165,13 @@ Table of Contents
            message.
 
    4.  Non-empty authorization identity strings used within IRIS-XPC
-       MUST be normalized according to <a href="./rfc4013.html">RFC 4013</a> [<a href="#ref-11" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">11</a>].  The semantics of
+       <em>MUST</em> be normalized according to <a href="./rfc4013.html">RFC 4013</a> [<a href="#ref-11" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">11</a>].  The semantics of
        the non-empty authorization identity strings is server dependent,
-       and clients MUST use the values for these strings as given by
+       and clients <em>MUST</em> use the values for these strings as given by
        configuration or the user.
 
    5.  Clients or servers wishing to abort an ongoing authentication
-       exchange MUST close the connection.
+       exchange <em>MUST</em> close the connection.
 
    6.  After new security layers are negotiated, they take effect on the
        first octet following the authentication success (as) (<a href="#section-6.6">Section</a>
@@ -1180,12 +1180,12 @@ Table of Contents
        client.
 
    7.  IRIS-XPC can be used with both TLS and SASL.  When used in
-       combination, TLS MUST always be applied before any SASL
+       combination, TLS <em>MUST</em> always be applied before any SASL
        mechanism.
 
    8.  IRIS-XPC does not support multiple SASL authentications.
        However, if TLS is being used in combination with SASL, TLS
-       authentication MUST occur before any SASL authentication.
+       authentication <em>MUST</em> occur before any SASL authentication.
 
 
 

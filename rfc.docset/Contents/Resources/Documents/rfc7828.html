@@ -402,8 +402,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -463,10 +463,10 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  Sending Queries</span>
 
-   DNS clients MUST NOT include the edns-tcp-keepalive option in queries
+   DNS clients <em>MUST NOT</em> include the edns-tcp-keepalive option in queries
    sent using UDP transport.
 
-   DNS clients MAY include the edns-tcp-keepalive option in the first
+   DNS clients <em>MAY</em> include the edns-tcp-keepalive option in the first
    query sent to a server using TCP transport to signal their desire to
    keep the connection open when idle.
 
@@ -477,32 +477,32 @@ Table of Contents
 <span class="grey"><a href="./rfc7828.html">RFC 7828</a>           The edns-tcp-keepalive EDNS0 Option        April 2016</span>
 
 
-   DNS clients MAY include the edns-tcp-keepalive option in subsequent
+   DNS clients <em>MAY</em> include the edns-tcp-keepalive option in subsequent
    queries sent to a server using TCP transport to signal their
    continued desire to keep the connection open when idle.
 
-   Clients MUST specify an OPTION-LENGTH of 0 and omit the TIMEOUT
+   Clients <em>MUST</em> specify an OPTION-LENGTH of 0 and omit the TIMEOUT
    value.
 
 <span class="h4"><a class="selflink" name="section-3.2.2" href="#section-3.2.2">3.2.2</a>.  Receiving Responses</span>
 
    A DNS client that receives a response using UDP transport that
-   includes the edns-tcp-keepalive option MUST ignore the option.
+   includes the edns-tcp-keepalive option <em>MUST</em> ignore the option.
 
    A DNS client that receives a response using TCP transport that
-   includes the edns-tcp-keepalive option MAY keep the existing TCP
-   session open when it is idle.  It SHOULD honour the timeout received
+   includes the edns-tcp-keepalive option <em>MAY</em> keep the existing TCP
+   session open when it is idle.  It <em>SHOULD</em> honour the timeout received
    in that response (overriding any previous timeout) and initiate close
    of the connection before the timeout expires.
 
    A DNS client that receives a response that includes the edns-tcp-
-   keepalive option with a TIMEOUT value of 0 SHOULD send no more
+   keepalive option with a TIMEOUT value of 0 <em>SHOULD</em> send no more
    queries on that connection and initiate closing the connection as
    soon as it has received all outstanding responses.
 
    A DNS client that sent a query containing the edns-keepalive-option
    but receives a response that does not contain the edns-keepalive-
-   option SHOULD assume the server does not support keepalive and behave
+   option <em>SHOULD</em> assume the server does not support keepalive and behave
    following the guidance in [<a href="./rfc7766.html" title="&quot;DNS Transport over TCP - Implementation Requirements&quot;">RFC7766</a>].  This holds true even if a
    previous edns-keepalive-option exchange occurred on the existing TCP
    connection.
@@ -512,18 +512,18 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.3.1" href="#section-3.3.1">3.3.1</a>.  Receiving Queries</span>
 
    A DNS server that receives a query using UDP transport that includes
-   the edns-tcp-keepalive option MUST ignore the option.
+   the edns-tcp-keepalive option <em>MUST</em> ignore the option.
 
    A DNS server that receives a query using TCP transport that includes
-   the edns-tcp-keepalive option MAY modify the local idle timeout
+   the edns-tcp-keepalive option <em>MAY</em> modify the local idle timeout
    associated with that TCP session if resources permit.
 
 <span class="h4"><a class="selflink" name="section-3.3.2" href="#section-3.3.2">3.3.2</a>.  Sending Responses</span>
 
    A DNS server that receives a query sent using TCP transport that
    includes an OPT RR (with or without the edns-tcp-keepalive option)
-   MAY include the edns-tcp-keepalive option in the response to signal
-   the expected idle timeout on a connection.  Servers MUST specify the
+   <em>MAY</em> include the edns-tcp-keepalive option in the response to signal
+   the expected idle timeout on a connection.  Servers <em>MUST</em> specify the
    TIMEOUT value that is currently associated with the TCP session.  It
 
 
@@ -534,7 +534,7 @@ Table of Contents
 
 
    is reasonable for this value to change according to local resource
-   constraints.  The DNS server SHOULD send an edns-tcp-keepalive option
+   constraints.  The DNS server <em>SHOULD</em> send an edns-tcp-keepalive option
    with a timeout of 0 if it deems its local resources are too low to
    service more TCP keepalive sessions or if it wants clients to close
    currently open connections.
@@ -567,9 +567,9 @@ Table of Contents
 
    However, it should be noted that <a href="./rfc6891.html">RFC 6891</a> states:
 
-      Lack of presence of an OPT record in a request MUST be taken as an
+      Lack of presence of an OPT record in a request <em>MUST</em> be taken as an
       indication that the requestor does not implement any part of this
-      specification and that the responder MUST NOT include an OPT
+      specification and that the responder <em>MUST NOT</em> include an OPT
       record in its response.
 
    Since servers must be faithful to this specification even on a
@@ -594,14 +594,14 @@ Table of Contents
    [<a href="./rfc7230.html" title="&quot;Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing&quot;">RFC7230</a>]).
 
    If a client includes the edns-tcp-keepalive option in the first
-   query, it SHOULD include an EDNS0 OPT RR periodically in any further
+   query, it <em>SHOULD</em> include an EDNS0 OPT RR periodically in any further
    messages it sends during the TCP session.  This will increase the
    chance of the client being notified should the server modify the
    timeout associated with a session.  The algorithm for choosing when
    to do this is out of scope of this document and is left up to the
    implementor and/or operator.
 
-   DNS clients and servers MAY close a TCP session at any time in order
+   DNS clients and servers <em>MAY</em> close a TCP session at any time in order
    to manage local resource constraints.  The algorithm by which clients
    and servers rank active TCP sessions in order to determine which to
    close is not specified in this document.
@@ -611,7 +611,7 @@ Table of Contents
    Many paths between DNS clients and servers suffer from poor hygiene,
    limiting the free flow of DNS messages that include particular EDNS0
    options or messages that exceed a particular size.  A fallback
-   strategy similar to that described in <a href="./rfc6891.html#section-6.2.2">[RFC6891], Section&nbsp;6.2.2</a> SHOULD
+   strategy similar to that described in <a href="./rfc6891.html#section-6.2.2">[RFC6891], Section&nbsp;6.2.2</a> <em>SHOULD</em>
    be employed to avoid persistent interference due to non-clean paths.
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  Anycast Considerations</span>
@@ -629,7 +629,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Intermediary Considerations</span>
 
-   It is RECOMMENDED that DNS intermediaries that terminate TCP
+   It is <em>RECOMMENDED</em> that DNS intermediaries that terminate TCP
    connections implement edns-tcp-keepalive.  An intermediary that does
    not implement edns-tcp-keepalive but sits between a client and server
    that both support edns-tcp-keepalive might close idle connections
@@ -649,7 +649,7 @@ Table of Contents
 
    The edns-tcp-keepalive option can potentially be abused to request
    large numbers of long-lived sessions in a quick burst.  When a DNS
-   server detects abusive behaviour, it SHOULD immediately close the TCP
+   server detects abusive behaviour, it <em>SHOULD</em> immediately close the TCP
    connection and free the resources used.
 
    Servers could choose to monitor client behaviour with respect to the

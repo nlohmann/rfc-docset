@@ -364,8 +364,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Definitions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The terms defined in <a href="./rfc5050.html#section-3.1">Section&nbsp;3.1 of [RFC5050]</a> are used extensively in
@@ -440,7 +440,7 @@ Table of Contents
    in the DATA_SEGMENT message header.
 
    If multiple bundles are transmitted on a single TCPCL connection,
-   they MUST be transmitted consecutively.  Interleaving data segments
+   they <em>MUST</em> be transmitted consecutively.  Interleaving data segments
    from different bundles is not allowed.  Bundle interleaving can be
    accomplished by fragmentation at the BP layer.
 
@@ -588,28 +588,28 @@ Table of Contents
    connection with the intended peer node, typically by using the
    services provided by the operating system.  Port number 4556 has been
    assigned by IANA as the well-known port number for the TCP
-   convergence layer.  Other port numbers MAY be used per local
+   convergence layer.  Other port numbers <em>MAY</em> be used per local
    configuration.  Determining a peer's port number (if different from
    the well-known TCPCL port) is up to the implementation.
 
    If the node is unable to establish a TCP connection for any reason,
    then it is an implementation matter to determine how to handle the
-   connection failure.  A node MAY decide to re-attempt to establish the
-   connection.  If it does so, it MUST NOT overwhelm its target with
-   repeated connection attempts.  Therefore, the node MUST retry the
+   connection failure.  A node <em>MAY</em> decide to re-attempt to establish the
+   connection.  If it does so, it <em>MUST NOT</em> overwhelm its target with
+   repeated connection attempts.  Therefore, the node <em>MUST</em> retry the
    connection setup only after some delay (a 1-second minimum is
-   RECOMMENDED), and it SHOULD use a (binary) exponential backoff
+   <em>RECOMMENDED</em>), and it <em>SHOULD</em> use a (binary) exponential backoff
    mechanism to increase this delay in case of repeated failures.  In
    case a SHUTDOWN message specifying a reconnection delay is received,
    that delay is used as the initial delay.  The default initial delay
-   SHOULD be at least 1 second but SHOULD be configurable since it will
+   <em>SHOULD</em> be at least 1 second but <em>SHOULD</em> be configurable since it will
    be application and network type dependent.
 
-   The node MAY declare failure after one or more connection attempts
-   and MAY attempt to find an alternate route for bundle data.  Such
+   The node <em>MAY</em> declare failure after one or more connection attempts
+   and <em>MAY</em> attempt to find an alternate route for bundle data.  Such
    decisions are up to the higher layer (i.e., the BP).
 
-   Once a TCP connection is established, each node MUST immediately
+   Once a TCP connection is established, each node <em>MUST</em> immediately
    transmit a contact header over the TCP connection.  The format of the
    contact header is described in <a href="#section-4.1">Section 4.1</a>.
 
@@ -617,8 +617,8 @@ Table of Contents
    and negotiation procedures defined in <a href="#section-4.2">Section 4.2</a>
 
    After receiving the contact header from the other node, either node
-   MAY also refuse the connection by sending a SHUTDOWN message.  If
-   connection setup is refused, a reason MUST be included in the
+   <em>MAY</em> also refuse the connection by sending a SHUTDOWN message.  If
+   connection setup is refused, a reason <em>MUST</em> be included in the
    SHUTDOWN message.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Contact Header</span>
@@ -663,8 +663,8 @@ Table of Contents
         version of the protocol).
 
    flags:  A one-byte field containing optional connection flags.  The
-        first four bits are unused and MUST be set to zero upon
-        transmission and MUST be ignored upon reception.  The last four
+        first four bits are unused and <em>MUST</em> be set to zero upon
+        transmission and <em>MUST</em> be ignored upon reception.  The last four
         bits are interpreted as shown in Table 1 below.
 
    keepalive_interval:  A two-byte integer field containing the number
@@ -697,7 +697,7 @@ Table of Contents
    +----------+--------------------------------------------------------+
    | 00000001 | Request acknowledgment of bundle segments.             |
    | 00000010 | Request enabling of reactive fragmentation.            |
-   | 00000100 | Indicate support for bundle refusal.  This flag MUST   |
+   | 00000100 | Indicate support for bundle refusal.  This flag <em>MUST</em>   |
    |          | NOT be set to '1' unless support for acknowledgments   |
    |          | is also indicated.                                     |
    | 00001000 | Request sending of LENGTH messages.                    |
@@ -716,16 +716,16 @@ Table of Contents
    negotiate values for the connection parameters.
 
    If the magic string is not present or is not valid, the connection
-   MUST be terminated.  The intent of the magic string is to provide
+   <em>MUST</em> be terminated.  The intent of the magic string is to provide
    some protection against an inadvertent TCP connection by a different
    protocol than the one described in this document.  To prevent a flood
-   of repeated connections from a misconfigured application, a node MAY
+   of repeated connections from a misconfigured application, a node <em>MAY</em>
    elect to hold an invalid connection open and idle for some time
    before closing it.
 
    If a node receives a contact header containing a version that is
    greater than the current version of the protocol that the node
-   implements, then the node SHOULD interpret all fields and messages as
+   implements, then the node <em>SHOULD</em> interpret all fields and messages as
    it would normally.  If a node receives a contact header with a
    version that is lower than the version of the protocol that the node
    implements, the node may either terminate the connection due to the
@@ -736,7 +736,7 @@ Table of Contents
    negotiating the values from its own preferences (conveyed by the
    contact header it sent) with the preferences of the peer node
    (expressed in the contact header that it received).  This negotiation
-   MUST proceed in the following manner:
+   <em>MUST</em> proceed in the following manner:
 
 
 
@@ -769,7 +769,7 @@ Table of Contents
 
    Once this process of parameter negotiation is completed, the protocol
    defines no additional mechanism to change the parameters of an
-   established connection; to effect such a change, the connection MUST
+   established connection; to effect such a change, the connection <em>MUST</em>
    be terminated and a new connection established.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Established Connection Operation</span>
@@ -862,8 +862,8 @@ Table of Contents
 
    The flags portion of the message header byte contains two optional
    values in the two low-order bits, denoted 'S' and 'E' above.  The 'S'
-   bit MUST be set to one if it precedes the transmission of the first
-   segment of a new bundle.  The 'E' bit MUST be set to one when
+   bit <em>MUST</em> be set to one if it precedes the transmission of the first
+   segment of a new bundle.  The 'E' bit <em>MUST</em> be set to one when
    transmitting the last segment of a bundle.
 
    Following the message header, the length field is an SDNV containing
@@ -873,20 +873,20 @@ Table of Contents
    Determining the size of the segment is an implementation matter.  In
    particular, a node may, based on local policy or configuration, only
    ever transmit bundle data in a single segment, in which case both the
-   'S' and 'E' bits MUST be set to one.
+   'S' and 'E' bits <em>MUST</em> be set to one.
 
    In the Bundle Protocol specification [<a href="./rfc5050.html" title="&quot;Bundle Protocol Specification&quot;">RFC5050</a>], a single bundle
    comprises a primary bundle block, a payload block, and zero or more
    additional bundle blocks.  The relationship between the protocol
    blocks and the convergence-layer segments is an implementation-
-   specific decision.  In particular, a segment MAY contain more than
+   specific decision.  In particular, a segment <em>MAY</em> contain more than
    one protocol block; alternatively, a single protocol block (such as
-   the payload) MAY be split into multiple segments.
+   the payload) <em>MAY</em> be split into multiple segments.
 
-   However, a single segment MUST NOT contain data of more than a single
+   However, a single segment <em>MUST NOT</em> contain data of more than a single
    bundle.
 
-   Once a transmission of a bundle has commenced, the node MUST only
+   Once a transmission of a bundle has commenced, the node <em>MUST</em> only
    send segments containing sequential portions of that bundle until it
    sends a segment with the 'E' bit set.
 
@@ -905,7 +905,7 @@ Table of Contents
    segments.  This feature is enabled if, and only if, during the
    exchange of contact headers, both parties set the flag to indicate
    that segment acknowledgments are enabled (see <a href="#section-4.1">Section 4.1</a>).  If so,
-   then the receiver MUST transmit a bundle acknowledgment message when
+   then the receiver <em>MUST</em> transmit a bundle acknowledgment message when
    it successfully receives each data segment.
 
 
@@ -929,7 +929,7 @@ Table of Contents
    To transmit an acknowledgment, a node first transmits a message
    header with the ACK_SEGMENT type code and all flags set to zero, then
    transmits an SDNV containing the cumulative length in bytes of the
-   received segment(s) of the current bundle.  The length MUST fall on a
+   received segment(s) of the current bundle.  The length <em>MUST</em> fall on a
    segment boundary.  That is, only full segments can be acknowledged.
 
    For example, suppose the sending node transmits four segments of
@@ -945,7 +945,7 @@ Table of Contents
    which a receiving node may indicate to the sender that it does not
    want to receive the corresponding bundle.
 
-   To do so, upon receiving a DATA_SEGMENT message, the node MAY
+   To do so, upon receiving a DATA_SEGMENT message, the node <em>MAY</em>
    transmit a REFUSE_BUNDLE message.  As data segments and
    acknowledgments may cross on the wire, the bundle that is being
    refused is implicitly identified by the sequence in which
@@ -979,7 +979,7 @@ Table of Contents
    |   0x1   | The receiver now has the complete bundle.  The sender   |
    |         | may now consider the bundle as completely received.     |
    |   0x2   | The receiver's resources are exhausted.  The sender     |
-   |         | SHOULD apply reactive bundle fragmentation before       |
+   |         | <em>SHOULD</em> apply reactive bundle fragmentation before       |
    |         | retrying.                                               |
    |   0x3   | The receiver has encountered a problem that requires    |
    |         | the bundle to be retransmitted in its entirety.         |
@@ -989,21 +989,21 @@ Table of Contents
 
                     Table 3: REFUSE_BUNDLE Reason Codes
 
-   The receiver MUST, for each bundle preceding the one to be refused,
+   The receiver <em>MUST</em>, for each bundle preceding the one to be refused,
    have either acknowledged all DATA_SEGMENTs or refused the bundle.
    This allows the sender to identify the bundles accepted and refused
    by means of a simple FIFO list of segments and acknowledgments.
 
-   The bundle refusal MAY be sent before the entire data segment is
+   The bundle refusal <em>MAY</em> be sent before the entire data segment is
    received.  If a sender receives a REFUSE_BUNDLE message, the sender
-   MUST complete the transmission of any partially sent DATA_SEGMENT
-   message (so that the receiver stays in sync).  The sender MUST NOT
+   <em>MUST</em> complete the transmission of any partially sent DATA_SEGMENT
+   message (so that the receiver stays in sync).  The sender <em>MUST NOT</em>
    commence transmission of any further segments of the rejected bundle
    subsequently.  Note, however, that this requirement does not ensure
    that a node will not receive another DATA_SEGMENT for the same bundle
    after transmitting a REFUSE_BUNDLE message since messages may cross
    on the wire; if this happens, subsequent segments of the bundle
-   SHOULD also be refused with a REFUSE_BUNDLE message.
+   <em>SHOULD</em> also be refused with a REFUSE_BUNDLE message.
 
    Note: If a bundle transmission is aborted in this way, the receiver
    may not receive a segment with the 'E' flag set to '1' for the
@@ -1038,15 +1038,15 @@ Table of Contents
 
                     Figure 8: Format of LENGTH Messages
 
-   LENGTH messages MUST NOT be sent unless the corresponding flag bit is
+   LENGTH messages <em>MUST NOT</em> be sent unless the corresponding flag bit is
    set in the contact header.  If the flag bit is set, LENGTH messages
-   MAY be sent at the sender's discretion.  LENGTH messages MUST NOT be
+   <em>MAY</em> be sent at the sender's discretion.  LENGTH messages <em>MUST NOT</em> be
    sent unless the next DATA_SEGMENT message has the 'S' bit set to "1"
    (i.e., just before the start of a new bundle).
 
-   A receiver MAY send a BUNDLE_REFUSE message as soon as it receives a
+   A receiver <em>MAY</em> send a BUNDLE_REFUSE message as soon as it receives a
    LENGTH message without waiting for the next DATA_SEGMENT message.
-   The sender MUST be prepared for this and MUST associate the refusal
+   The sender <em>MUST</em> be prepared for this and <em>MUST</em> associate the refusal
    with the right bundle.
 
 <span class="h3"><a class="selflink" name="section-5.6" href="#section-5.6">5.6</a>.  KEEPALIVE Feature (KEEPALIVE)</span>
@@ -1062,12 +1062,12 @@ Table of Contents
 
    The format of a KEEPALIVE message is a one-byte message type code of
    KEEPALIVE (as described in Table 2) with no additional data.  Both
-   sides SHOULD send a KEEPALIVE message whenever the negotiated
+   sides <em>SHOULD</em> send a KEEPALIVE message whenever the negotiated
    interval has elapsed with no transmission of any message (KEEPALIVE
    or other).
 
    If no message (KEEPALIVE or other) has been received for at least
-   twice the keepalive_interval, then either party MAY terminate the
+   twice the keepalive_interval, then either party <em>MAY</em> terminate the
    session by transmitting a one-byte SHUTDOWN message (as described in
    Table 2) and by closing the TCP connection.
 
@@ -1090,10 +1090,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Shutdown Message (SHUTDOWN)</span>
 
-   To cleanly shut down a connection, a SHUTDOWN message MUST be
+   To cleanly shut down a connection, a SHUTDOWN message <em>MUST</em> be
    transmitted by either node at any point following complete
    transmission of any other message.  In case acknowledgments have been
-   negotiated, a node SHOULD acknowledge all received data segments
+   negotiated, a node <em>SHOULD</em> acknowledge all received data segments
    first and then shut down the connection.
 
    The format of the SHUTDOWN message is as follows:
@@ -1107,7 +1107,7 @@ Table of Contents
                Figure 9: Format of Bundle SHUTDOWN Messages
 
    It is possible for a node to convey additional information regarding
-   the reason for connection termination.  To do so, the node MUST set
+   the reason for connection termination.  To do so, the node <em>MUST</em> set
    the 'R' bit in the message header flags and transmit a one-byte
    reason code immediately following the message header.  The specified
    values of the reason code are:
@@ -1142,32 +1142,32 @@ Table of Contents
 
    the message header flags and then transmits an SDNV specifying the
    requested delay, in seconds, following the message header (and
-   optionally, the SHUTDOWN reason code).  The value 0 SHALL be
-   interpreted as an infinite delay, i.e., that the connecting node MUST
+   optionally, the SHUTDOWN reason code).  The value 0 <em>SHALL</em> be
+   interpreted as an infinite delay, i.e., that the connecting node <em>MUST</em>
    NOT re-establish the connection.  In contrast, if the node does not
-   wish to request a delay, it SHOULD omit the reconnection delay field
+   wish to request a delay, it <em>SHOULD</em> omit the reconnection delay field
    (and set the 'D' bit to zero).  Note that in the figure above, the
    reconnection delay SDNV is represented as a two-byte field for
    convenience.
 
-   A connection shutdown MAY occur immediately after TCP connection
+   A connection shutdown <em>MAY</em> occur immediately after TCP connection
    establishment or reception of a contact header (and prior to any
    further data exchange).  This may, for example, be used to notify
    that the node is currently not able or willing to communicate.
-   However, a node MUST always send the contact header to its peer
+   However, a node <em>MUST</em> always send the contact header to its peer
    before sending a SHUTDOWN message.
 
    If either node terminates a connection prematurely in this manner, it
-   SHOULD send a SHUTDOWN message and MUST indicate a reason code unless
+   <em>SHOULD</em> send a SHUTDOWN message and <em>MUST</em> indicate a reason code unless
    the incoming connection did not include the magic string.  If a node
    does not want its peer to reopen the connection immediately, it
-   SHOULD set the 'D' bit in the flags and include a reconnection delay
+   <em>SHOULD</em> set the 'D' bit in the flags and include a reconnection delay
    to indicate when the peer is allowed to attempt another connection
    setup.
 
    If a connection is to be terminated before another protocol message
-   has completed, then the node MUST NOT transmit the SHUTDOWN message
-   but still SHOULD close the TCP connection.  In particular, if the
+   has completed, then the node <em>MUST NOT</em> transmit the SHUTDOWN message
+   but still <em>SHOULD</em> close the TCP connection.  In particular, if the
    connection is to be closed (for whatever reason) while a node is in
    the process of transmitting a bundle data segment, the receiving node
    is still expecting segment data and might erroneously interpret the
@@ -1182,7 +1182,7 @@ Table of Contents
 
    If there is a configured time to close idle links and if no bundle
    data (other than KEEPALIVE messages) has been received for at least
-   that amount of time, then either node MAY terminate the connection by
+   that amount of time, then either node <em>MAY</em> terminate the connection by
    transmitting a SHUTDOWN message indicating the reason code of 'Idle
    timeout' (as described in Table 4).  After receiving a SHUTDOWN
    message in response, both sides may close the TCP connection.
@@ -1206,7 +1206,7 @@ Table of Contents
    identifier is used without further verification as a means to
    determine which bundles are transmitted over the connection, then the
    node that has falsified its identity may be able to obtain bundles
-   that it should not have.  Therefore, a node SHALL NOT use the
+   that it should not have.  Therefore, a node <em>SHALL NOT</em> use the
    endpoint identifier conveyed in the TCPCL connection message to
    derive a peer node's identity unless it can ascertain it via other
    means.
@@ -1233,7 +1233,7 @@ Table of Contents
    service on other, well-behaving connections.  There is also nothing
    to prevent a malicious node from continually establishing connections
    and repeatedly trying to send copious amounts of bundle data.  A
-   listening node MAY take countermeasures such as ignoring TCP SYN
+   listening node <em>MAY</em> take countermeasures such as ignoring TCP SYN
    messages, closing TCP connections as soon as they are established,
    waiting before sending the contact header, sending a SHUTDOWN message
    quickly or with a delay, etc.

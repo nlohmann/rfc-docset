@@ -295,8 +295,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -401,11 +401,11 @@ Table of Contents
          bit, which can be used to avoid possible deadlock caused by
          waiting for the End-of-RIB marker when multiple BGP speakers
          peering with each other restart.  When set (value 1), this bit
-         indicates that the BGP speaker has restarted, and its peer MUST
+         indicates that the BGP speaker has restarted, and its peer <em>MUST</em>
          NOT wait for the End-of-RIB marker from the speaker before
          advertising routing information to the speaker.
 
-         The remaining bits are reserved and MUST be set to zero by the
+         The remaining bits are reserved and <em>MUST</em> be set to zero by the
          sender and ignored by the receiver.
 
       Restart Time:
@@ -449,7 +449,7 @@ Table of Contents
          set (value 1), the bit indicates that the forwarding state has
          been preserved.
 
-         The remaining bits are reserved and MUST be set to zero by the
+         The remaining bits are reserved and <em>MUST</em> be set to zero by the
          sender and ignored by the receiver.
 
    When a sender of this capability does not include any &lt;AFI, SAFI&gt; in
@@ -459,11 +459,11 @@ Table of Contents
    In that case, the value of the "Restart Time" field advertised by the
    sender is irrelevant.
 
-   A BGP speaker MUST NOT include more than one instance of the Graceful
+   A BGP speaker <em>MUST NOT</em> include more than one instance of the Graceful
    Restart Capability in the capability advertisement [<a href="#ref-BGP-CAP" title="&quot;Capabilities Advertisement with BGP-4&quot;">BGP-CAP</a>].  If
    more than one instance of the Graceful Restart Capability is carried
    in the capability advertisement, the receiver of the advertisement
-   MUST ignore all but the last instance of the Graceful Restart
+   <em>MUST</em> ignore all but the last instance of the Graceful Restart
    Capability.
 
    Including &lt;AFI=IPv4, SAFI=unicast&gt; in the Graceful Restart Capability
@@ -480,7 +480,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Operation</span>
 
-   A BGP speaker MAY advertise the Graceful Restart Capability for an
+   A BGP speaker <em>MAY</em> advertise the Graceful Restart Capability for an
    address family to its peer if it has the ability to preserve its
    forwarding state for the address family when BGP restarts.  In
    addition, even if the speaker does not have the ability to preserve
@@ -494,12 +494,12 @@ Table of Contents
    convergence in general.  The second is to indicate its support for a
    peer which wishes to perform a graceful restart.
 
-   The End-of-RIB marker MUST be sent by a BGP speaker to its peer once
+   The End-of-RIB marker <em>MUST</em> be sent by a BGP speaker to its peer once
    it completes the initial routing update (including the case when
    there is no update to send) for an address family after the BGP
    session is established.
 
-   It is noted that the normal BGP procedures MUST be followed when the
+   It is noted that the normal BGP procedures <em>MUST</em> be followed when the
    TCP session terminates due to the sending or receiving of a BGP
    NOTIFICATION message.
 
@@ -513,19 +513,19 @@ Table of Contents
    Consider that the Graceful Restart Capability for an address family
    is advertised by the Restarting Speaker, and is understood by the
    Receiving Speaker, and a BGP session between them is established.
-   The following sections detail the procedures that MUST be followed by
+   The following sections detail the procedures that <em>MUST</em> be followed by
    the Restarting Speaker as well as the Receiving Speaker once the
    Restarting Speaker restarts.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Procedures for the Restarting Speaker</span>
 
-   When the Restarting Speaker restarts, it MUST retain, if possible,
-   the forwarding state for the BGP routes in the Loc-RIB and MUST mark
-   them as stale.  It MUST NOT differentiate between stale and other
+   When the Restarting Speaker restarts, it <em>MUST</em> retain, if possible,
+   the forwarding state for the BGP routes in the Loc-RIB and <em>MUST</em> mark
+   them as stale.  It <em>MUST NOT</em> differentiate between stale and other
    information during forwarding.
 
    To re-establish the session with its peer, the Restarting Speaker
-   MUST set the "Restart State" bit in the Graceful Restart Capability
+   <em>MUST</em> set the "Restart State" bit in the Graceful Restart Capability
 
 
 
@@ -541,7 +541,7 @@ Table of Contents
 
    Once the session between the Restarting Speaker and the Receiving
    Speaker is re-established, the Restarting Speaker will receive and
-   process BGP messages from its peers.  However, it MUST defer route
+   process BGP messages from its peers.  However, it <em>MUST</em> defer route
    selection for an address family until it either (a) receives the
    End-of-RIB marker from all its peers (excluding the ones with the
    "Restart State" bit set in the received capability and excluding the
@@ -555,14 +555,14 @@ Table of Contents
    before the BGP speaker performs route selection.
 
    After the BGP speaker performs route selection, the forwarding state
-   of the speaker MUST be updated and any previously marked stale
-   information MUST be removed.  The Adj-RIB-Out can then be advertised
+   of the speaker <em>MUST</em> be updated and any previously marked stale
+   information <em>MUST</em> be removed.  The Adj-RIB-Out can then be advertised
    to its peers.  Once the initial update is complete for an address
    family (including the case that there is no routing update to send),
-   the End-of-RIB marker MUST be sent.
+   the End-of-RIB marker <em>MUST</em> be sent.
 
    To put an upper bound on the amount of time a router defers its route
-   selection, an implementation MUST support a (configurable) timer that
+   selection, an implementation <em>MUST</em> support a (configurable) timer that
    imposes this upper bound.  This timer is referred to as the
    "Selection_Deferral_Timer".  The value of this timer should be large
    enough, so as to provide all the peers of the Restarting Speaker with
@@ -590,14 +590,14 @@ Table of Contents
 <span class="grey"><a href="./rfc4724.html">RFC 4724</a>           Graceful Restart Mechanism for BGP       January 2007</span>
 
 
-   MUST treat the subsequent open connection from the peer as an
+   <em>MUST</em> treat the subsequent open connection from the peer as an
    indication of the termination of the old TCP session and act
    accordingly (when the Graceful Restart Capability has been received
    from the peer).  See <a href="#section-8">Section 8</a> for a description of this behavior in
    terms of the BGP finite state machine.
 
    "Acting accordingly" in this context means that the previous TCP
-   session MUST be closed, and the new one retained.  Note that this
+   session <em>MUST</em> be closed, and the new one retained.  Note that this
    behavior differs from the default behavior, as specified in [<a href="#ref-BGP-4" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">BGP-4</a>],
    Section 6.8.  Since the previous connection is considered to be
    terminated, no NOTIFICATION message should be sent -- the previous
@@ -605,23 +605,23 @@ Table of Contents
 
    When the Receiving Speaker detects termination of the TCP session for
    a BGP session with a peer that has advertised the Graceful Restart
-   Capability, it MUST retain the routes received from the peer for all
+   Capability, it <em>MUST</em> retain the routes received from the peer for all
    the address families that were previously received in the Graceful
-   Restart Capability and MUST mark them as stale routing information.
+   Restart Capability and <em>MUST</em> mark them as stale routing information.
    To deal with possible consecutive restarts, a route (from the peer)
-   previously marked as stale MUST be deleted.  The router MUST NOT
+   previously marked as stale <em>MUST</em> be deleted.  The router <em>MUST NOT</em>
    differentiate between stale and other routing information during
    forwarding.
 
    In re-establishing the session, the "Restart State" bit in the
    Graceful Restart Capability of the OPEN message sent by the Receiving
-   Speaker MUST NOT be set unless the Receiving Speaker has restarted.
+   Speaker <em>MUST NOT</em> be set unless the Receiving Speaker has restarted.
    The presence and the setting of the "Forwarding State" bit for an
    address family depend upon the actual forwarding state and
    configuration.
 
    If the session does not get re-established within the "Restart Time"
-   that the peer advertised previously, the Receiving Speaker MUST
+   that the peer advertised previously, the Receiving Speaker <em>MUST</em>
    delete all the stale routes from the peer that it is retaining.
 
    A BGP speaker could have some way of determining whether its peer's
@@ -630,7 +630,7 @@ Table of Contents
    information.  Specifics of such mechanisms are beyond the scope of
    this document.  In the event that it determines that its peer's
    forwarding state is not viable prior to the re-establishment of the
-   session, the speaker MAY delete all the stale routes from the peer
+   session, the speaker <em>MAY</em> delete all the stale routes from the peer
    that it is retaining.
 
    Once the session is re-established, if the "Forwarding State" bit for
@@ -646,21 +646,21 @@ Table of Contents
 <span class="grey"><a href="./rfc4724.html">RFC 4724</a>           Graceful Restart Mechanism for BGP       January 2007</span>
 
 
-   all, then the Receiving Speaker MUST immediately remove all the stale
+   all, then the Receiving Speaker <em>MUST</em> immediately remove all the stale
    routes from the peer that it is retaining for that address family.
 
-   The Receiving Speaker MUST send the End-of-RIB marker once it
+   The Receiving Speaker <em>MUST</em> send the End-of-RIB marker once it
    completes the initial update for an address family (including the
    case that it has no routes to send) to the peer.
 
-   The Receiving Speaker MUST replace the stale routes by the routing
+   The Receiving Speaker <em>MUST</em> replace the stale routes by the routing
    updates received from the peer.  Once the End-of-RIB marker for an
-   address family is received from the peer, it MUST immediately remove
+   address family is received from the peer, it <em>MUST</em> immediately remove
    any routes from the peer that are still marked as stale for that
    address family.
 
    To put an upper bound on the amount of time a router retains the
-   stale routes, an implementation MAY support a (configurable) timer
+   stale routes, an implementation <em>MAY</em> support a (configurable) timer
    that imposes this upper bound.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Changes to BGP Finite State Machine</span>
@@ -690,7 +690,7 @@ Table of Contents
 
         In response to an indication that the TCP connection is
         successfully established (Event 16 or Event 17), the second
-        connection SHALL be tracked until it sends an OPEN message.
+        connection <em>SHALL</em> be tracked until it sends an OPEN message.
 
    with
 
@@ -705,7 +705,7 @@ Table of Contents
         If the Graceful Restart Capability with one or more AFIs/SAFIs
         has not been received for the session, then in response to an
         indication that a TCP connection is successfully established
-        (Event 16 or Event 17), the second connection SHALL be tracked
+        (Event 16 or Event 17), the second connection <em>SHALL</em> be tracked
         until it sends an OPEN message.
 
         However, if the Graceful Restart Capability with one or more

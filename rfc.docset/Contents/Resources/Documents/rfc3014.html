@@ -215,8 +215,8 @@ Abstract
    In particular, it describes managed objects used for logging Simple
    Network Management Protocol (SNMP) Notifications.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.
 
 
@@ -410,29 +410,29 @@ Table of Contents
 <span class="grey"><a href="./rfc3014.html">RFC 3014</a>                  Notification Log MIB             November 2000</span>
 
 
-   A managed system with fewer resources MAY disallow the creation of
+   A managed system with fewer resources <em>MAY</em> disallow the creation of
    named logs, providing only the default, null-named log.  Such a log
    has no implicit security credentials for Notification object access
    control and Notifications are put into it with no further checking.
 
    When putting locally-generated Notifications into a named log, the
-   managed system MUST use the security credentials associated with that
-   log and MUST apply the same access control rules as described for a
+   managed system <em>MUST</em> use the security credentials associated with that
+   log and <em>MUST</em> apply the same access control rules as described for a
    Notification Originator in [<a href="./rfc2573.html" title="&quot;SNMPv3 Applications&quot;">RFC2573</a>].
 
-   The managed system SHOULD NOT apply access control when adding
+   The managed system <em>SHOULD NOT</em> apply access control when adding
    remotely-generated Notifications into either a named log or the
    default, null-named log.  In those cases the security of the
-   information in the log SHOULD be left to the normal, overall access
+   information in the log <em>SHOULD</em> be left to the normal, overall access
    control for the log itself.
 
    The Notification Log MIB allows applications to set the maximum
    number of Notifications that can be logged, using
    nlmConfigGlobalEntryLimit.  Similarly, an application can set the
    maximum age using nlmConfigGlobalAgeOut, after which older
-   Notifications MAY be timed out.  Please be aware that contention
+   Notifications <em>MAY</em> be timed out.  Please be aware that contention
    between multiple applications trying to set these objects to
-   different values MAY affect the reliability and completeness of data
+   different values <em>MAY</em> affect the reliability and completeness of data
    seen by each application, i.e., it is possible that one application
    may change the value of either of these objects, resulting in some
    Notifications being deleted before the other applications have had a
@@ -607,9 +607,9 @@ nlmConfigGlobalEntryLimit OBJECT-TYPE
      setting does not guarantee that much data can be held.
 
      If an application changes the limit while there are
-     Notifications in the log, the oldest Notifications MUST be
+     Notifications in the log, the oldest Notifications <em>MUST</em> be
      discarded to bring the log down to the new limit - thus the
-     value of nlmConfigGlobalEntryLimit MUST take precedence over
+     value of nlmConfigGlobalEntryLimit <em>MUST</em> take precedence over
      the values of nlmConfigGlobalAgeOut and nlmConfigLogEntryLimit,
      even if the Notification being discarded has been present for
      fewer minutes than the value of nlmConfigGlobalAgeOut, or if
@@ -619,7 +619,7 @@ nlmConfigGlobalEntryLimit OBJECT-TYPE
      A value of 0 means no limit.
 
      Please be aware that contention between multiple managers
-     trying to set this object to different values MAY affect the
+     trying to set this object to different values <em>MAY</em> affect the
      reliability and completeness of data seen by each manager."
     DEFVAL { 0 }
     ::= { nlmConfig 1 }
@@ -638,17 +638,17 @@ nlmConfigGlobalAgeOut OBJECT-TYPE
     MAX-ACCESS  read-write
     STATUS      current
     DESCRIPTION
-     "The number of minutes a Notification SHOULD be kept in a log
+     "The number of minutes a Notification <em>SHOULD</em> be kept in a log
      before it is automatically removed.
 
      If an application changes the value of nlmConfigGlobalAgeOut,
-     Notifications older than the new time MAY be discarded to meet the
+     Notifications older than the new time <em>MAY</em> be discarded to meet the
      new time.
 
      A value of 0 means no age out.
 
      Please be aware that contention between multiple managers
-     trying to set this object to different values MAY affect the
+     trying to set this object to different values <em>MAY</em> affect the
      reliability and completeness of data seen by each manager."
     DEFVAL { 1440 }  -- 24 hours
     ::= { nlmConfig 2 }
@@ -705,7 +705,7 @@ nlmLogName OBJECT-TYPE
      An implementation may allow multiple named logs, up to some
      implementation-specific limit (which may be none).  A
      zero-length log name is reserved for creation and deletion by
-     the managed system, and MUST be used as the default log name by
+     the managed system, and <em>MUST</em> be used as the default log name by
      systems that do not support named logs."
     ::= { nlmConfigLogEntry 1 }
 
@@ -749,7 +749,7 @@ nlmConfigLogEntryLimit OBJECT-TYPE
      A value of 0 indicates no limit.
 
      Please be aware that contention between multiple managers
-     trying to set this object to different values MAY affect the
+     trying to set this object to different values <em>MAY</em> affect the
      reliability and completeness of data seen by each manager."
     DEFVAL { 0 }
     ::= { nlmConfigLogEntry 3 }
@@ -763,7 +763,7 @@ nlmConfigLogAdminStatus OBJECT-TYPE
      disturbing the log's entry.
 
      Please be aware that contention between multiple managers
-     trying to set this object to different values MAY affect the
+     trying to set this object to different values <em>MAY</em> affect the
      reliability and completeness of data seen by each manager."
     DEFVAL { enabled }
     ::= { nlmConfigLogEntry 4 }
@@ -932,7 +932,7 @@ nlmLogTable OBJECT-TYPE
      TimeStamps, since both of those are based on sysUpTime, which
      resets on management initialization.  In this situation,
      counters apply only after the reset and nlmLogTime for entries
-     made before the reset MUST be set to 0."
+     made before the reset <em>MUST</em> be set to 0."
     ::= { nlmLog 1 }
 
 nlmLogEntry OBJECT-TYPE
@@ -949,11 +949,11 @@ nlmLogEntry OBJECT-TYPE
      nlmConfigLogEntryLimit.
 
      If adding an entry would exceed nlmConfigGlobalEntryLimit or system
-     resources in general, the oldest entry in any log SHOULD be removed
+     resources in general, the oldest entry in any log <em>SHOULD</em> be removed
      to make room for the new one.
 
      If adding an entry would exceed nlmConfigLogEntryLimit the oldest
-     entry in that log SHOULD be removed to make room for the new one.
+     entry in that log <em>SHOULD</em> be removed to make room for the new one.
 
      Before the managed system puts a locally-generated Notification
      into a non-null-named log it assures that the creator of the log
@@ -1000,7 +1000,7 @@ nlmLogTime OBJECT-TYPE
     DESCRIPTION
      "The value of sysUpTime when the entry was placed in the log. If
      the entry occurred before the most recent management system
-     initialization this object value MUST be set to zero."
+     initialization this object value <em>MUST</em> be set to zero."
     ::= { nlmLogEntry 2 }
 
 nlmLogDateAndTime OBJECT-TYPE
@@ -1044,7 +1044,7 @@ nlmLogEngineTAddress OBJECT-TYPE
      of an SNMPv1 trap, since an nlmLogEngineId cannot be extracted
      from the SNMPv1 trap pdu.
 
-     This object MUST always be instantiated, even if the log
+     This object <em>MUST</em> always be instantiated, even if the log
      can contain Notifications from only one engine.
 
      Please be aware that the nlmLogEngineTAddress may not uniquely

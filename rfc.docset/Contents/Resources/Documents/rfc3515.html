@@ -317,10 +317,10 @@ Table of Contents
    A REFER request implicitly establishes a subscription to the refer
    event.  Event subscriptions are defined in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>].
 
-   A REFER request MAY be placed outside the scope of a dialog created
-   with an INVITE.  REFER creates a dialog, and MAY be Record-Routed,
-   hence MUST contain a single Contact header field value.  REFERs
-   occurring inside an existing dialog MUST follow the Route/Record-
+   A REFER request <em>MAY</em> be placed outside the scope of a dialog created
+   with an INVITE.  REFER creates a dialog, and <em>MAY</em> be Record-Routed,
+   hence <em>MUST</em> contain a single Contact header field value.  REFERs
+   occurring inside an existing dialog <em>MUST</em> follow the Route/Record-
    Route logic of that dialog.
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a> The Refer-To Header Field</span>
@@ -339,7 +339,7 @@ Table of Contents
    ___________________________________________________________________
    Refer-To                    R                -   -   -   -   -   -
 
-   The Refer-To header field MAY be encrypted as part of end-to-end
+   The Refer-To header field <em>MAY</em> be encrypted as part of end-to-end
    encryption.
 
    The Contact header field is an important part of the Route/Record-
@@ -456,7 +456,7 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a> Message Body Inclusion</span>
 
-   A REFER method MAY contain a body.  This specification assigns no
+   A REFER method <em>MAY</em> contain a body.  This specification assigns no
    meaning to such a body.  A receiving agent may choose to process the
    body according to its Content-Type.
 
@@ -475,38 +475,38 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 <span class="h4"><a class="selflink" name="section-2.4.1" href="#section-2.4.1">2.4.1</a> Forming a REFER request</span>
 
    REFER is a SIP request and is constructed as defined in [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>].  A REFER
-   request MUST contain exactly one Refer-To header field value.
+   request <em>MUST</em> contain exactly one Refer-To header field value.
 
 <span class="h4"><a class="selflink" name="section-2.4.2" href="#section-2.4.2">2.4.2</a> Processing a REFER request</span>
 
-   A UA accepting a well-formed REFER request SHOULD request approval
+   A UA accepting a well-formed REFER request <em>SHOULD</em> request approval
    from the user to proceed (this request could be satisfied with an
    interactive query or through accessing configured policy).  If
-   approval is granted, the UA MUST contact the resource identified by
+   approval is granted, the UA <em>MUST</em> contact the resource identified by
    the URI in the Refer-To header field value as discussed in <a href="#section-2.4.3">Section</a>
    <a href="#section-2.4.3">2.4.3</a>.
 
    If the approval sought above for a well-formed REFER request is
-   immediately denied, the UA MAY decline the request.
+   immediately denied, the UA <em>MAY</em> decline the request.
 
-   An agent responding to a REFER method MUST return a 400 (Bad Request)
+   An agent responding to a REFER method <em>MUST</em> return a 400 (Bad Request)
    if the request contained zero or more than one Refer-To header field
    values.
 
-   An agent (including proxies generating local responses) MAY return a
+   An agent (including proxies generating local responses) <em>MAY</em> return a
    100 (Trying) or any appropriate 4xx-6xx class response as prescribed
    by [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>].
 
    Care should be taken when implementing the logic that determines
    whether or not to accept the REFER request.  A UA not capable of
-   accessing non-SIP URIs SHOULD NOT accept REFER requests to them.
+   accessing non-SIP URIs <em>SHOULD NOT</em> accept REFER requests to them.
 
    If no final response has been generated according to the rules above,
-   the UA MUST return a 202 Accepted response before the REFER
+   the UA <em>MUST</em> return a 202 Accepted response before the REFER
    transaction expires.
 
    If a REFER request is accepted (that is, a 2xx class response is
-   returned), the recipient MUST create a subscription and send
+   returned), the recipient <em>MUST</em> create a subscription and send
    notifications of the status of the refer as described in <a href="#section-2.4.4">Section</a>
    <a href="#section-2.4.4">2.4.4</a>.
 
@@ -528,19 +528,19 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 
 <span class="h4"><a class="selflink" name="section-2.4.4" href="#section-2.4.4">2.4.4</a> Using SIP Events to Report the Results of the Reference</span>
 
-   The NOTIFY mechanism defined in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>] MUST be used to inform the agent
+   The NOTIFY mechanism defined in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>] <em>MUST</em> be used to inform the agent
    sending the REFER of the status of the reference.  The dialog
    identifiers (To, From, and Call-ID) of each NOTIFY must match those
    of the REFER as they would if the REFER had been a SUBSCRIBE request.
 
-   Each NOTIFY MUST contain an Event header field with a value of refer
+   Each NOTIFY <em>MUST</em> contain an Event header field with a value of refer
    and possibly an id parameter (see <a href="#section-2.4.6">Section 2.4.6</a>).
 
-   Each NOTIFY MUST contain a body of type "message/sipfrag" [<a href="#ref-3" title="&quot;Internet Media Type message/sipfrag&quot;">3</a>].
+   Each NOTIFY <em>MUST</em> contain a body of type "message/sipfrag" [<a href="#ref-3" title="&quot;Internet Media Type message/sipfrag&quot;">3</a>].
 
    The creation of a subscription as defined by [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>] always results in an
    immediate NOTIFY.  Analogous to the case for SUBSCRIBE described in
-   that document, the agent that issued the REFER MUST be prepared to
+   that document, the agent that issued the REFER <em>MUST</em> be prepared to
    receive a NOTIFY before the REFER transaction completes.
 
    The implicit subscription created by a REFER is the same as a
@@ -549,7 +549,7 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
    using the mechanisms described in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>].  Terminating a subscription,
    either by explicitly unsubscribing or rejecting NOTIFY, is not an
    indication that the referenced request should be withdrawn or
-   abandoned.  In particular, an agent acting on a REFER request SHOULD
+   abandoned.  In particular, an agent acting on a REFER request <em>SHOULD</em>
    NOT issue a CANCEL to any referenced SIP requests because the agent
    sending the REFER terminated its subscription to the refer event
    before the referenced request completes.
@@ -559,7 +559,7 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 
    REFER is the only mechanism that can create a subscription to event
    refer.  If a SUBSCRIBE request for event refer is received for a
-   subscription that does not already exist, it MUST be rejected with a
+   subscription that does not already exist, it <em>MUST</em> be rejected with a
    403.
 
    Notice that unlike SUBSCRIBE, the REFER transaction does not contain
@@ -584,10 +584,10 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 
 <span class="h4"><a class="selflink" name="section-2.4.5" href="#section-2.4.5">2.4.5</a> The Body of the NOTIFY</span>
 
-   Each NOTIFY MUST contain a body of type "message/sipfrag" [<a href="#ref-3" title="&quot;Internet Media Type message/sipfrag&quot;">3</a>].  The
-   body of a NOTIFY MUST begin with a SIP Response Status-Line as
+   Each NOTIFY <em>MUST</em> contain a body of type "message/sipfrag" [<a href="#ref-3" title="&quot;Internet Media Type message/sipfrag&quot;">3</a>].  The
+   body of a NOTIFY <em>MUST</em> begin with a SIP Response Status-Line as
    defined in [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>].  The response class in this status line indicates the
-   status of the referred action.  The body MAY contain other SIP header
+   status of the referred action.  The body <em>MAY</em> contain other SIP header
    fields to provide information about the outcome of the referenced
    action.  This body provides a complete statement of the status of the
    referred action.  The refer event package does not support state
@@ -618,7 +618,7 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
    reference could be obtained and that approval was subsequently denied
    (see <a href="#section-2.4.7">Section 2.4.7</a>).
 
-   An implementation MAY include more of a SIP message in that body to
+   An implementation <em>MAY</em> include more of a SIP message in that body to
    convey more information.  Warning header field values received in
    responses to the referred action are good candidates.  In fact, if
    the reference was to a SIP URI, the entire response to the referenced
@@ -655,17 +655,17 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
    associate the resulting NOTIFYs with the proper REFER.
 
    Thus, for the second and subsequent REFER requests a UA receives in a
-   given dialog, it MUST include an id parameter[2] in the Event header
+   given dialog, it <em>MUST</em> include an id parameter[2] in the Event header
    field of each NOTIFY containing the sequence number (the number from
    the CSeq header field value) of the REFER this NOTIFY is associated
-   with.  This id parameter MAY be included in NOTIFYs to the first
+   with.  This id parameter <em>MAY</em> be included in NOTIFYs to the first
    REFER a UA receives in a given dialog.  A SUBSCRIBE sent to refresh
-   or terminate this subscription MUST contain this id parameter.
+   or terminate this subscription <em>MUST</em> contain this id parameter.
 
 <span class="h4"><a class="selflink" name="section-2.4.7" href="#section-2.4.7">2.4.7</a> Using the Subscription-State Header Field with Event Refer</span>
 
    Each NOTIFY must contain a Subscription-State header field as defined
-   in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>].  The final NOTIFY sent in response to a REFER MUST indicate
+   in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>].  The final NOTIFY sent in response to a REFER <em>MUST</em> indicate
    the subscription has been "terminated" with a reason of "noresource".
    (The resource being subscribed to is the state of the referenced
    request).
@@ -684,7 +684,7 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 
    A registrar that is unaware of the definition of the REFER method
    will return a 501 response as defined in [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>].  A registrar aware of
-   the definition of REFER SHOULD return a 405 response.
+   the definition of REFER <em>SHOULD</em> return a 405 response.
 
 
 
@@ -729,12 +729,12 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
    header field's expire parameter in the first NOTIFY sent in the
    subscription.  Reasonable choices for this initial duration depend on
    the type of request indicated in the Refer-To URI.  The duration
-   SHOULD be chosen to be longer than the time the referenced request
+   <em>SHOULD</em> be chosen to be longer than the time the referenced request
    will be given to complete.  For example, if the Refer-To URI is a SIP
    INVITE URI, the subscription interval should be longer than the
-   Expire value in the INVITE.  Additional time MAY be included to
+   Expire value in the INVITE.  Additional time <em>MAY</em> be included to
    account for time needed to authorize the subscription.  The
-   subscribing agent MAY extend the subscription by refreshing it, or
+   subscribing agent <em>MAY</em> extend the subscription by refreshing it, or
    terminate it by unsubscribing.  As described in <a href="#section-2.4.7">Section 2.4.7</a>, the
    agent accepting the REFER will terminate the subscription when it
    reports the final result of the reference, indicating that
@@ -772,8 +772,8 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
 <span class="h3"><a class="selflink" name="section-3.9" href="#section-3.9">3.9</a> Handling of Forked Requests</span>
 
    A REFER sent within the scope of an existing dialog will not fork.  A
-   REFER sent outside the context of a dialog MAY fork, and if it is
-   accepted by multiple agents, MAY create multiple subscriptions.
+   REFER sent outside the context of a dialog <em>MAY</em> fork, and if it is
+   accepted by multiple agents, <em>MAY</em> create multiple subscriptions.
    These subscriptions are created and managed as per "Handling of
    Forked Requests" in [<a href="#ref-2" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">2</a>] as if the REFER had been a SUBSCRIBE.  The
    agent sending the REFER manages the state associated with each
@@ -789,7 +789,7 @@ Refer-To: <a href="http://www.ietf.org">http://www.ietf.org</a>
    each provisional response and the final response to the INVITE.
    Alternatively, the subscription might only result in two NOTIFY
    requests, the immediate NOTIFY and the NOTIFY carrying the final
-   result of the reference.  NOTIFYs to event refer SHOULD NOT be sent
+   result of the reference.  NOTIFYs to event refer <em>SHOULD NOT</em> be sent
    more frequently than once per second.
 
 <span class="h3"><a class="selflink" name="section-3.11" href="#section-3.11">3.11</a> State Agents</span>

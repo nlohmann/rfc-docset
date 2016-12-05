@@ -333,14 +333,14 @@ Table of Contents
    Even though this document is not intended to be an actual Internet
    standard, the words that are used to define the significance of
    particular features of this interface are usually capitalized.  Some
-   of these words, including MUST, MAY, and SHOULD, are detailed in
+   of these words, including <em>MUST</em>, <em>MAY</em>, and <em>SHOULD</em>, are detailed in
    [<a href="#ref-Bra97" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Bra97</a>].
 
    - CONFORMANCE and COMPLIANCE
 
    Conformance to this specification has the same meaning as compliance
    to this specification.  In either case, the mandatory-to-implement,
-   or MUST, items MUST be fully implemented as specified here.  If any
+   or <em>MUST</em>, items <em>MUST</em> be fully implemented as specified here.  If any
    mandatory item is not implemented as specified here, that
    implementation is not conforming and not compliant with this
    specification.
@@ -365,7 +365,7 @@ Table of Contents
    For PF_KEY purposes, an algorithm, whether encryption or
    authentication, is the set of operations performed on a packet to
    complete authentication or encryption as indicated by the SA type.  A
-   PF_KEY algorithm MAY consist of more than one cryptographic
+   PF_KEY algorithm <em>MAY</em> consist of more than one cryptographic
    algorithm. Another possibility is that the same basic cryptographic
    algorithm may be applied with different modes of operation or some
    other implementation difference. These differences, henceforth called
@@ -556,7 +556,7 @@ Table of Contents
    In some implementations, policy may be implemented in user-space,
    even though the actual cryptographic processing takes place in the
    kernel.  Such policy communication between the kernel mechanisms and
-   the user-space policy MAY be implemented by PF_KEY extensions, or
+   the user-space policy <em>MAY</em> be implemented by PF_KEY extensions, or
    other such mechanism.  This document does not specify such
    extensions.  A PF_KEY implementation specified by the memo does NOT
    have to support configuring systemwide policy using PF_KEY.
@@ -584,7 +584,7 @@ Table of Contents
    The PF_KEY protocol family (PF_KEY) symbol is defined in
    &lt;sys/socket.h&gt; in the same manner that other protocol families are
    defined.  PF_KEY does not use any socket addresses.  Applications
-   using PF_KEY MUST NOT depend on the availability of a symbol named
+   using PF_KEY <em>MUST NOT</em> depend on the availability of a symbol named
    AF_KEY, but kernel implementations are encouraged to define that
    symbol for completeness.
 
@@ -598,19 +598,19 @@ Table of Contents
      s = socket(PF_KEY, SOCK_RAW, PF_KEY_V2);
 
    The PF_KEY domain currently supports only the SOCK_RAW socket type.
-   The protocol field MUST be set to PF_KEY_V2, or else EPROTONOSUPPORT
+   The protocol field <em>MUST</em> be set to PF_KEY_V2, or else EPROTONOSUPPORT
    will be returned.  Only a trusted, privileged process can create a
    PF_KEY socket.  On conventional UNIX systems, a privileged process is
    a process with an effective userid of zero.  On non-MLS proprietary
    operating systems, the notion of a "privileged process" is
    implementation-defined.  On Compartmented Mode Workstations (CMWs) or
    other systems that claim to provide Multi-Level Security (MLS), a
-   process MUST have the "key management privilege" in order to open a
+   process <em>MUST</em> have the "key management privilege" in order to open a
    PF_KEY socket[DIA].  MLS systems that don't currently have such a
-   specific privilege MUST add that special privilege and enforce it
+   specific privilege <em>MUST</em> add that special privilege and enforce it
    with PF_KEY in order to comply and conform with this specification.
    Some systems, most notably some popular personal computers, do not
-   have the concept of an unprivileged user.  These systems SHOULD take
+   have the concept of an unprivileged user.  These systems <em>SHOULD</em> take
    steps to restrict the programs allowed to access the PF_KEY API.
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a> Overview of PF_KEY Messaging Behavior</span>
@@ -621,7 +621,7 @@ Table of Contents
    association table using a set of predefined messages.  In the normal
    case, all properly-formed messages sent to the kernel are returned to
    all open PF_KEY sockets, including the sender.  Improperly formed
-   messages will result in errors, and an implementation MUST check for
+   messages will result in errors, and an implementation <em>MUST</em> check for
    a properly formed message before returning it to the appropriate
    listeners. Unlike the routing socket, most errors are sent in reply
    messages, not the errno field when write() or send() fails. PF_KEY
@@ -679,7 +679,7 @@ Table of Contents
    to request that a Security Association be created by some
    application-layer key management process that has registered with the
    kernel via an SADB_REGISTER message.  This ACQUIRE message will have
-   a sequence number associated with it.  This sequence number MUST be
+   a sequence number associated with it.  This sequence number <em>MUST</em> be
    used by followup SADB_GETSPI, SADB_UPDATE, and SADB_ADD messages, in
    order to keep track of which request gets its keying material.  The
    sequence number (described below) is similar to a transaction ID in a
@@ -718,22 +718,22 @@ Table of Contents
      applications that fail to read PF_KEY messages cannot do error
      checking.
 
-     An implementation MAY return the errors EINVAL, ENOMEM, and ENOBUFS
+     An implementation <em>MAY</em> return the errors EINVAL, ENOMEM, and ENOBUFS
      by causing write() operations to fail and returning the error
      number in errno.  This is an optimization for common error cases in
      which it does not make sense for any other process to receive the
-     error.  An application MUST NOT depend on such errors being set by
-     the write() call, but it SHOULD check for such errors, and handle
+     error.  An application <em>MUST NOT</em> depend on such errors being set by
+     the write() call, but it <em>SHOULD</em> check for such errors, and handle
      them in an appropriate manner.
 
    * The entire message isn't always reflected in the reply. A SADB_ADD
      message is an example of this.
 
    * The PID is not set by the kernel.  The process that originates the
-     message MUST set the sadb_msg_pid to its own PID.  If the kernel
-     ORIGINATES a message, it MUST set the sadb_msg_pid to 0.  A reply
-     to an original message SHOULD have the pid of the original message.
-     (E.g. the kernel's response to an SADB_ADD SHOULD have its pid set
+     message <em>MUST</em> set the sadb_msg_pid to its own PID.  If the kernel
+     ORIGINATES a message, it <em>MUST</em> set the sadb_msg_pid to 0.  A reply
+     to an original message <em>SHOULD</em> have the pid of the original message.
+     (E.g. the kernel's response to an SADB_ADD <em>SHOULD</em> have its pid set
      to the pid value of the original SADB_ADD message.)
 
 
@@ -763,13 +763,13 @@ Table of Contents
    PFKEYV2_REVISION is 199806L, where 1998 is the year and 06 is the
    month.
 
-   Inclusion of the file &lt;net/pfkeyv2.h&gt; MUST NOT define symbols or
+   Inclusion of the file &lt;net/pfkeyv2.h&gt; <em>MUST NOT</em> define symbols or
    structures in the PF_KEYv2 name space that are not described in this
    document without the explicit prior permission of the authors.  Any
    symbols or structures in the PF_KEYv2 name space that are not
-   described in this document MUST start with "SADB_X_" or "sadb_x_". An
+   described in this document <em>MUST</em> start with "SADB_X_" or "sadb_x_". An
    implementation that fails to obey these rules IS NOT COMPLIANT WITH
-   THIS SPECIFICATION and MUST NOT make any claim to be.  These rules
+   THIS SPECIFICATION and <em>MUST NOT</em> make any claim to be.  These rules
    also apply to any files that might be included as a result of
    including the file &lt;net/pfkeyv2.h&gt;. This rule provides implementors
    with some assurance that they will not encounter namespace-related
@@ -779,8 +779,8 @@ Table of Contents
 
    Not unlike the 4.4-Lite BSD PF_ROUTE socket, this interface allows an
    application full-reign over the security associations in a kernel
-   that implements PF_KEY.  A PF_KEY implementation MUST have some sort
-   of manual interface to PF_KEY, which SHOULD allow all of the
+   that implements PF_KEY.  A PF_KEY implementation <em>MUST</em> have some sort
+   of manual interface to PF_KEY, which <em>SHOULD</em> allow all of the
    functionality of the programmatic interface described here.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. PF_KEY Message Format</span>
@@ -791,7 +791,7 @@ Table of Contents
 
    PF_KEY messages currently do not mandate any specific ordering for
    non-network multi-octet fields.  Unless otherwise specified (e.g. SPI
-   values), fields MUST be in host-specific byte order.
+   values), fields <em>MUST</em> be in host-specific byte order.
 
 
 
@@ -826,9 +826,9 @@ Table of Contents
            /* sizeof(struct sadb_msg) == 16 */
 
    sadb_msg_version
-                   The version field of this PF_KEY message. This MUST
+                   The version field of this PF_KEY message. This <em>MUST</em>
                    be set to PF_KEY_V2. If this is not set to PF_KEY_V2,
-                   the write() call MAY fail and return EINVAL.
+                   the write() call <em>MAY</em> fail and return EINVAL.
                    Otherwise, the behavior is undetermined, given that
                    the application might not understand the formatting
                    of the messages arriving from the kernel.
@@ -866,23 +866,23 @@ Table of Contents
                    that might exist. Unless otherwise stated, all other
                    length fields are also measured in 64-bit words.
 
-                   On user to kernel messages, this field MUST be
+                   On user to kernel messages, this field <em>MUST</em> be
                    verified against the length of the inbound message.
-                   EMSGSIZE MUST be returned if the verification fails.
+                   EMSGSIZE <em>MUST</em> be returned if the verification fails.
                    On kernel to user messages, a size mismatch is most
                    likely the result of the user not providing a large
                    enough buffer for the message. In these cases, the
-                   user application SHOULD drop the message, but it MAY
+                   user application <em>SHOULD</em> drop the message, but it <em>MAY</em>
                    try and extract what information it can out of the
                    message.
 
    sadb_msg_reserved
-                   Reserved value. It MUST be zeroed by the sender. All
+                   Reserved value. It <em>MUST</em> be zeroed by the sender. All
                    fields labeled reserved later in the document have
                    the same semantics as this field.
 
    sadb_msg_seq    Contains the sequence number of this message. This
-                   field, along with sadb_msg_pid, MUST be used to
+                   field, along with sadb_msg_pid, <em>MUST</em> be used to
                    uniquely identify requests to a process. The sender
                    is responsible for filling in this field. This
                    responsibility also includes matching the
@@ -894,7 +894,7 @@ Table of Contents
    sadb_msg_pid    Identifies the process which originated this message,
                    or which process a message is bound for.  For
                    example, if process id 2112 sends an SADB_UPDATE
-                   message to the kernel, the process MUST set this
+                   message to the kernel, the process <em>MUST</em> set this
                    field to 2112 and the kernel will set this field
                    to 2112 in its reply to that SADB_UPDATE
                    message. This field, along with sadb_msg_seq, can
@@ -927,9 +927,9 @@ Table of Contents
    bits. Therefore:
 
      * All extension headers, inclusive of the sadb_ext overlay fields,
-       MUST be a multiple of 64 bits long.
+       <em>MUST</em> be a multiple of 64 bits long.
 
-     * All variable length data MUST be padded appropriately such that
+     * All variable length data <em>MUST</em> be padded appropriately such that
        its length in a message is a multiple of 64 bits.
 
      * All length fields are, unless otherwise specified, in units of
@@ -939,13 +939,13 @@ Table of Contents
        bits directly within a message without risk of alignment faults.
 
    All PF_KEYv2 structures are packed and already have all intended
-   padding.  Implementations MUST NOT insert any extra fields, including
+   padding.  Implementations <em>MUST NOT</em> insert any extra fields, including
    hidden padding, into any structure in this document.  This forbids
    implementations from "extending" or "enhancing" existing headers
    without changing the extension header type. As a guard against such
    insertion of silent padding, each structure in this document is
    labeled with its size in bytes. The size of these structures in an
-   implementation MUST match the size listed.
+   implementation <em>MUST</em> match the size listed.
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a> Additional Message Fields</span>
 
@@ -977,29 +977,29 @@ Table of Contents
 
    Types of extension headers include: Association, Lifetime(s),
    Address(s), Key(s), Identity(ies), Sensitivity, Proposal, and
-   Supported. There MUST be only one instance of a extension type in a
+   Supported. There <em>MUST</em> be only one instance of a extension type in a
    message.  (e.g.  Base, Key, Lifetime, Key is forbidden).  An EINVAL
    will be returned if there are duplicate extensions within a message.
-   Implementations MAY enforce ordering of extensions in the order
+   Implementations <em>MAY</em> enforce ordering of extensions in the order
    presented in the EXTENSION HEADER VALUES section.
 
-   If an unknown extension type is encountered, it MUST be ignored.
+   If an unknown extension type is encountered, it <em>MUST</em> be ignored.
    Applications using extension headers not specified in this document
-   MUST be prepared to work around other system components not
+   <em>MUST</em> be prepared to work around other system components not
    processing those headers.  Likewise, if an application encounters an
    unknown extension from the kernel, it must be prepared to work around
-   it.  Also, a kernel that generates extra extension header types MUST
+   it.  Also, a kernel that generates extra extension header types <em>MUST</em>
    NOT _depend_ on applications also understanding extra extension
    header types.
 
    All extension definitions include these two fields (len and exttype)
    because they are instances of a generic extension (not unlike
    sockaddr_in and sockaddr_in6 are instances of a generic sockaddr).
-   The sadb_ext header MUST NOT ever be present in a message without at
+   The sadb_ext header <em>MUST NOT</em> ever be present in a message without at
    least four bytes of extension header data following it, and,
    therefore, there is no problem with it being only four bytes long.
 
-   All extensions documented in this section MUST be implemented by a
+   All extensions documented in this section <em>MUST</em> be implemented by a
    PF_KEY implementation.
 
 <span class="h4"><a class="selflink" name="section-2.3.1" href="#section-2.3.1">2.3.1</a> Association Extension</span>
@@ -1035,7 +1035,7 @@ Table of Contents
                    key identifier that is less than 32-bits long. In
                    this case, the smaller value shall be stored in the
                    least significant bits of this field and the unneeded
-                   bits shall be zero. This field MUST be in network
+                   bits shall be zero. This field <em>MUST</em> be in network
                    byte order.
 
    sadb_sa_replay  The size of the replay window, if not zero. If zero,
@@ -1060,7 +1060,7 @@ Table of Contents
                    association. The currently defined flags are
                    described later in this document.
 
-   The kernel MUST check these values where appropriate. For example,
+   The kernel <em>MUST</em> check these values where appropriate. For example,
    IPsec AH with no authentication algorithm is probably an error.
 
    When used with some messages, the values in some fields in this
@@ -1070,7 +1070,7 @@ Table of Contents
 
    The Lifetime extension specifies one or more lifetime variants for
    this security association.  If no Lifetime extension is present the
-   association has an infinite lifetime.  An association SHOULD have a
+   association has an infinite lifetime.  An association <em>SHOULD</em> have a
    lifetime of some sort associated with it.  Lifetime variants come in
    three varieties, HARD - indicating the hard-limit expiration, SOFT -
    indicating the soft-limit expiration, and CURRENT - indicating the
@@ -1143,7 +1143,7 @@ Table of Contents
 
    The Address extension specifies one or more addresses that are
    associated with a security association. Address extensions for both
-   source and destination MUST be present when an Association extension
+   source and destination <em>MUST</em> be present when an Association extension
    is present. The format of an Address extension is:
 
            struct sadb_address {
@@ -1157,32 +1157,32 @@ Table of Contents
 
            /* followed by some form of struct sockaddr */
 
-   The sockaddr structure SHOULD conform to the sockaddr structure of
+   The sockaddr structure <em>SHOULD</em> conform to the sockaddr structure of
    the system implementing PF_KEY. If the system has an sa_len field, so
-   SHOULD the sockaddrs in the message. If the system has NO sa_len
-   field, the sockaddrs SHOULD NOT have an sa_len field. All non-address
+   <em>SHOULD</em> the sockaddrs in the message. If the system has NO sa_len
+   field, the sockaddrs <em>SHOULD NOT</em> have an sa_len field. All non-address
    information in the sockaddrs, such as sin_zero for AF_INET sockaddrs,
-   and sin6_flowinfo for AF_INET6 sockaddrs, MUST be zeroed out.  The
-   zeroing of ports (e.g. sin_port and sin6_port) MUST be done for all
-   messages except for originating SADB_ACQUIRE messages, which SHOULD
+   and sin6_flowinfo for AF_INET6 sockaddrs, <em>MUST</em> be zeroed out.  The
+   zeroing of ports (e.g. sin_port and sin6_port) <em>MUST</em> be done for all
+   messages except for originating SADB_ACQUIRE messages, which <em>SHOULD</em>
    fill them in with ports from the relevant TCP or UDP session which
    generates the ACQUIRE message.  If the ports are non-zero, then the
-   sadb_address_proto field, normally zero, MUST be filled in with the
+   sadb_address_proto field, normally zero, <em>MUST</em> be filled in with the
    transport protocol's number.  If the sadb_address_prefixlen is non-
    zero, then the address has a prefix (often used in KM access control
    decisions), with length specified in sadb_address_prefixlen.  These
    additional fields may be useful to KM applications.
 
-   The SRC and DST addresses for a security association MUST be in the
-   same protocol family and MUST always be present or absent together in
-   a message.  The PROXY address MAY be in a different protocol family,
+   The SRC and DST addresses for a security association <em>MUST</em> be in the
+   same protocol family and <em>MUST</em> always be present or absent together in
+   a message.  The PROXY address <em>MAY</em> be in a different protocol family,
    and for most security protocols, represents an actual originator of a
    packet.  (For example, the inner-packets's source address in a
    tunnel.)
 
-   The SRC address MUST be a unicast or unspecified (e.g., INADDR_ANY)
+   The SRC address <em>MUST</em> be a unicast or unspecified (e.g., INADDR_ANY)
    address.  The DST address can be any valid destination address
-   (unicast, multicast, or even broadcast). The PROXY address SHOULD be
+   (unicast, multicast, or even broadcast). The PROXY address <em>SHOULD</em> be
    a unicast address (there are experimental security protocols where
    PROXY semantics may be different than described above).
 
@@ -1213,7 +1213,7 @@ Table of Contents
            /* followed by the key data */
 
    sadb_key_bits   The length of the valid key data, in bits. A value of
-                   zero in sadb_key_bits MUST cause an error.
+                   zero in sadb_key_bits <em>MUST</em> cause an error.
 
    The key extension comes in two varieties. The AUTH version is used
    with authentication keys (e.g. IPsec AH, OSPF MD5) and the ENCRYPT
@@ -1231,7 +1231,7 @@ Table of Contents
    for portability to different security protocols.
 
    If an algorithm defines its key to include parity bits (e.g.  DES)
-   then the key used with PF_KEY MUST also include those parity bits.
+   then the key used with PF_KEY <em>MUST</em> also include those parity bits.
    For example, this means that a single DES key is always a 64-bit
    quantity.
 
@@ -1240,9 +1240,9 @@ Table of Contents
    the appropriate key extension.  When a particular security protocol
    requires more than one key for the same function (e.g. Triple-DES
    using 2 or 3 keys, and asymmetric algorithms), then those two fully
-   formed keys MUST be concatenated together in the order used for
+   formed keys <em>MUST</em> be concatenated together in the order used for
    outbound packet processing. In the case of multiple keys, the
-   algorithm MUST be able to determine the lengths of the individual
+   algorithm <em>MUST</em> be able to determine the lengths of the individual
 
 
 
@@ -1314,7 +1314,7 @@ Table of Contents
    certificate that is used in negotiations. This information may also
    be provided by a kernel to network security aware applications to
    identify the remote entity, possibly for access control purposes.  If
-   this extension is not present, key management MUST assume that the
+   this extension is not present, key management <em>MUST</em> assume that the
    addresses in the Address extension are the only identities for this
    Security Association. The Identity extension looks like:
 
@@ -1396,7 +1396,7 @@ Table of Contents
    and/or the Biba integrity model [<a href="#ref-Biba77" title="&quot;Integrity Considerations for Secure Computer Systems&quot;">Biba77</a>]. These formal models can be
    used to implement a wide variety of security policies. The definition
    of a particular security policy is outside the scope of this
-   document.  Each of the bitmaps MUST be padded to a 64-bit boundary if
+   document.  Each of the bitmaps <em>MUST</em> be padded to a 64-bit boundary if
    they are not implicitly 64-bit aligned.
 
 <span class="h4"><a class="selflink" name="section-2.3.7" href="#section-2.3.7">2.3.7</a> Proposal Extension</span>
@@ -1479,23 +1479,23 @@ Table of Contents
    sadb_comb_auth_maxbits;
                    The minimum and maximum acceptable authentication
                    key lengths, respectably, in bits. If sadb_comb_auth
-                   is zero, both of these values MUST be zero. If
-                   sadb_comb_auth is nonzero, both of these values MUST
+                   is zero, both of these values <em>MUST</em> be zero. If
+                   sadb_comb_auth is nonzero, both of these values <em>MUST</em>
                    be nonzero. If this combination is accepted, a value
                    between these (inclusive) will be stored in the
-                   sadb_key_bits field of KEY_AUTH. The minimum MUST
+                   sadb_key_bits field of KEY_AUTH. The minimum <em>MUST</em>
                    NOT be greater than the maximum.
 
    sadb_comb_encrypt_minbits;
    sadb_comb_encrypt_maxbits;
                    The minimum and maximum acceptable encryption key
                    lengths, respectably, in bits. If sadb_comb_encrypt
-                   is zero, both of these values MUST be zero. If
+                   is zero, both of these values <em>MUST</em> be zero. If
                    sadb_comb_encrypt is nonzero, both of these values
-                   MUST be nonzero. If this combination is accepted, a
+                   <em>MUST</em> be nonzero. If this combination is accepted, a
                    value between these (inclusive) will be stored in
                    the sadb_key_bits field of KEY_ENCRYPT. The minimum
-                   MUST NOT be greater than the maximum.
+                   <em>MUST NOT</em> be greater than the maximum.
 
    sadb_comb_soft_allocations
    sadb_comb_hard_allocations
@@ -1589,7 +1589,7 @@ Table of Contents
 
    sadb_alg_ivlen The length of the initialization vector to be used
                   for the algorithm. If an IV is not needed, this
-                  value MUST be set to zero.
+                  value <em>MUST</em> be set to zero.
 
    sadb_alg_minbits
                    The minimum acceptable key length, in bits. A value
@@ -1597,7 +1597,7 @@ Table of Contents
 
    sadb_alg_maxbits
                    The maximum acceptable key length, in bits. A value
-                   of zero is invalid. The minimum MUST NOT be greater
+                   of zero is invalid. The minimum <em>MUST NOT</em> be greater
                    than the maximum.
 
 <span class="h4"><a class="selflink" name="section-2.3.9" href="#section-2.3.9">2.3.9</a> SPI Range Extension</span>
@@ -1618,7 +1618,7 @@ Table of Contents
                    The minimum acceptable SPI value.
 
    sadb_spirange_max
-                   The maximum acceptable SPI value. The maximum MUST
+                   The maximum acceptable SPI value. The maximum <em>MUST</em>
                    be greater than or equal to the minimum.
 
 
@@ -1664,10 +1664,10 @@ Table of Contents
    The base header may be followed by one or more of the following
    extension fields, depending on the values of various base header
    fields.  The following fields are ordered such that if they appear,
-   they SHOULD appear in the order presented below.
+   they <em>SHOULD</em> appear in the order presented below.
 
-   An extension field MUST not be repeated.  If there is a situation
-   where an extension MUST be repeated, it should be brought to the
+   An extension field <em>MUST</em> not be repeated.  If there is a situation
+   where an extension <em>MUST</em> be repeated, it should be brought to the
    attention of the authors.
 
    The Association extension
@@ -1740,7 +1740,7 @@ Table of Contents
        |                         sadb_ident_id                         |
        |                           (64 bits)                           |
        +---------------+---------------+---------------+---------------+
-       &gt;  A null-terminated C-string which MUST be padded out for      &gt;
+       &gt;  A null-terminated C-string which <em>MUST</em> be padded out for      &gt;
        &lt;  64-bit alignment.                                            &lt;
        +---------------+---------------+---------------+---------------+
 
@@ -1853,11 +1853,11 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a> Symbolic Names</span>
 
    This section defines various symbols used with PF_KEY and the
-   semantics associated with each symbol.  Applications MUST use the
+   semantics associated with each symbol.  Applications <em>MUST</em> use the
    symbolic names in order to be portable.  The numeric definitions
    shown are for illustrative purposes, unless explicitly stated
-   otherwise.  The numeric definition MAY vary on other systems.  The
-   symbolic name MUST be kept the same for all conforming
+   otherwise.  The numeric definition <em>MAY</em> vary on other systems.  The
+   symbolic name <em>MUST</em> be kept the same for all conforming
    implementations.
 
 
@@ -1892,10 +1892,10 @@ Table of Contents
    actions are expected to take place.  Contents of messages are
    illustrated as:
 
-   &lt;base, REQUIRED EXTENSION, REQ., (OPTIONAL EXT.,) (OPT)&gt;
+   &lt;base, <em>REQUIRED</em> EXTENSION, REQ., (<em>OPTIONAL</em> EXT.,) (OPT)&gt;
 
    The SA extension is sometimes used only for its SPI field.  If all
-   other fields MUST be ignored, this is represented by "SA(*)".
+   other fields <em>MUST</em> be ignored, this is represented by "SA(*)".
 
    The lifetime extensions are represented with one to three letters
    after the word "lifetime," representing (H)ARD, (S)OFT, and
@@ -1948,7 +1948,7 @@ Table of Contents
    process specifies the type in the base header, the source and
    destination address in address extension.  If the SADB_GETSPI message
    is in response to a kernel-generated SADB_ACQUIRE, the sadb_msg_seq
-   MUST be the same as the SADB_ACQUIRE message.  The application may
+   <em>MUST</em> be the same as the SADB_ACQUIRE message.  The application may
    also specify the SPI.  This is done by having the kernel select
    within a range of SPI values by using the SPI range extension.  To
    specify a single SPI value to be verified, the application sets the
@@ -1961,7 +1961,7 @@ Table of Contents
    later be used to add an entry with the requested SPI value.
 
    It is recommended that associations that are created with SADB_GETSPI
-   SHOULD be automatically deleted within a fixed amount of time if they
+   <em>SHOULD</em> be automatically deleted within a fixed amount of time if they
    are not updated by an SADB_UPDATE message.  This allows SA storage
    not to get cluttered with larval associations.
 
@@ -2002,7 +2002,7 @@ Table of Contents
    the message and updates the Security Association information using
    the content of the SADB_UPDATE message.
 
-   The kernel MAY disallow SADB_UPDATE to succeed unless the message is
+   The kernel <em>MAY</em> disallow SADB_UPDATE to succeed unless the message is
    issued from the same socket that created the security association.
    Such enforcement significantly reduces the chance of accidental
    changes to an in-use security association.  Malicious trusted parties
@@ -2014,8 +2014,8 @@ Table of Contents
    the application will not have the same socket as the creator of the
    security association.
 
-   The kernel MUST sanity check all significant values submitted in an
-   SADB_UPDATE message before changing the SA in its database and MUST
+   The kernel <em>MUST</em> sanity check all significant values submitted in an
+   SADB_UPDATE message before changing the SA in its database and <em>MUST</em>
    return EINVAL if any of the values are invalid.  Examples of checks
    that should be performed are DES key parity bits, key length
    checking, checks for keys known to be weak for the specified
@@ -2035,14 +2035,14 @@ Table of Contents
 <span class="grey"><a href="./rfc2367.html">RFC 2367</a>               PF_KEY Key Management API               July 1998</span>
 
 
-   MUST return EINVAL.  It is not valid for established keying or
+   <em>MUST</em> return EINVAL.  It is not valid for established keying or
    algorithm information to change without the SPI changing, which would
    require creation of a new SA rather than a change to an existing SA.
    Once keying and algorithm information is negotiated, address and
    identity information is fixed for the SA. Therefore, if the original
    SA is an SADB_SASTATE_MATURE or DYING SA, only the sadb_sa_state
    field in the SA header and lifetimes (hard, soft, and current) may be
-   changed and any attempt to change other values MUST result in an
+   changed and any attempt to change other values <em>MUST</em> result in an
    error return of EINVAL.
 
      The message behavior of the SADB_UPDATE message is:
@@ -2091,19 +2091,19 @@ Table of Contents
 <span class="grey"><a href="./rfc2367.html">RFC 2367</a>               PF_KEY Key Management API               July 1998</span>
 
 
-   MUST be set to the value set in a kernel-generated SADB_ACQUIRE so
+   <em>MUST</em> be set to the value set in a kernel-generated SADB_ACQUIRE so
    that both associations in a pair are bound to the same ACQUIRE
    request.
 
-   The kernel MUST sanity check all used fields in the SA submitted in
-   an SADB_ADD message before adding the SA to its database and MUST
+   The kernel <em>MUST</em> sanity check all used fields in the SA submitted in
+   an SADB_ADD message before adding the SA to its database and <em>MUST</em>
    return EINVAL if any of the values are invalid.
 
    Only SADB_SASTATE_MATURE SAs may be submitted in an SADB_ADD message.
    SADB_SASTATE_LARVAL SAs are created by SADB_GETSPI and it is not
    sensible to add a new SA in the DYING or SADB_SASTATE_DEAD state.
-   Therefore, the sadb_sa_state field of all submitted SAs MUST be
-   SADB_SASTATE_MATURE and the kernel MUST return an error if this is
+   Therefore, the sadb_sa_state field of all submitted SAs <em>MUST</em> be
+   SADB_SASTATE_MATURE and the kernel <em>MUST</em> return an error if this is
    not true.
 
      The message behavior of the SADB_ADD message is:
@@ -2204,7 +2204,7 @@ Table of Contents
 
 
    the message originates from the kernel (i.e. the sadb_msg_pid is 0),
-   the sadb_msg_seq number MUST be used by a subsequent SADB_GETSPI and
+   the sadb_msg_seq number <em>MUST</em> be used by a subsequent SADB_GETSPI and
    SADB_UPDATE, or subsequent SADB_ADD message to bind a security
    association to the request.  This avoids the race condition of two
    TCP connections between two IP hosts that each require unique
@@ -2216,7 +2216,7 @@ Table of Contents
    that needs security but for which there is no applicable Security
    Association existing in the key table.  If the packet can be
    sufficiently protected by more than one algorithm or combination of
-   options, the SADB_ACQUIRE message MUST order the preference of
+   options, the SADB_ACQUIRE message <em>MUST</em> order the preference of
    possibilities in the Proposal extension.
 
    There are three messaging behaviors for SADB_ACQUIRE.  The first is
@@ -2227,7 +2227,7 @@ Table of Contents
         &lt;base, address(SD), (address(P)), (identity(SD),) (sensitivity,)
           proposal&gt;
 
-        NOTE:   The address(SD) extensions MUST have the port fields
+        NOTE:   The address(SD) extensions <em>MUST</em> have the port fields
                 filled in with the port numbers of the session requiring
                 keys if appropriate.
 
@@ -2281,8 +2281,8 @@ Table of Contents
    application specifies the type of security association that it can
    acquire for the kernel in the type field of its register message.  If
    an application can acquire multiple types of security association, it
-   MUST register each type in a separate message. Only the base header
-   is needed for the register message.  Key management applications MAY
+   <em>MUST</em> register each type in a separate message. Only the base header
+   is needed for the register message.  Key management applications <em>MAY</em>
    register for a type not known to the kernel, because the consumer may
    be in user-space (e.g. OSPFv2 security).
 
@@ -2292,8 +2292,8 @@ Table of Contents
    algorithm are supported by the kernel.
 
    In an environment where algorithms can be dynamically loaded and
-   unloaded, an asynchronous SADB_REGISTER reply MAY be generated.  The
-   list of supported algorithms MUST be a complete list, so the
+   unloaded, an asynchronous SADB_REGISTER reply <em>MAY</em> be generated.  The
+   list of supported algorithms <em>MUST</em> be a complete list, so the
    application can make note of omissions or additions.
 
      The messaging behavior of the SADB_REGISTER message is:
@@ -2327,10 +2327,10 @@ Table of Contents
    expirations for security protocols that are implemented inside the
    kernel.  If the soft limit or hard limit of a Security Association
    has expired for a security protocol implemented inside the kernel,
-   then the kernel MUST issue an SADB_EXPIRE message to all key socket
+   then the kernel <em>MUST</em> issue an SADB_EXPIRE message to all key socket
    listeners.  If the soft limit or hard limit of a Security Association
    for a user-level security protocol has expired, the user-level
-   protocol SHOULD issue an SADB_EXPIRE message.
+   protocol <em>SHOULD</em> issue an SADB_EXPIRE message.
 
    The base header will contain the security association information
    followed by the source sockaddr, destination sockaddr, (and, if
@@ -2340,11 +2340,11 @@ Table of Contents
    The lifetime extension of an SADB_EXPIRE message is important to
    indicate which lifetime expired.  If a HARD lifetime extension is
    included, it indicates that the HARD lifetime expired.  This means
-   the association MAY be deleted already from the SADB.  If a SOFT
+   the association <em>MAY</em> be deleted already from the SADB.  If a SOFT
    lifetime extension is included, it indicates that the SOFT lifetime
    expired.  The CURRENT lifetime extension will indicate the current
    status, and comparisons to the HARD or SOFT lifetime will indicate
-   which limit was reached.  HARD lifetimes MUST take precedence over
+   which limit was reached.  HARD lifetimes <em>MUST</em> take precedence over
    SOFT lifetimes, meaning if the HARD and SOFT lifetimes are the same,
    the HARD lifetime will appear on the EXPIRE message.  The
    pathological case of HARD lifetimes being shorter than SOFT lifetimes
@@ -2405,8 +2405,8 @@ Table of Contents
    dump message is used for debugging purposes only and is not intended
    for production use.
 
-   Support for the dump message MAY be discontinued in future versions
-   of PF_KEY.  Key management applications MUST NOT depend on this
+   Support for the dump message <em>MAY</em> be discontinued in future versions
+   of PF_KEY.  Key management applications <em>MUST NOT</em> depend on this
    message for basic operation.
 
      The messaging behavior for SADB_DUMP is:
@@ -2463,14 +2463,14 @@ Table of Contents
    expired.  A SADB_SASTATE_DEAD association is one whose hard lifetime
    has expired, but hasn't been reaped by system garbage collection.  If
    a consumer of security associations has to extend an association
-   beyond its normal lifetime (e.g. OSPF Security) it MUST only set the
+   beyond its normal lifetime (e.g. OSPF Security) it <em>MUST</em> only set the
    soft lifetime for an association.
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a> Security Association Types</span>
 
    This defines the type of Security Association in this message.  The
    symbolic names are always the same, even on different
-   implementations.  Applications SHOULD use the symbolic name in order
+   implementations.  Applications <em>SHOULD</em> use the symbolic name in order
    to have maximum portability across different implementations.  These
    are defined in the file &lt;net/pfkeyv2.h&gt;.
 
@@ -2519,7 +2519,7 @@ Table of Contents
 
    The algorithm type is interpreted in the context of the Security
    Association type defined above.  The numeric value might vary between
-   implementations, but the symbolic name MUST NOT vary between
+   implementations, but the symbolic name <em>MUST NOT</em> vary between
    implementations.  Applications should use the symbolic name in order
    to have maximum portability to various implementations.
 
@@ -2612,15 +2612,15 @@ Table of Contents
    prefix length is a decimal number greater than or equal to zero and
    less than the number of bits in the network address. It indicates the
    number of bits in the network address that are significant; all bits
-   in the network address that are not significant MUST be set to zero.
-   Note that implementations MUST parse the contents of the printable
+   in the network address that are not significant <em>MUST</em> be set to zero.
+   Note that implementations <em>MUST</em> parse the contents of the printable
    address into a binary form for comparison purposes because multiple
    printable strings are valid representations of the same address in
    many protocol families (for example, some allow leading zeros and some
    have letters that are case insensitive). Examples of PREFIX identities
    are "199.33.248.64/27" and "3ffe::1/128". If the source or destination
    identity is a PREFIX identity, the source or destination address for
-   the SA (respectively) MUST be within that prefix.  The sadb_ident_id
+   the SA (respectively) <em>MUST</em> be within that prefix.  The sadb_ident_id
    field is zeroed for these identity types.
 
    The FQDN identity string contains a fully qualified domain name. An
@@ -2641,8 +2641,8 @@ Table of Contents
    sadb_ident_id field is used to contain a POSIX user id in the absence
    of an identity string itself so that a user-level application can use
    the getpwuid{,_r}() routine to obtain a textual user login id.  If a
-   string is present, it SHOULD match the numeric value in the
-   sadb_ident_id field.  If it does not match, the string SHOULD override
+   string is present, it <em>SHOULD</em> match the numeric value in the
+   sadb_ident_id field.  If it does not match, the string <em>SHOULD</em> override
 
 
 
@@ -2857,7 +2857,7 @@ Table of Contents
            Proxy Address of C
 
    For this second SA (for packets flowing from C towards A), node A
-   MUST verify that the inner source address is dominated by the Source
+   <em>MUST</em> verify that the inner source address is dominated by the Source
    Identity for the SA used with those packets.  If node A does not do
    this, an adversary could forge packets with an arbitrary Source
    Identity and defeat the packet origin protections provided by IPsec.
@@ -2904,7 +2904,7 @@ Table of Contents
    (respectively) here; the association of an SA with a particular pair
    of ends or group of those pairs is a policy decision on B and/or C
    and not necessarily a function of key management.  The same check of
-   the Source Identity against the inner source IP address MUST also be
+   the Source Identity against the inner source IP address <em>MUST</em> also be
    performed in this case for the same reason.
 
    For a more detailed discussion of the use of IP Security in complex
@@ -3213,9 +3213,9 @@ Authors' Addresses
 
 Appendix A: Promiscuous Send/Receive Message Type
 
-   A kernel supporting PF_KEY MAY implement the following extension for
-   development and debugging purposes. If it does, it MUST implement the
-   extension as specified here. An implementation MAY require an
+   A kernel supporting PF_KEY <em>MAY</em> implement the following extension for
+   development and debugging purposes. If it does, it <em>MUST</em> implement the
+   extension as specified here. An implementation <em>MAY</em> require an
    application to have additional privileges to perform promiscuous send
    and/or receive operations.
 
@@ -3353,7 +3353,7 @@ Appendix B: Passive Change Message Type
 
         &lt;base, address(SD), (identity(SD),) (sensitivity,) (proposal)&gt;
 
-        NOTE:  The address(SD) extensions MUST have the port fields
+        NOTE:  The address(SD) extensions <em>MUST</em> have the port fields
                filled in with the port numbers of the session
                requiring keys if appropriate.
 
@@ -3721,7 +3721,7 @@ Appendix E: Change Log
 
    * Last change before becoming an informational RFC.  Removed all
      Internet-Draft references.  Also standardized citation strings.
-     Now cite <a href="./rfc2119.html">RFC 2119</a> for MUST, etc.
+     Now cite <a href="./rfc2119.html">RFC 2119</a> for <em>MUST</em>, etc.
 
    * New appendix on optional KM private data extension.
 
@@ -3755,9 +3755,9 @@ Appendix E: Change Log
    * Corrected sadb_spirange_{min,max} language.
 
    * In ADD messages that are in response to an ACQUIRE, the
-     sadb_msg_seq MUST be the same as that of the originating ACQUIRE.
+     sadb_msg_seq <em>MUST</em> be the same as that of the originating ACQUIRE.
 
-   * Corrected ACQUIRE message behavior, ACQUIRE message SHOULD send up
+   * Corrected ACQUIRE message behavior, ACQUIRE message <em>SHOULD</em> send up
      PROXY addresses when it needs them.
 
    * Clarification on SADB_EXPIRE and user-level security protocols.

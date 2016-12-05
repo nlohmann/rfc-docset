@@ -455,8 +455,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Enhanced CRTP</span>
@@ -510,7 +510,7 @@ Table of Contents
    format of COMPRESSED_UDP as being the same as COMPRESSED_RTP except
    that the M, S and T bits are always 0 and the corresponding delta
    fields are never included.  This enhanced version of CRTP changes
-   that specification to say that the T bit MAY be nonzero to indicate
+   that specification to say that the T bit <em>MAY</em> be nonzero to indicate
    that the delta RTP timestamp is included explicitly rather than being
    reset to zero.
 
@@ -609,8 +609,8 @@ Table of Contents
       : 0 : 0 : 0 : 0 :      CC       :  (if C = 1)
       +...+...+...+...+...............+
 
-   The bits marked "0" in the second flag byte and the CC byte SHOULD be
-   set to zero by the sender and SHOULD be ignored by the receiver.
+   The bits marked "0" in the second flag byte and the CC byte <em>SHOULD</em> be
+   set to zero by the sender and <em>SHOULD</em> be ignored by the receiver.
 
 
 
@@ -783,7 +783,7 @@ Table of Contents
    When compression is done over a lossy link with a long round trip
    delay, we want to minimize context invalidation.  If the delta values
    are changing frequently, the context might get invalidated often.  In
-   such cases the compressor MAY choose to always send absolute values
+   such cases the compressor <em>MAY</em> choose to always send absolute values
    and never delta values, using COMPRESSED_UDP packets with the flags
    F=1, and any of S, T, I as necessary.
 
@@ -794,19 +794,19 @@ Table of Contents
    "twice" algorithm is used.  When a UDP checksum is not present (has
    value zero) in a stream, such validation would not be possible.  To
    cover that case, this enhanced CRTP provides an option whereby the
-   compressor MAY replace the null UDP checksum with a 16-bit headers
+   compressor <em>MAY</em> replace the null UDP checksum with a 16-bit headers
    checksum (HDRCKSUM) which is subsequently removed by the decompressor
    after validation.  Note that this option is never used with IPv6
    since a null UDP checksum is not allowed.
 
    A new flag C in the FULL_HEADER packet, as specified below, indicates
    when set that all COMPRESSED_UDP and COMPRESSED_RTP packets sent in
-   that context will have HDRCKSUM inserted.  The compressor MAY set the
+   that context will have HDRCKSUM inserted.  The compressor <em>MAY</em> set the
    C flag when UDP packet carried in the FULL_HEADER packet originally
    contained a checksum value of zero. If the C flag is set, the
-   FULL_HEADER packet itself MUST also have the HDRCKSUM inserted.  If a
+   FULL_HEADER packet itself <em>MUST</em> also have the HDRCKSUM inserted.  If a
    packet in the same stream subsequently arrives at the compressor with
-   a UDP checksum present, then a new FULL_HEADER packet MUST be sent
+   a UDP checksum present, then a new FULL_HEADER packet <em>MUST</em> be sent
    with the flag cleared to re-establish the context.
 
 
@@ -825,7 +825,7 @@ Table of Contents
    beyond the CSRC list and the RTP data will not be included in the
    HDRCKSUM.  The HDRCKSUM is placed in the COMPRESSED_UDP or
    COMPRESSED_RTP packet where a UDP checksum would have been.  The
-   decompressor MUST zero out the UDP checksum field in the
+   decompressor <em>MUST</em> zero out the UDP checksum field in the
    reconstructed packets.
 
    For a non-RTP context, there may be fewer than 12 UDP data bytes
@@ -839,8 +839,8 @@ Table of Contents
    The HDRCKSUM does not validate the RTP data.  If the link layer is
    configured to deliver packets without checking for errors, then
    errors in the RTP data will not be detected.  Over such links, the
-   compressor SHOULD add the HDRCKSUM if a UDP checksum is not present,
-   and the decompressor SHOULD validate each reconstructed packet to
+   compressor <em>SHOULD</em> add the HDRCKSUM if a UDP checksum is not present,
+   and the decompressor <em>SHOULD</em> validate each reconstructed packet to
    make sure that at least the headers are correct.  This ensures that
    the packet will be delivered to the right destination.  If only
    HDRCKSUM is available, the RTP data will be delivered even if it
@@ -932,9 +932,9 @@ Table of Contents
    this does not validate the IPv4 ID.
 
    The conclusion is that for IPv4 if more than N packets were lost, the
-   decompressor SHOULD NOT try to recover using the "twice" algorithm
-   and instead SHOULD invalidate the context and send a CONTEXT_STATE
-   packet.  In IPv6 the decompressor MAY always try to recover from
+   decompressor <em>SHOULD NOT</em> try to recover using the "twice" algorithm
+   and instead <em>SHOULD</em> invalidate the context and send a CONTEXT_STATE
+   packet.  In IPv6 the decompressor <em>MAY</em> always try to recover from
    packet loss by using the "twice" algorithm and verifying the result
    with the UDP checksum.
 
@@ -942,7 +942,7 @@ Table of Contents
    The value is maintained independently for each context and is not
    required to be the same for all contexts.  When compressing a new
    stream, the compressor sets a value of N for that context and sends
-   N+1 FULL_HEADER packets.  The compressor MUST also repeat each
+   N+1 FULL_HEADER packets.  The compressor <em>MUST</em> also repeat each
    subsequent COMPRESSED_UDP update N+1 times.  The value of N may be
    changed for an existing context by sending a new sequence of
    FULL_HEADER packets.
@@ -964,12 +964,12 @@ Table of Contents
    The sending of FULL_HEADER packets is also triggered by a change in
    one of the fields held constant in the context, such as the IP TOS.
    If such a change should occur while the compressor is in the middle
-   of sending the N+1 FULL_HEADER packets, then the compressor MUST send
+   of sending the N+1 FULL_HEADER packets, then the compressor <em>MUST</em> send
    N+1 FULL_HEADER packets after making the change.  This could cause
    the decompressor to receive more than N+1 FULL_HEADER packets in a
    row with the result that it assumes a larger value for N than is
    correct.  That could lead to an undetected loss of context
-   synchronization.  Therefore, the compressor MUST change the
+   synchronization.  Therefore, the compressor <em>MUST</em> change the
    "generation" number in the context and in the FULL_HEADER packet when
    it begins sending the sequence of N+1 FULL_HEADER packets so the
    decompressor can detect the new sequence.  For IPv4, this is a change
@@ -984,7 +984,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3545.html">RFC 3545</a>             Enhanced Compressed RTP (CRTP)            July 2003</span>
 
 
-   CONTEXT_STATE packets SHOULD also be repeated N+1 times (using the
+   CONTEXT_STATE packets <em>SHOULD</em> also be repeated N+1 times (using the
    same sequence number for each context) to provide a similar measure
    of robustness against packet loss.  Here N can be the largest N of
    all contexts included in the CONTEXT_STATE packet, or any number the

@@ -383,8 +383,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Data Structures</span>
@@ -627,7 +627,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.1.4" href="#section-2.1.4">2.1.4</a>.  Signatures</span>
 
-   Various data structures are signed.  A log MUST use either elliptic
+   Various data structures are signed.  A log <em>MUST</em> use either elliptic
    curve signatures using the NIST P-256 curve (Section D.1.2.3 of the
    Digital Signature Standard [<a href="#ref-DSS" title="&quot;Digital Signature Standard (DSS)&quot;">DSS</a>]) or RSA signatures (RSASSA-PKCS1-
    V1_5 with SHA-256, <a href="./rfc3447.html#section-8.2">Section&nbsp;8.2 of [RFC3447]</a>) using a key of at least
@@ -650,34 +650,34 @@ Table of Contents
    their CAs will usually submit them.  A log is a single, ever-growing,
    append-only Merkle Tree of such certificates.
 
-   When a valid certificate is submitted to a log, the log MUST
+   When a valid certificate is submitted to a log, the log <em>MUST</em>
    immediately return a Signed Certificate Timestamp (SCT).  The SCT is
    the log's promise to incorporate the certificate in the Merkle Tree
    within a fixed amount of time known as the Maximum Merge Delay (MMD).
-   If the log has previously seen the certificate, it MAY return the
-   same SCT as it returned before.  TLS servers MUST present an SCT from
+   If the log has previously seen the certificate, it <em>MAY</em> return the
+   same SCT as it returned before.  TLS servers <em>MUST</em> present an SCT from
    one or more logs to the TLS client together with the certificate.
-   TLS clients MUST reject certificates that do not have a valid SCT for
+   TLS clients <em>MUST</em> reject certificates that do not have a valid SCT for
    the end-entity certificate.
 
    Periodically, each log appends all its new entries to the Merkle Tree
    and signs the root of the tree.  Auditors can thus verify that each
    certificate for which an SCT has been issued indeed appears in the
-   log.  The log MUST incorporate a certificate in its Merkle Tree
+   log.  The log <em>MUST</em> incorporate a certificate in its Merkle Tree
    within the Maximum Merge Delay period after the issuance of the SCT.
 
-   Log operators MUST NOT impose any conditions on retrieving or sharing
+   Log operators <em>MUST NOT</em> impose any conditions on retrieving or sharing
    data from the log.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Log Entries</span>
 
    Anyone can submit a certificate to any log.  In order to enable
-   attribution of each logged certificate to its issuer, the log SHALL
+   attribution of each logged certificate to its issuer, the log <em>SHALL</em>
    publish a list of acceptable root certificates (this list might
    usefully be the union of root certificates trusted by major browser
-   vendors).  Each submitted certificate MUST be accompanied by all
+   vendors).  Each submitted certificate <em>MUST</em> be accompanied by all
    additional certificates required to verify the certificate chain up
-   to an accepted root certificate.  The root certificate itself MAY be
+   to an accepted root certificate.  The root certificate itself <em>MAY</em> be
    omitted from the chain submitted to the log server.
 
    Alternatively, (root as well as intermediate) certificate authorities
@@ -700,7 +700,7 @@ Table of Contents
 
    o  a special-purpose (CA:true, Extended Key Usage: Certificate
       Transparency, OID 1.3.6.1.4.1.11129.2.4.4) Precertificate Signing
-      Certificate.  The Precertificate Signing Certificate MUST be
+      Certificate.  The Precertificate Signing Certificate <em>MUST</em> be
       directly certified by the (root or intermediate) CA certificate
       that will ultimately sign the end-entity TBSCertificate yielding
       the end-entity certificate (note that the log may relax standard
@@ -709,7 +709,7 @@ Table of Contents
 
    o  or, the CA certificate that will sign the final certificate.
 
-   As above, the Precertificate submission MUST be accompanied by the
+   As above, the Precertificate submission <em>MUST</em> be accompanied by the
    Precertificate Signing Certificate, if used, and all additional
    certificates required to verify the chain up to an accepted root
    certificate.  The signature on the TBSCertificate indicates the
@@ -719,19 +719,19 @@ Table of Contents
    verifies the Precertificate signature chain and issues a Signed
    Certificate Timestamp on the corresponding TBSCertificate.
 
-   Logs MUST verify that the submitted end-entity certificate or
+   Logs <em>MUST</em> verify that the submitted end-entity certificate or
    Precertificate has a valid signature chain leading back to a trusted
    root CA certificate, using the chain of intermediate CA certificates
-   provided by the submitter.  Logs MAY accept certificates that have
+   provided by the submitter.  Logs <em>MAY</em> accept certificates that have
    expired, are not yet valid, have been revoked, or are otherwise not
    fully valid according to X.509 verification rules in order to
    accommodate quirks of CA certificate-issuing software.  However, logs
-   MUST refuse to publish certificates without a valid chain to a known
+   <em>MUST</em> refuse to publish certificates without a valid chain to a known
    root CA.  If a certificate is accepted and an SCT issued, the
-   accepting log MUST store the entire chain used for verification,
+   accepting log <em>MUST</em> store the entire chain used for verification,
    including the certificate or Precertificate itself and including the
    root certificate used to verify the chain (even if it was omitted
-   from the submission), and MUST present this chain for auditing upon
+   from the submission), and <em>MUST</em> present this chain for auditing upon
    request.  This chain is required to prevent a CA from avoiding blame
    by logging a partial or empty chain.  (Note: This effectively
    excludes self-signed and DANE-based certificates until some mechanism
@@ -754,7 +754,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6962.html">RFC 6962</a>                Certificate Transparency               June 2013</span>
 
 
-   Each certificate entry in a log MUST include the following
+   Each certificate entry in a log <em>MUST</em> include the following
    components:
 
        enum { x509_entry(0), precert_entry(1), (65535) } LogEntryType;
@@ -779,7 +779,7 @@ Table of Contents
            ASN.1Cert precertificate_chain&lt;0..2^24-1&gt;;
        } PrecertChainEntry;
 
-   Logs MAY limit the length of chain they will accept.
+   Logs <em>MAY</em> limit the length of chain they will accept.
 
    "entry_type" is the type of this entry.  Future revisions of this
    protocol version may add new LogEntryType values.  <a href="#section-4">Section 4</a> explains
@@ -789,18 +789,18 @@ Table of Contents
    auditing.
 
    "certificate_chain" is a chain of additional certificates required to
-   verify the end-entity certificate.  The first certificate MUST
-   certify the end-entity certificate.  Each following certificate MUST
-   directly certify the one preceding it.  The final certificate MUST be
+   verify the end-entity certificate.  The first certificate <em>MUST</em>
+   certify the end-entity certificate.  Each following certificate <em>MUST</em>
+   directly certify the one preceding it.  The final certificate <em>MUST</em> be
    a root certificate accepted by the log.
 
    "pre_certificate" is the Precertificate submitted for auditing.
 
    "precertificate_chain" is a chain of additional certificates required
-   to verify the Precertificate submission.  The first certificate MAY
-   be a valid Precertificate Signing Certificate and MUST certify the
-   first certificate.  Each following certificate MUST directly certify
-   the one preceding it.  The final certificate MUST be a root
+   to verify the Precertificate submission.  The first certificate <em>MAY</em>
+   be a valid Precertificate Signing Certificate and <em>MUST</em> certify the
+   first certificate.  Each following certificate <em>MUST</em> directly certify
+   the one preceding it.  The final certificate <em>MUST</em> be a root
    certificate accepted by the log.
 
 
@@ -928,10 +928,10 @@ Table of Contents
 
        SignedCertificateTimestampList ::= OCTET STRING
 
-   At least one SCT MUST be included.  Server operators MAY include more
+   At least one SCT <em>MUST</em> be included.  Server operators <em>MAY</em> include more
    than one SCT.
 
-   Similarly, a certificate authority MAY submit a Precertificate to
+   Similarly, a certificate authority <em>MAY</em> submit a Precertificate to
    more than one log, and all obtained SCTs can be directly embedded in
    the final certificate, by encoding the SignedCertificateTimestampList
    structure as an ASN.1 OCTET STRING and inserting the resulting data
@@ -958,7 +958,7 @@ Table of Contents
    Likewise, SCTs can be embedded in a TLS extension.  See below for
    details.
 
-   TLS clients MUST implement all three mechanisms.  Servers MUST
+   TLS clients <em>MUST</em> implement all three mechanisms.  Servers <em>MUST</em>
    implement at least one of the three mechanisms.  Note that existing
    TLS servers can generally use the certificate extension mechanism
    without modification.
@@ -983,15 +983,15 @@ Table of Contents
    The SCT can be sent during the TLS handshake using a TLS extension
    with type "signed_certificate_timestamp".
 
-   Clients that support the extension SHOULD send a ClientHello
+   Clients that support the extension <em>SHOULD</em> send a ClientHello
    extension with the appropriate type and empty "extension_data".
 
-   Servers MUST only send SCTs to clients who have indicated support for
+   Servers <em>MUST</em> only send SCTs to clients who have indicated support for
    the extension in the ClientHello, in which case the SCTs are sent by
    setting the "extension_data" to a "SignedCertificateTimestampList".
 
    Session resumption uses the original session information: clients
-   SHOULD include the extension type in the ClientHello, but if the
+   <em>SHOULD</em> include the extension type in the ClientHello, but if the
    session is resumed, the server is not expected to process it or
    include the extension in the ServerHello.
 
@@ -1051,7 +1051,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Signed Tree Head</span>
 
-   Every time a log appends new entries to the tree, the log SHOULD sign
+   Every time a log appends new entries to the tree, the log <em>SHOULD</em> sign
    the corresponding tree hash and tree information (see the
    corresponding Signed Tree Head client message in <a href="#section-4.3">Section 4.3</a>).  The
    signature for that data is structured as follows:
@@ -1067,18 +1067,18 @@ Table of Contents
    "version" is the version of the protocol to which the
    TreeHeadSignature conforms.  This version is v1.
 
-   "timestamp" is the current time.  The timestamp MUST be at least as
+   "timestamp" is the current time.  The timestamp <em>MUST</em> be at least as
    recent as the most recent SCT timestamp in the tree.  Each subsequent
-   timestamp MUST be more recent than the timestamp of the previous
+   timestamp <em>MUST</em> be more recent than the timestamp of the previous
    update.
 
    "tree_size" equals the number of entries in the new tree.
 
    "sha256_root_hash" is the root of the Merkle Hash Tree.
 
-   Each log MUST produce on demand a Signed Tree Head that is no older
+   Each log <em>MUST</em> produce on demand a Signed Tree Head that is no older
    than the Maximum Merge Delay.  In the unlikely event that it receives
-   no new submissions during an MMD period, the log SHALL sign the same
+   no new submissions during an MMD period, the log <em>SHALL</em> sign the same
    Merkle Tree Hash with a fresh timestamp.
 
 
@@ -1127,7 +1127,7 @@ Table of Contents
    Outputs:
 
       sct_version:  The version of the SignedCertificateTimestamp
-         structure, in decimal.  A compliant v1 implementation MUST NOT
+         structure, in decimal.  A compliant v1 implementation <em>MUST NOT</em>
          expect this to be 0 (i.e., v1).
 
       id:  The log ID, base64 encoded.  Since log clients who request an
@@ -1155,7 +1155,7 @@ Table of Contents
       signature:  The SCT signature, base64 encoded.
 
    If the "sct_version" is not v1, then a v1 client may be unable to
-   verify the signature.  It MUST NOT construe this as an error.  (Note:
+   verify the signature.  It <em>MUST NOT</em> construe this as an error.  (Note:
    Log clients don't need to be able to verify this structure; only TLS
    clients do.  If we were to serve the structure as a binary blob, then
    we could completely change it without requiring an upgrade to v1
@@ -1281,25 +1281,25 @@ Table of Contents
 
    Note that this message is not signed -- the retrieved data can be
    verified by constructing the Merkle Tree Hash corresponding to a
-   retrieved STH.  All leaves MUST be v1.  However, a compliant v1
-   client MUST NOT construe an unrecognized MerkleLeafType or
+   retrieved STH.  All leaves <em>MUST</em> be v1.  However, a compliant v1
+   client <em>MUST NOT</em> construe an unrecognized MerkleLeafType or
    LogEntryType value as an error.  This means it may be unable to parse
    some entries, but note that each client can inspect the entries it
    does recognize as well as verify the integrity of the data by
    treating unrecognized leaves as opaque input to the tree.
 
-   The "start" and "end" parameters SHOULD be within the range 0 &lt;= x &lt;
+   The "start" and "end" parameters <em>SHOULD</em> be within the range 0 &lt;= x &lt;
    "tree_size" as returned by "get-sth" in <a href="#section-4.3">Section 4.3</a>.
 
-   Logs MAY honor requests where 0 &lt;= "start" &lt; "tree_size" and "end" &gt;=
+   Logs <em>MAY</em> honor requests where 0 &lt;= "start" &lt; "tree_size" and "end" &gt;=
    "tree_size" by returning a partial response covering only the valid
    entries in the specified range.  Note that the following restriction
    may also apply:
 
-   Logs MAY restrict the number of entries that can be retrieved per
+   Logs <em>MAY</em> restrict the number of entries that can be retrieved per
    "get-entries" request.  If a client requests more than the permitted
-   number of entries, the log SHALL return the maximum number of entries
-   permissible.  These entries SHALL be sequential beginning with the
+   number of entries, the log <em>SHALL</em> return the maximum number of entries
+   permissible.  These entries <em>SHALL</em> be sequential beginning with the
    entry specified by "start".
 
 
@@ -1386,7 +1386,7 @@ Table of Contents
    log's public key.  Note that this document does not describe how
    clients obtain the logs' public keys.
 
-   TLS clients MUST reject SCTs whose timestamp is in the future.
+   TLS clients <em>MUST</em> reject SCTs whose timestamp is in the future.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Monitor</span>
 

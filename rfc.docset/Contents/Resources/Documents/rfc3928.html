@@ -393,8 +393,8 @@ Table of Contents
    LCUP operations are subject to administrative and access control
    policies enforced by the server.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
@@ -442,14 +442,14 @@ Table of Contents
 
    Distinguished names can change, so are therefore unreliable as
    identifiers.  A Universally Unique Identifier (or UUID for short)
-   MUST be used to uniquely identify entries used with LCUP.  The UUID
+   <em>MUST</em> be used to uniquely identify entries used with LCUP.  The UUID
    is part of the Sync Update control value (see below) returned with
-   each search result.  The server SHOULD provide the UUID as a single
+   each search result.  The server <em>SHOULD</em> provide the UUID as a single
    valued operational attribute of the entry (e.g., "entryUUID").  We
    RECOMMEND that the server provides a way to do efficient (i.e.,
    indexed) searches for values of UUID, e.g., by using a search filter
    like (entryUUID=&lt;some UUID value&gt;) to quickly search for and retrieve
-   an entry based on its UUID.  Servers SHOULD use a UUID format as
+   an entry based on its UUID.  Servers <em>SHOULD</em> use a UUID format as
    specified in [<a href="#ref-UUID" title="&quot;Information technology - Open Systems Interconnection - Remote Procedure Call&quot;">UUID</a>].  The UUID used by LCUP is a value of the
    following ASN.1 type:
 
@@ -472,7 +472,7 @@ Table of Contents
 
 
    This is the OID which identifies the format of the LCUP Cookie value.
-   The scheme OID, as all object identifiers, MUST be unique for a given
+   The scheme OID, as all object identifiers, <em>MUST</em> be unique for a given
    cookie scheme.  The cookie value may be opaque or it may be exposed
    to LCUP clients.   For cookie schemes that expose their value, the
    preferred form of documentation is an RFC.  It is expected that there
@@ -495,7 +495,7 @@ Table of Contents
    Context.  A server may support one or more LCUP Contexts.  For
    example, a server with two naming contexts may support LCUP in one
    naming context but not the other, or support different LCUP cookie
-   schemes in each naming context.  Each LCUP Context MAY use a
+   schemes in each naming context.  Each LCUP Context <em>MAY</em> use a
    different cookie scheme.  An LCUP search will not cross an LCUP
    Context boundary, but will instead return a SearchResultReference
    message, with the LDAP URL specifying the same host and port as
@@ -508,7 +508,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Additional LDAP Result Codes defined by LCUP</span>
 
-   Implementations of this specification SHALL recognize the following
+   Implementations of this specification <em>SHALL</em> recognize the following
    additional resultCode values.  The LDAP result code names and numbers
    defined in the following table have been assigned by IANA per <a href="./rfc3383.html">RFC</a>
    <a href="./rfc3383.html">3383</a> [<a href="./rfc3383.html" title="&quot;Internet Assigned Numbers Authority (IANA) Considerations for Lightweight Directory Access Protocol (LDAP)&quot;">RFC3383</a>].
@@ -551,16 +551,16 @@ Table of Contents
                                  syncOnly       (0),
                                  syncAndPersist (1),
                                  persistOnly    (2) },
-         sendCookieInterval   [0] INTEGER    OPTIONAL,
-         scheme               [1] LCUPScheme OPTIONAL,
-         cookie               [2] LCUPCookie OPTIONAL
+         sendCookieInterval   [0] INTEGER    <em>OPTIONAL</em>,
+         scheme               [1] LCUPScheme <em>OPTIONAL</em>,
+         cookie               [2] LCUPCookie <em>OPTIONAL</em>
         }
 
-   sendCookieInterval - the server SHOULD send the cookie back in the
+   sendCookieInterval - the server <em>SHOULD</em> send the cookie back in the
    Sync Update control value (defined below) for every
    sendCookieInterval number of SearchResultEntry and
    SearchResultReference PDUs returned to the client.  For example, if
-   the value is 5, the server SHOULD send the cookie back in the Sync
+   the value is 5, the server <em>SHOULD</em> send the cookie back in the Sync
    Update control value for every 5 search results returned to the
    client.  If this value is absent, zero or less than zero, the server
    chooses the interval.
@@ -585,12 +585,12 @@ Table of Contents
 
       syncUpdateControlValue ::= SEQUENCE {
          stateUpdate   BOOLEAN,
-         entryUUID     [0] LCUPUUID OPTIONAL, -- REQUIRED for entries --
-         UUIDAttribute [1] AttributeType OPTIONAL,
+         entryUUID     [0] LCUPUUID <em>OPTIONAL</em>, -- <em>REQUIRED</em> for entries --
+         UUIDAttribute [1] AttributeType <em>OPTIONAL</em>,
          entryLeftSet  [2] BOOLEAN,
          persistPhase  [3] BOOLEAN,
-         scheme        [4] LCUPScheme OPTIONAL,
-         cookie        [5] LCUPCookie OPTIONAL
+         scheme        [4] LCUPScheme <em>OPTIONAL</em>,
+         cookie        [5] LCUPCookie <em>OPTIONAL</em>
       }
 
    The field UUIDAttribute contains the name or OID of the attribute
@@ -602,8 +602,8 @@ Table of Contents
    not support searching on the UUID values.
 
    The Sync Update Control is only applicable to SearchResultEntry and
-   SearchResultReference messages.  Although entryUUID is OPTIONAL, it
-   MUST be used with SearchResultEntry messages.  Use of this control is
+   SearchResultReference messages.  Although entryUUID is <em>OPTIONAL</em>, it
+   <em>MUST</em> be used with SearchResultEntry messages.  Use of this control is
    described below.
 
 <span class="h3"><a class="selflink" name="section-3.8" href="#section-3.8">3.8</a>.  Sync Done Control</span>
@@ -613,8 +613,8 @@ Table of Contents
    controlValue contains a BER-encoded syncDoneValue.
 
       syncDoneValue ::= SEQUENCE {
-         scheme      [0] LCUPScheme OPTIONAL,
-         cookie      [1] LCUPCookie OPTIONAL
+         scheme      [0] LCUPScheme <em>OPTIONAL</em>,
+         cookie      [1] LCUPCookie <em>OPTIONAL</em>
       }
 
    The Sync Done Control is only applicable to SearchResultDone message.
@@ -639,7 +639,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3928.html">RFC 3928</a>              LDAP Client Update Protocol           October 2004</span>
 
 
-   If there is an error condition, the server MUST immediately return a
+   If there is an error condition, the server <em>MUST</em> immediately return a
    SearchResultDone message with the resultCode set to an error code.
    This table maps a condition to its corresponding behavior and
    resultCode.
@@ -676,15 +676,15 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.1.1" href="#section-4.1.1">4.1.1</a>.  Initial Synchronization and Full Resync</span>
 
    For an initial synchronization or full resync, the fields of the Sync
-   Request control MUST be specified as follows:
+   Request control <em>MUST</em> be specified as follows:
 
-   updateType         - MUST be set to syncOnly or syncAndPersist
-   sendCookieInterval - MAY be set
-   scheme             - MAY be set - if set, the server MUST use this
+   updateType         - <em>MUST</em> be set to syncOnly or syncAndPersist
+   sendCookieInterval - <em>MAY</em> be set
+   scheme             - <em>MAY</em> be set - if set, the server <em>MUST</em> use this
                         specified scheme or return lcupUnsupportedScheme
-                        (see above) - if not set, the server MAY use any
+                        (see above) - if not set, the server <em>MAY</em> use any
                         scheme it supports.
-   cookie             - MUST NOT be set
+   cookie             - <em>MUST NOT</em> be set
 
 
 
@@ -701,14 +701,14 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.1.2" href="#section-4.1.2">4.1.2</a>.  Incremental or Update Synchronization</span>
 
    For an incremental or update synchronization, the fields of the Sync
-   Request control MUST be specified as follows:
+   Request control <em>MUST</em> be specified as follows:
 
-   updateType         - MUST be set to syncOnly or syncAndPersist
-   sendCookieInterval - MAY be set
-   scheme             - MUST be set
-   cookie             - MUST be set
+   updateType         - <em>MUST</em> be set to syncOnly or syncAndPersist
+   sendCookieInterval - <em>MAY</em> be set
+   scheme             - <em>MUST</em> be set
+   cookie             - <em>MUST</em> be set
 
-   The client SHOULD always use the latest cookie it received from the
+   The client <em>SHOULD</em> always use the latest cookie it received from the
    server.
 
    If the request was successful, the client will receive results as
@@ -717,15 +717,15 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.1.3" href="#section-4.1.3">4.1.3</a>.  Persistent Only</span>
 
    For persistent only search request, the fields of the Sync Request
-   MUST be specified as follows:
+   <em>MUST</em> be specified as follows:
 
-   updateType          - MUST be set to persistOnly
-   sendCookieInterval  - MAY be set
-   scheme              - MAY be set - if set, the server MUST use this
+   updateType          - <em>MUST</em> be set to persistOnly
+   sendCookieInterval  - <em>MAY</em> be set
+   scheme              - <em>MAY</em> be set - if set, the server <em>MUST</em> use this
                          specified scheme or return
                          lcupUnsupportedScheme (see above) - if not set,
-                         the server MAY use any scheme it supports.
-   cookie              - MAY be set, but the server MUST ignore it
+                         the server <em>MAY</em> use any scheme it supports.
+   cookie              - <em>MAY</em> be set, but the server <em>MUST</em> ignore it
 
    If the request was successful, the client will receive results as
    described in the section "LCUP Search Responses" below.
@@ -754,12 +754,12 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a> Sync Update Informational Responses</span>
 
    The server may use the Sync Update control to return information not
-   related to a particular entry.  It MAY do this at any time to return
+   related to a particular entry.  It <em>MAY</em> do this at any time to return
    a cookie to the client, or to inform the client that the sync phase
    of a syncAndPersist search is complete and the persist phase has
-   begun.  It MAY do this during the persist phase even though no entry
+   begun.  It <em>MAY</em> do this during the persist phase even though no entry
    has changed that would have normally triggered a response.  In order
-   to do this, it is REQUIRED to return the following:
+   to do this, it is <em>REQUIRED</em> to return the following:
 
    -  A SearchResultEntry PDU with the objectName field set to the DN of
       the baseObject of the search request and with an empty attribute
@@ -767,32 +767,32 @@ Table of Contents
 
    -  A Sync Update control value with the fields set to the following:
 
-   stateUpdate   - MUST be set to TRUE
-   entryUUID     - SHOULD be set to the UUID of the baseObject of the
+   stateUpdate   - <em>MUST</em> be set to TRUE
+   entryUUID     - <em>SHOULD</em> be set to the UUID of the baseObject of the
                    search request
-   entryLeftSet  - MUST be set to FALSE
-   persistPhase  - MUST be FALSE if the search is in the sync phase of a
-                   request, and MUST be TRUE if the search is in the
+   entryLeftSet  - <em>MUST</em> be set to FALSE
+   persistPhase  - <em>MUST</em> be FALSE if the search is in the sync phase of a
+                   request, and <em>MUST</em> be TRUE if the search is in the
                    persist phase
-   UUIDAttribute - SHOULD only be set if this is either the first result
+   UUIDAttribute - <em>SHOULD</em> only be set if this is either the first result
                    returned or if the attribute has changed
-   scheme        - MUST be set if the cookie is set and the cookie
-                   format has changed; otherwise, it MAY be omitted
-   cookie        - SHOULD be set
+   scheme        - <em>MUST</em> be set if the cookie is set and the cookie
+                   format has changed; otherwise, it <em>MAY</em> be omitted
+   cookie        - <em>SHOULD</em> be set
 
    If the server merely wants to return a cookie to the client, it
    should return as above with the cookie field set.
 
-   During a syncAndPersist request, the server MUST return (as above)
+   During a syncAndPersist request, the server <em>MUST</em> return (as above)
    immediately after the last entry of the sync phase has been sent and
    before the first entry of the persist phase has been sent.  In this
-   case, the persistPhase field MUST be set to TRUE.  This allows the
+   case, the persistPhase field <em>MUST</em> be set to TRUE.  This allows the
    client to know that the sync phase is complete and the persist phase
    is starting.
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a> Cookie Return Frequency</span>
 
-   The cookie field of the Sync Update control value MAY be set in any
+   The cookie field of the Sync Update control value <em>MAY</em> be set in any
    returned result, during both the sync phase and the persist phase.
    The server should return the cookie to the client often enough for
    the client to resync in a reasonable period of time in case the
@@ -808,10 +808,10 @@ Table of Contents
 
 
    to the server of how often to return the cookie in the Sync Update
-   control.  The server SHOULD respect this value.
+   control.  The server <em>SHOULD</em> respect this value.
 
-   The scheme field of the Sync Update control value MUST be set if the
-   cookie is set and the cookie format has changed; otherwise, it MAY be
+   The scheme field of the Sync Update control value <em>MUST</em> be set if the
+   cookie is set and the cookie format has changed; otherwise, it <em>MAY</em> be
    omitted.
 
    Some clients may have unreliable connections, for example, a wireless
@@ -834,7 +834,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  Definition of an Entry That Has Entered the Result Set</span>
 
-   An entry SHALL BE considered to have entered the client's search
+   An entry <em>SHALL</em> BE considered to have entered the client's search
    result set if one of the following conditions is met:
 
    -  During the sync phase for an incremental sync operation, the entry
@@ -868,7 +868,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.4" href="#section-4.2.4">4.2.4</a>.  Definition of an Entry That Has Changed</span>
 
-   An entry SHALL BE considered to be changed if one or more of the
+   An entry <em>SHALL</em> BE considered to be changed if one or more of the
    attributes in the attribute list in the search request have been
    modified.  For example, if the search request listed the attributes
    "cn sn uid", and there is an entry in the client's search result set
@@ -878,7 +878,7 @@ Table of Contents
    (e.g., virtual attributes) that causes some change to the value of
    the specified attributes.
 
-   The converse of this is that an entry SHALL NOT BE considered to be
+   The converse of this is that an entry <em>SHALL NOT</em> BE considered to be
    changed if none of the attributes in the attribute list of the search
    request are modified attributes of the entry.  For example, if the
    search request listed the attributes "cn sn uid", and there is an
@@ -888,7 +888,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.5" href="#section-4.2.5">4.2.5</a>.  Definition of an Entry That Has Left the Result Set</span>
 
-   An entry SHALL BE considered to have left the client's search result
+   An entry <em>SHALL</em> BE considered to have left the client's search result
    set if one of the following conditions is met:
 
    -  During the sync phase for an incremental sync operation, the entry
@@ -925,7 +925,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.6" href="#section-4.2.6">4.2.6</a>.  Results For Entries Present in the Result Set</span>
 
-   An entry SHOULD be returned as present under the following
+   An entry <em>SHOULD</em> be returned as present under the following
    conditions:
 
    -  The request is an initial synchronization or full resync request
@@ -938,25 +938,25 @@ Table of Contents
       set or changes
 
    For a SearchResultEntry return, the fields of the Sync Update control
-   value MUST be set as follows:
+   value <em>MUST</em> be set as follows:
 
-   stateUpdate   - MUST be set to FALSE
-   entryUUID     - MUST be set to the UUID of the entry
-   entryLeftSet  - MUST be set to FALSE
-   persistPhase  - MUST be set to FALSE if during the sync phase or TRUE
+   stateUpdate   - <em>MUST</em> be set to FALSE
+   entryUUID     - <em>MUST</em> be set to the UUID of the entry
+   entryLeftSet  - <em>MUST</em> be set to FALSE
+   persistPhase  - <em>MUST</em> be set to FALSE if during the sync phase or TRUE
                    if during the persist phase
-   UUIDAttribute - SHOULD only be set if this is either the first result
+   UUIDAttribute - <em>SHOULD</em> only be set if this is either the first result
                    returned or if the attribute has changed
    scheme        - as above
    cookie        - as above
 
    The searchResultReference return will look the same, except that the
-   entryUUID is not required.  If it is specified, it MUST contain the
+   entryUUID is not required.  If it is specified, it <em>MUST</em> contain the
    UUID of the DSE holding the reference knowledge.
 
 <span class="h4"><a class="selflink" name="section-4.2.7" href="#section-4.2.7">4.2.7</a>.  Results For Entries That Have Left the Result Set</span>
 
-   An entry SHOULD be returned as having left the result set under the
+   An entry <em>SHOULD</em> be returned as having left the result set under the
    following conditions:
 
    -  The request is an incremental synchronization during the sync
@@ -980,22 +980,22 @@ Table of Contents
       result of an operation against its parent or ancestor)
 
    For a SearchResultEntry return where the entry has left the result
-   set, the fields of the Sync Update control value MUST be set as
+   set, the fields of the Sync Update control value <em>MUST</em> be set as
    follows:
 
-   stateUpdate   - MUST be set to FALSE
-   entryUUID     - MUST be set to the UUID of the entry that left the
+   stateUpdate   - <em>MUST</em> be set to FALSE
+   entryUUID     - <em>MUST</em> be set to the UUID of the entry that left the
                    result set
-   entryLeftSet  - MUST be set to TRUE
-   persistPhase  - MUST be set to FALSE if during the sync phase or TRUE
+   entryLeftSet  - <em>MUST</em> be set to TRUE
+   persistPhase  - <em>MUST</em> be set to FALSE if during the sync phase or TRUE
                    if during the persist phase
-   UUIDAttribute - SHOULD only be set if this is either the first result
+   UUIDAttribute - <em>SHOULD</em> only be set if this is either the first result
                    returned or if the attribute has changed
    scheme        - as above
    cookie        - as above
 
    The searchResultReference return will look the same, except that the
-   entryUUID is not required.  If it is specified, it MUST contain the
+   entryUUID is not required.  If it is specified, it <em>MUST</em> contain the
    UUID of the DSE holding the reference knowledge.
 
    Some server implementations keep track of deleted entries using a
@@ -1004,12 +1004,12 @@ Table of Contents
    tombstone may not contain all of the original attributes of the
    entry, and therefore it may be impossible for the server to determine
    if an entry should be removed from the result set based on the
-   attributes in the client's search request.  Servers SHOULD keep
+   attributes in the client's search request.  Servers <em>SHOULD</em> keep
    enough information about the attributes in the deleted entries to
    determine if an entry should be removed from the result set.  Since
-   this may not be possible, the server MAY return an entry as having
+   this may not be possible, the server <em>MAY</em> return an entry as having
    left the result set even if it is not or never was in the client's
-   result set.  Clients MUST ignore these notifications.
+   result set.  Clients <em>MUST</em> ignore these notifications.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Responses Requiring Special Consideration</span>
 
@@ -1018,7 +1018,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.3.1" href="#section-4.3.1">4.3.1</a>.  Returning Results During the Persistent Phase</span>
 
-   During the persistent phase, the server SHOULD return the changed
+   During the persistent phase, the server <em>SHOULD</em> return the changed
    entries to the client as quickly as possible.
 
 
@@ -1033,11 +1033,11 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.3.2" href="#section-4.3.2">4.3.2</a>.  No Mixing of Sync Phase with Persist Phase</span>
 
-   During a sync phase, the server MUST NOT return any entries with the
+   During a sync phase, the server <em>MUST NOT</em> return any entries with the
    persistPhase flag set to TRUE, and during the persist phase, all
-   entries returned MUST have the persistPhase flag set to TRUE.  The
-   server MUST NOT mix and match sync phase entries with persist phase
-   entries.  If there are any sync phase entries to return, they MUST be
+   entries returned <em>MUST</em> have the persistPhase flag set to TRUE.  The
+   server <em>MUST NOT</em> mix and match sync phase entries with persist phase
+   entries.  If there are any sync phase entries to return, they <em>MUST</em> be
    returned before any persist phase entries are returned.
 
 <span class="h4"><a class="selflink" name="section-4.3.3" href="#section-4.3.3">4.3.3</a>.  Returning Updated Results During the Sync Phase</span>
@@ -1051,7 +1051,7 @@ Table of Contents
    the server implementation to decide when the client is "in sync" -
    that is, when to end a syncOnly request, or when to send the Sync
    Update Informational Response between the sync phase and the persist
-   phase of a syncAndPersist request.  The server MAY send the same
+   phase of a syncAndPersist request.  The server <em>MAY</em> send the same
    entry multiple times during the sync phase if the entry changes
    during the sync phase.
 
@@ -1064,19 +1064,19 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.3.4" href="#section-4.3.4">4.3.4</a>.  Operational Attributes and Administrative Entries</span>
 
-   An operational attribute SHOULD be returned if it is specified in the
+   An operational attribute <em>SHOULD</em> be returned if it is specified in the
    attributes list and would normally be returned as subject to the
    constraints of [RFC2251 <a href="#section-4.5">Section 4.5</a>].  If the server does not support
-   syncing of operational attributes, the server MUST return a
+   syncing of operational attributes, the server <em>MUST</em> return a
    SearchResultDone message with a resultCode of unwillingToPerform.
 
-   LDAP Subentries [<a href="./rfc3672.html" title="&quot;Subentries in the Lightweight Directory Access Protocol (LDAP)&quot;">RFC3672</a>] SHOULD be returned if they would normally
+   LDAP Subentries [<a href="./rfc3672.html" title="&quot;Subentries in the Lightweight Directory Access Protocol (LDAP)&quot;">RFC3672</a>] <em>SHOULD</em> be returned if they would normally
    be returned by the search request.  If the server does not support
    syncing of LDAP Subentries, and the server can determine from the
    search request that the client has requested LDAP Subentries to be
-   returned (e.g., search control or search filter), the server MUST
+   returned (e.g., search control or search filter), the server <em>MUST</em>
    return a SearchResultDone message with a resultCode of
-   unwillingToPerform.  Otherwise, the server MAY simply omit returning
+   unwillingToPerform.  Otherwise, the server <em>MAY</em> simply omit returning
    LDAP Subentries.
 
 
@@ -1096,10 +1096,10 @@ Table of Contents
    referred to in this document as virtual attributes.
 
    LCUP treats these attributes the same way as normal, non-virtual
-   attributes.  A virtual attribute SHOULD be returned if it is
+   attributes.  A virtual attribute <em>SHOULD</em> be returned if it is
    specified in the attributes list and would normally be returned as
    subject to the constraints of [RFC2251 <a href="#section-4.5">Section 4.5</a>].  If the server
-   does not support syncing of virtual attributes, the server MUST
+   does not support syncing of virtual attributes, the server <em>MUST</em>
    return a SearchResultDone message with a resultCode of
    unwillingToPerform.
 
@@ -1122,7 +1122,7 @@ Table of Contents
    request.  In this case, all of the entries in the subtree are
    implicitly renamed or removed.
 
-   In either of these cases, the server MUST do one of the following:
+   In either of these cases, the server <em>MUST</em> do one of the following:
 
    -  treat all of these entries as having been renamed or removed and
       return each entry to the client as such
@@ -1132,7 +1132,7 @@ Table of Contents
 
    If the search base object has been renamed, and the client has
    received a noSuchObject as the result of a search request, the client
-   MAY use the entryUUID and UUIDAttribute to locate the new DN that is
+   <em>MAY</em> use the entryUUID and UUIDAttribute to locate the new DN that is
    the result of the modify DN operation.
 
 
@@ -1148,7 +1148,7 @@ Table of Contents
    If at any time during an LCUP search, either during the sync phase or
    the persist phase, the server determines that it cannot guarantee
    that it can bring the client's copy of the data to eventual
-   convergence, it SHOULD immediately terminate the LCUP search request
+   convergence, it <em>SHOULD</em> immediately terminate the LCUP search request
    and return a SearchResultDone message with a resultCode of
    lcupReloadRequired.  This can also happen at the beginning of an
    incremental synchronization request, if the client presents a cookie
@@ -1175,22 +1175,22 @@ Table of Contents
    request, it attaches a Sync Done control to the SearchResultDone
    message and sends it to the client.  However, if the SearchResultDone
    message contains a resultCode that is not success or canceled, the
-   Sync Done control MAY be omitted.  Although the LCUP cookie is
-   OPTIONAL in the Sync Done control value, it MUST be set if the
+   Sync Done control <em>MAY</em> be omitted.  Although the LCUP cookie is
+   <em>OPTIONAL</em> in the Sync Done control value, it <em>MUST</em> be set if the
    SearchResultDone resultCode is success or canceled.  The server
-   SHOULD also set the cookie if the resultCode is
+   <em>SHOULD</em> also set the cookie if the resultCode is
    lcupResourcesExhausted, timeLimitExceeded, sizeLimitExceeded, or
    adminLimitExceeded.  This allows the client to more easily resync
    later.  If some error occurred, either an LDAP search error (e.g.,
    insufficientAccessRights) or an LCUP error (e.g.,
-   lcupUnsupportedScheme), the cookie MAY be omitted.  If the cookie is
-   set, the scheme MUST be set also if the cookie format has changed,
-   otherwise, it MAY be omitted.
+   lcupUnsupportedScheme), the cookie <em>MAY</em> be omitted.  If the cookie is
+   set, the scheme <em>MUST</em> be set also if the cookie format has changed,
+   otherwise, it <em>MAY</em> be omitted.
 
    If server resources become tight, the server can terminate one or
    more search operations by sending a SearchResultDone message to the
    client(s) with a resultCode of lcupResourcesExhausted.  The server
-   SHOULD attach a Sync Done control with the cookie set.  A server side
+   <em>SHOULD</em> attach a Sync Done control with the cookie set.  A server side
 
 
 
@@ -1202,7 +1202,7 @@ Table of Contents
    policy is used to decide which searches to terminate.  This can also
    be used as a security mechanism to disconnect clients that are
    suspected of malicious actions, but if the server can infer that the
-   client is malicious, the server SHOULD return lcupSecurityViolation
+   client is malicious, the server <em>SHOULD</em> return lcupSecurityViolation
    instead.
 
 <span class="h4"><a class="selflink" name="section-4.4.2" href="#section-4.4.2">4.4.2</a>.  Client Initiated Termination</span>
@@ -1211,24 +1211,24 @@ Table of Contents
    wishes to obtain the cookie that represents the current state of its
    data, it issues an LDAP Cancel operation [<a href="./rfc3909.html" title="&quot;Lightweight Directory Access Protocol (LDAP) Cancel Operation&quot;">RFC3909</a>].  The server
    responds immediately with a LDAP Cancel response [<a href="./rfc3909.html" title="&quot;Lightweight Directory Access Protocol (LDAP) Cancel Operation&quot;">RFC3909</a>].  The
-   server MAY send any pending SearchResultEntry or
+   server <em>MAY</em> send any pending SearchResultEntry or
    SearchResultReference PDUs if the server cannot easily abort or
    remove those search results from its outgoing queue.  The server
-   SHOULD send as few of these remaining messages as possible.  Finally,
+   <em>SHOULD</em> send as few of these remaining messages as possible.  Finally,
    the server sends the message SearchResultDone with the Sync Done
    control attached.  If the search was successful up to that point, the
-   resultCode field of the SearchResultDone message MUST be canceled
-   [<a href="./rfc3909.html" title="&quot;Lightweight Directory Access Protocol (LDAP) Cancel Operation&quot;">RFC3909</a>], and the cookie MUST be set in the Sync Done control.  If
-   there is an error condition, the server MAY return as described in
-   <a href="#section-4.4.1">section 4.4.1</a> above, or MAY return as described in [<a href="./rfc3909.html" title="&quot;Lightweight Directory Access Protocol (LDAP) Cancel Operation&quot;">RFC3909</a>].
+   resultCode field of the SearchResultDone message <em>MUST</em> be canceled
+   [<a href="./rfc3909.html" title="&quot;Lightweight Directory Access Protocol (LDAP) Cancel Operation&quot;">RFC3909</a>], and the cookie <em>MUST</em> be set in the Sync Done control.  If
+   there is an error condition, the server <em>MAY</em> return as described in
+   <a href="#section-4.4.1">section 4.4.1</a> above, or <em>MAY</em> return as described in [<a href="./rfc3909.html" title="&quot;Lightweight Directory Access Protocol (LDAP) Cancel Operation&quot;">RFC3909</a>].
 
    If the client is not interested in the state information, it can
    simply abandon the search operation or disconnect from the server.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  Size and Time Limits</span>
 
-   The server SHALL support size and time limits as specified in
-   [RFC2251, <a href="#section-5">Section 5</a>].  The server SHOULD ensure that if the operation
+   The server <em>SHALL</em> support size and time limits as specified in
+   [RFC2251, <a href="#section-5">Section 5</a>].  The server <em>SHOULD</em> ensure that if the operation
    is terminated due to these conditions, the cookie is sent back to the
    client.
 
@@ -1245,8 +1245,8 @@ Table of Contents
 
    LCUP defines neither restrictions nor guarantees about the ability to
    use the controls defined in this document in conjunction with other
-   LDAP controls, except for the following: A server MAY ignore non-
-   critical controls supplied with the LCUP control.  A server MAY
+   LDAP controls, except for the following: A server <em>MAY</em> ignore non-
+   critical controls supplied with the LCUP control.  A server <em>MAY</em>
 
 
 
@@ -1258,7 +1258,7 @@ Table of Contents
    ignore an LCUP defined control if it is non-critical and it is
    supplied with other critical controls.  If a server receives a
    critical LCUP control with another critical control, and the server
-   does not support both controls at the same time, the server SHOULD
+   does not support both controls at the same time, the server <em>SHOULD</em>
    return unavailableCriticalExtension.
 
    It is up to the server implementation to determine if the server
@@ -1275,7 +1275,7 @@ Table of Contents
    Use of an LCUP cookie with multiple DSAs in a replicated environment
    is not defined by LCUP.   An implementation of LCUP may support
    continuation of an LCUP session with another DSA holding a replica of
-   the LCUP context.  Clients MAY submit cookies returned by one DSA to
+   the LCUP context.  Clients <em>MAY</em> submit cookies returned by one DSA to
    a different DSA; it is up to the server to determine if a cookie is
    one they recognize or not and to return an appropriate result code if
    not.
@@ -1285,11 +1285,11 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Using Cookies with Different Search Criteria</span>
 
    The cookie received from the server after a synchronization session
-   SHOULD only be used with the same search specification as the search
-   that generated the cookie.  Some servers MAY allow the cookie to be
+   <em>SHOULD</em> only be used with the same search specification as the search
+   that generated the cookie.  Some servers <em>MAY</em> allow the cookie to be
    used with a more restrictive search specification than the search
    that generated the cookie.  If the server does not support the
-   cookie, it MUST return lcupInvalidCookie.  This is because the client
+   cookie, it <em>MUST</em> return lcupInvalidCookie.  This is because the client
    can end up with an incomplete data store otherwise.  A more
    restrictive search specification is one that would generate a subset
    of the data produced by the original search specification.
@@ -1326,14 +1326,14 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Continuation References to Other LCUP Contexts</span>
 
-   The client MAY receive a continuation reference
+   The client <em>MAY</em> receive a continuation reference
    (SearchResultReference [RFC2251 <a href="#section-4.5.3">SECTION 4.5.3</a>]) if the search request
    spans multiple parts of the DIT, some of which may require a
    different LCUP cookie, some of which may not even be managed by LCUP.
-   The client SHOULD maintain a cache of the LDAP URLs returned in the
+   The client <em>SHOULD</em> maintain a cache of the LDAP URLs returned in the
    continuation references and the cookies associated with them.  The
    client is responsible for performing another LCUP search to follow
-   the references, and SHOULD use the cookie corresponding to the LDAP
+   the references, and <em>SHOULD</em> use the cookie corresponding to the LDAP
    URL for that reference (if it has a cookie).
 
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  Referral Handling</span>
@@ -1344,15 +1344,15 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.6" href="#section-5.6">5.6</a>.  Multiple Copies of Same Entry During Sync Phase</span>
 
-   The server MAY send the same entry multiple times during a sync phase
-   if the entry changes during the sync phase.  The client SHOULD use
+   The server <em>MAY</em> send the same entry multiple times during a sync phase
+   if the entry changes during the sync phase.  The client <em>SHOULD</em> use
    the last sent copy of the entry as the current one.
 
 <span class="h3"><a class="selflink" name="section-5.7" href="#section-5.7">5.7</a>.  Handling Server Out of Resources Condition</span>
 
    If the client receives an lcupResourcesExhausted or
-   lcupSecurityViolation resultCode, the client SHOULD wait at least 5
-   seconds before attempting another operation.  It is RECOMMENDED that
+   lcupSecurityViolation resultCode, the client <em>SHOULD</em> wait at least 5
+   seconds before attempting another operation.  It is <em>RECOMMENDED</em> that
    the client use an exponential backoff strategy, but different clients
    may want to use different backoff strategies.
 
@@ -1371,8 +1371,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Server Support for UUIDs</span>
 
-   Servers MUST support UUIDs.  UUIDs are required in the Sync Update
-   control.  Additionally, server implementers SHOULD make the UUID
+   Servers <em>MUST</em> support UUIDs.  UUIDs are required in the Sync Update
+   control.  Additionally, server implementers <em>SHOULD</em> make the UUID
    values for the entries available as an attribute of the entry, and
    provide indexing or other mechanisms to allow clients to search for
    an entry using the UUID attribute in the search filter.  The
@@ -1414,7 +1414,7 @@ Table of Contents
    If so, the DIT may be partitioned into multiple replicas.  A client
    may send an LCUP search request that spans multiple replicas.  Some
    parts of the DIT spanned by the search request scope may support LCUP
-   and some may not.  The server MUST send a SearchResultReference
+   and some may not.  The server <em>MUST</em> send a SearchResultReference
 
 
 
@@ -1424,16 +1424,16 @@ Table of Contents
 
 
    [RFC2251, <a href="#section-4.5.3">SECTION 4.5.3</a>] when the LCUP Context for a returned entry
-   changes.  The server SHOULD send all references to other LCUP
+   changes.  The server <em>SHOULD</em> send all references to other LCUP
    Contexts in the search scope first, in order to allow the clients to
-   process these searches in parallel.  The LDAP URL(s) returned MUST
+   process these searches in parallel.  The LDAP URL(s) returned <em>MUST</em>
    contain the DN(s) of the base of another section of the DIT (however
    the server implementation has partitioned the DIT).  The client will
    then issue another LCUP search using the LDAP URL returned.  Each
-   section of the DIT MAY require a different cookie value, so the
-   client SHOULD maintain a cache, mapping the different LDAP URL values
+   section of the DIT <em>MAY</em> require a different cookie value, so the
+   client <em>SHOULD</em> maintain a cache, mapping the different LDAP URL values
    to different cookies.  If the cookie changes, the scheme may change
-   as well, but the cookie scheme MUST be the same within a given LCUP
+   as well, but the cookie scheme <em>MUST</em> be the same within a given LCUP
    Context.
 
 <span class="h4"><a class="selflink" name="section-6.3.2" href="#section-6.3.2">6.3.2</a>.  Information Contained in the Cookie</span>
@@ -1441,9 +1441,9 @@ Table of Contents
    The cookie must contain enough information to allow the server to
    determine whether the cookie can be safely used with the search
    specification it is attached to.  As discussed earlier in the
-   document, the cookie SHOULD only be used with the search
+   document, the cookie <em>SHOULD</em> only be used with the search
    specification that is equal to the one for which the cookie was
-   generated, but some servers MAY support using a cookie with a search
+   generated, but some servers <em>MAY</em> support using a cookie with a search
    specification that is more restrictive than the one used to generate
    the cookie.
 
@@ -1482,7 +1482,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.6" href="#section-6.6">6.6</a>.  Alias Dereferencing</span>
 
    LCUP design does not consider issues associated with alias
-   dereferencing in search.  Clients MUST specify derefAliases as either
+   dereferencing in search.  Clients <em>MUST</em> specify derefAliases as either
    neverDerefAliases or derefFindingBaseObj.  Servers are to return
    protocolError if the client specifies either derefInSearching or
    derefAlways.
@@ -1526,7 +1526,7 @@ Table of Contents
    In some situations, it may be important to prevent general exposure
    of information about changes that occur in an LDAP server. Therefore,
    servers that implement the mechanism described in this document
-   SHOULD provide a means to enforce access control on the entries
+   <em>SHOULD</em> provide a means to enforce access control on the entries
 
 
 
@@ -1535,7 +1535,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3928.html">RFC 3928</a>              LDAP Client Update Protocol           October 2004</span>
 
 
-   returned and MAY also provide specific access control mechanisms to
+   returned and <em>MAY</em> also provide specific access control mechanisms to
    control the use of the controls and extended operations defined in
    this document.
 
@@ -1544,8 +1544,8 @@ Table of Contents
    all available server resources and deny service to legitimate
    clients.  The protocol provides the means to stop malicious clients
    by disconnecting them from the server.  The servers that implement
-   the mechanism SHOULD provide the means to detect the malicious
-   clients. In addition, the servers SHOULD provide the means to limit
+   the mechanism <em>SHOULD</em> provide the means to detect the malicious
+   clients. In addition, the servers <em>SHOULD</em> provide the means to limit
    the number of resources that can be consumed by a single client.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  References</span>

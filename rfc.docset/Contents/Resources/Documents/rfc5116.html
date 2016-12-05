@@ -401,8 +401,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -418,9 +418,9 @@ Table of Contents
    authenticated decryption.  The inputs and outputs of these algorithms
    are defined below in terms of octet strings.
 
-   An implementation MAY accept additional inputs.  For example, an
+   An implementation <em>MAY</em> accept additional inputs.  For example, an
    input could be provided to allow the user to select between different
-   implementation strategies.  However, such extensions MUST NOT affect
+   implementation strategies.  However, such extensions <em>MUST NOT</em> affect
    interoperability with other implementations.
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Authenticated Encryption</span>
@@ -428,16 +428,16 @@ Table of Contents
    The authenticated encryption operation has four inputs, each of which
    is an octet string:
 
-      A secret key K, which MUST be generated in a way that is uniformly
+      A secret key K, which <em>MUST</em> be generated in a way that is uniformly
       random or pseudorandom.
 
       A nonce N.  Each nonce provided to distinct invocations of the
-      Authenticated Encryption operation MUST be distinct, for any
+      Authenticated Encryption operation <em>MUST</em> be distinct, for any
       particular value of the key, unless each and every nonce is zero-
-      length.  Applications that can generate distinct nonces SHOULD use
-      the nonce formation method defined in <a href="#section-3.2">Section 3.2</a>, and MAY use any
+      length.  Applications that can generate distinct nonces <em>SHOULD</em> use
+      the nonce formation method defined in <a href="#section-3.2">Section 3.2</a>, and <em>MAY</em> use any
       other method that meets the uniqueness requirement.  Other
-      applications SHOULD use zero-length nonces.
+      applications <em>SHOULD</em> use zero-length nonces.
 
       A plaintext P, which contains the data to be encrypted and
       authenticated.
@@ -456,7 +456,7 @@ Table of Contents
    whose lengths obey the following restrictions:
 
       The number of octets in the key K is between 1 and 255.  For each
-      AEAD algorithm, the length of K MUST be fixed.
+      AEAD algorithm, the length of K <em>MUST</em> be fixed.
 
 
 
@@ -470,11 +470,11 @@ Table of Contents
 
       For any particular value of the key, either 1) each nonce provided
       to distinct invocations of the Authenticated Encryption operation
-      MUST be distinct, or 2) each and every nonce MUST be zero-length.
+      <em>MUST</em> be distinct, or 2) each and every nonce <em>MUST</em> be zero-length.
       If zero-length nonces are used with a particular key, then each
-      and every nonce used with that key MUST have a length of zero.
-      Otherwise, the number of octets in the nonce SHOULD be twelve
-      (12).  Nonces with different lengths MAY be used with a particular
+      and every nonce used with that key <em>MUST</em> have a length of zero.
+      Otherwise, the number of octets in the nonce <em>SHOULD</em> be twelve
+      (12).  Nonces with different lengths <em>MAY</em> be used with a particular
       key.  Some algorithms cannot be used with zero-length nonces, but
       others can; see <a href="#section-4">Section 4</a>.  Applications that conform to the
       recommended nonce length will avoid having to construct nonces
@@ -482,23 +482,23 @@ Table of Contents
       This guidance helps to keep algorithm-specific logic out of
       applications.
 
-      The number of octets in the plaintext P MAY be zero.
+      The number of octets in the plaintext P <em>MAY</em> be zero.
 
-      The number of octets in the associated data A MAY be zero.
+      The number of octets in the associated data A <em>MAY</em> be zero.
 
-      The number of octets in the ciphertext C MAY be zero.
+      The number of octets in the ciphertext C <em>MAY</em> be zero.
 
    This specification does not put a maximum length on the nonce, the
    plaintext, the ciphertext, or the additional authenticated data.
-   However, a particular AEAD algorithm MAY further restrict the lengths
-   of those inputs and outputs.  A particular AEAD implementation MAY
+   However, a particular AEAD algorithm <em>MAY</em> further restrict the lengths
+   of those inputs and outputs.  A particular AEAD implementation <em>MAY</em>
    further restrict the lengths of its inputs and outputs.  If a
    particular implementation of an AEAD algorithm is requested to
    process an input that is outside the range of admissible lengths, or
    an input that is outside the range of lengths supported by that
-   implementation, it MUST return an error code and it MUST NOT output
+   implementation, it <em>MUST</em> return an error code and it <em>MUST NOT</em> output
    any other information.  In particular, partially encrypted or
-   partially decrypted data MUST NOT be returned.
+   partially decrypted data <em>MUST NOT</em> be returned.
 
    Both confidentiality and message authentication are provided on the
    plaintext P.  When the length of P is zero, the AEAD algorithm acts
@@ -524,17 +524,17 @@ Table of Contents
 <span class="grey"><a href="./rfc5116.html">RFC 5116</a>                Authenticated Encryption            January 2008</span>
 
 
-   The secret key K MUST NOT be included in any of the other inputs (N,
+   The secret key K <em>MUST NOT</em> be included in any of the other inputs (N,
    P, and A).  (This restriction does not mean that the values of those
    inputs must be checked to ensure that they do not include substrings
    that match the key; instead, it means that the key must not be
    explicitly copied into those inputs.)
 
    The nonce is authenticated internally to the algorithm, and it is not
-   necessary to include it in the AD input.  The nonce MAY be included
+   necessary to include it in the AD input.  The nonce <em>MAY</em> be included
    in P or A if it is convenient to the application.
 
-   The nonce MAY be stored or transported with the ciphertext, or it MAY
+   The nonce <em>MAY</em> be stored or transported with the ciphertext, or it <em>MAY</em>
    be reconstructed immediately prior to the authenticated decryption
    operation.  It is sufficient to provide the decryption module with
    enough information to allow it to construct the nonce.  (For example,
@@ -547,7 +547,7 @@ Table of Contents
    take into account the possibility of loss or reorder of ciphertexts
    between the encryption and decryption processes.
 
-   Applications MUST NOT assume any particular structure or formatting
+   Applications <em>MUST NOT</em> assume any particular structure or formatting
    of the ciphertext.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Authenticated Decryption</span>
@@ -569,7 +569,7 @@ Table of Contents
    inputs and outputs, since the encoding does not affect the security
    services provided by an AEAD algorithm.
 
-   When choosing the format of application data, an application SHOULD
+   When choosing the format of application data, an application <em>SHOULD</em>
    position the ciphertext C so that it appears after any other data
    that is needed to construct the other inputs to the authenticated
 
@@ -591,9 +591,9 @@ Table of Contents
    AEAD algorithm securely.
 
    If an application is unable to meet the uniqueness requirement on
-   nonce generation, then it MUST use a zero-length nonce.  Randomized
+   nonce generation, then it <em>MUST</em> use a zero-length nonce.  Randomized
    or stateful algorithms, which are defined below, are suitable for use
-   with such applications.  Otherwise, an application SHOULD use nonces
+   with such applications.  Otherwise, an application <em>SHOULD</em> use nonces
    with a length of twelve octets.  Since algorithms are encouraged to
    support that length, applications should use that length to aid
    interoperability.
@@ -617,7 +617,7 @@ Table of Contents
    ciphertext and is thus available to the decrypter.  If the complete
    nonce is not available to the decrypter, then the decrypter will need
    to know how the nonce is structured so that it can reconstruct it.
-   Applications SHOULD provide encryption engines with some freedom in
+   Applications <em>SHOULD</em> provide encryption engines with some freedom in
    choosing their nonces; for example, a nonce could contain both a
    counter and a field that is set by the encrypter but is not processed
    by the receiver.  This freedom allows a set of encryption devices to
@@ -650,17 +650,17 @@ Table of Contents
    Many problems with nonce reuse can be avoided by changing a key in a
    situation in which nonce coordination is difficult.
 
-   Each AEAD algorithm SHOULD describe what security degradation would
+   Each AEAD algorithm <em>SHOULD</em> describe what security degradation would
    result from an inadvertent reuse of a nonce value.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Recommended Nonce Formation</span>
 
-   The following method to construct nonces is RECOMMENDED.  The nonce
+   The following method to construct nonces is <em>RECOMMENDED</em>.  The nonce
    is formatted as illustrated in Figure 1, with the initial octets
    consisting of a Fixed field, and the final octets consisting of a
    Counter field.  For each fixed key, the length of each of these
    fields, and thus the length of the nonce, is fixed.  Implementations
-   SHOULD support 12-octet nonces in which the Counter field is four
+   <em>SHOULD</em> support 12-octet nonces in which the Counter field is four
    octets long.
 
        &lt;----- variable ----&gt; &lt;----------- variable -----------&gt;
@@ -672,11 +672,11 @@ Table of Contents
 
    The Counter fields of successive nonces form a monotonically
    increasing sequence, when those fields are regarded as unsigned
-   integers in network byte order.  The length of the Counter field MUST
+   integers in network byte order.  The length of the Counter field <em>MUST</em>
    remain constant for all nonces that are generated for a given
-   encryption device.  The Counter part SHOULD be equal to zero for the
+   encryption device.  The Counter part <em>SHOULD</em> be equal to zero for the
    first nonce, and increment by one for each successive nonce that is
-   generated.  However, any particular Counter value MAY be skipped
+   generated.  However, any particular Counter value <em>MAY</em> be skipped
    over, and left out of the sequence of values that are used, if it is
    convenient.  For example, an application could choose to skip the
    initial Counter=0 value, and set the Counter field of the initial
@@ -692,10 +692,10 @@ Table of Contents
 <span class="grey"><a href="./rfc5116.html">RFC 5116</a>                Authenticated Encryption            January 2008</span>
 
 
-   The Fixed field MUST remain constant for all nonces that are
+   The Fixed field <em>MUST</em> remain constant for all nonces that are
    generated for a given encryption device.  If different devices are
    performing encryption with a single key, then each distinct device
-   MUST use a distinct Fixed field, to ensure the uniqueness of the
+   <em>MUST</em> use a distinct Fixed field, to ensure the uniqueness of the
    nonces.  Thus, at most 2^(8*F) distinct encrypters can share a key
    when the Fixed field is F octets in length.
 
@@ -710,14 +710,14 @@ Table of Contents
    call the portion of the nonce that is stored or sent with the
    ciphertext the explicit part.  We call the portion of the nonce that
    is inferred the implicit part.  When part of the nonce is implicit,
-   the following specialization of the above format is RECOMMENDED.  The
+   the following specialization of the above format is <em>RECOMMENDED</em>.  The
    Fixed field is divided into two sub-fields: a Fixed-Common field and
    a Fixed-Distinct field.  This format is shown in Figure 2.  If
    different devices are performing encryption with a single key, then
-   each distinct device MUST use a distinct Fixed-Distinct field.  The
+   each distinct device <em>MUST</em> use a distinct Fixed-Distinct field.  The
    Fixed-Common field is common to all nonces.  The Fixed-Distinct field
-   and the Counter field MUST be in the explicit part of the nonce.  The
-   Fixed-Common field MAY be in the implicit part of the nonce.  These
+   and the Counter field <em>MUST</em> be in the explicit part of the nonce.  The
+   Fixed-Common field <em>MAY</em> be in the implicit part of the nonce.  These
    conventions ensure that the nonce is easy to reconstruct from the
    explicit data.
 
@@ -818,37 +818,37 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Requirements on AEAD Algorithm Specifications</span>
 
-   Each AEAD algorithm MUST only accept keys with a fixed key length
-   K_LEN, and MUST NOT require any particular data format for the keys
+   Each AEAD algorithm <em>MUST</em> only accept keys with a fixed key length
+   K_LEN, and <em>MUST NOT</em> require any particular data format for the keys
    provided as input.  An algorithm that requires such structure (e.g.,
    one with subkeys in a particular parity-check format) will need to
    provide it internally.
 
-   Each AEAD algorithm MUST accept any plaintext with a length between
+   Each AEAD algorithm <em>MUST</em> accept any plaintext with a length between
    zero and P_MAX octets, inclusive, where the value P_MAX is specific
-   to that algorithm.  The value of P_MAX MUST be larger than zero, and
-   SHOULD be at least 65,536 (2^16) octets.  This size is a typical
+   to that algorithm.  The value of P_MAX <em>MUST</em> be larger than zero, and
+   <em>SHOULD</em> be at least 65,536 (2^16) octets.  This size is a typical
    upper limit for network data packets.  Other applications may use
    even larger values of P_MAX, so it is desirable for general-purpose
    algorithms to support higher values.
 
-   Each AEAD algorithm MUST accept any associated data with a length
+   Each AEAD algorithm <em>MUST</em> accept any associated data with a length
    between zero and A_MAX octets, inclusive, where the value A_MAX is
-   specific to that algorithm.  The value of A_MAX MUST be larger than
-   zero, and SHOULD be at least 65,536 (2^16) octets.  Other
+   specific to that algorithm.  The value of A_MAX <em>MUST</em> be larger than
+   zero, and <em>SHOULD</em> be at least 65,536 (2^16) octets.  Other
    applications may use even larger values of A_MAX, so it is desirable
    for general-purpose algorithms to support higher values.
 
-   Each AEAD algorithm MUST accept any nonce with a length between N_MIN
+   Each AEAD algorithm <em>MUST</em> accept any nonce with a length between N_MIN
    and N_MAX octets, inclusive, where the values of N_MIN and N_MAX are
-   specific to that algorithm.  The values of N_MAX and N_MIN MAY be
-   equal.  Each algorithm SHOULD accept a nonce with a length of twelve
+   specific to that algorithm.  The values of N_MAX and N_MIN <em>MAY</em> be
+   equal.  Each algorithm <em>SHOULD</em> accept a nonce with a length of twelve
    (12) octets.  Randomized or stateful algorithms, which are described
-   below, MAY have an N_MAX value of zero.
+   below, <em>MAY</em> have an N_MAX value of zero.
 
-   An AEAD algorithm MAY structure its ciphertext output in any way; for
+   An AEAD algorithm <em>MAY</em> structure its ciphertext output in any way; for
    example, the ciphertext can incorporate an authentication tag.  Each
-   algorithm SHOULD choose a structure that is amenable to efficient
+   algorithm <em>SHOULD</em> choose a structure that is amenable to efficient
    processing.
 
 
@@ -860,46 +860,46 @@ Table of Contents
 <span class="grey"><a href="./rfc5116.html">RFC 5116</a>                Authenticated Encryption            January 2008</span>
 
 
-   An Authenticated Encryption algorithm MAY incorporate or make use of
+   An Authenticated Encryption algorithm <em>MAY</em> incorporate or make use of
    a random source, e.g., for the generation of an internal
    initialization vector that is incorporated into the ciphertext
    output.  An AEAD algorithm of this sort is called randomized; though
    note that only encryption is random, and decryption is always
-   deterministic.  A randomized algorithm MAY have a value of N_MAX that
+   deterministic.  A randomized algorithm <em>MAY</em> have a value of N_MAX that
    is equal to zero.
 
-   An Authenticated Encryption algorithm MAY incorporate internal state
+   An Authenticated Encryption algorithm <em>MAY</em> incorporate internal state
    information that is maintained between invocations of the encrypt
    operation, e.g., to allow for the construction of distinct values
    that are used as internal nonces by the algorithm.  An AEAD algorithm
    of this sort is called stateful.  This method could be used by an
    algorithm to provide good security even when the application inputs
-   zero-length nonces.  A stateful algorithm MAY have a value of N_MAX
+   zero-length nonces.  A stateful algorithm <em>MAY</em> have a value of N_MAX
    that is equal to zero.
 
-   The specification of an AEAD algorithm MUST include the values of
+   The specification of an AEAD algorithm <em>MUST</em> include the values of
    K_LEN, P_MAX, A_MAX, N_MIN, and N_MAX defined above.  Additionally,
-   it MUST specify the number of octets in the largest possible
+   it <em>MUST</em> specify the number of octets in the largest possible
    ciphertext, which we denote C_MAX.
 
-   Each AEAD algorithm MUST provide a description relating the length of
-   the plaintext to that of the ciphertext.  This relation MUST NOT
+   Each AEAD algorithm <em>MUST</em> provide a description relating the length of
+   the plaintext to that of the ciphertext.  This relation <em>MUST NOT</em>
    depend on external parameters, such as an authentication strength
    parameter (e.g., authentication tag length).  That sort of dependence
    would complicate the use of the algorithm by creating a situation in
    which the information from the AEAD registry was not sufficient to
    ensure interoperability.
 
-   EACH AEAD algorithm specification SHOULD describe what security
+   EACH AEAD algorithm specification <em>SHOULD</em> describe what security
    degradation would result from an inadvertent reuse of a nonce value.
 
-   Each AEAD algorithm specification SHOULD provide a reference to a
+   Each AEAD algorithm specification <em>SHOULD</em> provide a reference to a
    detailed security analysis.  This document does not specify a
    particular security model, because several different models have been
-   used in the literature.  The security analysis SHOULD define or
+   used in the literature.  The security analysis <em>SHOULD</em> define or
    reference a security model.
 
-   An algorithm that is randomized or stateful, as defined above, SHOULD
+   An algorithm that is randomized or stateful, as defined above, <em>SHOULD</em>
    describe itself using those terms.
 
 
@@ -1053,7 +1053,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  IANA Considerations</span>
 
    The Internet Assigned Numbers Authority (IANA) has defined the "AEAD
-   Registry" described below.  An algorithm designer MAY register an
+   Registry" described below.  An algorithm designer <em>MAY</em> register an
    algorithm in order to facilitate its use.  Additions to the AEAD
    Registry require that a specification be documented in an RFC or
    another permanent and readily available reference, in sufficient
@@ -1070,10 +1070,10 @@ Table of Contents
       algorithm and provides test cases that can be used to verify the
       correctness of an implementation.
 
-   Requests to add an entry to the registry MUST include the name and
+   Requests to add an entry to the registry <em>MUST</em> include the name and
    the reference.  The number is assigned by IANA.  These number
-   assignments SHOULD use the smallest available positive number.
-   Submitters SHOULD have their requests reviewed by the IRTF Crypto
+   assignments <em>SHOULD</em> use the smallest available positive number.
+   Submitters <em>SHOULD</em> have their requests reviewed by the IRTF Crypto
 
 
 
@@ -1173,7 +1173,7 @@ Table of Contents
    trigger such a rollback may have already succeeded in subverting the
    security of the system, e.g., by causing an accounting error.
 
-   An IANA registration of an AEAD algorithm MUST NOT be regarded as an
+   An IANA registration of an AEAD algorithm <em>MUST NOT</em> be regarded as an
    endorsement of its security.  Furthermore, the perceived security
    level of an algorithm can degrade over time, due to cryptanalytic
    advances or to "Moore's Law", that is, the diminishing cost of

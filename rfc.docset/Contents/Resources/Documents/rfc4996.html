@@ -363,8 +363,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document reuses some of the terminology found in [<a href="./rfc4995.html" title="&quot;The RObust Header Compression (ROHC) Framework&quot;">RFC4995</a>].  In
@@ -836,10 +836,10 @@ Table of Contents
    links.
 
    Therefore, if field X in the uncompressed packet changes value, the
-   compressor MUST use a packet type that contains an encoding for field
+   compressor <em>MUST</em> use a packet type that contains an encoding for field
    X until it has gained confidence that the decompressor has received
    at least one packet containing the new value for X. The compressor
-   SHOULD choose a compressed format with the smallest header that can
+   <em>SHOULD</em> choose a compressed format with the smallest header that can
    convey the changes needed to fulfill the optimistic approach
    condition used.
 
@@ -850,11 +850,11 @@ Table of Contents
    have received sufficient information for correct decompression.
 
    Therefore, until the decompressor has established a feedback channel,
-   the compressor SHOULD periodically move to a lower compression state
+   the compressor <em>SHOULD</em> periodically move to a lower compression state
    and send IR and/or IR-DYN packets.  These refreshes can be based on
    timeouts, on the number of compressed packets sent for the flow, or
    any other strategy specific to the implementation.  Once the feedback
-   channel is established, the decompressor MAY stop performing periodic
+   channel is established, the decompressor <em>MAY</em> stop performing periodic
    refreshes.
 
 
@@ -873,7 +873,7 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-5.2.2.1" href="#section-5.2.2.1">5.2.2.1</a>.  Optional Acknowledgments (ACKs)</span>
 
-   The compressor MAY use acknowledgment feedback (ACKs) to move to a
+   The compressor <em>MAY</em> use acknowledgment feedback (ACKs) to move to a
    higher compression state.
 
    Upon reception of an ACK for a context-updating packet, the
@@ -881,7 +881,7 @@ Table of Contents
    acknowledged packet and that it has observed changes in the packet
    flow up to the acknowledged packet.
 
-   This functionality is optional, so a compressor MUST NOT expect to
+   This functionality is optional, so a compressor <em>MUST NOT</em> expect to
    get such ACKs, even if a feedback channel is available and has been
    established for that flow.
 
@@ -890,7 +890,7 @@ Table of Contents
    The compressor uses feedback from the decompressor to move to a lower
    compression state (NACKs).
 
-   On reception of a NACK feedback, the compressor SHOULD:
+   On reception of a NACK feedback, the compressor <em>SHOULD</em>:
 
    o  assume that only the static part of the decompressor is valid, and
 
@@ -899,12 +899,12 @@ Table of Contents
 
    unless it has confidence that information sent after the packet being
    acknowledged already provides a suitable response to the NACK
-   feedback.  In addition, the compressor MAY use a CO packet carrying a
+   feedback.  In addition, the compressor <em>MAY</em> use a CO packet carrying a
    7-bit Cyclic Redundancy Check (CRC) if it can determine with enough
    confidence what information provides a suitable response to the NACK
    feedback.
 
-   On reception of a STATIC-NACK feedback, the compressor SHOULD:
+   On reception of a STATIC-NACK feedback, the compressor <em>SHOULD</em>:
 
    o  assume that the decompressor has no valid context, and
 
@@ -927,7 +927,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.2.3" href="#section-5.2.3">5.2.3</a>.  Context Replication</span>
 
-   A compressor MAY support context replication by implementing the
+   A compressor <em>MAY</em> support context replication by implementing the
    additional compression and feedback logic defined in [<a href="./rfc4164.html" title="&quot;RObust Header Compression (ROHC): Context Replication for ROHC Profiles&quot;">RFC4164</a>].
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Decompressor Operation</span>
@@ -963,9 +963,9 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-5.3.1.1" href="#section-5.3.1.1">5.3.1.1</a>.  Reconstruction and Verification</span>
 
-   When decompressing an IR or an IR-DYN packet, the decompressor MUST
+   When decompressing an IR or an IR-DYN packet, the decompressor <em>MUST</em>
    validate the integrity of the received header using CRC-8 validation
-   [<a href="./rfc4995.html" title="&quot;The RObust Header Compression (ROHC) Framework&quot;">RFC4995</a>].  If validation fails, the packet MUST NOT be delivered to
+   [<a href="./rfc4995.html" title="&quot;The RObust Header Compression (ROHC) Framework&quot;">RFC4995</a>].  If validation fails, the packet <em>MUST NOT</em> be delivered to
    upper layers.
 
 
@@ -977,26 +977,26 @@ Table of Contents
 <span class="grey"><a href="./rfc4996.html">RFC 4996</a>                        ROHC-TCP                       July 2007</span>
 
 
-   Upon receiving an IR-CR packet, the decompressor MUST perform the
+   Upon receiving an IR-CR packet, the decompressor <em>MUST</em> perform the
    actions as specified in [<a href="./rfc4164.html" title="&quot;RObust Header Compression (ROHC): Context Replication for ROHC Profiles&quot;">RFC4164</a>].
 
    When decompressing other packet types (e.g., CO packets), the
-   decompressor MUST validate the outcome of the decompression attempt
+   decompressor <em>MUST</em> validate the outcome of the decompression attempt
    using CRC verification [<a href="./rfc4995.html" title="&quot;The RObust Header Compression (ROHC) Framework&quot;">RFC4995</a>].  If verification fails, a
-   decompressor implementation MAY attempt corrective or repair measures
-   on the packet, and the result of any attempt MUST be validated using
-   the CRC verification; otherwise, the packet MUST NOT be delivered to
+   decompressor implementation <em>MAY</em> attempt corrective or repair measures
+   on the packet, and the result of any attempt <em>MUST</em> be validated using
+   the CRC verification; otherwise, the packet <em>MUST NOT</em> be delivered to
    upper layers.
 
    When the CRC-8 validation or the CRC verification of the received
-   header is successful, the decompressor SHOULD update its context with
+   header is successful, the decompressor <em>SHOULD</em> update its context with
    the information received in the current header; the decompressor then
    passes the reconstructed packet to the system's network layer.
-   Otherwise, the decompressor context MUST NOT be updated.
+   Otherwise, the decompressor context <em>MUST NOT</em> be updated.
 
    If the received packet is older than the current reference packet,
    e.g., based on the master sequence number (MSN) in the compressed
-   packet, the decompressor MAY refrain from updating the context using
+   packet, the decompressor <em>MAY</em> refrain from updating the context using
    the information received in the current packet, even if the
    correctness of its header was successfully verified.
 
@@ -1066,7 +1066,7 @@ Table of Contents
 
       In the NC state, only packets carrying sufficient information on
       the static fields (IR and IR-CR packets) can be decompressed;
-      otherwise, the packet MUST NOT be decompressed and MUST NOT be
+      otherwise, the packet <em>MUST NOT</em> be decompressed and <em>MUST NOT</em> be
       delivered to upper layers.
 
    Feedback logic:
@@ -1077,7 +1077,7 @@ Table of Contents
       as described in <a href="#section-5.3.2">Section 5.3.2</a>
 
    Once a packet has been validated and decompressed correctly, the
-   decompressor MUST transit to the FC state.
+   decompressor <em>MUST</em> transit to the FC state.
 
 
 
@@ -1102,7 +1102,7 @@ Table of Contents
       In the SC state, packets carrying sufficient information on the
       dynamic fields covered by an 8-bit CRC (e.g., IR and IR-DYN) or CO
       packets covered by a 7-bit CRC can be decompressed; otherwise, the
-      packet MUST NOT be decompressed and MUST NOT be delivered to upper
+      packet <em>MUST NOT</em> be decompressed and <em>MUST NOT</em> be delivered to upper
       layers.
 
    Feedback logic:
@@ -1115,7 +1115,7 @@ Table of Contents
       <a href="#section-5.3.2">Section 5.3.2</a>.
 
    Once a packet has been validated and decompressed correctly, the
-   decompressor MUST transit to the FC state.
+   decompressor <em>MUST</em> transit to the FC state.
 
 <span class="h5"><a class="selflink" name="section-5.3.1.5" href="#section-5.3.1.5">5.3.1.5</a>.  Full Context (FC) State</span>
 
@@ -1147,20 +1147,20 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.3.2" href="#section-5.3.2">5.3.2</a>.  Feedback Logic</span>
 
-   The decompressor MAY send positive feedback (ACKs) to initially
+   The decompressor <em>MAY</em> send positive feedback (ACKs) to initially
    establish the feedback channel for a particular flow.  Either
    positive feedback (ACKs) or negative feedback (NACKs) establishes
    this channel.
 
    Once the feedback channel is established, the decompressor is
-   REQUIRED to continue sending NACKs or STATIC-NACKs for as long as the
+   <em>REQUIRED</em> to continue sending NACKs or STATIC-NACKs for as long as the
    context is associated with the same profile, in this case with
    profile 0x0006, as per the logic defined for each state in
    <a href="#section-5.3.1">Section 5.3.1</a>.
 
-   The decompressor MAY send ACKs upon successful decompression of any
+   The decompressor <em>MAY</em> send ACKs upon successful decompression of any
    packet type.  In particular, when a packet carrying a significant
-   context update is correctly decompressed, the decompressor MAY send
+   context update is correctly decompressed, the decompressor <em>MAY</em> send
    an ACK.
 
    The decompressor should limit the rate at which it sends feedback,
@@ -1171,7 +1171,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.3.3" href="#section-5.3.3">5.3.3</a>.  Context Replication</span>
 
    ROHC-TCP supports context replication; therefore, the decompressor
-   MUST implement the additional decompressor and feedback logic defined
+   <em>MUST</em> implement the additional decompressor and feedback logic defined
    in [<a href="./rfc4164.html" title="&quot;RObust Header Compression (ROHC): Context Replication for ROHC Profiles&quot;">RFC4164</a>].
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Encodings in ROHC-TCP (Normative)</span>
@@ -1225,7 +1225,7 @@ Table of Contents
    as part of the feedback information.  The compressor can later use
    the MSN to infer which packet the decompressor is acknowledging.
 
-   When the MSN is initialized, it SHOULD be initialized to a random
+   When the MSN is initialized, it <em>SHOULD</em> be initialized to a random
    value.  The compressor should only initialize a new MSN for the
    initial IR or IR-CR packet sent for a CID that corresponds to a
    context that is not already associated with this profile.  In other
@@ -1272,7 +1272,7 @@ Table of Contents
    innermost IP header.  This is because only this IP-ID can possibly
    have a sufficiently close correlation with the MSN (see also
    <a href="#section-6.1.1">Section 6.1.1</a>) to compress it as a sequentially changing field.
-   Therefore, a compressor MUST NOT assign either the sequential (NBO)
+   Therefore, a compressor <em>MUST NOT</em> assign either the sequential (NBO)
    or the sequential byte-swapped behavior to tunneling headers.
 
    The control field for the IP-ID behavior determines which set of
@@ -1539,7 +1539,7 @@ Table of Contents
 
       If an index without an accompanying item is received and the
       decompressor does not have any context for this index, the header
-      MUST be discarded and a NACK SHOULD be sent.
+      <em>MUST</em> be discarded and a NACK <em>SHOULD</em> be sent.
 
 <span class="h4"><a class="selflink" name="section-6.3.3" href="#section-6.3.3">6.3.3</a>.  Encoding of Compressed Lists</span>
 
@@ -1570,7 +1570,7 @@ Table of Contents
       |                               |
       +---+---+---+---+---+---+---+---+
 
-      Reserved: MUST be set to zero; otherwise, the decompressor MUST
+      Reserved: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em>
       discard the packet.
 
       PS: Indicates size of XI fields:
@@ -1612,7 +1612,7 @@ Table of Contents
             X = 0 indicates that the item corresponding to the Index is
             not sent and is instead included in the irregular chain.
 
-         Reserved: MUST be set to zero; otherwise, the decompressor MUST
+         Reserved: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em>
          discard the packet.
 
          Index: An index into the item table.  See <a href="#section-6.3.4">Section 6.3.4</a>.
@@ -1626,8 +1626,8 @@ Table of Contents
          +---+---+---+---+---+---+---+---+
 
       Padding: A 4-bit padding field is present when PS = 0 and the
-      number of XIs is odd.  The Padding field MUST be set to zero;
-      otherwise, the decompressor MUST discard the packet.
+      number of XIs is odd.  The Padding field <em>MUST</em> be set to zero;
+      otherwise, the decompressor <em>MUST</em> discard the packet.
 
       Item 1, ..., item n: Each item corresponds to an XI with X = 1 in
       XI 1, ..., XI m.  The format of the entries in the item list is
@@ -1668,7 +1668,7 @@ Table of Contents
    Some TCP options are used more frequently than others.  To simplify
    their compression, a part of the item table is reserved for these
    option types, as shown on the table above.  Both the compressor and
-   the decompressor MUST use these mappings between item and indexes to
+   the decompressor <em>MUST</em> use these mappings between item and indexes to
    (de)compress TCP options when using list compression.
 
    It is expected that the option types for which an index is reserved
@@ -1722,7 +1722,7 @@ Table of Contents
 
    A compressed list for TCP options that is part of the dynamic chain
    (e.g., in IR or IR-DYN packets) must have all its list items present,
-   i.e., all X-bits in the XI list MUST be set.
+   i.e., all X-bits in the XI list <em>MUST</em> be set.
 
 <span class="h4"><a class="selflink" name="section-6.3.6" href="#section-6.3.6">6.3.6</a>.  Irregular Chain Items for TCP Options</span>
 
@@ -1971,7 +1971,7 @@ Table of Contents
    Once the compressor is confident that the value of the scaling_factor
    and the value of the residue have been established in the
    decompressor, the compressor may send compressed packets using the
-   scaled representation of the field.  The compressor MUST NOT use
+   scaled representation of the field.  The compressor <em>MUST NOT</em> use
    scaled encoding with the value of the scaling_factor set to zero.
 
    If the compressor detects that the value of the residue has changed,
@@ -1985,7 +1985,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4996.html">RFC 4996</a>                        ROHC-TCP                       July 2007</span>
 
 
-   it MUST NOT use scaled encoding until it is confident that the
+   it <em>MUST NOT</em> use scaled encoding until it is confident that the
    decompressor has received the new value(s) of these fields.
 
    When the unscaled value of the field wraps around, the value of the
@@ -2061,7 +2061,7 @@ Table of Contents
    the scaled encoding can be found in the definitions of the packet
    formats, in <a href="#section-8.2">Section 8.2</a>.
 
-   The compressor MAY use the scaled acknowledgment number encoding;
+   The compressor <em>MAY</em> use the scaled acknowledgment number encoding;
    what value it will use as the scaling factor is up to the compressor
    implementation.  In the case where there is a co-located decompressor
    processing packets of the same TCP flow in the opposite direction,
@@ -2199,7 +2199,7 @@ Table of Contents
       This packet type communicates the static part and the dynamic part
       of the context.
 
-      For the ROHC-TCP IR packet, the value of the x bit MUST be set to
+      For the ROHC-TCP IR packet, the value of the x bit <em>MUST</em> be set to
       one.  It has the following format, which corresponds to the
 
 
@@ -2335,7 +2335,7 @@ Table of Contents
    left in the IR header for "Profile specific information".  For ROHC-
    TCP, this bit is defined as a flag indicating whether this packet is
    an IR packet or an IR-CR packet.  For the ROHC-TCP IR-CR packet, the
-   value of the x bit MUST be set to zero.
+   value of the x bit <em>MUST</em> be set to zero.
 
 
 
@@ -2421,7 +2421,7 @@ Table of Contents
       CRC7: The CRC over the original, uncompressed, header.  Calculated
       according to <a href="./rfc4164.html#section-3.5.1.1">Section&nbsp;3.5.1.1 of [RFC4164]</a>.
 
-      Reserved: MUST be set to zero; otherwise, the decompressor MUST
+      Reserved: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em>
       discard the packet.
 
 
@@ -4999,7 +4999,7 @@ Table of Contents
 
          2 = STATIC-NACK
 
-         3 is reserved (MUST NOT be used for parsability)
+         3 is reserved (<em>MUST NOT</em> be used for parsability)
 
 
 
@@ -5026,9 +5026,9 @@ Table of Contents
 
    The FEEDBACK-2 format always carries a CRC and is thus more robust
    than the FEEDBACK-1 format.  When receiving FEEDBACK-2, the
-   compressor MUST verify the information by computing the CRC and by
+   compressor <em>MUST</em> verify the information by computing the CRC and by
    comparing the result with the CRC carried in the feedback format.  If
-   the two are not identical, the feedback element MUST be discarded.
+   the two are not identical, the feedback element <em>MUST</em> be discarded.
 
 <span class="h4"><a class="selflink" name="section-8.3.2" href="#section-8.3.2">8.3.2</a>.  Feedback Options</span>
 
@@ -5054,8 +5054,8 @@ Table of Contents
       |  Opt Type = 2 |  Opt Len = 0  |
       +---+---+---+---+---+---+---+---+
 
-   When receiving a REJECT option, the compressor MUST stop compressing
-   the packet flow, and SHOULD refrain from attempting to increase the
+   When receiving a REJECT option, the compressor <em>MUST</em> stop compressing
+   the packet flow, and <em>SHOULD</em> refrain from attempting to increase the
    number of compressed packet flows for some time.  The REJECT option
 
 
@@ -5065,8 +5065,8 @@ Table of Contents
 <span class="grey"><a href="./rfc4996.html">RFC 4996</a>                        ROHC-TCP                       July 2007</span>
 
 
-   MUST NOT appear more than once in the FEEDBACK-2 format; otherwise,
-   the compressor MUST discard the entire feedback element.
+   <em>MUST NOT</em> appear more than once in the FEEDBACK-2 format; otherwise,
+   the compressor <em>MUST</em> discard the entire feedback element.
 
 <span class="h5"><a class="selflink" name="section-8.3.2.2" href="#section-8.3.2.2">8.3.2.2</a>.  The MSN-NOT-VALID Option</span>
 
@@ -5077,14 +5077,14 @@ Table of Contents
       |  Opt Type = 3 |  Opt Len = 0  |
       +---+---+---+---+---+---+---+---+
 
-   A compressor MUST ignore the MSN of the feedback element when this
+   A compressor <em>MUST</em> ignore the MSN of the feedback element when this
    option is present.  Consequently, a NACK or a STATIC-NACK feedback
    type sent with the MSN-NOT-VALID option is equivalent to a STATIC-
    NACK with respect to the semantics of the feedback message.
 
-   The MSN-NOT-VALID option MUST NOT appear more than once in the
-   FEEDBACK-2 format and MUST NOT appear in the same feedback element as
-   the MSN option; otherwise, the compressor MUST discard the entire
+   The MSN-NOT-VALID option <em>MUST NOT</em> appear more than once in the
+   FEEDBACK-2 format and <em>MUST NOT</em> appear in the same feedback element as
+   the MSN option; otherwise, the compressor <em>MUST</em> discard the entire
    feedback element.
 
 <span class="h5"><a class="selflink" name="section-8.3.2.3" href="#section-8.3.2.3">8.3.2.3</a>.  The MSN Option</span>
@@ -5101,9 +5101,9 @@ Table of Contents
    concatenated with the 14 bits already present in the FEEDBACK-2
    format.
 
-   The MSN option MUST NOT appear more than once in the FEEDBACK-2
-   format and MUST NOT appear in the same feedback element as the MSN-
-   NOT-VALID option; otherwise, the compressor MUST discard the entire
+   The MSN option <em>MUST NOT</em> appear more than once in the FEEDBACK-2
+   format and <em>MUST NOT</em> appear in the same feedback element as the MSN-
+   NOT-VALID option; otherwise, the compressor <em>MUST</em> discard the entire
    feedback element.
 
 <span class="h5"><a class="selflink" name="section-8.3.2.4" href="#section-8.3.2.4">8.3.2.4</a>.  The CONTEXT_MEMORY Feedback Option</span>
@@ -5126,20 +5126,20 @@ Table of Contents
       |  Opt Type = 9 |  Opt Len = 0  |
       +---+---+---+---+---+---+---+---+
 
-   When receiving a CONTEXT_MEMORY option, the compressor SHOULD take
+   When receiving a CONTEXT_MEMORY option, the compressor <em>SHOULD</em> take
    actions to compress the packet flow in a way that requires less
    decompressor memory resources, or stop compressing the packet flow.
 
-   The CONTEXT_MEMORY option MUST NOT appear more than once in the
-   FEEDBACK-2 format; otherwise, the compressor MUST discard the entire
+   The CONTEXT_MEMORY option <em>MUST NOT</em> appear more than once in the
+   FEEDBACK-2 format; otherwise, the compressor <em>MUST</em> discard the entire
    feedback element.
 
 <span class="h5"><a class="selflink" name="section-8.3.2.5" href="#section-8.3.2.5">8.3.2.5</a>.  Unknown Option Types</span>
 
    If an option type unknown to the compressor is encountered, the
-   compressor MUST continue parsing the rest of the FEEDBACK element,
+   compressor <em>MUST</em> continue parsing the rest of the FEEDBACK element,
    which is possible since the length of the option is explicit, but
-   MUST otherwise ignore the unknown option.
+   <em>MUST</em> otherwise ignore the unknown option.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Security Considerations</span>
 

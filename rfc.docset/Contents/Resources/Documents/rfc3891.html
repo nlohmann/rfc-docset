@@ -392,8 +392,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>",  "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>].
 
    This document refers frequently to the terms "confirmed dialog" and
@@ -422,29 +422,29 @@ Table of Contents
 
    If more than one Replaces header field is present in an INVITE, or if
    a Replaces header field is present in a request other than INVITE,
-   the UAS MUST reject the request with a 400 Bad Request response.
+   the UAS <em>MUST</em> reject the request with a 400 Bad Request response.
 
    The Replaces header has specific call control semantics.  If both a
    Replaces header field and another header field with contradictory
-   semantics are present in a request, the request MUST be rejected with
+   semantics are present in a request, the request <em>MUST</em> be rejected with
    a 400 "Bad Request" response.
 
    If the Replaces header field matches more than one dialog, the UA
-   MUST act as if no match is found.
+   <em>MUST</em> act as if no match is found.
 
    If no match is found, the UAS rejects the INVITE and returns a 481
    Call/Transaction Does Not Exist response.  Likewise, if the Replaces
    header field matches a dialog which was not created with an INVITE,
-   the UAS MUST reject the request with a 481 response.
+   the UAS <em>MUST</em> reject the request with a 481 response.
 
    If the Replaces header field matches a dialog which has already
-   terminated, the UA SHOULD decline the request with a 603 Declined
+   terminated, the UA <em>SHOULD</em> decline the request with a 603 Declined
    response.  (If the matched invitation was just terminated, the
    replacement request should fail as well.  Declining the request with
    a 600-class response prevents an irritating race-condition where the
    UA rings or alerts for a replacement call which is not wanted.)
 
-   If the Replaces header field matches an active dialog, the UA MUST
+   If the Replaces header field matches an active dialog, the UA <em>MUST</em>
    verify that the initiator of the new INVITE is authorized to replace
    the matched dialog.  If the initiator of the new INVITE has been
    successfully authenticated as equivalent to the user who is being
@@ -460,8 +460,8 @@ Table of Contents
    behalf of the other participant in the matched dialog (in this case,
    triggered by a REFER request).  If the replacement request contains a
    Referred-By header that corresponds to the user being replaced, the
-   UA SHOULD treat the replacement as if the replacement was authorized
-   by the replaced party.  The Referred-By header SHOULD reference a
+   UA <em>SHOULD</em> treat the replacement as if the replacement was authorized
+   by the replaced party.  The Referred-By header <em>SHOULD</em> reference a
    corresponding, valid Refererred-By Authenticated Identity Body [<a href="#ref-5" title="&quot;The Session Initiation Protocol (SIP) Authenticated Identity Body (AIB) Format&quot;">5</a>].
 
 
@@ -472,11 +472,11 @@ Table of Contents
 <span class="grey"><a href="./rfc3891.html">RFC 3891</a>               The SIP "Replaces" Header          September 2004</span>
 
 
-   The UA MAY apply other local policy to authorize the remainder of the
+   The UA <em>MAY</em> apply other local policy to authorize the remainder of the
    request.  In other words, the UAS may apply a different policy to the
    replacement dialog than was applied to the replaced dialog.
 
-   In addition, the UA MAY use other authorization mechanisms defined
+   In addition, the UA <em>MAY</em> use other authorization mechanisms defined
    for this purpose in standards track extensions.  Extensions could
    define other mechanisms for transitively asserting authorization of a
    replacement.
@@ -486,7 +486,7 @@ Table of Contents
    matched dialog to the new INVITE, and shut down the replaced dialog.
    If the UA cannot accept the new INVITE (for example: it cannot
    establish required QoS or keying, or it has incompatible media), the
-   UA MUST return an appropriate error response and MUST leave the
+   UA <em>MUST</em> return an appropriate error response and <em>MUST</em> leave the
    matched dialog unchanged.
 
    If the Replaces header field matches a confirmed dialog, it checks
@@ -513,13 +513,13 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  User Agent Client Behavior: Sending a Replaces Header</span>
 
    A User Agent that wishes to replace a single existing early or
-   confirmed dialog with a new dialog of its own, MAY send the target
+   confirmed dialog with a new dialog of its own, <em>MAY</em> send the target
    User Agent an INVITE request containing a Replaces header field.  The
    User Agent Client (UAC) places the Call-ID, to-tag, and from-tag
    information for the target dialog in a single Replaces header field
    and sends the new INVITE to the target.  If the user agent only
    wishes to replace an early dialog (as in the Call Pickup example in
-   <a href="#section-7.1">Section 7.1</a>), the UAC MAY also include the "early-only" parameter in
+   <a href="#section-7.1">Section 7.1</a>), the UAC <em>MAY</em> also include the "early-only" parameter in
 
 
 
@@ -528,7 +528,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3891.html">RFC 3891</a>               The SIP "Replaces" Header          September 2004</span>
 
 
-   the Replaces header field.  A UAC MUST NOT send an INVITE with a
+   the Replaces header field.  A UAC <em>MUST NOT</em> send an INVITE with a
    Replaces header field that attempts to replace an early dialog which
    was not originated by the target of the INVITE with a Replaces header
    field.
@@ -541,7 +541,7 @@ Table of Contents
    dialogs to which Bob's UA redirects, nor other branches to which his
    proxy forwards.  Although this specification takes reasonable
    precautions to prevent unexpected behavior in the face of forking,
-   implementations SHOULD only address replacement requests (i.e., set
+   implementations <em>SHOULD</em> only address replacement requests (i.e., set
    the Request-URI of the replacement request) to the SIP Contact URI of
    the target.
 
@@ -566,7 +566,7 @@ Table of Contents
    by the header field is to be shut down and logically replaced by the
    incoming INVITE in which it is contained.  It is a request header
    only, and defined only for INVITE requests.  The Replaces header
-   field MAY be encrypted as part of end-to-end encryption.  Only a
+   field <em>MAY</em> be encrypted as part of end-to-end encryption.  Only a
    single Replaces header field value may be present in a SIP request.
 
    This document adds the following entry to Table 2 of [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>].  Additions
@@ -603,11 +603,11 @@ Table of Contents
       from-tag        = "from-tag" EQUAL token
       early-flag      = "early-only"
 
-   A Replaces header field MUST contain exactly one to-tag and exactly
+   A Replaces header field <em>MUST</em> contain exactly one to-tag and exactly
    one from-tag, as they are required for unique dialog matching.  For
    compatibility with dialogs initiated by <a href="./rfc2543.html">RFC 2543</a> [<a href="#ref-9" title="&quot;SIP: Session Initiation Protocol&quot;">9</a>] compliant UAs, a
    tag of zero matches both tags of zero and null.  A Replaces header
-   field MAY contain the early-flag.
+   field <em>MAY</em> contain the early-flag.
 
    Examples:
 
@@ -622,9 +622,9 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  New Option Tag for Require and Supported Headers</span>
 
    This specification defines a new Require/Supported header option tag
-   "replaces".  UAs which support the Replaces header MUST include the
+   "replaces".  UAs which support the Replaces header <em>MUST</em> include the
    "replaces" option tag in a Supported header field.  UAs that want
-   explicit failure notification if Replaces is not supported MAY
+   explicit failure notification if Replaces is not supported <em>MAY</em>
    include the "replaces" option in a Require header field.
 
    Example:
@@ -770,12 +770,12 @@ Table of Contents
 
    This extension can be used to disconnect participants or replace
    participants in a multimedia conversation.  As such, invitations with
-   the Replaces header MUST only be accepted if the peer requesting
+   the Replaces header <em>MUST</em> only be accepted if the peer requesting
    replacement has been properly authenticated using a standard SIP
    mechanism (Digest or S/MIME), and authorized to request a replacement
    of the target dialog.  All SIP implementations are already required
    to support Digest Authentication.  In addition, implementations which
-   support the Replaces header SHOULD also implement the Referred-By
+   support the Replaces header <em>SHOULD</em> also implement the Referred-By
    mechanism.
 
    How a User Agent determines which requests are legitimately
@@ -829,7 +829,7 @@ Table of Contents
    original call to prove that she was a former participant.  Note that
    this justification for replacing calls is more dangerous than the
    others, and in most cases is another way to authorize that the
-   replacing participant is available.  Implementations SHOULD NOT rely
+   replacing participant is available.  Implementations <em>SHOULD NOT</em> rely
    on this method as an authorization mechanism.
 
    The last scenario is the easiest to secure but the least likely to be
@@ -846,8 +846,8 @@ Table of Contents
    notifications after a REFER request.  Since manipulating this dialog
    information could cause User Agents to replace the wrong dialog, use
    of message integrity protection for this information is STRONGLY
-   RECOMMENDED.  Use of end-to-end security mechanisms to encrypt this
-   information is also RECOMMENDED.
+   <em>RECOMMENDED</em>.  Use of end-to-end security mechanisms to encrypt this
+   information is also <em>RECOMMENDED</em>.
 
    This extension was designed to take advantage of future signature or
    authorization schemes defined in standards track extensions.  In

@@ -371,8 +371,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    DHT:  Distributed Hash Tables (DHTs) are a class of decentralized
@@ -657,20 +657,20 @@ Table of Contents
    Before registering as a service provider or performing a service
    lookup, a peer needs to determine the starting level Lstart for the
    registration or lookup operation in the ReDiR tree.  It is
-   RECOMMENDED that Lstart is set to 2.  This recommendation is based on
+   <em>RECOMMENDED</em> that Lstart is set to 2.  This recommendation is based on
    the findings in [<a href="#ref-Redir" title="&quot;OpenDHT: A Public DHT Service and Its Uses&quot;">Redir</a>], which indicate that this starting level
    results in good performance.  In subsequent registrations, Lstart
-   MAY, as an optimization, be set to the lowest level at which a
+   <em>MAY</em>, as an optimization, be set to the lowest level at which a
    registration operation has last completed.
 
-   In the case of subsequent service lookups, nodes MAY, as an
+   In the case of subsequent service lookups, nodes <em>MAY</em>, as an
    optimization, record the levels at which the last 16 service lookups
    completed and take Lstart to be the mode of those depths (mode, in
    statistics, is the value that appears most often in a set of data).
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Service Provider Registration</span>
 
-   A node MUST use the following procedure to register as a service
+   A node <em>MUST</em> use the following procedure to register as a service
    provider in the RELOAD Overlay Instance:
 
    1.  A node n with Node-ID n.id wishing to register as a service
@@ -678,10 +678,10 @@ Table of Contents
        the details on selecting the starting level).  Therefore, node n
        sets the current level to level=Lstart.
 
-   2.  Node n MUST send a RELOAD Fetch request to fetch the contents of
+   2.  Node n <em>MUST</em> send a RELOAD Fetch request to fetch the contents of
        the tree node responsible for I(level,n.id).  An interval I(l,k)
        is the interval at level l in the ReDiR tree that includes key k.
-       The fetch MUST be a wildcard fetch.
+       The fetch <em>MUST</em> be a wildcard fetch.
 
 
 
@@ -693,7 +693,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7374.html">RFC 7374</a>           Service Discovery Usage for RELOAD       October 2014</span>
 
 
-   3.  Node n MUST send a RELOAD Store request to add its
+   3.  Node n <em>MUST</em> send a RELOAD Store request to add its
        RedirServiceProvider entry to the dictionary stored in the tree
        node responsible for I(level,n.id).  Note that node n always
        stores its RedirServiceProvider entry, regardless of the contents
@@ -701,20 +701,20 @@ Table of Contents
 
    4.  If node n's Node-ID (n.id) is the lowest or highest Node-ID
        stored in the tree node responsible for I(Lstart,n.id), node n
-       MUST reduce the current level by one (i.e., set level=level-1)
+       <em>MUST</em> reduce the current level by one (i.e., set level=level-1)
        and continue up the ReDiR tree towards the root level (level 0),
-       repeating steps 2 and 3 above.  Node n MUST continue in this way
+       repeating steps 2 and 3 above.  Node n <em>MUST</em> continue in this way
        until it reaches either the root of the tree or a level at which
        n.id is not the lowest or highest Node-ID in the interval
        I(level,n.id).
 
-   5.  Node n MUST also perform a downward walk in the ReDiR tree,
+   5.  Node n <em>MUST</em> also perform a downward walk in the ReDiR tree,
        during which it goes through the tree nodes responsible for
        intervals I(Lstart,n.id), I(Lstart+1,n.id), I(Lstart+2,n.id),
-       etc.  At each step, node n MUST fetch the responsible tree node
+       etc.  At each step, node n <em>MUST</em> fetch the responsible tree node
        and store its RedirServiceProvider record in that tree node if
        n.id is the lowest or highest Node-ID in its interval.  Node n
-       MUST end this downward walk as soon as it reaches a level l at
+       <em>MUST</em> end this downward walk as soon as it reaches a level l at
        which it is the only service provider in its interval I(l,n.id).
 
    Note that above, when we refer to 'the tree node responsible for
@@ -726,16 +726,16 @@ Table of Contents
 
    All state in the ReDiR tree is soft.  Therefore, a service provider
    needs to periodically repeat the registration process to refresh its
-   RedirServiceProvider Resource Record.  If a record expires, it MUST
+   RedirServiceProvider Resource Record.  If a record expires, it <em>MUST</em>
    be dropped from the dictionary by the peer storing the tree node.
    Deciding an appropriate lifetime for the RedirServiceProvider
    Resource Records is up to each service provider.  However, a default
-   value of 10 minutes is RECOMMENDED as this is a good trade-off
+   value of 10 minutes is <em>RECOMMENDED</em> as this is a good trade-off
    between keeping the amount of ReDiR traffic in the overlay at a
    reasonable level and ensuring that stale information is removed
-   quickly enough.  Every service provider MUST repeat the entire
+   quickly enough.  Every service provider <em>MUST</em> repeat the entire
    registration process periodically until it leaves the RELOAD Overlay
-   Instance.  The service provider SHOULD initiate each refresh process
+   Instance.  The service provider <em>SHOULD</em> initiate each refresh process
    slightly earlier (e.g., when 90% of the refresh interval has passed)
    than the expiry time of the Resource Record.
 
@@ -765,10 +765,10 @@ Table of Contents
    operation described in <a href="#section-4.3">Section 4.3</a>.  Service lookups start from a
    given starting level level=Lstart in the ReDiR tree (see <a href="#section-4.2">Section 4.2</a>
    for the details on selecting the starting level).  At each step, a
-   node n wishing to discover a service provider MUST fetch the tree
+   node n wishing to discover a service provider <em>MUST</em> fetch the tree
    node responsible for the interval I(level,n.id) that encloses the
    search key n.id at the current level using a RELOAD Fetch request.
-   Having fetched the tree node, node n MUST determine the next action
+   Having fetched the tree node, node n <em>MUST</em> determine the next action
    to carry out as follows:
 
    Condition 1
@@ -779,7 +779,7 @@ Table of Contents
       the successor of node n must be present in a larger segment of the
       identifier space (i.e., further up in the ReDiR tree where each
       interval and tree node covers a larger range of the identifier
-      space).  Therefore, node n MUST reduce the current level by one to
+      space).  Therefore, node n <em>MUST</em> reduce the current level by one to
       level=level-1 and carry out a new Fetch operation for the tree
       node responsible for n.id at that level.  The fetched tree node is
       then analyzed and the next action determined by checking
@@ -789,8 +789,8 @@ Table of Contents
 
       If n.id is neither the lowest nor the highest Node-ID within the
       interval (note: within the interval, not within the entire tree
-      node) I(level,n.id), n MUST next check the tree node responsible
-      for n.id at the next level down the tree.  Thus, node n MUST
+      node) I(level,n.id), n <em>MUST</em> next check the tree node responsible
+      for n.id at the next level down the tree.  Thus, node n <em>MUST</em>
       increase the level by one to level=level+1 and carry out a new
       Fetch operation at that level.  The fetched tree node is then
       analyzed and the next action determined by checking the conditions
@@ -840,8 +840,8 @@ Table of Contents
    needs to be carried out again.
 
    To recover from the kinds of situations described above, a ReDiR
-   implementation MAY choose to use the optimization described next.
-   The ReDiR implementation MAY implement a local temporary cache that
+   implementation <em>MAY</em> choose to use the optimization described next.
+   The ReDiR implementation <em>MAY</em> implement a local temporary cache that
    is maintained for the duration of a service lookup operation in a
    RELOAD node.  The temporary cache is used to store all
    RedirServiceProvider entries that have been fetched during the upward
@@ -863,7 +863,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>.  Removing Registrations</span>
 
-   Before leaving the RELOAD Overlay Instance, a service provider SHOULD
+   Before leaving the RELOAD Overlay Instance, a service provider <em>SHOULD</em>
    remove the RedirServiceProvider records it has stored by storing
    exists=False values in their place, as described in [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>].
 
@@ -882,15 +882,15 @@ Table of Contents
    specified in the RELOAD base protocol [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>] is sufficient.
 
    This document defines a new access control policy, called NODE-ID-
-   MATCH.  In this policy, a given value MUST be written and overwritten
+   MATCH.  In this policy, a given value <em>MUST</em> be written and overwritten
    only if the request is signed with a key associated with a
    certificate whose Node-ID is equal to the dictionary key.  In
-   addition, provided that exists=True, the Node-ID MUST belong to one
+   addition, provided that exists=True, the Node-ID <em>MUST</em> belong to one
    of the intervals associated with the tree node (the number of
    intervals each tree node has is determined by the branching-factor
    parameter).  Finally, provided that exists=True,
    H(namespace,level,node), where namespace, level, and node are taken
-   from the RedirServiceProvider structure being stored, MUST be equal
+   from the RedirServiceProvider structure being stored, <em>MUST</em> be equal
    to the Resource-ID for the resource.  The NODE-ID-MATCH policy may
    only be used with dictionary types.
 

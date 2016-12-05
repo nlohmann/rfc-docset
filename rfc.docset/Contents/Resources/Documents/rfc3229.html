@@ -1158,7 +1158,7 @@ Table of Contents
 
       ...
 
-   "MUST NOT" be stored by a cache that complies with the HTTP/1.1
+   "<em>MUST NOT</em>" be stored by a cache that complies with the HTTP/1.1
    specification (which states that the max-age cache-directive "implies
    that the response is cacheable [...] unless some other, more
    restrictive cache directive is also present.").  However, a cache
@@ -1739,8 +1739,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a> Specification</span>
 
-   In this specification, the key words "MUST", "MUST NOT", "SHOULD",
-   "SHOULD NOT", and "MAY" are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
+   In this specification, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHOULD</em>",
+   "<em>SHOULD NOT</em>", and "<em>MAY</em>" are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
    <a href="./rfc2119.html">2119</a> [3].
 
 <span class="h3"><a class="selflink" name="section-10.1" href="#section-10.1">10.1</a> Protocol parameter specifications</span>
@@ -1763,7 +1763,7 @@ Table of Contents
       imparams = ";" imparam-name [ "=" ( token | quoted-string ) ]
       imparam-name = token
 
-   Note that the imparam-name MUST NOT be "q", to avoid ambiguity with
+   Note that the imparam-name <em>MUST NOT</em> be "q", to avoid ambiguity with
    the use of qvalues (see [10]).
 
    The set of instance-manipulation values is initially:
@@ -1830,7 +1830,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-10.3" href="#section-10.3">10.3</a> Basic requirements for delta-encoded responses</span>
 
-   A server MAY send a delta-encoded response if all of these conditions
+   A server <em>MAY</em> send a delta-encoded response if all of these conditions
    are true:
 
       1. The server would be able to send a 200 (OK) response for the
@@ -1845,12 +1845,12 @@ Table of Contents
 
    A delta-encoded response:
 
-      -  MUST carry a status code of 226 (IM Used).
+      -  <em>MUST</em> carry a status code of 226 (IM Used).
 
-      -  MUST include an IM header field listing, at least, the delta-
+      -  <em>MUST</em> include an IM header field listing, at least, the delta-
          coding employed.
 
-      -  MAY include a Delta-Base header field listing the entity tag of
+      -  <em>MAY</em> include a Delta-Base header field listing the entity tag of
          the base-instance.
 
 <span class="h3"><a class="selflink" name="section-10.4" href="#section-10.4">10.4</a> Status code specifications</span>
@@ -1882,16 +1882,16 @@ Table of Contents
    status-226 response and the other instances, following the rules in
    <a href="#section-13.5.3">section 13.5.3</a> of the HTTP/1.1 specification [10].
 
-   The request MUST have included an A-IM header field listing at least
-   one instance-manipulation.  The response MUST include an Etag header
+   The request <em>MUST</em> have included an A-IM header field listing at least
+   one instance-manipulation.  The response <em>MUST</em> include an Etag header
    field giving the entity tag of the current instance.
 
-   A response received with a status code of 226 MAY be stored by a
+   A response received with a status code of 226 <em>MAY</em> be stored by a
    cache and used in reply to a subsequent request, subject to the HTTP
    expiration mechanism and any Cache-Control headers, and to the
    requirements in <a href="#section-10.6">section 10.6</a>.
 
-   A response received with a status code of 226 MAY be used by a cache,
+   A response received with a status code of 226 <em>MAY</em> be used by a cache,
    in conjunction with a cache entry for the base instance, to create a
    cache entry for the current instance.
 
@@ -1909,11 +1909,11 @@ Table of Contents
 
       Delta-Base = "Delta-Base" ":" entity-tag
 
-   A Delta-Base header field MUST be included in a response with an IM
+   A Delta-Base header field <em>MUST</em> be included in a response with an IM
    header that includes a delta-coding, if the request included more
    than one entity tag in its If-None-Match header field.
 
-   Any response with an IM header that includes a delta-coding MAY
+   Any response with an IM header that includes a delta-coding <em>MAY</em>
    include a Delta-Base header.
 
 
@@ -1927,12 +1927,12 @@ Table of Contents
 
 
       We are not aware of other cases where a delta-encoded response
-      MUST or SHOULD include a Delta-Base header, but we have not done
+      <em>MUST</em> or <em>SHOULD</em> include a Delta-Base header, but we have not done
       an exhaustive or formal analysis.  Implementors might be wise to
       include a Delta-Base header in every delta-encoded response.
 
    A cache or proxy that receives a delta-encoded response that lacks a
-   Delta-base header MAY add a Delta-Base header whose value is the
+   Delta-base header <em>MAY</em> add a Delta-Base header whose value is the
    entity tag given in the If-None-Match field of the request (but only
    if that field lists exactly one entity tag).
 
@@ -1949,18 +1949,18 @@ Table of Contents
 
    As a special case, if the instance-manipulations include both range
    selection and at least one other non-identity instance-manipulation,
-   the IM header field MUST be used to indicate the order in which all
+   the IM header field <em>MUST</em> be used to indicate the order in which all
    of these instance-manipulations, including range selection, were
    applied.  If the IM header lists the "range" instance-manipulation,
-   the response MUST include either a Content-Range header or a
+   the response <em>MUST</em> include either a Content-Range header or a
    multipart/byteranges Content-Type in which each part contains a
    Content-Range header.  (See <a href="#section-10.10">section 10.10</a> for specific discussion of
    combining delta encoding and multipart/byteranges.)
 
-   Responses that include an IM header MUST carry a response status code
+   Responses that include an IM header <em>MUST</em> carry a response status code
    of 226 (IM Used), as specified in <a href="#section-10.4.1">section 10.4.1</a>.
 
-   The server SHOULD omit the IM header if it would list only the
+   The server <em>SHOULD</em> omit the IM header if it would list only the
    "range" instance-manipulation.  Such responses would normally be sent
    with response status code 206 (Partial Content), as specified by
    HTTP/1.1 [10].
@@ -1994,7 +1994,7 @@ Table of Contents
    identical ranges of a previous base instance.
 
    A cache using a response received in reply to one request to reply to
-   a subsequent request MUST follow the rules in <a href="#section-10.6">section 10.6</a> if the
+   a subsequent request <em>MUST</em> follow the rules in <a href="#section-10.6">section 10.6</a> if the
    cached response includes an IM header field.
 
 <span class="h4"><a class="selflink" name="section-10.5.3" href="#section-10.5.3">10.5.3</a> A-IM</span>
@@ -2008,7 +2008,7 @@ Table of Contents
                                [ ";" "q" "=" qvalue ] )
 
    When an A-IM request-header field includes one or more delta-coding
-   values, the request MUST contain an If-None-Match header field,
+   values, the request <em>MUST</em> contain an If-None-Match header field,
    listing one or more entity tags from prior responses for the
    request-URI.
 
@@ -2019,7 +2019,7 @@ Table of Contents
       1. If the instance-manipulation is listed in the A-IM field, then
          it is acceptable, unless it is accompanied by a qvalue of 0.
          (As defined in <a href="#section-3.9">section 3.9</a> of the HTTP/1.1 specification [10],
-         a qvalue of 0 means "not acceptable.")  A server MUST NOT use a
+         a qvalue of 0 means "not acceptable.")  A server <em>MUST NOT</em> use a
          non-identity instance-manipulation for a response unless the
          instance-manipulation is listed in an A-IM header in the
          request.
@@ -2044,15 +2044,15 @@ Table of Contents
 
    If an A-IM field is present in a request, and if the server cannot
    send a response which is acceptable according to the A-IM header,
-   then the server SHOULD send an error response with the 406 (Not
+   then the server <em>SHOULD</em> send an error response with the 406 (Not
    Acceptable) status code.
 
    If a response uses more than one instance-manipulation, the
-   instance-manipulations MUST be applied in the order in which they
+   instance-manipulations <em>MUST</em> be applied in the order in which they
    appear in the A-IM request-header field.
 
    The server's choice about whether to apply an instance-manipulation
-   SHOULD be independent of its choice to apply any subsequent two-input
+   <em>SHOULD</em> be independent of its choice to apply any subsequent two-input
    instance-manipulations to the response.  (Two-input instance-
    manipulations include delta-codings, because they take two different
    values as input.  Compression and "range" instance-manipulations take
@@ -2100,25 +2100,25 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-10.6" href="#section-10.6">10.6</a> Caching rules for 226 responses</span>
 
-   When a client or proxy receives a 226 (IM Used) response, it MAY use
+   When a client or proxy receives a 226 (IM Used) response, it <em>MAY</em> use
    this response to create a cache entry in three ways:
 
-      1. It MAY decode all of the instance-manipulations to recover the
+      1. It <em>MAY</em> decode all of the instance-manipulations to recover the
          original instance, and store that instance in the cache.  In
          this case, the recovered instance is stored as a status-200
-         response, and MUST be used in accordance with the normal HTTP
+         response, and <em>MUST</em> be used in accordance with the normal HTTP
          caching rules.
 
-      2. It MAY decode all of the instance-manipulations except for
+      2. It <em>MAY</em> decode all of the instance-manipulations except for
          range selection(s), and store the result in the cache.  In this
-         case, the result is stored as a status-206 response, and MUST
+         case, the result is stored as a status-206 response, and <em>MUST</em>
          be used in accordance with the normal HTTP caching rules for
          Partial Content.
 
-      3. It MAY store the status-226 (IM Used) response as a cache
+      3. It <em>MAY</em> store the status-226 (IM Used) response as a cache
          entry.
 
-   A status-226 cache entry MUST NOT be used in response to a subsequent
+   A status-226 cache entry <em>MUST NOT</em> be used in response to a subsequent
    request under any of these conditions (a cache that never stores
    status-226 responses may ignore these tests):
 
@@ -2169,7 +2169,7 @@ Table of Contents
          match the If-None-Match header field of the subsequent request.
 
    If the IM header field of the cached response includes the "range"
-   instance-manipulation, then a status-226 cache entry MUST NOT be used
+   instance-manipulation, then a status-226 cache entry <em>MUST NOT</em> be used
    in response to a subsequent request if the cached response is
    inconsistent with the Range header field value(s) in the request, as
    would be the case for a cached 206 (Partial Content) response.
@@ -2210,7 +2210,7 @@ Table of Contents
 
    When a server generates a delta-encoded response, the list of
    content-codings the server uses (i.e., the value of the response's
-   Content-Encoding header field) SHOULD be a prefix of the list of
+   Content-Encoding header field) <em>SHOULD</em> be a prefix of the list of
    content-codings the server would have used had it not generated a
    delta encoding.
 
@@ -2238,7 +2238,7 @@ Table of Contents
       3. If a proxy or cache is forwarding the result of applying the
          delta response to a cached base instance response, or later
          forwards this result from a cache entry, the forwarded response
-         MUST carry the same Content-Encoding header field as the new
+         <em>MUST</em> carry the same Content-Encoding header field as the new
          (delta) response (and so it must be content-encoded as
          indicated by that header field).
 
@@ -2409,7 +2409,7 @@ Table of Contents
    include the response's Age in its calculations.
 
    If the retain directive includes a delta-seconds value of zero, a
-   client SHOULD NOT use the corresponding entity tag in a future
+   client <em>SHOULD NOT</em> use the corresponding entity tag in a future
    request for a delta-encoded response.
 
       Note: We recommend that server implementors consider the bandwidth
@@ -2434,10 +2434,10 @@ Table of Contents
               | "im"
 
    A cache that complies with the specification for the IM header, the
-   A-IM header, and the 226 response-status code SHOULD ignore a no-
+   A-IM header, and the 226 response-status code <em>SHOULD</em> ignore a no-
    store cache-directive if an im directive is present in the same
-   response.  All other implementations MUST ignore the im directive
-   (i.e., MUST observe a no-store directive, if present).
+   response.  All other implementations <em>MUST</em> ignore the im directive
+   (i.e., <em>MUST</em> observe a no-store directive, if present).
 
 <span class="h3"><a class="selflink" name="section-10.9" href="#section-10.9">10.9</a> Use of compression with delta encoding</span>
 
@@ -2496,10 +2496,10 @@ Table of Contents
    are associated with the entire response, not with the individual
    parts.  (This is because there is only one base instance and one
    current instance involved.)  A delta-encoded response with multiple
-   ranges MUST use the same delta-coding for all of the ranges.
+   ranges <em>MUST</em> use the same delta-coding for all of the ranges.
 
    If a server chooses to use a delta encoding for a
-   multipart/byteranges response, it MUST generate a response in
+   multipart/byteranges response, it <em>MUST</em> generate a response in
    accordance with the following rules.
 
    When a multipart/byteranges response uses a delta-coding prior to a

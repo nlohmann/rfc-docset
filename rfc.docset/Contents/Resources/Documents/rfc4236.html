@@ -508,14 +508,14 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  Profile Parts</span>
 
-   An OCP agent MUST send application message parts in the order implied
+   An OCP agent <em>MUST</em> send application message parts in the order implied
    by the profile parts lists above.  An OCP agent receiving an out-of-
-   order part MAY terminate the transaction with an error.
+   order part <em>MAY</em> terminate the transaction with an error.
 
-   An OPES processor MUST NOT send parts that are not listed as
-   "original" in the negotiated profile.  A callout server MUST NOT send
+   An OPES processor <em>MUST NOT</em> send parts that are not listed as
+   "original" in the negotiated profile.  A callout server <em>MUST NOT</em> send
    parts that are not listed as "adapted" in the negotiated profile.  An
-   OCP agent receiving an not-listed part MUST terminate the transaction
+   OCP agent receiving an not-listed part <em>MUST</em> terminate the transaction
    with an error.  The informal rationale for the last requirement is to
    reduce the number of subtle interoperability problems where an agent
 
@@ -532,16 +532,16 @@ Table of Contents
 
    Some HTTP messages lack certain parts.  For example, many HTTP
    requests do not have bodies, and most HTTP messages do not have
-   trailers.  An OCP agent MUST NOT send (i.e., must skip) absent
+   trailers.  An OCP agent <em>MUST NOT</em> send (i.e., must skip) absent
    application message parts.
 
-   An OCP agent MUST send present non-auxiliary parts and it MUST send
+   An OCP agent <em>MUST</em> send present non-auxiliary parts and it <em>MUST</em> send
    those present auxiliary parts that were negotiated via the Aux-Parts
-   (<a href="#section-3.2.3">Section 3.2.3</a>) parameter.  OCP agents MUST NOT send auxiliary parts
+   (<a href="#section-3.2.3">Section 3.2.3</a>) parameter.  OCP agents <em>MUST NOT</em> send auxiliary parts
    that were not negotiated via the Aux-Parts (<a href="#section-3.2.3">Section 3.2.3</a>) parameter.
 
    An OCP agent receiving a message part in violation of the above
-   requirements MAY terminate the corresponding transaction with an
+   requirements <em>MAY</em> terminate the corresponding transaction with an
    error.
 
    By design, original parts not included in the adapted parts list
@@ -549,11 +549,11 @@ Table of Contents
    parts in the adapted parts list even though it may have access to
    other parts.
 
-   In the request profile, the callout server MUST send either adapted
+   In the request profile, the callout server <em>MUST</em> send either adapted
 
    request parts or adapted response parts.  An OPES processor receiving
    adapted flow with application message parts from both lists (in
-   violation of the previous rule) MUST terminate the OCP transaction
+   violation of the previous rule) <em>MUST</em> terminate the OCP transaction
    with an error.  Informally, the callout server sends adapted response
    parts to "short-circuit" the HTTP transaction, forcing the OPES
    processor to return an HTTP response without forwarding an adapted
@@ -561,7 +561,7 @@ Table of Contents
    example, to an HTTP request that the callout service defines as
    forbidden.
 
-   Unless explicitly configured to do otherwise, an OPES processor MUST
+   Unless explicitly configured to do otherwise, an OPES processor <em>MUST</em>
    offer all non-auxiliary original parts in Negotiation Offer (NO)
    messages.  See <a href="#section-3.5">Section 3.5</a> for this rule rationale and examples of
    harmful side-effects from selective adaptation.
@@ -621,14 +621,14 @@ Table of Contents
    The Aux-Parts parameter of an HTTP response profile can be used to
    negotiate the inclusion of auxiliary application message parts into
    the original data flow.  The parameter is a possibly empty list of
-   am-part tokens.  An OPES processor MAY send an Aux-Parts parameter to
+   am-part tokens.  An OPES processor <em>MAY</em> send an Aux-Parts parameter to
    advertise availability of auxiliary application message parts.  A
-   callout server MAY respond with a possibly empty subset of the parts
+   callout server <em>MAY</em> respond with a possibly empty subset of the parts
    it needs.  The callout server response defines the subset of
    successfully negotiated auxiliary message parts.
 
    When receiving a Negotiation Offer (NO) message, the callout server
-   MUST ignore any non-auxiliary part listed in the Aux-Parts parameter.
+   <em>MUST</em> ignore any non-auxiliary part listed in the Aux-Parts parameter.
    When sending a Negotiation Response (NR) message, the callout server
 
 
@@ -638,11 +638,11 @@ Table of Contents
 <span class="grey"><a href="./rfc4236.html">RFC 4236</a>               HTTP Adaptation with OPES           November 2005</span>
 
 
-   MUST NOT select any application message part that was not explicitly
+   <em>MUST NOT</em> select any application message part that was not explicitly
    listed in the negotiation offer.  In case of a violation of the last
-   rule, the OPES processor MUST terminate the transaction.
+   rule, the OPES processor <em>MUST</em> terminate the transaction.
 
-   An OPES processor MUST send each negotiated auxiliary part to the
+   An OPES processor <em>MUST</em> send each negotiated auxiliary part to the
    callout server, unless the part is absent.
 
    Example:
@@ -652,7 +652,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.4" href="#section-3.2.4">3.2.4</a>.  Pause-At-Body</span>
 
-   A callout server MAY use the Pause-At-Body parameter to request a
+   A callout server <em>MAY</em> use the Pause-At-Body parameter to request a
    pause in original application message body transmission before
    original dataflow starts.  The parameter's value is of type "offset".
    The parameter specifies the start of the non-auxiliary application
@@ -665,7 +665,7 @@ Table of Contents
 
                                  Figure 4
 
-   When an OPES processor receives a Pause-At-Body parameter, it MUST
+   When an OPES processor receives a Pause-At-Body parameter, it <em>MUST</em>
    behave as if it has received a Want Data Paused (DWP) message with
    the corresponding org-offset.  Note that the latter offset is
    different from the Pause-At-Body offset and is unknown until the size
@@ -696,17 +696,17 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.5" href="#section-3.2.5">3.2.5</a>.  Stop-Receiving-Body</span>
 
-   A callout server MAY use the Stop-Receiving-Body parameter to imply a
+   A callout server <em>MAY</em> use the Stop-Receiving-Body parameter to imply a
    Want Stop Receiving Data (DWSR) message behavior before the original
    dataflow starts.  The parameter's value is of type "offset".  The
    parameter specifies an offset into the original, non-auxiliary
    message body part (request-body in request profile and response-body
    in response profile).
 
-   A callout service MAY send a Stop-Receiving-Body parameter with its
+   A callout service <em>MAY</em> send a Stop-Receiving-Body parameter with its
    negotiation response if there is a fixed offset into the message body
    for all transactions of a profile for which a Want Stop Receiving
-   Data (DWSR) message would be sent.  An OPES processor MUST behave as
+   Data (DWSR) message would be sent.  An OPES processor <em>MUST</em> behave as
    if it has received a DWSR message with the corresponding offset.
    Note that the latter offset is different from the Stop-Receiving-Body
    offset and is unknown until the size of the HTTP message headers is
@@ -731,10 +731,10 @@ Table of Contents
    message body part (request-body in HTTP request profile and
    response-body in response profile).
 
-   A callout service MAY send a Preservation-Interest-Body parameter
+   A callout service <em>MAY</em> send a Preservation-Interest-Body parameter
    with its negotiation response if there is a fixed-size prefix of the
    application message body for which a Data Preservation Interest (DPI)
-   message would be sent.  An OPES processor MUST behave as if it
+   message would be sent.  An OPES processor <em>MUST</em> behave as if it
    receives a DPI message with org-offset zero and org-size equal to the
    value of the Preservation-Interest-Body parameter.
 
@@ -763,13 +763,13 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.7" href="#section-3.2.7">3.2.7</a>.  Content-Encodings</span>
 
-   A callout server MAY send a Content-Encodings list to indicate its
+   A callout server <em>MAY</em> send a Content-Encodings list to indicate its
    preferences in content encodings.  Encodings listed first are
-   preferred to other encodings.  An OPES processor MAY use any content
+   preferred to other encodings.  An OPES processor <em>MAY</em> use any content
    encoding when sending application messages to a callout server.
 
    The list of preferred content encodings does not imply lack of
-   support for other encodings.  The OPES processor MUST NOT bypass a
+   support for other encodings.  The OPES processor <em>MUST NOT</em> bypass a
    service just because the actual content encoding does not match the
    service's preferences.
 
@@ -879,9 +879,9 @@ Table of Contents
 
    An OCP agent that knows the exact length of the HTTP message entity
    (see <a href="#section-7.2.2">Section 7.2.2</a> "Entity Length" in [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>]) at the time it sends
-   the AMS message, SHOULD announce this length using the AM-EL named
+   the AMS message, <em>SHOULD</em> announce this length using the AM-EL named
    parameter of an AMS message.  If the exact entity length is not
-   known, an OCP agent MUST NOT send an AM-EL parameter.  Relaying
+   known, an OCP agent <em>MUST NOT</em> send an AM-EL parameter.  Relaying
    correct entity length can have significant performance advantages for
    the recipient, and implementations are strongly encouraged to relay
    known entity lengths.  Similarly, relaying incorrect entity length
@@ -889,7 +889,7 @@ Table of Contents
    implementations are urged to exercise great care when relaying entity
    length.
 
-   An OPES processor receiving an AM-EL parameter SHOULD use the
+   An OPES processor receiving an AM-EL parameter <em>SHOULD</em> use the
    parameter's value in a Content-Length HTTP entity header when
    constructing an HTTP message, provided a Content-Length HTTP entity
    header is allowed for the given application message by HTTP (see
@@ -903,7 +903,7 @@ Table of Contents
 
                                  Figure 11
 
-   An OCP agent MUST send an AM-Part parameter with every DUM message
+   An OCP agent <em>MUST</em> send an AM-Part parameter with every DUM message
    that is a part of an OCP transaction with an HTTP profile.  The AM-
    Part parameter value is a single am-part token.  As implied by the
    syntax, a DUM message can only contain data of a single application
@@ -953,7 +953,7 @@ Table of Contents
    includes HTTP messages such as 1xx (Informational) responses, POST,
    CONNECT, and OPTIONS requests, as well as responses with extension
    status codes and requests with extension methods.  Unless
-   specifically configured to do otherwise, an OPES processor MUST
+   specifically configured to do otherwise, an OPES processor <em>MUST</em>
    forward all HTTP messages for adaptation at callout servers.  OPES
    bypass instructions, configured HTTP message handling rules, and
    OCP-negotiation with a callout server are all examples of an
@@ -988,8 +988,8 @@ Table of Contents
    HTTP defines several hop-by-hop headers (e.g., Connection) and allows
    for extension headers to be specified as hop-by-hop ones (via the
    Connection header mechanism).  Depending on the environment and
-   configuration, an OPES processor MAY forward hop-by-hop headers to
-   callout servers and MAY use hop-by-hop headers returned by callout
+   configuration, an OPES processor <em>MAY</em> forward hop-by-hop headers to
+   callout servers and <em>MAY</em> use hop-by-hop headers returned by callout
    servers to build an HTTP message for the next application hop.
    However, see <a href="#section-3.7">Section 3.7</a> for requirements specific to the Transfer-
    Encoding header.
@@ -1008,18 +1008,18 @@ Table of Contents
    feature of HTTP.  Adaptations that use HTTP transfer encodings have
    to be explicitly negotiated.  This specification does not document
    such negotiations.  In the absence of explicit transfer-encoding
-   negotiations, an OCP agent MUST NOT send transfer-encoded application
+   negotiations, an OCP agent <em>MUST NOT</em> send transfer-encoded application
    message bodies.
 
    Informally, the above rule means that the agent or its environment
    have to make sure that all transfer encodings are stripped from an
-   HTTP message body before it enters OCP scope.  An agent MUST
+   HTTP message body before it enters OCP scope.  An agent <em>MUST</em>
    terminate the OCP transaction if it has to send an application
    message body but cannot remove all transfer encodings.  Violations of
    these rules lead to interoperability problems.
 
    If an OCP agent receives transfer-encoded application data in
-   violation of the above requirement, the agent MAY terminate the
+   violation of the above requirement, the agent <em>MAY</em> terminate the
    corresponding OCP transaction.
 
 
@@ -1030,11 +1030,11 @@ Table of Contents
 <span class="grey"><a href="./rfc4236.html">RFC 4236</a>               HTTP Adaptation with OPES           November 2005</span>
 
 
-   An OPES processor removing transfer encodings MUST remove the
+   An OPES processor removing transfer encodings <em>MUST</em> remove the
    Transfer-Encoding header before sending the header part to the
    callout service.  A callout server receiving a Transfer-Encoding
-   header MAY assume that original application data is still transfer-
-   encoded (and terminate the transaction).  The OPES processor MUST
+   header <em>MAY</em> assume that original application data is still transfer-
+   encoded (and terminate the transaction).  The OPES processor <em>MUST</em>
    send a correct Transfer-Encoding header to the next HTTP recipient,
    independent of what header (if any) the callout server returned.
 
@@ -1046,7 +1046,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.8" href="#section-3.8">3.8</a>.  HTTP Header Correctness</span>
 
-   When communicating with HTTP applications, OPES processors MUST
+   When communicating with HTTP applications, OPES processors <em>MUST</em>
    ensure correctness of all computable HTTP headers documented in
    specifications that the processors intend to be compliant with.  A
    computable header is defined as a header whose value can be computed
@@ -1061,7 +1061,7 @@ Table of Contents
    processor trusts certain HTTP headers that a callout service sends,
    it can use those headers "as is".
 
-   An OPES processor MAY forward a partially adapted HTTP message from a
+   An OPES processor <em>MAY</em> forward a partially adapted HTTP message from a
    callout server to the next callout server, without verifying HTTP
    header correctness.  Consequently, a callout service cannot assume
    that the HTTP headers it receives are correct or final from an HTTP
@@ -1072,7 +1072,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.8.1" href="#section-3.8.1">3.8.1</a>.  Message Size Recalculation</span>
 
-   By default, an OCP agent MUST NOT trust the Content-Length header
+   By default, an OCP agent <em>MUST NOT</em> trust the Content-Length header
    that is sent within an HTTP header message part.  The message length
    could be modified by a callout service without adaptation of the HTTP
    message headers.
@@ -1096,39 +1096,39 @@ Table of Contents
    the HTTP connection ought to be the last resort:
 
    o  If the callout server sends an AM-EL parameter with its AMS
-      message, the OPES processor SHOULD use this value to create a
+      message, the OPES processor <em>SHOULD</em> use this value to create a
       Content-Length header to be able to keep a persistent HTTP
       connection.  Note that HTTP rules prohibit a Content-Length header
       to be used in transfer-encoded messages.
 
    o  If AM-EL parameter or equivalent entity length information is not
       available, and HTTP rules allow for chunked transfer encoding, the
-      OPES processor SHOULD use chunked transfer encoding.  Note that
+      OPES processor <em>SHOULD</em> use chunked transfer encoding.  Note that
       any Content-Length header has to be removed in this case.
 
    o  If the message size is not known a priori and chunked transfer
       coding cannot be used, but the OPES processor can wait for the OCP
       transaction to finish before forwarding the adapted HTTP message
-      on a persistent HTTP connection, then the processor SHOULD compute
+      on a persistent HTTP connection, then the processor <em>SHOULD</em> compute
       and add a Content-Length header.
 
    o  Finally, if all optimizations are not applicable, the OPES
-      processor SHOULD delete any Content-Length header and forward
+      processor <em>SHOULD</em> delete any Content-Length header and forward
       adapted data immediately, while indicating the message end by
       closing the HTTP connection.
 
 <span class="h4"><a class="selflink" name="section-3.8.2" href="#section-3.8.2">3.8.2</a>.  Content-MD5 Header</span>
 
-   By default, the OPES processor MUST assume that the callout service
+   By default, the OPES processor <em>MUST</em> assume that the callout service
    modifies the content in a way that the MD5 checksum of the message
    body becomes invalid.
 
    According to <a href="./rfc2616.html#section-14.15">section&nbsp;14.15 of [RFC2616]</a>, HTTP intermediaries must not
    generate Content-MD5 headers.  A recalculation is therefore possible
    only if the OPES processor is considered authoritative for the entity
-   being adapted.  An un-authoritative OPES processor MUST remove the
+   being adapted.  An un-authoritative OPES processor <em>MUST</em> remove the
    Content-MD5 header unless it detects that the HTTP message was not
-   modified; in this case, it MAY leave the Content-MD5 header in the
+   modified; in this case, it <em>MAY</em> leave the Content-MD5 header in the
    message.  When such detection significantly increases message
    latency, deleting the Content-MD5 header may be a better option.
 
@@ -1396,18 +1396,18 @@ Table of Contents
 
                                    Figure 16
 
-   An OPES System MUST add its trace entry to the OPES-System header.
-   Other OPES agents MUST use the OPES-Via header if they add their
-   tracing entries.  All OPES agents MUST append their entries.
+   An OPES System <em>MUST</em> add its trace entry to the OPES-System header.
+   Other OPES agents <em>MUST</em> use the OPES-Via header if they add their
+   tracing entries.  All OPES agents <em>MUST</em> append their entries.
    Informally, OPES-System is the only required OPES tracing header
    while OPES-Via provides optional tracing details; both headers
    reflect the order of trace entry additions.
 
    If an OPES-Via header is used in the original application message, an
-   OPES System MUST append its entry to the OPES-Via header.  Otherwise,
-   an OPES System MAY append its entry to the OPES-Via header.  If an
-   OPES System is using both headers, it MUST add identical trace
-   entries except it MAY omit some or all trace-entry parameters from
+   OPES System <em>MUST</em> append its entry to the OPES-Via header.  Otherwise,
+   an OPES System <em>MAY</em> append its entry to the OPES-Via header.  If an
+   OPES System is using both headers, it <em>MUST</em> add identical trace
+   entries except it <em>MAY</em> omit some or all trace-entry parameters from
    the OPES-Via header.  Informally, the OPES System entries in the
    OPES-Via header are used to delimit and group OPES-Via entries from
    different OPES Systems without having a priory knowledge about OPES
@@ -1424,7 +1424,7 @@ Table of Contents
 
    Note that all of these headers are defined using #list constructs
    and, hence, a valid HTTP message may contain multiple trace entries
-   per header.  OPES agents SHOULD use a single header-field rather than
+   per header.  OPES agents <em>SHOULD</em> use a single header-field rather than
    using multiple equally-named fields to record a long trace.  Using
    multiple equally-named extension header-fields is illegal from HTTP's
    point of view and may not work with some of the OPES-unaware HTTP
@@ -1456,11 +1456,11 @@ Table of Contents
    the recipient of the message, but may be decoded by OPES System
    software.
 
-   OPES entities MAY place optional tracing entries in a message trailer
+   OPES entities <em>MAY</em> place optional tracing entries in a message trailer
    (i.e., entity-headers at the end of a Chunked-Body of a chunked-
    encoded message), provided trailer presence does not violate HTTP
    protocol.  See [<a href="./rfc3897.html" title="&quot;Open Pluggable Edge Services (OPES) Entities and End Points Communication&quot;">RFC3897</a>] for a definition of what tracing entries are
-   optional.  OPES entities MUST NOT place required tracing entries in a
+   optional.  OPES entities <em>MUST NOT</em> place required tracing entries in a
    message trailer.
 
 
@@ -1511,7 +1511,7 @@ Table of Contents
    Specific threat examples include such adaptations as rewriting the
    Request-URI of an HTTP CONNECT request or removing an HTTP hop-by-hop
    Upgrade header before the HTTP proxy can act on it.  As with any
-   adaptation, the OPES agents MUST NOT perform such actions without
+   adaptation, the OPES agents <em>MUST NOT</em> perform such actions without
    HTTP client or server consent.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  IANA Considerations</span>

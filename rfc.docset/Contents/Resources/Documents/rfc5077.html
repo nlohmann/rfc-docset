@@ -334,8 +334,8 @@ Table of Contents
    protected data structure that is created and consumed by the server
    to rebuild session-specific state.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Protocol</span>
@@ -559,18 +559,18 @@ Table of Contents
    session, then it includes the ticket in the SessionTicket extension
    in the ClientHello.  If the client does not have a ticket and is
    prepared to receive one in the NewSessionTicket handshake message,
-   then it MUST include a zero-length ticket in the SessionTicket
+   then it <em>MUST</em> include a zero-length ticket in the SessionTicket
    extension.  If the client is not prepared to receive a ticket in the
-   NewSessionTicket handshake message, then it MUST NOT include a
+   NewSessionTicket handshake message, then it <em>MUST NOT</em> include a
    SessionTicket extension unless it is sending a non-empty ticket it
    received through some other means from the server.
 
    The server uses a zero-length SessionTicket extension to indicate to
    the client that it will send a new session ticket using the
    NewSessionTicket handshake message described in <a href="#section-3.3">Section 3.3</a>.  The
-   server MUST send this extension in the ServerHello if it wishes to
+   server <em>MUST</em> send this extension in the ServerHello if it wishes to
    issue a new ticket to the client using the NewSessionTicket handshake
-   message.  The server MUST NOT send this extension if it does not
+   message.  The server <em>MUST NOT</em> send this extension if it does not
    receive one in the ClientHello.
 
 
@@ -583,7 +583,7 @@ Table of Contents
 
    If the server fails to verify the ticket, then it falls back to
    performing a full handshake.  If the ticket is accepted by the server
-   but the handshake fails, the client SHOULD delete the ticket.
+   but the handshake fails, the client <em>SHOULD</em> delete the ticket.
 
    The SessionTicket extension has been assigned the number 35.  The
    extension_data field of SessionTicket extension contains the ticket.
@@ -591,27 +591,27 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  NewSessionTicket Handshake Message</span>
 
    This message is sent by the server during the TLS handshake before
-   the ChangeCipherSpec message.  This message MUST be sent if the
+   the ChangeCipherSpec message.  This message <em>MUST</em> be sent if the
    server included a SessionTicket extension in the ServerHello.  This
-   message MUST NOT be sent if the server did not include a
+   message <em>MUST NOT</em> be sent if the server did not include a
    SessionTicket extension in the ServerHello.  This message is included
    in the hash used to create and verify the Finished message.  In the
-   case of a full handshake, the server MUST verify the client's
-   Finished message before sending the ticket.  The client MUST NOT
+   case of a full handshake, the server <em>MUST</em> verify the client's
+   Finished message before sending the ticket.  The client <em>MUST NOT</em>
    treat the ticket as valid until it has verified the server's Finished
    message.  If the server determines that it does not want to include a
    ticket after it has included the SessionTicket extension in the
    ServerHello, then it sends a zero-length ticket in the
    NewSessionTicket handshake message.
 
-   If the server successfully verifies the client's ticket, then it MAY
+   If the server successfully verifies the client's ticket, then it <em>MAY</em>
    renew the ticket by including a NewSessionTicket handshake message
    after the ServerHello in the abbreviated handshake.  The client
    should start using the new ticket as soon as possible after it
    verifies the server's Finished message for new connections.  Note
    that since the updated ticket is issued before the handshake
    completes, it is possible that the client may not put the new ticket
-   into use before it initiates new connections.  The server MUST NOT
+   into use before it initiates new connections.  The server <em>MUST NOT</em>
    assume that the client actually received the updated ticket until it
    successfully verifies the client's Finished message.
 
@@ -622,8 +622,8 @@ Table of Contents
    in seconds as a 32-bit unsigned integer in network byte order
    relative to when the ticket is received.  A value of zero is reserved
    to indicate that the lifetime of the ticket is unspecified.  A client
-   SHOULD delete the ticket and associated state when the time expires.
-   It MAY delete the ticket earlier based on local policy.  A server MAY
+   <em>SHOULD</em> delete the ticket and associated state when the time expires.
+   It <em>MAY</em> delete the ticket earlier based on local policy.  A server <em>MAY</em>
    treat a ticket as valid for a shorter or longer period of time than
    what is stated in the ticket_lifetime_hint.
 
@@ -664,24 +664,24 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Interaction with TLS Session ID</span>
 
    If a server is planning on issuing a session ticket to a client that
-   does not present one, it SHOULD include an empty Session ID in the
+   does not present one, it <em>SHOULD</em> include an empty Session ID in the
    ServerHello.  If the server rejects the ticket and falls back to the
    full handshake then it may include a non-empty Session ID to indicate
    its support for stateful session resumption.  If the client receives
    a session ticket from the server, then it discards any Session ID
    that was sent in the ServerHello.
 
-   When presenting a ticket, the client MAY generate and include a
+   When presenting a ticket, the client <em>MAY</em> generate and include a
    Session ID in the TLS ClientHello.  If the server accepts the ticket
-   and the Session ID is not empty, then it MUST respond with the same
+   and the Session ID is not empty, then it <em>MUST</em> respond with the same
    Session ID present in the ClientHello.  This allows the client to
    easily differentiate when the server is resuming a session from when
    it is falling back to a full handshake.  Since the client generates a
-   Session ID, the server MUST NOT rely upon the Session ID having a
+   Session ID, the server <em>MUST NOT</em> rely upon the Session ID having a
    particular value when validating the ticket.  If a ticket is
-   presented by the client, the server MUST NOT attempt to use the
+   presented by the client, the server <em>MUST NOT</em> attempt to use the
    Session ID in the ClientHello for stateful session resumption.
-   Alternatively, the client MAY include an empty Session ID in the
+   Alternatively, the client <em>MAY</em> include an empty Session ID in the
    ClientHello.  In this case, the client ignores the Session ID sent in
    the ServerHello and determines if the server is resuming a session by
    the subsequent handshake messages.
@@ -700,7 +700,7 @@ Table of Contents
    structure is not subject to interoperability concerns, and
    implementations may diverge from this format.  If implementations do
    diverge from this format, they must take security concerns seriously.
-   Clients MUST NOT examine the ticket under the assumption that it
+   Clients <em>MUST NOT</em> examine the ticket under the assumption that it
    complies with this document.
 
    The server uses two different keys: one 128-bit key for Advanced
@@ -836,7 +836,7 @@ Table of Contents
    attempt to use it to establish a session with the server; however,
    since the ticket is encrypted and the attacker does not know the
    secret key, a stolen ticket does not help an attacker resume a
-   session.  A TLS server MUST use strong encryption and integrity
+   session.  A TLS server <em>MUST</em> use strong encryption and integrity
    protection for the ticket to prevent an attacker from using a brute
    force mechanism to obtain the ticket's contents.
 
@@ -869,7 +869,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  Ticket Protection Key Management</span>
 
    A full description of the management of the keys used to protect the
-   ticket is beyond the scope of this document.  A list of RECOMMENDED
+   ticket is beyond the scope of this document.  A list of <em>RECOMMENDED</em>
    practices is given below.
 
    o  The keys should be generated securely following the randomness
@@ -904,9 +904,9 @@ Table of Contents
    If the ticket format or distribution scheme defined in this document
    is not used, then great care must be taken in analyzing the security
    of the solution.  In particular, if confidential information, such as
-   a secret key, is transferred to the client, it MUST be done using
+   a secret key, is transferred to the client, it <em>MUST</em> be done using
    secure communication so as to prevent attackers from obtaining or
-   modifying the key.  Also, the ticket MUST have its integrity and
+   modifying the key.  Also, the ticket <em>MUST</em> have its integrity and
    confidentiality protected with strong cryptographic techniques to
    prevent a breach in the security of the system.
 

@@ -489,8 +489,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    We use the terminology and definitions from "Concepts and Terminology
@@ -531,7 +531,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7904.html">RFC 7904</a>                    RELOAD SIP Usage                October 2016</span>
 
 
-   A RELOAD overlay MAY restrict the storage of AORs.  Namespaces (i.e.,
+   A RELOAD overlay <em>MAY</em> restrict the storage of AORs.  Namespaces (i.e.,
    the right-hand side of the AOR) that are supported for registration
    and lookup can be configured for each RELOAD deployment as described
    in <a href="#section-3.4">Section 3.4</a>.
@@ -678,12 +678,12 @@ Table of Contents
    o  Storing requests are performed according to the USER-NODE-MATCH
       access control policy of RELOAD.
 
-   Before issuing a Store request to the overlay, any Peer SHOULD verify
+   Before issuing a Store request to the overlay, any Peer <em>SHOULD</em> verify
    that the AOR of the request is a valid Resource Name with respect to
    its domain name and the namespaces defined in the overlay
    configuration document (see <a href="#section-3.4">Section 3.4</a>).
 
-   Before a Store is permitted, the Storing Peer MUST check that:
+   Before a Store is permitted, the Storing Peer <em>MUST</em> check that:
 
    o  The AOR of the request is a valid Resource Name with respect to
       the namespaces defined in the overlay configuration document.
@@ -702,7 +702,7 @@ Table of Contents
    o  The certificate contains a Node-ID that is the same as the
       dictionary key it is being stored at.
 
-   If any of these checks fail, the request MUST be rejected with an
+   If any of these checks fail, the request <em>MUST</em> be rejected with an
    Error_Forbidden error.
 
    Note that these rules permit Alice to forward calls to Bob without
@@ -711,7 +711,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Overlay Configuration Document Extension</span>
 
-   The use of a SIP-enabled overlay MAY be restricted to users with AORs
+   The use of a SIP-enabled overlay <em>MAY</em> be restricted to users with AORs
    from specific domains.  When deploying an overlay service, providers
    can implement such restrictions by defining a set of namespaces for
    admissible domain names.  This section extends the overlay
@@ -723,7 +723,7 @@ Table of Contents
    the overlay configuration document needs to contain a &lt;domain-
    restrictions&gt; element.  The &lt;domain-restrictions&gt; element serves as a
    container for zero to multiple &lt;pattern&gt; sub-elements.  A &lt;pattern&gt;
-   element MAY be present if the "enable" attribute of its parent
+   element <em>MAY</em> be present if the "enable" attribute of its parent
    element is set to true.  Each &lt;pattern&gt; element defines a pattern for
    constructing admissible resource names.  It is of type xsd:string and
    interpreted as a regular expression according to "POSIX Extended
@@ -733,12 +733,12 @@ Table of Contents
    [RFC3261]</a>.
 
    Inclusion of a &lt;domain-restrictions&gt; element in an overlay
-   configuration document is OPTIONAL.  If the element is not included,
+   configuration document is <em>OPTIONAL</em>.  If the element is not included,
    the default behavior is to accept any AOR.  If the element is
    included and the "enable" attribute is not set or set to false, the
-   overlay MUST only accept AORs that match the domain name of the
+   overlay <em>MUST</em> only accept AORs that match the domain name of the
    overlay.  If the element is included and the "enable" attribute is
-   set to true, the overlay MUST only accept AORs that match patterns
+   set to true, the overlay <em>MUST</em> only accept AORs that match patterns
    specified in the &lt;domain-restrictions&gt; element.
 
    Example of Domain Patterns:
@@ -777,14 +777,14 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Finding a Route to an AOR</span>
 
    A RELOAD user, member of an overlay, who wishes to call another user
-   with a given AOR SHALL proceed in the following way:
+   with a given AOR <em>SHALL</em> proceed in the following way:
 
    AOR is a GRUU?  If the AOR is a GRUU for this overlay, the callee can
       be contacted directly as described in <a href="#section-6">Section 6</a>.
 
    AOR domain is hosted in overlay?  If the domain part of the AOR
       matches a domain pattern configured in the overlay, the user can
-      continue to resolve the AOR in this overlay.  The user MAY choose
+      continue to resolve the AOR in this overlay.  The user <em>MAY</em> choose
       to query the DNS service records to search for additional support
       of this domain name.
 
@@ -814,10 +814,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Resolving an AOR</span>
 
    A RELOAD user that has discovered a route to an AOR in the current
-   overlay SHALL execute the following steps:
+   overlay <em>SHALL</em> execute the following steps:
 
    1.  Perform a Fetch for Kind SIP-REGISTRATION at the Resource-ID
-       corresponding to the AOR.  This Fetch SHOULD NOT indicate any
+       corresponding to the AOR.  This Fetch <em>SHOULD NOT</em> indicate any
        dictionary keys, so that it will fetch all the stored values.
 
    2.  If any of the results of the Fetch are non-GRUU AORs, then repeat
@@ -836,24 +836,24 @@ Table of Contents
 
    Once the Peer has translated the AOR into a set of destination lists,
    it then uses the overlay to route AppAttach messages to each of those
-   Peers.  The "application" field MUST be either 5060 to indicate SIP
+   Peers.  The "application" field <em>MUST</em> be either 5060 to indicate SIP
    or 5061 to indicate SIPS.  If certificate-based authentication is in
-   use, the responding Peer MUST present a certificate with a Node-ID
+   use, the responding Peer <em>MUST</em> present a certificate with a Node-ID
    matching the terminal entry in the destination list.  Otherwise, the
-   connection MUST NOT be used and MUST be closed.  Note that it is
+   connection <em>MUST NOT</em> be used and <em>MUST</em> be closed.  Note that it is
    possible that the Peers already have a RELOAD connection mutually
-   established.  This MUST NOT be used for SIP messages unless it is a
-   SIP connection.  A previously established SIP connection MAY be used
+   established.  This <em>MUST NOT</em> be used for SIP messages unless it is a
+   SIP connection.  A previously established SIP connection <em>MAY</em> be used
    for a new call.
 
    Once the AppAttach succeeds, the Peer sends plain or (D)TLS-encrypted
-   SIP messages over the connection as in normal SIP.  A caller MAY
-   choose to contact the callee using SIP or SIPS, but SHOULD follow a
+   SIP messages over the connection as in normal SIP.  A caller <em>MAY</em>
+   choose to contact the callee using SIP or SIPS, but <em>SHOULD</em> follow a
    preference indicated by the callee in its contact_prefs attribute
-   (see <a href="#section-3.2">Section 3.2</a>).  A callee MAY choose to listen on both SIP and
+   (see <a href="#section-3.2">Section 3.2</a>).  A callee <em>MAY</em> choose to listen on both SIP and
    SIPS ports and accept calls from either SIP scheme, or select a
    single one.  However, a callee that decides to accept SIPS calls
-   only, SHOULD indicate its choice by setting the corresponding
+   only, <em>SHOULD</em> indicate its choice by setting the corresponding
    attribute in its contact_prefs.  It is noteworthy that, according to
    [<a href="./rfc6940.html" title="&quot;REsource LOcation And Discovery (RELOAD) Base Protocol&quot;">RFC6940</a>], all overlay links are built on (D)TLS-secured transport.
 
@@ -883,7 +883,7 @@ Table of Contents
    mandatory component of ICE (see <a href="./rfc5245.html#section-10">Section&nbsp;10 of [RFC5245]</a>) and no
    further operations are required.  Applications that want to assure
    maintenance of sessions individually need to follow regular SIP
-   means.  Accordingly, a SIP Peer MAY apply keep-alive techniques in
+   means.  Accordingly, a SIP Peer <em>MAY</em> apply keep-alive techniques in
    agreement with its transport binding as defined in <a href="./rfc5626.html#section-3.5">Section&nbsp;3.5 of
    [RFC5626]</a>.
 

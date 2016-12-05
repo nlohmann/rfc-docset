@@ -367,8 +367,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>  Terminology</span>
 
-   In this document, the key words MUST, MUST NOT, REQUIRED, SHOULD,
-   SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL are to be interpreted as
+   In this document, the key words <em>MUST</em>, <em>MUST NOT</em>, <em>REQUIRED</em>, <em>SHOULD</em>,
+   <em>SHOULD NOT</em>, <em>RECOMMENDED</em>, <em>MAY</em>, and <em>OPTIONAL</em> are to be interpreted as
    described in [<a href="#ref-STDWORDS" title="&quot;Key Words for Use in RFCs to Indicate Requirement Levels&quot;">STDWORDS</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>  General Overview</span>
@@ -381,10 +381,10 @@ Table of Contents
    digested-data, encrypted-data, and authenticated-data.  Additional
    content types can be defined outside this document.
 
-   An implementation that conforms to this specification MUST implement
-   the protection content, ContentInfo, and MUST implement the data,
+   An implementation that conforms to this specification <em>MUST</em> implement
+   the protection content, ContentInfo, and <em>MUST</em> implement the data,
    signed-data, and enveloped-data content types.  The other content
-   types MAY be implemented.
+   types <em>MAY</em> be implemented.
 
    As a general design philosophy, each content type permits single pass
    processing using indefinite-length Basic Encoding Rules (BER)
@@ -420,7 +420,7 @@ Table of Contents
          us(840) rsadsi(113549) pkcs(1) pkcs9(9) smime(16) ct(1) 6 }
 
    The CMS associates a content type identifier with a content.  The
-   syntax MUST have ASN.1 type ContentInfo:
+   syntax <em>MUST</em> have ASN.1 type ContentInfo:
 
       ContentInfo ::= SEQUENCE {
         contentType ContentType,
@@ -439,7 +439,7 @@ Table of Contents
       signed-data, enveloped-data, digested-data, encrypted-data, and
       authenticated-data are defined in this document.  If additional
       content types are defined in other documents, the ASN.1 type
-      defined SHOULD NOT be a CHOICE type.
+      defined <em>SHOULD NOT</em> be a CHOICE type.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>  Data Content Type</span>
 
@@ -544,8 +544,8 @@ Table of Contents
         version CMSVersion,
         digestAlgorithms DigestAlgorithmIdentifiers,
         encapContentInfo EncapsulatedContentInfo,
-        certificates [0] IMPLICIT CertificateSet OPTIONAL,
-        crls [1] IMPLICIT CertificateRevocationLists OPTIONAL,
+        certificates [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+        crls [1] IMPLICIT CertificateRevocationLists <em>OPTIONAL</em>,
         signerInfos SignerInfos }
 
       DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
@@ -556,18 +556,18 @@ Table of Contents
 
       version is the syntax version number.  The appropriate value
       depends on certificates, eContentType, and SignerInfo.  The
-      version MUST be assigned as follows:
+      version <em>MUST</em> be assigned as follows:
 
          IF (certificates is present) AND
              (any version 2 attribute certificates are present)
-         THEN version MUST be 4
+         THEN version <em>MUST</em> be 4
          ELSE
              IF ((certificates is present) AND
                 (any version 1 attribute certificates are present)) OR
                 (encapContentInfo eContentType is other than id-data) OR
                 (any SignerInfo structures are version 3)
-             THEN version MUST be 3
-             ELSE version MUST be 1
+             THEN version <em>MUST</em> be 3
+             ELSE version <em>MUST</em> be 1
 
 
 
@@ -580,13 +580,13 @@ Table of Contents
 
 
       digestAlgorithms is a collection of message digest algorithm
-      identifiers.  There MAY be any number of elements in the
+      identifiers.  There <em>MAY</em> be any number of elements in the
       collection, including zero.  Each element identifies the message
       digest algorithm, along with any associated parameters, used by
       one or more signer.  The collection is intended to list the
       message digest algorithms employed by all of the signers, in any
       order, to facilitate one-pass signature verification.
-      Implementations MAY fail to validate signatures that use a digest
+      Implementations <em>MAY</em> fail to validate signatures that use a digest
       algorithm that is not included in this set.  The message digesting
       process is described in <a href="#section-5.4">Section 5.4</a>.
 
@@ -604,24 +604,24 @@ Table of Contents
       certificates than necessary, if it is expected that recipients
       have an alternate means of obtaining necessary certificates (e.g.,
       from a previous set of certificates).  The signer's certificate
-      MAY be included.  The use of version 1 attribute certificates is
+      <em>MAY</em> be included.  The use of version 1 attribute certificates is
       strongly discouraged.
 
       crls is a collection of certificate revocation lists (CRLs).  It
       is intended that the set contain information sufficient to
       determine whether or not the certificates in the certificates
       field are valid, but such correspondence is not necessary.  There
-      MAY be more CRLs than necessary, and there MAY also be fewer CRLs
+      <em>MAY</em> be more CRLs than necessary, and there <em>MAY</em> also be fewer CRLs
       than necessary.
 
-      signerInfos is a collection of per-signer information.  There MAY
+      signerInfos is a collection of per-signer information.  There <em>MAY</em>
       be any number of elements in the collection, including zero.  The
       details of the SignerInfo type are discussed in <a href="#section-5.3">section 5.3</a>.
       Since each signer can employ a digital signature technique and
       future specifications could update the syntax, all implementations
-      MUST gracefully handle unimplemented versions of SignerInfo.
+      <em>MUST</em> gracefully handle unimplemented versions of SignerInfo.
       Further, since all implementations will not support every possible
-      signature algorithm, all implementations MUST gracefully handle
+      signature algorithm, all implementations <em>MUST</em> gracefully handle
       unimplemented signature algorithms when they are encountered.
 
 
@@ -641,7 +641,7 @@ Table of Contents
 
       EncapsulatedContentInfo ::= SEQUENCE {
         eContentType ContentType,
-        eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+        eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
 
       ContentType ::= OBJECT IDENTIFIER
 
@@ -666,8 +666,8 @@ Table of Contents
    In the degenerate case where there are no signers, the
    EncapsulatedContentInfo value being "signed" is irrelevant.  In this
    case, the content type within the EncapsulatedContentInfo value being
-   "signed" MUST be id-data (as defined in <a href="#section-4">section 4</a>), and the content
-   field of the EncapsulatedContentInfo value MUST be omitted.
+   "signed" <em>MUST</em> be id-data (as defined in <a href="#section-4">section 4</a>), and the content
+   field of the EncapsulatedContentInfo value <em>MUST</em> be omitted.
 
 <span class="h4"><a class="selflink" name="section-5.2.1" href="#section-5.2.1">5.2.1</a>  Compatibility with PKCS #7</span>
 
@@ -679,7 +679,7 @@ Table of Contents
 
    PKCS #7 defines content as:
 
-      content [0] EXPLICIT ANY DEFINED BY contentType OPTIONAL
+      content [0] EXPLICIT ANY DEFINED BY contentType <em>OPTIONAL</em>
 
 
 
@@ -693,7 +693,7 @@ Table of Contents
 
    The CMS defines eContent as:
 
-      eContent [0] EXPLICIT OCTET STRING OPTIONAL
+      eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em>
 
    The CMS definition is much easier to use in most applications, and it
    is compatible with both S/MIME v2 and S/MIME v3.  S/MIME signed
@@ -726,17 +726,17 @@ Table of Contents
    with PKCS #7 when processing SignedData content types.  If the
    implementation is unable to ASN.1 decode the signedData type using
    the CMS signedData encapContentInfo eContent OCTET STRING syntax,
-   then the implementation MAY attempt to decode the signedData type
+   then the implementation <em>MAY</em> attempt to decode the signedData type
    using the PKCS #7 SignedData contentInfo content ANY syntax and
    compute the message digest accordingly.
 
    The following strategy can be used to achieve backward compatibility
    with PKCS #7 when creating a SignedData content type in which the
    encapsulated content is not formatted using the Data type.
-   Implementations MAY examine the value of the eContentType, and then
+   Implementations <em>MAY</em> examine the value of the eContentType, and then
    adjust the expected DER encoding of eContent based on the object
    identifier value.  For example, to support Microsoft AuthentiCode,
-   the following information MAY be included:
+   the following information <em>MAY</em> be included:
 
 
 
@@ -759,10 +759,10 @@ Table of Contents
         version CMSVersion,
         sid SignerIdentifier,
         digestAlgorithm DigestAlgorithmIdentifier,
-        signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+        signedAttrs [0] IMPLICIT SignedAttributes <em>OPTIONAL</em>,
         signatureAlgorithm SignatureAlgorithmIdentifier,
         signature SignatureValue,
-        unsignedAttrs [1] IMPLICIT UnsignedAttributes OPTIONAL }
+        unsignedAttrs [1] IMPLICIT UnsignedAttributes <em>OPTIONAL</em> }
 
       SignerIdentifier ::= CHOICE {
         issuerAndSerialNumber IssuerAndSerialNumber,
@@ -783,9 +783,9 @@ Table of Contents
    The fields of type SignerInfo have the following meanings:
 
       version is the syntax version number.  If the SignerIdentifier is
-      the CHOICE issuerAndSerialNumber, then the version MUST be 1.  If
+      the CHOICE issuerAndSerialNumber, then the version <em>MUST</em> be 1.  If
       the SignerIdentifier is subjectKeyIdentifier, then the version
-      MUST be 3.
+      <em>MUST</em> be 3.
 
       sid specifies the signer's certificate (and thereby the signer's
       public key).  The signer's public key is needed by the recipient
@@ -803,35 +803,35 @@ Table of Contents
 <span class="grey"><a href="./rfc3369.html">RFC 3369</a>              Cryptographic Message Syntax           August 2002</span>
 
 
-      Implementations MUST support the reception of the
+      Implementations <em>MUST</em> support the reception of the
       issuerAndSerialNumber and subjectKeyIdentifier forms of
       SignerIdentifier.  When generating a SignerIdentifier,
-      implementations MAY support one of the forms (either
+      implementations <em>MAY</em> support one of the forms (either
       issuerAndSerialNumber or subjectKeyIdentifier) and always use it,
-      or implementations MAY arbitrarily mix the two forms.
+      or implementations <em>MAY</em> arbitrarily mix the two forms.
 
       digestAlgorithm identifies the message digest algorithm, and any
       associated parameters, used by the signer.  The message digest is
       computed on either the content being signed or the content
       together with the signed attributes using the process described in
-      <a href="#section-5.4">section 5.4</a>.  The message digest algorithm SHOULD be among those
+      <a href="#section-5.4">section 5.4</a>.  The message digest algorithm <em>SHOULD</em> be among those
       listed in the digestAlgorithms field of the associated SignerData.
-      Implementations MAY fail to validate signatures that use a digest
+      Implementations <em>MAY</em> fail to validate signatures that use a digest
       algorithm that is not included in the SignedData digestAlgorithms
       set.
 
       signedAttrs is a collection of attributes that are signed.  The
-      field is optional, but it MUST be present if the content type of
+      field is optional, but it <em>MUST</em> be present if the content type of
       the EncapsulatedContentInfo value being signed is not id-data.
-      SignedAttributes MUST be DER encoded, even if the rest of the
+      SignedAttributes <em>MUST</em> be DER encoded, even if the rest of the
       structure is BER encoded.  Useful attribute types, such as signing
-      time, are defined in <a href="#section-11">Section 11</a>.  If the field is present, it MUST
+      time, are defined in <a href="#section-11">Section 11</a>.  If the field is present, it <em>MUST</em>
       contain, at a minimum, the following two attributes:
 
          A content-type attribute having as its value the content type
          of the EncapsulatedContentInfo value being signed.  <a href="#section-11.1">Section</a>
          <a href="#section-11.1">11.1</a> defines the content-type attribute.  However, the
-         content-type attribute MUST NOT be used as part of a
+         content-type attribute <em>MUST NOT</em> be used as part of a
          countersignature unsigned attribute as defined in <a href="#section-11.4">section 11.4</a>.
 
          A message-digest attribute, having as its value the message
@@ -890,13 +890,13 @@ Table of Contents
    contained in the signedAttrs field.  Since the SignedAttrs value,
    when present, must contain the content-type and the message-digest
    attributes, those values are indirectly included in the result.  The
-   content-type attribute MUST NOT be included in a countersignature
+   content-type attribute <em>MUST NOT</em> be included in a countersignature
    unsigned attribute as defined in <a href="#section-11.4">section 11.4</a>.  A separate encoding
    of the signedAttrs field is performed for message digest calculation.
    The IMPLICIT [0] tag in the signedAttrs is not used for the DER
    encoding, rather an EXPLICIT SET OF tag is used.  That is, the DER
    encoding of the EXPLICIT SET OF tag, rather than of the IMPLICIT [0]
-   tag, MUST be included in the message digest calculation along with
+   tag, <em>MUST</em> be included in the message digest calculation along with
    the length and content octets of the SignedAttributes value.
 
    When the signedAttrs field is absent, only the octets comprising the
@@ -930,31 +930,31 @@ Table of Contents
    algorithm employed.  The object identifier, along with any
    parameters, that specifies the signature algorithm employed by the
    signer is carried in the signatureAlgorithm field.  The signature
-   value generated by the signer MUST be encoded as an OCTET STRING and
+   value generated by the signer <em>MUST</em> be encoded as an OCTET STRING and
    carried in the signature field.
 
 <span class="h3"><a class="selflink" name="section-5.6" href="#section-5.6">5.6</a>  Signature Verification Process</span>
 
    The input to the signature verification process includes the result
    of the message digest calculation process and the signer's public
-   key.  The recipient MAY obtain the correct public key for the signer
+   key.  The recipient <em>MAY</em> obtain the correct public key for the signer
    by any means, but the preferred method is from a certificate obtained
    from the SignedData certificates field.  The selection and validation
-   of the signer's public key MAY be based on certification path
+   of the signer's public key <em>MAY</em> be based on certification path
    validation (see [<a href="#ref-PROFILE" title="&quot;Internet X.509 Public Key Infrastructure: Certificate and CRL Profile&quot;">PROFILE</a>]) as well as other external context, but is
    beyond the scope of this document.  The details of the signature
    verification depend on the signature algorithm employed.
 
-   The recipient MUST NOT rely on any message digest values computed by
+   The recipient <em>MUST NOT</em> rely on any message digest values computed by
    the originator.  If the SignedData signerInfo includes
-   signedAttributes, then the content message digest MUST be calculated
+   signedAttributes, then the content message digest <em>MUST</em> be calculated
    as described in <a href="#section-5.4">section 5.4</a>.  For the signature to be valid, the
-   message digest value calculated by the recipient MUST be the same as
+   message digest value calculated by the recipient <em>MUST</em> be the same as
    the value of the messageDigest attribute included in the
    signedAttributes of the SignedData signerInfo.
 
    If the SignedData signerInfo includes signedAttributes, then the
-   content-type attribute value MUST match the SignedData
+   content-type attribute value <em>MUST</em> match the SignedData
    encapContentInfo eContentType value.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Enveloped-data Content Type</span>
@@ -1048,21 +1048,21 @@ Table of Contents
 
       EnvelopedData ::= SEQUENCE {
          version CMSVersion,
-         originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
+         originatorInfo [0] IMPLICIT OriginatorInfo <em>OPTIONAL</em>,
          recipientInfos RecipientInfos,
          encryptedContentInfo EncryptedContentInfo,
-         unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL }
+         unprotectedAttrs [1] IMPLICIT UnprotectedAttributes <em>OPTIONAL</em> }
 
       OriginatorInfo ::= SEQUENCE {
-         certs [0] IMPLICIT CertificateSet OPTIONAL,
-         crls [1] IMPLICIT CertificateRevocationLists OPTIONAL }
+         certs [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+         crls [1] IMPLICIT CertificateRevocationLists <em>OPTIONAL</em> }
 
       RecipientInfos ::= SET SIZE (1..MAX) OF RecipientInfo
 
       EncryptedContentInfo ::= SEQUENCE {
         contentType ContentType,
         contentEncryptionAlgorithm ContentEncryptionAlgorithmIdentifier,
-        encryptedContent [0] IMPLICIT EncryptedContent OPTIONAL }
+        encryptedContent [0] IMPLICIT EncryptedContent <em>OPTIONAL</em> }
 
       EncryptedContent ::= OCTET STRING
 
@@ -1072,7 +1072,7 @@ Table of Contents
 
       version is the syntax version number.  The appropriate value
       depends on originatorInfo, RecipientInfo, and unprotectedAttrs.
-      The version MUST be assigned as follows:
+      The version <em>MUST</em> be assigned as follows:
 
 
 
@@ -1117,11 +1117,11 @@ Table of Contents
          crls is a collection of CRLs.  It is intended that the set
          contain information sufficient to determine whether or not the
          certificates in the certs field are valid, but such
-         correspondence is not necessary.  There MAY be more CRLs than
-         necessary, and there MAY also be fewer CRLs than necessary.
+         correspondence is not necessary.  There <em>MAY</em> be more CRLs than
+         necessary, and there <em>MAY</em> also be fewer CRLs than necessary.
 
       recipientInfos is a collection of per-recipient information.
-      There MUST be at least one element in the collection.
+      There <em>MUST</em> be at least one element in the collection.
 
       encryptedContentInfo is the encrypted content information.
 
@@ -1166,24 +1166,24 @@ Table of Contents
    recipients.
 
    Since all implementations will not support every possible key
-   management algorithm, all implementations MUST gracefully handle
+   management algorithm, all implementations <em>MUST</em> gracefully handle
    unimplemented algorithms when they are encountered.  For example, if
    a recipient receives a content-encryption key encrypted in their RSA
    public key using RSA-OAEP and the implementation only supports RSA
    PKCS #1 v1.5, then a graceful failure must be implemented.
 
-   Implementations MUST support key transport, key agreement, and
+   Implementations <em>MUST</em> support key transport, key agreement, and
    previously distributed symmetric key-encryption keys, as represented
-   by ktri, kari, and kekri, respectively.  Implementations MAY support
+   by ktri, kari, and kekri, respectively.  Implementations <em>MAY</em> support
    the password-based key management as represented by pwri.
-   Implementations MAY support any other key management technique as
+   Implementations <em>MAY</em> support any other key management technique as
    represented by ori.  Since each recipient can employ a different key
    management technique and future specifications could define
-   additional key management techniques, all implementations MUST
+   additional key management techniques, all implementations <em>MUST</em>
    gracefully handle unimplemented alternatives within the RecipientInfo
-   CHOICE, all implementations MUST gracefully handle unimplemented
+   CHOICE, all implementations <em>MUST</em> gracefully handle unimplemented
    versions of otherwise supported alternatives within the RecipientInfo
-   CHOICE, and all implementations MUST gracefully handle unimplemented
+   CHOICE, and all implementations <em>MUST</em> gracefully handle unimplemented
    or unknown ori alternatives.
 
 
@@ -1223,9 +1223,9 @@ Table of Contents
    The fields of type KeyTransRecipientInfo have the following meanings:
 
       version is the syntax version number.  If the RecipientIdentifier
-      is the CHOICE issuerAndSerialNumber, then the version MUST be 0.
+      is the CHOICE issuerAndSerialNumber, then the version <em>MUST</em> be 0.
       If the RecipientIdentifier is subjectKeyIdentifier, then the
-      version MUST be 2.
+      version <em>MUST</em> be 2.
 
       rid specifies the recipient's certificate or key that was used by
       the sender to protect the content-encryption key.  The
@@ -1233,15 +1233,15 @@ Table of Contents
       recipient's certificate, and thereby the recipient's public key.
       The recipient's certificate must contain a key transport public
       key.  Therefore, a recipient X.509 version 3 certificate that
-      contains a key usage extension MUST assert the keyEncipherment
+      contains a key usage extension <em>MUST</em> assert the keyEncipherment
       bit.  The content-encryption key is encrypted with the recipient's
       public key.  The issuerAndSerialNumber alternative identifies the
       recipient's certificate by the issuer's distinguished name and the
       certificate serial number; the subjectKeyIdentifier identifies the
       recipient's certificate by the X.509 subjectKeyIdentifier
-      extension value.  For recipient processing, implementations MUST
+      extension value.  For recipient processing, implementations <em>MUST</em>
       support both of these alternatives for specifying the recipient's
-      certificate; and for sender processing, implementations MUST
+      certificate; and for sender processing, implementations <em>MUST</em>
       support at least one of these alternatives.
 
 
@@ -1270,7 +1270,7 @@ Table of Contents
       KeyAgreeRecipientInfo ::= SEQUENCE {
         version CMSVersion,  -- always set to 3
         originator [0] EXPLICIT OriginatorIdentifierOrKey,
-        ukm [1] EXPLICIT UserKeyingMaterial OPTIONAL,
+        ukm [1] EXPLICIT UserKeyingMaterial <em>OPTIONAL</em>,
         keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
         recipientEncryptedKeys RecipientEncryptedKeys }
 
@@ -1295,8 +1295,8 @@ Table of Contents
 
       RecipientKeyIdentifier ::= SEQUENCE {
         subjectKeyIdentifier SubjectKeyIdentifier,
-        date GeneralizedTime OPTIONAL,
-        other OtherKeyAttribute OPTIONAL }
+        date GeneralizedTime <em>OPTIONAL</em>,
+        other OtherKeyAttribute <em>OPTIONAL</em> }
 
       SubjectKeyIdentifier ::= OCTET STRING
 
@@ -1309,7 +1309,7 @@ Table of Contents
 
    The fields of type KeyAgreeRecipientInfo have the following meanings:
 
-      version is the syntax version number.  It MUST always be 3.
+      version is the syntax version number.  It <em>MUST</em> always be 3.
 
       originator is a CHOICE with three alternatives specifying the
       sender's key agreement public key.  The sender uses the
@@ -1324,16 +1324,16 @@ Table of Contents
       alternative includes the algorithm identifier and sender's key
       agreement public key.  This alternative permits originator
       anonymity since the public key is not certified.  Implementations
-      MUST support all three alternatives for specifying the sender's
+      <em>MUST</em> support all three alternatives for specifying the sender's
       public key.
 
       ukm is optional.  With some key agreement algorithms, the sender
       provides a User Keying Material (UKM) to ensure that a different
       key is generated each time the same two parties generate a
-      pairwise key.  Implementations MUST support recipient processing
+      pairwise key.  Implementations <em>MUST</em> support recipient processing
       of a KeyAgreeRecipientInfo SEQUENCE that includes a ukm field.
       Implementations that do not support key agreement algorithms that
-      make use of UKMs MUST gracefully handle the presence of UKMs.
+      make use of UKMs <em>MUST</em> gracefully handle the presence of UKMs.
 
       keyEncryptionAlgorithm identifies the key-encryption algorithm,
       and any associated parameters, used to encrypt the content-
@@ -1347,7 +1347,7 @@ Table of Contents
       recipient's public key, that was used by the sender to generate a
       pairwise key-encryption key.  The recipient's certificate must
       contain a key agreement public key.  Therefore, a recipient X.509
-      version 3 certificate that contains a key usage extension MUST
+      version 3 certificate that contains a key usage extension <em>MUST</em>
       assert the keyAgreement bit.  The content-encryption key is
       encrypted in the pairwise key-encryption key.  The
       issuerAndSerialNumber alternative identifies the recipient's
@@ -1364,7 +1364,7 @@ Table of Contents
 
 
       key in the pairwise key-encryption key generated using the key
-      agreement algorithm.  Implementations MUST support both
+      agreement algorithm.  Implementations <em>MUST</em> support both
       alternatives for specifying the recipient's certificate.
 
    The fields of type RecipientKeyIdentifier have the following
@@ -1396,12 +1396,12 @@ Table of Contents
 
       KEKIdentifier ::= SEQUENCE {
         keyIdentifier OCTET STRING,
-        date GeneralizedTime OPTIONAL,
-        other OtherKeyAttribute OPTIONAL }
+        date GeneralizedTime <em>OPTIONAL</em>,
+        other OtherKeyAttribute <em>OPTIONAL</em> }
 
    The fields of type KEKRecipientInfo have the following meanings:
 
-      version is the syntax version number.  It MUST always be 4.
+      version is the syntax version number.  It <em>MUST</em> always be 4.
 
       kekid specifies a symmetric key-encryption key that was previously
       distributed to the sender and one or more recipients.
@@ -1447,13 +1447,13 @@ Table of Contents
       PasswordRecipientInfo ::= SEQUENCE {
         version CMSVersion,   -- Always set to 0
         keyDerivationAlgorithm [0] KeyDerivationAlgorithmIdentifier
-                                   OPTIONAL,
+                                   <em>OPTIONAL</em>,
         keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
         encryptedKey EncryptedKey }
 
    The fields of type PasswordRecipientInfo have the following meanings:
 
-      version is the syntax version number.  It MUST always be 0.
+      version is the syntax version number.  It <em>MUST</em> always be 0.
 
       keyDerivationAlgorithm identifies the key-derivation algorithm,
       and any associated parameters, used to derive the key-encryption
@@ -1600,9 +1600,9 @@ Table of Contents
    The fields of type DigestedData have the following meanings:
 
       version is the syntax version number.  If the encapsulated content
-      type is id-data, then the value of version MUST be 0; however, if
+      type is id-data, then the value of version <em>MUST</em> be 0; however, if
       the encapsulated content type is other than id-data, then the
-      value of version MUST be 2.
+      value of version <em>MUST</em> be 2.
 
       digestAlgorithm identifies the message digest algorithm, and any
       associated parameters, under which the content is digested.  The
@@ -1623,7 +1623,7 @@ Table of Contents
    The encrypted-data content type consists of encrypted content of any
    type.  Unlike the enveloped-data content type, the encrypted-data
    content type has neither recipients nor encrypted content-encryption
-   keys.  Keys MUST be managed by other means.
+   keys.  Keys <em>MUST</em> be managed by other means.
 
    The typical application of the encrypted-data content type will be to
    encrypt the content of the data content type for local storage,
@@ -1648,14 +1648,14 @@ Table of Contents
       EncryptedData ::= SEQUENCE {
         version CMSVersion,
         encryptedContentInfo EncryptedContentInfo,
-        unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL }
+        unprotectedAttrs [1] IMPLICIT UnprotectedAttributes <em>OPTIONAL</em> }
 
 
    The fields of type EncryptedData have the following meanings:
 
       version is the syntax version number.  If unprotectedAttrs is
-      present, then version MUST be 2.  If unprotectedAttrs is absent,
-      then version MUST be 0.
+      present, then version <em>MUST</em> be 2.  If unprotectedAttrs is absent,
+      then version <em>MUST</em> be 0.
 
       encryptedContentInfo is the encrypted content information, as
       defined in <a href="#section-6.1">Section 6.1</a>.
@@ -1718,14 +1718,14 @@ Table of Contents
 
       AuthenticatedData ::= SEQUENCE {
         version CMSVersion,
-        originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
+        originatorInfo [0] IMPLICIT OriginatorInfo <em>OPTIONAL</em>,
         recipientInfos RecipientInfos,
         macAlgorithm MessageAuthenticationCodeAlgorithm,
-        digestAlgorithm [1] DigestAlgorithmIdentifier OPTIONAL,
+        digestAlgorithm [1] DigestAlgorithmIdentifier <em>OPTIONAL</em>,
         encapContentInfo EncapsulatedContentInfo,
-        authAttrs [2] IMPLICIT AuthAttributes OPTIONAL,
+        authAttrs [2] IMPLICIT AuthAttributes <em>OPTIONAL</em>,
         mac MessageAuthenticationCode,
-        unauthAttrs [3] IMPLICIT UnauthAttributes OPTIONAL }
+        unauthAttrs [3] IMPLICIT UnauthAttributes <em>OPTIONAL</em> }
 
       AuthAttributes ::= SET SIZE (1..MAX) OF Attribute
 
@@ -1735,7 +1735,7 @@ Table of Contents
 
    The fields of type AuthenticatedData have the following meanings:
 
-      version is the syntax version number.  The version MUST be
+      version is the syntax version number.  The version <em>MUST</em> be
       assigned as follows:
 
          IF ((originatorInfo is present) AND
@@ -1745,7 +1745,7 @@ Table of Contents
 
       originatorInfo optionally provides information about the
       originator.  It is present only if required by the key management
-      algorithm.  It MAY contain certificates, attribute certificates,
+      algorithm.  It <em>MAY</em> contain certificates, attribute certificates,
       and CRLs, as defined in <a href="#section-6.1">Section 6.1</a>.
 
 
@@ -1756,7 +1756,7 @@ Table of Contents
 
 
       recipientInfos is a collection of per-recipient information, as
-      defined in <a href="#section-6.1">Section 6.1</a>.  There MUST be at least one element in the
+      defined in <a href="#section-6.1">Section 6.1</a>.  There <em>MUST</em> be at least one element in the
       collection.
 
       macAlgorithm is a message authentication code (MAC) algorithm
@@ -1771,19 +1771,19 @@ Table of Contents
       message digesting process is described in <a href="#section-9.2">Section 9.2</a>.  Placement
       of the digestAlgorithm field facilitates one-pass processing by
       the recipient.  If the digestAlgorithm field is present, then the
-      authAttrs field MUST also be present.
+      authAttrs field <em>MUST</em> also be present.
 
       encapContentInfo is the content that is authenticated, as defined
       in <a href="#section-5.2">section 5.2</a>.
 
       authAttrs is a collection of authenticated attributes.  The
-      authAttrs structure is optional, but it MUST be present if the
+      authAttrs structure is optional, but it <em>MUST</em> be present if the
       content type of the EncapsulatedContentInfo value being
       authenticated is not id-data.  If the authAttrs field is present,
-      then the digestAlgorithm field MUST also be present.  The
-      AuthAttributes structure MUST be DER encoded, even if the rest of
+      then the digestAlgorithm field <em>MUST</em> also be present.  The
+      AuthAttributes structure <em>MUST</em> be DER encoded, even if the rest of
       the structure is BER encoded.  Useful attribute types are defined
-      in <a href="#section-11">Section 11</a>.  If the authAttrs field is present, it MUST
+      in <a href="#section-11">Section 11</a>.  If the authAttrs field is present, it <em>MUST</em>
       contain, at a minimum, the following two attributes:
 
          A content-type attribute having as its value the content type
@@ -1828,7 +1828,7 @@ Table of Contents
 
    If authAttrs field is present, the content-type attribute (as
    described in <a href="#section-11.1">Section 11.1</a>) and the message-digest attribute (as
-   described in <a href="#section-11.2">section 11.2</a>) MUST be included, and the input to the MAC
+   described in <a href="#section-11.2">section 11.2</a>) <em>MUST</em> be included, and the input to the MAC
    calculation process is the DER encoding of authAttrs.  A separate
    encoding of the authAttrs field is performed for message digest
    calculation.  The IMPLICIT [2] tag in the authAttrs field is not used
@@ -1879,19 +1879,19 @@ Table of Contents
    recipientInfo.  The details of the MAC verification process depend on
    the MAC algorithm employed.
 
-   The recipient MUST NOT rely on any MAC values or message digest
+   The recipient <em>MUST NOT</em> rely on any MAC values or message digest
    values computed by the originator.  The content is authenticated as
    described in <a href="#section-9.2">section 9.2</a>.  If the originator includes authenticated
    attributes, then the content of the authAttrs is authenticated as
    described in <a href="#section-9.2">section 9.2</a>.  For authentication to succeed, the MAC
-   value calculated by the recipient MUST be the same as the value of
+   value calculated by the recipient <em>MUST</em> be the same as the value of
    the mac field.  Similarly, for authentication to succeed when the
    authAttrs field is present, the content message digest value
-   calculated by the recipient MUST be the same as the message digest
+   calculated by the recipient <em>MUST</em> be the same as the message digest
    value included in the authAttrs message-digest attribute.
 
    If the AuthenticatedData includes authAttrs, then the content-type
-   attribute value MUST match the AuthenticatedData encapContentInfo
+   attribute value <em>MUST</em> match the AuthenticatedData encapContentInfo
    eContentType value.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Useful Types</span>
@@ -2011,7 +2011,7 @@ Table of Contents
    revocation lists (CRLs).  It is intended that the set contain
    information sufficient to determine whether the certificates and
    attribute certificates with which the set is associated are revoked.
-   However, there may be more CRLs than necessary or there MAY be fewer
+   However, there may be more CRLs than necessary or there <em>MAY</em> be fewer
    CRLs than necessary.
 
    The CertificateList may contain a CRL, an Authority Revocation List
@@ -2042,9 +2042,9 @@ Table of Contents
    attribute certificate (ACv1) [<a href="#ref-X.509-97">X.509-97</a>], or a version 2 X.509
    attribute certificate (ACv2) [<a href="#ref-X.509-00">X.509-00</a>].  The PKCS #6 extended
    certificate is obsolete.  The PKCS #6 certificate is included for
-   backward compatibility, and PKCS #6 certificates SHOULD NOT be used.
+   backward compatibility, and PKCS #6 certificates <em>SHOULD NOT</em> be used.
    The ACv1 is also obsolete.  ACv1 is included for backward
-   compatibility, and ACv1 SHOULD NOT be used.  The Internet profile of
+   compatibility, and ACv1 <em>SHOULD NOT</em> be used.  The Internet profile of
    X.509 certificates is specified in the "Internet X.509 Public Key
    Infrastructure: Certificate and CRL Profile" [<a href="#ref-PROFILE" title="&quot;Internet X.509 Public Key Infrastructure: Certificate and CRL Profile&quot;">PROFILE</a>].  The Internet
    profile of ACv2 is specified in the "An Internet Attribute
@@ -2069,7 +2069,7 @@ Table of Contents
    intended that the set be sufficient to contain chains from a
    recognized "root" or "top-level certification authority" to all of
    the sender certificates with which the set is associated.  However,
-   there may be more certificates than necessary, or there MAY be fewer
+   there may be more certificates than necessary, or there <em>MAY</em> be fewer
    than necessary.
 
    The precise meaning of a "chain" is outside the scope of this
@@ -2133,7 +2133,7 @@ Table of Contents
 
       OtherKeyAttribute ::= SEQUENCE {
         keyAttrId OBJECT IDENTIFIER,
-        keyAttr ANY DEFINED BY keyAttrId OPTIONAL }
+        keyAttr ANY DEFINED BY keyAttrId <em>OPTIONAL</em> }
 
 
 
@@ -2166,14 +2166,14 @@ Table of Contents
 
    The content-type attribute type specifies the content type of the
    ContentInfo within signed-data or authenticated-data.  The content-
-   type attribute type MUST be present whenever signed attributes are
+   type attribute type <em>MUST</em> be present whenever signed attributes are
    present in signed-data or authenticated attributes present in
-   authenticated-data.  The content-type attribute value MUST match the
+   authenticated-data.  The content-type attribute value <em>MUST</em> match the
    encapContentInfo eContentType value in the signed-data or
    authenticated-data.
 
-   The content-type attribute MUST be a signed attribute or an
-   authenticated attribute; it MUST NOT be an unsigned attribute,
+   The content-type attribute <em>MUST</em> be a signed attribute or an
+   authenticated attribute; it <em>MUST NOT</em> be an unsigned attribute,
    unauthenticated attribute, or unprotected attribute.
 
    The following object identifier identifies the content-type
@@ -2187,13 +2187,13 @@ Table of Contents
       ContentType ::= OBJECT IDENTIFIER
 
    Even though the syntax is defined as a SET OF AttributeValue, a
-   content-type attribute MUST have a single attribute value; zero or
+   content-type attribute <em>MUST</em> have a single attribute value; zero or
    multiple instances of AttributeValue are not permitted.
 
    The SignedAttributes and AuthAttributes syntaxes are each defined as
-   a SET OF Attributes.  The SignedAttributes in a signerInfo MUST NOT
+   a SET OF Attributes.  The SignedAttributes in a signerInfo <em>MUST NOT</em>
    include multiple instances of the content-type attribute.  Similarly,
-   the AuthAttributes in an AuthenticatedData MUST NOT include multiple
+   the AuthAttributes in an AuthenticatedData <em>MUST NOT</em> include multiple
    instances of the content-type attribute.
 
 
@@ -2213,13 +2213,13 @@ Table of Contents
    message digest is computed using the originator's message digest
    algorithm.
 
-   Within signed-data, the message-digest signed attribute type MUST be
+   Within signed-data, the message-digest signed attribute type <em>MUST</em> be
    present when there are any signed attributes present.  Within
    authenticated-data, the message-digest authenticated attribute type
-   MUST be present when there are any authenticated attributes present.
+   <em>MUST</em> be present when there are any authenticated attributes present.
 
-   The message-digest attribute MUST be a signed attribute or an
-   authenticated attribute; it MUST NOT be an unsigned attribute,
+   The message-digest attribute <em>MUST</em> be a signed attribute or an
+   authenticated attribute; it <em>MUST NOT</em> be an unsigned attribute,
    unauthenticated attribute, or unprotected attribute.
 
    The following object identifier identifies the message-digest
@@ -2232,14 +2232,14 @@ Table of Contents
 
       MessageDigest ::= OCTET STRING
 
-   A message-digest attribute MUST have a single attribute value, even
-   though the syntax is defined as a SET OF AttributeValue.  There MUST
+   A message-digest attribute <em>MUST</em> have a single attribute value, even
+   though the syntax is defined as a SET OF AttributeValue.  There <em>MUST</em>
    NOT be zero or multiple instances of AttributeValue present.
 
    The SignedAttributes syntax and AuthAttributes syntax are each
    defined as a SET OF Attributes.  The SignedAttributes in a signerInfo
-   MUST include only one instance of the message-digest attribute.
-   Similarly, the AuthAttributes in an AuthenticatedData MUST include
+   <em>MUST</em> include only one instance of the message-digest attribute.
+   Similarly, the AuthAttributes in an AuthenticatedData <em>MUST</em> include
    only one instance of the message-digest attribute.
 
 <span class="h3"><a class="selflink" name="section-11.3" href="#section-11.3">11.3</a>  Signing Time</span>
@@ -2259,8 +2259,8 @@ Table of Contents
 <span class="grey"><a href="./rfc3369.html">RFC 3369</a>              Cryptographic Message Syntax           August 2002</span>
 
 
-   The signing-time attribute MUST be a signed attribute or an
-   authenticated attribute; it MUST NOT be an unsigned attribute,
+   The signing-time attribute <em>MUST</em> be a signed attribute or an
+   authenticated attribute; it <em>MUST NOT</em> be an unsigned attribute,
    unauthenticated attribute, or unprotected attribute.
 
    The following object identifier identifies the signing-time
@@ -2280,28 +2280,28 @@ Table of Contents
    Note: The definition of Time matches the one specified in the 1997
    version of X.509 [<a href="#ref-X.509-97">X.509-97</a>].
 
-   Dates between 1 January 1950 and 31 December 2049 (inclusive) MUST be
+   Dates between 1 January 1950 and 31 December 2049 (inclusive) <em>MUST</em> be
    encoded as UTCTime.  Any dates with year values before 1950 or after
-   2049 MUST be encoded as GeneralizedTime.
+   2049 <em>MUST</em> be encoded as GeneralizedTime.
 
-   UTCTime values MUST be expressed in Greenwich Mean Time (Zulu) and
-   MUST include seconds (i.e., times are YYMMDDHHMMSSZ), even where the
-   number of seconds is zero.  Midnight (GMT) MUST be represented as
+   UTCTime values <em>MUST</em> be expressed in Greenwich Mean Time (Zulu) and
+   <em>MUST</em> include seconds (i.e., times are YYMMDDHHMMSSZ), even where the
+   number of seconds is zero.  Midnight (GMT) <em>MUST</em> be represented as
    "YYMMDD000000Z".  Century information is implicit, and the century
-   MUST be determined as follows:
+   <em>MUST</em> be determined as follows:
 
-      Where YY is greater than or equal to 50, the year MUST be
+      Where YY is greater than or equal to 50, the year <em>MUST</em> be
       interpreted as 19YY; and
 
-      Where YY is less than 50, the year MUST be interpreted as 20YY.
+      Where YY is less than 50, the year <em>MUST</em> be interpreted as 20YY.
 
-   GeneralizedTime values MUST be expressed in Greenwich Mean Time
-   (Zulu) and MUST include seconds (i.e., times are YYYYMMDDHHMMSSZ),
+   GeneralizedTime values <em>MUST</em> be expressed in Greenwich Mean Time
+   (Zulu) and <em>MUST</em> include seconds (i.e., times are YYYYMMDDHHMMSSZ),
    even where the number of seconds is zero.  GeneralizedTime values
-   MUST NOT include fractional seconds.
+   <em>MUST NOT</em> include fractional seconds.
 
-   A signing-time attribute MUST have a single attribute value, even
-   though the syntax is defined as a SET OF AttributeValue.  There MUST
+   A signing-time attribute <em>MUST</em> have a single attribute value, even
+   though the syntax is defined as a SET OF AttributeValue.  There <em>MUST</em>
    NOT be zero or multiple instances of AttributeValue present.
 
 
@@ -2317,8 +2317,8 @@ Table of Contents
 
    The SignedAttributes syntax and the AuthAttributes syntax are each
    defined as a SET OF Attributes.  The SignedAttributes in a signerInfo
-   MUST NOT include multiple instances of the signing-time attribute.
-   Similarly, the AuthAttributes in an AuthenticatedData MUST NOT
+   <em>MUST NOT</em> include multiple instances of the signing-time attribute.
+   Similarly, the AuthAttributes in an AuthenticatedData <em>MUST NOT</em>
    include multiple instances of the signing-time attribute.
 
    No requirement is imposed concerning the correctness of the signing
@@ -2334,7 +2334,7 @@ Table of Contents
    countersignature attribute type countersigns (signs in serial)
    another signature.
 
-   The countersignature attribute MUST be an unsigned attribute; it MUST
+   The countersignature attribute <em>MUST</em> be an unsigned attribute; it <em>MUST</em>
    NOT be a signed attribute, an authenticated attribute, an
    unauthenticated attribute, or an unprotected attribute.
 
@@ -2351,10 +2351,10 @@ Table of Contents
    Countersignature values have the same meaning as SignerInfo values
    for ordinary signatures, except that:
 
-      1.  The signedAttributes field MUST NOT contain a content-type
+      1.  The signedAttributes field <em>MUST NOT</em> contain a content-type
       attribute; there is no content type for countersignatures.
 
-      2.  The signedAttributes field MUST contain a message-digest
+      2.  The signedAttributes field <em>MUST</em> contain a message-digest
       attribute if it contains any other attributes.
 
       3.  The input to the message-digesting process is the contents
@@ -2372,7 +2372,7 @@ Table of Contents
 
 
    A countersignature attribute can have multiple attribute values.  The
-   syntax is defined as a SET OF AttributeValue, and there MUST be one
+   syntax is defined as a SET OF AttributeValue, and there <em>MUST</em> be one
    or more instances of AttributeValue present.
 
    The UnsignedAttributes syntax is defined as a SET OF Attributes.  The
@@ -2444,8 +2444,8 @@ Table of Contents
      version CMSVersion,
      digestAlgorithms DigestAlgorithmIdentifiers,
      encapContentInfo EncapsulatedContentInfo,
-     certificates [0] IMPLICIT CertificateSet OPTIONAL,
-     crls [1] IMPLICIT CertificateRevocationLists OPTIONAL,
+     certificates [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+     crls [1] IMPLICIT CertificateRevocationLists <em>OPTIONAL</em>,
      signerInfos SignerInfos }
 
    DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
@@ -2454,16 +2454,16 @@ Table of Contents
 
    EncapsulatedContentInfo ::= SEQUENCE {
      eContentType ContentType,
-     eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+     eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
 
    SignerInfo ::= SEQUENCE {
      version CMSVersion,
      sid SignerIdentifier,
      digestAlgorithm DigestAlgorithmIdentifier,
-     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+     signedAttrs [0] IMPLICIT SignedAttributes <em>OPTIONAL</em>,
      signatureAlgorithm SignatureAlgorithmIdentifier,
      signature SignatureValue,
-     unsignedAttrs [1] IMPLICIT UnsignedAttributes OPTIONAL }
+     unsignedAttrs [1] IMPLICIT UnsignedAttributes <em>OPTIONAL</em> }
 
    SignerIdentifier ::= CHOICE {
      issuerAndSerialNumber IssuerAndSerialNumber,
@@ -2493,21 +2493,21 @@ Table of Contents
 
    EnvelopedData ::= SEQUENCE {
      version CMSVersion,
-     originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
+     originatorInfo [0] IMPLICIT OriginatorInfo <em>OPTIONAL</em>,
      recipientInfos RecipientInfos,
      encryptedContentInfo EncryptedContentInfo,
-     unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL }
+     unprotectedAttrs [1] IMPLICIT UnprotectedAttributes <em>OPTIONAL</em> }
 
    OriginatorInfo ::= SEQUENCE {
-     certs [0] IMPLICIT CertificateSet OPTIONAL,
-     crls [1] IMPLICIT CertificateRevocationLists OPTIONAL }
+     certs [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+     crls [1] IMPLICIT CertificateRevocationLists <em>OPTIONAL</em> }
 
    RecipientInfos ::= SET SIZE (1..MAX) OF RecipientInfo
 
    EncryptedContentInfo ::= SEQUENCE {
      contentType ContentType,
      contentEncryptionAlgorithm ContentEncryptionAlgorithmIdentifier,
-     encryptedContent [0] IMPLICIT EncryptedContent OPTIONAL }
+     encryptedContent [0] IMPLICIT EncryptedContent <em>OPTIONAL</em> }
 
    EncryptedContent ::= OCTET STRING
 
@@ -2542,7 +2542,7 @@ Table of Contents
    KeyAgreeRecipientInfo ::= SEQUENCE {
      version CMSVersion,  -- always set to 3
      originator [0] EXPLICIT OriginatorIdentifierOrKey,
-     ukm [1] EXPLICIT UserKeyingMaterial OPTIONAL,
+     ukm [1] EXPLICIT UserKeyingMaterial <em>OPTIONAL</em>,
      keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
      recipientEncryptedKeys RecipientEncryptedKeys }
 
@@ -2566,8 +2566,8 @@ Table of Contents
 
    RecipientKeyIdentifier ::= SEQUENCE {
      subjectKeyIdentifier SubjectKeyIdentifier,
-     date GeneralizedTime OPTIONAL,
-     other OtherKeyAttribute OPTIONAL }
+     date GeneralizedTime <em>OPTIONAL</em>,
+     other OtherKeyAttribute <em>OPTIONAL</em> }
 
    SubjectKeyIdentifier ::= OCTET STRING
 
@@ -2579,8 +2579,8 @@ Table of Contents
 
    KEKIdentifier ::= SEQUENCE {
      keyIdentifier OCTET STRING,
-     date GeneralizedTime OPTIONAL,
-     other OtherKeyAttribute OPTIONAL }
+     date GeneralizedTime <em>OPTIONAL</em>,
+     other OtherKeyAttribute <em>OPTIONAL</em> }
 
 
 
@@ -2598,7 +2598,7 @@ Table of Contents
    PasswordRecipientInfo ::= SEQUENCE {
      version CMSVersion,   -- always set to 0
      keyDerivationAlgorithm [0] KeyDerivationAlgorithmIdentifier
-                                OPTIONAL,
+                                <em>OPTIONAL</em>,
      keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
      encryptedKey EncryptedKey }
 
@@ -2617,18 +2617,18 @@ Table of Contents
    EncryptedData ::= SEQUENCE {
      version CMSVersion,
      encryptedContentInfo EncryptedContentInfo,
-     unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL }
+     unprotectedAttrs [1] IMPLICIT UnprotectedAttributes <em>OPTIONAL</em> }
 
    AuthenticatedData ::= SEQUENCE {
      version CMSVersion,
-     originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
+     originatorInfo [0] IMPLICIT OriginatorInfo <em>OPTIONAL</em>,
      recipientInfos RecipientInfos,
      macAlgorithm MessageAuthenticationCodeAlgorithm,
-     digestAlgorithm [1] DigestAlgorithmIdentifier OPTIONAL,
+     digestAlgorithm [1] DigestAlgorithmIdentifier <em>OPTIONAL</em>,
      encapContentInfo EncapsulatedContentInfo,
-     authAttrs [2] IMPLICIT AuthAttributes OPTIONAL,
+     authAttrs [2] IMPLICIT AuthAttributes <em>OPTIONAL</em>,
      mac MessageAuthenticationCode,
-     unauthAttrs [3] IMPLICIT UnauthAttributes OPTIONAL }
+     unauthAttrs [3] IMPLICIT UnauthAttributes <em>OPTIONAL</em> }
 
    AuthAttributes ::= SET SIZE (1..MAX) OF Attribute
 
@@ -2677,7 +2677,7 @@ Table of Contents
 
    OtherKeyAttribute ::= SEQUENCE {
      keyAttrId OBJECT IDENTIFIER,
-     keyAttr ANY DEFINED BY keyAttrId OPTIONAL }
+     keyAttr ANY DEFINED BY keyAttrId <em>OPTIONAL</em> }
 
    -- The CMS Attributes
 
@@ -2798,8 +2798,8 @@ Table of Contents
      serialNumber CertificateSerialNumber,
      attCertValidityPeriod AttCertValidityPeriod,
      attributes SEQUENCE OF Attribute,
-     issuerUniqueID UniqueIdentifier OPTIONAL,
-     extensions Extensions OPTIONAL }
+     issuerUniqueID UniqueIdentifier <em>OPTIONAL</em>,
+     extensions Extensions <em>OPTIONAL</em> }
 
    AttCertVersionV1 ::= INTEGER { v1(0) }
 

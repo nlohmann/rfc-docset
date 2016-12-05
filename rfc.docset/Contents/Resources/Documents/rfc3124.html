@@ -224,8 +224,8 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>. Conventions used in this document:</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC-2119</a> [<a href="#ref-Bradner97" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Bradner97</a>].
 
    STREAM
@@ -251,9 +251,9 @@ Abstract
       management and scheduling algorithms, and share congestion state
       information.  Currently, streams destined to different receivers
       belong to different macroflows.  Streams destined to the same
-      receiver MAY belong to different macroflows.  When the Congestion
+      receiver <em>MAY</em> belong to different macroflows.  When the Congestion
       Manager is in use, streams that experience identical congestion
-      behavior and use the same congestion control algorithm SHOULD
+      behavior and use the same congestion control algorithm <em>SHOULD</em>
       belong to the same macroflow.
 
    APPLICATION
@@ -344,7 +344,7 @@ Abstract
    data transmissions subject to the CM must be done with the explicit
    consent of the CM via this API to ensure proper congestion behavior.
 
-   Systems MAY choose to use CM, and if so they MUST follow this
+   Systems <em>MAY</em> choose to use CM, and if so they <em>MUST</em> follow this
    specification.
 
    This document focuses on applications and networks where the
@@ -516,7 +516,7 @@ Abstract
    By convention, the IETF does not treat Application Programming
    Interfaces as standards track.  However, it is considered important
    to have the CM API and CM algorithm requirements in one coherent
-   document.  The following section on the CM API uses the terms MUST,
+   document.  The following section on the CM API uses the terms <em>MUST</em>,
 
 
 
@@ -525,7 +525,7 @@ Abstract
 <span class="grey"><a href="./rfc3124.html">RFC 3124</a>                 The Congestion Manager                June 2001</span>
 
 
-   SHOULD, etc., but the terms are meant to apply within the context of
+   <em>SHOULD</em>, etc., but the terms are meant to apply within the context of
    an implementation of the CM API.  The section does not apply to
    congestion control implementations in general, only to those
    implementations offering the CM API.
@@ -550,7 +550,7 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a> State maintenance</span>
 
-   1. Open: All applications MUST call cm_open(stream_info) before
+   1. Open: All applications <em>MUST</em> call cm_open(stream_info) before
       using the CM API.  This returns a handle, cm_streamid, for the
       application to use for all further CM API invocations for that
       stream.  If the returned cm_streamid is -1, then the cm_open()
@@ -559,14 +559,14 @@ Abstract
       All other calls to the CM for a stream use the cm_streamid
       returned from the cm_open() call.
 
-   2. Close: When a stream terminates, the application SHOULD invoke
+   2. Close: When a stream terminates, the application <em>SHOULD</em> invoke
       cm_close(cm_streamid) to inform the CM about the termination
       of the stream.
 
    3. Packet size: cm_mtu(cm_streamid) returns the estimated PMTU of
       the path between sender and receiver.  Internally, this
-      information SHOULD be obtained via path MTU discovery
-      [<a href="#ref-Mogul90" title="&quot;Path MTU Discovery,&quot;">Mogul90</a>].  It MAY be statically configured in the absence of
+      information <em>SHOULD</em> be obtained via path MTU discovery
+      [<a href="#ref-Mogul90" title="&quot;Path MTU Discovery,&quot;">Mogul90</a>].  It <em>MAY</em> be statically configured in the absence of
       such a mechanism.
 
 
@@ -596,12 +596,12 @@ Abstract
    rate change, which is hard to do once the data has been buffered.
    The CM must implement a cm_request(i32 cm_streamid) call for streams
    wishing to send data in this style.  After some time, depending on
-   the rate, the CM MUST invoke a callback using cmapp_send(), which is
+   the rate, the CM <em>MUST</em> invoke a callback using cmapp_send(), which is
    a grant for the stream to send up to PMTU bytes.  The callback-style
    API is the recommended choice for ALF-based streams.  Note that
    cm_request() does not take the number of bytes or MTU-sized units as
    an argument; each call to cm_request() is an implicit request for
-   sending up to PMTU bytes.  The CM MAY provide an alternate interface,
+   sending up to PMTU bytes.  The CM <em>MAY</em> provide an alternate interface,
    cm_request(int k).  The cmapp_send callback for this request is
    granted the right to send up to k PMTU sized segments.  <a href="#section-4.3">Section 4.3</a>
    discusses the time duration for which the transmission grant is
@@ -619,7 +619,7 @@ Abstract
    interrupt such transmitters, the transmit loop of such applications
    is less affected if they retain their original timer-based loop.  In
    addition, it complicates the CM API to have a stream express the
-   periodicity and granularity of its callbacks.  Thus, the CM MUST
+   periodicity and granularity of its callbacks.  Thus, the CM <em>MUST</em>
    export an API that allows such streams to be informed of changes in
    rates using the cmapp_update(u64 newrate, u32 srtt, u32 rttdev)
    callback function, where newrate is the new rate in bits per second
@@ -637,16 +637,16 @@ Abstract
 <span class="grey"><a href="./rfc3124.html">RFC 3124</a>                 The Congestion Manager                June 2001</span>
 
 
-   In response, the stream MUST adapt its packet size or change its
+   In response, the stream <em>MUST</em> adapt its packet size or change its
    timer interval to conform to (i.e., not exceed) the allowed rate.  Of
    course, it may choose not to use all of this rate.  Note that the CM
    is not on the data path of the actual transmission.
 
    To avoid unnecessary cmapp_update() callbacks that the application
-   will only ignore, the CM MUST provide a cm_thresh(float
+   will only ignore, the CM <em>MUST</em> provide a cm_thresh(float
    rate_downthresh, float rate_upthresh, float rtt_downthresh, float
    rtt_upthresh) function that a stream can use at any stage in its
-   execution.  In response, the CM SHOULD invoke the callback only when
+   execution.  In response, the CM <em>SHOULD</em> invoke the callback only when
    the rate decreases to less than (rate_downthresh * lastrate) or
    increases to more than (rate_upthresh * lastrate), where lastrate is
    the rate last notified to the stream, or when the round-trip time
@@ -654,7 +654,7 @@ Abstract
    information is used as a hint by the CM, in the sense the
    cmapp_update() can be called even if these conditions are not met.
 
-   The CM MUST implement a cm_query(i32 cm_streamid, u64* rate, u32*
+   The CM <em>MUST</em> implement a cm_query(i32 cm_streamid, u64* rate, u32*
    srtt, u32* rttdev) to allow an application to query the current CM
    state.  This sets the rate variable to the current rate estimate in
    bits per second, the srtt variable to the current smoothed round-trip
@@ -682,7 +682,7 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a> Application notification</span>
 
-   When a stream receives feedback from receivers, it MUST use
+   When a stream receives feedback from receivers, it <em>MUST</em> use
    cm_update(i32 cm_streamid, u32 nrecd, u32 nlost, u8 lossmode, i32
    rtt) to inform the CM about events such as congestion losses,
 
@@ -714,14 +714,14 @@ Abstract
    A value of CM_EXPLICIT_CONGESTION indicates that the receiver echoed
    an explicit congestion notification message.  Finally, a value of
    CM_NO_CONGESTION indicates that no congestion-related loss has
-   occurred.  The lossmode parameter MUST be reported as a bit-vector
+   occurred.  The lossmode parameter <em>MUST</em> be reported as a bit-vector
    where the bits correspond to CM_NO_FEEDBACK, CM_LOSS_FEEDBACK,
    CM_EXPLICIT_CONGESTION, and CM_NO_CONGESTION.  Note that over links
    (paths) that experience losses for reasons other than congestion, an
-   application SHOULD inform the CM of losses, with the CM_NO_CONGESTION
+   application <em>SHOULD</em> inform the CM of losses, with the CM_NO_CONGESTION
    field set.
 
-   cm_notify(i32 cm_streamid, u32 nsent) MUST be called when data is
+   cm_notify(i32 cm_streamid, u32 nsent) <em>MUST</em> be called when data is
    transmitted from the host (e.g., in the IP output routine) to inform
    the CM that nsent bytes were just transmitted on a given stream.
    This allows the CM to update its estimate of the number of
@@ -730,12 +730,12 @@ Abstract
    A cmapp_send() grant from the CM to an application is valid only for
    an expiration time, equal to the larger of the round-trip time and an
    implementation-dependent threshold communicated as an argument to the
-   cmapp_send() callback function.  The application MUST NOT send data
+   cmapp_send() callback function.  The application <em>MUST NOT</em> send data
    based on this callback after this time has expired.  Furthermore, if
    the application decides not to send data after receiving this
-   callback, it SHOULD call cm_notify(stream_info, 0) to allow the CM to
+   callback, it <em>SHOULD</em> call cm_notify(stream_info, 0) to allow the CM to
    permit other streams in the macroflow to transmit data.  The CM
-   congestion controller MUST be robust to applications forgetting to
+   congestion controller <em>MUST</em> be robust to applications forgetting to
    invoke cm_notify(stream_info, 0) correctly, or applications that
    crash or disappear after having made a cm_request() call.
 
@@ -826,12 +826,12 @@ Abstract
    macroflow to build up information about the congestion state of the
    network path used by the macroflow.
 
-   The congestion controller MUST implement a "TCP-friendly" [<a href="#ref-Mahdavi98" title="&quot;The TCP Friendly Website,&quot;">Mahdavi98</a>]
-   congestion control algorithm.  Several macroflows MAY (and indeed,
+   The congestion controller <em>MUST</em> implement a "TCP-friendly" [<a href="#ref-Mahdavi98" title="&quot;The TCP Friendly Website,&quot;">Mahdavi98</a>]
+   congestion control algorithm.  Several macroflows <em>MAY</em> (and indeed,
    often will) use the same congestion control algorithm but each
    macroflow maintains state about the network used by its streams.
 
-   The congestion control module MUST implement the following abstract
+   The congestion control module <em>MUST</em> implement the following abstract
    interfaces.  We emphasize that these are not directly visible to
    applications; they are within the context of a macroflow, and are
    different from the CM API functions of <a href="#section-4">Section 4</a>.
@@ -840,7 +840,7 @@ Abstract
      returns the estimated rate (in bits per second) and smoothed
      round trip time (in microseconds) for the macroflow.
 
-   - void notify(u32 nsent): This function MUST be used to notify the
+   - void notify(u32 nsent): This function <em>MUST</em> be used to notify the
      congestion control module whenever data is sent by an
      application.  The nsent parameter indicates the number of bytes
      just sent by the application.
@@ -867,11 +867,11 @@ Abstract
      loss was detected (<a href="#section-4.3">section 4.3</a>).
 
    Although these interfaces are not visible to applications, the
-   congestion controller MUST implement these abstract interfaces to
+   congestion controller <em>MUST</em> implement these abstract interfaces to
    provide for modular inter-operability with different separately-
    developed schedulers.
 
-   The congestion control module MUST also call the associated
+   The congestion control module <em>MUST</em> also call the associated
    scheduler's schedule function (<a href="#section-5.2">section 5.2</a>) when it believes that the
    current congestion state allows an MTU-sized packet to be sent.
 
@@ -882,12 +882,12 @@ Abstract
    responsibility of a macroflow's scheduler module to determine which
    of the streams should get the opportunity to transmit data.
 
-   The Scheduler MUST implement the following interfaces:
+   The Scheduler <em>MUST</em> implement the following interfaces:
 
    - void schedule(u32 num_bytes): When the congestion control module
-     determines that data can be sent, the schedule() routine MUST be
+     determines that data can be sent, the schedule() routine <em>MUST</em> be
      called with no more than the number of bytes that can be sent.
-     In turn, the scheduler MAY call the cmapp_send() function that CM
+     In turn, the scheduler <em>MAY</em> call the cmapp_send() function that CM
      applications must provide.
 
    - float query_share(i32 cm_streamid): This call returns the
@@ -901,7 +901,7 @@ Abstract
      application.  The nsent parameter indicates the number of bytes
      just sent by the application.
 
-     The Scheduler MAY implement many additional interfaces.  As
+     The Scheduler <em>MAY</em> implement many additional interfaces.  As
      experience with CM schedulers increases, future documents may
      make additions and/or changes to some parts of the scheduler
      API.
@@ -929,10 +929,10 @@ Abstract
    implementation optimizations for efficient operation are described in
    [<a href="#ref-Andersen00" title="H.">Andersen00</a>].
 
-   All applications that use the CM MUST incorporate feedback from the
+   All applications that use the CM <em>MUST</em> incorporate feedback from the
    receiver.  For example, it must periodically (typically once or twice
    per round trip time) determine how many of its packets arrived at the
-   receiver.  When the source gets this feedback, it MUST use
+   receiver.  When the source gets this feedback, it <em>MUST</em> use
    cm_update() to inform the CM of this new information.  This results
    in the CM updating ownd and may result in the CM changing its
    estimates and calling cmapp_update() of the streams of the macroflow.

@@ -425,8 +425,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    ISP: Internet Service Provider.  In this document, the service it
@@ -660,17 +660,17 @@ Table of Contents
    This section describes detailed 4rd protocol specifications.  They
    are mainly organized by functions.  As a brief summary:
 
-   o  A 4rd CE MUST follow R-1, R-2, R-3, R-4, R-6, R-7, R-8, R-9, R-10,
+   o  A 4rd CE <em>MUST</em> follow R-1, R-2, R-3, R-4, R-6, R-7, R-8, R-9, R-10,
       R-11, R-12, R-13, R-14, R-16, R-17, R-18, R-19, R-20, R-21, R-22,
       R-23, R-24, R-25, R-26, and R-27.
 
-   o  A 4rd BR MUST follow R-2, R-3, R-4, R-5, R-6, R-9, R-12, R-13,
+   o  A 4rd BR <em>MUST</em> follow R-2, R-3, R-4, R-5, R-6, R-9, R-12, R-13,
       R-14, R-15, R-19, R-20, R-21, R-22, and R-24.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  NAT44 on CE</span>
 
-   R-1:  A CE node that is assigned a shared public IPv4 address MUST
-         include a NAT44 [<a href="./rfc3022.html" title="&quot;Traditional IP Network Address Translator (Traditional NAT)&quot;">RFC3022</a>].  This NAT44 MUST only use external
+   R-1:  A CE node that is assigned a shared public IPv4 address <em>MUST</em>
+         include a NAT44 [<a href="./rfc3022.html" title="&quot;Traditional IP Network Address Translator (Traditional NAT)&quot;">RFC3022</a>].  This NAT44 <em>MUST</em> only use external
          ports that are in the CE-assigned port set.
 
    NOTE: This specification only concerns IPv4 communication between
@@ -702,7 +702,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Mapping Rules and Other Domain Parameters</span>
 
-   R-2:  CEs and BRs MUST be configured with the following Domain
+   R-2:  CEs and BRs <em>MUST</em> be configured with the following Domain
          parameters:
 
          A.  One or several Mapping rules, each one comprising the
@@ -714,13 +714,13 @@ Table of Contents
 
              3.  Rule IPv6 prefix
 
-             4.  Well-Known Ports (WKPs) authorized (OPTIONAL)
+             4.  Well-Known Ports (WKPs) authorized (<em>OPTIONAL</em>)
 
          B.  Domain Path MTU (PMTU)
 
          C.  Hub-and-spoke topology (Yes or No)
 
-         D.  Tunnel Traffic Class (OPTIONAL)
+         D.  Tunnel Traffic Class (<em>OPTIONAL</em>)
 
    "Rule IPv4 prefix" is used to find, by a longest match, which Mapping
    rule applies to a 4rd IPv4 address (<a href="#section-4.5">Section 4.5</a>).  A Mapping rule
@@ -737,7 +737,7 @@ Table of Contents
    "Rule IPv6 prefix" is the prefix that is used as a substitute for the
    Rule IPv4 prefix when a 4rd IPv6 address is derived from a 4rd IPv4
    address (<a href="#section-4.5">Section 4.5</a>).  In a BR Mapping rule or a NAT64+ Mapping
-   rule, it MUST be a /80 prefix whose bits 64-79 are the 4rd Tag.
+   rule, it <em>MUST</em> be a /80 prefix whose bits 64-79 are the 4rd Tag.
 
    "WKPs authorized" may be set for Mapping rules that assign shared
    IPv4 addresses to CEs.  (These rules are those whose length of the
@@ -757,7 +757,7 @@ Table of Contents
 
 
    "Domain PMTU" is the IPv6 Path MTU that the ISP can guarantee for all
-   of its IPv6 paths between CEs and between BRs and CEs.  It MUST be at
+   of its IPv6 paths between CEs and between BRs and CEs.  It <em>MUST</em> be at
    least 1280 octets [<a href="./rfc2460.html" title="&quot;Internet Protocol, Version 6 (IPv6) Specification&quot;">RFC2460</a>].
 
    "Hub-and-spoke topology", if set to Yes, requires CEs to tunnel all
@@ -765,26 +765,26 @@ Table of Contents
    routes as native IPv6 packets between the same CEs (mesh topology).
 
    "Tunnel Traffic Class", if provided, is the IPv6 traffic class that
-   BRs and CEs MUST set in Tunnel packets.  In this case, evolutions of
+   BRs and CEs <em>MUST</em> set in Tunnel packets.  In this case, evolutions of
    the IPv6 traffic class that may occur during Domain traversal are not
    reflected in TOS fields of IPv4 packets at Domain exit (<a href="#section-4.7">Section 4.7</a>).
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Reversible Packet Translations at Domain Entries and Exits</span>
 
    R-3:  Domain-entry nodes that receive IPv4 packets with IPv4 options
-         MUST discard these packets and return ICMPv4 error messages to
+         <em>MUST</em> discard these packets and return ICMPv4 error messages to
          signal IPv4-option incompatibility (Type = 12, Code = 0,
          Pointer = 20) [<a href="./rfc792.html" title="&quot;Internet Control Message Protocol&quot;">RFC792</a>].  This limitation is acceptable because
          there are a lot of firewalls in the current IPv4 Internet that
          also filter IPv4 packets with IPv4 options.
 
    R-4:  Domain-entry nodes that receive IPv4 packets without IPv4
-         options MUST convert them to Tunnel packets, with or without
+         options <em>MUST</em> convert them to Tunnel packets, with or without
          IPv6 fragment headers, depending on what is needed to ensure
-         IPv4 transparency (Figure 2).  Domain-exit nodes MUST convert
+         IPv4 transparency (Figure 2).  Domain-exit nodes <em>MUST</em> convert
          them back to IPv4 packets.
 
-         An IPv6 fragmentation header MUST be included at tunnel entry
+         An IPv6 fragmentation header <em>MUST</em> be included at tunnel entry
          (Figure 2) if and only if one or several of the following
          conditions hold:
 
@@ -797,7 +797,7 @@ Table of Contents
             68 AND DF = 0).
 
          In order to optimize cases where fragmentation headers are
-         unnecessary, the NAT44 of a CE that has one SHOULD send packets
+         unnecessary, the NAT44 of a CE that has one <em>SHOULD</em> send packets
          with TTL = 254.
 
 
@@ -814,7 +814,7 @@ Table of Contents
 
    R-5:  In Domains whose chosen topology is hub-and-spoke, BRs that
          receive 4rd IPv6 packets whose embedded destination IPv4
-         addresses match a CE Mapping rule MUST do the equivalent of
+         addresses match a CE Mapping rule <em>MUST</em> do the equivalent of
          reversibly translating their headers to IPv4 and then
          reversibly translate them back to IPv6 as though packets would
          be entering the Domain.
@@ -1009,7 +1009,7 @@ Table of Contents
    addresses or protocol integrity; (2) in IPv4, ICMP messages and
    null-checksum UDP datagrams depend on this protection because, unlike
    other datagrams, they have no other address-and-protocol integrity
-   protection.  The sum MUST be performed in ordinary two's complement
+   protection.  The sum <em>MUST</em> be performed in ordinary two's complement
    arithmetic.
 
    IP-layer Packet length is another field covered by the IPv4 header
@@ -1051,7 +1051,7 @@ Table of Contents
    next router.
 
    NOTE 3: Provided the sum of obtained IPv4 addresses and protocol
-   matches Addr_Prot_Cksm.  If not, the packet MUST be silently
+   matches Addr_Prot_Cksm.  If not, the packet <em>MUST</em> be silently
    discarded.
 
 
@@ -1133,7 +1133,7 @@ Table of Contents
       Figure 4: From CE IPv6 Prefix to 4rd IPv4 Address and Port Set
 
    R-7:  A CE whose delegated IPv6 prefix matches the Rule IPv6 prefix
-         of one or several Mapping rules MUST select the CE Mapping rule
+         of one or several Mapping rules <em>MUST</em> select the CE Mapping rule
          for which the match is the longest.  It then derives its 4rd
          IPv4 prefix as shown in Figure 4: (1) The CE replaces the Rule
          IPv6 prefix with the Rule IPv4 prefix.  The result is the CE
@@ -1148,7 +1148,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7600.html">RFC 7600</a>        Stateless IPv4 Residual Deployment (4rd)       July 2015</span>
 
 
-         it has more than 32 bits, the CE MUST take the first 32 bits as
+         it has more than 32 bits, the CE <em>MUST</em> take the first 32 bits as
          its shared public IPv4 address and bits beyond the first 32 as
          its Port-Set identifier (PSID).  Ports of its restricted port
          set are by default those that have any non-zero value in their
@@ -1171,16 +1171,16 @@ Table of Contents
          alignment of PSIDs and overall simplicity.
 
    R-8:  A CE whose delegated IPv6 prefix has its longest match with the
-         Rule IPv6 prefix of the BR Mapping rule MUST take as its IPv4
+         Rule IPv6 prefix of the BR Mapping rule <em>MUST</em> take as its IPv4
          address the 32 bits that, in the delegated IPv6 prefix, follow
          this Rule IPv6 prefix.  If this is the case while the hub-and-
          spoke option applies to the Domain, or if the Rule IPv6 prefix
          is not a /80, there is a configuration error in the Domain.  An
-         implementation-dependent administrative action MAY be taken.
+         implementation-dependent administrative action <em>MAY</em> be taken.
 
          A CE whose delegated IPv6 prefix does not match the Rule IPv6
          prefix of either any CE Mapping rule or the BR Mapping rule,
-         and is in a Domain that has a NAT64+ Mapping rule, MUST be
+         and is in a Domain that has a NAT64+ Mapping rule, <em>MUST</em> be
          noted as having the unspecified IPv4 address.
 
 
@@ -1261,19 +1261,19 @@ Table of Contents
 
 
    R-9:  BRs, and CEs that are assigned public IPv4 addresses, shared or
-         not, MUST derive 4rd IPv6 addresses from 4rd IPv4 addresses via
+         not, <em>MUST</em> derive 4rd IPv6 addresses from 4rd IPv4 addresses via
          the steps below or their functional equivalent (Figure 5
          details the shared public IPv4 address case):
 
          NOTE: The rules for forming 4rd-specific Interface Identifiers
          (IIDs) are to obey [<a href="./rfc7136.html" title="&quot;Significance of IPv6 Interface Identifiers&quot;">RFC7136</a>]:
 
-         "Specifications of other forms of 64-bit IIDs MUST specify how
+         "Specifications of other forms of 64-bit IIDs <em>MUST</em> specify how
          all 64 bits are set."
 
          and
 
-         "the whole IID value MUST be viewed as an opaque bit string by
+         "the whole IID value <em>MUST</em> be viewed as an opaque bit string by
          third parties, except possibly in the local context."
 
          (1)  If hub-and-spoke topology does not apply to the Domain, or
@@ -1388,21 +1388,21 @@ Table of Contents
               ones be specified, BRs will support them without needing
               an update.)
 
-   R-10: A 4rd-capable CE SHOULD, and a 4rd-enabled CE MUST, always
+   R-10: A 4rd-capable CE <em>SHOULD</em>, and a 4rd-enabled CE <em>MUST</em>, always
          prohibit all addresses that use its advertised prefix and have
          an IID starting with 0x0300 (4rd Tag), by using Duplicate
          Address Detection [<a href="./rfc4862.html" title="&quot;IPv6 Stateless Address Autoconfiguration&quot;">RFC4862</a>].
 
    R-11: A CE that is assigned the unspecified IPv4 address (see
-         <a href="#section-4.4">Section 4.4</a>) MUST use, for packets tunneled between itself and
+         <a href="#section-4.4">Section 4.4</a>) <em>MUST</em> use, for packets tunneled between itself and
          the Domain NAT64+, addresses as detailed in Figure 6: part (a)
          for its IPv6 source, and part (b) as IPv6 destinations that
          depend on IPv4 destinations.  A NAT64+, being NAT64 conforming
-         [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>], MUST accept IPv6 packets whose destination conforms
+         [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>], <em>MUST</em> accept IPv6 packets whose destination conforms
          to Figure 6(b) (4rd Tag instead of "u" and 0x00 octets).  In
-         its Binding Information Base, it MUST remember whether a
+         its Binding Information Base, it <em>MUST</em> remember whether a
          mapping was created with a "u" or 4rd-tag destination.  In the
-         IPv4-to-IPv6 direction, it MUST use 4rd tunneling, with source
+         IPv4-to-IPv6 direction, it <em>MUST</em> use 4rd tunneling, with source
          address conforming to Figure 6(b), when using a mapping that
          was created with a 4rd-tag destination.
 
@@ -1428,7 +1428,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7600.html">RFC 7600</a>        Stateless IPv4 Residual Deployment (4rd)       July 2015</span>
 
 
-   R-12: For anti-spoofing protection, CEs and BRs MUST check that the
+   R-12: For anti-spoofing protection, CEs and BRs <em>MUST</em> check that the
          IPv6 source address of each received Tunnel packet is that
          which, according to R-9, is derived from the source 4rd IPv4
          address.  For this, the IPv4 address used to obtain the source
@@ -1440,7 +1440,7 @@ Table of Contents
 
    R-13: For additional protection against packet corruption at a link
          layer that might be undetected at this layer during Domain
-         traversal, CEs and BRs SHOULD verify that source and
+         traversal, CEs and BRs <em>SHOULD</em> verify that source and
          destination IPv6 addresses have not been modified.  This can be
          done by checking that they remain checksum neutral (see the
          Note above regarding the CNP).
@@ -1452,8 +1452,8 @@ Table of Contents
    R-14: If an IPv4 packet enters a CE or BR with a size such that the
          derived Tunnel packet would be longer than the Domain PMTU, the
          packet has to be either discarded or fragmented.  The
-         Domain-entry node MUST discard it if the packet has DF = 1,
-         with an ICMP error message returned to the source.  It MUST
+         Domain-entry node <em>MUST</em> discard it if the packet has DF = 1,
+         with an ICMP error message returned to the source.  It <em>MUST</em>
          fragment it otherwise, with the payload of each fragment not
          exceeding PMTU - 48.  The first fragment has its offset equal
          to the received offset.  Subsequent fragments have offsets
@@ -1490,13 +1490,13 @@ Table of Contents
    fragmented packets, a BR needs a mechanism to send to the right
    shared-address CEs all fragments of fragmented packets.
 
-   For this, a BR MAY systematically reassemble fragmented IPv4 packets
+   For this, a BR <em>MAY</em> systematically reassemble fragmented IPv4 packets
    before tunneling them.  But this consumes large memory space, creates
    opportunities for denial-of-service-attacks, and can significantly
    increase forwarding delays.  This is the reason for the following
    requirement:
 
-   R-15: BRs SHOULD support an algorithm whereby received IPv4 packets
+   R-15: BRs <em>SHOULD</em> support an algorithm whereby received IPv4 packets
          can be forwarded on the fly.  The following is an example of
          such an algorithm:
 
@@ -1563,11 +1563,11 @@ Table of Contents
               not, however, be longer than 15 seconds [<a href="./rfc791.html" title="&quot;Internet Protocol&quot;">RFC791</a>].
 
    R-16: For the above algorithm to be effective, CEs that are assigned
-         shared public IPv4 addresses MUST NOT interleave fragments of
+         shared public IPv4 addresses <em>MUST NOT</em> interleave fragments of
          several fragmented packets.
 
    R-17: CEs that are assigned IPv4 prefixes and are in nodes that route
-         public IPv4 addresses rather than only using NAT44s MUST have
+         public IPv4 addresses rather than only using NAT44s <em>MUST</em> have
          the same behavior as that described just above for BRs.
 
 
@@ -1607,12 +1607,12 @@ Table of Contents
    solution is needed in order to avoid creating new attack
    opportunities.
 
-   R-18: A CE that is assigned a shared public IPv4 address MUST only
+   R-18: A CE that is assigned a shared public IPv4 address <em>MUST</em> only
          use packet identifications that have the CE PSID in their
          bits 0 to PSID length - 1.
 
    R-19: A BR or a CE that receives a packet from a shared-address CE
-         MUST check that bits 0 to PSID length - 1 of their packet
+         <em>MUST</em> check that bits 0 to PSID length - 1 of their packet
          identifications are equal to the PSID found in the source 4rd
          IPv4 address.
 
@@ -1629,15 +1629,15 @@ Table of Contents
    desired behavior is that of generic tunnels conforming to [<a href="./rfc2473.html" title="&quot;Generic Packet Tunneling in IPv6 Specification&quot;">RFC2473</a>].
 
    R-20: Unless the Tunnel Traffic Class option is configured for the
-         Domain, BRs and CEs MUST copy the IPv4 TOS into the IPv6
+         Domain, BRs and CEs <em>MUST</em> copy the IPv4 TOS into the IPv6
          traffic class at Domain entry and copy back the IPv6 traffic
          class into the IPv4 TOS at Domain exit.
 
    R-21: If the Tunnel Traffic Class option is configured for a Domain,
-         BRs and CEs MUST at Domain entry take the configured Tunnel
+         BRs and CEs <em>MUST</em> at Domain entry take the configured Tunnel
          Traffic Class as the IPv6 traffic class and copy the received
          IPv4 TOS into the IPv4_TOS of the fragment header (Figure 3).
-         At Domain exit, they MUST copy back the IPv4_TOS of the
+         At Domain exit, they <em>MUST</em> copy back the IPv4_TOS of the
          fragment header into the IPv4 TOS.
 
 
@@ -1661,16 +1661,16 @@ Table of Contents
    converted into an ICMPv4 message.
 
    R-22: If a CE or BR receives an ICMPv6 error message [<a href="./rfc4443.html" title="&quot;Internet Control Message Protocol (ICMPv6) for the Internet Protocol Version 6 (IPv6) Specification&quot;">RFC4443</a>], it
-         MUST synthesize an ICMPv4 error packet [<a href="./rfc792.html" title="&quot;Internet Control Message Protocol&quot;">RFC792</a>].  This packet
-         MUST contain the first 8 octets of the discarded packet's IP
+         <em>MUST</em> synthesize an ICMPv4 error packet [<a href="./rfc792.html" title="&quot;Internet Control Message Protocol&quot;">RFC792</a>].  This packet
+         <em>MUST</em> contain the first 8 octets of the discarded packet's IP
          payload.  The reserved IPv4 dummy address (192.0.0.8/32; see
-         <a href="#section-6">Section 6</a>) MUST be used as its source address.
+         <a href="#section-6">Section 6</a>) <em>MUST</em> be used as its source address.
 
          As described in [<a href="./rfc6145.html" title="&quot;IP/ICMP Translation Algorithm&quot;">RFC6145</a>], ICMPv6 Type = 1 and Code = 0
-         (Destination Unreachable, No route to destination) MUST be
+         (Destination Unreachable, No route to destination) <em>MUST</em> be
          translated into ICMPv4 Type = 3 and Code = 0 (Destination
          Unreachable, Net unreachable), and ICMPv6 Type = 3 and Code = 0
-         (Time Exceeded, Hop limit exceeded in transit) MUST be
+         (Time Exceeded, Hop limit exceeded in transit) <em>MUST</em> be
          translated into ICMPv4 Type = 11 and Code = 0 (Time Exceeded,
          time to live exceeded in transit).
 
@@ -1679,20 +1679,20 @@ Table of Contents
    Domain parameters listed in <a href="#section-4.2">Section 4.2</a> are subject to the following
    constraints:
 
-   R-23: Each Domain MUST have a BR Mapping rule and/or a NAT64+ Mapping
+   R-23: Each Domain <em>MUST</em> have a BR Mapping rule and/or a NAT64+ Mapping
          rule.  The BR Mapping rule is only used by CEs that are
          assigned public IPv4 addresses, shared or not.  The NAT64+
          Mapping rule is only used by CEs that are assigned the
          unspecified IPv4 address (<a href="#section-4.4">Section 4.4</a>) and therefore need an
          ISP NAT64 to reach IPv4 destinations.
 
-   R-24: Each CE and each BR MUST support up to 32 Mapping rules.
+   R-24: Each CE and each BR <em>MUST</em> support up to 32 Mapping rules.
 
          Support for up to 32 Mapping rules ensures that independently
          acquired CEs and BR nodes can always interwork.
 
          ISPs that need Mapping rules for more IPv4 prefixes than this
-         number SHOULD split their networks into multiple Domains.
+         number <em>SHOULD</em> split their networks into multiple Domains.
          Communication between these domains can be done in IPv4 or by
          some other implementation-dependent, but equivalent, means.
 
@@ -1709,20 +1709,20 @@ Table of Contents
 
 
    R-25: For mesh topologies, where CE-CE paths don't go via BRs, all
-         Mapping rules of the Domain MUST be sent to all CEs.  For
+         Mapping rules of the Domain <em>MUST</em> be sent to all CEs.  For
          hub-and-spoke topologies, where all CE-CE paths go via BRs,
-         each CE MAY be sent only the BR Mapping rule of the Domain
+         each CE <em>MAY</em> be sent only the BR Mapping rule of the Domain
          plus, if different, the CE Mapping rule that applies to its CE
          IPv6 prefix.
 
    R-26: In a Domain where the chosen topology is hub-and-spoke, all CEs
-         MUST have IPv6 prefixes that match a CE Mapping rule.
+         <em>MUST</em> have IPv6 prefixes that match a CE Mapping rule.
          (Otherwise, packets sent to CEs whose IPv6 prefixes would match
          only the BR Mapping rule would, with longest-match selected
          routes, be routed directly to these CEs.  This would be
          contrary to the hub-and-spoke requirement.)
 
-   R-27: CEs MUST be able to acquire parameters of 4rd domains
+   R-27: CEs <em>MUST</em> be able to acquire parameters of 4rd domains
          (<a href="#section-4.2">Section 4.2</a>) in DHCPv6 [<a href="./rfc3315.html" title="&quot;Dynamic Host Configuration Protocol for IPv6 (DHCPv6)&quot;">RFC3315</a>].  Formats of DHCPv6 options
          to be used are detailed in Figures 7, 8, and 9, with field
          values specified after each figure.
@@ -1769,7 +1769,7 @@ Table of Contents
       a maximum of one encapsulated OPTION_4RD_NON_MAP_RULE option.
       Since DHCP servers normally send whatever options the operator
       configures, operators are advised to configure these options
-      appropriately.  DHCP servers MAY check to see that the
+      appropriately.  DHCP servers <em>MAY</em> check to see that the
       configuration follows these rules and notify the operator in an
       implementation-dependent manner if the settings for these options
       aren't valid.  The length of encapsulated options is in octets.

@@ -403,8 +403,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.  [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -446,15 +446,15 @@ Table of Contents
       Main header identification value.  This is used for JPEG 2000 main
       header recovery.
 
-      The initial value of mh_id MUST be 1 at the beginning of the
+      The initial value of mh_id <em>MUST</em> be 1 at the beginning of the
       session.
 
       The same mh_id value is used as long as the coding parameters
       described in the main header remains unchanged between frames.
 
-      The mh_id value MUST be incremented by 1 every time a new main
+      The mh_id value <em>MUST</em> be incremented by 1 every time a new main
       header is transmitted.  Once the mh_id value becomes greater than
-      7, it SHOULD roll over to 1.
+      7, it <em>SHOULD</em> roll over to 1.
 
       When mh_id is 0, it has special usage for the receiver.  This
       special usage is described in <a href="#section-4.2">Section 4.2</a> of this document.
@@ -494,7 +494,7 @@ Table of Contents
       lowest importance.  We define the priority value 0 as a special
       priority value for the headers (the main header or tile-part
       header).  If any headers (the main header or tile-part header) are
-      packed into the RTP payload, the sender MUST set the priority
+      packed into the RTP payload, the sender <em>MUST</em> set the priority
       value to 0.
 
       Assignment of the values is described in <a href="#section-3">Section 3</a>.
@@ -509,16 +509,16 @@ Table of Contents
    progression-based, layer-based, resolution-based, and component-
    based.
 
-   Packet number priority mapping is REQUIRED to be supported by clients
+   Packet number priority mapping is <em>REQUIRED</em> to be supported by clients
    implementing this specification.  Other priority mapping tables
-   (progression, layer, resolution, and component-based) are OPTIONAL to
+   (progression, layer, resolution, and component-based) are <em>OPTIONAL</em> to
    implementations of this specification.
 
-   Rules that all implementations of this specification MUST follow in
+   Rules that all implementations of this specification <em>MUST</em> follow in
    all priority modes:
 
    o  When there is a header in the packet with a JPEG 2000 packet, the
-      sender MUST set the payload packet priority value to 0.
+      sender <em>MUST</em> set the payload packet priority value to 0.
 
 
 
@@ -529,7 +529,7 @@ Table of Contents
 
 
    o  When there are multiple JPEG 2000 packets in the same RTP payload
-      packet, the sender MUST set the payload packet priority value to
+      packet, the sender <em>MUST</em> set the payload packet priority value to
       the lowest JPEG 2000 packet (i.e., if JPEG 2000 packets with
       priority: 5,6,7 are packed into a single payload, the priority
       value will be 5).
@@ -540,10 +540,10 @@ Table of Contents
    value from the "JPEG 2000 packet value" (note: JPEG 2000 codestreams
    are stored in units of packets and each packet has a value).  This
    method is the default method for assigning priority value.  All
-   implementations of this specification MUST support this method.
+   implementations of this specification <em>MUST</em> support this method.
 
    If the JPEG 2000 codestream packet value is greater than 255, the
-   sender MUST set the payload priority value to 255.
+   sender <em>MUST</em> set the payload priority value to 255.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Progression-Based Ordering</span>
 
@@ -729,16 +729,16 @@ Table of Contents
    indicate whether or not the encode parameters of the previous frame
    are the same in the event of a lost header.
 
-   The mh_id field value SHOULD be saved from previous frames to be used
+   The mh_id field value <em>SHOULD</em> be saved from previous frames to be used
    to recover the current frame's main header.  If the mh_id of the
    current frame has the same value as the mh_id value of the previous
-   frame, the previous frame's main header MAY be used to decode the
+   frame, the previous frame's main header <em>MAY</em> be used to decode the
    current frame, in case of a lost header in the current frame.
 
-   The sender MUST increment mh_id when parameters in the header change
+   The sender <em>MUST</em> increment mh_id when parameters in the header change
    and send a new main header accordingly.
 
-   The receiver MAY use the mh_id and MAY retain the header for such
+   The receiver <em>MAY</em> use the mh_id and <em>MAY</em> retain the header for such
    compensation.
 
 
@@ -754,7 +754,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Sender Processing</span>
 
-   The sender MUST transmit RTP packets with the same mh_id value if the
+   The sender <em>MUST</em> transmit RTP packets with the same mh_id value if the
    encoder parameters of the current frame are the same as the previous
    frame.  The encoding parameters are the fixed information marker
    segment (SIZ marker) and functional marker segments (COD, COC, RGN,
@@ -762,15 +762,15 @@ Table of Contents
    [<a href="#ref-JPEG2000Pt_1" title="&quot;Information Technology - JPEG 2000 Image Coding System - Part 1: Core Coding System&quot;">JPEG2000Pt_1</a>].
 
    If the encode parameters changes, the sender transmitting RTP packets
-   MUST increment the mh_id value by one, but when the mh_id value
-   becomes greater than 7, a sender MUST set the mh_id value back to 1.
+   <em>MUST</em> increment the mh_id value by one, but when the mh_id value
+   becomes greater than 7, a sender <em>MUST</em> set the mh_id value back to 1.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Receiver Processing</span>
 
    When the receiver receives the main header completely, the RTP
    sequence number, the mh_id, and the main header should be saved.
-   Only the last main header that was received completely SHOULD be
-   saved.  When the mh_id value is 0, the receiver SHOULD NOT save the
+   Only the last main header that was received completely <em>SHOULD</em> be
+   saved.  When the mh_id value is 0, the receiver <em>SHOULD NOT</em> save the
    header.
 
    When the main header is not received, the receiver may compare the
@@ -778,10 +778,10 @@ Table of Contents
    value.  If the values match, decoding may be performed by using the
    previously saved main header.
 
-   If the mh_id field is set to 0, the receiver MUST NOT save the main
-   header and MUST NOT compensate for lost headers.
+   If the mh_id field is set to 0, the receiver <em>MUST NOT</em> save the main
+   header and <em>MUST NOT</em> compensate for lost headers.
 
-   If the mh_id value changes, receivers SHOULD save the current header
+   If the mh_id value changes, receivers <em>SHOULD</em> save the current header
    and save the new mh_id value.  The old saved header should be deleted
    from storage.
 
@@ -848,7 +848,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Mapping of the Optional Parameters to SDP</span>
 
-   The new optional parameters mhc and pt, if presented, MUST be
+   The new optional parameters mhc and pt, if presented, <em>MUST</em> be
    included in the "a=fmtp" line of SDP.  These parameters are expressed
    as a media type string, in the form of a semicolon-separated list of
    parameter=value pairs.
@@ -871,26 +871,26 @@ Table of Contents
    When offering JPEG 2000 over RTP using SDP in an Offer/Answer model
    [<a href="./rfc3264.html" title="&quot;An Offer/Answer Model with Session Description Protocol (SDP)&quot;">RFC3264</a>], the following rules and limitations apply:
 
-   o  All parameters MUST have an acceptable value for that parameter.
+   o  All parameters <em>MUST</em> have an acceptable value for that parameter.
 
-   o  All parameters MUST correspond to the parameters of the payload.
+   o  All parameters <em>MUST</em> correspond to the parameters of the payload.
 
-   o  If the optional parameter "mhc" is used, it MUST appear in the
-      offer with value "1", and if accepted, it SHOULD appear in the
+   o  If the optional parameter "mhc" is used, it <em>MUST</em> appear in the
+      offer with value "1", and if accepted, it <em>SHOULD</em> appear in the
       answer.
 
-   o  If the optional parameter "pt" is used, it MUST appear in the
+   o  If the optional parameter "pt" is used, it <em>MUST</em> appear in the
       offer containing a complete comma-separated list indicating which
       priority table definitions the sender supports.  If accepted, it
-      SHOULD appear in the answer containing a single priority table
+      <em>SHOULD</em> appear in the answer containing a single priority table
       definition selected from the offer.
 
-   o  If the optional parameter "mhc" is used, it MUST appear in the
-      offer with value "1", and if accepted, it MUST appear in the
-      answer.  If the optional parameter "pt" is used, it MUST appear in
+   o  If the optional parameter "mhc" is used, it <em>MUST</em> appear in the
+      offer with value "1", and if accepted, it <em>MUST</em> appear in the
+      answer.  If the optional parameter "pt" is used, it <em>MUST</em> appear in
       the offer containing a complete comma-separated list indicating
       which priority table definitions the sender supports.  If
-      accepted, it MUST appear in the answer containing a single
+      accepted, it <em>MUST</em> appear in the answer containing a single
       priority table definition selected from the offer.
 
    o  In a multicast environment:
@@ -899,7 +899,7 @@ Table of Contents
          definition for everyone in the group.
 
       *  Even if a single client in the group does not support the
-         extensions outlined in this document, senders MAY use these
+         extensions outlined in this document, senders <em>MAY</em> use these
          mechanisms.  A receiver that doesn't support the mechanisms
          would safely ignore the values.in mh_id and priority field.
 

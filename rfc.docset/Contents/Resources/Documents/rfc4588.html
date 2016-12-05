@@ -381,8 +381,8 @@ Table of Contents
    retransmission stream are sent in the same RTP session with different
    SSRC values.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Requirements and Design Rationale for a Retransmission Scheme</span>
@@ -512,8 +512,8 @@ Table of Contents
    and SSRC-multiplexing for unicast sessions.  From an implementation
    point of view, there is little difference between the two approaches.
    Hence, in order to maximise interoperability, both multiplexing
-   approaches SHOULD be supported by senders and receivers.  For
-   multicast sessions, session-multiplexing MUST be used because the
+   approaches <em>SHOULD</em> be supported by senders and receivers.  For
+   multicast sessions, session-multiplexing <em>MUST</em> be used because the
    association of the original stream and the retransmission stream is
    problematic if SSRC-multiplexing is used with multicast sessions(see
    <a href="#section-5.3">Section 5.3</a> for motivation).
@@ -544,31 +544,31 @@ Table of Contents
 
    The RTP header usage is as follows:
 
-   In the case of session-multiplexing, the same SSRC value MUST be used
+   In the case of session-multiplexing, the same SSRC value <em>MUST</em> be used
    for the original stream and the retransmission stream.  In the case
    of an SSRC collision in either the original session or the
    retransmission session, the RTP specification requires that an RTCP
-   BYE packet MUST be sent in the session where the collision happened.
-   In addition, an RTCP BYE packet MUST also be sent for the associated
+   BYE packet <em>MUST</em> be sent in the session where the collision happened.
+   In addition, an RTCP BYE packet <em>MUST</em> also be sent for the associated
    stream in its own session.  After a new SSRC identifier is obtained,
-   the SSRC of both streams MUST be set to this value.
+   the SSRC of both streams <em>MUST</em> be set to this value.
 
-   In the case of SSRC-multiplexing, two different SSRC values MUST be
+   In the case of SSRC-multiplexing, two different SSRC values <em>MUST</em> be
    used for the original stream and the retransmission stream as
    required by RTP.  If an SSRC collision is detected for either the
    original stream or the retransmission stream, the RTP specification
-   requires that an RTCP BYE packet MUST be sent for this stream.  An
-   RTCP BYE packet MUST NOT be sent for the associated stream.
-   Therefore, only the stream that experienced SSRC collision MUST
+   requires that an RTCP BYE packet <em>MUST</em> be sent for this stream.  An
+   RTCP BYE packet <em>MUST NOT</em> be sent for the associated stream.
+   Therefore, only the stream that experienced SSRC collision <em>MUST</em>
    choose a new SSRC value.  Refer to <a href="#section-5.3">Section 5.3</a> for the implications
    on the original stream and retransmission stream SSRC association at
    the receiver.
 
    For either multiplexing scheme, the sequence number has the standard
-   definition; i.e., it MUST be one higher than the sequence number of
+   definition; i.e., it <em>MUST</em> be one higher than the sequence number of
    the preceding packet sent in the retransmission stream.
 
-   The retransmission packet timestamp MUST be set to the original
+   The retransmission packet timestamp <em>MUST</em> be set to the original
    timestamp, i.e., to the timestamp of the original packet.  As a
    consequence, the initial RTP timestamp for the first packet of the
    retransmission stream is not random but equal to the original
@@ -590,14 +590,14 @@ Table of Contents
 
    The payload type is dynamic.  If multiple payload types using
    retransmission are present in the original stream, then for each of
-   these, a dynamic payload type MUST be mapped to the retransmission
+   these, a dynamic payload type <em>MUST</em> be mapped to the retransmission
    payload format.  See <a href="#section-8.1">Section 8.1</a> for the specification of how the
    mapping between original and retransmission payload types is done
    with Session Description Protocol (SDP).
 
    As the retransmission packet timestamp carries the original media
    timestamp, the timestamp clockrate used by the retransmission payload
-   type MUST be the same as the one used by the associated original
+   type <em>MUST</em> be the same as the one used by the associated original
    payload type.  Therefore, if an RTP stream carries payload types of
    different clockrates, this will also be the case for the associated
    retransmission stream.  Note that an RTP stream does not usually
@@ -607,28 +607,28 @@ Table of Contents
    retransmission payload header followed by the payload of the original
    RTP packet.  The length of the retransmission payload header is 2
    octets.  This payload header contains only one field, OSN (original
-   sequence number), which MUST be set to the sequence number of the
+   sequence number), which <em>MUST</em> be set to the sequence number of the
    associated original RTP packet.  The original RTP packet payload,
    including any possible payload headers specific to the original
-   payload type, MUST be placed right after the retransmission payload
+   payload type, <em>MUST</em> be placed right after the retransmission payload
    header.
 
    For payload formats that support encoding at multiple rates, instead
    of retransmitting the same payload as the original RTP packet the
-   sender MAY retransmit the same data encoded at a lower rate.  This
+   sender <em>MAY</em> retransmit the same data encoded at a lower rate.  This
    aims at limiting the bandwidth usage of the retransmission stream.
-   When doing so, the sender MUST ensure that the receiver will still be
+   When doing so, the sender <em>MUST</em> ensure that the receiver will still be
    able to decode the payload of the already sent original packets that
    might have been encoded based on the payload of the lost original
    packet.  In addition, if the sender chooses to retransmit at a lower
    rate, the values in the payload header of the original RTP packet may
    no longer apply to the retransmission packet and may need to be
    modified in the retransmission packet to reflect the change in rate.
-   The sender SHOULD trade off the decrease in bandwidth usage with the
+   The sender <em>SHOULD</em> trade off the decrease in bandwidth usage with the
    decrease in quality caused by resending at a lower rate.
 
    If the original RTP header carried any profile-specific extensions,
-   the retransmission packet SHOULD include the same extensions
+   the retransmission packet <em>SHOULD</em> include the same extensions
    immediately following the fixed RTP header as expected by
    applications running under this profile.  In this case, the
 
@@ -639,29 +639,29 @@ Table of Contents
 <span class="grey"><a href="./rfc4588.html">RFC 4588</a>           RTP Retransmission Payload Format           July 2006</span>
 
 
-   retransmission payload header MUST be placed after the profile-
+   retransmission payload header <em>MUST</em> be placed after the profile-
    specific extensions.
 
    If the original RTP header carried an RTP header extension, the
-   retransmission packet SHOULD carry the same header extension.  This
-   header extension MUST be placed right after the fixed RTP header, as
+   retransmission packet <em>SHOULD</em> carry the same header extension.  This
+   header extension <em>MUST</em> be placed right after the fixed RTP header, as
    specified in RTP [<a href="#ref-3" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">3</a>].  In this case, the retransmission payload
-   header MUST be placed after the header extension.
+   header <em>MUST</em> be placed after the header extension.
 
-   If the original RTP packet contained RTP padding, that padding MUST
+   If the original RTP packet contained RTP padding, that padding <em>MUST</em>
    be removed before constructing the retransmission packet.  If padding
-   of the retransmission packet is needed, padding MUST be performed as
-   with any RTP packets and the padding bit MUST be set.
+   of the retransmission packet is needed, padding <em>MUST</em> be performed as
+   with any RTP packets and the padding bit <em>MUST</em> be set.
 
    The marker bit (M), the CSRC count (CC), and the CSRC list of the
-   original RTP header MUST be copied "as is" into the RTP header of the
+   original RTP header <em>MUST</em> be copied "as is" into the RTP header of the
    retransmission packet.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Association of Retransmission and Original Streams</span>
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Retransmission Session Sharing</span>
 
-   In the case of session-multiplexing, a retransmission session MUST
+   In the case of session-multiplexing, a retransmission session <em>MUST</em>
    map to exactly one original session; i.e., the same retransmission
    session cannot be used for different original sessions.
 
@@ -674,7 +674,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  CNAME Use</span>
 
    In both the session-multiplexing and the SSRC-multiplexing cases, a
-   sender MUST use the same RTCP CNAME [<a href="#ref-3" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">3</a>] for an original stream and
+   sender <em>MUST</em> use the same RTCP CNAME [<a href="#ref-3" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">3</a>] for an original stream and
    its associated retransmission stream.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Association at the Receiver</span>
@@ -709,7 +709,7 @@ Table of Contents
    of these streams may have an associated retransmission stream.
 
    In this case, in order to find out the association between original
-   and retransmission streams having the same CNAME, the receiver SHOULD
+   and retransmission streams having the same CNAME, the receiver <em>SHOULD</em>
    behave as follows.
 
    The association can generally be resolved when the receiver receives
@@ -725,17 +725,17 @@ Table of Contents
    sequence numbers are random, the probability of having two
    outstanding requests for the same packet sequence number would be
    very small.  Nevertheless, in order to avoid ambiguity in the unicast
-   case, the receiver MUST NOT have two outstanding requests for the
+   case, the receiver <em>MUST NOT</em> have two outstanding requests for the
    same packet sequence number in two different original streams before
    the association is resolved.  In multicast, this ambiguity cannot be
    completely avoided, because another receiver may have requested the
    same sequence number from another stream.  Therefore, SSRC-
-   multiplexing MUST NOT be used in multicast sessions.
+   multiplexing <em>MUST NOT</em> be used in multicast sessions.
 
    If the receiver discovers that two senders are using the same SSRC or
-   if it receives an RTCP BYE packet, it MUST stop requesting
+   if it receives an RTCP BYE packet, it <em>MUST</em> stop requesting
    retransmissions for that SSRC.  Upon reception of original RTP
-   packets with a new SSRC, the receiver MUST perform the SSRC
+   packets with a new SSRC, the receiver <em>MUST</em> perform the SSRC
    association again as described in this section.
 
 
@@ -776,7 +776,7 @@ Table of Contents
    sharing the RTCP bandwidth assigned to senders.
 
    Note that in both cases, session- and SSRC-multiplexing, BYE packets
-   MUST still be sent for both streams as specified in RTP.  In other
+   <em>MUST</em> still be sent for both streams as specified in RTP.  In other
    words, it is not enough to send BYE packets for the original stream
    only.
 
@@ -809,7 +809,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  Retransmission Requests</span>
 
-   The NACK feedback message format defined in the AVPF profile SHOULD
+   The NACK feedback message format defined in the AVPF profile <em>SHOULD</em>
    be used by receivers to send retransmission requests.  Whether or not
    a receiver chooses to request a packet is an implementation issue.
    An actual receiver implementation should take into account such
@@ -854,7 +854,7 @@ Table of Contents
    a timer to be reasonably sure that the previous retransmission
    attempt has failed and so avoid unnecessary retransmissions.  The
    timer value shall be based on the observed round-trip time.  A static
-   or an adaptive value MAY be used.  For example, an adaptive timer
+   or an adaptive value <em>MAY</em> be used.  For example, an adaptive timer
 
 
 
@@ -868,7 +868,7 @@ Table of Contents
    this adaptive value should be calculated because no experiments have
    been done to find this out.
 
-   NACKs MUST be sent only for the original RTP stream.  Otherwise, if a
+   NACKs <em>MUST</em> be sent only for the original RTP stream.  Otherwise, if a
    receiver wanted to perform multiple retransmissions by sending a NACK
    in the retransmission stream, it would not be able to know the
    original sequence number and a timestamp estimation of the packet it
@@ -906,7 +906,7 @@ Table of Contents
    a best-effort environment, packet loss is caused by congestion.
    Reacting to loss by retransmission of older data without decreasing
    the rate of the original stream would thus further increase
-   congestion.  Implementations SHOULD follow the recommendations below
+   congestion.  Implementations <em>SHOULD</em> follow the recommendations below
    in order to use retransmission.
 
 
@@ -934,12 +934,12 @@ Table of Contents
    If enhanced service is used, it should be made sure that the total
    bitrate and packet rate do not exceed that of the requested service.
    It should be further monitored that the requested services are
-   actually delivered.  In a best-effort environment, the sender SHOULD
+   actually delivered.  In a best-effort environment, the sender <em>SHOULD</em>
    NOT send retransmission packets without reducing the packet rate and
    bitrate of the original stream (for example, by encoding the data at
    a lower rate).
 
-   In addition, the sender MAY selectively retransmit only the packets
+   In addition, the sender <em>MAY</em> selectively retransmit only the packets
    that it deems important and ignore NACK messages for other packets in
    order to limit the bitrate.
 
@@ -949,9 +949,9 @@ Table of Contents
    network path and experiencing the same network conditions would
    achieve, on a reasonable timescale, an average throughput that is not
    less than the one the RTP flow achieves.  If congestion is not kept
-   under control, then retransmission SHOULD NOT be used.
+   under control, then retransmission <em>SHOULD NOT</em> be used.
 
-   Retransmissions MAY still be sent in some cases, e.g., in wireless
+   Retransmissions <em>MAY</em> still be sent in some cases, e.g., in wireless
    links where packet losses are not caused by congestion, if the server
    (or the client that makes the retransmission request) estimates that
    a particular packet or frame is important to continue play out, or if
@@ -986,13 +986,13 @@ Table of Contents
    number is indicated by an rtpmap attribute.  The MIME subtype name
    used in the binding is "rtx".
 
-   The "apt" (associated payload type) parameter MUST be used to map the
+   The "apt" (associated payload type) parameter <em>MUST</em> be used to map the
    retransmission payload type to the associated original stream payload
    type.  If multiple original payload types are used, then multiple
-   "apt" parameters MUST be included to map each original payload type
+   "apt" parameters <em>MUST</em> be included to map each original payload type
    to a different retransmission payload type.
 
-   An OPTIONAL payload-format-specific parameter, "rtx-time", indicates
+   An <em>OPTIONAL</em> payload-format-specific parameter, "rtx-time", indicates
    the maximum time a sender will keep an original RTP packet in its
    buffers available for retransmission.  This time starts with the
    first transmission of the packet.
@@ -1013,7 +1013,7 @@ Table of Contents
       the time a packet was first sent) that a sender keeps an RTP
       packet in its buffers available for retransmission.  The absence
       of the rtx-time parameter for a retransmission stream means that
-      the maximum retransmission time is not defined, but MAY be
+      the maximum retransmission time is not defined, but <em>MAY</em> be
       negotiated by other means.
 
 
@@ -1266,7 +1266,7 @@ Table of Contents
       go in the SDP "m=" as the media name.
 
    -  The MIME subtype ("rtx") goes in SDP "a=rtpmap" as the encoding
-      name.  The RTP clockrate in "a=rtpmap" MUST be that of the
+      name.  The RTP clockrate in "a=rtpmap" <em>MUST</em> be that of the
       retransmission payload type.  See <a href="#section-4">Section 4</a> for details on this.
 
    -  The AVPF profile-specific parameters "ack" and "nack" go in SDP
@@ -1290,7 +1290,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-8.7" href="#section-8.7">8.7</a>.  SDP Description with Session-Multiplexing</span>
 
    In the case of session-multiplexing, the SDP description contains one
-   media specification "m" line per RTP session.  The SDP MUST provide
+   media specification "m" line per RTP session.  The SDP <em>MUST</em> provide
    the grouping of the original and associated retransmission sessions'
    "m" lines, using the Flow Identification (FID) semantics defined in
    <a href="./rfc3388.html">RFC 3388</a> [<a href="#ref-6" title="&quot;Grouping of Media Lines in the Session Description Protocol (SDP)&quot;">6</a>].
@@ -1334,7 +1334,7 @@ Table of Contents
 
    A special case of the SDP description is a description that contains
    only one original session "m" line and one retransmission session "m"
-   line, the grouping is then obvious and FID semantics MAY be omitted
+   line, the grouping is then obvious and FID semantics <em>MAY</em> be omitted
    in this special case only.
 
    This is illustrated in the following example, which is an SDP
@@ -1391,15 +1391,15 @@ Table of Contents
    and retransmission payload types and has a single RTSP "control"
    attribute.  The receiver uses the "m" line to request SETUP and
    TEARDOWN of the whole media session.  The RTP profile contained in
-   the Transport header MUST be the AVPF profile or another suitable
+   the Transport header <em>MUST</em> be the AVPF profile or another suitable
    profile allowing extended feedback.  If the SSRC value is included in
-   the SETUP response's Transport header, it MUST be that of the
+   the SETUP response's Transport header, it <em>MUST</em> be that of the
    original stream.
 
    In order to control the sending of the session original media stream,
    the receiver sends as usual PLAY and PAUSE requests to the sender for
    the session.  The RTP-info header that is used to set RTP-specific
-   parameters in the PLAY response MUST be set according to the RTP
+   parameters in the PLAY response <em>MUST</em> be set according to the RTP
    information of the original stream.
 
    When the receiver starts receiving the original stream, it can then
@@ -1425,12 +1425,12 @@ Table of Contents
 
    The original and the retransmission streams are set up and torn down
    separately through their respective media "control" attribute.  The
-   RTP profile contained in the Transport header MUST be the AVPF
+   RTP profile contained in the Transport header <em>MUST</em> be the AVPF
    profile or another suitable profile allowing extended feedback for
    both the original and the retransmission sessions.
 
-   The RTSP presentation SHOULD support aggregate control and SHOULD
-   contain a session-level RTSP URL.  The receiver SHOULD use aggregate
+   The RTSP presentation <em>SHOULD</em> support aggregate control and <em>SHOULD</em>
+   contain a session-level RTSP URL.  The receiver <em>SHOULD</em> use aggregate
    control for an original session and its associated retransmission
    session.  Otherwise, there would need to be two different 'session-
    id' values, i.e., different values for the original and
@@ -1445,17 +1445,17 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-9.3" href="#section-9.3">9.3</a>.  RTSP Control of the Retransmission Stream</span>
 
    Because of the nature of retransmissions, the sending of
-   retransmission packets SHOULD NOT be controlled through RTSP PLAY and
-   PAUSE requests.  The PLAY and PAUSE requests SHOULD NOT affect the
+   retransmission packets <em>SHOULD NOT</em> be controlled through RTSP PLAY and
+   PAUSE requests.  The PLAY and PAUSE requests <em>SHOULD NOT</em> affect the
    retransmission stream.  Retransmission packets are sent upon receiver
    requests in the original RTCP stream, regardless of the state.
 
 <span class="h3"><a class="selflink" name="section-9.4" href="#section-9.4">9.4</a>.  Cache Control</span>
 
-   Retransmission streams SHOULD NOT be cached.
+   Retransmission streams <em>SHOULD NOT</em> be cached.
 
    In the case of session-multiplexing, the "Cache-Control" header
-   SHOULD be set to "no-cache" for the retransmission stream.
+   <em>SHOULD</em> be set to "no-cache" for the retransmission stream.
 
    In the case of SSRC-multiplexing, RTSP cannot specify independent
    caching for the retransmission stream, because there is a single "m"
@@ -1560,7 +1560,7 @@ Table of Contents
 
    In multicast, SSRC-multiplexing of the original and retransmission
    streams is not allowed as per <a href="#section-5.3">Section 5.3</a> of this document.  For this
-   reason, the retransmission stream(s) MUST be sent in different RTP
+   reason, the retransmission stream(s) <em>MUST</em> be sent in different RTP
    session(s) using session-multiplexing.
 
    An SDP description example of multicast retransmissions for layered
@@ -1595,8 +1595,8 @@ Table of Contents
 
    A new MIME subtype name, "rtx", has been registered for four
    different media types, as follows: "video", "audio", "text" and
-   "application".  An additional REQUIRED parameter, "apt", and an
-   OPTIONAL parameter, "rtx-time", are defined.  See <a href="#section-8">Section 8</a> for
+   "application".  An additional <em>REQUIRED</em> parameter, "apt", and an
+   <em>OPTIONAL</em> parameter, "rtx-time", are defined.  See <a href="#section-8">Section 8</a> for
    details.
 
 <span class="h2"><a class="selflink" name="section-12" href="#section-12">12</a>.  Security Considerations</span>
@@ -1625,9 +1625,9 @@ Table of Contents
    need to encrypt the 2-byte retransmission payload header since it
    does not provide any hints about the data content.
 
-   Furthermore, it is RECOMMENDED that the cryptography mechanisms used
+   Furthermore, it is <em>RECOMMENDED</em> that the cryptography mechanisms used
    for this payload format provide protection against known plaintext
-   attacks.  RTP recommends that the initial RTP timestamp SHOULD be
+   attacks.  RTP recommends that the initial RTP timestamp <em>SHOULD</em> be
    random to secure the stream against known plaintext attacks.  This
    payload format does not follow this recommendation as the initial
    timestamp will be the media timestamp of the first retransmitted
@@ -1638,7 +1638,7 @@ Table of Contents
 
    If cryptography is used to provide security services on the original
    stream, then the same services, with equivalent cryptographic
-   strength, MUST be provided on the retransmission stream.  The use of
+   strength, <em>MUST</em> be provided on the retransmission stream.  The use of
 
 
 

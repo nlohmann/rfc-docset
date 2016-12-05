@@ -351,9 +351,9 @@ Table of Contents
 
    EIDs may be presented in two ways within the PHIB.  If the M-EID of
    the forwarding node is already in the Dictionary field of the
-   bundle's primary bundle block, the PHIB MAY identify this EID using
+   bundle's primary bundle block, the PHIB <em>MAY</em> identify this EID using
    its Block EID-reference count and EID-reference field.  Otherwise,
-   the PHIB MUST identify this EID by providing the EID in its block-
+   the PHIB <em>MUST</em> identify this EID by providing the EID in its block-
    type-specific data field.  These two alternative ways of presenting
    EIDs in the PHIB are further discussed in <a href="#section-3">Section 3</a>.
 
@@ -371,12 +371,12 @@ Table of Contents
    that this PHIB was inserted by the previous node, assuming all nodes
    are operating correctly; likewise, this PHIB is not retained with the
    bundle when the bundle is forwarded.  If the bundle is forwarded with
-   a PHIB, this PHIB MUST identify an M-EID of the forwarding node.
+   a PHIB, this PHIB <em>MUST</em> identify an M-EID of the forwarding node.
 
    This document defines the format and processing of the PHIB.  The
-   capabilities described in this document are OPTIONAL for deployment
+   capabilities described in this document are <em>OPTIONAL</em> for deployment
    with the Bundle Protocol.  Bundle Protocol implementations claiming
-   to support the PHIB MUST be capable of:
+   to support the PHIB <em>MUST</em> be capable of:
 
    o  generating a PHIB and inserting it into a bundle,
 
@@ -390,8 +390,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Previous-Hop Insertion Block Format</span>
@@ -407,7 +407,7 @@ Table of Contents
       0x05.
 
    o  Block processing control flags (SDNV) - The following block
-      processing control flag MUST be set:
+      processing control flag <em>MUST</em> be set:
 
          Discard block if it can't be processed
 
@@ -436,21 +436,21 @@ Table of Contents
       another block in the bundle).
 
       If an M-EID of the inserting node is already in the dictionary,
-      this field MAY be present in the PHIB.  If this field is present
-      in the PHIB, the value of the EID-reference count MUST be one,
+      this field <em>MAY</em> be present in the PHIB.  If this field is present
+      in the PHIB, the value of the EID-reference count <em>MUST</em> be one,
       meaning that the field contains exactly one EID-reference, which
-      MUST be a reference to an M-EID of the inserting node.  Presence
-      of this field MUST be indicated by a set "block contains an EID-
+      <em>MUST</em> be a reference to an M-EID of the inserting node.  Presence
+      of this field <em>MUST</em> be indicated by a set "block contains an EID-
       reference field" flag in the block processing control flags.
 
       If no M-EID of the inserting node is in the dictionary, this field
-      MUST NOT be present in the PHIB, which MUST be indicated by an
+      <em>MUST NOT</em> be present in the PHIB, which <em>MUST</em> be indicated by an
       unset "block contains an EID-reference field" flag in the block
       processing control flags.
 
    o  Block data length (SDNV) - If this value is zero, there are no
       block-type-specific data fields.  In this case, the M-EID of the
-      inserting node must be in the dictionary and it MUST be referenced
+      inserting node must be in the dictionary and it <em>MUST</em> be referenced
       in the Block EID-reference count and EID-references field as
       described above.
 
@@ -466,10 +466,10 @@ Table of Contents
 
       If the Block EID-reference count and EID-references field is not
       present in the PHIB, the above two EID scheme name and SSP block-
-      type-specific data fields MUST be present.  If the Block EID-
+      type-specific data fields <em>MUST</em> be present.  If the Block EID-
       reference count and EID-references field is present in the PHIB,
       the above two EID scheme name and SSP block-type-specific data
-      fields MUST NOT be present.
+      fields <em>MUST NOT</em> be present.
 
 
 
@@ -497,34 +497,34 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Bundle Transmission</span>
 
    When an outbound bundle is created per the parameters of the bundle
-   transmission request, this bundle MAY include one or more PHIBs.
+   transmission request, this bundle <em>MAY</em> include one or more PHIBs.
    Whether or not PHIBs are included is a local bundle agent
    configuration option and may be influenced by other factors, such as
    the routing protocol in use.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Bundle Forwarding</span>
 
-   Before forwarding a bundle, the node SHALL delete all PHIBs that were
+   Before forwarding a bundle, the node <em>SHALL</em> delete all PHIBs that were
    in the bundle when it was received (if any).  As described in the
-   Bundle Protocol Specification, the node MAY delete all strings
+   Bundle Protocol Specification, the node <em>MAY</em> delete all strings
    (scheme names and SSPs) in the bundle's dictionary to which no
    endpoint ID references in the bundle currently refer (if any).
 
-   The node MAY insert one or more PHIBs into the bundle before
+   The node <em>MAY</em> insert one or more PHIBs into the bundle before
    forwarding it, as dictated by local policy.  If there are already
    strings (scheme names and SSPs) in the bundle's dictionary that
-   denote the M-EID of the inserting node, the PHIB MAY reference these
-   strings and, if it does, it MUST NOT include any block-type-specific
-   data fields.  The inserting node MUST NOT insert strings into the
+   denote the M-EID of the inserting node, the PHIB <em>MAY</em> reference these
+   strings and, if it does, it <em>MUST NOT</em> include any block-type-specific
+   data fields.  The inserting node <em>MUST NOT</em> insert strings into the
    bundle's dictionary in order that they may be referenced by only the
    PHIB.  If the PHIB is constructed such that it does not reference any
-   strings from the dictionary, the inserting node MUST include the
+   strings from the dictionary, the inserting node <em>MUST</em> include the
    scheme name and SSP of one of its M-EIDs as the PHIB's block-type-
    specific data fields.
 
    The node that is inserting a PHIB into the bundle may have more than
    one endpoint in which it is a member.  The choice of which M-EID to
-   insert into the PIB SHALL be made as follows:
+   insert into the PIB <em>SHALL</em> be made as follows:
 
 
 
@@ -536,7 +536,7 @@ Table of Contents
 
    o  If the inserting node is a member of exactly one singleton
       endpoint, the node may insert at most one PHIB into the bundle and
-      the EID of this singleton endpoint is what MUST be inserted into
+      the EID of this singleton endpoint is what <em>MUST</em> be inserted into
       the PHIB.
 
    o  If the inserting node is a member of more than one singleton
@@ -545,34 +545,34 @@ Table of Contents
          If the inserting node has a priori knowledge of the URI schemes
          supported by the next-hop node and if the inserting node has
          one or more singleton M-EIDs that are expressible in one or
-         more of those URI schemes, then the inserting node MAY insert
+         more of those URI schemes, then the inserting node <em>MAY</em> insert
          one or more PHIBs into the bundle being forwarded.  The EIDs in
-         the inserted PHIBs MUST be unique, they MUST be singleton
-         M-EIDs of the inserting node, and they MUST be expressed in URI
+         the inserted PHIBs <em>MUST</em> be unique, they <em>MUST</em> be singleton
+         M-EIDs of the inserting node, and they <em>MUST</em> be expressed in URI
          schemes supported by the next-hop node.  Mechanisms for
          determining what URI schemes are supported by particular next-
          hop neighbors are not defined here.
 
          If the inserting node has one or more singleton M-EIDs that are
          expressible in the same URI scheme as the destination of the
-         bundle that is being forwarded, then the inserting node MAY
+         bundle that is being forwarded, then the inserting node <em>MAY</em>
          insert one or more PHIBs into the bundle being forwarded.  The
-         EIDs in the inserted PHIBs MUST be unique, they MUST be
-         singleton M-EIDs of the inserting node, and they MUST be
+         EIDs in the inserted PHIBs <em>MUST</em> be unique, they <em>MUST</em> be
+         singleton M-EIDs of the inserting node, and they <em>MUST</em> be
          expressed in the destination URI scheme of the bundle.
 
          Else, if the inserting node has neither a singleton M-EID that
          is expressible in a URI scheme known to be supported by the
          next-hop node nor a singleton M-EID that is expressible in the
          same URI scheme as the destination of the bundle that is being
-         forwarded, then the inserting node MAY insert one or more PHIBs
+         forwarded, then the inserting node <em>MAY</em> insert one or more PHIBs
          into the bundle being forwarded.  The EIDs in the inserted
-         PHIBs MUST be unique, and they MUST be singleton M-EIDs of the
+         PHIBs <em>MUST</em> be unique, and they <em>MUST</em> be singleton M-EIDs of the
          inserting node.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Bundle Reception</span>
 
-   If the bundle includes a PHIB, the EID identified in the PHIB SHALL
+   If the bundle includes a PHIB, the EID identified in the PHIB <em>SHALL</em>
    be made available for use at the receiving node (e.g., in forwarding
    decisions or, if the receiving node is the bundle-destination, the
    EID may be made available to the receiving application; whether or
@@ -590,8 +590,8 @@ Table of Contents
 <span class="grey"><a href="./rfc6259.html">RFC 6259</a>            DTN Previous-Hop Insertion Block            May 2011</span>
 
 
-   receiving node MAY process the PHIB as if it were well-formed.
-   However, if the identified EIDs differ, the receiving node MUST NOT
+   receiving node <em>MAY</em> process the PHIB as if it were well-formed.
+   However, if the identified EIDs differ, the receiving node <em>MUST NOT</em>
    process the PHIB and must take action on the PHIB as specified by the
    PHIB's block processing flags.
 

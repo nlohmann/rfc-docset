@@ -478,8 +478,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Notation and Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Various operations in the codec require bit-exact fixed-point
@@ -885,10 +885,10 @@ Table of Contents
    that a lower layer (such as UDP or RTP [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>] or Ogg [<a href="./rfc3533.html" title="&quot;The Ogg Encapsulation Format Version 0&quot;">RFC3533</a>] or
    Matroska [<a href="#ref-MATROSKA-WEBSITE">MATROSKA-WEBSITE</a>]) will communicate the length, in bytes,
    of the packet, and it uses this information to reduce the framing
-   overhead in the packet itself.  A decoder implementation MUST support
+   overhead in the packet itself.  A decoder implementation <em>MUST</em> support
    the framing described in this section.  An alternative, self-
    delimiting variant of the framing is described in <a href="#appendix-B">Appendix B</a>.
-   Support for that variant is OPTIONAL.
+   Support for that variant is <em>OPTIONAL</em>.
 
    All bit diagrams in this document number the bits so that bit 0 is
    the most significant bit of the first byte, and bit 7 is the least
@@ -899,7 +899,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  The TOC Byte</span>
 
-   A well-formed Opus packet MUST contain at least one byte [<a href="#ref-R1">R1</a>].  This
+   A well-formed Opus packet <em>MUST</em> contain at least one byte [<a href="#ref-R1">R1</a>].  This
    byte forms a table-of-contents (TOC) header that signals which of the
    various modes and configurations a given packet uses.  It is composed
    of a configuration number, "config", a stereo flag, "s", and a frame
@@ -1054,7 +1054,7 @@ Table of Contents
    The special length 0 indicates that no frame is available, either
    because it was dropped during transmission by some intermediary or
    because the encoder chose not to transmit it.  Any Opus frame in any
-   mode MAY have a length of 0.
+   mode <em>MAY</em> have a length of 0.
 
    The maximum representable length is 255*4+255=1275 bytes.  For 20 ms
    frames, this represents a bitrate of 510 kbit/s, which is
@@ -1067,7 +1067,7 @@ Table of Contents
    No length is transmitted for the last frame in a VBR packet, or for
    any of the frames in a CBR packet, as it can be inferred from the
    total size of the packet and the size of all other data in the
-   packet.  However, the length of any individual frame MUST NOT exceed
+   packet.  However, the length of any individual frame <em>MUST NOT</em> exceed
    1275 bytes [<a href="#ref-R2">R2</a>] to allow for repacketization by gateways, conference
    bridges, or other software.
 
@@ -1107,7 +1107,7 @@ Table of Contents
    (N-1)/2 bytes of compressed data for the first frame, followed by
    (N-1)/2 bytes of compressed data for the second frame, as illustrated
    in Figure 3.  The number of payload bytes available for compressed
-   data, N-1, MUST be even for all code 1 packets [<a href="#ref-R3" title="N">R3</a>].
+   data, N-1, <em>MUST</em> be even for all code 1 packets [<a href="#ref-R3" title="N">R3</a>].
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1133,7 +1133,7 @@ Table of Contents
    Figure 4), followed by N1 bytes of compressed data for the first
    frame.  The remaining N-N1-2 or N-N1-3 bytes are the compressed data
    for the second frame.  This is illustrated in Figure 4.  A code 2
-   packet MUST contain enough bytes to represent a valid length.  For
+   packet <em>MUST</em> contain enough bytes to represent a valid length.  For
    example, a 1-byte code 2 packet is always invalid, and a 2-byte code
    2 packet whose second byte is in the range 252...255 is also invalid.
 
@@ -1144,7 +1144,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6716.html">RFC 6716</a>                 Interactive Audio Codec          September 2012</span>
 
 
-   The length of the first frame, N1, MUST also be no larger than the
+   The length of the first frame, N1, <em>MUST</em> also be no larger than the
    size of the payload remaining after decoding that length for all code
    2 packets [<a href="#ref-R4">R4</a>].  This makes, for example, a 2-byte code 2 packet with
    a second byte in the range 1...251 invalid as well (the only valid
@@ -1171,12 +1171,12 @@ Table of Contents
    Code 3 packets signal the number of frames, as well as additional
    padding, called "Opus padding" to indicate that this padding is added
    at the Opus layer rather than at the transport layer.  Code 3 packets
-   MUST have at least 2 bytes [<a href="#ref-R6" title="is at least two bytes">R6</a>,<a href="#ref-R7" title=" and any frame length bytes)">R7</a>].  The TOC byte is followed by a
+   <em>MUST</em> have at least 2 bytes [<a href="#ref-R6" title="is at least two bytes">R6</a>,<a href="#ref-R7" title=" and any frame length bytes)">R7</a>].  The TOC byte is followed by a
    byte encoding the number of frames in the packet in bits 2 to 7
    (marked "M" in Figure 5), with bit 1 indicating whether or not Opus
    padding is inserted (marked "p" in Figure 5), and bit 0 indicating
-   VBR (marked "v" in Figure 5).  M MUST NOT be zero, and the audio
-   duration contained within a packet MUST NOT exceed 120 ms [<a href="#ref-R5">R5</a>].  This
+   VBR (marked "v" in Figure 5).  M <em>MUST NOT</em> be zero, and the audio
+   duration contained within a packet <em>MUST NOT</em> exceed 120 ms [<a href="#ref-R5">R5</a>].  This
    limits the maximum frame count for any frame size to 48 (for 2.5 ms
    frames), with lower limits for longer frame sizes.  Figure 5
    illustrates the layout of the frame count byte.
@@ -1202,10 +1202,10 @@ Table of Contents
 
    the byte(s) used to indicate the size of the padding.  If the value
    is 255, then the size of the additional padding is 254 bytes, plus
-   the padding value encoded in the next byte.  There MUST be at least
+   the padding value encoded in the next byte.  There <em>MUST</em> be at least
    one more byte in the packet in this case [<a href="#ref-R6" title="is at least two bytes">R6</a>,<a href="#ref-R7" title=" and any frame length bytes)">R7</a>].  The additional
-   padding bytes appear at the end of the packet and MUST be set to zero
-   by the encoder to avoid creating a covert channel.  The decoder MUST
+   padding bytes appear at the end of the packet and <em>MUST</em> be set to zero
+   by the encoder to avoid creating a covert channel.  The decoder <em>MUST</em>
    accept any value for the padding bytes, however.
 
    Although this encoding provides multiple ways to indicate a given
@@ -1222,12 +1222,12 @@ Table of Contents
    any specific, desired size.  Let P be the number of header bytes used
    to indicate the padding size plus the number of padding bytes
    themselves (i.e., P is the total number of bytes added to the
-   packet).  Then, P MUST be no more than N-2 [<a href="#ref-R6" title="is at least two bytes">R6</a>,<a href="#ref-R7" title=" and any frame length bytes)">R7</a>].
+   packet).  Then, P <em>MUST</em> be no more than N-2 [<a href="#ref-R6" title="is at least two bytes">R6</a>,<a href="#ref-R7" title=" and any frame length bytes)">R7</a>].
 
    In the CBR case, let R=N-2-P be the number of bytes remaining in the
    packet after subtracting the (optional) padding.  Then, the
    compressed length of each frame in bytes is equal to R/M.  The value
-   R MUST be a non-negative integer multiple of M [<a href="#ref-R6" title="is at least two bytes">R6</a>].  The compressed
+   R <em>MUST</em> be a non-negative integer multiple of M [<a href="#ref-R6" title="is at least two bytes">R6</a>].  The compressed
    data for all M frames follows, each of size R/M bytes, as illustrated
    in Figure 6.
 
@@ -1285,8 +1285,8 @@ Table of Contents
    In the VBR case, the (optional) padding length is followed by M-1
    frame lengths (indicated by "N1" to "N[M-1]" in Figure 7), each
    encoded in a one- or two-byte sequence as described above.  The
-   packet MUST contain enough data for the M-1 lengths after removing
-   the (optional) padding, and the sum of these lengths MUST be no
+   packet <em>MUST</em> contain enough data for the M-1 lengths after removing
+   the (optional) padding, and the sum of these lengths <em>MUST</em> be no
    larger than the number of bytes remaining in the packet after
    decoding them [<a href="#ref-R7" title=" and any frame length bytes)">R7</a>].  The compressed data for all M frames follows,
    each frame consisting of the indicated number of bytes, with the
@@ -1294,7 +1294,7 @@ Table of Contents
    as illustrated in Figure 6.  The number of header bytes (TOC byte,
    frame count byte, padding length bytes, and frame length bytes), plus
    the signaled length of the first M-1 frames themselves, plus the
-   signaled length of the padding MUST be no larger than N, the total
+   signaled length of the padding <em>MUST</em> be no larger than N, the total
    size of the packet.
 
 
@@ -1402,7 +1402,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Receiving Malformed Packets</span>
 
-   A receiver MUST NOT process packets that violate any of the rules
+   A receiver <em>MUST NOT</em> process packets that violate any of the rules
    above as normal Opus packets.  They are reserved for future
    applications, such as in-band headers (containing metadata, etc.).
    Packets that violate these constraints may cause implementations of
@@ -1651,12 +1651,12 @@ Table of Contents
    It is normal and expected that the range decoder will read several
    bytes into the data of the raw bits (if any) at the end of the frame
    by the time the frame is completely decoded, as illustrated in
-   Figure 13.  This same data MUST also be returned as raw bits when
+   Figure 13.  This same data <em>MUST</em> also be returned as raw bits when
    requested.  The encoder is expected to terminate the stream in such a
    way that the range decoder will decode the intended values regardless
    of the data contained in the raw bits.  <a href="#section-5.1.5">Section 5.1.5</a> describes a
    procedure for doing this.  If the range decoder consumes all of the
-   bytes belonging to the current frame, it MUST continue to use zero
+   bytes belonging to the current frame, it <em>MUST</em> continue to use zero
    when any further input bytes are required, even if there is
    additional data in the current packet from padding or other frames.
 
@@ -1771,7 +1771,7 @@ Table of Contents
    the range decoder must read several bytes ahead in the stream, as
    described in <a href="#section-4.1.2.1">Section 4.1.2.1</a>, the input consumed by the raw bits may
    overlap with the input consumed by the range coder, and a decoder
-   MUST allow this.  The format should render it impossible to attempt
+   <em>MUST</em> allow this.  The format should render it impossible to attempt
    to read more raw bits than there are actual bits in the frame, though
    a decoder may wish to check for this and report an error.
 
@@ -1820,7 +1820,7 @@ Table of Contents
 
    If, at this point, t &gt;= ft, then the current frame is corrupt.  In
    that case, the decoder should assume there has been an error in the
-   coding, decoding, or transmission and SHOULD take measures to conceal
+   coding, decoding, or transmission and <em>SHOULD</em> take measures to conceal
    the error (e.g., saturate to ft-1 or use the Packet Loss Concealment
    (PLC)) and/or report to the application that the error has occurred.
 
@@ -2211,7 +2211,7 @@ Table of Contents
    20 ms Opus frame, potentially leaving a hole that needs to be
    concealed from even a single packet loss (see <a href="#section-4.4">Section 4.4</a>).  When
    switching from mono to stereo, the LBRR frames in the first stereo
-   Opus frame MAY contain a non-trivial side channel.
+   Opus frame <em>MAY</em> contain a non-trivial side channel.
 
    In order to properly produce LBRR frames under all conditions, an
    encoder might need to buffer up to 60 ms of audio and re-encode it
@@ -2570,7 +2570,7 @@ Table of Contents
    above, LBRR frames still include this flag when the LBRR flag
    indicates that the side channel is not coded.  In that case, if this
    flag is zero (indicating that there should be a side channel), then
-   Packet Loss Concealment (PLC, see <a href="#section-4.4">Section 4.4</a>) SHOULD be invoked to
+   Packet Loss Concealment (PLC, see <a href="#section-4.4">Section 4.4</a>) <em>SHOULD</em> be invoked to
    recover a side channel signal.  Otherwise, the stereo image will
    collapse.
 
@@ -2713,7 +2713,7 @@ Table of Contents
 
 
    in the side channel was not coded, since there is no value for
-   previous_log_gain available.  It MAY also be skipped after packet
+   previous_log_gain available.  It <em>MAY</em> also be skipped after packet
    loss.
 
    For subframes that do not have an independent gain (including the
@@ -2774,8 +2774,8 @@ Table of Contents
    in the standard decomposition [<a href="#ref-SPECTRAL-PAIRS">SPECTRAL-PAIRS</a>] of the LPC filter into
    a symmetric part and an anti-symmetric part (P and Q in
    <a href="#section-4.2.7.5.6">Section 4.2.7.5.6</a>).  Because of non-linear effects in the decoding
-   process, an implementation SHOULD match the fixed-point arithmetic
-   described in this section exactly.  An encoder SHOULD also use the
+   process, an implementation <em>SHOULD</em> match the fixed-point arithmetic
+   described in this section exactly.  An encoder <em>SHOULD</em> also use the
    same process.
 
    The normalized LSFs are coded using a two-stage vector quantizer (VQ)
@@ -3863,7 +3863,7 @@ Table of Contents
    (NLSF2A.c) implements this procedure.
 
    To start, it approximates cos(pi*n[k]) using a table lookup with
-   linear interpolation.  The encoder SHOULD use the inverse of this
+   linear interpolation.  The encoder <em>SHOULD</em> use the inverse of this
    piecewise linear approximation, rather than the true inverse of the
    cosine function, when deriving the normalized LSF coefficients.
    These values are also re-ordered to improve numerical accuracy when
@@ -4086,7 +4086,7 @@ Table of Contents
    any significant quality loss, but still does not guarantee they will
    fit. silk_NLSF2A() applies up to 10 rounds of bandwidth expansion to
    limit the dynamic range of these coefficients.  Even floating-point
-   decoders SHOULD perform these steps, to avoid mismatch.
+   decoders <em>SHOULD</em> perform these steps, to avoid mismatch.
 
    For each round, the process first finds the index k such that
    abs(a32_Q17[k]) is largest, breaking ties by choosing the lowest
@@ -6189,7 +6189,7 @@ Table of Contents
    possible for a decoded value to be out of range due to a very small
    amount of redundancy in the encoding of large integers by the range
    coder.  In that case, the decoder should assume there has been an
-   error in the coding, decoding, or transmission and SHOULD take
+   error in the coding, decoding, or transmission and <em>SHOULD</em> take
    measures to conceal the error and/or report to the application that a
    problem has occurred.  Such out of range errors cannot occur in the
    SILK layer.
@@ -6299,7 +6299,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.3.3" href="#section-4.3.3">4.3.3</a>.  Bit Allocation</span>
 
    Because the bit allocation drives the decoding of the range-coder
-   stream, it MUST be recovered exactly so that identical coding
+   stream, it <em>MUST</em> be recovered exactly so that identical coding
    decisions are made in the encoder and decoder.  Any deviation from
    the reference's resulting bit allocation will result in corrupted
    output, though implementers are free to implement the procedure in
@@ -6707,7 +6707,7 @@ Table of Contents
    univariate recurrence to initialize an arbitrary line, and direct
    polynomial solutions for small N.  All of these methods are
    equivalent, and have different trade-offs in speed, memory usage, and
-   code size.  Implementations MAY use any methods they like, as long as
+   code size.  Implementations <em>MAY</em> use any methods they like, as long as
    they are equivalent to the mathematical definition.
 
    The decoded vector X is recovered as follows.  Let i be the index
@@ -6995,7 +6995,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Packet Loss Concealment (PLC)</span>
 
    Packet Loss Concealment (PLC) is an optional decoder-side feature
-   that SHOULD be included when receiving from an unreliable channel.
+   that <em>SHOULD</em> be included when receiving from an unreliable channel.
    Because PLC is not part of the bitstream, there are many acceptable
    ways to implement PLC with different complexity/quality trade-offs.
 
@@ -7027,16 +7027,16 @@ Table of Contents
    When the sender's clock runs slower than the receiver's, the effect
    is similar to packet loss: too few packets are received.  The
    receiver can distinguish between drift and loss if the transport
-   provides packet timestamps.  A receiver for live streams SHOULD
-   conceal the effects of drift, and it MAY do so by invoking the PLC.
+   provides packet timestamps.  A receiver for live streams <em>SHOULD</em>
+   conceal the effects of drift, and it <em>MAY</em> do so by invoking the PLC.
 
    When the sender's clock runs faster than the receiver's, too many
-   packets will be received.  The receiver MAY respond by skipping any
+   packets will be received.  The receiver <em>MAY</em> respond by skipping any
    packet (i.e., not submitting the packet for decoding).  This is
    likely to produce a less severe artifact than if the frame were
    dropped after decoding.
 
-   A decoder MAY employ a more sophisticated drift compensation method.
+   A decoder <em>MAY</em> employ a more sophisticated drift compensation method.
    For example, the NetEQ component [<a href="#ref-GOOGLE-NETEQ">GOOGLE-NETEQ</a>] of the Google WebRTC
    codebase [<a href="#ref-GOOGLE-WEBRTC">GOOGLE-WEBRTC</a>] compensates for drift by adding or removing
    one period when the signal is highly periodic.  The reference
@@ -7061,14 +7061,14 @@ Table of Contents
 
    When changing the channel count for SILK-only or Hybrid packets, the
    encoder can avoid glitches by smoothly varying the stereo width of
-   the input signal before or after the transition, and it SHOULD do so.
+   the input signal before or after the transition, and it <em>SHOULD</em> do so.
    However, other transitions between SILK-only packets or between NB or
    MB SILK and Hybrid packets may cause glitches, because neither the
    LSF coefficients nor the LTP, LPC, stereo unmixing, and resampler
-   buffers are available at the new sample rate.  These switches SHOULD
+   buffers are available at the new sample rate.  These switches <em>SHOULD</em>
    be delayed by the encoder until quiet periods or transients, where
    the inevitable glitches will be less audible.  Additionally, the
-   bitstream MAY include redundant side information ("redundancy"), in
+   bitstream <em>MAY</em> include redundant side information ("redundancy"), in
    the form of additional CELT frames embedded in each of the Opus
    frames around the transition.
 
@@ -7089,17 +7089,17 @@ Table of Contents
    be no convenient silence period during which to make the transition
    for quite some time.  To avoid or reduce glitches during these
    problematic mode transitions, and between audio bandwidth changes in
-   the SILK-only modes, transitions MAY include redundant side
+   the SILK-only modes, transitions <em>MAY</em> include redundant side
    information ("redundancy"), in the form of an additional CELT frame
    embedded in the Opus frame.
 
    A transition between coding the lower frequencies with the LP model
    and the MDCT model or a transition that involves changing the SILK
    bandwidth is only normatively specified when it includes redundancy.
-   For those without redundancy, it is RECOMMENDED that the decoder use
+   For those without redundancy, it is <em>RECOMMENDED</em> that the decoder use
    a concealment technique (e.g., make use of a PLC algorithm) to "fill
    in" the gap or discontinuity caused by the mode transition.
-   Therefore, PLC MUST NOT be applied during any normative transition,
+   Therefore, PLC <em>MUST NOT</em> be applied during any normative transition,
    i.e., when
 
    o  A packet includes redundancy for this transition (as described
@@ -7216,8 +7216,8 @@ Table of Contents
    invalid.  However, a decoder is not required to ignore the entire
    frame, as this may be the result of a bit error that desynchronized
    the range coder.  There may still be useful data before the error,
-   and a decoder MAY keep any audio decoded so far instead of invoking
-   the PLC, but it is RECOMMENDED that the decoder stop decoding and
+   and a decoder <em>MAY</em> keep any audio decoded so far instead of invoking
+   the PLC, but it is <em>RECOMMENDED</em> that the decoder stop decoding and
    discard the rest of the current Opus frame.
 
    It would have been possible to avoid these invalid states in the
@@ -7462,7 +7462,7 @@ Table of Contents
 
              Figure 19: Recommended Non-Normative Transitions
 
-   Encoders SHOULD NOT use other transitions, e.g., those that involve
+   Encoders <em>SHOULD NOT</em> use other transitions, e.g., those that involve
    redundancy in ways not illustrated in Figure 18.
 
 
@@ -8801,7 +8801,7 @@ Table of Contents
 
    The search described above is considered to be a good trade-off
    between quality and computational cost.  However, there are other
-   possible ways to search the PVQ codebook and the implementers MAY use
+   possible ways to search the PVQ codebook and the implementers <em>MAY</em> use
    any other search methods.  See alg_quant() in celt/vq.c.
 
 
@@ -8843,13 +8843,13 @@ Table of Contents
 
    Compliance with this specification means that, in addition to
    following the normative keywords in this document, a decoder's output
-   MUST also be within the thresholds specified by the opus_compare.c
+   <em>MUST</em> also be within the thresholds specified by the opus_compare.c
    tool (included with the code) when compared to the reference
    implementation for each of the test vectors provided (see
    <a href="#appendix-A.4">Appendix A.4</a>) and for each output sampling rate and channel count
-   supported.  In addition, a compliant decoder implementation MUST have
+   supported.  In addition, a compliant decoder implementation <em>MUST</em> have
    the same final range decoder state as that of the reference decoder.
-   It is therefore RECOMMENDED that the decoder implement the same
+   It is therefore <em>RECOMMENDED</em> that the decoder implement the same
    functional behavior as the reference.  A decoder implementation is
    not required to support all output sampling rates or all output
    channel counts.
@@ -8896,7 +8896,7 @@ Table of Contents
    can be obtained on a cassette deck).  It is still possible for an
    implementation to sound very good with such a low quality measure
    (e.g., if the deviation is due to inaudible phase distortion), but
-   unless this is verified by listening tests, it is RECOMMENDED that
+   unless this is verified by listening tests, it is <em>RECOMMENDED</em> that
    implementations achieve a quality above 90 for 48 kHz decoding.  For
    other sampling rates, it is normal for the quality metric to be lower
    (typically, as low as 50 even for a good implementation) because of
@@ -8914,7 +8914,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Opus Custom</span>
 
-   Opus Custom is an OPTIONAL part of the specification that is defined
+   Opus Custom is an <em>OPTIONAL</em> part of the specification that is defined
    to handle special sample rates and frame rates that are not supported
    by the main Opus specification.  Use of Opus Custom is discouraged
    for all but very special applications for which a frame size
@@ -8964,7 +8964,7 @@ Table of Contents
    difficult to guarantee that an implementation avoids them.  For
    architectures on which denormals are problematic, adding very small
    floating-point offsets to the affected signals to prevent significant
-   numbers of denormalized operations is RECOMMENDED.  Alternatively, it
+   numbers of denormalized operations is <em>RECOMMENDED</em>.  Alternatively, it
    is often possible to configure the hardware to treat denormals as
    zero (DAZ).  No such issue exists for the fixed-point reference
    implementation.
@@ -18168,7 +18168,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6716.html">RFC 6716</a>                 Interactive Audio Codec          September 2012</span>
 
 
-   established by context at the transport layer.  It is RECOMMENDED
+   established by context at the transport layer.  It is <em>RECOMMENDED</em>
    that a transport layer choose exactly one framing scheme, rather than
    allowing an encoder to signal which one it wants to use.
 

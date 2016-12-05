@@ -374,7 +374,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "SHOULD", "SHOULD NOT", and "MAY"
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", and "<em>MAY</em>"
    in this document are to be interpreted as defined in "Key words for
    use in RFCs to Indicate Requirement Levels" [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
@@ -478,7 +478,7 @@ Table of Contents
    unreadable to a human.
 
    This is an implementation detail of collations or servers.  A
-   protocol SHOULD NOT expose it to clients, since some collations leave
+   protocol <em>SHOULD NOT</em> expose it to clients, since some collations leave
    the sort key's format up to the implementation, and current
    conformant implementations are known to use different formats.
 
@@ -487,7 +487,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Basic Syntax</span>
 
    The collation identifier itself is a single US-ASCII string.  The
-   identifier MUST NOT be longer than 254 characters, and obeys the
+   identifier <em>MUST NOT</em> be longer than 254 characters, and obeys the
    following grammar:
 
      collation-char  = ALPHA / DIGIT / "-" / ";" / "=" / "."
@@ -508,16 +508,16 @@ Table of Contents
 
    There is a special identifier called "default".  For protocols that
    have a default collation, "default" refers to that collation.  For
-   other protocols, the identifier "default" MUST match no collations,
-   and servers SHOULD treat it in the same way as they treat nonexistent
+   other protocols, the identifier "default" <em>MUST</em> match no collations,
+   and servers <em>SHOULD</em> treat it in the same way as they treat nonexistent
    collations.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Wildcards</span>
 
-   The string a client uses to select a collation MAY contain one or
+   The string a client uses to select a collation <em>MAY</em> contain one or
    more wildcard ("*") characters that match zero or more collation-
-   chars.  Wildcard characters MUST NOT be adjacent.  If the wildcard
-   string matches multiple collations, the server SHOULD attempt to
+   chars.  Wildcard characters <em>MUST NOT</em> be adjacent.  If the wildcard
+   string matches multiple collations, the server <em>SHOULD</em> attempt to
    select a widely useful collation in preference to a narrowly useful
    one.
 
@@ -530,12 +530,12 @@ Table of Contents
 
 
      collation-wild  =  ("*" / (ALPHA ["*"])) *(collation-char ["*"])
-                         ; MUST NOT exceed 254 characters total
+                         ; <em>MUST NOT</em> exceed 254 characters total
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Ordering Direction</span>
 
    When used as a protocol element for ordering, the collation
-   identifier MAY be prefixed by either "+" or "-" to explicitly specify
+   identifier <em>MAY</em> be prefixed by either "+" or "-" to explicitly specify
    an ordering direction. "+" has no effect on the ordering operation,
    while "-" inverts the result of the ordering operation.  In general,
    collation-order is used when a client requests a collation, and
@@ -586,7 +586,7 @@ Table of Contents
 
 
    delimit the parameter from the value.  The version numbers of any
-   lookup tables used by the algorithm SHOULD be present as
+   lookup tables used by the algorithm <em>SHOULD</em> be present as
    parameterized modifications.
 
    Collation identifiers of the form *;vnd-hostname;* are reserved for
@@ -614,12 +614,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Operations Supported</span>
 
-   A collation specification MUST state which of the three basic
+   A collation specification <em>MUST</em> state which of the three basic
    operations are supported (equality, substring, ordering) and how to
    perform each of the supported operations on any two input character
    strings, including empty strings.  Collations must be deterministic,
    i.e., given a collation with a specific identifier, and any two fixed
-   input strings, the result MUST be the same for the same operation.
+   input strings, the result <em>MUST</em> be the same for the same operation.
 
    In general, collation operations should behave as their names
    suggest.  While a collation may be new, the operations are not, so
@@ -649,21 +649,21 @@ Table of Contents
    if it is equal to itself according to the collation's equality
    operation.)
 
-   The validity test is provided by all collations.  It MUST NOT be
+   The validity test is provided by all collations.  It <em>MUST NOT</em> be
    listed separately in the collation registration.
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  Equality</span>
 
    The equality test always returns "match" or "no-match" when it is
-   supplied valid input, and MAY return "undefined" if one or both input
+   supplied valid input, and <em>MAY</em> return "undefined" if one or both input
    strings are not valid.
 
-   The equality test MUST be reflexive and symmetric.  For valid input,
-   it MUST be transitive.
+   The equality test <em>MUST</em> be reflexive and symmetric.  For valid input,
+   it <em>MUST</em> be transitive.
 
    If a collation provides either a substring or an ordering test, it
-   MUST also provide an equality test.  The substring and/or ordering
-   tests MUST be consistent with the equality test.
+   <em>MUST</em> also provide an equality test.  The substring and/or ordering
+   tests <em>MUST</em> be consistent with the equality test.
 
    The return values of the equality test are called "match", "no-match"
    and "undefined" in this document.
@@ -681,13 +681,13 @@ Table of Contents
    protocol.  It returns "match" or "no-match" when it is supplied valid
    input and returns "undefined" when supplied invalid input.
 
-   Application protocols MAY return position information for substring
-   matches.  If this is done, the position information SHOULD include
+   Application protocols <em>MAY</em> return position information for substring
+   matches.  If this is done, the position information <em>SHOULD</em> include
    both the starting offset and the ending offset for each match.  This
    is important because more sophisticated collations can match strings
    of unequal length (for example, a pre-composed accented character can
    match a decomposed accented character).  In general, overlapping
-   matches SHOULD be reported (as when "ana" occurs twice within
+   matches <em>SHOULD</em> be reported (as when "ana" occurs twice within
    "banana"), although there are cases where a collation may decide not
 
 
@@ -718,7 +718,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.4" href="#section-4.2.4">4.2.4</a>.  Ordering</span>
 
    The ordering operation determines how two strings are ordered.  It
-   MUST be reflexive.  For valid input, it MUST be transitive and
+   <em>MUST</em> be reflexive.  For valid input, it <em>MUST</em> be transitive and
    trichotomous.
 
    Ordering returns "less" if the first string is listed before the
@@ -731,17 +731,17 @@ Table of Contents
    When the collation is used with a "+" prefix, the behavior is the
    same as when used with no prefix.  When the collation is used with a
    "-" prefix, the result of the ordering operation of the collation
-   MUST be reversed.
+   <em>MUST</em> be reversed.
 
    The return values of the ordering operation are called "less",
    "equal", "greater", and "undefined" in this document.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Sort Keys</span>
 
-   A collation specification SHOULD describe the internal transformation
+   A collation specification <em>SHOULD</em> describe the internal transformation
    algorithm to generate sort keys.  This algorithm can be applied to
    individual strings, and the result can be stored to potentially
-   optimize future comparison operations.  A collation MAY specify that
+   optimize future comparison operations.  A collation <em>MAY</em> specify that
    the sort key is generated by the identity function.  The sort key may
    have no meaning to a human.  The sort key may not be valid input to
    the collation.
@@ -758,7 +758,7 @@ Table of Contents
    Some collations use customizable lookup tables, e.g., because the
    tables depend on locale, and may be modified after shipping the
    software.  Collations that use more than one customizable lookup
-   table in a documented format MUST assign numbers to the tables they
+   table in a documented format <em>MUST</em> assign numbers to the tables they
    use.  This permits an application protocol command to access the
    tables used by a server collation, so that clients and servers use
    the same tables.
@@ -790,7 +790,7 @@ Table of Contents
    can be invoked in the protocol, and how they are invoked.  There may
    be more than one way to invoke an operation.
 
-   The protocol MUST provide a mechanism for the client to select the
+   The protocol <em>MUST</em> provide a mechanism for the client to select the
    collation to use with equality matching, substring matching, and
    ordering.
 
@@ -815,7 +815,7 @@ Table of Contents
    is a substring of y" returns true-false.
 
    If the protocol provides positional information for the results of a
-   substring match, that positional information SHOULD fully specify the
+   substring match, that positional information <em>SHOULD</em> fully specify the
    substring(s) in the result that matches, independent of the length of
    the search string.  For example, returning both the starting and
    ending offset of the match would suffice, as would the starting
@@ -826,14 +826,14 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Wildcards</span>
 
-   The protocol MUST specify whether it allows the use of wildcards in
+   The protocol <em>MUST</em> specify whether it allows the use of wildcards in
    collation identifiers.  If the protocol allows wildcards, then:
-      The protocol MUST specify how comparisons behave in the absence of
+      The protocol <em>MUST</em> specify how comparisons behave in the absence of
       explicit collation negotiation, or when a collation of "default"
-      is requested.  The protocol MAY specify that the default collation
+      is requested.  The protocol <em>MAY</em> specify that the default collation
       used in such circumstances is sensitive to server configuration.
 
-      The protocol SHOULD provide a way to list available collations
+      The protocol <em>SHOULD</em> provide a way to list available collations
       matching a given wildcard pattern, or patterns.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  String Comparison</span>
@@ -891,11 +891,11 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.7" href="#section-5.7">5.7</a>.  Octet Collation</span>
 
    The i;octet (<a href="#section-9.3">Section 9.3</a>) collation is only usable with protocols
-   based on octet-strings.  Clients and servers MUST NOT use i;octet
+   based on octet-strings.  Clients and servers <em>MUST NOT</em> use i;octet
    with other protocols.
 
    If the protocol permits the use of collations with data structures
-   other than strings, the protocol MUST describe the default behavior
+   other than strings, the protocol <em>MUST</em> describe the default behavior
    for a collation with those data structures.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Use by Existing Protocols</span>
@@ -967,7 +967,7 @@ Table of Contents
    in the contact field of the registration, and IANA will preserve this
    information.
 
-   If the registration is a change of an existing collation, it MUST be
+   If the registration is a change of an existing collation, it <em>MUST</em> be
    approved by the owner.  In the event the owner cannot be contacted
 
 
@@ -978,7 +978,7 @@ Table of Contents
 
 
    for a period of one month, and the designated expert deems the change
-   necessary, the IESG MAY re-assign ownership to an appropriate party.
+   necessary, the IESG <em>MAY</em> re-assign ownership to an appropriate party.
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Collation Registration Format</span>
 
@@ -1003,20 +1003,20 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-7.2.2" href="#section-7.2.2">7.2.2</a>.  The Collation Element</span>
 
-   The root of the registration document MUST be a &lt;collation&gt; element.
+   The root of the registration document <em>MUST</em> be a &lt;collation&gt; element.
    The collation element contains the other elements in the
    registration, which are described in the following sub-subsections,
    in the order given here.
 
-   The &lt;collation&gt; element MAY include an "rfc=" attribute if the
+   The &lt;collation&gt; element <em>MAY</em> include an "rfc=" attribute if the
    specification is in an RFC.  The "rfc=" attribute gives only the
    number of the RFC, without any prefix, such as "RFC", or suffix, such
    as ".txt".
 
-   The &lt;collation&gt; element MUST include a "scope=" attribute, which MUST
+   The &lt;collation&gt; element <em>MUST</em> include a "scope=" attribute, which <em>MUST</em>
    have one of the values "global", "local", or "other".
 
-   The &lt;collation&gt; element MUST include an "intendedUse=" attribute,
+   The &lt;collation&gt; element <em>MUST</em> include an "intendedUse=" attribute,
    which must have one of the values "common", "limited", "vendor", or
    "deprecated".  Collation specifications intended for "common" use are
    expected to reference standards from standards bodies with
@@ -1034,7 +1034,7 @@ Table of Contents
 
 
    values, and elements.  Any system that automatically parses these XML
-   documents MUST take this into account to preserve future
+   documents <em>MUST</em> take this into account to preserve future
    compatibility.
 
 <span class="h4"><a class="selflink" name="section-7.2.3" href="#section-7.2.3">7.2.3</a>.  The Identifier Element</span>
@@ -1057,7 +1057,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-7.2.6" href="#section-7.2.6">7.2.6</a>.  The Specification Element</span>
 
    The &lt;specification&gt; element describes where to find the
-   specification.  The &lt;specification&gt; element is mandatory.  It MAY
+   specification.  The &lt;specification&gt; element is mandatory.  It <em>MAY</em>
    have a URI attribute.  There may be more than one &lt;specification&gt;
    element, in which case, they together form the specification.
 
@@ -1091,7 +1091,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-7.2.9" href="#section-7.2.9">7.2.9</a>.  The Version Element</span>
 
-   The &lt;version&gt; element MUST be included when the registration is
+   The &lt;version&gt; element <em>MUST</em> be included when the registration is
    likely to be revised, or has been revised in such a way that the
    results change for one or more input strings.  The &lt;version&gt; element
    is optional.
@@ -1120,7 +1120,7 @@ Table of Contents
    &lt;value&gt; element is optional.  If one or more &lt;value&gt; elements are
    present, only those values are legal.  If none are, then the
    variable's legal values do not form an enumerated set, and the rules
-   MUST be specified in an RFC accompanying the registration.
+   <em>MUST</em> be specified in an RFC accompanying the registration.
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  Structure of Collation Registry</span>
 
@@ -1221,7 +1221,7 @@ Table of Contents
    o  The collation identifier fails to precisely identify the version
       numbers of relevant tables to use.
 
-   o  The registration fails to meet one of the "MUST" requirements in
+   o  The registration fails to meet one of the "<em>MUST</em>" requirements in
       <a href="#section-4">Section 4</a>.
 
    o  The collation identifier fails to meet the syntax in <a href="#section-3">Section 3</a>.
@@ -1389,7 +1389,7 @@ Table of Contents
    The "i;octet" collation is a simple and fast collation intended for
    use on binary octet strings rather than on character data.  Protocols
    that want to make this collation available have to do so by
-   explicitly allowing it.  If not explicitly allowed, it MUST NOT be
+   explicitly allowing it.  If not explicitly allowed, it <em>MUST NOT</em> be
    used.  It never returns an "undefined" result.  It provides equality,
    substring, and ordering operations.
 

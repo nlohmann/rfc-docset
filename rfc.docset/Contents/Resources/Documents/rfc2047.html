@@ -365,7 +365,7 @@ NOTES
 
    An 'encoded-word' is defined by the following ABNF grammar.  The
    notation of <a href="./rfc822.html">RFC 822</a> is used, with the exception that white space
-   characters MUST NOT appear between components of an 'encoded-word'.
+   characters <em>MUST NOT</em> appear between components of an 'encoded-word'.
 
    encoded-word = "=?" charset "?" encoding "?" encoded-text "?="
 
@@ -440,7 +440,7 @@ NOTES
    Some character sets use code-switching techniques to switch between
    "ASCII mode" and other modes.  If unencoded text in an 'encoded-word'
    contains a sequence which causes the charset interpreter to switch
-   out of ASCII mode, it MUST contain additional control codes such that
+   out of ASCII mode, it <em>MUST</em> contain additional control codes such that
    ASCII mode is again selected at the end of the 'encoded-word'.  (This
    rule applies separately to each 'encoded-word', including adjacent
    'encoded-word's within a single header field.)
@@ -458,7 +458,7 @@ NOTES
    use when most of the characters to be encoded are in the ASCII
    character set; otherwise, the "B" encoding should be used.
    Nevertheless, a mail reader which claims to recognize 'encoded-word's
-   MUST be able to accept either encoding for any character set which it
+   <em>MUST</em> be able to accept either encoding for any character set which it
    supports.
 
 
@@ -512,9 +512,9 @@ NOTES
        occupies a different code position in the character set in use.
 
    (3) 8-bit values which correspond to printable ASCII characters other
-       than "=", "?", and "_" (underscore), MAY be represented as those
+       than "=", "?", and "_" (underscore), <em>MAY</em> be represented as those
        characters.  (But see <a href="#section-5">section 5</a> for restrictions.)  In
-       particular, SPACE and TAB MUST NOT be represented as themselves
+       particular, SPACE and TAB <em>MUST NOT</em> be represented as themselves
        within encoded words.
 
 
@@ -537,7 +537,7 @@ NOTES
 
     Ordinary ASCII text and 'encoded-word's may appear together in the
     same header field.  However, an 'encoded-word' that appears in a
-    header field defined as '*text' MUST be separated from any adjacent
+    header field defined as '*text' <em>MUST</em> be separated from any adjacent
     'encoded-word' or 'text' by 'linear-white-space'.
 
 (2) An 'encoded-word' may appear within a 'comment' delimited by "(" and
@@ -546,9 +546,9 @@ NOTES
 
     comment = "(" *(ctext / quoted-pair / comment / encoded-word) ")"
 
-    A "Q"-encoded 'encoded-word' which appears in a 'comment' MUST NOT
+    A "Q"-encoded 'encoded-word' which appears in a 'comment' <em>MUST NOT</em>
     contain the characters "(", ")" or "
-    'encoded-word' that appears in a 'comment' MUST be separated from
+    'encoded-word' that appears in a 'comment' <em>MUST</em> be separated from
     any adjacent 'encoded-word' or 'ctext' by 'linear-white-space'.
 
     It is important to note that 'comment's are only recognized inside
@@ -567,7 +567,7 @@ NOTES
     'encoded-word' is restricted to: &lt;upper and lower case ASCII
     letters, decimal digits, "!", "*", "+", "-", "/", "=", and "_"
     (underscore, ASCII 95.)&gt;.  An 'encoded-word' that appears within a
-    'phrase' MUST be separated from any adjacent 'word', 'text' or
+    'phrase' <em>MUST</em> be separated from any adjacent 'word', 'text' or
     'special' by 'linear-white-space'.
 
 
@@ -583,31 +583,31 @@ NOTES
    These are the ONLY locations where an 'encoded-word' may appear.  In
    particular:
 
-   + An 'encoded-word' MUST NOT appear in any portion of an 'addr-spec'.
+   + An 'encoded-word' <em>MUST NOT</em> appear in any portion of an 'addr-spec'.
 
-   + An 'encoded-word' MUST NOT appear within a 'quoted-string'.
+   + An 'encoded-word' <em>MUST NOT</em> appear within a 'quoted-string'.
 
-   + An 'encoded-word' MUST NOT be used in a Received header field.
+   + An 'encoded-word' <em>MUST NOT</em> be used in a Received header field.
 
-   + An 'encoded-word' MUST NOT be used in parameter of a MIME
+   + An 'encoded-word' <em>MUST NOT</em> be used in parameter of a MIME
      Content-Type or Content-Disposition field, or in any structured
      field body except within a 'comment' or 'phrase'.
 
    The 'encoded-text' in an 'encoded-word' must be self-contained;
-   'encoded-text' MUST NOT be continued from one 'encoded-word' to
+   'encoded-text' <em>MUST NOT</em> be continued from one 'encoded-word' to
    another.  This implies that the 'encoded-text' portion of a "B"
    'encoded-word' will be a multiple of 4 characters long; for a "Q"
    'encoded-word', any "=" character that appears in the 'encoded-text'
    portion will be followed by two hexadecimal characters.
 
-   Each 'encoded-word' MUST encode an integral number of octets.  The
+   Each 'encoded-word' <em>MUST</em> encode an integral number of octets.  The
    'encoded-text' in each 'encoded-word' must be well-formed according
    to the encoding specified; the 'encoded-text' may not be continued in
    the next 'encoded-word'.  (For example, "=?charset?Q?=?=
    =?charset?Q?AB?=" would be illegal, because the two hex digits "AB"
    must follow the "=" in the same 'encoded-word'.)
 
-   Each 'encoded-word' MUST represent an integral number of characters.
+   Each 'encoded-word' <em>MUST</em> represent an integral number of characters.
    A multi-octet character may not be split across adjacent 'encoded-
    word's.
 
@@ -731,13 +731,13 @@ NOTES
 
    A mail reader need not attempt to display the text associated with an
    'encoded-word' that is incorrectly formed.  However, a mail reader
-   MUST NOT prevent the display or handling of a message because an
+   <em>MUST NOT</em> prevent the display or handling of a message because an
    'encoded-word' is incorrectly formed.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>. Conformance</span>
 
    A mail composing program claiming compliance with this specification
-   MUST ensure that any string of non-white-space printable ASCII
+   <em>MUST</em> ensure that any string of non-white-space printable ASCII
    characters within a '*text' or '*ctext' that begins with "=?" and
    ends with "?=" be a valid 'encoded-word'.  ("begins" means: at the
 
@@ -829,7 +829,7 @@ NOTES
 
    (=?ISO-8859-1?Q?a?= b)                      (a b)
 
-           Within a 'comment', white space MUST appear between an
+           Within a 'comment', white space <em>MUST</em> appear between an
            'encoded-word' and surrounding text.  [<a href="#section-5">Section 5</a>,
            paragraph (2)].  However, white space is not needed between
            the initial "(" that begins the 'comment', and the
@@ -863,13 +863,13 @@ NOTES
    (=?ISO-8859-1?Q?a_b?=)                      (a b)
 
            In order to cause a SPACE to be displayed within a portion
-           of encoded text, the SPACE MUST be encoded as part of the
+           of encoded text, the SPACE <em>MUST</em> be encoded as part of the
            'encoded-word'.
 
    (=?ISO-8859-1?Q?a?= =?ISO-8859-2?Q?_b?=)    (a b)
 
            In order to cause a SPACE to be displayed between two strings
-           of encoded text, the SPACE MAY be encoded as part of one of
+           of encoded text, the SPACE <em>MAY</em> be encoded as part of one of
            the 'encoded-word's.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>. References</span>

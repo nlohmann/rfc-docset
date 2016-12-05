@@ -336,7 +336,7 @@ Table of Contents
    <a href="./rfc5336.html#section-3.2">Section&nbsp;3.2 of [RFC5336]</a> defines when downgrading occurs.  If the
    SMTP client has a UTF8SMTP envelope or an internationalized message
    and the SMTP server doesn't support the UTF8SMTP extension, then the
-   SMTP client MUST NOT send a UTF8SMTP envelope or an internationalized
+   SMTP client <em>MUST NOT</em> send a UTF8SMTP envelope or an internationalized
    message to the SMTP server.  The section lists 4 choices in this
    case.  The fourth choice is downgrading, as described here.
 
@@ -390,8 +390,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    All specialized terms used in this specification are defined in the
@@ -571,7 +571,7 @@ Table of Contents
 
    Note that even if no downgrading is performed on the envelope,
    message header fields and message body MIME header fields that
-   contain non-ASCII characters MUST be downgraded.  This is described
+   contain non-ASCII characters <em>MUST</em> be downgraded.  This is described
    in Sections <a href="#section-5">5</a> and <a href="#section-6">6</a>.
 
    When downgrading, replace each &lt;path&gt; that contains a non-ASCII mail
@@ -591,7 +591,7 @@ Table of Contents
    replacing, decode the ALT-ADDRESS parameter value because it is
    encoded as xtext [<a href="./rfc3461.html" title="&quot;Simple Mail Transfer Protocol (SMTP) Service Extension for Delivery Status Notifications (DSNs)&quot;">RFC3461</a>].
 
-   To avoid disclosing recipient addresses, the downgrading process MUST
+   To avoid disclosing recipient addresses, the downgrading process <em>MUST</em>
    NOT add the "Downgraded-Rcpt-To:" header field if the SMTP
    downgrading targets multiple recipients.  See <a href="#section-7">Section 7</a> for more
    details.
@@ -603,8 +603,8 @@ Table of Contents
    contains the server at the connection destination of the SMTP session
    for the recipient address prior to downgrading, the SMTP connection
    is valid for the new recipient address.  Otherwise, the downgrading
-   process MUST NOT send the downgraded message to the new recipient
-   address via the connection and MUST try to send the downgraded
+   process <em>MUST NOT</em> send the downgraded message to the new recipient
+   address via the connection and <em>MUST</em> try to send the downgraded
    message to the new recipient address.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  ORCPT downgrading</span>
@@ -612,7 +612,7 @@ Table of Contents
    The "RCPT TO" command can have an ORCPT parameter if the Delivery
    Status Notification (DSN) extension [<a href="./rfc3461.html" title="&quot;Simple Mail Transfer Protocol (SMTP) Service Extension for Delivery Status Notifications (DSNs)&quot;">RFC3461</a>] is supported.  If the
    ORCPT parameter contains a "utf-8" type address and the address
-   contains raw non-ASCII characters, the address MUST be converted to
+   contains raw non-ASCII characters, the address <em>MUST</em> be converted to
    utf-8-addr-xtext form.  Those forms are described in [<a href="./rfc5337.html" title="&quot;Internationalized Delivery Status and Disposition Notifications&quot;">RFC5337</a>] and
    clarified by successor documents such as [<a href="#ref-DSNBIS" title="&quot;Internationalized Delivery Status and Disposition Notifications&quot;">DSNBIS</a>].
 
@@ -840,7 +840,7 @@ Table of Contents
 
    If the software understands the header field's structure and a
    downgrading algorithm other than ENCAPSULATION is applicable, that
-   software SHOULD use that algorithm; ENCAPSULATION downgrading is used
+   software <em>SHOULD</em> use that algorithm; ENCAPSULATION downgrading is used
    as a last resort.
 
    Mailing list header fields (those that start in "List-") are part of
@@ -968,8 +968,8 @@ Table of Contents
    implementations that fail to implement the algorithm correctly.  As a
    result, whitespace behavior is somewhat unpredictable in practice
    when multiple encoded words are used.  While <a href="./rfc5322.html">RFC 5322</a> states that
-   implementations SHOULD limit lines to not more than 78 characters,
-   implementations MAY choose to allow overly long encoded words in
+   implementations <em>SHOULD</em> limit lines to not more than 78 characters,
+   implementations <em>MAY</em> choose to allow overly long encoded words in
 
 
 
@@ -980,7 +980,7 @@ Table of Contents
 
 
    order to work around faulty [<a href="./rfc2047.html" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part Three: Message Header Extensions for Non-ASCII Text&quot;">RFC2047</a>] implementations.
-   Implementations that choose to do so SHOULD have an optional
+   Implementations that choose to do so <em>SHOULD</em> have an optional
    mechanism to limit line length to 78 characters.
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Trivial Downgrading</span>
@@ -991,8 +991,8 @@ Table of Contents
    desirable, but a partial implementation is also possible.
 
    If a partial downgrading implementation confronts an unsupported
-   downgrading target, the implementation MUST NOT send the message to a
-   server that does not support UTF8SMTP.  Instead, it MUST either
+   downgrading target, the implementation <em>MUST NOT</em> send the message to a
+   server that does not support UTF8SMTP.  Instead, it <em>MUST</em> either
    reject the message or generate a notification of non-deliverability.
 
    A partial downgrading, trivial downgrading, is discussed.  It does
@@ -1022,7 +1022,7 @@ Table of Contents
    "8bit" or "binary" data.  Implementers need to consider converting
    "8bit" data to "base64" or "quoted-printable" encoded form and adjust
    the "Content-Transfer-Encoding" header field accordingly.  If the
-   body contains multiple MIME parts, this conversion MUST be performed
+   body contains multiple MIME parts, this conversion <em>MUST</em> be performed
    for each MIME part.
 
 

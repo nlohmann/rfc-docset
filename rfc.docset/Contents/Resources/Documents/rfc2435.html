@@ -247,8 +247,8 @@ Changes from <a href="./rfc2035.html">RFC 2035</a>
 
 Key Words
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-9" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">9</a>].
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Introduction</span>
@@ -385,8 +385,8 @@ Key Words
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  RTP/JPEG Packet Format</span>
 
-   The RTP timestamp is in units of 90000Hz.  The same timestamp MUST
-   appear in each fragment of a given frame.  The RTP marker bit MUST be
+   The RTP timestamp is in units of 90000Hz.  The same timestamp <em>MUST</em>
+   appear in each fragment of a given frame.  The RTP marker bit <em>MUST</em> be
    set in the last packet of a frame.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  JPEG header</span>
@@ -413,7 +413,7 @@ Key Words
 <span class="grey"><a href="./rfc2435.html">RFC 2435</a>              RTP Payload Format for JPEG           October 1998</span>
 
 
-   All fields in this header except for the Fragment Offset field MUST
+   All fields in this header except for the Fragment Offset field <em>MUST</em>
    remain the same in all packets that correspond to the same JPEG
    frame.
 
@@ -423,7 +423,7 @@ Key Words
 <span class="h4"><a class="selflink" name="section-3.1.1" href="#section-3.1.1">3.1.1</a>.  Type-specific: 8 bits</span>
 
    Interpretation depends on the value of the type field.  If no
-   interpretation is specified, this field MUST be zeroed on
+   interpretation is specified, this field <em>MUST</em> be zeroed on
    transmission and ignored on reception.
 
 <span class="h4"><a class="selflink" name="section-3.1.2" href="#section-3.1.2">3.1.2</a>.  Fragment Offset: 24 bits</span>
@@ -431,7 +431,7 @@ Key Words
    The Fragment Offset is the offset in bytes of the current packet in
    the JPEG frame data. This value is encoded in network byte order
    (most significant byte first). The Fragment Offset plus the length of
-   the payload data in the packet MUST NOT exceed 2^24 bytes.
+   the payload data in the packet <em>MUST NOT</em> exceed 2^24 bytes.
 
 <span class="h4"><a class="selflink" name="section-3.1.3" href="#section-3.1.3">3.1.3</a>.  Type: 8 bits</span>
 
@@ -479,7 +479,7 @@ Key Words
 
 <span class="h4"><a class="selflink" name="section-3.1.7" href="#section-3.1.7">3.1.7</a>.  Restart Marker header</span>
 
-   This header MUST be present immediately after the main JPEG header
+   This header <em>MUST</em> be present immediately after the main JPEG header
    when using types 64-127.  It provides the additional information
    required to properly decode a data stream containing restart markers.
 
@@ -492,18 +492,18 @@ Key Words
    The Restart Interval field specifies the number of MCUs that appear
    between restart markers.  It is identical to the 16 bit value that
    would appear in the DRI marker segment of a JFIF header.  This value
-   MUST NOT be zero.
+   <em>MUST NOT</em> be zero.
 
    If the restart intervals in a frame are not guaranteed to be aligned
-   with packet boundaries, the F (first) and L (last) bits MUST be set
-   to 1 and the Restart Count MUST be set to 0x3FFF.  This indicates
-   that a receiver MUST reassemble the entire frame before decoding it.
+   with packet boundaries, the F (first) and L (last) bits <em>MUST</em> be set
+   to 1 and the Restart Count <em>MUST</em> be set to 0x3FFF.  This indicates
+   that a receiver <em>MUST</em> reassemble the entire frame before decoding it.
 
    To support partial frame decoding, the frame is broken into "chunks"
    each containing an integral number of restart intervals. The Restart
    Count field contains the position of the first restart interval in
    the current "chunk" so that receivers know which part of the frame
-   this data corresponds to.  A Restart Interval value SHOULD be chosen
+   this data corresponds to.  A Restart Interval value <em>SHOULD</em> be chosen
    to allow a "chunk" to completely fit within a single packet.  In this
    case, both the F and L bits of the packet are set to 1.  However, if
    a chunk needs to be spread across multiple packets, the F bit will be
@@ -513,7 +513,7 @@ Key Words
 
 <span class="h4"><a class="selflink" name="section-3.1.8" href="#section-3.1.8">3.1.8</a>.  Quantization Table header</span>
 
-   This header MUST be present after the main JPEG header (and after the
+   This header <em>MUST</em> be present after the main JPEG header (and after the
    Restart Marker header, if present) when using Q values 128-255.  It
    provides a way to specify the quantization tables associated with
    this Q value in-band.
@@ -535,11 +535,11 @@ Key Words
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The Length field is set to the length in bytes of the quantization
-   table data to follow.  The Length field MAY be set to zero to
+   table data to follow.  The Length field <em>MAY</em> be set to zero to
    indicate that no quantization table data is included in this frame.
    See <a href="#section-4.2">section 4.2</a> for more information.  If the Length field in a
    received packet is larger than the remaining number of bytes, the
-   packet MUST be discarded.
+   packet <em>MUST</em> be discarded.
 
    When table data is included, the number of tables present depends on
    the JPEG type field.  For example, type 0 uses two tables (one for
@@ -555,16 +555,16 @@ Key Words
    presented in network byte order.  The rightmost bit in the Precision
    field (bit 15 in the diagram above) corresponds to the first table
    and each additional table uses the next bit to the left.  Bits beyond
-   those corresponding to the tables needed by the type in use MUST be
+   those corresponding to the tables needed by the type in use <em>MUST</em> be
    ignored.
 
    For Q values from 128 to 254, the Q value to quantization table data
-   mapping MUST be static, i.e., the receivers are guaranteed that they
+   mapping <em>MUST</em> be static, i.e., the receivers are guaranteed that they
    only need to read the table data once in order to correctly decode
    frames sent with that Q value.  A Q value of 255 denotes that the
    quantization table mapping is dynamic and can change on every frame.
-   Decoders MUST NOT depend on any previous version of the tables, and
-   need to reload these tables on every frame.  Packets MUST NOT contain
+   Decoders <em>MUST NOT</em> depend on any previous version of the tables, and
+   need to reload these tables on every frame.  Packets <em>MUST NOT</em> contain
    Q = 255 and Length = 0.
 
 <span class="h4"><a class="selflink" name="section-3.1.9" href="#section-3.1.9">3.1.9</a>.  JPEG Payload</span>
@@ -587,15 +587,15 @@ Key Words
    would require a Huffman-decoding pass over the data.)
 
    The type code determines whether restart markers are present.  If a
-   type supports restart markers, the packet MUST contain a non-zero
+   type supports restart markers, the packet <em>MUST</em> contain a non-zero
    Restart Interval value in a Restart Marker Header and restart markers
-   MUST appear on byte aligned boundaries beginning with an 0xFF between
-   MCUs at that interval.  Additional 0xFF bytes MAY appear between
+   <em>MUST</em> appear on byte aligned boundaries beginning with an 0xFF between
+   MCUs at that interval.  Additional 0xFF bytes <em>MAY</em> appear between
    restart intervals.  This can be used in the packetization process to
    align data to something like a word boundary for more efficient
-   copying.  Restart markers MUST NOT appear anywhere else in the JPEG
-   payload.  Types which do not support restart makers MUST NOT contain
-   restart markers anywhere in the JPEG payload. All packets MUST
+   copying.  Restart markers <em>MUST NOT</em> appear anywhere else in the JPEG
+   payload.  Types which do not support restart makers <em>MUST NOT</em> contain
+   restart markers anywhere in the JPEG payload. All packets <em>MUST</em>
    contain a "stuffed" 0x00 byte following any true 0xFF byte generated
    by the entropy coder [1, Sec.  B.1.1.5].
 
@@ -637,7 +637,7 @@ Key Words
 <span class="grey"><a href="./rfc2435.html">RFC 2435</a>              RTP Payload Format for JPEG           October 1998</span>
 
 
-   Type numbers 2-5 are reserved and SHOULD NOT be used.  Applications
+   Type numbers 2-5 are reserved and <em>SHOULD NOT</em> be used.  Applications
    based on previous versions of this document (<a href="./rfc2035.html">RFC 2035</a>) should be
    updated to indicate the presence of restart markers with type 64 or
    65 and the Restart Marker header.
@@ -719,7 +719,7 @@ Key Words
    For Q values 128-255, dynamically defined quantization tables are
    used.  These tables may be specified either in-band or out of band by
    something like a session setup protocol, but the Quantization Table
-   header MUST be present in the first packet of every frame. When the
+   header <em>MUST</em> be present in the first packet of every frame. When the
    tables are specified out of band, they may be omitted from the packet
    by setting the Length field in this header to 0.
 
@@ -733,13 +733,13 @@ Key Words
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Fragmentation and Reassembly</span>
 
    Since JPEG frames can be large, they must often be fragmented.
-   Frames SHOULD be fragmented into packets in a manner avoiding
+   Frames <em>SHOULD</em> be fragmented into packets in a manner avoiding
    fragmentation at a lower level.  If support for partial frame
-   decoding is desired, frames SHOULD be fragmented such that each
+   decoding is desired, frames <em>SHOULD</em> be fragmented such that each
    packet contains an integral number of restart intervals (see below).
 
-   Each packet that makes up a single frame MUST have the same
-   timestamp, and the RTP marker bit MUST be set on the last packet in a
+   Each packet that makes up a single frame <em>MUST</em> have the same
+   timestamp, and the RTP marker bit <em>MUST</em> be set on the last packet in a
    frame.  The fragment offset field of each packet is set to the byte
 
 
@@ -750,8 +750,8 @@ Key Words
 
 
    offset of its payload data within the original frame.  Packets making
-   up a frame SHOULD be sent sequentially and the fragments they contain
-   MUST NOT overlap one another.
+   up a frame <em>SHOULD</em> be sent sequentially and the fragments they contain
+   <em>MUST NOT</em> overlap one another.
 
    An entire frame can be identified as a sequence of packets beginning
    with a packet having a zero fragment offset and ending with a packet
@@ -778,7 +778,7 @@ Key Words
    RTP/JPEG Restart Marker header contains the additional information
    needed to accomplish this.
 
-   The size of restart intervals SHOULD be chosen to always allow an
+   The size of restart intervals <em>SHOULD</em> be chosen to always allow an
    integral number of restart intervals to fit within a single packet.
    This will guarantee that packets can be decoded independently from
    one another.  If a restart interval ends up being larger than a

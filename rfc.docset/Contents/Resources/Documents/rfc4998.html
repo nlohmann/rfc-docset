@@ -507,8 +507,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -668,8 +668,8 @@ Table of Contents
    EvidenceRecord ::= SEQUENCE {
       version                   INTEGER { v1(1) } ,
       digestAlgorithms          SEQUENCE OF AlgorithmIdentifier,
-      cryptoInfos               [0] CryptoInfos OPTIONAL,
-      encryptionInfo            [1] EncryptionInfo OPTIONAL,
+      cryptoInfos               [0] CryptoInfos <em>OPTIONAL</em>,
+      encryptionInfo            [1] EncryptionInfo <em>OPTIONAL</em>,
       archiveTimeStampSequence  ArchiveTimeStampSequence
       }
 
@@ -682,7 +682,7 @@ Table of Contents
    from earlier non-conformant or proprietary versions of the ERS.  The
    value 1 indicates this specification.  Lower values indicate an
    earlier version of the ERS has been used.  An implementation
-   conforming to this specification SHOULD reject a version value below
+   conforming to this specification <em>SHOULD</em> reject a version value below
    1.
 
 
@@ -786,9 +786,9 @@ Table of Contents
    ASN.1 Archive Timestamp
 
    ArchiveTimeStamp ::= SEQUENCE {
-     digestAlgorithm [0] AlgorithmIdentifier OPTIONAL,
-     attributes      [1] Attributes OPTIONAL,
-     reducedHashtree [2] SEQUENCE OF PartialHashtree OPTIONAL,
+     digestAlgorithm [0] AlgorithmIdentifier <em>OPTIONAL</em>,
+     attributes      [1] Attributes <em>OPTIONAL</em>,
+     reducedHashtree [2] SEQUENCE OF PartialHashtree <em>OPTIONAL</em>,
      timeStamp       ContentInfo}
 
    PartialHashtree ::= SEQUENCE OF OCTET STRING
@@ -809,7 +809,7 @@ Table of Contents
    digestAlgorithm identifies the digest algorithm and any associated
    parameters used within the reduced hash tree.  If the optional field
    digestAlgorithm is not present, the digest algorithm of the timestamp
-   MUST be used.  Which means, if timestamps according to [<a href="./rfc3161.html" title="&quot;Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)&quot;">RFC3161</a>] are
+   <em>MUST</em> be used.  Which means, if timestamps according to [<a href="./rfc3161.html" title="&quot;Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)&quot;">RFC3161</a>] are
    used in this case, the content of this field is identical to
    hashAlgorithm of messageImprint field of TSTInfo.
 
@@ -829,7 +829,7 @@ Table of Contents
 
    timeStamp should contain the timestamp as defined in <a href="#section-1.3">Section 1.3</a>.
    (e.g., as defined with TimeStampToken in [<a href="./rfc3161.html" title="&quot;Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)&quot;">RFC3161</a>]).  Other types of
-   timestamp MAY be used, if they contain time data, timestamped data,
+   timestamp <em>MAY</em> be used, if they contain time data, timestamped data,
    and a cryptographically secure confirmation from the TSA of these
    data.
 
@@ -868,9 +868,9 @@ Table of Contents
        one hash value, which is the root node of the hash tree.
 
    5.  Obtain a timestamp for this root hash value.  The hash algorithm
-       in the timestamp request MUST be the same as the hash algorithm
+       in the timestamp request <em>MUST</em> be the same as the hash algorithm
        of the hash tree, or the digestAlgorithm field of the
-       ArchiveTimeStamp MUST be present and specify the hash algorithm
+       ArchiveTimeStamp <em>MUST</em> be present and specify the hash algorithm
        of the hash tree.
 
    An example of a constructed hash tree for 3 data groups, where data
@@ -1003,7 +1003,7 @@ Table of Contents
 
    The data (e.g. certificates, Certificate Revocation Lists (CRLs), or
    Online Certificate Status Protocol (OCSP) responses) needed to verify
-   the timestamp MUST be preserved, and SHOULD be stored in the
+   the timestamp <em>MUST</em> be preserved, and <em>SHOULD</em> be stored in the
    timestamp itself unless this causes unnecessary duplication.  A
    timestamp according to [<a href="./rfc3161.html" title="&quot;Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)&quot;">RFC3161</a>] is a CMS object in which
    certificates can be stored in the certificates field and CRLs can be
@@ -1036,7 +1036,7 @@ Table of Contents
 
    3.  Concatenate the hash values of the actual list (partialHashtree)
        of hash values in binary ascending order and calculate the hash
-       value h' with algorithm H.  This hash value h' MUST become a
+       value h' with algorithm H.  This hash value h' <em>MUST</em> become a
        member of the next higher list of hash values (from the next
        partialHashtree).  Continue step 3 until a root hash value is
        calculated.
@@ -1108,9 +1108,9 @@ Table of Contents
    ArchiveTimeStampSequence ::= SEQUENCE OF
                                 ArchiveTimeStampChain
 
-   ArchiveTimeStampChain and ArchiveTimeStampSequence MUST be ordered
+   ArchiveTimeStampChain and ArchiveTimeStampSequence <em>MUST</em> be ordered
    ascending by time of timestamp.  Within an ArchiveTimeStampChain, all
-   reducedHashtrees of the contained ArchiveTimeStamps MUST use the same
+   reducedHashtrees of the contained ArchiveTimeStamps <em>MUST</em> use the same
    Hash-Algorithm.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Generation</span>
@@ -1124,14 +1124,14 @@ Table of Contents
 
    In the case of Timestamp Renewal, the content of the timeStamp field
    of the old Archive Timestamp has to be hashed and timestamped by a
-   new Archive Timestamp.  The new Archive Timestamp MAY not contain a
+   new Archive Timestamp.  The new Archive Timestamp <em>MAY</em> not contain a
    reducedHashtree field, if the timestamp only simply covers the
    previous timestamp.  However, generally one can collect a number of
    old Archive Timestamps and build the new hash tree with the hash
    values of the content of their timeStamp fields.
 
-   The new Archive Timestamp MUST be added to the ArchiveTimestampChain.
-   This hash tree of the new Archive Timestamp MUST use the same hash
+   The new Archive Timestamp <em>MUST</em> be added to the ArchiveTimestampChain.
+   This hash tree of the new Archive Timestamp <em>MUST</em> use the same hash
    algorithm as the old one, which is specified in the digestAlgorithm
 
 
@@ -1259,11 +1259,11 @@ Table of Contents
        the hash value of the data object.
 
    2.  Verify each ArchiveTimestampChain.  The first hash value list of
-       each ArchiveTimeStamp MUST contain the hash value of the
+       each ArchiveTimeStamp <em>MUST</em> contain the hash value of the
        timestamp of the Archive Timestamp before.  Each Archive
-       Timestamp MUST be valid relative to the time of the following
-       Archive Timestamp.  All Archive Timestamps within a chain MUST
-       use the same hash algorithm and this algorithm MUST be secure at
+       Timestamp <em>MUST</em> be valid relative to the time of the following
+       Archive Timestamp.  All Archive Timestamps within a chain <em>MUST</em>
+       use the same hash algorithm and this algorithm <em>MUST</em> be secure at
        the time of the first Archive Timestamp of the following
        ArchiveTimeStampChain.
 
@@ -1611,7 +1611,7 @@ Table of Contents
 
    1.  The CMS Object as a whole including contentInfo is selected as
        data object and archive timestamped.  This means that a hash
-       value of the CMS object MUST be located in the first list of hash
+       value of the CMS object <em>MUST</em> be located in the first list of hash
        values of Archive Timestamps.
 
    2.  The CMS Object and the signed or encrypted content are included
@@ -1646,7 +1646,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4998.html">RFC 4998</a>                          ERS                        August 2007</span>
 
 
-   The attributes SHOULD only occur once.  If they appear several times,
+   The attributes <em>SHOULD</em> only occur once.  If they appear several times,
    they have to be stored within the first signature in chronological
    order.
 
@@ -1721,17 +1721,17 @@ Table of Contents
    EvidenceRecord ::= SEQUENCE {
       version                   INTEGER { v1(1) } ,
       digestAlgorithms          SEQUENCE OF AlgorithmIdentifier,
-      cryptoInfos               [0] CryptoInfos OPTIONAL,
-      encryptionInfo            [1] EncryptionInfo OPTIONAL,
+      cryptoInfos               [0] CryptoInfos <em>OPTIONAL</em>,
+      encryptionInfo            [1] EncryptionInfo <em>OPTIONAL</em>,
       archiveTimeStampSequence  ArchiveTimeStampSequence
       }
 
    CryptoInfos ::= SEQUENCE SIZE (1..MAX) OF Attribute
 
    ArchiveTimeStamp ::= SEQUENCE {
-     digestAlgorithm [0] AlgorithmIdentifier OPTIONAL,
-     attributes      [1] Attributes OPTIONAL,
-     reducedHashtree [2] SEQUENCE OF PartialHashtree OPTIONAL,
+     digestAlgorithm [0] AlgorithmIdentifier <em>OPTIONAL</em>,
+     attributes      [1] Attributes <em>OPTIONAL</em>,
+     reducedHashtree [2] SEQUENCE OF PartialHashtree <em>OPTIONAL</em>,
      timeStamp       ContentInfo}
 
    PartialHashtree ::= SEQUENCE OF OCTET STRING
@@ -1817,8 +1817,8 @@ Table of Contents
    EvidenceRecord ::= SEQUENCE {
       version                   INTEGER { v1(1) } ,
       digestAlgorithms          SEQUENCE OF AlgorithmIdentifier,
-      cryptoInfos               [0] CryptoInfos OPTIONAL,
-      encryptionInfo            [1] EncryptionInfo OPTIONAL,
+      cryptoInfos               [0] CryptoInfos <em>OPTIONAL</em>,
+      encryptionInfo            [1] EncryptionInfo <em>OPTIONAL</em>,
       archiveTimeStampSequence  ArchiveTimeStampSequence
       }
 
@@ -1829,9 +1829,9 @@ Table of Contents
             })
 
    ArchiveTimeStamp ::= SEQUENCE {
-     digestAlgorithm [0] AlgorithmIdentifier OPTIONAL,
-     attributes      [1] Attributes OPTIONAL,
-     reducedHashtree [2] SEQUENCE OF PartialHashtree OPTIONAL,
+     digestAlgorithm [0] AlgorithmIdentifier <em>OPTIONAL</em>,
+     attributes      [1] Attributes <em>OPTIONAL</em>,
+     reducedHashtree [2] SEQUENCE OF PartialHashtree <em>OPTIONAL</em>,
      timeStamp       ContentInfo}
 
    PartialHashtree ::= SEQUENCE OF OCTET STRING

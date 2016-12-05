@@ -489,9 +489,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>] when they appear in ALL CAPS.  These words may also appear
    in this document in lowercase, absent their normative meanings.
 
@@ -1061,9 +1061,9 @@ Table of Contents
    The fields in the header are defined as follows:
 
    Version (Ver):  2-bit unsigned integer.  Indicates the CoAP version
-      number.  Implementations of this specification MUST set this field
+      number.  Implementations of this specification <em>MUST</em> set this field
       to 1 (01 binary).  Other values are reserved for future versions.
-      Messages with unknown version numbers MUST be silently ignored.
+      Messages with unknown version numbers <em>MUST</em> be silently ignored.
 
    Type (T):  2-bit unsigned integer.  Indicates if this message is of
       type Confirmable (0), Non-confirmable (1), Acknowledgement (2), or
@@ -1072,7 +1072,7 @@ Table of Contents
 
    Token Length (TKL):  4-bit unsigned integer.  Indicates the length of
       the variable-length Token field (0-8 bytes).  Lengths 9-15 are
-      reserved, MUST NOT be sent, and MUST be processed as a message
+      reserved, <em>MUST NOT</em> be sent, and <em>MUST</em> be processed as a message
       format error.
 
    Code:  8-bit unsigned integer, split into a 3-bit class (most
@@ -1118,7 +1118,7 @@ Table of Contents
    after the marker to the end of the UDP datagram, i.e., the Payload
    Length is calculated from the datagram size.  The absence of the
    Payload Marker denotes a zero-length payload.  The presence of a
-   marker followed by a zero-length payload MUST be processed as a
+   marker followed by a zero-length payload <em>MUST</em> be processed as a
    message format error.
 
    Implementation Note:  The byte value 0xFF may also occur within an
@@ -1134,7 +1134,7 @@ Table of Contents
    defined CoAP option, the length of the Option Value, and the Option
    Value itself.
 
-   Instead of specifying the Option Number directly, the instances MUST
+   Instead of specifying the Option Number directly, the instances <em>MUST</em>
    appear in order of their Option Numbers and a delta encoding is used
    between them: the Option Number for each instance is calculated as
    the sum of its delta and the Option Number of the preceding instance
@@ -1194,7 +1194,7 @@ Table of Contents
          initial byte and indicates the Option Delta minus 269.
 
       15:  Reserved for the Payload Marker.  If the field is set to this
-         value but the entire byte is not the payload marker, this MUST
+         value but the entire byte is not the payload marker, this <em>MUST</em>
          be processed as a message format error.
 
 
@@ -1225,13 +1225,13 @@ Table of Contents
          Option Value and indicates the Option Length minus 269.
 
       15:  Reserved for future use.  If the field is set to this value,
-         it MUST be processed as a message format error.
+         it <em>MUST</em> be processed as a message format error.
 
    Value:  A sequence of exactly Option Length bytes.  The length and
       format of the Option Value depend on the respective option, which
-      MAY define variable-length values.  See <a href="#section-3.2">Section 3.2</a> for the
+      <em>MAY</em> define variable-length values.  See <a href="#section-3.2">Section 3.2</a> for the
       formats used in this document; options defined in other documents
-      MAY make use of other option value formats.
+      <em>MAY</em> make use of other option value formats.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Option Value Formats</span>
 
@@ -1247,13 +1247,13 @@ Table of Contents
              field.
 
              An option definition may specify a range of permissible
-             numbers of bytes; if it has a choice, a sender SHOULD
+             numbers of bytes; if it has a choice, a sender <em>SHOULD</em>
              represent the integer with as few bytes as possible, i.e.,
              without leading zero bytes.  For example, the number 0 is
              represented with an empty option value (a zero-length
              sequence of bytes) and the number 1 by a single byte with
              the numerical value of 1 (bit combination 00000001 in most
-             significant bit first notation).  A recipient MUST be
+             significant bit first notation).  A recipient <em>MUST</em> be
              prepared to process values with leading zero bytes.
 
 
@@ -1330,8 +1330,8 @@ Table of Contents
    Registries (<a href="#section-12.1">Section 12.1</a>).
 
    An Empty message has the Code field set to 0.00.  The Token Length
-   field MUST be set to 0 and bytes of data MUST NOT be present after
-   the Message ID field.  If there are any bytes, they MUST be processed
+   field <em>MUST</em> be set to 0 and bytes of data <em>MUST NOT</em> be present after
+   the Message ID field.  If there are any bytes, they <em>MUST</em> be processed
    as a message format error.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Messages Transmitted Reliably</span>
@@ -1340,27 +1340,27 @@ Table of Contents
    message as Confirmable in the CoAP header.  A Confirmable message
    always carries either a request or response, unless it is used only
    to elicit a Reset message, in which case it is Empty.  A recipient
-   MUST either (a) acknowledge a Confirmable message with an
+   <em>MUST</em> either (a) acknowledge a Confirmable message with an
    Acknowledgement message or (b) reject the message if the recipient
    lacks context to process the message properly, including situations
    where the message is Empty, uses a code with a reserved class (1, 6,
    or 7), or has a message format error.  Rejecting a Confirmable
    message is effected by sending a matching Reset message and otherwise
-   ignoring it.  The Acknowledgement message MUST echo the Message ID of
-   the Confirmable message and MUST carry a response or be Empty (see
-   Sections <a href="#section-5.2.1">5.2.1</a> and <a href="#section-5.2.2">5.2.2</a>).  The Reset message MUST echo the Message
-   ID of the Confirmable message and MUST be Empty.  Rejecting an
+   ignoring it.  The Acknowledgement message <em>MUST</em> echo the Message ID of
+   the Confirmable message and <em>MUST</em> carry a response or be Empty (see
+   Sections <a href="#section-5.2.1">5.2.1</a> and <a href="#section-5.2.2">5.2.2</a>).  The Reset message <em>MUST</em> echo the Message
+   ID of the Confirmable message and <em>MUST</em> be Empty.  Rejecting an
    Acknowledgement or Reset message (including the case where the
    Acknowledgement carries a request or a code with a reserved class, or
    the Reset message is not Empty) is effected by silently ignoring it.
-   More generally, recipients of Acknowledgement and Reset messages MUST
+   More generally, recipients of Acknowledgement and Reset messages <em>MUST</em>
    NOT respond with either Acknowledgement or Reset messages.
 
    The sender retransmits the Confirmable message at exponentially
    increasing intervals, until it receives an acknowledgement (or Reset
    message) or runs out of attempts.
 
-   Retransmission is controlled by two things that a CoAP endpoint MUST
+   Retransmission is controlled by two things that a CoAP endpoint <em>MUST</em>
    keep track of for each Confirmable message it sends while waiting for
    an acknowledgement (or reset): a timeout and a retransmission
    counter.  For a new Confirmable message, the initial timeout is set
@@ -1389,11 +1389,11 @@ Table of Contents
    algorithm.  In particular, an endpoint may be late for a specific
    retransmission due to its sleep schedule and may catch up on the next
    one.  However, the minimum spacing before another retransmission is
-   ACK_TIMEOUT, and the entire sequence of (re-)transmissions MUST stay
+   ACK_TIMEOUT, and the entire sequence of (re-)transmissions <em>MUST</em> stay
    in the envelope of MAX_TRANSMIT_SPAN (see <a href="#section-4.8.2">Section 4.8.2</a>), even if
    that means a sender may miss an opportunity to transmit.
 
-   A CoAP endpoint that sent a Confirmable message MAY give up in
+   A CoAP endpoint that sent a Confirmable message <em>MAY</em> give up in
    attempting to obtain an ACK even before the MAX_RETRANSMIT counter
    value is reached.  For example, the application has canceled the
    request as it no longer needs a response, or there is some other
@@ -1401,25 +1401,25 @@ Table of Contents
    request message may have elicited a separate response, in which case
    it is clear to the requester that only the ACK was lost and a
    retransmission of the request would serve no purpose.  However, a
-   responder MUST NOT in turn rely on this cross-layer behavior from a
-   requester, i.e., it MUST retain the state to create the ACK for the
+   responder <em>MUST NOT</em> in turn rely on this cross-layer behavior from a
+   requester, i.e., it <em>MUST</em> retain the state to create the ACK for the
    request, if needed, even if a Confirmable response was already
    acknowledged by the requester.
 
-   Another reason for giving up retransmission MAY be the receipt of
+   Another reason for giving up retransmission <em>MAY</em> be the receipt of
    ICMP errors.  If it is desired to take account of ICMP errors, to
-   mitigate potential spoofing attacks, implementations SHOULD take care
+   mitigate potential spoofing attacks, implementations <em>SHOULD</em> take care
    to check the information about the original datagram in the ICMP
    message, including port numbers and CoAP header information such as
    message type and code, Message ID, and Token; if this is not possible
-   due to limitations of the UDP service API, ICMP errors SHOULD be
+   due to limitations of the UDP service API, ICMP errors <em>SHOULD</em> be
    ignored.  Packet Too Big errors [<a href="./rfc4443.html" title="&quot;Internet Control Message Protocol (ICMPv6) for the Internet Protocol Version 6 (IPv6) Specification&quot;">RFC4443</a>] ("fragmentation needed and
-   DF set" for IPv4 [<a href="./rfc0792.html" title="&quot;Internet Control Message Protocol&quot;">RFC0792</a>]) cannot properly occur and SHOULD be
+   DF set" for IPv4 [<a href="./rfc0792.html" title="&quot;Internet Control Message Protocol&quot;">RFC0792</a>]) cannot properly occur and <em>SHOULD</em> be
    ignored if the implementation note in <a href="#section-4.6">Section 4.6</a> is followed;
-   otherwise, they SHOULD feed into a path MTU discovery algorithm
-   [<a href="./rfc4821.html" title="&quot;Packetization Layer Path MTU Discovery&quot;">RFC4821</a>].  Source Quench and Time Exceeded ICMP messages SHOULD be
+   otherwise, they <em>SHOULD</em> feed into a path MTU discovery algorithm
+   [<a href="./rfc4821.html" title="&quot;Packetization Layer Path MTU Discovery&quot;">RFC4821</a>].  Source Quench and Time Exceeded ICMP messages <em>SHOULD</em> be
    ignored.  Host, network, port, or protocol unreachable errors or
-   parameter problem errors MAY, after appropriate vetting, be used to
+   parameter problem errors <em>MAY</em>, after appropriate vetting, be used to
    inform the application of a failure in sending.
 
 
@@ -1442,17 +1442,17 @@ Table of Contents
    As a more lightweight alternative, a message can be transmitted less
    reliably by marking the message as Non-confirmable.  A Non-
    confirmable message always carries either a request or response and
-   MUST NOT be Empty.  A Non-confirmable message MUST NOT be
-   acknowledged by the recipient.  A recipient MUST reject the message
+   <em>MUST NOT</em> be Empty.  A Non-confirmable message <em>MUST NOT</em> be
+   acknowledged by the recipient.  A recipient <em>MUST</em> reject the message
    if it lacks context to process the message properly, including the
    case where the message is Empty, uses a code with a reserved class
    (1, 6, or 7), or has a message format error.  Rejecting a Non-
-   confirmable message MAY involve sending a matching Reset message, and
-   apart from the Reset message the rejected message MUST be silently
+   confirmable message <em>MAY</em> involve sending a matching Reset message, and
+   apart from the Reset message the rejected message <em>MUST</em> be silently
    ignored.
 
    At the CoAP level, there is no way for the sender to detect if a Non-
-   confirmable message was received or not.  A sender MAY choose to
+   confirmable message was received or not.  A sender <em>MAY</em> choose to
    transmit multiple copies of a Non-confirmable message within
    MAX_TRANSMIT_SPAN (limited by the provisions of <a href="#section-4.7">Section 4.7</a>, in
    particular, by PROBING_RATE if no response is received), or the
@@ -1495,10 +1495,10 @@ Table of Contents
    with additional address information of the corresponding endpoint.
    The Message ID is a 16-bit unsigned integer that is generated by the
    sender of a Confirmable or Non-confirmable message and included in
-   the CoAP header.  The Message ID MUST be echoed in the
+   the CoAP header.  The Message ID <em>MUST</em> be echoed in the
    Acknowledgement or Reset message by the recipient.
 
-   The same Message ID MUST NOT be reused (in communicating with the
+   The same Message ID <em>MUST NOT</em> be reused (in communicating with the
    same endpoint) within the EXCHANGE_LIFETIME (<a href="#section-4.8.2">Section 4.8.2</a>).
 
    Implementation Note:  Several implementation strategies can be
@@ -1517,7 +1517,7 @@ Table of Contents
 
    For an Acknowledgement or Reset message to match a Confirmable or
    Non-confirmable message, the Message ID and source endpoint of the
-   Acknowledgement or Reset message MUST match the Message ID and
+   Acknowledgement or Reset message <em>MUST</em> match the Message ID and
    destination endpoint of the Confirmable or Non-confirmable message.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  Message Deduplication</span>
@@ -1526,10 +1526,10 @@ Table of Contents
    by the Message ID and source endpoint) multiple times within the
    EXCHANGE_LIFETIME (<a href="#section-4.8.2">Section 4.8.2</a>), for example, when its
    Acknowledgement went missing or didn't reach the original sender
-   before the first timeout.  The recipient SHOULD acknowledge each
+   before the first timeout.  The recipient <em>SHOULD</em> acknowledge each
    duplicate copy of a Confirmable message using the same
-   Acknowledgement or Reset message but SHOULD process any request or
-   response in the message only once.  This rule MAY be relaxed in case
+   Acknowledgement or Reset message but <em>SHOULD</em> process any request or
+   response in the message only once.  This rule <em>MAY</em> be relaxed in case
    the Confirmable message transports a request that is idempotent (see
    <a href="#section-5.1">Section 5.1</a>) or can be handled in an idempotent fashion.  Examples
    for relaxed message deduplication:
@@ -1562,10 +1562,10 @@ Table of Contents
 
    A recipient might receive the same Non-confirmable message (as
    indicated by the Message ID and source endpoint) multiple times
-   within NON_LIFETIME (<a href="#section-4.8.2">Section 4.8.2</a>).  As a general rule that MAY be
+   within NON_LIFETIME (<a href="#section-4.8.2">Section 4.8.2</a>).  As a general rule that <em>MAY</em> be
    relaxed based on the specific semantics of a message, the recipient
-   SHOULD silently ignore any duplicated Non-confirmable message and
-   SHOULD process any request or response in the message only once.
+   <em>SHOULD</em> silently ignore any duplicated Non-confirmable message and
+   <em>SHOULD</em> process any request or response in the message only once.
 
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>.  Message Size</span>
 
@@ -1574,11 +1574,11 @@ Table of Contents
    this is a matter of implementation quality.  The CoAP specification
    itself provides only an upper bound to the message size.  Messages
    larger than an IP packet result in undesirable packet fragmentation.
-   A CoAP message, appropriately encapsulated, SHOULD fit within a
+   A CoAP message, appropriately encapsulated, <em>SHOULD</em> fit within a
    single IP packet (i.e., avoid IP fragmentation) and (by fitting into
    one UDP payload) obviously needs to fit within a single IP datagram.
    If the Path MTU is not known for a destination, an IP MTU of 1280
-   bytes SHOULD be assumed; if nothing is known about the size of the
+   bytes <em>SHOULD</em> be assumed; if nothing is known about the size of the
    headers, good upper bounds are 1152 bytes for the message size and
    1024 bytes for the payload size.
 
@@ -1631,7 +1631,7 @@ Table of Contents
    Basic congestion control for CoAP is provided by the exponential
    back-off mechanism in <a href="#section-4.2">Section 4.2</a>.
 
-   In order not to cause congestion, clients (including proxies) MUST
+   In order not to cause congestion, clients (including proxies) <em>MUST</em>
    strictly limit the number of simultaneous outstanding interactions
    that they maintain to a given server (including proxies) to NSTART.
    An outstanding interaction is either a CON for which an ACK has not
@@ -1659,7 +1659,7 @@ Table of Contents
    The specific algorithm by which a client stops to "expect" a response
    to a Confirmable request that was acknowledged, or to a Non-
    confirmable request, is not defined.  Unless this is modified by
-   additional congestion control optimizations, it MUST be chosen in
+   additional congestion control optimizations, it <em>MUST</em> be chosen in
    such a way that an endpoint does not exceed an average data rate of
    PROBING_RATE in sending to another endpoint that does not respond.
 
@@ -1667,7 +1667,7 @@ Table of Contents
       clients.  However, clients may malfunction or actually be
       attackers, e.g., to perform amplification attacks (<a href="#section-11.3">Section 11.3</a>).
       To limit the damage (to the network and to its own energy
-      resources), a server SHOULD implement some rate limiting for its
+      resources), a server <em>SHOULD</em> implement some rate limiting for its
       response transmission based on reasonable assumptions about
       application requirements.  This is most helpful if the rate limit
       can be made effective for the misbehaving endpoints, only.
@@ -1695,7 +1695,7 @@ Table of Contents
    NSTART, DEFAULT_LEISURE (<a href="#section-8.2">Section 8.2</a>), and PROBING_RATE may be
    configured to values specific to the application environment
    (including dynamically adjusted values); however, the configuration
-   method is out of scope of this document.  It is RECOMMENDED that an
+   method is out of scope of this document.  It is <em>RECOMMENDED</em> that an
    application environment use consistent values for these parameters;
    the specific effects of operating with inconsistent values in an
    application environment are outside the scope of the present
@@ -1719,12 +1719,12 @@ Table of Contents
    implementations that do not maintain round-trip-time (RTT)
    measurements.  However, where it is desired to decrease the
    ACK_TIMEOUT significantly or increase NSTART, this can only be done
-   safely when maintaining such measurements.  Configurations MUST NOT
+   safely when maintaining such measurements.  Configurations <em>MUST NOT</em>
    decrease ACK_TIMEOUT or increase NSTART without using mechanisms that
    ensure congestion control safety, either defined in the configuration
    or in future standards documents.
 
-   ACK_RANDOM_FACTOR MUST NOT be decreased below 1.0, and it SHOULD have
+   ACK_RANDOM_FACTOR <em>MUST NOT</em> be decreased below 1.0, and it <em>SHOULD</em> have
    a value that is sufficiently different from 1.0 to provide some
    protection from synchronization effects.
 
@@ -1735,7 +1735,7 @@ Table of Contents
 
    If the choice of transmission parameters leads to an increase of
    derived time values (see <a href="#section-4.8.2">Section 4.8.2</a>), the configuration mechanism
-   MUST ensure the adjusted value is also available to all the endpoints
+   <em>MUST</em> ensure the adjusted value is also available to all the endpoints
    with which these adjusted values are to be used to communicate.
 
 <span class="h4"><a class="selflink" name="section-4.8.2" href="#section-4.8.2">4.8.2</a>.  Time Values Derived from Transmission Parameters</span>
@@ -1899,8 +1899,8 @@ Table of Contents
    are easily mapped to HTTP.  They have the same properties of safe
    (only retrieval) and idempotent (you can invoke it multiple times
    with the same effects) as HTTP (see <a href="./rfc2616.html#section-9.1">Section&nbsp;9.1 of [RFC2616]</a>).  The
-   GET method is safe; therefore, it MUST NOT take any other action on a
-   resource other than retrieval.  The GET, PUT, and DELETE methods MUST
+   GET method is safe; therefore, it <em>MUST NOT</em> take any other action on a
+   resource other than retrieval.  The GET, PUT, and DELETE methods <em>MUST</em>
    be performed in such a way that they are idempotent.  POST is not
    idempotent, because its effect is determined by the origin server and
    dependent on the target resource; it usually results in a new
@@ -2006,7 +2006,7 @@ Table of Contents
 
    Implementation Note:  The protocol leaves the decision whether to
       piggyback a response or not (i.e., send a separate response) to
-      the server.  The client MUST be prepared to receive either.  On
+      the server.  The client <em>MUST</em> be prepared to receive either.  On
       the quality-of-implementation level, there is a strong expectation
       that servers will implement code to piggyback whenever possible --
       saving resources in the network and both at the client and at the
@@ -2039,7 +2039,7 @@ Table of Contents
 
    When the server chooses to use a separate response, it sends the
    Acknowledgement to the Confirmable request as an Empty message.  Once
-   the server sends back an Empty Acknowledgement, it MUST NOT send back
+   the server sends back an Empty Acknowledgement, it <em>MUST NOT</em> send back
 
 
 
@@ -2051,12 +2051,12 @@ Table of Contents
    the response in another Acknowledgement, even if the client
    retransmits another identical request.  If a retransmitted request is
    received (perhaps because the original Acknowledgement was delayed),
-   another Empty Acknowledgement is sent, and any response MUST be sent
+   another Empty Acknowledgement is sent, and any response <em>MUST</em> be sent
    as a separate response.
 
    If the server then sends a Confirmable response, the client's
-   Acknowledgement to that response MUST also be an Empty message (one
-   that carries neither a request nor a response).  The server MUST stop
+   Acknowledgement to that response <em>MUST</em> also be an Empty message (one
+   that carries neither a request nor a response).  The server <em>MUST</em> stop
    retransmitting its response on any matching Acknowledgement (silently
    ignoring any Response Code or payload) or Reset message.
 
@@ -2076,9 +2076,9 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.2.3" href="#section-5.2.3">5.2.3</a>.  Non-confirmable</span>
 
-   If the request message is Non-confirmable, then the response SHOULD
+   If the request message is Non-confirmable, then the response <em>SHOULD</em>
    be returned in a Non-confirmable message as well.  However, an
-   endpoint MUST be prepared to receive a Non-confirmable response
+   endpoint <em>MUST</em> be prepared to receive a Non-confirmable response
    (preceded or followed by an Empty Acknowledgement message) in reply
    to a Confirmable request, or a Confirmable response in reply to a
    Non-confirmable request.
@@ -2094,7 +2094,7 @@ Table of Contents
    The Token is used to match a response with a request.  The token
    value is a sequence of 0 to 8 bytes.  (Note that every message
    carries a token, even if it is of zero length.)  Every request
-   carries a client-generated token that the server MUST echo (without
+   carries a client-generated token that the server <em>MUST</em> echo (without
    modification) in any resulting response.
 
 
@@ -2108,7 +2108,7 @@ Table of Contents
    differentiating between concurrent requests (see <a href="#section-5.3">Section 5.3</a>); it
    could have been called a "request ID".
 
-   The client SHOULD generate tokens in such a way that tokens currently
+   The client <em>SHOULD</em> generate tokens in such a way that tokens currently
    in use for a given source/destination endpoint pair are unique.
    (Note that a client implementation can use the same token for any
    request if it uses a different endpoint each time, e.g., a different
@@ -2119,13 +2119,13 @@ Table of Contents
    fulfill this.
 
    A client sending a request without using Transport Layer Security
-   (<a href="#section-9">Section 9</a>) SHOULD use a nontrivial, randomized token to guard
+   (<a href="#section-9">Section 9</a>) <em>SHOULD</em> use a nontrivial, randomized token to guard
    against spoofing of responses (<a href="#section-11.4">Section 11.4</a>).  This protective use of
    tokens is the reason they are allowed to be up to 8 bytes in size.
    The actual size of the random component to be used for the Token
    depends on the security requirements of the client and the level of
    threat posed by spoofing of responses.  A client that is connected to
-   the general Internet SHOULD use at least 32 bits of randomness,
+   the general Internet <em>SHOULD</em> use at least 32 bits of randomness,
    keeping in mind that not being directly connected to the Internet is
    not necessarily sufficient protection against spoofing.  (Note that
    the Message ID adds little in protection as it is usually
@@ -2136,7 +2136,7 @@ Table of Contents
    adjust the Token length upwards appropriately.  [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>] discusses
    randomness requirements for security.
 
-   An endpoint receiving a token it did not generate MUST treat the
+   An endpoint receiving a token it did not generate <em>MUST</em> treat the
    token as opaque and make no assumptions about its content or
    structure.
 
@@ -2144,14 +2144,14 @@ Table of Contents
 
    The exact rules for matching a response to a request are as follows:
 
-   1.  The source endpoint of the response MUST be the same as the
+   1.  The source endpoint of the response <em>MUST</em> be the same as the
        destination endpoint of the original request.
 
    2.  In a piggybacked response, the Message ID of the Confirmable
-       request and the Acknowledgement MUST match, and the tokens of the
-       response and original request MUST match.  In a separate
+       request and the Acknowledgement <em>MUST</em> match, and the tokens of the
+       response and original request <em>MUST</em> match.  In a separate
        response, just the tokens of the response and original request
-       MUST match.
+       <em>MUST</em> match.
 
 
 
@@ -2232,8 +2232,8 @@ Table of Contents
    Not all options are defined for use with all methods and Response
    Codes.  The possible options for methods and Response Codes are
    defined in Sections <a href="#section-5.8">5.8</a> and <a href="#section-5.9">5.9</a>, respectively.  In case an option is
-   not defined for a Method or Response Code, it MUST NOT be included by
-   a sender and MUST be treated like an unrecognized option by a
+   not defined for a Method or Response Code, it <em>MUST NOT</em> be included by
+   a sender and <em>MUST</em> be treated like an unrecognized option by a
    recipient.
 
 <span class="h4"><a class="selflink" name="section-5.4.1" href="#section-5.4.1">5.4.1</a>.  Critical/Elective</span>
@@ -2242,20 +2242,20 @@ Table of Contents
    difference between these is how an option unrecognized by an endpoint
    is handled:
 
-   o  Upon reception, unrecognized options of class "elective" MUST be
+   o  Upon reception, unrecognized options of class "elective" <em>MUST</em> be
       silently ignored.
 
    o  Unrecognized options of class "critical" that occur in a
-      Confirmable request MUST cause the return of a 4.02 (Bad Option)
-      response.  This response SHOULD include a diagnostic payload
+      Confirmable request <em>MUST</em> cause the return of a 4.02 (Bad Option)
+      response.  This response <em>SHOULD</em> include a diagnostic payload
       describing the unrecognized option(s) (see <a href="#section-5.5.2">Section 5.5.2</a>).
 
    o  Unrecognized options of class "critical" that occur in a
-      Confirmable response, or piggybacked in an Acknowledgement, MUST
+      Confirmable response, or piggybacked in an Acknowledgement, <em>MUST</em>
       cause the response to be rejected (<a href="#section-4.2">Section 4.2</a>).
 
    o  Unrecognized options of class "critical" that occur in a Non-
-      confirmable message MUST cause the message to be rejected
+      confirmable message <em>MUST</em> cause the message to be rejected
       (<a href="#section-4.3">Section 4.3</a>).
 
    Note that, whether critical or elective, an option is never
@@ -2311,15 +2311,15 @@ Table of Contents
 
    Option values are defined to have a specific length, often in the
    form of an upper and lower bound.  If the length of an option value
-   in a request is outside the defined range, that option MUST be
+   in a request is outside the defined range, that option <em>MUST</em> be
    treated like an unrecognized option (see <a href="#section-5.4.1">Section 5.4.1</a>).
 
 <span class="h4"><a class="selflink" name="section-5.4.4" href="#section-5.4.4">5.4.4</a>.  Default Values</span>
 
    Options may be defined to have a default value.  If the value of an
-   option is intended to be this default value, the option SHOULD NOT be
+   option is intended to be this default value, the option <em>SHOULD NOT</em> be
    included in the message.  If the option is not present, the default
-   value MUST be assumed.
+   value <em>MUST</em> be assumed.
 
 
 
@@ -2337,13 +2337,13 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.4.5" href="#section-5.4.5">5.4.5</a>.  Repeatable Options</span>
 
    The definition of some options specifies that those options are
-   repeatable.  An option that is repeatable MAY be included one or more
-   times in a message.  An option that is not repeatable MUST NOT be
+   repeatable.  An option that is repeatable <em>MAY</em> be included one or more
+   times in a message.  An option that is not repeatable <em>MUST NOT</em> be
    included more than once in a message.
 
    If a message includes an option with more occurrences than the option
    is defined for, each supernumerary option occurrence that appears
-   subsequently in the message MUST be treated like an unrecognized
+   subsequently in the message <em>MUST</em> be treated like an unrecognized
    option (see <a href="#section-5.4.1">Section 5.4.1</a>).
 
 <span class="h4"><a class="selflink" name="section-5.4.6" href="#section-5.4.6">5.4.6</a>.  Option Numbers</span>
@@ -2400,8 +2400,8 @@ Table of Contents
 
    Both requests and responses may include a payload, depending on the
    Method or Response Code, respectively.  If a Method or Response Code
-   is not defined to have a payload, then a sender MUST NOT include one,
-   and a recipient MUST ignore it.
+   is not defined to have a payload, then a sender <em>MUST NOT</em> include one,
+   and a recipient <em>MUST</em> ignore it.
 
 <span class="h4"><a class="selflink" name="section-5.5.1" href="#section-5.5.1">5.5.1</a>.  Representation</span>
 
@@ -2412,12 +2412,12 @@ Table of Contents
    the Content-Format Option.  In the absence of this option, no default
    value is assumed, and the format will need to be inferred by the
    application (e.g., from the application context).  Payload "sniffing"
-   SHOULD only be attempted if no content type is given.
+   <em>SHOULD</em> only be attempted if no content type is given.
 
    Implementation Note:  On a quality-of-implementation level, there is
       a strong expectation that a Content-Format indication will be
       provided with resource representations whenever possible.  This is
-      not a "SHOULD" level requirement solely because it is not a
+      not a "<em>SHOULD</em>" level requirement solely because it is not a
       protocol requirement, and it also would be difficult to outline
       exactly in what cases this expectation can be violated.
 
@@ -2445,7 +2445,7 @@ Table of Contents
    If no Content-Format option is given, the payload of responses
    indicating a client or server error is a brief human-readable
    diagnostic message, explaining the error situation.  This diagnostic
-   message MUST be encoded using UTF-8 [<a href="./rfc3629.html" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">RFC3629</a>], more specifically
+   message <em>MUST</em> be encoded using UTF-8 [<a href="./rfc3629.html" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">RFC3629</a>], more specifically
    using Net-Unicode form [<a href="./rfc5198.html" title="&quot;Unicode Format for Network Interchange&quot;">RFC5198</a>].
 
    The message is similar to the Reason-Phrase on an HTTP status line.
@@ -2453,7 +2453,7 @@ Table of Contents
    during debugging need to interpret it in the context of the present,
    English-language specification; therefore, no mechanism for language
    tagging is needed or provided.  In contrast to what is usual in HTTP,
-   the payload SHOULD be empty if there is no additional information
+   the payload <em>SHOULD</em> be empty if there is no additional information
    beyond the Response Code.
 
 <span class="h4"><a class="selflink" name="section-5.5.3" href="#section-5.5.3">5.5.3</a>.  Selected Representation</span>
@@ -2498,7 +2498,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.6" href="#section-5.6">5.6</a>.  Caching</span>
 
-   CoAP endpoints MAY cache responses in order to reduce the response
+   CoAP endpoints <em>MAY</em> cache responses in order to reduce the response
    time and network bandwidth consumption on future, equivalent
    requests.
 
@@ -2515,9 +2515,9 @@ Table of Contents
    the request method, but it depends on the Response Code.  The
    cacheability of each Response Code is defined along the Response Code
    definitions in <a href="#section-5.9">Section 5.9</a>.  Response Codes that indicate success and
-   are unrecognized by an endpoint MUST NOT be cached.
+   are unrecognized by an endpoint <em>MUST NOT</em> be cached.
 
-   For a presented request, a CoAP endpoint MUST NOT use a stored
+   For a presented request, a CoAP endpoint <em>MUST NOT</em> use a stored
    response, unless:
 
    o  the presented request method and that used to obtain the stored
@@ -2567,7 +2567,7 @@ Table of Contents
    The Max-Age Option defaults to a value of 60.  Thus, if it is not
    present in a cacheable response, then the response is considered not
    fresh after its age is greater than 60 seconds.  If an origin server
-   wishes to prevent caching, it MUST explicitly include a Max-Age
+   wishes to prevent caching, it <em>MUST</em> explicitly include a Max-Age
    Option with a value of zero seconds.
 
    If a client has a fresh stored response and makes a new request
@@ -2583,7 +2583,7 @@ Table of Contents
    used, and to update its freshness.  This process is known as
    "validating" or "revalidating" the stored response.
 
-   When sending such a request, the endpoint SHOULD add an ETag Option
+   When sending such a request, the endpoint <em>SHOULD</em> add an ETag Option
    specifying the entity-tag of each stored response that is applicable.
 
    A 2.03 (Valid) response indicates the stored response identified by
@@ -2591,8 +2591,8 @@ Table of Contents
    after updating it as described in <a href="#section-5.9.1.3">Section 5.9.1.3</a>.
 
    Any other Response Code indicates that none of the stored responses
-   nominated in the request is suitable.  Instead, the response SHOULD
-   be used to satisfy the request and MAY replace the stored response.
+   nominated in the request is suitable.  Instead, the response <em>SHOULD</em>
+   be used to satisfy the request and <em>MAY</em> replace the stored response.
 
 
 
@@ -2643,7 +2643,7 @@ Table of Contents
 
    When a client uses a proxy to make a request that will use a secure
    URI scheme (e.g., "coaps" or "https"), the request towards the proxy
-   SHOULD be sent using DTLS except where equivalent lower-layer
+   <em>SHOULD</em> be sent using DTLS except where equivalent lower-layer
    security is used for the leg between the client and the proxy.
 
 <span class="h4"><a class="selflink" name="section-5.7.1" href="#section-5.7.1">5.7.1</a>.  Proxy Operation</span>
@@ -2685,14 +2685,14 @@ Table of Contents
    unrecognized and marked Unsafe lead to 4.02 Bad Option.)
 
    If the request to the destination times out, then a 5.04 (Gateway
-   Timeout) response MUST be returned.  If the request to the
+   Timeout) response <em>MUST</em> be returned.  If the request to the
    destination returns a response that cannot be processed by the proxy
    (e.g, due to unrecognized critical options or message format errors),
-   then a 5.02 (Bad Gateway) response MUST be returned.  Otherwise, the
+   then a 5.02 (Bad Gateway) response <em>MUST</em> be returned.  Otherwise, the
    proxy returns the response to the client.
 
    If a response is generated out of a cache, the generated (or implied)
-   Max-Age Option MUST NOT extend the max-age originally set by the
+   Max-Age Option <em>MUST NOT</em> extend the max-age originally set by the
    server, considering the time the resource representation spent in the
    cache.  For example, the Max-Age Option could be adjusted by the
    proxy for each response using the formula:
@@ -2705,10 +2705,10 @@ Table of Contents
    potential network delays on the way from the origin server, a proxy
    should be conservative in the max-age values offered.
 
-   All options present in a proxy request MUST be processed at the
+   All options present in a proxy request <em>MUST</em> be processed at the
    proxy.  Unsafe options in a request that are not recognized by the
-   proxy MUST lead to a 4.02 (Bad Option) response being returned by the
-   proxy.  A CoAP-to-CoAP proxy MUST forward to the origin server all
+   proxy <em>MUST</em> lead to a 4.02 (Bad Option) response being returned by the
+   proxy.  A CoAP-to-CoAP proxy <em>MUST</em> forward to the origin server all
    Safe-to-Forward options that it does not recognize.  Similarly,
 
 
@@ -2721,8 +2721,8 @@ Table of Contents
 
 
    Unsafe options in a response that are not recognized by the CoAP-to-
-   CoAP proxy server MUST lead to a 5.02 (Bad Gateway) response.  Again,
-   Safe-to-Forward options that are not recognized MUST be forwarded.
+   CoAP proxy server <em>MUST</em> lead to a 5.02 (Bad Gateway) response.  Again,
+   Safe-to-Forward options that are not recognized <em>MUST</em> be forwarded.
 
    Additional considerations for cross-protocol proxying between CoAP
    and HTTP are discussed in <a href="#section-10">Section 10</a>.
@@ -2741,14 +2741,14 @@ Table of Contents
    assembled from a Proxy-Scheme option and the split options mentioned.
 
    When a proxy request is made to an endpoint and the endpoint is
-   unwilling or unable to act as proxy for the request URI, it MUST
+   unwilling or unable to act as proxy for the request URI, it <em>MUST</em>
    return a 5.05 (Proxying Not Supported) response.  If the authority
    (host and port) is recognized as identifying the proxy endpoint
-   itself (see <a href="#section-5.10.2">Section 5.10.2</a>), then the request MUST be treated as a
+   itself (see <a href="#section-5.10.2">Section 5.10.2</a>), then the request <em>MUST</em> be treated as a
    local (non-proxied) request.
 
    Unless a proxy is configured to forward the proxy request to another
-   proxy, it MUST translate the request as follows: the scheme of the
+   proxy, it <em>MUST</em> translate the request as follows: the scheme of the
    request URI defines the outgoing protocol and its details (e.g., CoAP
    is used over UDP for the "coap" scheme and over DTLS for the "coaps"
    scheme.)  For a CoAP-to-CoAP proxy, the origin server's IP address
@@ -2791,7 +2791,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.8" href="#section-5.8">5.8</a>.  Method Definitions</span>
 
    In this section, each method is defined along with its behavior.  A
-   request with an unrecognized or unsupported Method Code MUST generate
+   request with an unrecognized or unsupported Method Code <em>MUST</em> generate
    a 4.05 (Method Not Allowed) piggybacked response.
 
 <span class="h4"><a class="selflink" name="section-5.8.1" href="#section-5.8.1">5.8.1</a>.  GET</span>
@@ -2802,7 +2802,7 @@ Table of Contents
    preferred content-format of a response.  If the request includes an
    ETag Option, the GET method requests that ETag be validated and that
    the representation be transferred only if validation failed.  Upon
-   success, a 2.05 (Content) or 2.03 (Valid) Response Code SHOULD be
+   success, a 2.05 (Content) or 2.03 (Valid) Response Code <em>SHOULD</em> be
    present in the response.
 
    The GET method is safe and idempotent.
@@ -2816,13 +2816,13 @@ Table of Contents
    target resource being updated.
 
    If a resource has been created on the server, the response returned
-   by the server SHOULD have a 2.01 (Created) Response Code and SHOULD
+   by the server <em>SHOULD</em> have a 2.01 (Created) Response Code and <em>SHOULD</em>
    include the URI of the new resource in a sequence of one or more
    Location-Path and/or Location-Query Options (<a href="#section-5.10.7">Section 5.10.7</a>).  If the
    POST succeeds but does not result in a new resource being created on
-   the server, the response SHOULD have a 2.04 (Changed) Response Code.
+   the server, the response <em>SHOULD</em> have a 2.04 (Changed) Response Code.
    If the POST succeeds and results in the target resource being
-   deleted, the response SHOULD have a 2.02 (Deleted) Response Code.
+   deleted, the response <em>SHOULD</em> have a 2.02 (Deleted) Response Code.
    POST is neither safe nor idempotent.
 
 
@@ -2840,11 +2840,11 @@ Table of Contents
    coding given in the Content-Format Option, if provided.
 
    If a resource exists at the request URI, the enclosed representation
-   SHOULD be considered a modified version of that resource, and a 2.04
-   (Changed) Response Code SHOULD be returned.  If no resource exists,
-   then the server MAY create a new resource with that URI, resulting in
+   <em>SHOULD</em> be considered a modified version of that resource, and a 2.04
+   (Changed) Response Code <em>SHOULD</em> be returned.  If no resource exists,
+   then the server <em>MAY</em> create a new resource with that URI, resulting in
    a 2.01 (Created) Response Code.  If the resource could not be created
-   or modified, then an appropriate error Response Code SHOULD be sent.
+   or modified, then an appropriate error Response Code <em>SHOULD</em> be sent.
 
    Further restrictions to a PUT can be made by including the If-Match
    (see <a href="#section-5.10.8.1">Section 5.10.8.1</a>) or If-None-Match (see <a href="#section-5.10.8.2">Section 5.10.8.2</a>)
@@ -2855,7 +2855,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.8.4" href="#section-5.8.4">5.8.4</a>.  DELETE</span>
 
    The DELETE method requests that the resource identified by the
-   request URI be deleted.  A 2.02 (Deleted) Response Code SHOULD be
+   request URI be deleted.  A 2.02 (Deleted) Response Code <em>SHOULD</em> be
    used on success or in case the resource did not exist before the
    request.
 
@@ -2891,7 +2891,7 @@ Table of Contents
    If the response includes one or more Location-Path and/or Location-
    Query Options, the values of these options specify the location at
    which the resource was created.  Otherwise, the resource was created
-   at the request URI.  A cache receiving this response MUST mark any
+   at the request URI.  A cache receiving this response <em>MUST</em> mark any
    stored response for the created resource as not fresh.
 
    This response is not cacheable.
@@ -2904,7 +2904,7 @@ Table of Contents
    payload returned with the response, if any, is a representation of
    the action result.
 
-   This response is not cacheable.  However, a cache MUST mark any
+   This response is not cacheable.  However, a cache <em>MUST</em> mark any
    stored response for the deleted resource as not fresh.
 
 <span class="h5"><a class="selflink" name="section-5.9.1.3" href="#section-5.9.1.3">5.9.1.3</a>.  2.03 Valid</span>
@@ -2912,15 +2912,15 @@ Table of Contents
    This Response Code is related to HTTP 304 "Not Modified" but only
    used to indicate that the response identified by the entity-tag
    identified by the included ETag Option is valid.  Accordingly, the
-   response MUST include an ETag Option and MUST NOT include a payload.
+   response <em>MUST</em> include an ETag Option and <em>MUST NOT</em> include a payload.
 
    When a cache that recognizes and processes the ETag response option
-   receives a 2.03 (Valid) response, it MUST update the stored response
+   receives a 2.03 (Valid) response, it <em>MUST</em> update the stored response
    with the value of the Max-Age Option included in the response
    (explicitly, or implicitly as a default value; see also
    <a href="#section-5.6.2">Section 5.6.2</a>).  For each type of Safe-to-Forward option present in
    the response, the (possibly empty) set of options of this type that
-   are present in the stored response MUST be replaced with the set of
+   are present in the stored response <em>MUST</em> be replaced with the set of
    options of this type in the response received.  (Unsafe options may
    trigger similar option-specific processing as defined by the option.)
 
@@ -2930,7 +2930,7 @@ Table of Contents
    response to POST and PUT requests.  The payload returned with the
    response, if any, is a representation of the action result.
 
-   This response is not cacheable.  However, a cache MUST mark any
+   This response is not cacheable.  However, a cache <em>MUST</em> mark any
    stored response for the changed resource as not fresh.
 
 
@@ -2962,7 +2962,7 @@ Table of Contents
    seems to have erred.  These Response Codes are applicable to any
    request method.
 
-   The server SHOULD include a diagnostic payload under the conditions
+   The server <em>SHOULD</em> include a diagnostic payload under the conditions
    detailed in <a href="#section-5.5.2">Section 5.5.2</a>.
 
    Responses of this class are cacheable: Caches can use the Max-Age
@@ -2976,14 +2976,14 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-5.9.2.2" href="#section-5.9.2.2">5.9.2.2</a>.  4.01 Unauthorized</span>
 
    The client is not authorized to perform the requested action.  The
-   client SHOULD NOT repeat the request without first improving its
+   client <em>SHOULD NOT</em> repeat the request without first improving its
    authentication status to the server.  Which specific mechanism can be
    used for this is outside this document's scope; see also <a href="#section-9">Section 9</a>.
 
 <span class="h5"><a class="selflink" name="section-5.9.2.3" href="#section-5.9.2.3">5.9.2.3</a>.  4.02 Bad Option</span>
 
    The request could not be understood by the server due to one or more
-   unrecognized or malformed options.  The client SHOULD NOT repeat the
+   unrecognized or malformed options.  The client <em>SHOULD NOT</em> repeat the
    request without modification.
 
 <span class="h5"><a class="selflink" name="section-5.9.2.4" href="#section-5.9.2.4">5.9.2.4</a>.  4.03 Forbidden</span>
@@ -3022,7 +3022,7 @@ Table of Contents
 
    This Response Code is like HTTP 413 "Request Entity Too Large".
 
-   The response SHOULD include a Size1 Option (<a href="#section-5.10.9">Section 5.10.9</a>) to
+   The response <em>SHOULD</em> include a Size1 Option (<a href="#section-5.10.9">Section 5.10.9</a>) to
    indicate the maximum size of request entity the server is able and
    willing to handle, unless the server is not in a position to make
    this information available.
@@ -3037,7 +3037,7 @@ Table of Contents
    aware that it has erred or is incapable of performing the request.
    These Response Codes are applicable to any request method.
 
-   The server SHOULD include a diagnostic payload under the conditions
+   The server <em>SHOULD</em> include a diagnostic payload under the conditions
    detailed in <a href="#section-5.5.2">Section 5.5.2</a>.
 
    Responses of this class are cacheable: Caches can use the Max-Age
@@ -3184,7 +3184,7 @@ Table of Contents
 
    The Uri-Path and Uri-Query Option can contain any character sequence.
    No percent-encoding is performed.  The value of a Uri-Path Option
-   MUST NOT be "." or ".." (as the request URI must be resolved before
+   <em>MUST NOT</em> be "." or ".." (as the request URI must be resolved before
    parsing it into options).
 
    The steps for constructing the request URI from the options are
@@ -3202,18 +3202,18 @@ Table of Contents
 
    The option value is an absolute-URI (<a href="./rfc3986.html#section-4.3">[RFC3986], Section&nbsp;4.3</a>).
 
-   Note that the forward-proxy MAY forward the request on to another
+   Note that the forward-proxy <em>MAY</em> forward the request on to another
    proxy or directly to the server specified by the absolute-URI.  In
-   order to avoid request loops, a proxy MUST be able to recognize all
+   order to avoid request loops, a proxy <em>MUST</em> be able to recognize all
    of its server names, including any aliases, local variations, and the
    numeric IP addresses.
 
    An endpoint receiving a request with a Proxy-Uri Option that is
-   unable or unwilling to act as a forward-proxy for the request MUST
+   unable or unwilling to act as a forward-proxy for the request <em>MUST</em>
    cause the return of a 5.05 (Proxying Not Supported) response.
 
-   The Proxy-Uri Option MUST take precedence over any of the Uri-Host,
-   Uri-Port, Uri-Path or Uri-Query options (each of which MUST NOT be
+   The Proxy-Uri Option <em>MUST</em> take precedence over any of the Uri-Host,
+   Uri-Port, Uri-Path or Uri-Query options (each of which <em>MUST NOT</em> be
    included in a request containing the Proxy-Uri Option).
 
 
@@ -3255,7 +3255,7 @@ Table of Contents
    value is assumed).  The client prefers the representation returned by
    the server to be in the Content-Format indicated.  The server returns
    the preferred Content-Format if available.  If the preferred Content-
-   Format cannot be returned, then a 4.06 "Not Acceptable" MUST be sent
+   Format cannot be returned, then a 4.06 "Not Acceptable" <em>MUST</em> be sent
    as a response, unless another error code takes precedence for this
    response.
 
@@ -3270,7 +3270,7 @@ Table of Contents
 
    The value is intended to be current at the time of transmission.
    Servers that provide resources with strict tolerances on the value of
-   Max-Age SHOULD update the value before each retransmission.  (See
+   Max-Age <em>SHOULD</em> update the value before each retransmission.  (See
    also <a href="#section-5.7.1">Section 5.7.1</a>.)
 
 
@@ -3287,7 +3287,7 @@ Table of Contents
    vary over time.  It is generated by the server providing the
    resource, which may generate it in any number of ways including a
    version, checksum, hash, or time.  An endpoint receiving an entity-
-   tag MUST treat it as opaque and make no assumptions about its content
+   tag <em>MUST</em> treat it as opaque and make no assumptions about its content
    or structure.  (Endpoints that generate an entity-tag are encouraged
    to use the most compact representation possible, in particular in
    regards to clients and intermediaries that may want to store multiple
@@ -3306,7 +3306,7 @@ Table of Contents
 
    An ETag response option can be included with any response for which
    there is a tagged representation (e.g., it would not be meaningful in
-   a 4.04 or 4.00 response).  The ETag Option MUST NOT occur more than
+   a 4.04 or 4.00 response).  The ETag Option <em>MUST NOT</em> occur more than
    once in a response.
 
    There is no default value for the ETag Option; if it is not present
@@ -3336,7 +3336,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7252.html">RFC 7252</a>       The Constrained Application Protocol (CoAP)     June 2014</span>
 
 
-   The ETag Option MAY occur zero, one, or multiple times in a request.
+   The ETag Option <em>MAY</em> occur zero, one, or multiple times in a request.
 
 <span class="h4"><a class="selflink" name="section-5.10.7" href="#section-5.10.7">5.10.7</a>.  Location-Path and Location-Query</span>
 
@@ -3350,14 +3350,14 @@ Table of Contents
    If a response with one or more Location-Path and/or Location-Query
    Options passes through a cache that interprets these options and the
    implied URI identifies one or more currently stored responses, those
-   entries MUST be marked as not fresh.
+   entries <em>MUST</em> be marked as not fresh.
 
    Each Location-Path Option specifies one segment of the absolute path
    to the resource, and each Location-Query Option specifies one
    argument parameterizing the resource.  The Location-Path and
    Location-Query Option can contain any character sequence.  No
    percent-encoding is performed.  The value of a Location-Path Option
-   MUST NOT be "." or "..".
+   <em>MUST NOT</em> be "." or "..".
 
    The steps for constructing the location URI from the options are
    analogous to <a href="#section-6.5">Section 6.5</a>, except that the first five steps are
@@ -3373,7 +3373,7 @@ Table of Contents
    and have been reserved option numbers 128, 132, 136, and 140.  If any
    of these reserved option numbers occurs in addition to Location-Path
    and/or Location-Query and are not supported, then a 4.02 (Bad Option)
-   error MUST be returned.
+   error <em>MUST</em> be returned.
 
 <span class="h4"><a class="selflink" name="section-5.10.8" href="#section-5.10.8">5.10.8</a>.  Conditional Request Options</span>
 
@@ -3393,8 +3393,8 @@ Table of Contents
 
 
    For each of these options, if the condition given is not fulfilled,
-   then the server MUST NOT perform the requested method.  Instead, the
-   server MUST respond with the 4.12 (Precondition Failed) Response
+   then the server <em>MUST NOT</em> perform the requested method.  Instead, the
+   server <em>MUST</em> respond with the 4.12 (Precondition Failed) Response
    Code.
 
    If the condition is fulfilled, the server performs the request method
@@ -3402,11 +3402,11 @@ Table of Contents
 
    If the request would, without the conditional request options, result
    in anything other than a 2.xx or 4.12 Response Code, then any
-   conditional request options MAY be ignored.
+   conditional request options <em>MAY</em> be ignored.
 
 <span class="h5"><a class="selflink" name="section-5.10.8.1" href="#section-5.10.8.1">5.10.8.1</a>.  If-Match</span>
 
-   The If-Match Option MAY be used to make a request conditional on the
+   The If-Match Option <em>MAY</em> be used to make a request conditional on the
    current existence or value of an ETag for one or more representations
    of the target resource.  If-Match is generally useful for resource
    update requests, such as PUT requests, as a means for protecting
@@ -3427,7 +3427,7 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-5.10.8.2" href="#section-5.10.8.2">5.10.8.2</a>.  If-None-Match</span>
 
-   The If-None-Match Option MAY be used to make a request conditional on
+   The If-None-Match Option <em>MAY</em> be used to make a request conditional on
    the nonexistence of the target resource.  If-None-Match is useful for
    resource creation requests, such as PUT requests, as a means for
    protecting against accidental overwrites when multiple clients are
@@ -3495,7 +3495,7 @@ Table of Contents
    then the CoAP server can be reached at that IP address.  If host is a
    registered name, then that name is considered an indirect identifier
    and the endpoint might use a name resolution service, such as DNS, to
-   find the address of that host.  The host MUST NOT be empty; if a URI
+   find the address of that host.  The host <em>MUST NOT</em> be empty; if a URI
 
 
 
@@ -3504,7 +3504,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7252.html">RFC 7252</a>       The Constrained Application Protocol (CoAP)     June 2014</span>
 
 
-   is received with a missing authority or an empty host, then it MUST
+   is received with a missing authority or an empty host, then it <em>MUST</em>
    be considered invalid.  The port subcomponent indicates the UDP port
    at which the CoAP server is located.  If it is empty or not given,
    then the default port 5683 is assumed.
@@ -3538,7 +3538,7 @@ Table of Contents
    All of the requirements listed above for the "coap" scheme are also
    requirements for the "coaps" scheme, except that a default UDP port
    of 5684 is assumed if the port subcomponent is empty or not given,
-   and the UDP datagrams MUST be secured through the use of DTLS as
+   and the UDP datagrams <em>MUST</em> be secured through the use of DTLS as
    described in <a href="#section-9.1">Section 9.1</a>.
 
    Considerations for caching of responses to "coaps" identified
@@ -3661,7 +3661,7 @@ Table of Contents
    (UTF-8-encoded) bytes by a "%" character followed by two hexadecimal
    digits representing the byte, where the digits A-F are in uppercase
    (as defined in <a href="./rfc3986.html#section-2.1">Section&nbsp;2.1 of [RFC3986]</a>; to reduce variability, the
-   hexadecimal notation for percent-encoding in CoAP URIs MUST use
+   hexadecimal notation for percent-encoding in CoAP URIs <em>MUST</em> use
    uppercase letters).  The definitions of "unreserved" and "sub-delims"
    are adopted from [<a href="./rfc3986.html" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">RFC3986</a>].
 
@@ -3744,10 +3744,10 @@ Table of Contents
    UDP port at which the CoAP server is located, the server is assumed
    to be reachable at the default port.
 
-   The CoAP default port number 5683 MUST be supported by a server that
+   The CoAP default port number 5683 <em>MUST</em> be supported by a server that
    offers resources for resource discovery (see <a href="#section-7.2">Section 7.2</a> below) and
-   SHOULD be supported for providing access to other resources.  The
-   default port number 5684 for DTLS-secured CoAP MAY be supported by a
+   <em>SHOULD</em> be supported for providing access to other resources.  The
+   default port number 5684 for DTLS-secured CoAP <em>MAY</em> be supported by a
    server for resource discovery and for providing access to other
    resources.  In addition, other endpoints may be hosted at other
    ports, e.g., in the dynamic port space.
@@ -3765,7 +3765,7 @@ Table of Contents
    important in machine-to-machine applications where there are no
    humans in the loop and static interfaces result in fragility.  To
    maximize interoperability in a CoRE environment, a CoAP endpoint
-   SHOULD support the CoRE Link Format of discoverable resources as
+   <em>SHOULD</em> support the CoRE Link Format of discoverable resources as
    described in [<a href="./rfc6690.html" title="&quot;Constrained RESTful Environments (CoRE) Link Format&quot;">RFC6690</a>], except where fully manual configuration is
    desired.  It is up to the server which resources are made
    discoverable (if any).
@@ -3786,11 +3786,11 @@ Table of Contents
 
    a CoAP response obtained by actually requesting the representation of
    the resource.  The value is in the CoAP identifier code format as a
-   decimal ASCII integer and MUST be in the range of 0-65535 (16-bit
+   decimal ASCII integer and <em>MUST</em> be in the range of 0-65535 (16-bit
    unsigned integer).  For example, "application/xml" would be indicated
    as "ct=41".  If no Content-Format code attribute is present, then
    nothing about the type can be assumed.  The Content-Format code
-   attribute MAY include a space-separated sequence of Content-Format
+   attribute <em>MAY</em> include a space-separated sequence of Content-Format
    codes, indicating that multiple content-formats are available.  The
    syntax of the attribute value is summarized in the production "ct-
    value" in Figure 12, where "cardinal", "SP", and "DQUOTE" are defined
@@ -3812,23 +3812,23 @@ Table of Contents
    the appropriate all-CoAP-node multicast addresses (<a href="#section-12.8">Section 12.8</a>) and
    listen on the default CoAP port.  Note that an endpoint might receive
    multicast requests on other multicast addresses, including the all-
-   nodes IPv6 address (or via broadcast on IPv4); an endpoint MUST
-   therefore be prepared to receive such messages but MAY ignore them if
+   nodes IPv6 address (or via broadcast on IPv4); an endpoint <em>MUST</em>
+   therefore be prepared to receive such messages but <em>MAY</em> ignore them if
    multicast service discovery is not desired.
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>.  Messaging Layer</span>
 
    A multicast request is characterized by being transported in a CoAP
    message that is addressed to an IP multicast address instead of a
-   CoAP endpoint.  Such multicast requests MUST be Non-confirmable.
+   CoAP endpoint.  Such multicast requests <em>MUST</em> be Non-confirmable.
 
-   A server SHOULD be aware that a request arrived via multicast, e.g.,
+   A server <em>SHOULD</em> be aware that a request arrived via multicast, e.g.,
    by making use of modern APIs such as IPV6_RECVPKTINFO [<a href="./rfc3542.html" title="&quot;Advanced Sockets Application Program Interface (API) for IPv6&quot;">RFC3542</a>], if
    available.
 
    To avoid an implosion of error responses, when a server is aware that
-   a request arrived via multicast, it MUST NOT return a Reset message
-   in reply to a Non-confirmable message.  If it is not aware, it MAY
+   a request arrived via multicast, it <em>MUST NOT</em> return a Reset message
+   in reply to a Non-confirmable message.  If it is not aware, it <em>MAY</em>
    return a Reset message in reply to a Non-confirmable message as
    usual.  Because such a Reset message will look identical to one for a
 
@@ -3840,7 +3840,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7252.html">RFC 7252</a>       The Constrained Application Protocol (CoAP)     June 2014</span>
 
 
-   unicast message from the sender, the sender MUST avoid using a
+   unicast message from the sender, the sender <em>MUST</em> avoid using a
    Message ID that is also still active from this endpoint with any
    unicast endpoint that might receive the multicast message.
 
@@ -3851,7 +3851,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Request/Response Layer</span>
 
    When a server is aware that a request arrived via multicast, the
-   server MAY always ignore the request, in particular if it doesn't
+   server <em>MAY</em> always ignore the request, in particular if it doesn't
    have anything useful to respond (e.g., if it only has an empty
    payload or an error response).  The decision for this may depend on
    the application.  (For example, in query filtering as described in
@@ -3863,7 +3863,7 @@ Table of Contents
    period of time during which it intends to respond.  For the purposes
    of this exposition, we call the length of this period the Leisure.
    The specific value of this Leisure may depend on the application or
-   MAY be derived as described below.  The server SHOULD then pick a
+   <em>MAY</em> be derived as described below.  The server <em>SHOULD</em> then pick a
    random point of time within the chosen leisure period to send back
    the unicast response to the multicast request.  If further responses
    need to be sent based on the same multicast address membership, a new
@@ -3884,7 +3884,7 @@ Table of Contents
    seconds.
 
    If a CoAP endpoint does not have suitable data to compute a value for
-   Leisure, it MAY resort to DEFAULT_LEISURE.
+   Leisure, it <em>MAY</em> resort to DEFAULT_LEISURE.
 
 
 
@@ -3896,7 +3896,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7252.html">RFC 7252</a>       The Constrained Application Protocol (CoAP)     June 2014</span>
 
 
-   When matching a response to a multicast request, only the token MUST
+   When matching a response to a multicast request, only the token <em>MUST</em>
    match; the source endpoint of the response does not need to (and will
    not) be the same as the destination endpoint of the original request.
 
@@ -3911,20 +3911,20 @@ Table of Contents
    When a client makes a multicast request, it always makes a new
    request to the multicast group (since there may be new group members
    that joined meanwhile or ones that did not get the previous request).
-   It MAY update a cache with the received responses.  Then, it uses
+   It <em>MAY</em> update a cache with the received responses.  Then, it uses
    both cached-still-fresh and new responses as the result of the
    request.
 
    A response received in reply to a GET request to a multicast group
-   MAY be used to satisfy a subsequent request on the related unicast
+   <em>MAY</em> be used to satisfy a subsequent request on the related unicast
    request URI.  The unicast request URI is obtained by replacing the
    authority part of the request URI with the transport-layer source
    address of the response message.
 
-   A cache MAY revalidate a response by making a GET request on the
+   A cache <em>MAY</em> revalidate a response by making a GET request on the
    related unicast request URI.
 
-   A GET request to a multicast group MUST NOT contain an ETag option.
+   A GET request to a multicast group <em>MUST NOT</em> contain an ETag option.
    A mechanism to suppress responses the client already has is left for
    further study.
 
@@ -3965,7 +3965,7 @@ Table of Contents
    RawPublicKey modes are mandatory to implement for this specification.
 
    NoSec:  There is no protocol-level security (DTLS is disabled).
-      Alternative techniques to provide lower-layer security SHOULD be
+      Alternative techniques to provide lower-layer security <em>SHOULD</em> be
       used when appropriate.  The use of IPsec is discussed in
       [<a href="#ref-IPsec-CoAP">IPsec-CoAP</a>].  Certain link layers in use with constrained nodes
       also provide link-layer security, which may be appropriate with
@@ -4094,13 +4094,13 @@ Table of Contents
    The endpoint acting as the CoAP client should also act as the DTLS
    client.  It should initiate a session to the server on the
    appropriate port.  When the DTLS handshake has finished, the client
-   may initiate the first CoAP request.  All CoAP messages MUST be sent
+   may initiate the first CoAP request.  All CoAP messages <em>MUST</em> be sent
    as DTLS "application data".
 
    The following rules are added for matching an Acknowledgement message
    or Reset message to a Confirmable message, or a Reset message to a
-   Non-confirmable message: The DTLS session MUST be the same, and the
-   epoch MUST be the same.
+   Non-confirmable message: The DTLS session <em>MUST</em> be the same, and the
+   epoch <em>MUST</em> be the same.
 
    A message is the same when it is sent within the same DTLS session
    and same epoch and has the same Message ID.
@@ -4108,7 +4108,7 @@ Table of Contents
    Note: When a Confirmable message is retransmitted, a new DTLS
    sequence_number is used for each attempt, even though the CoAP
    Message ID stays the same.  So a recipient still has to perform
-   deduplication as described in <a href="#section-4.5">Section 4.5</a>.  Retransmissions MUST NOT
+   deduplication as described in <a href="#section-4.5">Section 4.5</a>.  Retransmissions <em>MUST NOT</em>
    be performed across epochs.
 
 
@@ -4131,17 +4131,17 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-9.1.2" href="#section-9.1.2">9.1.2</a>.  Request/Response Layer</span>
 
    The following rules are added for matching a response to a request:
-   The DTLS session MUST be the same, and the epoch MUST be the same.
+   The DTLS session <em>MUST</em> be the same, and the epoch <em>MUST</em> be the same.
 
-   This means the response to a DTLS secured request MUST always be DTLS
+   This means the response to a DTLS secured request <em>MUST</em> always be DTLS
    secured using the same security session and epoch.  Any attempt to
    supply a NoSec response to a DTLS request simply does not match the
-   request and therefore MUST be rejected (unless it does match an
+   request and therefore <em>MUST</em> be rejected (unless it does match an
    unrelated NoSec request).
 
 <span class="h4"><a class="selflink" name="section-9.1.3" href="#section-9.1.3">9.1.3</a>.  Endpoint Identity</span>
 
-   Devices SHOULD support the Server Name Indication (SNI) to indicate
+   Devices <em>SHOULD</em> support the Server Name Indication (SNI) to indicate
    their authority in the SNI HostName field as defined in <a href="./rfc6066.html#section-3">Section&nbsp;3 of
    [RFC6066]</a>.  This is needed so that when a host that acts as a virtual
    server for multiple Authorities receives a new DTLS connection, it
@@ -4152,7 +4152,7 @@ Table of Contents
    When forming a connection to a new node, the system selects an
    appropriate key based on which nodes it is trying to reach and then
    forms a DTLS session using a PSK (Pre-Shared Key) mode of DTLS.
-   Implementations in these modes MUST support the mandatory-to-
+   Implementations in these modes <em>MUST</em> support the mandatory-to-
    implement cipher suite TLS_PSK_WITH_AES_128_CCM_8 as specified in
    [<a href="./rfc6655.html" title="&quot;AES-CCM Cipher Suites for Transport Layer Security (TLS)&quot;">RFC6655</a>].
 
@@ -4181,17 +4181,17 @@ Table of Contents
    In this mode, the device has an asymmetric key pair but without an
    X.509 certificate (called a raw public key); for example, the
    asymmetric key pair is generated by the manufacturer and installed on
-   the device (see also <a href="#section-11.6">Section 11.6</a>).  A device MAY be configured with
+   the device (see also <a href="#section-11.6">Section 11.6</a>).  A device <em>MAY</em> be configured with
    multiple raw public keys.  The type and length of the raw public key
    depends on the cipher suite used.  Implementations in RawPublicKey
-   mode MUST support the mandatory-to-implement cipher suite
+   mode <em>MUST</em> support the mandatory-to-implement cipher suite
    TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 as specified in [<a href="./rfc7251.html" title="&quot;AES- CCM Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC7251</a>],
-   [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>], and [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>].  The key used MUST be ECDSA capable.  The
-   curve secp256r1 MUST be supported [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]; this curve is equivalent
+   [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>], and [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>].  The key used <em>MUST</em> be ECDSA capable.  The
+   curve secp256r1 <em>MUST</em> be supported [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]; this curve is equivalent
    to the NIST P-256 curve.  The hash algorithm is SHA-256.
-   Implementations MUST use the Supported Elliptic Curves and Supported
+   Implementations <em>MUST</em> use the Supported Elliptic Curves and Supported
    Point Formats Extensions [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]; the uncompressed point format
-   MUST be supported; [<a href="./rfc6090.html" title="&quot;Fundamental Elliptic Curve Cryptography Algorithms&quot;">RFC6090</a>] can be used as an implementation method.
+   <em>MUST</em> be supported; [<a href="./rfc6090.html" title="&quot;Fundamental Elliptic Curve Cryptography Algorithms&quot;">RFC6090</a>] can be used as an implementation method.
    Some guidance relevant to the implementation of this cipher suite can
    be found in [<a href="#ref-W3CXMLSEC">W3CXMLSEC</a>].  The mechanism for using raw public keys
    with TLS is specified in [<a href="./rfc7250.html" title="&quot;Using Raw Public Keys in Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)&quot;">RFC7250</a>].
@@ -4239,17 +4239,17 @@ Table of Contents
    asymmetric public key pair installed.  An identifier is calculated by
    the endpoint from the public key as described in <a href="./rfc6920.html#section-2">Section&nbsp;2 of
    [RFC6920]</a>.  All implementations that support checking RawPublicKey
-   identities MUST support at least the sha-256-120 mode (SHA-256
-   truncated to 120 bits).  Implementations SHOULD also support longer
-   length identifiers and MAY support shorter lengths.  Note that the
+   identities <em>MUST</em> support at least the sha-256-120 mode (SHA-256
+   truncated to 120 bits).  Implementations <em>SHOULD</em> also support longer
+   length identifiers and <em>MAY</em> support shorter lengths.  Note that the
    shorter lengths provide less security against attacks, and their use
-   is NOT RECOMMENDED.
+   is NOT <em>RECOMMENDED</em>.
 
    Depending on how identifiers are given to the system that verifies
    them, support for URI, binary, and/or human-speakable format
-   [<a href="./rfc6920.html" title="&quot;Naming Things with Hashes&quot;">RFC6920</a>] needs to be implemented.  All implementations SHOULD
+   [<a href="./rfc6920.html" title="&quot;Naming Things with Hashes&quot;">RFC6920</a>] needs to be implemented.  All implementations <em>SHOULD</em>
    support the binary mode, and implementations that have a user
-   interface SHOULD also support the human-speakable format.
+   interface <em>SHOULD</em> also support the human-speakable format.
 
    During provisioning, the identifier of each node is collected, for
    example, by reading a barcode on the outside of the device or by
@@ -4259,24 +4259,24 @@ Table of Contents
    associate the endpoint with further device information and to perform
    access control.  During (initial and ongoing) provisioning, an access
    control list of identifiers with which the device may start DTLS
-   sessions SHOULD also be installed and maintained.
+   sessions <em>SHOULD</em> also be installed and maintained.
 
 <span class="h5"><a class="selflink" name="section-9.1.3.3" href="#section-9.1.3.3">9.1.3.3</a>.  X.509 Certificates</span>
 
-   Implementations in Certificate Mode MUST support the mandatory-to-
+   Implementations in Certificate Mode <em>MUST</em> support the mandatory-to-
    implement cipher suite TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 as
    specified in [<a href="./rfc7251.html" title="&quot;AES- CCM Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC7251</a>], [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>], and [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>].  Namely, the
    certificate includes a SubjectPublicKeyInfo that indicates an
    algorithm of id-ecPublicKey with namedCurves secp256r1 [<a href="./rfc5480.html" title="&quot;Elliptic Curve Cryptography Subject Public Key Information&quot;">RFC5480</a>]; the
    public key format is uncompressed [<a href="./rfc5480.html" title="&quot;Elliptic Curve Cryptography Subject Public Key Information&quot;">RFC5480</a>]; the hash algorithm is
    SHA-256; if included, the key usage extension indicates
-   digitalSignature.  Certificates MUST be signed with ECDSA using
-   secp256r1, and the signature MUST use SHA-256.  The key used MUST be
-   ECDSA capable.  The curve secp256r1 MUST be supported [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]; this
+   digitalSignature.  Certificates <em>MUST</em> be signed with ECDSA using
+   secp256r1, and the signature <em>MUST</em> use SHA-256.  The key used <em>MUST</em> be
+   ECDSA capable.  The curve secp256r1 <em>MUST</em> be supported [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]; this
    curve is equivalent to the NIST P-256 curve.  The hash algorithm is
-   SHA-256.  Implementations MUST use the Supported Elliptic Curves and
+   SHA-256.  Implementations <em>MUST</em> use the Supported Elliptic Curves and
    Supported Point Formats Extensions [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]; the uncompressed point
-   format MUST be supported; [<a href="./rfc6090.html" title="&quot;Fundamental Elliptic Curve Cryptography Algorithms&quot;">RFC6090</a>] can be used as an implementation
+   format <em>MUST</em> be supported; [<a href="./rfc6090.html" title="&quot;Fundamental Elliptic Curve Cryptography Algorithms&quot;">RFC6090</a>] can be used as an implementation
    method.
 
 
@@ -4300,15 +4300,15 @@ Table of Contents
 
    When a new connection is formed, the certificate from the remote
    device needs to be verified.  If the CoAP node has a source of
-   absolute time, then the node SHOULD check that the validity dates of
-   the certificate are within range.  The certificate MUST be validated
+   absolute time, then the node <em>SHOULD</em> check that the validity dates of
+   the certificate are within range.  The certificate <em>MUST</em> be validated
    as appropriate for the security requirements, using functionality
    equivalent to the algorithm specified in <a href="./rfc5280.html#section-6">Section&nbsp;6 of [RFC5280]</a>.  If
    the certificate contains a SubjectAltName, then the authority of the
-   request URI MUST match at least one of the authorities of any CoAP
+   request URI <em>MUST</em> match at least one of the authorities of any CoAP
    URI found in a field of URI type in the SubjectAltName set.  If there
    is no SubjectAltName in the certificate, then the authority of the
-   request URI MUST match the Common Name (CN) found in the certificate
+   request URI <em>MUST</em> match the Common Name (CN) found in the certificate
    using the matching rules defined in [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>] with the exception that
    certificates with wildcards are not allowed.
 
@@ -4322,7 +4322,7 @@ Table of Contents
 
    If the system has a shared key in addition to the certificate, then a
    cipher suite that includes the shared key such as
-   TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA [<a href="./rfc5489.html" title="&quot;ECDHE_PSK Cipher Suites for Transport Layer Security (TLS)&quot;">RFC5489</a>] SHOULD be used.
+   TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA [<a href="./rfc5489.html" title="&quot;ECDHE_PSK Cipher Suites for Transport Layer Security (TLS)&quot;">RFC5489</a>] <em>SHOULD</em> be used.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Cross-Protocol Proxying between CoAP and HTTP</span>
 
@@ -4359,7 +4359,7 @@ Table of Contents
 
    Either way, only the request/response model of CoAP is mapped to
    HTTP.  The underlying model of Confirmable or Non-confirmable
-   messages, etc., is invisible and MUST have no effect on a proxy
+   messages, etc., is invisible and <em>MUST</em> have no effect on a proxy
    function.  The following sections describe the handling of requests
    to a forward-proxy.  Reverse-proxies are not specified, as the proxy
    function is transparent to the client with the proxy acting as if it
@@ -4419,22 +4419,22 @@ Table of Contents
    The GET method requests the proxy to return a representation of the
    HTTP resource identified by the request URI.
 
-   Upon success, a 2.05 (Content) Response Code SHOULD be returned.  The
-   payload of the response MUST be a representation of the target HTTP
-   resource, and the Content-Format Option MUST be set accordingly.  The
-   response MUST indicate a Max-Age value that is no greater than the
+   Upon success, a 2.05 (Content) Response Code <em>SHOULD</em> be returned.  The
+   payload of the response <em>MUST</em> be a representation of the target HTTP
+   resource, and the Content-Format Option <em>MUST</em> be set accordingly.  The
+   response <em>MUST</em> indicate a Max-Age value that is no greater than the
    remaining time the representation can be considered fresh.  If the
-   HTTP entity has an entity-tag, the proxy SHOULD include an ETag
+   HTTP entity has an entity-tag, the proxy <em>SHOULD</em> include an ETag
    Option in the response and process ETag Options in requests as
    described below.
 
    A client can influence the processing of a GET request by including
    the following option:
 
-   Accept:  The request MAY include an Accept Option, identifying the
+   Accept:  The request <em>MAY</em> include an Accept Option, identifying the
       preferred response content-format.
 
-   ETag:  The request MAY include one or more ETag Options, identifying
+   ETag:  The request <em>MAY</em> include one or more ETag Options, identifying
       responses that the client has stored.  This requests the proxy to
       send a 2.03 (Valid) response whenever it would send a 2.05
       (Content) response with an entity-tag in the requested set
@@ -4463,8 +4463,8 @@ Table of Contents
    representation.
 
    If a new resource is created at the request URI, a 2.01 (Created)
-   response MUST be returned to the client.  If an existing resource is
-   modified, a 2.04 (Changed) response MUST be returned to indicate
+   response <em>MUST</em> be returned to the client.  If an existing resource is
+   modified, a 2.04 (Changed) response <em>MUST</em> be returned to indicate
    successful completion of the request.
 
 <span class="h4"><a class="selflink" name="section-10.1.3" href="#section-10.1.3">10.1.3</a>.  DELETE</span>
@@ -4472,7 +4472,7 @@ Table of Contents
    The DELETE method requests the proxy to delete the HTTP resource
    identified by the request URI at the HTTP origin server.
 
-   A 2.02 (Deleted) response MUST be returned to the client upon success
+   A 2.02 (Deleted) response <em>MUST</em> be returned to the client upon success
    or if the resource does not exist at the time of the request.
 
 <span class="h4"><a class="selflink" name="section-10.1.4" href="#section-10.1.4">10.1.4</a>.  POST</span>
@@ -4485,8 +4485,8 @@ Table of Contents
 
    If the action performed by the POST method does not result in a
    resource that can be identified by a URI, a 2.04 (Changed) response
-   MUST be returned to the client.  If a resource has been created on
-   the origin server, a 2.01 (Created) response MUST be returned.
+   <em>MUST</em> be returned to the client.  If a resource has been created on
+   the origin server, a 2.01 (Created) response <em>MUST</em> be returned.
 
 <span class="h3"><a class="selflink" name="section-10.2" href="#section-10.2">10.2</a>.  HTTP-CoAP Proxying</span>
 
@@ -4497,7 +4497,7 @@ Table of Contents
 
    This section specifies for any HTTP request the HTTP response that
    the proxy should return to the client.  Unless otherwise specified,
-   all the statements made are RECOMMENDED behavior; some highly
+   all the statements made are <em>RECOMMENDED</em> behavior; some highly
    constrained implementations may need to resort to shortcuts.  How the
    proxy actually satisfies the request is an implementation detail,
    although the typical case is expected to be that the proxy translates
@@ -4523,7 +4523,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-10.2.1" href="#section-10.2.1">10.2.1</a>.  OPTIONS and TRACE</span>
 
    As the OPTIONS and TRACE methods are not supported in CoAP, a 501
-   (Not Implemented) error MUST be returned to the client.
+   (Not Implemented) error <em>MUST</em> be returned to the client.
 
 <span class="h4"><a class="selflink" name="section-10.2.2" href="#section-10.2.2">10.2.2</a>.  GET</span>
 
@@ -4531,9 +4531,9 @@ Table of Contents
    CoAP resource identified by the Request-URI.
 
    Upon success, a 200 (OK) response is returned.  The payload of the
-   response MUST be a representation of the target CoAP resource, and
-   the Content-Type and Content-Encoding header fields MUST be set
-   accordingly.  The response MUST indicate a max-age directive that
+   response <em>MUST</em> be a representation of the target CoAP resource, and
+   the Content-Type and Content-Encoding header fields <em>MUST</em> be set
+   accordingly.  The response <em>MUST</em> indicate a max-age directive that
    indicates a value no greater than the remaining time the
    representation can be considered fresh.  If the CoAP response has an
    ETag option, the proxy should include an ETag header field in the
@@ -4547,7 +4547,7 @@ Table of Contents
       media-type ranges, parameters, and extensions are not supported by
       the CoAP Accept option.  If the proxy cannot send a response that
       is acceptable according to the combined Accept field value, then
-      the proxy sends a 406 (Not Acceptable) response.  The proxy MAY
+      the proxy sends a 406 (Not Acceptable) response.  The proxy <em>MAY</em>
       then retry the request with further media types from the HTTP
       Accept header field.
 
@@ -4570,7 +4570,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-10.2.3" href="#section-10.2.3">10.2.3</a>.  HEAD</span>
 
-   The HEAD method is identical to GET except that the server MUST NOT
+   The HEAD method is identical to GET except that the server <em>MUST NOT</em>
    return a message-body in the response.
 
    Although there is no direct equivalent of HTTP's HEAD method in CoAP,
@@ -4592,8 +4592,8 @@ Table of Contents
 
    If the action performed by the POST method does not result in a
    resource that can be identified by a URI, a 200 (OK) or 204 (No
-   Content) response MUST be returned to the client.  If a resource has
-   been created on the origin server, a 201 (Created) response MUST be
+   Content) response <em>MUST</em> be returned to the client.  If a resource has
+   been created on the origin server, a 201 (Created) response <em>MUST</em> be
    returned.
 
    If any of the Location-* Options are present in the CoAP response, a
@@ -4698,13 +4698,13 @@ Table of Contents
    would apply to making the request that generated the cache entry also
    need to be applied to the value in the cache.  This is relevant for
    clients that implement multiple security domains, as well as for
-   proxies that may serve multiple clients.  Also, a caching proxy MUST
+   proxies that may serve multiple clients.  Also, a caching proxy <em>MUST</em>
    NOT make cached values available to requests that have lesser
    transport-security properties than those the proxy would require to
    perform request forwarding in the first place.
 
    Unlike the "coap" scheme, responses to "coaps" identified requests
-   are never "public" and thus MUST NOT be reused for shared caching,
+   are never "public" and thus <em>MUST NOT</em> be reused for shared caching,
    unless the cache is able to make equivalent access control decisions
    to the ones that led to the cached entry.  They can, however, be
    reused in a private cache if the message is cacheable by default in
@@ -4750,7 +4750,7 @@ Table of Contents
    constrained network makes the network itself a likely victim of an
    amplification attack.
 
-   Therefore, large amplification factors SHOULD NOT be provided in the
+   Therefore, large amplification factors <em>SHOULD NOT</em> be provided in the
    response if the request is not authenticated.  A CoAP server can
    reduce the amount of amplification it provides to an attacker by
    using slicing/blocking modes of CoAP [<a href="#ref-BLOCK" title="&quot;Blockwise transfers in CoAP&quot;">BLOCK</a>] and offering large
@@ -4765,10 +4765,10 @@ Table of Contents
    constrained networks.  This specification attempts to reduce the
    amplification effects of multicast requests by limiting when a
    response is returned.  To limit the possibility of malicious use,
-   CoAP servers SHOULD NOT accept multicast requests that can not be
+   CoAP servers <em>SHOULD NOT</em> accept multicast requests that can not be
    authenticated in some way, cryptographically or by some multicast
    boundary limiting the potential sources.  If possible, a CoAP server
-   SHOULD limit the support for multicast requests to the specific
+   <em>SHOULD</em> limit the support for multicast requests to the specific
    resources where the feature is required.
 
    On some general-purpose operating systems providing a POSIX-style API
@@ -4777,7 +4777,7 @@ Table of Contents
    implementations will know whether they have joined a multicast group,
    this creates a problem for packets addressed to multicast addresses
    of the form FF0x::1, which are received by every IPv6 node.
-   Implementations SHOULD make use of modern APIs such as
+   Implementations <em>SHOULD</em> make use of modern APIs such as
    IPV6_RECVPKTINFO [<a href="./rfc3542.html" title="&quot;Advanced Sockets Application Program Interface (API) for IPv6&quot;">RFC3542</a>], if available, to make this determination.
 
 
@@ -4969,7 +4969,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-11.6" href="#section-11.6">11.6</a>.  Constrained-Node Considerations</span>
 
    Implementers on constrained nodes often find themselves without a
-   good source of entropy [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  If that is the case, the node MUST
+   good source of entropy [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  If that is the case, the node <em>MUST</em>
    NOT be used for processes that require good entropy, such as key
    generation.  Instead, keys should be generated externally and added
    to the device during manufacturing or commissioning.
@@ -5222,7 +5222,7 @@ Table of Contents
    which undergo a Designated Expert review to help ensure that the
    option semantics are defined correctly.  The option numbers between
    65000 and 65535 inclusive are reserved for experiments.  They are not
-   meant for vendor-specific use of any kind and MUST NOT be used in
+   meant for vendor-specific use of any kind and <em>MUST NOT</em> be used in
    operational deployments.
 
 
@@ -5328,7 +5328,7 @@ Table of Contents
 
    The identifiers between 65000 and 65535 inclusive are reserved for
    experiments.  They are not meant for vendor-specific use of any kind
-   and MUST NOT be used in operational deployments.  The identifiers
+   and <em>MUST NOT</em> be used in operational deployments.  The identifiers
    between 256 and 9999 are reserved for future use in IETF
    specifications (IETF Review or IESG Approval).  All other identifiers
    are Unassigned.

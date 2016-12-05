@@ -458,9 +458,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -486,13 +486,13 @@ Table of Contents
    this document.  For convenience, we list these definitions below:
 
      o R flag bit.  R flag bits are reserved for future use.  Senders
-       MUST set R bits to 0.  Receivers MUST ignore R bit values.
+       <em>MUST</em> set R bits to 0.  Receivers <em>MUST</em> ignore R bit values.
 
      o LENGTH field.  All fields named LENGTH (as distinct from LEN)
        code the number of octets in the structure that contains it,
        including the header it resides in and all hierarchical levels
        below it.  If a structure contains a LENGTH field, a receiver
-       MUST use the LENGTH field value to advance past the structure
+       <em>MUST</em> use the LENGTH field value to advance past the structure
        during parsing, rather than use knowledge about the internal
        format of the structure.
 
@@ -559,9 +559,9 @@ Table of Contents
                          Figure 1 -- Packet format
 
    The behavior of the 1-bit M field depends on the media type of the
-   stream.  For native streams, the M bit MUST be set to 1 if the MIDI
-   command section has a non-zero LEN field, and MUST be set to 0
-   otherwise.  For mpeg4-generic streams, the M bit MUST be set to 1 for
+   stream.  For native streams, the M bit <em>MUST</em> be set to 1 if the MIDI
+   command section has a non-zero LEN field, and <em>MUST</em> be set to 0
+   otherwise.  For mpeg4-generic streams, the M bit <em>MUST</em> be set to 1 for
    all packets (to conform to [<a href="./rfc3640.html" title="&quot;RTP Payload Format for Transport of MPEG-4 Elementary Streams&quot;">RFC3640</a>]).
 
    In an RTP MIDI stream, the 16-bit sequence number field is
@@ -597,26 +597,26 @@ Table of Contents
    <a href="#section-6">Section 6</a>.
 
    For RTP MIDI streams destined to be rendered into audio, the clock
-   rate SHOULD be an audio sample rate of 32 KHz or higher.  This
+   rate <em>SHOULD</em> be an audio sample rate of 32 KHz or higher.  This
    recommendation is due to the sensitivity of human musical perception
    to small timing errors in musical note sequences, and due to the
    timbral changes that occur when two near-simultaneous MIDI NoteOns
    are rendered with a different timing than that desired by the content
    author due to clock rate quantization.  RTP MIDI streams that are not
    destined for audio rendering (such as MIDI streams that control stage
-   lighting) MAY use a lower clock rate but SHOULD use a clock rate high
+   lighting) <em>MAY</em> use a lower clock rate but <em>SHOULD</em> use a clock rate high
    enough to avoid timing artifacts in the application.
 
    For RTP MIDI streams destined to be rendered into audio, the clock
-   rate SHOULD be chosen from rates in common use in professional audio
+   rate <em>SHOULD</em> be chosen from rates in common use in professional audio
    applications or in consumer audio distribution.  At the time of this
    writing, these rates include 32 KHz, 44.1 KHz, 48 KHz, 64 KHz, 88.2
    KHz, 96 KHz, 176.4 KHz, and 192 KHz.  If the RTP MIDI session is a
    part of a synchronized media session that includes another (non-MIDI)
    RTP audio stream with a clock rate of 32 KHz or higher, the RTP MIDI
-   stream SHOULD use a clock rate that matches the clock rate of the
+   stream <em>SHOULD</em> use a clock rate that matches the clock rate of the
    other audio stream.  However, if the RTP MIDI stream is destined to
-   be rendered into audio, the RTP MIDI stream SHOULD NOT use a clock
+   be rendered into audio, the RTP MIDI stream <em>SHOULD NOT</em> use a clock
    rate lower than 32 KHz, even if this second stream has a clock rate
    less than 32 KHz.
 
@@ -708,10 +708,10 @@ Table of Contents
    specify what receivers should do with a MIDI command stream.
 
    If a multimedia session uses different RTP MIDI streams to send
-   different classes of media, the streams MUST be sent over different
+   different classes of media, the streams <em>MUST</em> be sent over different
    RTP sessions.  For example, if a multimedia session uses one MIDI
    stream for audio and a second MIDI stream to control a lighting
-   system, the audio and lighting streams MUST be sent over different
+   system, the audio and lighting streams <em>MUST</em> be sent over different
    RTP sessions, each with its own media line.
 
    Session description tools defined in <a href="#appendix-C.5">Appendix C.5</a> let a sending party
@@ -723,20 +723,20 @@ Table of Contents
 
    To support split name spaces, we define the following requirements:
 
-     o  A party MUST NOT send several RTP MIDI streams that share a MIDI
-        name space in the same RTP session.  Instead, each stream MUST
+     o  A party <em>MUST NOT</em> send several RTP MIDI streams that share a MIDI
+        name space in the same RTP session.  Instead, each stream <em>MUST</em>
         be sent from a different RTP session.
 
      o  If several RTP MIDI streams sent by a party share a MIDI name
-        space, all streams MUST use the same SSRC value and MUST use the
+        space, all streams <em>MUST</em> use the same SSRC value and <em>MUST</em> use the
         same randomly chosen RTP timestamp initialization value.
 
    These rules let a receiver identify streams that share a MIDI name
    space (by matching SSRC values) and also let a receiver accurately
    reconstruct the source MIDI command stream (by using RTP timestamps
-   to interleave commands from the two streams).  Care MUST be taken by
+   to interleave commands from the two streams).  Care <em>MUST</em> be taken by
    senders to ensure that SSRC changes due to collisions are reflected
-   in both streams.  Receivers MUST regularly examine the RTCP CNAME
+   in both streams.  Receivers <em>MUST</em> regularly examine the RTCP CNAME
    fields associated with the linked streams, to ensure that the assumed
    link is legitimate and not the result of an SSRC collision by another
    sender.
@@ -771,12 +771,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>. MIDI Payload</span>
 
-   The payload (Figure 1) MUST begin with the MIDI command section.  The
+   The payload (Figure 1) <em>MUST</em> begin with the MIDI command section.  The
    MIDI command section codes a (possibly empty) list of timestamped
    MIDI commands, and provides the essential service of the payload
    format.
 
-   The payload MAY also contain a journal section.  The journal section
+   The payload <em>MAY</em> also contain a journal section.  The journal section
    provides resiliency by coding the recent history of the stream.  A
    flag in the MIDI command section codes the presence of a journal
    section in the payload.
@@ -787,7 +787,7 @@ Table of Contents
    operate in a stream in an RTP session.
 
    The journalling method for a stream is set at the start of a session
-   and MUST NOT be changed thereafter.  A stream may be set to use the
+   and <em>MUST NOT</em> be changed thereafter.  A stream may be set to use the
    recovery journal, to use an alternative journal format (none are
    defined in this memo), or not to use a journal.
 
@@ -796,12 +796,12 @@ Table of Contents
    default to using the recovery journal.  Streams that use reliable
    transport (such as TCP) default to not using a journal.  <a href="#appendix-C.2.1">Appendix</a>
    <a href="#appendix-C.2.1">C.2.1</a> defines session configuration tools for overriding these
-   defaults.  For all types of transport, a sender MUST transmit an RTP
+   defaults.  For all types of transport, a sender <em>MUST</em> transmit an RTP
    packet stream with consecutive sequence numbers (modulo 2^16).
 
    If a stream uses the recovery journal, every payload in the stream
-   MUST include a journal section.  If a stream does not use
-   journalling, a journal section MUST NOT appear in a stream payload.
+   <em>MUST</em> include a journal section.  If a stream does not use
+   journalling, a journal section <em>MUST NOT</em> appear in a stream payload.
    If a stream uses an alternative journal format, the specification for
    the journal format defines an inclusion policy.
 
@@ -816,9 +816,9 @@ Table of Contents
    (MTU) of the underlying network limits the practical size of the
    payload section (for example, an Ethernet MTU is 1500 octets), for
    applications where predictable and minimal packet transmission
-   latency is critical.  A sender SHOULD NOT create RTP MIDI UDP packets
+   latency is critical.  A sender <em>SHOULD NOT</em> create RTP MIDI UDP packets
    whose size exceeds the MTU of the underlying network.  Instead, the
-   sender SHOULD take steps to keep the maximum packet size under the
+   sender <em>SHOULD</em> take steps to keep the maximum packet size under the
    MTU limit.
 
    These steps may take many forms.  The default closed-loop recovery
@@ -868,9 +868,9 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   If the J header bit is set to 1, a journal section MUST appear after
+   If the J header bit is set to 1, a journal section <em>MUST</em> appear after
    the MIDI command section in the payload.  If the J header bit is set
-   to 0, the payload MUST NOT contain a journal section.
+   to 0, the payload <em>MUST NOT</em> contain a journal section.
 
    We define the semantics of the P header bit in <a href="#section-3.2">Section 3.2</a>.
 
@@ -903,14 +903,14 @@ Table of Contents
 
    The MIDI list structure may also optionally encode a list of N
    additional complete MIDI commands, each coded in a MIDI Command K
-   field.  Each additional command MUST be preceded by a Delta Time K
+   field.  Each additional command <em>MUST</em> be preceded by a Delta Time K
    field, which codes the command's delta time.  We discuss exceptions
    to the "command fields code complete MIDI commands" rule in <a href="#section-3.2">Section</a>
    <a href="#section-3.2">3.2</a>.
 
    The final MIDI command field (i.e., the MIDI Command N field, shown
-   in Figure 3) in the MIDI list MAY be empty.  Moreover, a MIDI list
-   MAY consist a single delta time (encoded in the Delta Time 0 field)
+   in Figure 3) in the MIDI list <em>MAY</em> be empty.  Moreover, a MIDI list
+   <em>MAY</em> consist a single delta time (encoded in the Delta Time 0 field)
    without an associated command (which would have been encoded in the
    MIDI Command 0 field).  These rules enable MIDI coding features that
    are explained in <a href="#section-3.1">Section 3.1</a>.  We delay the explanations because an
@@ -949,7 +949,7 @@ Table of Contents
    coding, is efficient because it reduces the number of multi-octet
    delta times.
 
-   All command timestamps in a packet MUST be less than or equal to the
+   All command timestamps in a packet <em>MUST</em> be less than or equal to the
    RTP timestamp of the next packet in the stream (modulo 2^32).
 
    This restriction ensures that a particular RTP MIDI packet in a
@@ -1062,27 +1062,27 @@ Table of Contents
 
    Each non-empty MIDI Command field in the MIDI list codes one of the
    MIDI command types that may legally appear on a MIDI 1.0 DIN cable.
-   Standard MIDI File meta-events do not fit this definition and MUST
+   Standard MIDI File meta-events do not fit this definition and <em>MUST</em>
    NOT appear in the MIDI list.  As a rule, each MIDI Command field
    codes a complete command, in the binary command format defined in
    [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>].  In the remainder of this section, we describe exceptions to
    this rule.
 
-   The first MIDI channel command in the MIDI list MUST include a status
-   octet.  Running status coding, as defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>], MAY be used for
+   The first MIDI channel command in the MIDI list <em>MUST</em> include a status
+   octet.  Running status coding, as defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>], <em>MAY</em> be used for
    all subsequent MIDI channel commands in the list.  As in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>],
    System Common and System Exclusive messages (0xF0 ... 0xF7) cancel
    the running status state, but System Real-time messages (0xF8 ...
    0xFF) do not affect the running status state.  All System commands in
-   the MIDI list MUST include a status octet.
+   the MIDI list <em>MUST</em> include a status octet.
 
-   As we note above, the first channel command in the MIDI list MUST
+   As we note above, the first channel command in the MIDI list <em>MUST</em>
    include a status octet.  However, the corresponding command in the
    original MIDI source data stream might not have a status octet (in
    this case, the source would be coding the command using running
    status).  If the status octet of the first channel command in the
    MIDI list does not appear in the source data stream, the P (phantom)
-   header bit MUST be set to 1.  In all other cases, the P bit MUST be
+   header bit <em>MUST</em> be set to 1.  In all other cases, the P bit <em>MUST</em> be
    set to 0.
 
 
@@ -1094,11 +1094,11 @@ Table of Contents
 
    Note that the P bit describes the MIDI source data stream, not the
    MIDI list encoding; regardless of the state of the P bit, the MIDI
-   list MUST include the status octet.
+   list <em>MUST</em> include the status octet.
 
-   As receivers MUST be able to decode running status, sender
+   As receivers <em>MUST</em> be able to decode running status, sender
    implementors should feel free to use running status to improve
-   bandwidth efficiency.  However, senders SHOULD NOT introduce timing
+   bandwidth efficiency.  However, senders <em>SHOULD NOT</em> introduce timing
    jitter into an existing MIDI command stream through an inappropriate
    use or removal of running status coding.  This warning primarily
    applies to senders whose RTP MIDI streams may be transcoded onto a
@@ -1113,11 +1113,11 @@ Table of Contents
    field in the MIDI list codes exactly one MIDI command (partially or
    completely).
 
-   To encode an embedded System Real-time command, senders MUST extract
+   To encode an embedded System Real-time command, senders <em>MUST</em> extract
    the command from its host and code it in the MIDI list as a separate
-   command.  The host command and System Real-time command SHOULD appear
+   command.  The host command and System Real-time command <em>SHOULD</em> appear
    in the same MIDI list.  The delta time of the System Real-time
-   command SHOULD result in a command timestamp that encodes the System
+   command <em>SHOULD</em> result in a command timestamp that encodes the System
    Real-time command placement in its original embedded position.
 
    Two methods are provided for encoding MIDI System Exclusive (SysEx)
@@ -1137,8 +1137,8 @@ Table of Contents
    several packets.
 
    To segment a SysEx command, first partition its data octet list into
-   two or more sublists.  The last sublist MAY be empty (i.e., contain
-   no octets); all other sublists MUST contain at least one data octet.
+   two or more sublists.  The last sublist <em>MAY</em> be empty (i.e., contain
+   no octets); all other sublists <em>MUST</em> contain at least one data octet.
    To complete the segmentation, add the status octets defined in Figure
 
 
@@ -1151,10 +1151,10 @@ Table of Contents
    5 to the head and tail of the first, last, and any "middle" sublists.
    Figure 6 shows example segmentations of a SysEx command.
 
-   A sender MAY cancel a segmented SysEx command transmission that is in
+   A sender <em>MAY</em> cancel a segmented SysEx command transmission that is in
    progress, by sending the "cancel" sublist shown in Figure 5.  A
-   "cancel" sublist MAY follow a "first" or "middle" sublist in the
-   transmission, but MUST NOT follow a "last" sublist.  The cancel MUST
+   "cancel" sublist <em>MAY</em> follow a "first" or "middle" sublist in the
+   transmission, but <em>MUST NOT</em> follow a "last" sublist.  The cancel <em>MUST</em>
    be empty (thus, 0xF7 0xF4 is the only legal cancel sublist).
 
    The cancellation feature is needed because <a href="#appendix-C.1">Appendix C.1</a> defines
@@ -1176,7 +1176,7 @@ Table of Contents
    capabilities of the receiver.  For example, a sound synthesizer that
    is directly parsing RTP MIDI packets and rendering them to audio will
    be aware of the fact that SysEx commands may be cancelled in RTP
-   MIDI.  These receivers SHOULD detect a SysEx cancellation in the MIDI
+   MIDI.  These receivers <em>SHOULD</em> detect a SysEx cancellation in the MIDI
    list and act as if they had never received the SysEx command.
 
    As a second example, a synthesizer may be receiving MIDI data from an
@@ -1210,7 +1210,7 @@ Table of Contents
    The relative ordering of SysEx command segments in a MIDI list must
    match the relative ordering of the sublists in the original SysEx
    command.  By default, commands other than System Real-time MIDI
-   commands MUST NOT appear between SysEx command segments (Appendix C.1
+   commands <em>MUST NOT</em> appear between SysEx command segments (Appendix C.1
    defines configuration tools to change this default, to let other
    commands types appear between segments).  If the command segments of
    a SysEx command are placed in the MIDI lists of two or more RTP
@@ -1235,7 +1235,7 @@ Table of Contents
    to appear on a MIDI 1.0 DIN cable.  Unpaired 0xF7 octets have no
    semantic meaning in MIDI, apart from cancelling running status.
 
-   Unpaired 0xF7 octets MUST NOT appear in the MIDI list of the MIDI
+   Unpaired 0xF7 octets <em>MUST NOT</em> appear in the MIDI list of the MIDI
    Command section.  We impose this restriction to avoid interference
    with the command segmentation coding defined in Figure 5.
 
@@ -1269,7 +1269,7 @@ Table of Contents
 
    [<a name="ref-MIDI" id="ref-MIDI">MIDI</a>] reserves the undefined System Common commands 0xF4 and 0xF5
    and the undefined System Real-time commands 0xF9 and 0xFD for future
-   use.  By default, undefined commands MUST NOT appear in a MIDI
+   use.  By default, undefined commands <em>MUST NOT</em> appear in a MIDI
    Command field in the MIDI list, with the exception of the 0xF5 octets
    used to code the "dropped 0xF7" construction and the 0xF4 octets used
    by SysEx "cancel" sublists.
@@ -1278,13 +1278,13 @@ Table of Contents
    undefined commands (Appendix C.1).  For this case, we now define how
    senders encode undefined commands in the MIDI list.
 
-   An undefined System Real-time command MUST be coded using the System
+   An undefined System Real-time command <em>MUST</em> be coded using the System
    Real-time rules.
 
    If the undefined System Common commands are put to use in a future
    version of [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>], the command will begin with an 0xF4 or 0xF5 status
    octet, followed by an arbitrary number of data octets (i.e., zero or
-   more data bytes).  To encode these commands, senders MUST terminate
+   more data bytes).  To encode these commands, senders <em>MUST</em> terminate
    the command with an 0xF7 octet and place the modified command into
    the MIDI Command field.
 
@@ -1293,8 +1293,8 @@ Table of Contents
    commands, we assume that the command begins with an 0xF4 or 0xF5
    status octet, followed by zero or more data octets, followed by zero
    or more trailing 0xF7 status octets.  To encode the command, senders
-   MUST first remove all trailing 0xF7 status octets from the command.
-   Then, senders MUST terminate the command with an 0xF7 octet and place
+   <em>MUST</em> first remove all trailing 0xF7 status octets from the command.
+   Then, senders <em>MUST</em> terminate the command with an 0xF7 octet and place
    the modified command into the MIDI Command field.
 
    Note that we include the trailing octets in our model as a cautionary
@@ -1399,7 +1399,7 @@ Table of Contents
 
    The purpose of the recovery journal system is to satisfy the recovery
    journal mandate: the MIDI performance rendered from an RTP MIDI
-   stream sent over unreliable transport MUST NOT contain indefinite
+   stream sent over unreliable transport <em>MUST NOT</em> contain indefinite
    artifacts.
 
    The recovery journal system does not use packet retransmission to
@@ -1440,35 +1440,35 @@ Table of Contents
    <a href="#appendix-C.2.2">Appendix C.2.2</a> normatively defines three sending policies: "closed-
    loop", "open-loop", and "anchor".
 
-   By default, senders MUST use the closed-loop sending policy.  If the
+   By default, senders <em>MUST</em> use the closed-loop sending policy.  If the
    session description overrides this default policy, by using the
-   parameter j_update defined in <a href="#appendix-C.2.2">Appendix C.2.2</a>, senders MUST use the
+   parameter j_update defined in <a href="#appendix-C.2.2">Appendix C.2.2</a>, senders <em>MUST</em> use the
    specified policy.
 
    After choosing the checkpoint packet identity for a packet, the
-   sender creates the recovery journal.  By default, this journal MUST
+   sender creates the recovery journal.  By default, this journal <em>MUST</em>
    conform to the normative semantics in <a href="#section-5">Section 5</a> and Appendices A-B in
    this memo.  In <a href="#appendix-C.2.3">Appendix C.2.3</a>, we define parameters that modify the
    normative semantics for recovery journals.  If the session
    description uses these parameters, the journal created by the sender
-   MUST conform to the modified semantics.
+   <em>MUST</em> conform to the modified semantics.
 
    Next, we state the normative role for receivers in the recovery
    journal system.
 
-   A receiver MUST detect each RTP sequence number break in a stream.
+   A receiver <em>MUST</em> detect each RTP sequence number break in a stream.
    If the sequence number break is due to a packet loss event (as
-   defined in [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>]), the receiver MUST repair all indefinite
+   defined in [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>]), the receiver <em>MUST</em> repair all indefinite
    artifacts in the rendered MIDI performance caused by the loss.  If
    the sequence number break is due to an out-of-order packet (as
-   defined in [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>]), the receiver MUST NOT take actions that
+   defined in [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>]), the receiver <em>MUST NOT</em> take actions that
    introduce indefinite artifacts (ignoring the out-of-order packet is a
    safe option).
 
    Receivers take special precautions when entering or exiting a
-   session.  A receiver MUST process the first received packet in a
+   session.  A receiver <em>MUST</em> process the first received packet in a
    stream as if it were a packet that ends a loss event.  Upon exiting a
-   session, a receiver MUST ensure that the rendered MIDI performance
+   session, a receiver <em>MUST</em> ensure that the rendered MIDI performance
    does not end with indefinite artifacts.
 
    Receivers are under no obligation to perform indefinite artifact
@@ -1494,7 +1494,7 @@ Table of Contents
    recovery journal mandate.  However, these default behaviors may not
    be appropriate for all sessions.  If the creators of a session
    description use the parameters defined in <a href="#appendix-C.2">Appendix C.2</a> to override
-   these defaults, the creators MUST ensure that the parameters define a
+   these defaults, the creators <em>MUST</em> ensure that the parameters define a
    system that satisfies the recovery journal mandate.
 
    Finally, we note that this memo does not specify sender or receiver
@@ -1565,8 +1565,8 @@ Table of Contents
    list of (TOTCHAN + 1) channel journals (the 4-bit TOTCHAN header
    field is interpreted as an unsigned integer).
 
-   A MIDI channel MAY be represented by (at most) one channel journal in
-   a recovery journal.  Channel journals MUST appear in the recovery
+   A MIDI channel <em>MAY</em> be represented by (at most) one channel journal in
+   a recovery journal.  Channel journals <em>MUST</em> appear in the recovery
    journal in ascending channel-number order.
 
    If A and Y are both zero, the recovery journal only contains its 3-
@@ -1582,7 +1582,7 @@ Table of Contents
    configured to use the enhanced Chapter C encoding (Appendix A.3.3).
 
    By default, the payload format does not use enhanced Chapter C
-   encoding.  In this default case, the H bit MUST be set to 0 for all
+   encoding.  In this default case, the H bit <em>MUST</em> be set to 0 for all
    packets in the stream.
 
 
@@ -1597,7 +1597,7 @@ Table of Contents
 
 
    If the stream has been configured so that controller numbers for one
-   or more MIDI channels use enhanced Chapter C encoding, the H bit MUST
+   or more MIDI channels use enhanced Chapter C encoding, the H bit <em>MUST</em>
    be set to 1 in all packets in the stream.  In <a href="#appendix-C.2.3">Appendix C.2.3</a>, we show
    how to configure a stream to use enhanced Chapter C encoding.
 
@@ -1658,21 +1658,21 @@ Table of Contents
    Chapters appear in a list following the header, in order of their
    appearance in the TOC.  Appendices A.2-9 describe the bitfield format
    for each chapter, and define the conditions under which a chapter
-   type MUST appear in the recovery journal.  If any chapter types are
-   required for a channel, an associated channel journal MUST appear in
+   type <em>MUST</em> appear in the recovery journal.  If any chapter types are
+   required for a channel, an associated channel journal <em>MUST</em> appear in
    the recovery journal.
 
    The H bit indicates if controller numbers on a MIDI channel have been
    configured to use the enhanced Chapter C encoding (Appendix A.3.3).
 
    By default, controller numbers on a MIDI channel do not use enhanced
-   Chapter C encoding.  In this default case, the H bit MUST be set to 0
+   Chapter C encoding.  In this default case, the H bit <em>MUST</em> be set to 0
    for all channel journal headers for the channel in the recovery
    journal, for all packets in the stream.
 
    However, if at least one controller number for a MIDI channel has
    been configured to use the enhanced Chapter C encoding, the H bit for
-   its channel journal MUST be set to 1, for all packets in the stream.
+   its channel journal <em>MUST</em> be set to 1, for all packets in the stream.
 
    In <a href="#appendix-C.2.3">Appendix C.2.3</a>, we show how to configure a controller number to
    use enhanced Chapter C encoding.
@@ -1714,9 +1714,9 @@ Table of Contents
    header, in the order of their appearance in the TOC.
 
    <a href="#appendix-B">Appendix B</a> describes the bitfield format for the system chapters and
-   defines the conditions under which a chapter type MUST appear in the
+   defines the conditions under which a chapter type <em>MUST</em> appear in the
    recovery journal.  If any system chapter type is required to appear
-   in the recovery journal, the system journal MUST appear in the
+   in the recovery journal, the system journal <em>MUST</em> appear in the
    recovery journal.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Session Description Protocol</span>
@@ -1784,7 +1784,7 @@ Table of Contents
    timestamp header field (see <a href="#section-2.1">Section 2.1</a>, and also [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>]).
 
    Note that this document does not specify a default clock rate value
-   for RTP MIDI.  When RTP MIDI is used with SDP, parties MUST use the
+   for RTP MIDI.  When RTP MIDI is used with SDP, parties <em>MUST</em> use the
    rtpmap line to communicate the clock rate.  Guidance for selecting
    the RTP MIDI clock rate value appears in <a href="#section-2.1">Section 2.1</a>.
 
@@ -1884,11 +1884,11 @@ Table of Contents
    payload shown in Figure 1 of <a href="#section-2.1">Section 2.1</a> of this memo: a MIDI command
    section optionally followed by a journal section.
 
-   Exactly one RTP MIDI AU MUST be mapped to one mpeg4-generic RTP MIDI
+   Exactly one RTP MIDI AU <em>MUST</em> be mapped to one mpeg4-generic RTP MIDI
    packet.  The mpeg4-generic options for placing several AUs in an RTP
-   packet MUST NOT be used with RTP MIDI.  The mpeg4-generic options for
-   fragmenting and interleaving AUs MUST NOT be used with RTP MIDI.  The
-   mpeg4-generic RTP packet payload (Figure 1 in [<a href="./rfc3640.html" title="&quot;RTP Payload Format for Transport of MPEG-4 Elementary Streams&quot;">RFC3640</a>]) MUST contain
+   packet <em>MUST NOT</em> be used with RTP MIDI.  The mpeg4-generic options for
+   fragmenting and interleaving AUs <em>MUST NOT</em> be used with RTP MIDI.  The
+   mpeg4-generic RTP packet payload (Figure 1 in [<a href="./rfc3640.html" title="&quot;RTP Payload Format for Transport of MPEG-4 Elementary Streams&quot;">RFC3640</a>]) <em>MUST</em> contain
    empty AU Header and Auxiliary sections.  These rules yield mpeg4-
    generic packets that are structurally identical to native RTP MIDI
    packets, an essential property for the correct operation of the
@@ -1916,8 +1916,8 @@ Table of Contents
    The fmtp attribute line codes the four parameters (streamtype, mode,
    profile-level-id, and config) that are required in all mpeg4-generic
    session descriptions [<a href="./rfc3640.html" title="&quot;RTP Payload Format for Transport of MPEG-4 Elementary Streams&quot;">RFC3640</a>].  For RTP MIDI streams, the streamtype
-   parameter MUST be set to 5, the "mode" parameter MUST be set to
-   "rtp-midi", and the "profile-level-id" parameter MUST be set to the
+   parameter <em>MUST</em> be set to 5, the "mode" parameter <em>MUST</em> be set to
+   "rtp-midi", and the "profile-level-id" parameter <em>MUST</em> be set to the
    MPEG-4 Profile Level for the stream.  For the Synthesis Profile,
    legal profile-level-id values are 11, 12, and 13, coding low (11),
    medium (12), or high (13) decoder computational complexity, as
@@ -1932,12 +1932,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   In a minimal RTP MIDI session description, the config value MUST be a
+   In a minimal RTP MIDI session description, the config value <em>MUST</em> be a
    hexadecimal encoding [<a href="./rfc3640.html" title="&quot;RTP Payload Format for Transport of MPEG-4 Elementary Streams&quot;">RFC3640</a>] of the AudioSpecificConfig data block
    [<a href="#ref-MPEGAUDIO" title="&quot;ISO 14496 MPEG- 4&quot;">MPEGAUDIO</a>] for the stream.  AudioSpecificConfig encodes the Audio
    Object Type for the stream and also encodes initialization data (SAOL
    programs, DLS 2 wave tables, etc.).  Standard MIDI Files encoded in
-   AudioSpecificConfig in a minimal session description MUST be ignored
+   AudioSpecificConfig in a minimal session description <em>MUST</em> be ignored
    by the receiver.
 
    Receivers determine the rendering algorithm for the session by
@@ -1973,7 +1973,7 @@ Table of Contents
    defaults, sendrecv MIDI channel usage, and MIDI 1.0 DIN multicast
    networks also apply to mpeg4-generic RTP MIDI sessions.
 
-   In sendrecv sessions, each party's session description MUST use
+   In sendrecv sessions, each party's session description <em>MUST</em> use
    identical values for the mpeg4-generic parameters (including the
    required streamtype, mode, profile-level-id, and config parameters).
    As a consequence, each party uses an identically configured MPEG 4
@@ -2129,7 +2129,7 @@ Table of Contents
    Finally, RTP MIDI has congestion control issues that are unique for
    an audio RTP payload format.  In applications such as network musical
    performance [<a href="#ref-NMP" title="&quot;A Case for Network Musical Performance&quot;">NMP</a>], the packet rate is linked to the gestural rate of
-   a human performer.  Senders MUST monitor the MIDI command source for
+   a human performer.  Senders <em>MUST</em> monitor the MIDI command source for
    patterns that result in excessive packet rates and take actions
    during RTP transcoding to reduce the RTP packet rate.  [<a href="./rfc4696.html" title="&quot;An Implementation Guide for RTP MIDI&quot;">RFC4696</a>]
    offers implementation guidance on this issue.
@@ -2147,7 +2147,7 @@ Table of Contents
    payload format.
 
    When using RTP MIDI, authentication of incoming RTP and RTCP packets
-   is RECOMMENDED.  Per-packet authentication may be provided by SRTP or
+   is <em>RECOMMENDED</em>.  Per-packet authentication may be provided by SRTP or
 
 
 
@@ -2162,7 +2162,7 @@ Table of Contents
    exploit known bugs in the client and take effective control of a
    client machine.
 
-   Session management tools (such as SIP [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>]) SHOULD use
+   Session management tools (such as SIP [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>]) <em>SHOULD</em> use
    authentication during the transport of all session descriptions
    containing RTP MIDI media streams.  For SIP, the Security
    Considerations section in [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>] provides an overview of possible
@@ -2177,7 +2177,7 @@ Table of Contents
    C.6.4.2) parameters.  If the coded URL is spoofed, both session and
    client are open to attack, even if the session description itself is
    authenticated.  Therefore, URLs specified in url and smf_url
-   parameters SHOULD use [<a href="./rfc2818.html" title="&quot;HTTP Over TLS&quot;">RFC2818</a>].
+   parameters <em>SHOULD</em> use [<a href="./rfc2818.html" title="&quot;HTTP Over TLS&quot;">RFC2818</a>].
 
    <a href="#section-2.1">Section 2.1</a> allows streams sent by a party in two RTP sessions to
    have the same SSRC value and the same RTP timestamp initialization
@@ -2418,7 +2418,7 @@ Table of Contents
 
       render:
 
-         Registrations for this repository MUST include a
+         Registrations for this repository <em>MUST</em> include a
          specification of the usage of the proposed value.
          See text in the preamble of <a href="#appendix-C.6">Appendix C.6</a> for details
          (the paragraph that begins "Other render token ...").
@@ -2445,7 +2445,7 @@ Table of Contents
 
       subrender:
 
-         Registrations for this repository MUST include a
+         Registrations for this repository <em>MUST</em> include a
          specification of the usage of the proposed value.
          See text <a href="#appendix-C.6.2">Appendix C.6.2</a> for details (the paragraph
          that begins "Other subrender token ...").
@@ -2456,7 +2456,7 @@ Table of Contents
 
       smf_info:
 
-         Registrations for this repository MUST include a
+         Registrations for this repository <em>MUST</em> include a
          specification of the usage of the proposed value.
          See text in <a href="#appendix-C.6.4.1">Appendix C.6.4.1</a> for details (the
          paragraph that begins "Other smf_info token ...").
@@ -2668,7 +2668,7 @@ Table of Contents
 
       render:
 
-         Registrations for this repository MUST include a
+         Registrations for this repository <em>MUST</em> include a
          specification of the usage of the proposed value.
          See text in the preamble of <a href="#appendix-C.6">Appendix C.6</a> for details
          (the paragraph that begins "Other render token ...").
@@ -2681,7 +2681,7 @@ Table of Contents
 
       subrender:
 
-         Registrations for this repository MUST include a
+         Registrations for this repository <em>MUST</em> include a
          specification of the usage of the proposed value.
          See text <a href="#appendix-C.6.2">Appendix C.6.2</a> for details (the paragraph
          that begins "Other subrender token ..." and
@@ -2696,7 +2696,7 @@ Table of Contents
 
       smf_info:
 
-         Registrations for this repository MUST include a
+         Registrations for this repository <em>MUST</em> include a
          specification of the usage of the proposed value.
          See text in <a href="#appendix-C.6.4.1">Appendix C.6.4.1</a> for details (the
          paragraph that begins "Other smf_info token ...").
@@ -2852,24 +2852,24 @@ Table of Contents
    help receivers efficiently parse through the recovery journal
    hierarchy in the common case of the loss of a single packet.
 
-   As a rule, S bits MUST be set to 1.  However, an exception applies if
+   As a rule, S bits <em>MUST</em> be set to 1.  However, an exception applies if
    a recovery journal element in packet I encodes data about a command
    stored in the MIDI command section of packet I - 1.  In this case,
-   the S bit of the recovery journal element MUST be set to 0.  If a
+   the S bit of the recovery journal element <em>MUST</em> be set to 0.  If a
    recovery journal element has its S bit set to 0, all higher-level
-   recovery journal elements that contain it MUST also have S bits that
+   recovery journal elements that contain it <em>MUST</em> also have S bits that
    are set to 0, including the top-level recovery journal header.
 
    Other consistent bitfield coding idioms are described below:
 
      o R flag bit.  R flag bits are reserved for future use.  Senders
-       MUST set R bits to 0.  Receivers MUST ignore R bit values.
+       <em>MUST</em> set R bits to 0.  Receivers <em>MUST</em> ignore R bit values.
 
      o LENGTH field.  All fields named LENGTH (as distinct from LEN)
        code the number of octets in the structure that contains it,
        including the header it resides in and all hierarchical levels
        below it.  If a structure contains a LENGTH field, a receiver
-       MUST use the LENGTH field value to advance past the structure
+       <em>MUST</em> use the LENGTH field value to advance past the structure
        during parsing, rather than use knowledge about the internal
        format of the structure.
 
@@ -2928,7 +2928,7 @@ Table of Contents
        0x00 0xF7), Turn DLS On (0xF0 0x7E 0xcc 0x0A 0x01 0xF7), and Turn
        DLS Off (0xF0 0x7E 0xcc 0x0A 0x02 0xF7).  Registrations of
        subrender parameter token values (Appendix C.6.2) and IETF
-       standards-track documents MAY specify additional RS commands.
+       standards-track documents <em>MAY</em> specify additional RS commands.
 
      o Active commands.  Active command are MIDI commands that do not
        appear before a Reset State command in the session history.
@@ -2959,12 +2959,12 @@ Table of Contents
        Below, we normatively define this rule:
 
        Elements associated with the most recent command in the session
-       history coded in the list MUST appear at the end of the list.
+       history coded in the list <em>MUST</em> appear at the end of the list.
 
        Elements associated with the oldest command in the session
-       history coded in the list MUST appear at the start of the list.
+       history coded in the list <em>MUST</em> appear at the start of the list.
 
-       All other list elements MUST be arranged with respect to these
+       All other list elements <em>MUST</em> be arranged with respect to these
        boundary elements, to produce a list ordering that strictly
        reflects the relative session history recency of the commands
        coded by the elements in the list.
@@ -3070,12 +3070,12 @@ Table of Contents
    ch_never, and ch_anchor parameters modify these definitions, as
    described in <a href="#appendix-C.2.3">Appendix C.2.3</a>.
 
-   The chapter definitions specify if data MUST be present in the
-   journal.  Senders MAY also include non-required data in the journal.
-   This optional data MUST comply with the normative chapter definition.
+   The chapter definitions specify if data <em>MUST</em> be present in the
+   journal.  Senders <em>MAY</em> also include non-required data in the journal.
+   This optional data <em>MUST</em> comply with the normative chapter definition.
    For example, if a chapter definition states that a field codes data
    from the most recent active command in the session history, the
-   sender MUST NOT code inactive commands or older commands in the
+   sender <em>MUST NOT</em> code inactive commands or older commands in the
    field.
 
    Finally, we note that a channel journal only encodes information
@@ -3085,7 +3085,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="appendix-A.2" href="#appendix-A.2">A.2</a>.  Chapter P: MIDI Program Change</span>
 
-   A channel journal MUST contain Chapter P if an active Program Change
+   A channel journal <em>MUST</em> contain Chapter P if an active Program Change
    (0xC) command appears in the checkpoint history.  Figure A.2.1 shows
    the format for Chapter P.
 
@@ -3108,25 +3108,25 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   fields MUST be set to 0.  Below, we define exceptions to this default
+   fields <em>MUST</em> be set to 0.  Below, we define exceptions to this default
    condition.
 
    If an active Control Change (0xB) command for controller number 0
    (Bank Select MSB) appears before the Program Change command in the
-   session history, the B bit MUST be set to 1, and the BANK-MSB field
-   MUST code the data value of the Control Change command.
+   session history, the B bit <em>MUST</em> be set to 1, and the BANK-MSB field
+   <em>MUST</em> code the data value of the Control Change command.
 
-   If B is set to 1, the BANK-LSB field MUST code the data value of the
+   If B is set to 1, the BANK-LSB field <em>MUST</em> code the data value of the
    most recent Control Change command for controller number 32 (Bank
    Select LSB) that preceded the Program Change command coded in the
    PROGRAM field and followed the Control Change command coded in the
    BANK-MSB field.  If no such Control Change command exists, the BANK-
-   LSB field MUST be set to 0.
+   LSB field <em>MUST</em> be set to 0.
 
    If B is set to 1, and if a Control Change command for controller
    number 121 (Reset All Controllers) appears in the MIDI stream between
    the Control Change command coded by the BANK-MSB field and the
-   Program Change command coded by the PROGRAM field, the X bit MUST be
+   Program Change command coded by the PROGRAM field, the X bit <em>MUST</em> be
    set to 1.
 
    Note that [<a href="#ref-RP015" title="&quot;Recommended Practice 015 (RP-015): Response to Reset All Controllers&quot;">RP015</a>] specifies that Reset All Controllers does not reset
@@ -3152,7 +3152,7 @@ Table of Contents
                        Figure A.3.1 -- Chapter C format
 
    The chapter consists of a 1-octet header, followed by a variable
-   length list of 2-octet controller logs.  The list MUST contain at
+   length list of 2-octet controller logs.  The list <em>MUST</em> contain at
    least one controller log.  The 7-bit LEN field codes the number of
    controller logs in the list, minus one.  We define the semantics of
    the controller log fields in <a href="#appendix-A.3.2">Appendix A.3.2</a>.
@@ -3164,7 +3164,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   A channel journal MUST contain Chapter C if the rules defined in this
+   A channel journal <em>MUST</em> contain Chapter C if the rules defined in this
    appendix require that one or more controller logs appear in the list.
 
 <span class="h4"><a class="selflink" name="appendix-A.3.1" href="#appendix-A.3.1">A.3.1</a>.  Log Inclusion Rules</span>
@@ -3172,12 +3172,12 @@ Table of Contents
    A controller log encodes information about a particular Control
    Change command in the session history.
 
-   In the default use of the payload format, list logs MUST encode
+   In the default use of the payload format, list logs <em>MUST</em> encode
    information about the most recent active command in the session
-   history for a controller number.  Logs encoding earlier commands MUST
+   history for a controller number.  Logs encoding earlier commands <em>MUST</em>
    NOT appear in the list.
 
-   Also, as a rule, the list MUST contain a log for the most recent
+   Also, as a rule, the list <em>MUST</em> contain a log for the most recent
    active command for a controller number that appears in the checkpoint
    history.  Below, we define exceptions to this rule:
 
@@ -3188,10 +3188,10 @@ Table of Contents
 
         If the most recent active Control Change command in the session
         history for a 14-bit controller pair uses the MSB number,
-        Chapter C MAY omit the controller log for the most recent active
+        Chapter C <em>MAY</em> omit the controller log for the most recent active
         Control Change command for the associated LSB number, as the
         command ordering makes this LSB value irrelevant.  However, this
-        exception MUST NOT be applied if the sender is not certain that
+        exception <em>MUST NOT</em> be applied if the sender is not certain that
         the MIDI source uses 14-bit semantics for the controller number
         pair.  Note that some MIDI sources ignore 14-bit controller
         semantics and use the LSB controller numbers as independent 7-
@@ -3201,7 +3201,7 @@ Table of Contents
         Select MSB) or 32 (Bank Select LSB) appear in the checkpoint
         history, and if the command instances are also coded in the
         BANK-MSB and BANK-LSB fields of the Chapter P (Appendix A.2),
-        Chapter C MAY omit the controller logs for the commands.
+        Chapter C <em>MAY</em> omit the controller logs for the commands.
 
      o  Several controller number pairs are defined to be mutually
         exclusive.  Controller numbers 124 (Omni Off) and 125 (Omni On)
@@ -3211,7 +3211,7 @@ Table of Contents
         If active Control Change commands for one or both members of a
         mutually exclusive pair appear in the checkpoint history, a log
         for the controller number of the most recent command for the
-        pair in the checkpoint history MUST appear in the controller
+        pair in the checkpoint history <em>MUST</em> appear in the controller
 
 
 
@@ -3220,33 +3220,33 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-        list.  However, the list MAY omit the controller log for the
+        list.  However, the list <em>MAY</em> omit the controller log for the
         most recent active command for the other number in the pair.
 
         If active Control Change commands for one or both members of a
         mutually exclusive pair appear in the session history, and if a
         log for the controller number of the most recent command for the
         pair does not appear in the controller list, a log for the most
-        recent command for the other number of the pair MUST NOT appear
+        recent command for the other number of the pair <em>MUST NOT</em> appear
         in the controller list.
 
      o  If an active Control Change command for controller number 121
         (Reset All Controllers) appears in the session history, the
-        controller list MAY omit logs for Control Change commands that
+        controller list <em>MAY</em> omit logs for Control Change commands that
         precede the Reset All Controllers command in the session
         history, under certain conditions.
 
-        Namely, a log MAY be omitted if the sender is certain that a
+        Namely, a log <em>MAY</em> be omitted if the sender is certain that a
         command stream follows the Reset All Controllers semantics
         defined in [<a href="#ref-RP015" title="&quot;Recommended Practice 015 (RP-015): Response to Reset All Controllers&quot;">RP015</a>], and if the log codes a controller number for
         which [<a href="#ref-RP015" title="&quot;Recommended Practice 015 (RP-015): Response to Reset All Controllers&quot;">RP015</a>] specifies a reset value.
 
         For example, [<a href="#ref-RP015" title="&quot;Recommended Practice 015 (RP-015): Response to Reset All Controllers&quot;">RP015</a>] specifies that controller number 1
         (Modulation Wheel) is reset to the value 0, and thus a
-        controller log for Modulation Wheel MAY be omitted from the
+        controller log for Modulation Wheel <em>MAY</em> be omitted from the
         controller log list.  In contrast, [<a href="#ref-RP015" title="&quot;Recommended Practice 015 (RP-015): Response to Reset All Controllers&quot;">RP015</a>] specifies that
         controller number 7 (Channel Volume) is not reset, and thus a
-        controller log for Channel Volume MUST NOT be omitted from the
+        controller log for Channel Volume <em>MUST NOT</em> be omitted from the
         controller log list.
 
      o  <a href="#appendix-A.3.4">Appendix A.3.4</a> defines exception rules for the MIDI Parameter
@@ -3354,24 +3354,24 @@ Table of Contents
    the Chapter C log list.
 
    A log encodes information about a particular Control Change command
-   in the session history.  In most cases, a command SHOULD be coded by
+   in the session history.  In most cases, a command <em>SHOULD</em> be coded by
    a single tool (and, thus, a single log).  If a number is coded with a
    single tool and this tool is the count tool, recovery Control Change
-   commands generated by a receiver SHOULD use the default control value
+   commands generated by a receiver <em>SHOULD</em> use the default control value
    for the controller.
 
-   However, a command MAY be coded by several tool types (and, thus,
+   However, a command <em>MAY</em> be coded by several tool types (and, thus,
    several logs, each using a different tool).  This technique may
    improve recovery performance for controllers with complex semantics,
    such as controller number 84 (Portamento Control) or controller
    number 121 (Reset All Controllers) when used with a non-zero data
    octet (with the semantics described in [<a href="#ref-DLS2" title="&quot;The MIDI Downloadable Sounds Specification&quot;">DLS2</a>]).
 
-   If a command is encoded by multiple tools, the logs MUST be placed in
+   If a command is encoded by multiple tools, the logs <em>MUST</em> be placed in
    the list in the following order: count tool log (if any), followed by
    value tool log (if any), followed by toggle tool log (if any).
 
-   The Chapter C log list MUST obey the oldest-first ordering rule
+   The Chapter C log list <em>MUST</em> obey the oldest-first ordering rule
    (defined in <a href="#appendix-A.1">Appendix A.1</a>).  Note that this ordering preserves the
    information necessary for the recovery of 14-bit controller values,
    without precluding the use of MSB and LSB controller pairs as
@@ -3426,14 +3426,14 @@ Table of Contents
    enhanced encoding method.
 
    Senders that use the enhanced encoding method for a controller number
-   MUST obey the rules below.  These rules let a receiver determine
+   <em>MUST</em> obey the rules below.  These rules let a receiver determine
    which logs in the list correspond to lost commands.  Note that these
    rules override the exceptions listed in <a href="#appendix-A.3.1">Appendix A.3.1</a>.
 
      o  If N commands for a controller number are encoded in the list,
-        the commands MUST be the N most recent commands for the
+        the commands <em>MUST</em> be the N most recent commands for the
         controller number in the session history.  For example, for N =
-        2, the sender MUST encode the most recent command and the second
+        2, the sender <em>MUST</em> encode the most recent command and the second
         most recent command, not the most recent command and the third
         most recent command.
 
@@ -3446,27 +3446,27 @@ Table of Contents
 
      o  If a controller number uses enhanced encoding, the encoding of
         the least-recent command for the controller number in the log
-        list MUST include a count tool log.  In addition, if commands
+        list <em>MUST</em> include a count tool log.  In addition, if commands
         are encoded for the controller number whose logs have S bits set
         to 0, the encoding of the least-recent command with S = 0 logs
-        MUST include a count tool log.
+        <em>MUST</em> include a count tool log.
 
-        The count tool is OPTIONAL for the other commands for the
+        The count tool is <em>OPTIONAL</em> for the other commands for the
         controller number encoded in the list, as a receiver is able to
         efficiently deduce the count tool value for these commands, for
         both single-packet and multi-packet loss events.
 
-     o  The use of the value and toggle tools MUST be identical for all
+     o  The use of the value and toggle tools <em>MUST</em> be identical for all
         commands for a controller number encoded in the list.  For
-        example, a value tool log either MUST appear for all commands
+        example, a value tool log either <em>MUST</em> appear for all commands
         for the controller number coded in the list, or alternatively,
-        value tool logs for the controller number MUST NOT appear in the
-        list.  Likewise, a toggle tool log either MUST appear for all
+        value tool logs for the controller number <em>MUST NOT</em> appear in the
+        list.  Likewise, a toggle tool log either <em>MUST</em> appear for all
         commands for the controller number coded in the list, or
-        alternatively, toggle tool logs for the controller number MUST
+        alternatively, toggle tool logs for the controller number <em>MUST</em>
         NOT appear in the list.
 
-     o  If a command is encoded by multiple tools, the logs MUST be
+     o  If a command is encoded by multiple tools, the logs <em>MUST</em> be
         placed in the list in the following order: count tool log (if
         any), followed by value tool log (if any), followed by toggle
         tool log (if any).
@@ -3557,13 +3557,13 @@ Table of Contents
 
 
    Control Change commands that are a part of a parameter system
-   transaction MUST NOT be coded in Chapter C controller logs.  Instead,
+   transaction <em>MUST NOT</em> be coded in Chapter C controller logs.  Instead,
    these commands are coded in Chapter M, the MIDI Parameter chapter
    defined in <a href="#appendix-A.4">Appendix A.4</a>.
 
    However, Control Change commands that use the listed controllers as
    general-purpose controllers (i.e., outside of a parameter system
-   transaction) MUST NOT be coded in Chapter M.
+   transaction) <em>MUST NOT</em> be coded in Chapter M.
 
    Instead, the controllers are coded in Chapter C controller logs.  The
    controller logs follow the coding rules stated in <a href="#appendix-A.3.2">Appendix A.3.2</a> and
@@ -3574,14 +3574,14 @@ Table of Contents
    If active Control Change commands for controller numbers 6, 38, or
    96-101 appear in the checkpoint history, and these commands are used
    as general-purpose controllers, the most recent general-purpose
-   command instance for these controller numbers MUST appear as entries
+   command instance for these controller numbers <em>MUST</em> appear as entries
    in the Chapter C controller list.
 
    MIDI syntax permits a source to use controllers 6, 38, 96, and 97 as
    parameter-system controllers and general-purpose controllers in the
-   same stream.  An RTP MIDI sender MUST deduce the role of each Control
+   same stream.  An RTP MIDI sender <em>MUST</em> deduce the role of each Control
    Change command for these controller numbers by noting the placement
-   of the command in the stream and MUST use this information to code
+   of the command in the stream and <em>MUST</em> use this information to code
    the command in Chapter C or Chapter M, as appropriate.
 
    Specifically, active Control Change commands for controllers 6, 38,
@@ -3615,7 +3615,7 @@ Table of Contents
    In the language of [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>], the general-purpose use of controllers
    98-101 constitutes a non-standard controller assignment.  As most
    real-world MIDI sources use the standard controller assignment for
-   controller numbers 98-101, an RTP MIDI sender SHOULD assume these
+   controller numbers 98-101, an RTP MIDI sender <em>SHOULD</em> assume these
    controllers act as parameter system controllers, unless it knows that
    a MIDI source uses controller numbers 98-101 in a general-purpose
    way.
@@ -3650,11 +3650,11 @@ Table of Contents
    logs.  <a href="#appendix-A.4.2">Appendix A.4.2</a> defines the bitfield format of a parameter log.
    <a href="#appendix-A.4.1">Appendix A.4.1</a> defines the inclusion semantics of the log list.
 
-   A channel journal MUST contain Chapter M if the rules defined in
+   A channel journal <em>MUST</em> contain Chapter M if the rules defined in
    <a href="#appendix-A.4.1">Appendix A.4.1</a> require that one or more parameter logs appear in the
    list.
 
-   A channel journal also MUST contain Chapter M if the most recent
+   A channel journal also <em>MUST</em> contain Chapter M if the most recent
    C-active Control Change command involved in a parameter system
    transaction in the checkpoint history is
 
@@ -3676,43 +3676,43 @@ Table of Contents
 
    If the most recent C-active Control Change command involved in a
    parameter system transaction in the session history is for the RPN
-   MSB or NRPN MSB controller, the P header bit MUST be set to 1, and
-   the PENDING field (and its associated Q bit) MUST follow the Chapter
-   M header.  Otherwise, the P header bit MUST be set to 0, and the
-   PENDING field and Q bit MUST NOT appear in Chapter M.
+   MSB or NRPN MSB controller, the P header bit <em>MUST</em> be set to 1, and
+   the PENDING field (and its associated Q bit) <em>MUST</em> follow the Chapter
+   M header.  Otherwise, the P header bit <em>MUST</em> be set to 0, and the
+   PENDING field and Q bit <em>MUST NOT</em> appear in Chapter M.
 
-   If PENDING codes an NRPN MSB, the Q bit MUST be set to 1.  If PENDING
-   codes an RPN MSB, the Q bit MUST be set to 0.
+   If PENDING codes an NRPN MSB, the Q bit <em>MUST</em> be set to 1.  If PENDING
+   codes an RPN MSB, the Q bit <em>MUST</em> be set to 0.
 
    The E header bit codes the current transaction state of the MIDI
    stream.  If E = 1, an initiated transaction is in progress.  Below,
    we define the rules for setting the E header bit:
 
      o  If no C-active parameter system transaction Control Change
-        commands appear in the session history, the E bit MUST be set to
+        commands appear in the session history, the E bit <em>MUST</em> be set to
         0.
 
-     o  If the P header bit is set to 1, the E bit MUST be set to 0.
+     o  If the P header bit is set to 1, the E bit <em>MUST</em> be set to 0.
 
      o  If the most recent C-active parameter system transaction Control
         Change command in the session history is for the NRPN LSB or RPN
         LSB controller number, and if this command acts to complete the
         coding of the null parameter (MSB value 0x7F, LSB value 0x7F),
-        the E bit MUST be set to 0.
+        the E bit <em>MUST</em> be set to 0.
 
      o  Otherwise, an initiated transaction is in progress, and the E
-        bit MUST be set to 1.
+        bit <em>MUST</em> be set to 1.
 
    The U, W, and Z header bits code properties that are shared by all
    parameter logs in the list.  If these properties are set, parameter
    logs may be coded with improved efficiency (we explain how in A.4.1).
 
-   By default, the U, W, and Z bits MUST be set to 0.  If all parameter
-   logs in the list code RPN parameters, the U bit MAY be set to 1.  If
-   all parameter logs in the list code NRPN parameters, the W bit MAY be
+   By default, the U, W, and Z bits <em>MUST</em> be set to 0.  If all parameter
+   logs in the list code RPN parameters, the U bit <em>MAY</em> be set to 1.  If
+   all parameter logs in the list code NRPN parameters, the W bit <em>MAY</em> be
    set to 1.  If the parameter numbers of all RPN and NRPN logs in the
    list lie in the range 0-127 (and thus have an MSB value of 0), the Z
-   bit MAY be set to 1.
+   bit <em>MAY</em> be set to 1.
 
 
 
@@ -3734,29 +3734,29 @@ Table of Contents
    Parameter logs code recovery information for a specific RPN or NRPN
    parameter.
 
-   A parameter log MUST appear in the list if an active Control Change
+   A parameter log <em>MUST</em> appear in the list if an active Control Change
    command that forms a part of an initiated transaction for the
    parameter appears in the checkpoint history.
 
    An exception to this rule applies if the checkpoint history only
    contains transaction Control Change commands for controller numbers
    98-101 that act to terminate the transaction.  In this case, a log
-   for the parameter MAY be omitted from the list.
+   for the parameter <em>MAY</em> be omitted from the list.
 
-   A log MAY appear in the list if an active Control Change command that
+   A log <em>MAY</em> appear in the list if an active Control Change command that
    forms a part of an initiated transaction for the parameter appears in
-   the session history.  Otherwise, a log for the parameter MUST NOT
+   the session history.  Otherwise, a log for the parameter <em>MUST NOT</em>
    appear in the list.
 
-   Multiple logs for the same RPN or NRPN parameter MUST NOT appear in
+   Multiple logs for the same RPN or NRPN parameter <em>MUST NOT</em> appear in
    the log list.
 
-   The parameter log list MUST obey the oldest-first ordering rule
+   The parameter log list <em>MUST</em> obey the oldest-first ordering rule
    (defined in <a href="#appendix-A.1">Appendix A.1</a>), with the phrase "parameter transaction"
    replacing the word "command" in the rule definition.
 
    Parameter logs associated with the RPN or NRPN null parameter (LSB =
-   0x7F, MSB = 0x7F) MUST NOT appear in the log list.  Chapter M uses
+   0x7F, MSB = 0x7F) <em>MUST NOT</em> appear in the log list.  Chapter M uses
    the E header bit (Figure A.4.1) and the log list ordering rules to
    code null parameter semantics.
 
@@ -3781,7 +3781,7 @@ Table of Contents
 
 
    In most cases, parameter logs for RPN and NRPN parameters that are
-   assigned to the ch_never parameter (Appendix C.2.3) MAY be omitted
+   assigned to the ch_never parameter (Appendix C.2.3) <em>MAY</em> be omitted
    from the list.  An exception applies if
 
      o  the log codes the most recent initiated transaction in the
@@ -3793,7 +3793,7 @@ Table of Contents
      o  the E header bit for the top-level Chapter M header (Figure
         A.4.1) is set to 1.
 
-   In this case, a log for the parameter MUST appear in the list.  This
+   In this case, a log for the parameter <em>MUST</em> appear in the list.  This
    log informs receivers recovering from a loss that a transaction is in
    progress, so that the receiver is able to correctly interpret RPN or
    NRPN Control Change commands that follow the loss event.
@@ -3837,17 +3837,17 @@ Table of Contents
 
 
    If the rules in <a href="#appendix-A.4.1">Appendix A.4.1</a> state that a log for a given parameter
-   MUST appear in Chapter M, the log MUST code sufficient information to
+   <em>MUST</em> appear in Chapter M, the log <em>MUST</em> code sufficient information to
    protect the parameter from the loss of active parameter transaction
    Control Change commands in the checkpoint history.
 
    This rule does not apply if the parameter coded by the log is
    assigned to the ch_never parameter (Appendix C.2.3).  In this case,
-   senders MAY choose to set the J, K, L, M, and N TOC bits to 0, coding
+   senders <em>MAY</em> choose to set the J, K, L, M, and N TOC bits to 0, coding
    a parameter log with no fields.
 
    Note that logs to protect parameters that are assigned to ch_never
-   are REQUIRED under certain conditions (see <a href="#appendix-A.4.1">Appendix A.4.1</a>).  The
+   are <em>REQUIRED</em> under certain conditions (see <a href="#appendix-A.4.1">Appendix A.4.1</a>).  The
    purpose of the log is to inform receivers recovering from a loss that
    a transaction is in progress, so that the receiver is able to
    correctly interpret RPN or NRPN Control Change commands that follow
@@ -3860,17 +3860,17 @@ Table of Contents
 
    The value tool codes information a receiver may use to determine the
    current value of an RPN or NRPN parameter.  If a parameter log uses
-   the value tool, the V header bit MUST be set to 1, and the semantics
+   the value tool, the V header bit <em>MUST</em> be set to 1, and the semantics
    defined in Appendices A.4.2.1 for setting the J, K, L, and M TOC bits
-   MUST be followed.  If a parameter log does not use the value tool,
-   the V bit MUST be set to 0, and the J, K, L, and M TOC bits MUST also
+   <em>MUST</em> be followed.  If a parameter log does not use the value tool,
+   the V bit <em>MUST</em> be set to 0, and the J, K, L, and M TOC bits <em>MUST</em> also
    be set to 0.
 
    The count tool codes the number of transactions for an RPN or NRPN
    parameter.  If a parameter log uses the count tool, the T header bit
-   MUST be set to 1, and the semantics defined in Appendices A.4.2.2 for
-   setting the N TOC bit MUST be followed.  If a parameter log does not
-   use the count tool, the T bit and the N TOC bit MUST be set to 0.
+   <em>MUST</em> be set to 1, and the semantics defined in Appendices A.4.2.2 for
+   setting the N TOC bit <em>MUST</em> be followed.  If a parameter log does not
+   use the count tool, the T bit and the N TOC bit <em>MUST</em> be set to 0.
 
    Note that V and T are set if the sender uses value (V) or count (T)
    tool for the log on an ongoing basis.  Thus, V may be set even if J =
@@ -3878,7 +3878,7 @@ Table of Contents
 
    In many cases, all parameters coded in the log list are of one type
    (RPN and NRPN), and all parameter numbers lie in the range 0-127.  As
-   described in <a href="#appendix-A.4.1">Appendix A.4.1</a>, senders MAY signal this condition by
+   described in <a href="#appendix-A.4.1">Appendix A.4.1</a>, senders <em>MAY</em> signal this condition by
    setting the top-level Chapter M header bit Z to 1 (to code the
    restricted range) and by setting the U or W bit to 1 (to code the
    parameter type).
@@ -3893,7 +3893,7 @@ Table of Contents
 
 
    If the top-level Chapter M header codes Z = 1 and either U = 1 or
-   W = 1, all logs in the parameter log list MUST use a modified header
+   W = 1, all logs in the parameter log list <em>MUST</em> use a modified header
    format.  This modification deletes bits 8-15 of the bitfield shown in
    Figure A.4.2, to yield a 2-octet header.  The values of the deleted
    PNUM-MSB and Q fields may be inferred from the U, W, and Z bit
@@ -3920,12 +3920,12 @@ Table of Contents
    MSB) in the session history that appears in a transaction for the log
    parameter.
 
-   The X bit MUST be set to 1 if the command coded by ENTRY-MSB precedes
+   The X bit <em>MUST</em> be set to 1 if the command coded by ENTRY-MSB precedes
    the most recent Control Change command for controller 121 (Reset All
-   Controllers) in the session history.  Otherwise, the X bit MUST be
+   Controllers) in the session history.  Otherwise, the X bit <em>MUST</em> be
    set to 0.
 
-   A parameter log that uses the value tool MUST include the ENTRY-MSB
+   A parameter log that uses the value tool <em>MUST</em> include the ENTRY-MSB
    field if an active Control Change command for controller number 6
    appears in the checkpoint history.
 
@@ -3964,15 +3964,15 @@ Table of Contents
    LSB) in the session history that appears in a transaction for the log
    parameter.
 
-   The X bit MUST be set to 1 if the command coded by ENTRY-LSB precedes
+   The X bit <em>MUST</em> be set to 1 if the command coded by ENTRY-LSB precedes
    the most recent Control Change command for controller 121 (Reset All
-   Controllers) in the session history.  Otherwise, the X bit MUST be
+   Controllers) in the session history.  Otherwise, the X bit <em>MUST</em> be
    set to 0.
 
-   As a rule, a parameter log that uses the value tool MUST include the
+   As a rule, a parameter log that uses the value tool <em>MUST</em> include the
    ENTRY-LSB field if an active Control Change command for controller
    number 38 appears in the checkpoint history.  However, the ENTRY-LSB
-   field MUST NOT appear in a parameter log if the Control Change
+   field <em>MUST NOT</em> appear in a parameter log if the Control Change
    command associated with the ENTRY-LSB precedes a Control Change
    command for controller number 6 (Data Entry MSB) that appears in a
    transaction for the log parameter in the session history.
@@ -4039,10 +4039,10 @@ Table of Contents
    For the A-BUTTON field, if the most recent qualified Data Increment
    or Data Decrement command precedes the most recent Control Change
    command for controller 121 (Reset All Controllers) in the session
-   history, the X bit associated with A-BUTTON field MUST be set to 1.
-   Otherwise, the X bit MUST be set to 0.
+   history, the X bit associated with A-BUTTON field <em>MUST</em> be set to 1.
+   Otherwise, the X bit <em>MUST</em> be set to 0.
 
-   A parameter log that uses the value tool MUST include the A-BUTTON
+   A parameter log that uses the value tool <em>MUST</em> include the A-BUTTON
    and C-BUTTON fields if an active Control Change command for
    controller numbers 96 or 97 appears in the checkpoint history.
    However, to improve coding efficiency, this rule has several
@@ -4050,7 +4050,7 @@ Table of Contents
 
      o  If the log includes the A-BUTTON field, and if the X bit of the
         A-BUTTON field is set to 1, the C-BUTTON field (and its
-        associated R and G bits) MAY be omitted from the log.
+        associated R and G bits) <em>MAY</em> be omitted from the log.
 
 
 
@@ -4062,7 +4062,7 @@ Table of Contents
 
      o  If the log includes the A-BUTTON field, and if the A-BUTTON and
         C-BUTTON fields (and their associated G bits) code identical
-        values, the C-BUTTON field (and its associated R and G bits) MAY
+        values, the C-BUTTON field (and its associated R and G bits) <em>MAY</em>
         be omitted from the log.
 
 <span class="h5"><a class="selflink" name="appendix-A.4.2.2" href="#appendix-A.4.2.2">A.4.2.2</a>.  The Count Tool</span>
@@ -4087,14 +4087,14 @@ Table of Contents
 
    If the most recent counted transaction precedes the most recent
    Control Change command for controller 121 (Reset All Controllers) in
-   the session history, the X bit associated with the COUNT field MUST
-   be set to 1.  Otherwise, the X bit MUST be set to 0.
+   the session history, the X bit associated with the COUNT field <em>MUST</em>
+   be set to 1.  Otherwise, the X bit <em>MUST</em> be set to 0.
 
    Transaction counting is performed modulo 128.  The transaction count
    is set to 0 at the start of a session and is reset to 0 whenever a
    Reset State command (Appendix A.1) appears in the session history.
 
-   A parameter log that uses the count tool MUST include the COUNT field
+   A parameter log that uses the count tool <em>MUST</em> include the COUNT field
    if an active command that increments the transaction count (modulo
    128) appears in the checkpoint history.
 
@@ -4118,7 +4118,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="appendix-A.5" href="#appendix-A.5">A.5</a>.  Chapter W: MIDI Pitch Wheel</span>
 
-   A channel journal MUST contain Chapter W if a C-active MIDI Pitch
+   A channel journal <em>MUST</em> contain Chapter W if a C-active MIDI Pitch
    Wheel (0xE) command appears in the checkpoint history.  Figure A.5.1
    shows the format for Chapter W.
 
@@ -4158,7 +4158,7 @@ Table of Contents
    may appear for a note number.  Chapter E, described in <a href="#appendix-A.7">Appendix A.7</a>,
    augments Chapter N to completely protect these streams.
 
-   A channel journal MUST contain Chapter N if an N-active MIDI NoteOn
+   A channel journal <em>MUST</em> contain Chapter N if an N-active MIDI NoteOn
    (0x9) or NoteOff (0x8) command appears in the checkpoint history.
    Figure A.6.1 shows the format for Chapter N.
 
@@ -4195,22 +4195,22 @@ Table of Contents
    <a href="#appendix-A.6.2">A.6.2</a>.
 
    If one or more N-active NoteOn or NoteOff commands in the checkpoint
-   history reference a note number, the note number MUST be coded in
+   history reference a note number, the note number <em>MUST</em> be coded in
    either the note log list or the NoteOff bitfield structure.
 
-   The note log list MUST contain an entry for all note numbers whose
+   The note log list <em>MUST</em> contain an entry for all note numbers whose
    most recent checkpoint history appearance is in an N-active NoteOn
-   command.  The NoteOff bitfield structure MUST contain a set bit for
+   command.  The NoteOff bitfield structure <em>MUST</em> contain a set bit for
    all note numbers whose most recent checkpoint history appearance is
    in an N-active NoteOff command.
 
-   A note number MUST NOT be coded in both structures.
+   A note number <em>MUST NOT</em> be coded in both structures.
 
-   All note logs and NoteOff bitfield set bits MUST code the most recent
+   All note logs and NoteOff bitfield set bits <em>MUST</em> code the most recent
    N-active NoteOn or NoteOff reference to a note number in the session
    history.
 
-   The note log list MUST obey the oldest-first ordering rule (defined
+   The note log list <em>MUST</em> obey the oldest-first ordering rule (defined
    in <a href="#appendix-A.1">Appendix A.1</a>).
 
 
@@ -4250,16 +4250,16 @@ Table of Contents
    If LOW &lt;= HIGH, there are (HIGH - LOW + 1) OFFBITS octets in the
    chapter.  The value pairs (LOW = 15, HIGH = 0) and (LOW = 15, HIGH =
    1) code an empty NoteOff bitfield structure (i.e., no OFFBITS
-   octets).  Other (LOW &gt; HIGH) value pairs MUST NOT appear in the
+   octets).  Other (LOW &gt; HIGH) value pairs <em>MUST NOT</em> appear in the
    header.
 
    The B bit provides S-bit functionality (Appendix A.1) for the NoteOff
-   bitfield structure.  By default, the B bit MUST be set to 1.
+   bitfield structure.  By default, the B bit <em>MUST</em> be set to 1.
    However, if the MIDI command section of the previous packet (packet I
    - 1, with I as defined in <a href="#appendix-A.1">Appendix A.1</a>) includes a NoteOff command
-   for the channel, the B bit MUST be set to 0.  If the B bit is set to
+   for the channel, the B bit <em>MUST</em> be set to 0.  If the B bit is set to
    0, the higher-level recovery journal elements that contain Chapter N
-   MUST have S bits that are set to 0, including the top-level journal
+   <em>MUST</em> have S bits that are set to 0, including the top-level journal
    header.
 
    The LEN value of 127 codes a note list length of 127 or 128 note
@@ -4297,7 +4297,7 @@ Table of Contents
                      Figure A.6.3 -- Chapter N note log
 
    The 7-bit NOTENUM field codes the note number for the log.  A note
-   number MUST NOT be represented by multiple note logs in the note
+   number <em>MUST NOT</em> be represented by multiple note logs in the note
    list.
 
    The 7-bit VELOCITY field codes the velocity value for the most recent
@@ -4342,7 +4342,7 @@ Table of Contents
 
    from the history of the stream and thus determine if a NoteOff note
    is sustained by the pedal.  If such a determination is not possible,
-   receivers SHOULD err on the side of silencing pedal sustains, as
+   receivers <em>SHOULD</em> err on the side of silencing pedal sustains, as
    erroneously sustained notes may produce unpleasant (albeit transient)
    artifacts.
 
@@ -4378,11 +4378,11 @@ Table of Contents
    length list of 2-octet note logs.  <a href="#appendix-A.7.1">Appendix A.7.1</a> defines the
    bitfield format for a note log.
 
-   The log list MUST contain at least one note log.  The 7-bit LEN
+   The log list <em>MUST</em> contain at least one note log.  The 7-bit LEN
    header field codes the number of note logs in the list, minus one.  A
-   channel journal MUST contain Chapter E if the rules defined in this
+   channel journal <em>MUST</em> contain Chapter E if the rules defined in this
    appendix require that one or more note logs appear in the list.  The
-   note log list MUST obey the oldest-first ordering rule (defined in
+   note log list <em>MUST</em> obey the oldest-first ordering rule (defined in
    <a href="#appendix-A.1">Appendix A.1</a>).
 
 
@@ -4439,7 +4439,7 @@ Table of Contents
 
    If the most recent N-active NoteOn or NoteOff command for a note
    number in the checkpoint history is a NoteOff command with a release
-   velocity value other than 64, a note log whose V bit is set to 1 MUST
+   velocity value other than 64, a note log whose V bit is set to 1 <em>MUST</em>
    appear in Chapter E for the note number.
 
    If the most recent N-active NoteOn or NoteOff command for a note
@@ -4453,31 +4453,31 @@ Table of Contents
 
 
    reference count for the note number is greater than 0, a note log
-   whose V bit is set to 0 MUST appear in Chapter E for the note number.
+   whose V bit is set to 0 <em>MUST</em> appear in Chapter E for the note number.
 
    If the most recent N-active NoteOn or NoteOff command for a note
    number in the checkpoint history is a NoteOn command, and if the
    reference count for the note number is greater than 1, a note log
-   whose V bit is set to 0 MUST appear in Chapter E for the note number.
+   whose V bit is set to 0 <em>MUST</em> appear in Chapter E for the note number.
 
-   At most, two note logs MAY appear in Chapter E for a note number: one
+   At most, two note logs <em>MAY</em> appear in Chapter E for a note number: one
    log whose V bit is set to 0, and one log whose V bit is set to 1.
 
    Chapter E codes a maximum of 128 note logs.  If the log inclusion
-   rules yield more than 128 REQUIRED logs, note logs whose V bit is set
-   to 1 MUST be dropped from Chapter E in order to reach the 128-log
-   limit.  Note logs whose V bit is set to 0 MUST NOT be dropped.
+   rules yield more than 128 <em>REQUIRED</em> logs, note logs whose V bit is set
+   to 1 <em>MUST</em> be dropped from Chapter E in order to reach the 128-log
+   limit.  Note logs whose V bit is set to 0 <em>MUST NOT</em> be dropped.
 
    Most MIDI streams do not use NoteOn and NoteOff commands in ways that
    would trigger the log inclusion rules.  For these streams, Chapter E
-   would never be REQUIRED to appear in a channel journal.
+   would never be <em>REQUIRED</em> to appear in a channel journal.
 
    The ch_never parameter (Appendix C.2.3) may be used to configure the
    log inclusion rules for Chapter E.
 
 <span class="h3"><a class="selflink" name="appendix-A.8" href="#appendix-A.8">A.8</a>.  Chapter T: MIDI Channel Aftertouch</span>
 
-   A channel journal MUST contain Chapter T if an N-active and C-active
+   A channel journal <em>MUST</em> contain Chapter T if an N-active and C-active
    MIDI Channel Aftertouch (0xD) command appears in the checkpoint
    history.  Figure A.8.1 shows the format for Chapter T.
 
@@ -4515,7 +4515,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="appendix-A.9" href="#appendix-A.9">A.9</a>.  Chapter A: MIDI Poly Aftertouch</span>
 
-   A channel journal MUST contain Chapter A if a C-active Poly
+   A channel journal <em>MUST</em> contain Chapter A if a C-active Poly
    Aftertouch (0xA) command appears in the checkpoint history.  Figure
    A.9.1 shows the format for Chapter A.
 
@@ -4530,11 +4530,11 @@ Table of Contents
                        Figure A.9.1 -- Chapter A format
 
    The chapter consists of a 1-octet header, followed by a variable-
-   length list of 2-octet note logs.  A note log MUST appear for a note
+   length list of 2-octet note logs.  A note log <em>MUST</em> appear for a note
    number if a C-active Poly Aftertouch command for the note number
-   appears in the checkpoint history.  A note number MUST NOT be
+   appears in the checkpoint history.  A note number <em>MUST NOT</em> be
    represented by multiple note logs in the note list.  The note log
-   list MUST obey the oldest-first ordering rule (defined in <a href="#appendix-A.1">Appendix</a>
+   list <em>MUST</em> obey the oldest-first ordering rule (defined in <a href="#appendix-A.1">Appendix</a>
    <a href="#appendix-A.1">A.1</a>).
 
    The 7-bit LEN field codes the number of note logs in the list, minus
@@ -4552,7 +4552,7 @@ Table of Contents
    C-active Poly Aftertouch command in the session history for the MIDI
    note number coded in the 7-bit NOTENUM field.
 
-   As a rule, the X bit MUST be set to 0.  However, the X bit MUST be
+   As a rule, the X bit <em>MUST</em> be set to 0.  However, the X bit <em>MUST</em> be
    set to 1 if the command coded by the log appears before one of the
    following commands in the session history: MIDI Control Change
 
@@ -4576,7 +4576,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="appendix-B.1" href="#appendix-B.1">B.1</a>.  System Chapter D: Simple System Commands</span>
 
-   The system journal MUST contain Chapter D if an active MIDI Reset
+   The system journal <em>MUST</em> contain Chapter D if an active MIDI Reset
    (0xFF), MIDI Tune Request (0xF6), MIDI Song Select (0xF3), undefined
    MIDI System Common (0xF4 and 0xF5), or undefined MIDI System Real-
    time (0xF9 and 0xFD) command appears in the checkpoint history.
@@ -4620,12 +4620,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   Chapter D MUST contain the Reset command log if an active Reset
+   Chapter D <em>MUST</em> contain the Reset command log if an active Reset
    command appears in the checkpoint history.  The 7-bit COUNT field
    codes the total number of Reset commands (modulo 128) present in the
    session history.
 
-   Chapter D MUST contain the Tune Request command log if an active Tune
+   Chapter D <em>MUST</em> contain the Tune Request command log if an active Tune
    Request command appears in the checkpoint history.  The 7-bit COUNT
    field codes the total number of Tune Request commands (modulo 128)
    present in the session history.
@@ -4645,7 +4645,7 @@ Table of Contents
 
                  Figure B.1.3 -- Song Select command log format
 
-   Chapter D MUST contain the Song Select command log if an active Song
+   Chapter D <em>MUST</em> contain the Song Select command log if an active Song
    Select command appears in the checkpoint history.  The 7-bit VALUE
    field codes the song number of the most recent active Song Select
    command in the session history.
@@ -4690,8 +4690,8 @@ Table of Contents
           Figure B.1.4 -- Undefined System Common command log format
 
    The command log codes a single command type (0xF4 or 0xF5, not both).
-   Chapter D MUST contain a command log if an active 0xF4 command
-   appears in the checkpoint history and MUST contain an independent
+   Chapter D <em>MUST</em> contain a command log if an active 0xF4 command
+   appears in the checkpoint history and <em>MUST</em> contain an independent
    command log if an active 0xF5 command appears in the checkpoint
    history.
 
@@ -4710,17 +4710,17 @@ Table of Contents
    LEGAL fields.  The session configuration tools defined in <a href="#appendix-C.2.3">Appendix</a>
    <a href="#appendix-C.2.3">C.2.3</a> may be used to override this behavior.
 
-   By default, if the DSZ field is set to 0, the command log MUST
+   By default, if the DSZ field is set to 0, the command log <em>MUST</em>
    include the COUNT field.  The 8-bit COUNT field codes the total
    number of commands of the type coded by the log (0xF4 or 0xF5)
    present in the session history, modulo 256.
 
-   By default, if the DSZ field is set to 1-3, the command log MUST
+   By default, if the DSZ field is set to 1-3, the command log <em>MUST</em>
    include the VALUE field.  The variable-length VALUE field codes a
    verbatim copy the data octets for the most recent use of the command
    type coded by the log (0xF4 or 0xF5) in the session history.  The
-   most-significant bit of the final data octet MUST be set to 1, and
-   the most-significant bit of all other data octets MUST be set to 0.
+   most-significant bit of the final data octet <em>MUST</em> be set to 1, and
+   the most-significant bit of all other data octets <em>MUST</em> be set to 0.
 
 
 
@@ -4735,7 +4735,7 @@ Table of Contents
    The LEGAL field is reserved for future use.  If an update to [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]
    defines the 0xF4 or 0xF5 command, an IETF standards-track document
    may define the LEGAL field.  Until such a document appears, senders
-   MUST NOT use the LEGAL field, and receivers MUST use the LENGTH field
+   <em>MUST NOT</em> use the LEGAL field, and receivers <em>MUST</em> use the LENGTH field
    to skip over the LEGAL field.  The LEGAL field would be defined by
    the IETF if the semantics of the new 0xF4 or 0xF5 command could not
    be protected from packet loss via the use of the COUNT and VALUE
@@ -4753,8 +4753,8 @@ Table of Contents
         Figure B.1.5 -- Undefined System Real-time command log format
 
    The command log codes a single command type (0xF9 or 0xFD, not both).
-   Chapter D MUST contain a command log if an active 0xF9 command
-   appears in the checkpoint history and MUST contain an independent
+   Chapter D <em>MUST</em> contain a command log if an active 0xF9 command
+   appears in the checkpoint history and <em>MUST</em> contain an independent
    command log if an active 0xFD command appears in the checkpoint
    history.
 
@@ -4770,13 +4770,13 @@ Table of Contents
 
    The 8-bit COUNT field codes the total number of commands of the type
    coded by the log present in the session history, modulo 256.  By
-   default, the COUNT field MUST be present in the command log.
+   default, the COUNT field <em>MUST</em> be present in the command log.
 
    The LEGAL field is reserved for future use.  If an update to [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]
    defines the 0xF9 or 0xFD command, an IETF standards-track document
    may define the LEGAL field to protect the command.  Until such a
-   document appears, senders MUST NOT use the LEGAL field, and receivers
-   MUST use the LENGTH field to skip over the LEGAL field.  The LEGAL
+   document appears, senders <em>MUST NOT</em> use the LEGAL field, and receivers
+   <em>MUST</em> use the LENGTH field to skip over the LEGAL field.  The LEGAL
    field would be defined by the IETF if the semantics of the new 0xF9
    or 0xFD command could not be protected from packet loss via the use
    of the COUNT field.
@@ -4796,7 +4796,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="appendix-B.2" href="#appendix-B.2">B.2</a>.  System Chapter V: Active Sense Command</span>
 
-   The system journal MUST contain Chapter V if an active MIDI Active
+   The system journal <em>MUST</em> contain Chapter V if an active MIDI Active
    Sense (0xFE) command appears in the checkpoint history.  Figure B.2.1
    shows the format for Chapter V.
 
@@ -4818,7 +4818,7 @@ Table of Contents
    This appendix describes Chapter Q, the system chapter for the MIDI
    sequencer commands.
 
-   The system journal MUST contain Chapter Q if an active MIDI Song
+   The system journal <em>MUST</em> contain Chapter Q if an active MIDI Song
    Position Pointer (0xF2), MIDI Clock (0xF8), MIDI Start (0xFA), MIDI
    Continue (0xFB), or MIDI Stop (0xFC) command appears in the
    checkpoint history, and if the rules defined in this appendix require
@@ -4859,9 +4859,9 @@ Table of Contents
 
    The N header bit encodes the relative occurrence of the Start, Stop,
    and Continue commands in the session history.  If an active Start or
-   Continue command appears most recently, the N bit MUST be set to 1.
+   Continue command appears most recently, the N bit <em>MUST</em> be set to 1.
    If an active Stop appears most recently, or if no active Start, Stop,
-   or Continue commands appear in the session history, the N bit MUST be
+   or Continue commands appear in the session history, the N bit <em>MUST</em> be
    set to 0.
 
    The C header flag, the TOP header field, and the CLOCK field act to
@@ -4886,9 +4886,9 @@ Table of Contents
         this section), normative text may require the C = 0 or the C =
         1, TOP = 0, CLOCK = 0 encoding of the start of the song.
 
-   The C, TOP, and CLOCK fields MUST be set to code the current song
+   The C, TOP, and CLOCK fields <em>MUST</em> be set to code the current song
    position, for both N = 0 and N = 1 conditions.  If C = 0, the TOP
-   field MUST be set to 0.  See [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>] for a precise definition of a
+   field <em>MUST</em> be set to 0.  See [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>] for a precise definition of a
    song position.
 
 
@@ -4924,10 +4924,10 @@ Table of Contents
 
    If N = 1 (coding Start or Continue), D = 0 (coding that the downbeat
    has yet to be played), and the song position is at the start of the
-   song, the C = 0 song position encoding MUST be used if a Start
+   song, the C = 0 song position encoding <em>MUST</em> be used if a Start
    command occurs more recently than a Continue command in the session
    history, and the C = 1, TOP = 0, CLOCK = 0 song position encoding
-   MUST be used if a Continue command occurs more recently than a Start
+   <em>MUST</em> be used if a Continue command occurs more recently than a Start
    command in the session history.
 
 <span class="h4"><a class="selflink" name="appendix-B.3.1" href="#appendix-B.3.1">B.3.1</a>.  Non-compliant Sequencers</span>
@@ -4938,8 +4938,8 @@ Table of Contents
    count off time, but instead use non-standard methods.
 
    Chapter Q uses the TIMETOOLS field to provide resiliency support for
-   these non-standard products.  By default, the TIMETOOLS field MUST
-   NOT appear in Chapter Q, and the T header bit MUST be set to 0.  The
+   these non-standard products.  By default, the TIMETOOLS field <em>MUST</em>
+   NOT appear in Chapter Q, and the T header bit <em>MUST</em> be set to 0.  The
    session configuration tools described in <a href="#appendix-C.2.3">Appendix C.2.3</a> may be used
    to select TIMETOOLS coding.
 
@@ -4985,11 +4985,11 @@ Table of Contents
    <a href="#appendix-A.1">A.1</a> definition of "finished/unfinished commands" before reading this
    appendix.
 
-   The system journal MUST contain Chapter F if an active System Common
+   The system journal <em>MUST</em> contain Chapter F if an active System Common
    Quarter Frame command (0xF1) or an active finished System Exclusive
    (Universal Real Time) MTC Full Frame command (F0 7F cc 01 01 hr mn sc
    fr F7) appears in the checkpoint history.  Otherwise, the system
-   journal MUST NOT contain Chapter F.
+   journal <em>MUST NOT</em> contain Chapter F.
 
    Figure B.4.1 shows the variable-length format for Chapter F.
 
@@ -5022,12 +5022,12 @@ Table of Contents
    COMPLETE field (C = 1) and the 32-bit PARTIAL field (P = 1).
 
    The Q header bit codes information about the COMPLETE field format.
-   If Chapter F does not contain a COMPLETE field, Q MUST be set to 0.
+   If Chapter F does not contain a COMPLETE field, Q <em>MUST</em> be set to 0.
 
    The D header bit codes the tape movement direction.  If the tape is
    moving forward, or if the tape direction is indeterminate, the D bit
-   MUST be set to 0.  If the tape is moving in the reverse direction,
-   the D bit MUST be set to 1.  In most cases, the ordering of commands
+   <em>MUST</em> be set to 0.  If the tape is moving in the reverse direction,
+   the D bit <em>MUST</em> be set to 1.  In most cases, the ordering of commands
    in the session history clearly defines the tape direction.  However,
    a few command sequences have an indeterminate direction (such as a
    session history consisting of one Full Frame command).
@@ -5035,9 +5035,9 @@ Table of Contents
    The 3-bit POINT header field is interpreted as an unsigned integer.
    <a href="#appendix-B.4.1">Appendix B.4.1</a> defines how the POINT field codes information about
    the contents of the PARTIAL field.  If Chapter F does not contain a
-   PARTIAL field, POINT MUST be set to 7 (if D = 0) or 0 (if D = 1).
+   PARTIAL field, POINT <em>MUST</em> be set to 7 (if D = 0) or 0 (if D = 1).
 
-   Chapter F MUST include the COMPLETE field if an active finished Full
+   Chapter F <em>MUST</em> include the COMPLETE field if an active finished Full
    Frame command appears in the checkpoint history, or if an active
    Quarter Frame command that completes the encoding of a frame value
    appears in the checkpoint history.
@@ -5050,7 +5050,7 @@ Table of Contents
    finished Full Frame command.
 
    If the COMPLETE field encodes a Quarter Frame command series, the Q
-   header bit MUST be set to 1, and the COMPLETE field MUST have the
+   header bit <em>MUST</em> be set to 1, and the COMPLETE field <em>MUST</em> have the
    format shown in Figure B.4.2.  The 4-bit fields MT0 through MT7 code
    the data (lower) nibble for the Quarter Frame commands for Message
    Type 0 through Message Type 7 [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>].  These nibbles encode a
@@ -5076,7 +5076,7 @@ Table of Contents
 
               Figure B.4.2 -- COMPLETE field format, Q = 1
 
-   In this usage, the frame value encoded in the COMPLETE field MUST be
+   In this usage, the frame value encoded in the COMPLETE field <em>MUST</em> be
    offset by 2 frames (relative to the frame value encoded in the
    Quarter Frame commands) if the frame value codes a 0xF1 0x0n through
    0xF1 0x7n command sequence.  This offset compensates for the two-
@@ -5086,7 +5086,7 @@ Table of Contents
 
    The most recent active complete MTC frame value may alternatively be
    encoded by an active finished Full Frame command.  In this case, the
-   Q header bit MUST be set to 0, and the COMPLETE field MUST have
+   Q header bit <em>MUST</em> be set to 0, and the COMPLETE field <em>MUST</em> have
    format shown in Figure B.4.3.  The HR, MN, SC, and FR fields
    correspond to the hr, mn, sc, and fr data octets of the Full Frame
    command.
@@ -5109,7 +5109,7 @@ Table of Contents
 
    We consider this type of Quarter Frame command to be associated with
    a partial frame value.  The Quarter Frame sequence that defines a
-   partial frame value MUST either start at Message Type 0 and increment
+   partial frame value <em>MUST</em> either start at Message Type 0 and increment
    contiguously to an intermediate Message Type less than 7, or start at
    Message Type 7 and decrement contiguously to an intermediate Message
    type greater than 0.  A Quarter Frame command sequence that does not
@@ -5124,30 +5124,30 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   Chapter F MUST include a PARTIAL field if the most recent active
+   Chapter F <em>MUST</em> include a PARTIAL field if the most recent active
    command in the checkpoint history that encodes MTC frame value data
    is a Quarter Frame command that is associated with a partial frame
-   value.  Otherwise, Chapter F MUST NOT include a PARTIAL field.
+   value.  Otherwise, Chapter F <em>MUST NOT</em> include a PARTIAL field.
 
    The partial frame value consists of the data (lower) nibbles of the
    Quarter Frame command sequence.  The PARTIAL field codes the partial
    frame value, using the format shown in Figure B.4.2.  Message Type
-   fields that are not associated with a Quarter Frame command MUST be
+   fields that are not associated with a Quarter Frame command <em>MUST</em> be
    set to 0.
 
    The POINT header field indicates the Message Type fields in the
-   PARTIAL field code valid data.  If P = 1, the POINT field MUST encode
+   PARTIAL field code valid data.  If P = 1, the POINT field <em>MUST</em> encode
    the unsigned integer value formed by the lower 3 bits of the upper
    nibble of the data value of the most recent active Quarter Frame
-   command in the session history.  If D = 0 and P = 1, POINT MUST take
-   on a value in the range 0-6.  If D = 1 and P = 1, POINT MUST take on
+   command in the session history.  If D = 0 and P = 1, POINT <em>MUST</em> take
+   on a value in the range 0-6.  If D = 1 and P = 1, POINT <em>MUST</em> take on
    a value in the range 1-7.
 
    If D = 0, MT fields (Figure B.4.2) in the inclusive range from 0 up
    to and including the POINT value encode the partial frame value.  If
    D = 1, MT fields in the inclusive range from 7 down to and including
    the POINT value encode the partial frame value.  Note that, unlike
-   the COMPLETE field encoding, senders MUST NOT add a 2-frame offset to
+   the COMPLETE field encoding, senders <em>MUST NOT</em> add a 2-frame offset to
    the partial frame value encoded in PARTIAL.
 
    For the default semantics, if a recovery journal contains Chapter F,
@@ -5180,14 +5180,14 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   journal MUST contain Chapter X if the rules defined in <a href="#appendix-B.5.2">Appendix B.5.2</a>
+   journal <em>MUST</em> contain Chapter X if the rules defined in <a href="#appendix-B.5.2">Appendix B.5.2</a>
    require that one or more logs appear in the list.
 
    The log list is not preceded by a header.  Instead, each log
    implicitly encodes its own length.  Given the length of the N'th list
    log, the presence of the (N+1)'th list log may be inferred from the
    LENGTH field of the system journal header (Figure 10 in <a href="#section-5">Section 5</a> of
-   the main text).  The log list MUST obey the oldest-first ordering
+   the main text).  The log list <em>MUST</em> obey the oldest-first ordering
    rule (defined in <a href="#appendix-A.1">Appendix A.1</a>).
 
 <span class="h4"><a class="selflink" name="appendix-B.5.1" href="#appendix-B.5.1">B.5.1</a>.  Chapter Format</span>
@@ -5294,7 +5294,7 @@ Table of Contents
 
    The DATA field (present if D = 1) encodes a modified version of the
    data octets of the SysEx command coded by the log.  Status octets
-   MUST NOT be coded in the DATA field.
+   <em>MUST NOT</em> be coded in the DATA field.
 
    If F = 0, the DATA field begins with the first data octet of the
    SysEx command and includes all subsequent data octets for the command
@@ -5308,8 +5308,8 @@ Table of Contents
 
    The length of the DATA field is coded implicitly, using the most-
    significant bit of each octet.  The most-significant bit of the final
-   octet of the DATA field MUST be set to 1.  The most-significant bit
-   of all other DATA octets MUST be set to 0.  This coding method relies
+   octet of the DATA field <em>MUST</em> be set to 1.  The most-significant bit
+   of all other DATA octets <em>MUST</em> be set to 0.  This coding method relies
    on the fact that the most-significant bit of a MIDI data octet is 0
    by definition.  Apart from this length-coding modification, the DATA
    field encodes a verbatim copy of all data octets it encodes.
@@ -5330,14 +5330,14 @@ Table of Contents
    SysEx type, and thus no two commands in the session have the same
    type.
 
-   To improve efficiency, senders MAY implement exceptions to this rule.
+   To improve efficiency, senders <em>MAY</em> implement exceptions to this rule.
    These exceptions declare that certain sets of SysEx command instances
    have the same SysEx type.  Any command not covered by an exception
    follows the simple rule.  We list exceptions below:
 
      o  All commands with identical data octet fields (same number of
         data octets, same value for each data octet) have the same type.
-        This rule MUST be applied to all SysEx commands in the session,
+        This rule <em>MUST</em> be applied to all SysEx commands in the session,
         or not at all.  Note that the implementation of this exception
         requires no sender knowledge of the format and semantics of the
 
@@ -5360,14 +5360,14 @@ Table of Contents
         Exclusive commands defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]).  If a sender supports
         this exception for a particular command in a class (for example,
         the Universal Real Time System Exclusive message for Master
-        Volume, F0 F7 cc 04 01 vv vv F7, defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]), it MUST
+        Volume, F0 F7 cc 04 01 vv vv F7, defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]), it <em>MUST</em>
         support the exception to all instances of this particular
         command in the session.
 
    We now use this definition of "SysEx type" to define the "recency"
    tool and the "list" tool for Chapter X.
 
-   By default, the Chapter X log list MUST code sufficient information
+   By default, the Chapter X log list <em>MUST</em> code sufficient information
    to protect the rendered MIDI performance from indefinite artifacts
    caused by the loss of all finished or unfinished active SysEx
    commands that appear in the checkpoint history (excluding finished
@@ -5375,23 +5375,23 @@ Table of Contents
    B.4)).
 
    To protect a command of a specific SysEx type with the recency tool,
-   senders MUST code a log in the log list for the most recent finished
+   senders <em>MUST</em> code a log in the log list for the most recent finished
    active instance of the SysEx type that appears in the checkpoint
    history.  Additionally, if an unfinished active instance of the SysEx
-   type appears in the checkpoint history, senders MUST code a log in
+   type appears in the checkpoint history, senders <em>MUST</em> code a log in
    the log list for the unfinished command instance.  The L header bit
-   of both command logs MUST be set to 0.
+   of both command logs <em>MUST</em> be set to 0.
 
    To protect a command of a specific SysEx type with the list tool,
-   senders MUST code a log in the Chapter X log list for each finished
+   senders <em>MUST</em> code a log in the Chapter X log list for each finished
    or unfinished active instance of the SysEx type that appears in the
-   checkpoint history.  The L header bit of list tool command logs MUST
+   checkpoint history.  The L header bit of list tool command logs <em>MUST</em>
    be set to 1.
 
-   As a rule, a log REQUIRED by the list or recency tool MUST include a
+   As a rule, a log <em>REQUIRED</em> by the list or recency tool <em>MUST</em> include a
    DATA field that codes all data octets that appear in the checkpoint
    history for the SysEx command instance associated with the log.  The
-   FIRST field MAY be used to configure a DATA field that minimally
+   FIRST field <em>MAY</em> be used to configure a DATA field that minimally
    meets this requirement.
 
 
@@ -5405,14 +5405,14 @@ Table of Contents
 
 
    An exception to this rule applies to cancelled commands (defined in
-   <a href="#section-3.2">Section 3.2</a>).  REQUIRED command logs associated with cancelled
-   commands MAY be coded with no DATA field.  However, if DATA appears
-   in the log, DATA MUST code all data octets that appear in the
+   <a href="#section-3.2">Section 3.2</a>).  <em>REQUIRED</em> command logs associated with cancelled
+   commands <em>MAY</em> be coded with no DATA field.  However, if DATA appears
+   in the log, DATA <em>MUST</em> code all data octets that appear in the
    checkpoint history for the command associated with the log.
 
    As defined by the preceding text in this section, by default all
    finished or unfinished active SysEx commands that appear in the
-   checkpoint history (excluding finished MTC Full Frame commands) MUST
+   checkpoint history (excluding finished MTC Full Frame commands) <em>MUST</em>
    be protected by the list tool or the recency tool.
 
    For some MIDI source streams, this default yields a Chapter X whose
@@ -5435,7 +5435,7 @@ Table of Contents
    segment stream but continue to code other commands in the MIDI list.
 
    Stalls are a workable but sub-optimal solution to Chapter X size
-   issues.  As an alternative to stalls, senders SHOULD take preemptive
+   issues.  As an alternative to stalls, senders <em>SHOULD</em> take preemptive
    action during session configuration to reduce the anticipated size of
    Chapter X, using the methods described below:
 
@@ -5490,12 +5490,12 @@ Table of Contents
 
    Senders use the TCOUNT and COUNT fields to track the identity and
    (for TCOUNT) the sequence position of a command instance.  Senders
-   MUST use the TCOUNT or COUNT fields if identity or sequence
+   <em>MUST</em> use the TCOUNT or COUNT fields if identity or sequence
    information is necessary to protect the command type coded by the
    log.
 
    If a sender uses the COUNT field in a session, the final command log
-   in every Chapter X in the stream MUST code the COUNT field.  This
+   in every Chapter X in the stream <em>MUST</em> code the COUNT field.  This
    rule lets receivers resynchronize the COUNT value after a packet
    loss.
 
@@ -5549,7 +5549,7 @@ Table of Contents
    using RTSP (Appendix C.7.1) and network musical performance using SIP
    (Appendix C.7.2).
 
-   The participants in a multimedia session MUST share a common view of
+   The participants in a multimedia session <em>MUST</em> share a common view of
    all of the RTP MIDI streams that appear in an RTP session, as defined
    by a single media (m=) line.  In some RTP MIDI applications, the
    "common view" restriction makes it difficult to use sendrecv streams
@@ -5575,11 +5575,11 @@ Table of Contents
    As a general rule, the RTP MIDI protocol does not handle parameter
    changes during a session well, because the parameters describe
    heavyweight or stateful configuration that is not easily changed once
-   a session has begun.  Thus, parties SHOULD NOT expect that parameter
+   a session has begun.  Thus, parties <em>SHOULD NOT</em> expect that parameter
    change requests during a session will be accepted by other parties.
-   However, implementors SHOULD support in-session parameter changes
+   However, implementors <em>SHOULD</em> support in-session parameter changes
    that are easy to handle (for example, the guardtime parameter defined
-   in <a href="#appendix-C.4">Appendix C.4</a>) and SHOULD be capable of accepting requests for
+   in <a href="#appendix-C.4">Appendix C.4</a>) and <em>SHOULD</em> be capable of accepting requests for
    changes of those parameters, as received by its session management
    protocol (for example, re-offers in SIP [<a href="./rfc3264.html" title="&quot;An Offer/Answer Model with Session Description Protocol (SDP)&quot;">RFC3264</a>]).
 
@@ -5593,7 +5593,7 @@ Table of Contents
    <a href="#appendix-C.6">C.6</a>, the audio/asc media type is assigned to the "rinit" parameter to
    specify an initialization data object for the default mpeg4-generic
    renderer.  Note that RTP stream semantics are not defined for
-   "audio/asc".  Therefore, the "asc" subtype MUST NOT appear on the
+   "audio/asc".  Therefore, the "asc" subtype <em>MUST NOT</em> appear on the
    rtpmap line of a session description.
 
 <span class="h3"><a class="selflink" name="appendix-C.1" href="#appendix-C.1">C.1</a>.  Configuration Tools: Stream Subsetting</span>
@@ -5611,9 +5611,9 @@ Table of Contents
 
    In this appendix, we define a simple language for specifying MIDI
    command types.  If a command type is assigned to cm_unused, the
-   commands coded by the string MUST NOT appear in the MIDI list.  If a
+   commands coded by the string <em>MUST NOT</em> appear in the MIDI list.  If a
    command type is assigned to cm_used, the commands coded by the string
-   MAY appear in the MIDI list.
+   <em>MAY</em> appear in the MIDI list.
 
    The parameter list may code multiple assignments to cm_used and
    cm_unused.  Assignments have a cumulative effect and are applied in
@@ -5703,9 +5703,9 @@ Table of Contents
    In the text below, rules that apply to "MIDI voice channel commands"
    also apply to the letter M.
 
-   The letters in the command-type list MUST be uppercase and MUST
+   The letters in the command-type list <em>MUST</em> be uppercase and <em>MUST</em>
    appear in alphabetical order.  Letters other than
-   (ABCFGHJKMNPQTVWXYZ) that appear in the list MUST be ignored.
+   (ABCFGHJKMNPQTVWXYZ) that appear in the list <em>MUST</em> be ignored.
 
    For MIDI voice channel commands, the channel list specifies the MIDI
    channels for which the parameter applies.  If no channel list is
@@ -5723,13 +5723,13 @@ Table of Contents
    the channel list codes special semantics.
 
      o  The digit 0 codes that SysEx "cancel" sublists (<a href="#section-3.2">Section 3.2</a> in
-        the main text) MUST NOT appear in the MIDI list.
+        the main text) <em>MUST NOT</em> appear in the MIDI list.
 
-     o  The digit 1 codes that cancel sublists MAY appear in the MIDI
+     o  The digit 1 codes that cancel sublists <em>MAY</em> appear in the MIDI
         list (the default condition).
 
      o  The digit 2 codes that commands other than System Real-time MIDI
-        commands MUST NOT appear between SysEx command segments in the
+        commands <em>MUST NOT</em> appear between SysEx command segments in the
         MIDI list (the default condition).
 
 
@@ -5745,8 +5745,8 @@ Table of Contents
         the segmented encoding of a second SysEx command (verbatim SysEx
         commands are OK).
 
-   For command-type X, the channel list MUST NOT contain both digits 0
-   and 1, and it MUST NOT contain both digits 2 and 3.  For command-type
+   For command-type X, the channel list <em>MUST NOT</em> contain both digits 0
+   and 1, and it <em>MUST NOT</em> contain both digits 2 and 3.  For command-type
    X, channel list numbers other than the numbers defined above are
    ignored.  If X does not have a channel list, the semantics marked
    "the default condition" in the list above apply.
@@ -5840,7 +5840,7 @@ Table of Contents
    journal semantics as defined in <a href="#section-5">Section 5</a> and Appendices A-B.
 
    The journalling method for a stream is set at the start of a session
-   and MUST NOT be changed thereafter.  This requirement forbids changes
+   and <em>MUST NOT</em> be changed thereafter.  This requirement forbids changes
    to the j_sec parameter once a session has begun.
 
 
@@ -5857,7 +5857,7 @@ Table of Contents
    recovery journal mandate.  In many cases, a change in one of the
    parameters defined in this appendix during an ongoing session would
    result in a violation of the recovery journal mandate for an
-   implementation; in this case, the parameter change MUST NOT be
+   implementation; in this case, the parameter change <em>MUST NOT</em> be
    accepted.
 
 <span class="h4"><a class="selflink" name="appendix-C.2.1" href="#appendix-C.2.1">C.2.1</a>.  The j_sec Parameter</span>
@@ -5869,8 +5869,8 @@ Table of Contents
 
    The parameter j_sec may be used to override this default.  This memo
    defines two symbolic values for j_sec: "none", to indicate that all
-   stream payloads MUST NOT contain a journal section, and "recj", to
-   indicate that all stream payloads MUST contain a journal section that
+   stream payloads <em>MUST NOT</em> contain a journal section, and "recj", to
+   indicate that all stream payloads <em>MUST</em> contain a journal section that
    uses the recovery journal format.
 
    For example, the j_sec parameter might be set to "none" for a UDP
@@ -5890,13 +5890,13 @@ Table of Contents
    a=fmtp:96 j_sec=none
 
    Other IETF standards-track documents may define alternative journal
-   formats.  These documents MUST define new symbolic values for the
+   formats.  These documents <em>MUST</em> define new symbolic values for the
    j_sec parameter to signal the use of the format.
 
-   Parties MUST NOT accept a j_sec value that violates the recovery
+   Parties <em>MUST NOT</em> accept a j_sec value that violates the recovery
    journal mandate (see <a href="#section-4">Section 4</a> for details).  If a session
    description uses a j_sec value unknown to the recipient, the
-   recipient MUST NOT accept the description.
+   recipient <em>MUST NOT</em> accept the description.
 
 
 
@@ -5919,8 +5919,8 @@ Table of Contents
    In this scenario, the use of the j_sec parameter may be ill-advised,
    as the creator of the session description may not yet know the
    transport type for the session.  In this case, the session
-   description SHOULD configure the journalling system using the
-   parameters defined in the remainder of <a href="#appendix-C.2">Appendix C.2</a>, but it SHOULD
+   description <em>SHOULD</em> configure the journalling system using the
+   parameters defined in the remainder of <a href="#appendix-C.2">Appendix C.2</a>, but it <em>SHOULD</em>
    NOT use j_sec to set the journalling status.  Recall that if j_sec
    does not appear in the session description, the default method for
    choosing the journalling method is in effect (no journal for reliable
@@ -5928,7 +5928,7 @@ Table of Contents
 
    However, in declarative usage situations where the creator of the
    session description knows that journalling is always required or
-   never required, the session description SHOULD use the j_sec
+   never required, the session description <em>SHOULD</em> use the j_sec
    parameter.
 
 <span class="h4"><a class="selflink" name="appendix-C.2.2" href="#appendix-C.2.2">C.2.2</a>.  The j_update Parameter</span>
@@ -5950,11 +5950,11 @@ Table of Contents
    sending policy.  See <a href="#appendix-C.2.3">Appendix C.2.3</a> for examples session descriptions
    that use the j_update parameter.
 
-   Parties MUST NOT accept a j_update value that violates the recovery
+   Parties <em>MUST NOT</em> accept a j_update value that violates the recovery
    journal mandate (<a href="#section-4">Section 4</a>).
 
    Other IETF standards-track documents may define additional sending
-   policies for the recovery journal system.  These documents MUST
+   policies for the recovery journal system.  These documents <em>MUST</em>
    define new symbolic values for the j_update parameter to signal the
 
 
@@ -5965,7 +5965,7 @@ Table of Contents
 
 
    use of the new policy.  If a session description uses a j_update
-   value unknown to the recipient, the recipient MUST NOT accept the
+   value unknown to the recipient, the recipient <em>MUST NOT</em> accept the
    description.
 
 <span class="h5"><a class="selflink" name="appendix-C.2.2.1" href="#appendix-C.2.2.1">C.2.2.1</a>.  The anchor Sending Policy</span>
@@ -6006,7 +6006,7 @@ Table of Contents
    in the 32-bit extension format defined in [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>].  For RTCP,
    receivers transmit this information in the Extended Highest Sequence
    Number Received (EHSNR) field of Receiver Reports.  RTCP Sender or
-   Receiver Reports MUST be sent by any participant in a session with
+   Receiver Reports <em>MUST</em> be sent by any participant in a session with
    closed loop sending policy, unless another feedback mechanism has
    been agreed upon.
 
@@ -6050,7 +6050,7 @@ Table of Contents
    the stream.
 
    Given this definition of M(), we now state the closed-loop policy.
-   When preparing a new packet for transmission, a sender MUST choose a
+   When preparing a new packet for transmission, a sender <em>MUST</em> choose a
    checkpoint packet with extended sequence number N, such that M(k) &gt;=
    (N - 1) for all k, 1 &lt;= k &lt;= R, where R &gt;= 1.  The policy does not
    restrict sender behavior in the R == 0 (no known receivers) case.
@@ -6077,9 +6077,9 @@ Table of Contents
 
 
    To address this issue, the closed-loop policy states that whenever a
-   sender becomes aware of a new receiver, the sender MUST determine if
+   sender becomes aware of a new receiver, the sender <em>MUST</em> determine if
    the receiver would be subject to indefinite artifacts under the
-   closed-loop policy.  If so, the sender MUST ensure that the receiver
+   closed-loop policy.  If so, the sender <em>MUST</em> ensure that the receiver
    starts the session free of indefinite artifacts.
 
    For example, to solve the Channel Volume issue described above, the
@@ -6088,7 +6088,7 @@ Table of Contents
    first RTCP RR report that signals that a packet containing this
    Chapter C has been received.
 
-   In satisfying this requirement, senders MAY infer the initial MIDI
+   In satisfying this requirement, senders <em>MAY</em> infer the initial MIDI
    state of the receiver from the session description.  For example, the
    stream example in <a href="#section-6.2">Section 6.2</a> has the initial state defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]
    for General MIDI.
@@ -6102,7 +6102,7 @@ Table of Contents
 
    To address this issue, the closed-loop policy states that if a
    receiver participates in a session where it may have access to a
-   stream whose sender is not aware of the receiver, the receiver MUST
+   stream whose sender is not aware of the receiver, the receiver <em>MUST</em>
    take actions to ensure that its rendered MIDI performance does not
    contain indefinite artifacts.  These protections will be necessarily
    incomplete.  For example, a receiver may monitor the Checkpoint
@@ -6111,9 +6111,9 @@ Table of Contents
    NoteOff commands, but the receiver is not able to compensate for the
    lack of Channel Volume initialization data in the recovery journal.
 
-   The receiver MUST NOT discontinue these protective actions until it
+   The receiver <em>MUST NOT</em> discontinue these protective actions until it
    is certain that the sender is aware of its presence.  If a receiver
-   is not able to ascertain sender awareness, the receiver MUST continue
+   is not able to ascertain sender awareness, the receiver <em>MUST</em> continue
    these protective actions for the duration of the session.
 
    Note that in a multicast session where all parties are expected to
@@ -6144,7 +6144,7 @@ Table of Contents
    stream, via an RTCP BYE or via session management tools.
 
    As defined earlier in this section, the closed-loop policy states
-   that a sender MUST choose a checkpoint packet with extended sequence
+   that a sender <em>MUST</em> choose a checkpoint packet with extended sequence
    number N, such that M(k) &gt;= (N - 1) for all k, 1 &lt;= k &lt;= R, where R
    &gt;= 1.  If the sender has received at least one feedback report from
    receiver k, M(k) is the most recent report of the highest RTP packet
@@ -6191,10 +6191,10 @@ Table of Contents
    C.4.2) lets the receiver conclude that an SSRC time-out has occurred
    in a reasonable time period.
 
-   In this case of a time-out, a receiver MUST keep sending RTCP
+   In this case of a time-out, a receiver <em>MUST</em> keep sending RTCP
    feedback, in order to re-establish the RTP flow from the sender.
    Unless the receiver expects a prompt recovery of the RTP flow, the
-   receiver MUST take actions to ensure that the rendered MIDI
+   receiver <em>MUST</em> take actions to ensure that the rendered MIDI
    performance does not exhibit "very long transient artifacts" (for
    example, by silencing NoteOns to prevent stuck notes) while awaiting
    reconnection of the flow.
@@ -6205,9 +6205,9 @@ Table of Contents
    from the receiver to choose each checkpoint packet.  If the receiver
    does not have additional information that precludes an SSRC time-out
    (such as RTCP Receiver Reports from the sender about an RTP stream
-   the receiver is multicasting back to the sender), the receiver MUST
+   the receiver is multicasting back to the sender), the receiver <em>MUST</em>
    monitor the Checkpoint Packet Seqnum to detect an SSRC time-out.  If
-   an SSRC time-out is detected, the receiver MUST follow the
+   an SSRC time-out is detected, the receiver <em>MUST</em> follow the
    instructions for SSRC time-outs described for the unicast case above.
 
    Finally, we note that the closed-loop policy is suitable for use in
@@ -6286,10 +6286,10 @@ Table of Contents
    Given these definitions, we now state the normative requirements for
    the open-loop policy.
 
-   In the open-loop policy, the creators of the session description MUST
+   In the open-loop policy, the creators of the session description <em>MUST</em>
    use the ch_anchor parameter (defined in <a href="#appendix-C.2.3">Appendix C.2.3</a>) to protect
    all unrecoverable MIDI command types from indefinite artifacts, or
-   alternatively MUST use the cm_unused parameter (defined in Appendix
+   alternatively <em>MUST</em> use the cm_unused parameter (defined in Appendix
 
 
 
@@ -6304,11 +6304,11 @@ Table of Contents
    to shield command types from artifacts during an uncovered loss
    event.
 
-   In the open-loop policy, receivers MUST examine the Checkpoint Packet
+   In the open-loop policy, receivers <em>MUST</em> examine the Checkpoint Packet
    Seqnum field of the recovery journal header after every loss event,
    to check if the loss event is an uncovered loss event.  <a href="#section-5">Section 5</a>
    shows how to perform this check.  If an uncovered loss event has
-   occurred, a receiver MUST perform indefinite artifact recovery for
+   occurred, a receiver <em>MUST</em> perform indefinite artifact recovery for
    all MIDI command types that are not shielded by ch_anchor and
    cm_unused parameter assignments in the session description.
 
@@ -6323,9 +6323,9 @@ Table of Contents
 <span class="h4"><a class="selflink" name="appendix-C.2.3" href="#appendix-C.2.3">C.2.3</a>.  Recovery Journal Chapter Inclusion Parameters</span>
 
    The recovery journal chapter definitions (Appendices A-B) specify
-   under what conditions a chapter MUST appear in the recovery journal.
+   under what conditions a chapter <em>MUST</em> appear in the recovery journal.
    In most cases, the definition states that if a certain command
-   appears in the checkpoint history, a certain chapter type MUST appear
+   appears in the checkpoint history, a certain chapter type <em>MUST</em> appear
    in the recovery journal to protect the command.
 
    In this section, we describe the chapter inclusion parameters.  These
@@ -6340,9 +6340,9 @@ Table of Contents
    subsets) obey the inclusion semantics.  We describe the assignment
    syntax for these parameters later in this section.
 
-   A party MUST NOT accept chapter inclusion parameter values that
+   A party <em>MUST NOT</em> accept chapter inclusion parameter values that
    violate the recovery journal mandate (<a href="#section-4">Section 4</a>).  All assignments of
-   the subsetting parameters (cm_used and cm_unused) MUST precede the
+   the subsetting parameters (cm_used and cm_unused) <em>MUST</em> precede the
    first assignment of a chapter inclusion parameter in the parameter
    list.
 
@@ -6361,19 +6361,19 @@ Table of Contents
    complete chapters.  If a parameter is assigned a subset of a chapter,
    the definition applies only to the chapter subset.
 
-     o  ch_never.  A chapter assigned to the ch_never parameter MUST NOT
+     o  ch_never.  A chapter assigned to the ch_never parameter <em>MUST NOT</em>
         appear in the recovery journal (Appendix A.4.1-2 defines
         exceptions to this rule for Chapter M).  To signal the exclusion
-        of a chapter from the journal, an assignment to ch_never MUST be
+        of a chapter from the journal, an assignment to ch_never <em>MUST</em> be
         made, even if the commands coded by the chapter are assigned to
         cm_unused.  This rule simplifies the handling of commands types
         that may be coded in several chapters.
 
-     o  ch_default.  A chapter assigned to the ch_default parameter MUST
+     o  ch_default.  A chapter assigned to the ch_default parameter <em>MUST</em>
         follow the default semantics for the chapter, as defined in
         Appendices A-B.
 
-     o  ch_anchor.  A chapter assigned to the ch_anchor MUST obey a
+     o  ch_anchor.  A chapter assigned to the ch_anchor <em>MUST</em> obey a
         modified version of the default chapter semantics.  In the
         modified semantics, all references to the checkpoint history are
         replaced with references to the session history, and all
@@ -6418,9 +6418,9 @@ Table of Contents
    (ACDEFMNPQTVWX).  In addition, the list may contain one or more of
    the letters for the sub-chapter types (BGHJKYZ) of System Chapter D.
 
-   The letters in a chapter list MUST be uppercase and MUST appear in
+   The letters in a chapter list <em>MUST</em> be uppercase and <em>MUST</em> appear in
    alphabetical order.  Letters other than (ABCDEFGHJKMNPQTVWXYZ) that
-   appear in the chapter list MUST be ignored.
+   appear in the chapter list <em>MUST</em> be ignored.
 
    The channel list specifies the channel journals for which this
    parameter applies; if no channel list is provided, the parameter
@@ -6476,14 +6476,14 @@ Table of Contents
    controller number does use the enhanced Chapter C encoding.
 
    Assignments made to configure the Chapter C encoding method for a
-   controller number MUST be made to the ch_default or ch_anchor
+   controller number <em>MUST</em> be made to the ch_default or ch_anchor
    parameters, as assignments to ch_never act to exclude the number from
    the recovery journal (and thus the indicated encoding method is
    irrelevant).
 
-   A Chapter C field list MUST NOT encode conflicting information about
+   A Chapter C field list <em>MUST NOT</em> encode conflicting information about
    the enhanced encoding status of a particular controller number.  For
-   example, values 0 and 128 MUST NOT both be coded by a field list.
+   example, values 0 and 128 <em>MUST NOT</em> both be coded by a field list.
 
    For Chapter M, the field list codes the Registered Parameter Numbers
    (RPNs) and Non-Registered Parameter Numbers (NRPNs) for which the
@@ -6607,13 +6607,13 @@ Table of Contents
    The default "comex" value specifies that timestamps code the
    execution time for a command (Appendix C.3.1) and supports the
    accurate transcoding Standard MIDI Files (SMFs, [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]).  The "comex"
-   value is also RECOMMENDED for new MIDI user-interface controller
+   value is also <em>RECOMMENDED</em> for new MIDI user-interface controller
    designs.  The "async" value specifies an asynchronous timestamp
    sampling algorithm for time-of-arrival sources (Appendix C.3.2).  The
    "buffer" value specifies a synchronous timestamp sampling algorithm
    (Appendix C.3.3) for time-of-arrival sources.
 
-   Ancillary parameters MAY follow tsmode in a media description.  We
+   Ancillary parameters <em>MAY</em> follow tsmode in a media description.  We
    define these parameters in Appendices C.3.2-3 below.
 
 <span class="h4"><a class="selflink" name="appendix-C.3.1" href="#appendix-C.3.1">C.3.1</a>.  The comex Algorithm</span>
@@ -6640,7 +6640,7 @@ Table of Contents
    units into seconds-based RTP timestamp units.
 
    New MIDI controller designs (piano keyboard, drum pads, etc.) that
-   support RTP MIDI and that have direct access to sensor data SHOULD
+   support RTP MIDI and that have direct access to sensor data <em>SHOULD</em>
    use comex interpretation for timestamps, so that simultaneous
    gestural events may be accurately coded by RTP MIDI.
 
@@ -6666,7 +6666,7 @@ Table of Contents
    of-arrival sources.
 
    The "octpos", "linerate", and "mperiod" ancillary parameters (defined
-   below) SHOULD NOT be used with comex.
+   below) <em>SHOULD NOT</em> be used with comex.
 
 <span class="h4"><a class="selflink" name="appendix-C.3.2" href="#appendix-C.3.2">C.3.2</a>.  The async Algorithm</span>
 
@@ -6762,7 +6762,7 @@ Table of Contents
    source, not as it appears in the RTP packet.
 
    If the octpos parameter does not appear in the media description, the
-   timestamp MAY reflect the arrival period of any octet of the command;
+   timestamp <em>MAY</em> reflect the arrival period of any octet of the command;
    senders use this option to signal a lack of knowledge about the
    timing details of the buffering process at sub-command granularity.
 
@@ -6820,11 +6820,11 @@ Table of Contents
    the network jitter and the sender timing fidelity.
 
    Alternatively, the packet media time may be statically set during
-   session configuration.  Session descriptions MAY use the RTP MIDI
+   session configuration.  Session descriptions <em>MAY</em> use the RTP MIDI
    parameter "rtp_ptime" to set the recommended media time for a packet.
-   Session descriptions MAY also use the RTP MIDI parameter
+   Session descriptions <em>MAY</em> also use the RTP MIDI parameter
    "rtp_maxptime" to set the maximum media time for a packet permitted
-   in a stream.  Both parameters MAY be used together to configure a
+   in a stream.  Both parameters <em>MAY</em> be used together to configure a
    stream.
 
    The values assigned to the rtp_ptime and rtp_maxptime parameters have
@@ -6832,7 +6832,7 @@ Table of Contents
    attribute (see <a href="#section-6.1">Section 6.1</a>).  Thus, if rtpmap sets the clock rate of
    a stream to 44100 Hz, a maximum packet media time of 10 ms is coded
    by setting rtp_maxptime=441.  As stated in the <a href="#appendix-C">Appendix C</a> preamble,
-   the senders and receivers of a stream MUST agree on common values for
+   the senders and receivers of a stream <em>MUST</em> agree on common values for
    rtp_ptime and rtp_maxptime if the parameters appear in the media
    description for the stream.
 
@@ -6860,9 +6860,9 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   The session attributes ptime and maxptime [<a href="./rfc4566.html" title="&quot;SDP: Session Description Protocol&quot;">RFC4566</a>] MUST NOT be used
-   to configure an RTP MIDI stream.  Sessions MUST use rtp_ptime in lieu
-   of ptime and MUST use rtp_maxptime in lieu of maxptime.  RTP MIDI
+   The session attributes ptime and maxptime [<a href="./rfc4566.html" title="&quot;SDP: Session Description Protocol&quot;">RFC4566</a>] <em>MUST NOT</em> be used
+   to configure an RTP MIDI stream.  Sessions <em>MUST</em> use rtp_ptime in lieu
+   of ptime and <em>MUST</em> use rtp_maxptime in lieu of maxptime.  RTP MIDI
    defines its own parameters for media time configuration because 0 ms
    values for ptime and maxptime are forbidden by [<a href="./rfc3264.html" title="&quot;An Offer/Answer Model with Session Description Protocol (SDP)&quot;">RFC3264</a>] but are
    essential for certain applications of RTP MIDI.
@@ -6893,15 +6893,15 @@ Table of Contents
    packets, as expressed in RTP timestamp units.
 
    Typical guardtime values are 500-2000 ms.  This value range is not a
-   normative bound, and parties SHOULD be prepared to process values
+   normative bound, and parties <em>SHOULD</em> be prepared to process values
    outside this range.
 
    The congestion control requirements for sender implementations
    (described in <a href="#section-8">Section 8</a> and [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>]) take precedence over the
    guardtime parameter.  Thus, if the guardtime parameter requests a
    minimum sending rate, but sending at this rate would violate the
-   congestion control requirements, senders MUST ignore the guardtime
-   parameter value.  In this case, senders SHOULD use the lowest minimum
+   congestion control requirements, senders <em>MUST</em> ignore the guardtime
+   parameter value.  In this case, senders <em>SHOULD</em> use the lowest minimum
    sending rate that satisfies the congestion control requirements.
 
 
@@ -6992,8 +6992,8 @@ Table of Contents
         cable pair that cross-connects two devices in a MIDI 1.0 DIN
         network.
 
-   A party MUST NOT send two RTP MIDI streams that share an identity
-   relationship in the same RTP session.  Instead, each stream MUST be
+   A party <em>MUST NOT</em> send two RTP MIDI streams that share an identity
+   relationship in the same RTP session.  Instead, each stream <em>MUST</em> be
    in a separate RTP session.  As explained in <a href="#section-2.1">Section 2.1</a>, this
    restriction is necessary to support the RTP MIDI method for the
    synchronization of streams that share a MIDI name space.
@@ -7016,7 +7016,7 @@ Table of Contents
    We now state several rules for using musicport:
 
      o  If streams from several RTP sessions in a multimedia session use
-        the musicport parameter, the RTP sessions MUST be grouped using
+        the musicport parameter, the RTP sessions <em>MUST</em> be grouped using
         the FID grouping attribute defined in [<a href="./rfc3388.html" title="&quot;Grouping of Media Lines in the Session Description Protocol (SDP)&quot;">RFC3388</a>].
 
 
@@ -7028,23 +7028,23 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-     o  An ordered or identity relationship MUST NOT contain both native
+     o  An ordered or identity relationship <em>MUST NOT</em> contain both native
         RTP MIDI streams and mpeg4-generic RTP MIDI streams.  An
         exception applies if a relationship consists of sendonly and
         recvonly (but not sendrecv) streams.  In this case, the sendonly
-        streams MUST NOT contain both types of streams, and the recvonly
-        streams MUST NOT contain both types of streams.
+        streams <em>MUST NOT</em> contain both types of streams, and the recvonly
+        streams <em>MUST NOT</em> contain both types of streams.
 
      o  It is possible to construct identity relationships that violate
         the recovery journal mandate (for example, sending NoteOns for a
         voice channel on stream A and NoteOffs for the same voice
-        channel on stream B).  Parties MUST NOT generate (or accept)
+        channel on stream B).  Parties <em>MUST NOT</em> generate (or accept)
         session descriptions that exhibit this flaw.
 
-     o  Other payload formats MAY define musicport media type
+     o  Other payload formats <em>MAY</em> define musicport media type
         parameters.  Formats would define these parameters so that their
         sessions could be bundled into RTP MIDI name spaces.  The
-        parameter definitions MUST be compatible with the musicport
+        parameter definitions <em>MUST</em> be compatible with the musicport
         semantics defined in this appendix.
 
    As a rule, at most one payload type in a relationship may specify a
@@ -7056,7 +7056,7 @@ Table of Contents
    Renderer specification in a relationship may be done using the tools
    described in <a href="#appendix-C.6">Appendix C.6</a>.  These tools work for both native streams
    and mpeg4-generic streams.  An mpeg4-generic stream that uses the
-   <a href="#appendix-C.6">Appendix C.6</a> tools MUST set all "config" parameters to the empty
+   <a href="#appendix-C.6">Appendix C.6</a> tools <em>MUST</em> set all "config" parameters to the empty
    string ("").
 
    Alternatively, for mpeg4-generic streams, renderer specification may
@@ -7067,12 +7067,12 @@ Table of Contents
    We now define sender and receiver rules that apply when a party sends
    several streams that target the same MIDI name space.
 
-   Senders MAY use the subsetting parameters (Appendix C.1) to predefine
-   the partitioning of commands between streams, or they MAY use a
+   Senders <em>MAY</em> use the subsetting parameters (Appendix C.1) to predefine
+   the partitioning of commands between streams, or they <em>MAY</em> use a
    dynamic partitioning strategy.
 
    Receivers that merge identity relationship streams into a single MIDI
-   command stream MUST maintain the structural integrity of the MIDI
+   command stream <em>MUST</em> maintain the structural integrity of the MIDI
    commands coded in each stream during the merging process, in the same
    way that software that merges traditional MIDI 1.0 DIN cable flows is
 
@@ -7087,7 +7087,7 @@ Table of Contents
    responsible for creating a merged command flow compatible with
    [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>].
 
-   Senders MUST partition the name space so that the rendered MIDI
+   Senders <em>MUST</em> partition the name space so that the rendered MIDI
    performance does not contain indefinite artifacts (as defined in
    <a href="#section-4">Section 4</a>).  This responsibility holds even if all streams are sent
    over reliable transport, as different stream latencies may yield
@@ -7095,11 +7095,11 @@ Table of Contents
    performance split over two TCP streams, if NoteOn commands are sent
    on one stream and NoteOff commands are sent on the other.
 
-   Senders MUST NOT split a Registered Parameter Name (RPN) or Non-
+   Senders <em>MUST NOT</em> split a Registered Parameter Name (RPN) or Non-
    Registered Parameter Name (NRPN) transaction appearing on a MIDI
    channel across multiple identity relationship sessions.  Receivers
-   MUST assume that the RPN/NRPN transactions that appear on different
-   identity relationship sessions are independent and MUST preserve
+   <em>MUST</em> assume that the RPN/NRPN transactions that appear on different
+   identity relationship sessions are independent and <em>MUST</em> preserve
    transactional integrity during the MIDI merge.
 
    A simple way to safely partition voice channel commands is to place
@@ -7337,18 +7337,18 @@ Table of Contents
    payload type from a media line) and rejecting a media stream (coded
    by zeroing the port of a media line that uses the renderer).
 
-   Other render token values MAY be registered with IANA.  The token
-   value MUST adhere to the ABNF for render tokens defined in <a href="#appendix-D">Appendix</a>
-   <a href="#appendix-D">D</a>.  Registrations MUST include a complete specification of parameter
+   Other render token values <em>MAY</em> be registered with IANA.  The token
+   value <em>MUST</em> adhere to the ABNF for render tokens defined in <a href="#appendix-D">Appendix</a>
+   <a href="#appendix-D">D</a>.  Registrations <em>MUST</em> include a complete specification of parameter
    value usage, similar in depth to the specifications that appear
    throughout <a href="#appendix-C.6">Appendix C.6</a> for "synthetic" and "api" render values.  If
    a party is offered a session description that uses a render token
-   value that is not known to the party, the party MUST NOT accept the
+   value that is not known to the party, the party <em>MUST NOT</em> accept the
    renderer.  Options include rejecting the renderer (using the "null"
    value), the payload type, the media stream, or the session
    description.
 
-   Other parameters MAY follow a render parameter in a parameter list.
+   Other parameters <em>MAY</em> follow a render parameter in a parameter list.
    The additional parameters act to define the exact nature of the
    renderer.  For example, the "subrender" parameter (defined in
    <a href="#appendix-C.6.2">Appendix C.6.2</a>) specifies the exact nature of the renderer.
@@ -7366,9 +7366,9 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="appendix-C.6.1" href="#appendix-C.6.1">C.6.1</a>.  The multimode Parameter</span>
 
-   A media description MAY contain several render parameters.  By
+   A media description <em>MAY</em> contain several render parameters.  By
    default, if a parameter list includes several render parameters, a
-   receiver MUST choose exactly one renderer from the list to render the
+   receiver <em>MUST</em> choose exactly one renderer from the list to render the
    stream.  The "multimode" parameter may be used to override this
    default.  We define two token values for multimode: "one" and "all":
 
@@ -7378,16 +7378,16 @@ Table of Contents
      o  The "all" value requests the synchronized rendering of the RTP
         MIDI stream by all listed renderers, if possible.
 
-   If the multimode parameter appears in a parameter list, it MUST
+   If the multimode parameter appears in a parameter list, it <em>MUST</em>
    appear before the first render parameter assignment.
 
    Render parameters appear in the parameter list in order of decreasing
-   priority.  A receiver MAY use the priority ordering to decide which
+   priority.  A receiver <em>MAY</em> use the priority ordering to decide which
    renderer(s) to retain in a session.
 
    If the "offer" in an Offer/Answer-style negotiation [<a href="./rfc3264.html" title="&quot;An Offer/Answer Model with Session Description Protocol (SDP)&quot;">RFC3264</a>]
    contains a parameter list with one or more render parameters, the
-   "answer" MUST set the render parameters of all unchosen renderers to
+   "answer" <em>MUST</em> set the render parameters of all unchosen renderers to
    "null".
 
 <span class="h4"><a class="selflink" name="appendix-C.6.2" href="#appendix-C.6.2">C.6.2</a>.  Renderer Specification</span>
@@ -7399,7 +7399,7 @@ Table of Contents
    and "subrender" combine to define a renderer, in the same way as MIME
    types and MIME subtypes combine to define a type of media [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>].
 
-   If the subrender parameter is used for a renderer definition, it MUST
+   If the subrender parameter is used for a renderer definition, it <em>MUST</em>
    appear immediately after the render parameter in the parameter list.
    At most one subrender parameter may appear in a renderer definition.
 
@@ -7430,7 +7430,7 @@ Table of Contents
    mpeg4-generic) and a specific render value (excluding "null" and
    "unknown").  Registrations for mpeg4-generic subrender values are
    restricted to new MPEG 4 Audio Object Types that accept MIDI input.
-   The syntax of the token MUST adhere to the token definition in
+   The syntax of the token <em>MUST</em> adhere to the token definition in
    <a href="#appendix-D">Appendix D</a>.
 
    For "render=synthetic" renderers, a subrender value registration
@@ -7441,7 +7441,7 @@ Table of Contents
    information.  For commercial products and open-source projects, this
    specification usually takes the form of instructions for interfacing
    the RTP MIDI stream with the product or project software.  A
-   "render=synthetic" registration MAY specify additional Reset State
+   "render=synthetic" registration <em>MAY</em> specify additional Reset State
    commands for the renderer (Appendix A.1).
 
    A "render=api" subrender value registration specifies how an RTP MIDI
@@ -7449,11 +7449,11 @@ Table of Contents
    This specification is usually a pointer to programmer's documentation
    for the API, perhaps supplemented by RTP-MIDI-specific information.
 
-   A subrender registration MAY specify an initialization file (referred
+   A subrender registration <em>MAY</em> specify an initialization file (referred
    to in this document as an initialization data object) for the stream.
-   The initialization data object MAY be encoded in the parameter list
+   The initialization data object <em>MAY</em> be encoded in the parameter list
    (verbatim or by reference) using the coding tools defined in <a href="#appendix-C.6.3">Appendix</a>
-   <a href="#appendix-C.6.3">C.6.3</a>.  An initialization data object MUST have a registered
+   <a href="#appendix-C.6.3">C.6.3</a>.  An initialization data object <em>MUST</em> have a registered
    [<a href="./rfc4288.html" title="&quot;Media Type Specifications and Registration Procedures&quot;">RFC4288</a>] media type and subtype [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>].
 
    For "render=synthetic" renderers, the data object usually encodes
@@ -7478,12 +7478,12 @@ Table of Contents
 
    Usually, only one initialization object is encoded for a renderer.
    If a renderer uses multiple data objects, the correct receiver
-   interpretation of multiple data objects MUST be defined in the
+   interpretation of multiple data objects <em>MUST</em> be defined in the
    subrender registration.
 
    A subrender value registration may also specify additional
    parameters, to appear in the parameter list immediately after
-   subrender.  These parameter names MUST begin with the subrender
+   subrender.  These parameter names <em>MUST</em> begin with the subrender
    value, followed by an underscore ("_"), to avoid name space
    collisions with future RTP MIDI parameter names (for example, a
    parameter "foo_bar" defined for subrender value "foo").
@@ -7492,29 +7492,29 @@ Table of Contents
    during session configuration.
 
    If a party is offered a session description that uses a renderer
-   whose subrender value is not known to the party, the party MUST NOT
+   whose subrender value is not known to the party, the party <em>MUST NOT</em>
    accept the renderer.  Options include rejecting the renderer (using
    the "null" value), the payload type, the media stream, or the session
    description.
 
-   Receivers MUST be aware of the Reset State commands (Appendix A.1)
-   for the renderer specified by the subrender parameter and MUST insure
+   Receivers <em>MUST</em> be aware of the Reset State commands (Appendix A.1)
+   for the renderer specified by the subrender parameter and <em>MUST</em> insure
    that the renderer does not experience indefinite artifacts due to the
    presence (or the loss) of a Reset State command.
 
 <span class="h4"><a class="selflink" name="appendix-C.6.3" href="#appendix-C.6.3">C.6.3</a>.  Renderer Initialization</span>
 
    If the renderer for a stream uses an initialization data object, an
-   "rinit" parameter MUST appear in the parameter list immediately after
+   "rinit" parameter <em>MUST</em> appear in the parameter list immediately after
    the "subrender" parameter.  If the renderer parameter list does not
    include a subrender parameter (recall the semantics for "default" in
-   <a href="#appendix-C.6.2">Appendix C.6.2</a>), the "rinit" parameter MUST appear immediately after
+   <a href="#appendix-C.6.2">Appendix C.6.2</a>), the "rinit" parameter <em>MUST</em> appear immediately after
    the "render" parameter.
 
-   The value assigned to the rinit parameter MUST be the media
+   The value assigned to the rinit parameter <em>MUST</em> be the media
    type/subtype [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>] for the initialization data object.  If an
    initialization object type is registered with several media types,
-   including audio, the assignment to rinit MUST use the audio media
+   including audio, the assignment to rinit <em>MUST</em> use the audio media
    type.
 
    RTP MIDI supports several parameters for encoding initialization data
@@ -7522,7 +7522,7 @@ Table of Contents
    "cid".
 
    If the "inline", "url", and/or "cid" parameters are used by a
-   renderer, these parameters MUST immediately follow the "rinit"
+   renderer, these parameters <em>MUST</em> immediately follow the "rinit"
    parameter.
 
 
@@ -7533,10 +7533,10 @@ Table of Contents
 
 
    If a "url" parameter appears for a renderer, an "inline" parameter
-   MUST NOT appear.  If an "inline" parameter appears for a renderer, a
-   "url" parameter MUST NOT appear.  However, neither "url" or "inline"
+   <em>MUST NOT</em> appear.  If an "inline" parameter appears for a renderer, a
+   "url" parameter <em>MUST NOT</em> appear.  However, neither "url" or "inline"
    is required to appear.  If neither "url" or "inline" parameters
-   follow "rinit", the "cid" parameter MUST follow "rinit".
+   follow "rinit", the "cid" parameter <em>MUST</em> follow "rinit".
 
    The "inline" parameter supports the inline encoding of the data
    object.  The parameter is assigned a double-quoted Base64 [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>]
@@ -7545,37 +7545,37 @@ Table of Contents
 
    The "url" parameter is assigned a double-quoted string representation
    of a Uniform Resource Locator (URL) for the data object.  The string
-   MUST specify a HyperText Transport Protocol URL (HTTP, [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>]).
-   HTTP MAY be used over TCP or MAY be used over a secure network
+   <em>MUST</em> specify a HyperText Transport Protocol URL (HTTP, [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>]).
+   HTTP <em>MAY</em> be used over TCP or <em>MAY</em> be used over a secure network
    transport, such as the method described in [<a href="./rfc2818.html" title="&quot;HTTP Over TLS&quot;">RFC2818</a>].  The media
-   type/subtype for the data object SHOULD be specified in the
+   type/subtype for the data object <em>SHOULD</em> be specified in the
    appropriate HTTP transport header.
 
    The "cid" parameter supports data object caching.  The parameter is
    assigned a double-quoted string value that encodes a globally unique
    identifier for the data object.
 
-   A cid parameter MAY immediately follow an inline parameter, in which
-   case the cid identifier value MUST be associated with the inline data
+   A cid parameter <em>MAY</em> immediately follow an inline parameter, in which
+   case the cid identifier value <em>MUST</em> be associated with the inline data
    object.
 
    If a url parameter is present, and if the data object for the URL is
-   expected to be unchanged for the life of the URL, a cid parameter MAY
-   immediately follow the url parameter.  The cid identifier value MUST
+   expected to be unchanged for the life of the URL, a cid parameter <em>MAY</em>
+   immediately follow the url parameter.  The cid identifier value <em>MUST</em>
    be associated with the data object for the URL.  A cid parameter
-   assigned to the same identifier value SHOULD be specified following
+   assigned to the same identifier value <em>SHOULD</em> be specified following
    the data object type/subtype in the appropriate HTTP transport
    header.
 
    If a url parameter is present, and if the data object for the URL is
-   expected to change during the life of the URL, a cid parameter MUST
+   expected to change during the life of the URL, a cid parameter <em>MUST</em>
    NOT follow the url parameter.  A receiver interprets the presence of
    a cid parameter as an indication that it is safe to use a cached copy
    of the url data object; the absence of a cid parameter is an
    indication that it is not safe to use a cached copy, as it may
    change.
 
-   Finally, the cid parameter MAY be used without the inline and url
+   Finally, the cid parameter <em>MAY</em> be used without the inline and url
    parameters.  In this case, the identifier references a local or
    distributed catalog of data objects.
 
@@ -7593,14 +7593,14 @@ Table of Contents
    generic streams uses a single data object (see <a href="#appendix-C.6.5">Appendix C.6.5</a> for
    example usage).
 
-   However, a subrender registration MAY permit the use of multiple data
+   However, a subrender registration <em>MAY</em> permit the use of multiple data
    objects for a renderer.  If multiple data objects are encoded for a
    renderer, each object encoding begins with an "rinit" parameter,
    followed by "inline", "url", and/or "cid" parameters.
 
-   Initialization data objects MAY encapsulate a Standard MIDI File
+   Initialization data objects <em>MAY</em> encapsulate a Standard MIDI File
    (SMF).  By default, the SMFs that are encapsulated in a data object
-   MUST be ignored by an RTP MIDI receiver.  We define parameters to
+   <em>MUST</em> be ignored by an RTP MIDI receiver.  We define parameters to
    override this default in <a href="#appendix-C.6.4">Appendix C.6.4</a>.
 
    To end this section, we offer guidelines for registering media types
@@ -7609,11 +7609,11 @@ Table of Contents
 
    Some initialization data objects are also capable of encoding MIDI
    note information and thus complete audio performances.  These objects
-   SHOULD be registered using the "audio" media type, so that the
+   <em>SHOULD</em> be registered using the "audio" media type, so that the
    objects may also be used for store-and-forward rendering, and
    "application" media type, to support editing tools.  Initialization
    objects without note storage, or initialization objects for non-audio
-   renderers, SHOULD be registered only for an "application" media type.
+   renderers, <em>SHOULD</em> be registered only for an "application" media type.
 
 <span class="h4"><a class="selflink" name="appendix-C.6.4" href="#appendix-C.6.4">C.6.4</a>.  MIDI Channel Mapping</span>
 
@@ -7628,11 +7628,11 @@ Table of Contents
      o  A renderer may accept an arbitrary number of MIDI name spaces,
         or it may expect a specific number of MIDI name spaces.
 
-   A session description SHOULD provide a compatible MIDI name space to
+   A session description <em>SHOULD</em> provide a compatible MIDI name space to
    each renderer in the session.  If a receiver detects that a session
    description has too many or too few MIDI name spaces for a renderer,
-   MIDI data from extra stream name spaces MUST be discarded, and extra
-   renderer name spaces MUST NOT be driven with MIDI data (except as
+   MIDI data from extra stream name spaces <em>MUST</em> be discarded, and extra
+   renderer name spaces <em>MUST NOT</em> be driven with MIDI data (except as
    described in <a href="#appendix-C.6.4.1">Appendix C.6.4.1</a>, below).
 
 
@@ -7660,22 +7660,22 @@ Table of Contents
 
    The smf_info parameter describes the "render" parameter that most
    recently precedes it in the parameter list.  The smf_info parameter
-   MUST NOT appear in parameter lists that do not use the "render"
-   parameter, and MUST NOT appear before the first use of "render" in
+   <em>MUST NOT</em> appear in parameter lists that do not use the "render"
+   parameter, and <em>MUST NOT</em> appear before the first use of "render" in
    the parameter list.
 
    We define three token values for smf_info: "ignore", "sdp_start", and
    "identity":
 
-     o  The "ignore" value indicates that the SMFs MUST be discarded.
+     o  The "ignore" value indicates that the SMFs <em>MUST</em> be discarded.
         This behavior is the default SMF rendering behavior.
 
-     o  The "sdp_start" value codes that SMFs MUST be rendered, and that
-        the rendering MUST begin upon the acceptance of the session
+     o  The "sdp_start" value codes that SMFs <em>MUST</em> be rendered, and that
+        the rendering <em>MUST</em> begin upon the acceptance of the session
         description.  If a receiver is offered a session description
         with a renderer that uses an smf_info parameter set to
         sdp_start, and if the receiver does not support rendering SMFs,
-        the receiver MUST NOT accept the renderer associated with the
+        the receiver <em>MUST NOT</em> accept the renderer associated with the
         smf_info parameter.  Options include rejecting the renderer (by
         setting the "render" parameter to "null"), the payload type, the
         media stream, or the entire session description.
@@ -7683,15 +7683,15 @@ Table of Contents
      o  The "identity" value indicates that the SMFs code the identity
         of the renderer.  The value is meant for use with the "unknown"
         renderer (see <a href="#appendix-C.6">Appendix C.6</a> preamble).  The MIDI commands coded
-        in the SMF are informational in nature and MUST NOT be presented
+        in the SMF are informational in nature and <em>MUST NOT</em> be presented
         to a renderer for audio presentation.  In typical use, the SMF
         would use SysEx Identity Reply commands (F0 7E nn 06 02, as
         defined in [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]) to identify devices, and use device-specific
         SysEx commands to describe current state of the devices (patch
         memory contents, etc.).
 
-   Other smf_info token values MAY be registered with IANA.  The token
-   value MUST adhere to the ABNF for render tokens defined in Appendix
+   Other smf_info token values <em>MAY</em> be registered with IANA.  The token
+   value <em>MUST</em> adhere to the ABNF for render tokens defined in Appendix
 
 
 
@@ -7700,12 +7700,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   D.  Registrations MUST include a complete specification of parameter
+   D.  Registrations <em>MUST</em> include a complete specification of parameter
    usage, similar in depth to the specifications that appear in this
    appendix for "sdp_start" and "identity".
 
    If a party is offered a session description that uses an smf_info
-   parameter value that is not known to the party, the party MUST NOT
+   parameter value that is not known to the party, the party <em>MUST NOT</em>
    accept the renderer associated with the smf_info parameter.  Options
    include rejecting the renderer, the payload type, the media stream,
    or the entire session description.
@@ -7786,8 +7786,8 @@ Table of Contents
    The "smf_inline", "smf_url", and "smf_cid" parameters belong to the
    "render" parameter that most recently precedes it in the session
    description.  The "smf_inline", "smf_url", and "smf_cid" parameters
-   MUST NOT appear in parameter lists that do not use the "render"
-   parameter and MUST NOT appear before the first use of "render" in the
+   <em>MUST NOT</em> appear in parameter lists that do not use the "render"
+   parameter and <em>MUST NOT</em> appear before the first use of "render" in the
    parameter list.  If several "smf_inline", "smf_url", or "smf_cid"
    parameters appear for a renderer, the order of the parameters defines
    the SMF name space ordering.
@@ -7801,7 +7801,7 @@ Table of Contents
    A "1" instructs the renderer to process the voice channel; a "0"
    instructs the renderer to ignore the voice channel.
 
-   The string length of the chanmask parameter value MUST be 16 (for a
+   The string length of the chanmask parameter value <em>MUST</em> be 16 (for a
    single stream or an identity relationship) or a multiple of 16 (for
    an ordered relationship).
 
@@ -7813,9 +7813,9 @@ Table of Contents
 
 
    The chanmask parameter describes the "render" parameter that most
-   recently precedes it in the session description; chanmask MUST NOT
+   recently precedes it in the session description; chanmask <em>MUST NOT</em>
    appear in parameter lists that do not use the "render" parameter and
-   MUST NOT appear before the first use of "render" in the parameter
+   <em>MUST NOT</em> appear before the first use of "render" in the parameter
    list.
 
    The chanmask parameter describes the final MIDI name spaces presented
@@ -7824,7 +7824,7 @@ Table of Contents
 
    If a receiver is offered a session description with a renderer that
    uses the chanmask parameter, and if the receiver does not implement
-   the semantics of the chanmask parameter, the receiver MUST NOT accept
+   the semantics of the chanmask parameter, the receiver <em>MUST NOT</em> accept
    the renderer unless the chanmask parameter value contains only "1"s.
 
 <span class="h4"><a class="selflink" name="appendix-C.6.5" href="#appendix-C.6.5">C.6.5</a>.  The audio/asc Media Type</span>
@@ -7834,27 +7834,27 @@ Table of Contents
    data block used to initialize mpeg4-generic streams (<a href="#section-6.2">Section 6.2</a> and
    [<a href="#ref-MPEGAUDIO" title="&quot;ISO 14496 MPEG- 4&quot;">MPEGAUDIO</a>]).
 
-   An mpeg4-generic parameter list MAY use the render, subrender, and
+   An mpeg4-generic parameter list <em>MAY</em> use the render, subrender, and
    rinit parameters with the audio/asc media type for renderer
    configuration.  Several restrictions apply to the use of these
    parameters in mpeg4-generic parameter lists:
 
      o  An mpeg4-generic media description that uses the render
-        parameter MUST assign the empty string ("") to the mpeg4-generic
+        parameter <em>MUST</em> assign the empty string ("") to the mpeg4-generic
         "config" parameter.  The use of the streamtype, mode, and
-        profile-level-id parameters MUST follow the normative text in
+        profile-level-id parameters <em>MUST</em> follow the normative text in
         <a href="#section-6.2">Section 6.2</a>.
 
-     o  Sessions that use identity or ordered relationships MUST follow
+     o  Sessions that use identity or ordered relationships <em>MUST</em> follow
         the mpeg4-generic configuration restrictions in <a href="#appendix-C.5">Appendix C.5</a>.
 
-     o  The render parameter MUST be assigned the value "synthetic",
+     o  The render parameter <em>MUST</em> be assigned the value "synthetic",
         "unknown", "null", or a render value that has been added to the
         IANA repository for use with mpeg4-generic RTP MIDI streams.
-        The "api" token value for render MUST NOT be used.
+        The "api" token value for render <em>MUST NOT</em> be used.
 
-     o  If a subrender parameter is present, it MUST immediately follow
-        the render parameter, and it MUST be assigned the token value
+     o  If a subrender parameter is present, it <em>MUST</em> immediately follow
+        the render parameter, and it <em>MUST</em> be assigned the token value
         "default" or assigned a subrender value added to the IANA
         repository for use with mpeg4-generic RTP MIDI streams.  A
         subrender parameter assignment may be left out of the renderer
@@ -7870,27 +7870,27 @@ Table of Contents
 
      o  If the render parameter is assigned the value "synthetic" and
         the subrender parameter has the value "default" (assigned or
-        implied), the rinit parameter MUST be assigned the value
-        "audio/asc", and an AudioSpecificConfig data object MUST be
+        implied), the rinit parameter <em>MUST</em> be assigned the value
+        "audio/asc", and an AudioSpecificConfig data object <em>MUST</em> be
         encoded using the mechanisms defined in C.6.2-3.  The
-        AudioSpecificConfig data MUST encode one of the MPEG 4 Audio
+        AudioSpecificConfig data <em>MUST</em> encode one of the MPEG 4 Audio
         Object Types defined for use with mpeg4-generic in <a href="#section-6.2">Section 6.2</a>.
         If the subrender value is other than "default", refer to the
         subrender registration for information on the use of "audio/asc"
         with the renderer.
 
      o  If the render parameter is assigned the value "null" or
-        "unknown", the data object MAY be omitted.
+        "unknown", the data object <em>MAY</em> be omitted.
 
    Several general restrictions apply to the use of the audio/asc media
    type in RTP MIDI:
 
-     o  A native stream MUST NOT assign "audio/asc" to rinit.  The
+     o  A native stream <em>MUST NOT</em> assign "audio/asc" to rinit.  The
         audio/asc media type is not intended to be a general-purpose
         container for rendering systems outside of MPEG usage.
 
      o  The audio/asc media type defines a stored object type; it does
-        not define semantics for RTP streams.  Thus, audio/asc MUST NOT
+        not define semantics for RTP streams.  Thus, audio/asc <em>MUST NOT</em>
         appear on an rtpmap line of a session description.
 
    Below, we show session description examples for audio/asc.  The
@@ -7959,7 +7959,7 @@ Table of Contents
         video RTP streams.
 
    For each application, we define a core set of functionality that all
-   implementations MUST implement.
+   implementations <em>MUST</em> implement.
 
    The applications we address in this section are not an exhaustive
    list of potential RTP MIDI uses.  We expect framework documents for
@@ -8018,16 +8018,16 @@ Table of Contents
    capabilities of the client, the server is free to provide a session
    description customized for the client in the DESCRIBE reply.
 
-   Clients MUST support unicast UDP RTP MIDI streams that use the
+   Clients <em>MUST</em> support unicast UDP RTP MIDI streams that use the
    recovery journal with the closed-loop or the anchor sending policies.
-   Clients MUST be able to interpret stream subsetting and chapter
+   Clients <em>MUST</em> be able to interpret stream subsetting and chapter
    inclusion parameters in the session description that qualify the
    sending policies.  Client support of enhanced Chapter C encoding is
-   OPTIONAL.
+   <em>OPTIONAL</em>.
 
-   The reference session description offered by a server MUST send all
+   The reference session description offered by a server <em>MUST</em> send all
    RTP MIDI UDP streams as unicast streams that use the recovery journal
-   and the closed-loop or anchor sending policies.  Servers SHOULD use
+   and the closed-loop or anchor sending policies.  Servers <em>SHOULD</em> use
 
 
 
@@ -8038,49 +8038,49 @@ Table of Contents
 
    the stream subsetting and chapter inclusion parameters in the
    reference session description, to simplify the rendering task of the
-   client.  Server support of enhanced Chapter C encoding is OPTIONAL.
+   client.  Server support of enhanced Chapter C encoding is <em>OPTIONAL</em>.
 
-   Clients and servers MUST support the use of RTSP interleaved mode (a
+   Clients and servers <em>MUST</em> support the use of RTSP interleaved mode (a
    method for interleaving RTP onto the RTSP TCP transport).
 
-   Clients MUST be able to interpret the timestamp semantics signalled
+   Clients <em>MUST</em> be able to interpret the timestamp semantics signalled
    by the "comex" value of the tsmode parameter (i.e., the timestamp
-   semantics of Standard MIDI Files [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]).  Servers MUST use the
+   semantics of Standard MIDI Files [<a href="#ref-MIDI" title="&quot;The Complete MIDI 1.0 Detailed Specification&quot;">MIDI</a>]).  Servers <em>MUST</em> use the
    "comex" value for the "tsmode" parameter in the reference session
    description.
 
-   Clients MUST be able to process an RTP MIDI stream whose packets
+   Clients <em>MUST</em> be able to process an RTP MIDI stream whose packets
    encode an arbitrary temporal duration ("media time").  Thus, in
-   practice, clients MUST implement a MIDI playout buffer.  Clients MUST
+   practice, clients <em>MUST</em> implement a MIDI playout buffer.  Clients <em>MUST</em>
    NOT depend on the presence of rtp_ptime, rtp_maxtime, and guardtime
    parameters in the session description in order to process packets,
-   but they SHOULD be able to use these parameters to improve packet
+   but they <em>SHOULD</em> be able to use these parameters to improve packet
    processing.
 
-   Servers SHOULD strive to send RTP MIDI streams in the same way media
+   Servers <em>SHOULD</em> strive to send RTP MIDI streams in the same way media
    servers send conventional audio streams: a sequence of packets that
    either all code the same temporal duration (non-normative example: 50
    ms packets) or that code one of an integral number of temporal
    durations (non-normative example: 50 ms, 100 ms, 250 ms, or 500 ms
-   packets).  Servers SHOULD encode information about the packetization
+   packets).  Servers <em>SHOULD</em> encode information about the packetization
    method in the rtp_ptime and rtp_maxtime parameters in the session
    description.
 
-   Clients MUST be able to examine the render and subrender parameter,
+   Clients <em>MUST</em> be able to examine the render and subrender parameter,
    to determine if a multimedia session uses a renderer it supports.
-   Clients MUST be able to interpret the default "one" value of the
+   Clients <em>MUST</em> be able to interpret the default "one" value of the
    "multimode" parameter, to identify supported renderers from a list of
-   renderer descriptions.  Clients MUST be able to interpret the
+   renderer descriptions.  Clients <em>MUST</em> be able to interpret the
    musicport parameter, to the degree that it is relevant to the
-   renderers it supports.  Clients MUST be able to interpret the
+   renderers it supports.  Clients <em>MUST</em> be able to interpret the
    chanmask parameter.
 
    Clients supporting renderers whose data object (as encoded by a
-   parameter value for "inline") could exceed 300 octets in size MUST
+   parameter value for "inline") could exceed 300 octets in size <em>MUST</em>
    support the url and cid parameters and thus must implement the HTTP
    protocol in addition to RTSP.
 
-   Servers MUST specify complete rendering systems for RTP MIDI streams.
+   Servers <em>MUST</em> specify complete rendering systems for RTP MIDI streams.
    Note that a minimal RTP MIDI native stream does not meet this
    requirement (<a href="#section-6.1">Section 6.1</a>), as the rendering method for such streams
    is "not specified".
@@ -8100,7 +8100,7 @@ Table of Contents
    the maximum inline value for General MIDI is well under 300 octets
    (and thus clients need not support the "url" parameter), and that the
    maximum inline values for DLS 2 and Structured Audio may be much
-   larger than 300 octets (and thus clients MUST support the url
+   larger than 300 octets (and thus clients <em>MUST</em> support the url
    parameter).
 
    We anticipate that the owners of rendering systems (both standardized
@@ -8109,11 +8109,11 @@ Table of Contents
    use render and subrender (Appendix C.6.2) to specify complete
    rendering systems for RTSP content-streaming multimedia sessions.
 
-   Servers MUST NOT use the sdp_start value for the smf_info parameter
+   Servers <em>MUST NOT</em> use the sdp_start value for the smf_info parameter
    in the reference session description, as this use would require that
    clients be able to parse and render Standard MIDI Files.
 
-   Clients MUST support mpeg4-generic mode rtp-midi General MIDI (GM)
+   Clients <em>MUST</em> support mpeg4-generic mode rtp-midi General MIDI (GM)
    sessions, at a polyphony limited by the hardware capabilities of the
    client.  This requirement provides a "lowest common denominator"
    rendering system for content providers to target.  Note that this
@@ -8123,12 +8123,12 @@ Table of Contents
    voice patches that implement the GM instrument set, and using this
    emulation for mpeg4-generic GM sessions.
 
-   It is RECOMMENDED that servers use General MIDI as the renderer for
-   the reference session description, because clients are REQUIRED to
+   It is <em>RECOMMENDED</em> that servers use General MIDI as the renderer for
+   the reference session description, because clients are <em>REQUIRED</em> to
    support it.  We do not require General MIDI as the reference
    renderer, because for normative applications it is an inappropriate
    choice.  Servers using General MIDI as a "lowest common denominator"
-   renderer SHOULD use Universal Real-Time SysEx MIP message [<a href="#ref-SPMIDI" title="&quot;Scalable Polyphony MIDI, Specification and Device Profiles&quot;">SPMIDI</a>] to
+   renderer <em>SHOULD</em> use Universal Real-Time SysEx MIP message [<a href="#ref-SPMIDI" title="&quot;Scalable Polyphony MIDI, Specification and Device Profiles&quot;">SPMIDI</a>] to
    communicate the priority of voices to polyphony-limited clients.
 
 <span class="h4"><a class="selflink" name="appendix-C.7.2" href="#appendix-C.7.2">C.7.2</a>.  MIDI Network Musical Performance Applications</span>
@@ -8166,7 +8166,7 @@ Table of Contents
    We focus on session management for two-party unicast sessions that
    specify a renderer for RTP MIDI streams.  Within this limited scope,
    the guidelines defined here are sufficient to let applications
-   interoperate.  We define the REQUIRED capabilities of RTP MIDI
+   interoperate.  We define the <em>REQUIRED</em> capabilities of RTP MIDI
    senders and receivers in NMP sessions and define how session
    descriptions exchanged are used to set up network musical performance
    sessions.
@@ -8177,17 +8177,17 @@ Table of Contents
    different applications might not yield a common session
    configuration.
 
-   Thus, we now define a set of capabilities that NMP parties MUST
+   Thus, we now define a set of capabilities that NMP parties <em>MUST</em>
    support.  Session description offers whose options lie outside the
-   envelope of REQUIRED party behavior risk negotiation failure.  We
+   envelope of <em>REQUIRED</em> party behavior risk negotiation failure.  We
    also define session description idioms that the RTP MIDI part of an
-   offer MUST follow, in order to structure the offer for simpler
+   offer <em>MUST</em> follow, in order to structure the offer for simpler
    analysis.
 
    We use the term "offerer" for the party making a SIP offer, and
    "answerer" for the party answering the offer.  Finally, we note that
    unless it is qualified by the adjective "sender" or "receiver", a
-   statement that a party MUST support X implies that it MUST support X
+   statement that a party <em>MUST</em> support X implies that it <em>MUST</em> support X
    for both sending and receiving.
 
    If an offerer wishes to define a "sendrecv" RTP MIDI stream, it may
@@ -8205,20 +8205,20 @@ Table of Contents
 
 
    participate in a session where the two parties may be using different
-   renderer configurations.  Thus, parties MUST be prepared to see both
+   renderer configurations.  Thus, parties <em>MUST</em> be prepared to see both
    real and virtual sendrecv sessions in an offer.
 
-   Parties MUST support unicast UDP transport of RTP MIDI streams.
-   These streams MUST use the recovery journal with the closed-loop or
-   anchor sending policies.  These streams MUST use the stream
+   Parties <em>MUST</em> support unicast UDP transport of RTP MIDI streams.
+   These streams <em>MUST</em> use the recovery journal with the closed-loop or
+   anchor sending policies.  These streams <em>MUST</em> use the stream
    subsetting and chapter inclusion parameters to declare the types of
    MIDI commands that will be sent on the stream (for sendonly streams)
    or will be processed (for recvonly streams), including the size
    limits on System Exclusive commands.  Support of enhanced Chapter C
-   encoding is OPTIONAL.
+   encoding is <em>OPTIONAL</em>.
 
-   Note that both TCP and multicast UDP support are OPTIONAL.  We make
-   TCP OPTIONAL because we expect NMP renderers to rely on data objects
+   Note that both TCP and multicast UDP support are <em>OPTIONAL</em>.  We make
+   TCP <em>OPTIONAL</em> because we expect NMP renderers to rely on data objects
    (signalled by "rinit" and associated parameters) for initialization
    at the start of the session, and only to use System Exclusive
    commands for interactive control during the session.  These
@@ -8231,24 +8231,24 @@ Table of Contents
    Recall that the tsmode parameter controls the semantics of command
    timestamps in the MIDI list of RTP packets.
 
-   Parties MUST support clock rates of 44.1 kHz, 48 kHz, 88.2 kHz, and
-   96 kHz.  Parties MUST support streams using the "comex", "async", and
-   "buffer" tsmode values.  Recvonly offers MUST offer the default
+   Parties <em>MUST</em> support clock rates of 44.1 kHz, 48 kHz, 88.2 kHz, and
+   96 kHz.  Parties <em>MUST</em> support streams using the "comex", "async", and
+   "buffer" tsmode values.  Recvonly offers <em>MUST</em> offer the default
    "comex".
 
-   Parties MUST support a wide range of packet temporal durations: from
+   Parties <em>MUST</em> support a wide range of packet temporal durations: from
    rtp_ptime and rtp_maxptime values of 0, to rtp_ptime and rtp_maxptime
-   values that code 100 ms.  Thus, receivers MUST be able to implement a
+   values that code 100 ms.  Thus, receivers <em>MUST</em> be able to implement a
    playout buffer.
 
-   Offers and answers MUST present rtp_ptime, rtp_maxptime, and
+   Offers and answers <em>MUST</em> present rtp_ptime, rtp_maxptime, and
    guardtime values that support the latency that users would expect in
-   the application, subject to bandwidth constraints.  As senders MUST
+   the application, subject to bandwidth constraints.  As senders <em>MUST</em>
    abide by values set for these parameters in a session description, a
-   receiver SHOULD use these values to size its playout buffer to
+   receiver <em>SHOULD</em> use these values to size its playout buffer to
    produce the lowest reliable latency for a session.  Implementers
    should refer to [<a href="./rfc4696.html" title="&quot;An Implementation Guide for RTP MIDI&quot;">RFC4696</a>] for information on packet sending
-   algorithms for latency-sensitive applications.  Parties MUST be able
+   algorithms for latency-sensitive applications.  Parties <em>MUST</em> be able
    to implement the semantics of the guardtime parameter, for times from
    5 ms to 5000 ms.
 
@@ -8262,7 +8262,7 @@ Table of Contents
 
    We now discuss the use of the render parameter.
 
-   Sessions MUST specify complete rendering systems for all RTP MIDI
+   Sessions <em>MUST</em> specify complete rendering systems for all RTP MIDI
    streams.  Note that a minimal RTP MIDI native stream does not meet
    this requirement (<a href="#section-6.1">Section 6.1</a>), as the rendering method for such
    streams is "not specified".
@@ -8276,11 +8276,11 @@ Table of Contents
    subrender (Appendix C.6.2) to specify complete rendering systems for
    SIP network musical performance multimedia sessions.
 
-   All parties MUST support General MIDI (GM) sessions, at a polyphony
+   All parties <em>MUST</em> support General MIDI (GM) sessions, at a polyphony
    limited by the hardware capabilities of the party.  This requirement
    provides a "lowest common denominator" rendering system, without
    which practical interoperability will be quite difficult.  When using
-   GM, parties SHOULD use Universal Real-Time SysEx MIP message [<a href="#ref-SPMIDI" title="&quot;Scalable Polyphony MIDI, Specification and Device Profiles&quot;">SPMIDI</a>]
+   GM, parties <em>SHOULD</em> use Universal Real-Time SysEx MIP message [<a href="#ref-SPMIDI" title="&quot;Scalable Polyphony MIDI, Specification and Device Profiles&quot;">SPMIDI</a>]
    to communicate the priority of voices to polyphony-limited clients.
 
    Note that this requirement does not force implementors of a non-GM
@@ -8292,19 +8292,19 @@ Table of Contents
    maximize interoperability may do so by offering GM if its preferred
    renderer is not accepted by the answerer.
 
-   Offerers MUST NOT present several renderers as options in a session
+   Offerers <em>MUST NOT</em> present several renderers as options in a session
    description by listing several payload types on a media line, as
    <a href="#section-2.1">Section 2.1</a> uses this construct to let a party send several RTP MIDI
    streams in the same RTP session.
 
-   Instead, an offerer wishing to present rendering options SHOULD offer
+   Instead, an offerer wishing to present rendering options <em>SHOULD</em> offer
    a single payload type that offers several renderers.  In this
    construct, the parameter list codes a list of render parameters (each
    followed by its support parameters).  As discussed in <a href="#appendix-C.6.1">Appendix C.6.1</a>,
    the order of renderers in the list declares the offerer's preference.
-   The "unknown" and "null" values MUST NOT appear in the offer.  The
-   answer MUST set all render values except the desired renderer to
-   "null".  Thus, "unknown" MUST NOT appear in the answer.
+   The "unknown" and "null" values <em>MUST NOT</em> appear in the offer.  The
+   answer <em>MUST</em> set all render values except the desired renderer to
+   "null".  Thus, "unknown" <em>MUST NOT</em> appear in the answer.
 
 
 
@@ -8316,21 +8316,21 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   We use SHOULD instead of MUST in the first sentence in the paragraph
+   We use <em>SHOULD</em> instead of <em>MUST</em> in the first sentence in the paragraph
    above, because this technique does not work in all situations
    (example:  an offerer wishes to offer both mpeg4-generic renderers
    and native RTP MIDI renderers as options).  In this case, the offerer
-   MUST present a series of session descriptions, each offering a single
+   <em>MUST</em> present a series of session descriptions, each offering a single
    renderer, until the answerer accepts a session description.
 
-   Parties MUST support the musicport, chanmask, subrender, rinit, and
+   Parties <em>MUST</em> support the musicport, chanmask, subrender, rinit, and
    inline parameters.  Parties supporting renderers whose data object
    (as encoded by a parameter value for "inline") could exceed 300
-   octets in size MUST support the url and cid parameters and thus must
+   octets in size <em>MUST</em> support the url and cid parameters and thus must
    implement HTTP protocol.  Note that in mpeg4-generic, General MIDI
    data objects cannot exceed 300 octets, but DLS 2 and Structured Audio
    data objects may.  Support for the other rendering parameters
-   (smf_cif, smf_info, smf_inline, smf_url) is OPTIONAL.
+   (smf_cif, smf_info, smf_inline, smf_url) is <em>OPTIONAL</em>.
 
    Thus far in this document, our discussion has assumed that the only
    MIDI flows that drive a renderer are the network flows described in
@@ -8339,18 +8339,18 @@ Table of Contents
    for the remote party.
 
    In practice, applications may wish to have both parties share a
-   single rendering engine.  In this case, the session description MUST
-   use a virtual sendrecv session and MUST use the stream subsetting and
+   single rendering engine.  In this case, the session description <em>MUST</em>
+   use a virtual sendrecv session and <em>MUST</em> use the stream subsetting and
    chapter inclusion parameters to allocate which MIDI channels are
    intended for use by a party.  If two parties are sharing a MIDI
-   channels, the application MUST ensure that appropriate MIDI merging
+   channels, the application <em>MUST</em> ensure that appropriate MIDI merging
    occurs at the input to the renderer.
 
    We now discuss the use of (non-MIDI) audio streams in the session.
 
    Audio streams may be used for two purposes: as a "talkback" channel
    for parties to converse, or as a way to conduct a performance that
-   includes MIDI and audio channels.  In the latter case, offers MUST
+   includes MIDI and audio channels.  In the latter case, offers <em>MUST</em>
    use sample rates and the packet temporal durations for the audio and
    MIDI streams that support low-latency synchronized rendering.
 
@@ -8544,7 +8544,7 @@ Table of Contents
    rtp_maxptime for the sendonly stream has been changed to code 2 ms
    (441 in clock units), and the guardtime for the recvonly stream has
    been doubled.  As these parameter modifications request capabilities
-   that are REQUIRED to be implemented by interoperable parties,
+   that are <em>REQUIRED</em> to be implemented by interoperable parties,
    "second" can make these changes with confidence that "first" can
    abide by them.
 
@@ -8552,9 +8552,9 @@ Table of Contents
 
    In this appendix, we define the syntax for the RTP MIDI media type
    parameters in Augmented Backus-Naur Form (ABNF, [<a href="./rfc4234.html" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">RFC4234</a>]).  When
-   using these parameters with SDP, all parameters MUST appear on a
+   using these parameters with SDP, all parameters <em>MUST</em> appear on a
    single fmtp attribute line of an RTP MIDI media description.  For
-   mpeg4-generic RTP MIDI streams, this line MUST also include any
+   mpeg4-generic RTP MIDI streams, this line <em>MUST</em> also include any
    mpeg4-generic parameters (usage described in <a href="#section-6.2">Section 6.2</a>).  An fmtp
    attribute line may be defined (after [<a href="./rfc3640.html" title="&quot;RTP Payload Format for Transport of MPEG-4 Elementary Streams&quot;">RFC3640</a>]) as:
 
@@ -8564,7 +8564,7 @@ Table of Contents
 
    fmtp = "a=fmtp:" token SP param-assign 0*(";" SP param-assign) CRLF
 
-   where &lt;token&gt; codes the RTP payload type.  Note that white space MUST
+   where &lt;token&gt; codes the RTP payload type.  Note that white space <em>MUST</em>
    NOT appear between the "a=fmtp:" and the RTP payload type.
 
    We now define the syntax of the parameters defined in <a href="#appendix-C">Appendix C</a>.
@@ -8731,7 +8731,7 @@ Table of Contents
    midi-chan-range    = midi-chan "-" midi-chan
 
                       ; decimal value of left midi-chan
-                      ; MUST be strictly less than decimal
+                      ; <em>MUST</em> be strictly less than decimal
                       ; value of right midi-chan
 
    midi-chan          = %d0-15
@@ -8747,7 +8747,7 @@ Table of Contents
    midi-field-range   = midi-field "-" midi-field
                       ;
                       ; decimal value of left midi-field
-                      ; MUST be strictly less than decimal
+                      ; <em>MUST</em> be strictly less than decimal
                       ; value of right midi-field
 
    midi-field         = four-octet
@@ -8777,7 +8777,7 @@ Table of Contents
    hex-field-range    = hex-octet "-" hex-octet
                       ;
                       ; hexadecimal value of left hex-octet
-                      ; MUST be strictly less than hexadecimal
+                      ; <em>MUST</em> be strictly less than hexadecimal
                       ; value of right hex-octet
 
    hex-octet          = 2("0" / "1" / "2"/ "3" / "4" /
@@ -8787,7 +8787,7 @@ Table of Contents
                       ; rewritten version of hex-octet in [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>]
                       ; (page 23).
                       ; note that a-f are not permitted, only A-F.
-                      ; hex-octet values MUST NOT exceed 7F.
+                      ; hex-octet values <em>MUST NOT</em> exceed 7F.
 
    ;
    ; definitions for rinit parameter
@@ -9202,8 +9202,8 @@ Table of Contents
 
    The 4-bit FREQIDX field specifies the sampling rate of the renderer.
    We show the mapping of FREQIDX values to sampling rates in Figure
-   E.4.  Senders MUST specify a sampling frequency that matches the RTP
-   clock rate, if possible; if not, senders MUST specify the escape
+   E.4.  Senders <em>MUST</em> specify a sampling frequency that matches the RTP
+   clock rate, if possible; if not, senders <em>MUST</em> specify the escape
 
 
 
@@ -9212,7 +9212,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4695.html">RFC 4695</a>              RTP Payload Format for MIDI          November 2006</span>
 
 
-   value.  Receivers MUST consult the RTP clock parameter for the true
+   value.  Receivers <em>MUST</em> consult the RTP clock parameter for the true
    sampling rate if the escape value is specified.
 
                        FREQIDX    Sampling Frequency
@@ -9240,8 +9240,8 @@ Table of Contents
    the renderer.  The values 0x1 to 0x5 specify 1 to 5 audio channels;
    the value 0x6 specifies 5+1 surround sound, and the value 0x7
    specifies 7+1 surround sound.  If the rtpmap line in the session
-   description specifies one of these formats, CHANNEL MUST be set to
-   the corresponding value.  Otherwise, CHANNEL MUST be set to 0x0.
+   description specifies one of these formats, CHANNEL <em>MUST</em> be set to
+   the corresponding value.  Otherwise, CHANNEL <em>MUST</em> be set to 0x0.
 
    The CHANNEL field is followed by a list of one or more binary file
    data blocks.  The 3-bit SACNK field (the chunk_type field in class
@@ -9282,16 +9282,16 @@ Table of Contents
    fields in Figure E.3 code the presence of another file; the "0"
    constant field codes the end of the list.  The final "0" bit in
    Figure E.3 codes the absence of special coding tools (see [<a href="#ref-MPEGAUDIO" title="&quot;ISO 14496 MPEG- 4&quot;">MPEGAUDIO</a>]
-   for details).  Senders not using these tools MUST append this "0"
-   bit; receivers that do not understand these coding tools MUST ignore
+   for details).  Senders not using these tools <em>MUST</em> append this "0"
+   bit; receivers that do not understand these coding tools <em>MUST</em> ignore
    all data following a "1" in this position.
 
    The StructuredAudioSpecificConfig bitfield structure requires the
    presence of one FILE_BLK.  For mpeg4-generic RTP MIDI use of DLS 2,
-   FILE_BLKs MUST code RIFF files or SMF files.  For mpeg4-generic RTP
-   MIDI use of General MIDI, FILE_BLKs MUST code SMF files.  By default,
+   FILE_BLKs <em>MUST</em> code RIFF files or SMF files.  For mpeg4-generic RTP
+   MIDI use of General MIDI, FILE_BLKs <em>MUST</em> code SMF files.  By default,
    this SMF will be ignored (Appendix C.6.4.1).  In this default case, a
-   GM StructuredAudioSpecificConfig bitfield SHOULD code a FILE_BLK
+   GM StructuredAudioSpecificConfig bitfield <em>SHOULD</em> code a FILE_BLK
    whose FILE_LEN is 0, and whose FILE_DATA is empty.
 
    To complete this appendix, we derive the

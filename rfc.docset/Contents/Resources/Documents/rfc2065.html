@@ -601,7 +601,7 @@ Table of Contents
    for type SIG will not get the SIG, if any, at the original CNAME
    domain name but rather a SIG at the target name.
 
-   In general, security aware servers MUST be used to securely CNAME in
+   In general, security aware servers <em>MUST</em> be used to securely CNAME in
    DNS.  Security aware servers must (1) allow KEY, SIG, and NXT RRs
    along with CNAME RRs, (2) suppress CNAME processing on retrieval of
    these types as well as on retrieval of the type CNAME, and (3)
@@ -671,7 +671,7 @@ Table of Contents
    key as only public keys are stored in the DNS.  This can be the
    public key of a zone, a host or other end entity, or a user.  A KEY
    RR is, like any other RR, authenticated by a SIG RR. Security aware
-   DNS implementations MUST be designed to handle at least two
+   DNS implementations <em>MUST</em> be designed to handle at least two
    simultaneously valid keys of the same type associated with a name.
 
    The type number for the KEY RR is 25.
@@ -727,7 +727,7 @@ Table of Contents
    user or account dee@cybercash.com.  Thus, there are flags, as
    described below, in the KEY RR to indicate with which of these roles
    the owner name and public key are associated.  Note that an
-   appropriate zone KEY RR MUST occur at the apex node of a secure zone
+   appropriate zone KEY RR <em>MUST</em> occur at the apex node of a secure zone
    and at every leaf node which is a delegation point (and thus the same
    owner name as the apex of a subzone) within a secure zone.
 
@@ -763,7 +763,7 @@ Table of Contents
    confidentiality is permitted. Note that DNS security makes use of
    keys for authentication only. Confidentiality use flagging is
    provided for use of keys in other protocols.  Implementations not
-   intended to support key distribution for confidentiality MAY require
+   intended to support key distribution for confidentiality <em>MAY</em> require
    that the confidentiality use prohibited bit be on for keys they
    serve.  If both bits of this field are one, the "no key" value, there
    is no key information and the RR stops after the algorithm octet.  By
@@ -999,11 +999,11 @@ Table of Contents
    information processing except, of course, for the corresponding SIG
    RR from a security aware server.
 
-   Security aware DNS servers MUST include KEY RRs as additional
+   Security aware DNS servers <em>MUST</em> include KEY RRs as additional
    information in responses where appropriate including the following:
 
    (1) On the retrieval of NS RRs, the zone key KEY RR(s) for the zone
-   served by these name servers MUST be included as additional
+   served by these name servers <em>MUST</em> be included as additional
    information if space is avilable.  There will always be at least one
    such KEY RR in a secure zone, even if it has the no-key type value to
    indicate that the subzone is insecure.  If not all additional
@@ -1011,7 +1011,7 @@ Table of Contents
    or AAAA glue RRs.  If such a KEY RR does not fit on a retrieval, the
    retrieval must be considered truncated.
 
-   (2) On retrieval of type A or AAAA RRs, the end entity KEY RR(s) MUST
+   (2) On retrieval of type A or AAAA RRs, the end entity KEY RR(s) <em>MUST</em>
    be included if space is available.  On inclusion of A or AAAA RRs as
    additional information, their KEY RRs will also be included but with
    lower priority than the relevant A or AAAA RRs.
@@ -1309,8 +1309,8 @@ Table of Contents
 
 
    The size of n, including most and least significant bits (which will
-   be 1) SHALL be not less than 512 bits and not more than 2552 bits.  n
-   and e SHOULD be chosen such that the public exponent is small.
+   be 1) <em>SHALL</em> be not less than 512 bits and not more than 2552 bits.  n
+   and e <em>SHOULD</em> be chosen such that the public exponent is small.
 
    Leading zeros bytes are not permitted in the MD5/RSA algorithm
    signature.
@@ -1352,10 +1352,10 @@ Table of Contents
    name.  Although it should be correct for the zone name, the labels
    field of an AXFR SIG is otherwise meaningless. The AXFR SIG is only
    retrieved as part of a zone transfer.  After validation of the AXFR
-   SIG, the zone MAY be considered valid without verification of the
+   SIG, the zone <em>MAY</em> be considered valid without verification of the
    internal zone signed SIGs in the zone; however, any RRs authenticated
-   by SIGs signed by entity keys or the like MUST still be validated.
-   The AXFR SIG SHOULD be transmitted first in a zone transfer so the
+   by SIGs signed by entity keys or the like <em>MUST</em> still be validated.
+   The AXFR SIG <em>SHOULD</em> be transmitted first in a zone transfer so the
 
 
 
@@ -1422,7 +1422,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a> SIG RRs in the Construction of Responses</span>
 
-   Security aware DNS servers MUST, for every authoritative RR the query
+   Security aware DNS servers <em>MUST</em>, for every authoritative RR the query
    will return, attempt to send the available SIG RRs which authenticate
    the requested RR.  The following rules apply to the inclusion of SIG
    RRs in responses:
@@ -1430,34 +1430,34 @@ Table of Contents
    1. when an RR set is placed in a response, its SIG RR has a higher
       priority for inclusion than other additional RRs that may need to
       be included.  If space does not permit its inclusion, the response
-      MUST be considered truncated except as provided in 2 below.
+      <em>MUST</em> be considered truncated except as provided in 2 below.
 
    2. when a SIG RR is present in the zone for an additional information
-      section RR, the response MUST NOT be considered truncated merely
+      section RR, the response <em>MUST NOT</em> be considered truncated merely
       because space does not permit the inclusion of its SIG RR.
 
    3. SIGs to authenticate non-authoritative data (glue records and NS
-      RRs for subzones) are unnecessary and MUST NOT be sent.  (Note
+      RRs for subzones) are unnecessary and <em>MUST NOT</em> be sent.  (Note
       that KEYs for subzones are controlling in a superzone so the
-      superzone's signature on the KEY MUST be included (unless the KEY
+      superzone's signature on the KEY <em>MUST</em> be included (unless the KEY
       was additional information and the SIG did not fit).)
 
    4. If a SIG covers any RR that would be in the answer section of the
-      response, its automatic inclusion MUST be the answer section.  If
+      response, its automatic inclusion <em>MUST</em> be the answer section.  If
       it covers an RR that would appear in the authority section, its
-      automatic inclusion MUST be in the authority section.  If it
+      automatic inclusion <em>MUST</em> be in the authority section.  If it
       covers an RR that would appear in the additional information
-      section it MUST appear in the additional information section.
+      section it <em>MUST</em> appear in the additional information section.
       This is a change in the existing standard which contemplates only
       NS and SOA RRs in the authority section.
 
    5. Optionally, DNS transactions may be authenticated by a SIG RR at
       the end of the response in the additional information section
       (<a href="#section-4.1.4">Section 4.1.4</a>).  Such SIG RRs are signed by the DNS server
-      originating the response.  Although the signer field MUST be the
+      originating the response.  Although the signer field <em>MUST</em> be the
       name of the originating server host, the owner name, class, TTL,
       and original TTL, are meaningless.  The class and TTL fields
-      SHOULD be zero.  To conserve space, the owner name SHOULD be root
+      <em>SHOULD</em> be zero.  To conserve space, the owner name <em>SHOULD</em> be root
       (a single zero octet).  If transaction authentication is desired,
       that SIG RR must be considered higher priority for inclusion than
       any other RR in the response.
@@ -1483,17 +1483,17 @@ Table of Contents
 
    1. a security aware resolver that receives a response from what it
       believes to be a security aware server via a secure communication
-      with the AD bit (see <a href="#section-6.1">Section 6.1</a>) set, MAY choose to accept the
+      with the AD bit (see <a href="#section-6.1">Section 6.1</a>) set, <em>MAY</em> choose to accept the
       RRs as received without verifying the zone SIG RRs.
 
-   2. in other cases, a security aware resolver SHOULD verify the SIG
+   2. in other cases, a security aware resolver <em>SHOULD</em> verify the SIG
       RRs for the RRs of interest.  This may involve initiating
       additional queries for SIG or KEY RRs, especially in the case of
       getting a response from an insecure server.  (As explained in 4.2
       above, it will not be possible to secure CNAMEs being served up by
       non-secure resolvers.)
 
-      NOTE: Implementers might expect the above SHOULD to be a MUST.
+      NOTE: Implementers might expect the above <em>SHOULD</em> to be a <em>MUST</em>.
       However, local policy or the calling application may not require
       the security services.
 
@@ -1508,13 +1508,13 @@ Table of Contents
    If the SIG RR is the last RR in a response in the additional
    information section and has a type covered of zero, it is a
    transaction signature of the response and the query that produced the
-   response.  It MAY be optionally checked and the message rejected if
+   response.  It <em>MAY</em> be optionally checked and the message rejected if
    the checks fail.  But even if the checks succeed, such a transaction
    authentication SIG does NOT authenticate any RRs in the message.
    Only a proper SIG RR signed by the zone or a key tracing its
    authority to the zone or to static resolver configuration can
    authenticate RRs.  If a resolver does not implement transaction
-   and/or request SIGs, it MUST ignore them without error.
+   and/or request SIGs, it <em>MUST</em> ignore them without error.
 
    If all reasonable checks indicate that the SIG RR is valid then RRs
    verified by it should be considered authenticated.
@@ -1654,9 +1654,9 @@ Table of Contents
    There are special considerations due to interaction with wildcards as
    explained below.
 
-   The NXT RRs for a zone SHOULD be automatically calculated and added
+   The NXT RRs for a zone <em>SHOULD</em> be automatically calculated and added
    to the zone by the same recommended off-line process that signs the
-   zone (see <a href="#section-7.2">Section 7.2</a>).  The NXT RR's TTL SHOULD not exceed the zone
+   zone (see <a href="#section-7.2">Section 7.2</a>).  The NXT RR's TTL <em>SHOULD</em> not exceed the zone
    minimum TTL.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a> NXT RDATA Format</span>
@@ -1890,23 +1890,23 @@ Table of Contents
    of old servers are not flagged as authenticated to security aware
    resolvers and queries from non-security aware resolvers do not assert
    the checking disabled bit and thus will be answered by security aware
-   servers only with authenticated data. Aware resolvers MUST not trust
+   servers only with authenticated data. Aware resolvers <em>MUST</em> not trust
    the AD bit unless they trust the server they are talking to and
    either have a secure path to it or use DNS transaction security.
 
-   Any security aware resolver willing to do cryptography SHOULD assert
+   Any security aware resolver willing to do cryptography <em>SHOULD</em> assert
    the CD bit on all queries to reduce DNS latency time by allowing
    security aware servers to answer before they have resolved the
    validity of data.
 
    Security aware servers NEVER return Bad data.  For non-security aware
    resolvers or security aware resolvers requesting service by having
-   the CD bit clear, security aware servers MUST return only
+   the CD bit clear, security aware servers <em>MUST</em> return only
    Authenticated or Insecure data with the AD bit set in the response.
    Security aware resolvers will know that if data is Insecure versus
-   Authentic by the absence of SIG RRs.  Security aware servers MAY
+   Authentic by the absence of SIG RRs.  Security aware servers <em>MAY</em>
    return Pending data to security aware resolvers requesting the
-   service by clearing the AD bit in the response.  The AD bit MUST NOT
+   service by clearing the AD bit in the response.  The AD bit <em>MUST NOT</em>
    be set on a response unless all of the RRs in the response are either
    Authenticated or Insecure.
 
@@ -1968,7 +1968,7 @@ Table of Contents
    Starting with one or more trusted keys for a zone, it should be
    possible to retrieve signed keys for its subzones which have a key
    and, if the zone is not root, for its superzone. Every authoritative
-   secure zone server MUST also include the KEY RR for a super-zone
+   secure zone server <em>MUST</em> also include the KEY RR for a super-zone
    signed by the secure zone via a keyfile directive. This makes it
    possible to climb the tree of zones if one starts below root.  A
    secure sub-zone is indicated by a KEY RR with non-null key
@@ -2017,7 +2017,7 @@ Table of Contents
 
    A variety of time synchronization protocols exist including the
    Network Time Protocol (NTP, <a href="./rfc1305.html">RFC1305</a>).  If such protocols are used,
-   they MUST be used securely so that time can not be spoofed.
+   they <em>MUST</em> be used securely so that time can not be spoofed.
    Otherwise, for example, a host could get its clock turned back and
    might then believe old SIG and KEY RRs which were valid but no longer
    are.
@@ -2164,7 +2164,7 @@ Table of Contents
    It should be noted that in DNS the root is a zone unto itself.  Thus
    the root zone key should only be seen signing itself or signing RRs
    with names one level below root, such as .aq, .edu, or .arpa.
-   Implementations MAY reject as bogus any purported root signature of
+   Implementations <em>MAY</em> reject as bogus any purported root signature of
    records with a name more than one level below root.  The root zone
    contains the root KEY RR signed by a SIG RR under the root key
    itself.
@@ -2179,7 +2179,7 @@ Table of Contents
 
       Minimal server compliance is the ability to store and retrieve
       (including zone transfer) SIG, KEY, and NXT RRs.  Any secondary,
-      caching, or other server for a secure zone MUST be at least
+      caching, or other server for a secure zone <em>MUST</em> be at least
       minimally compliant and even then some things, such as secure
       CNAMEs, will not work without full compliance.
 
@@ -2192,9 +2192,9 @@ Table of Contents
       suppression of CNAME following on retrieval of the security type
       RRs, (5) recognize the CD query header bit and set the AD query
       header bit, as appropriate, and (6) proper handling of the two NXT
-      RRs at delegation points.  Primary servers for secure zones MUST
+      RRs at delegation points.  Primary servers for secure zones <em>MUST</em>
       be fully compliant and for completely successful secure operation,
-      all secondary, caching, and other servers handling the zone SHOULD
+      all secondary, caching, and other servers handling the zone <em>SHOULD</em>
       be fully compliant as well.
 
 

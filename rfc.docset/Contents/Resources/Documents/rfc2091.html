@@ -224,12 +224,12 @@ Conventions
    The following language conventions are used in the items of
    specification in this document:
 
-   o  MUST -- the item is an absolute requirement of the specification.
-      MUST is only used where it is actually required for
+   o  <em>MUST</em> -- the item is an absolute requirement of the specification.
+      <em>MUST</em> is only used where it is actually required for
       interoperation, not to try to impose a particular method on
       implementors where not required for interoperability.
 
-   o  SHOULD -- the item should be followed for all but exceptional
+   o  <em>SHOULD</em> -- the item should be followed for all but exceptional
       circumstances.
 
 
@@ -241,7 +241,7 @@ Conventions
 <span class="grey"><a href="./rfc2091.html">RFC 2091</a>                      Trigger RIP                   January 1997</span>
 
 
-   o  MAY or optional -- the item is truly optional and may be followed
+   o  <em>MAY</em> or optional -- the item is truly optional and may be followed
       or ignored according to the needs of the implementor.
 
       The words "should" and "may" are also used, in lower case, in
@@ -430,7 +430,7 @@ Table of Contents
 
    4  And also when a unit is first powered on to ensure that at least
       one update is sent.  This can be thought of as a transition from
-      circuit down to circuit up.  It MAY contain no routes or services,
+      circuit down to circuit up.  It <em>MAY</em> contain no routes or services,
       and is used to flush routes or services from the peer's database.
 
    In cases 1,3 and 4 the full contents of the database is sent.  In
@@ -447,7 +447,7 @@ Table of Contents
    expire if not periodically refreshed by further broadcasts.
 
    Entries learned from a triggered response on the WAN are 'permanent'.
-   They MUST not time out in the normal course of events.  Certain
+   They <em>MUST</em> not time out in the normal course of events.  Certain
    events can cause these routes to time out.
 
 
@@ -506,10 +506,10 @@ Table of Contents
 
    A requirement of using Triggered RIP for propagating routing
    information is that NO routing information ever gets LOST or
-   DISCARDED.  This means that all alternative routes SHOULD be
+   DISCARDED.  This means that all alternative routes <em>SHOULD</em> be
    retained.
 
-   It MAY be possible to operate with a sub-set of all alternative
+   It <em>MAY</em> be possible to operate with a sub-set of all alternative
    routes, but this adds complexity to the protocol - which is NOT
    covered in this document.
 
@@ -523,7 +523,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a> Split Horizon with Poisoned Reverse</span>
 
-   The rules for Split Horizon with Poisoned Reverse MUST be used to
+   The rules for Split Horizon with Poisoned Reverse <em>MUST</em> be used to
    determine whether and/or how a route is advertised on an interface
    running this protocol.
 
@@ -543,7 +543,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a> Managing Routing Updates</span>
 
-   The routing database SHOULD be considered to be a sequence of
+   The routing database <em>SHOULD</em> be considered to be a sequence of
    elements ordered by the time it was last updated.  If there is a
    change in the best route (i.e. a new route is added or a route's
    metric has changed), the route is reordered and given a new highest
@@ -583,7 +583,7 @@ Table of Contents
 
    o  If packets arrive out of order they could corrupt the peer's
       database.  If the underlying datalink layer bundles several VCs,
-      it MUST guarantee to NOT reorder datagrams.
+      it <em>MUST</em> guarantee to NOT reorder datagrams.
 
    o  If the elements making up a packet requiring retransmission change
       because of an alteration in the database, stale incorrect
@@ -591,7 +591,7 @@ Table of Contents
       old information).
 
    To guard against this when 'retransmitting' a packet when the
-   database is in flux the packet MUST be re-created from the database
+   database is in flux the packet <em>MUST</em> be re-created from the database
    to contain only the subset of routes which currently apply.  And if
    none of the routes still apply, nothing will be 'retransmitted'.
 
@@ -603,7 +603,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>. New Packet Types</span>
 
-   To support triggered updates, three new packet types MUST be
+   To support triggered updates, three new packet types <em>MUST</em> be
    supported.  For IP RIP Version 1 [<a href="#ref-1" title="&quot;Routing Information Protocol&quot;">1</a>] and IP RIP Version 2 [<a href="#ref-2" title="&quot;RIP Version 2 - Carrying Additional Information&quot;">2</a>] these
    are identified by the Command Field values shown:
 
@@ -618,7 +618,7 @@ Table of Contents
    values.
 
    These Command and Operation types require the addition of a 4 octet
-   Update header.  All three packet types contain a Version, which MUST
+   Update header.  All three packet types contain a Version, which <em>MUST</em>
    be 1.  Update Response and Update Acknowledge also have a Sequence
    Number and a Flush Flag.
 
@@ -662,19 +662,19 @@ Table of Contents
    retransmitted at periodic intervals until an Update Acknowledge is
    received.
 
-   An Update Response message MUST be sent:
+   An Update Response message <em>MUST</em> be sent:
 
-   o  In response to an Update Request.  The Update Response MUST have
+   o  In response to an Update Request.  The Update Response <em>MUST</em> have
       the Flush flag set.  Other Update Responses should NOT be sent
       until an Update Acknowledge has been received acknowledging the
       Flush flag.
 
-      The remainder of the database MUST then be sent as a series of
+      The remainder of the database <em>MUST</em> then be sent as a series of
       Update Responses with the Flush flag NOT set.
 
-   o  An Update Response with the Flush flag set MUST also be sent at
+   o  An Update Response with the Flush flag set <em>MUST</em> also be sent at
       power on to flush the peer's routing table learned from a previous
-      incarnation.  This Update Response SHOULD NOT contain any routes.
+      incarnation.  This Update Response <em>SHOULD NOT</em> contain any routes.
       This avoids any possibility of an acknowledgement being received
       to a response sent BEFORE the unit was restarted causing confusion
       about which routes are being acknowledged.
@@ -691,10 +691,10 @@ Table of Contents
 
    Each new Update Response is given a different Sequence Number.  The
    Sequence Number only has 'meaning' to the sender of the Update
-   Response.  The same Update Response sent to different peers MAY have
+   Response.  The same Update Response sent to different peers <em>MAY</em> have
    a different Sequence Number.
 
-   An Update Response packet with the Flush flag set MUST be sent to a
+   An Update Response packet with the Flush flag set <em>MUST</em> be sent to a
    peer:
 
       o  At power on.
@@ -703,7 +703,7 @@ Table of Contents
 
       o  After transitioning from a circuit down to a circuit up state.
 
-   After sending an Update Flush, the full database MUST be sent
+   After sending an Update Flush, the full database <em>MUST</em> be sent
    subsequently.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a> Update Acknowledge</span>
@@ -760,16 +760,16 @@ Table of Contents
 
                          Figure 2.   Update Headers.
 
-   Version MUST be 1 in all headers.  Any packets received for a
-   different Version MUST be silently discarded.
+   Version <em>MUST</em> be 1 in all headers.  Any packets received for a
+   different Version <em>MUST</em> be silently discarded.
 
-   The Sequence Number MUST be incremented every time a new Update
+   The Sequence Number <em>MUST</em> be incremented every time a new Update
    Response packet is sent on the WAN.  The Sequence Number is unchanged
    for retransmissions.  The Sequence Number wraps round at 65535.
 
    Flush is set to 1 in an Update Response if the peer is required to
    start timing out its entries - otherwise it is set to zero.  Any
-   other values MUST be silently discarded.
+   other values <em>MUST</em> be silently discarded.
 
    The peer returns an Update Acknowledge containing the same Sequence
    Number and Flush.
@@ -952,7 +952,7 @@ Table of Contents
      Packets.  They are not present in packet types in the original  RIP
      Version 2 specification.
 
-     Next Hop MUST be zero, since Triggered RIP can NOT advertise routes
+     Next Hop <em>MUST</em> be zero, since Triggered RIP can NOT advertise routes
      on behalf of other WAN routers.
 
      If authentication is used it immediately follows the Update header.
@@ -1091,7 +1091,7 @@ Table of Contents
 
    o  Retransmission timer.
 
-   An optional over-subscription timer MAY also be supported.
+   An optional over-subscription timer <em>MAY</em> also be supported.
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a> Database Timer</span>
 
@@ -1122,11 +1122,11 @@ Table of Contents
    While the hold down timer is running routes are advertised as
    unreachable on other interfaces.
 
-   When the hold down timer expires the route MAY be deleted from the
+   When the hold down timer expires the route <em>MAY</em> be deleted from the
    database PROVIDING its unreachability has been successfully
    propagated to all WAN destinations, or the remaining WAN destinations
    are in a circuit down state.  If a route can not be deleted when the
-   hold-down timer expires, it MAY subsequently be deleted when each and
+   hold-down timer expires, it <em>MAY</em> subsequently be deleted when each and
    every peer is either up-to-date or is in a circuit down state.
 
 
@@ -1156,7 +1156,7 @@ Table of Contents
    With call set up time on the WAN being of the order of a second, a
    value of 5 seconds for the retransmission timer is appropriate.
 
-   To prevent against failures in the circuit manager a limit SHOULD be
+   To prevent against failures in the circuit manager a limit <em>SHOULD</em> be
    placed on the number of retransmissions. If no response has been
    received after a configurable length of time (say 180 seconds) routes
    via the next hop router are marked as unreachable, the hold down
@@ -1179,10 +1179,10 @@ Table of Contents
 
    To avoid route oscillation routes may NOT be marked unreachable
    immediately on receiving a circuit down message from the circuit
-   manager.  A timeout MAY be used to delay marking the routes
+   manager.  A timeout <em>MAY</em> be used to delay marking the routes
    unreachable for sufficiently long to allow the calls to 'time
    division multiplex' over the available channels.  A timeout as long
-   as the regular 180 second RIP route timeout MAY be suitable.  In
+   as the regular 180 second RIP route timeout <em>MAY</em> be suitable.  In
    general the greater the over-subscription, the longer the time out
    should be.
 
@@ -1198,7 +1198,7 @@ Table of Contents
    application.
 
    If the delay is implemented within the routing application the
-   routing entries MUST NOT start timing out during  the delay.  This
+   routing entries <em>MUST NOT</em> start timing out during  the delay.  This
    allows the circuit up message to be ignored if the timeout after
    receiving the circuit down has still to expire.  This avoids any
    confusion if the peer had previously issued a Route Flush command and
@@ -1208,7 +1208,7 @@ Table of Contents
 
    The circuit manager is required to be provided with a list of
    physical addresses to enable it to establish a call to the next hop
-   router.  The circuit manager SHOULD only allow incoming calls to be
+   router.  The circuit manager <em>SHOULD</em> only allow incoming calls to be
    accepted from the same well defined list of routers.
 
    Elsewhere in the system there will be a set of logical address and
@@ -1217,9 +1217,9 @@ Table of Contents
    instances there may be an algorithmic conversion between the two
    addresses.
 
-   The routing (or service advertising) task MUST be provided with a
+   The routing (or service advertising) task <em>MUST</em> be provided with a
    list of logical addresses to which triggered updates are to be sent
-   on the WAN.  The list MAY be a subset of the list of next hop routers
+   on the WAN.  The list <em>MAY</em> be a subset of the list of next hop routers
    maintained by the circuit manager.
 
    RIP Version 2 also allows further authentication of Triggered RIP
@@ -1277,7 +1277,7 @@ Appendix A - Implementation Suggestion
    latest).
 
    When allowing for several packets in flight care must be taken with
-   retransmissions.  An Update Response 'retransmission' MAY be
+   retransmissions.  An Update Response 'retransmission' <em>MAY</em> be
    different from the original.  When transmitting a sequence of Update
    Responses each Response packet contains a number of routes which is a
 represented by a series of routes with consecutive route numbers.
@@ -1330,7 +1330,7 @@ represented by a series of routes with consecutive route numbers.
    packets with sequence numbers 10 through 20 - and responses are
    received from all packets except those with sequence numbers 14 and
    17.  In this case only the data in packets 10 through 13 can be
-   considered to be acknowledged.  The data from packet 14 onwards MUST
+   considered to be acknowledged.  The data from packet 14 onwards <em>MUST</em>
    be re-sent and given new sequence numbers starting at 21.
 
 References

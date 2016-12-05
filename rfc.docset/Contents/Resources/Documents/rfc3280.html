@@ -397,14 +397,14 @@ Table of Contents
 
    <a href="#section-6">Section 6</a> includes certification path validation procedures.  These
    procedures are based upon the ISO/IEC/ITU-T definition.
-   Implementations are REQUIRED to derive the same results but are not
+   Implementations are <em>REQUIRED</em> to derive the same results but are not
    required to use the specified procedures.
 
    Procedures for identification and encoding of public key materials
    and digital signatures are defined in [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>].  Implementations of
    this specification are not required to use any particular
    cryptographic algorithms.  However, conforming implementations which
-   use the algorithms identified in [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>] MUST identify and encode
+   use the algorithms identified in [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>] <em>MUST</em> identify and encode
    the public key materials and digital signatures as described in that
    specification.
 
@@ -458,8 +458,8 @@ Table of Contents
       specification with implementations based on the ITU-T
       specification.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>  Requirements and Assumptions</span>
@@ -830,7 +830,7 @@ Table of Contents
    local policy, but it usually means the most recently-issued CRL.  A
    new CRL is issued on a regular periodic basis (e.g., hourly, daily,
    or weekly).  An entry is added to the CRL as part of the next update
-   following notification of revocation.  An entry MUST NOT be removed
+   following notification of revocation.  An entry <em>MUST NOT</em> be removed
    from the CRL until it appears on one regularly scheduled CRL issued
    beyond the revoked certificate's validity period.
 
@@ -1004,12 +1004,12 @@ Table of Contents
         validity             Validity,
         subject              Name,
         subjectPublicKeyInfo SubjectPublicKeyInfo,
-        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
-                             -- If present, version MUST be v2 or v3
-        subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
-                             -- If present, version MUST be v2 or v3
-        extensions      [3]  EXPLICIT Extensions OPTIONAL
-                             -- If present, version MUST be v3
+        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier <em>OPTIONAL</em>,
+                             -- If present, version <em>MUST</em> be v2 or v3
+        subjectUniqueID [2]  IMPLICIT UniqueIdentifier <em>OPTIONAL</em>,
+                             -- If present, version <em>MUST</em> be v2 or v3
+        extensions      [3]  EXPLICIT Extensions <em>OPTIONAL</em>
+                             -- If present, version <em>MUST</em> be v3
         }
 
    Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
@@ -1066,20 +1066,20 @@ Table of Contents
    The signatureAlgorithm field contains the identifier for the
    cryptographic algorithm used by the CA to sign this certificate.
    [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>] lists supported signature algorithms, but other signature
-   algorithms MAY also be supported.
+   algorithms <em>MAY</em> also be supported.
 
    An algorithm identifier is defined by the following ASN.1 structure:
 
    AlgorithmIdentifier  ::=  SEQUENCE  {
         algorithm               OBJECT IDENTIFIER,
-        parameters              ANY DEFINED BY algorithm OPTIONAL  }
+        parameters              ANY DEFINED BY algorithm <em>OPTIONAL</em>  }
 
    The algorithm identifier is used to identify a cryptographic
    algorithm.  The OBJECT IDENTIFIER component identifies the algorithm
    (such as DSA with SHA-1).  The contents of the optional parameters
    field will vary according to the algorithm identified.
 
-   This field MUST contain the same algorithm identifier as the
+   This field <em>MUST</em> contain the same algorithm identifier as the
    signature field in the sequence tbsCertificate (<a href="#section-4.1.2.3">section 4.1.2.3</a>).
 
 <span class="h5"><a class="selflink" name="section-4.1.1.3" href="#section-4.1.1.3">4.1.1.3</a>  signatureValue</span>
@@ -1111,7 +1111,7 @@ Table of Contents
    subject of the certificate and the CA who issued it.  Every
    TBSCertificate contains the names of the subject and issuer, a public
    key associated with the subject, a validity period, a version number,
-   and a serial number; some MAY contain optional unique identifier
+   and a serial number; some <em>MAY</em> contain optional unique identifier
    fields.  The remainder of this section describes the syntax and
    semantics of these fields.  A TBSCertificate usually includes
    extensions.  Extensions for the Internet PKI are described in <a href="#section-4.2">Section</a>
@@ -1120,15 +1120,15 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-4.1.2.1" href="#section-4.1.2.1">4.1.2.1</a>  Version</span>
 
    This field describes the version of the encoded certificate.  When
-   extensions are used, as expected in this profile, version MUST be 3
+   extensions are used, as expected in this profile, version <em>MUST</em> be 3
    (value is 2).  If no extensions are present, but a UniqueIdentifier
-   is present, the version SHOULD be 2 (value is 1); however version MAY
-   be 3.  If only basic fields are present, the version SHOULD be 1 (the
+   is present, the version <em>SHOULD</em> be 2 (value is 1); however version <em>MAY</em>
+   be 3.  If only basic fields are present, the version <em>SHOULD</em> be 1 (the
    value is omitted from the certificate as the default value); however
-   the version MAY be 2 or 3.
+   the version <em>MAY</em> be 2 or 3.
 
-   Implementations SHOULD be prepared to accept any version certificate.
-   At a minimum, conforming implementations MUST recognize version 3
+   Implementations <em>SHOULD</em> be prepared to accept any version certificate.
+   At a minimum, conforming implementations <em>MUST</em> recognize version 3
    certificates.
 
    Generation of version 2 certificates is not expected by
@@ -1136,10 +1136,10 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-4.1.2.2" href="#section-4.1.2.2">4.1.2.2</a>  Serial number</span>
 
-   The serial number MUST be a positive integer assigned by the CA to
-   each certificate.  It MUST be unique for each certificate issued by a
+   The serial number <em>MUST</em> be a positive integer assigned by the CA to
+   each certificate.  It <em>MUST</em> be unique for each certificate issued by a
    given CA (i.e., the issuer name and serial number identify a unique
-   certificate).  CAs MUST force the serialNumber to be a non-negative
+   certificate).  CAs <em>MUST</em> force the serialNumber to be a non-negative
    integer.
 
 
@@ -1153,12 +1153,12 @@ Table of Contents
 
 
    Given the uniqueness requirements above, serial numbers can be
-   expected to contain long integers.  Certificate users MUST be able to
-   handle serialNumber values up to 20 octets.  Conformant CAs MUST NOT
+   expected to contain long integers.  Certificate users <em>MUST</em> be able to
+   handle serialNumber values up to 20 octets.  Conformant CAs <em>MUST NOT</em>
    use serialNumber values longer than 20 octets.
 
    Note: Non-conforming CAs may issue certificates with serial numbers
-   that are negative, or zero.  Certificate users SHOULD be prepared to
+   that are negative, or zero.  Certificate users <em>SHOULD</em> be prepared to
    gracefully handle such certificates.
 
 <span class="h5"><a class="selflink" name="section-4.1.2.3" href="#section-4.1.2.3">4.1.2.3</a>  Signature</span>
@@ -1166,17 +1166,17 @@ Table of Contents
    This field contains the algorithm identifier for the algorithm used
    by the CA to sign the certificate.
 
-   This field MUST contain the same algorithm identifier as the
+   This field <em>MUST</em> contain the same algorithm identifier as the
    signatureAlgorithm field in the sequence Certificate (<a href="#section-4.1.1.2">section</a>
    <a href="#section-4.1.1.2">4.1.1.2</a>).  The contents of the optional parameters field will vary
    according to the algorithm identified.  [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>] lists the
-   supported signature algorithms, but other signature algorithms MAY
+   supported signature algorithms, but other signature algorithms <em>MAY</em>
    also be supported.
 
 <span class="h5"><a class="selflink" name="section-4.1.2.4" href="#section-4.1.2.4">4.1.2.4</a>  Issuer</span>
 
    The issuer field identifies the entity who has signed and issued the
-   certificate.  The issuer field MUST contain a non-empty distinguished
+   certificate.  The issuer field <em>MUST</em> contain a non-empty distinguished
    name (DN).  The issuer field is defined as the X.501 type Name
    [<a href="#ref-X.501">X.501</a>].  Name is defined by the following ASN.1 structures:
 
@@ -1223,38 +1223,38 @@ Table of Contents
    The DirectoryString type is defined as a choice of PrintableString,
    TeletexString, BMPString, UTF8String, and UniversalString.  The
    UTF8String encoding [<a href="./rfc2279.html">RFC 2279</a>] is the preferred encoding, and all
-   certificates issued after December 31, 2003 MUST use the UTF8String
+   certificates issued after December 31, 2003 <em>MUST</em> use the UTF8String
    encoding of DirectoryString (except as noted below).  Until that
-   date, conforming CAs MUST choose from the following options when
+   date, conforming CAs <em>MUST</em> choose from the following options when
    creating a distinguished name, including their own:
 
-      (a)  if the character set is sufficient, the string MAY be
+      (a)  if the character set is sufficient, the string <em>MAY</em> be
       represented as a PrintableString;
 
       (b)  failing (a), if the BMPString character set is sufficient the
-      string MAY be represented as a BMPString; and
+      string <em>MAY</em> be represented as a BMPString; and
 
-      (c)  failing (a) and (b), the string MUST be represented as a
-      UTF8String.  If (a) or (b) is satisfied, the CA MAY still choose
+      (c)  failing (a) and (b), the string <em>MUST</em> be represented as a
+      UTF8String.  If (a) or (b) is satisfied, the CA <em>MAY</em> still choose
       to represent the string as a UTF8String.
 
    Exceptions to the December 31, 2003 UTF8 encoding requirements are as
    follows:
 
-      (a)  CAs MAY issue "name rollover" certificates to support an
+      (a)  CAs <em>MAY</em> issue "name rollover" certificates to support an
       orderly migration to UTF8String encoding.  Such certificates would
       include the CA's UTF8String encoded name as issuer and and the old
       name encoding as subject, or vice-versa.
 
-      (b)  As stated in <a href="#section-4.1.2.6">section 4.1.2.6</a>, the subject field MUST be
+      (b)  As stated in <a href="#section-4.1.2.6">section 4.1.2.6</a>, the subject field <em>MUST</em> be
       populated with a non-empty distinguished name matching the
       contents of the issuer field in all certificates issued by the
       subject CA regardless of encoding.
 
    The TeletexString and UniversalString are included for backward
-   compatibility, and SHOULD NOT be used for certificates for new
-   subjects.  However, these types MAY be used in certificates where the
-   name was previously established.  Certificate users SHOULD be
+   compatibility, and <em>SHOULD NOT</em> be used for certificates for new
+   subjects.  However, these types <em>MAY</em> be used in certificates where the
+   name was previously established.  Certificate users <em>SHOULD</em> be
    prepared to receive certificates with these types.
 
 
@@ -1268,17 +1268,17 @@ Table of Contents
    ISO 8859-1 character set (Latin1String) [ISO 8859-1] but tag them as
    TeletexString.  TeletexString encodes a larger character set than ISO
    8859-1, but it encodes some characters differently.  Implementations
-   SHOULD be prepared to handle both encodings.
+   <em>SHOULD</em> be prepared to handle both encodings.
 
    As noted above, distinguished names are composed of attributes.  This
    specification does not restrict the set of attribute types that may
-   appear in names.  However, conforming implementations MUST be
+   appear in names.  However, conforming implementations <em>MUST</em> be
    prepared to receive certificates with issuer names containing the set
    of attribute types defined below.  This specification RECOMMENDS
    support for additional attribute types.
 
    Standard sets of attributes have been defined in the X.500 series of
-   specifications [<a href="#ref-X.520">X.520</a>].  Implementations of this specification MUST
+   specifications [<a href="#ref-X.520">X.520</a>].  Implementations of this specification <em>MUST</em>
    be prepared to receive the following standard attribute types in
    issuer and subject (<a href="#section-4.1.2.6">section 4.1.2.6</a>) names:
 
@@ -1290,7 +1290,7 @@ Table of Contents
       * common name (e.g., "Susan Housley"), and
       * serial number.
 
-   In addition, implementations of this specification SHOULD be prepared
+   In addition, implementations of this specification <em>SHOULD</em> be prepared
    to receive the following standard attribute types in issuer and
    subject names:
 
@@ -1305,7 +1305,7 @@ Table of Contents
    The syntax and associated object identifiers (OIDs) for these
    attribute types are provided in the ASN.1 modules in <a href="#appendix-A">Appendix A</a>.
 
-   In addition, implementations of this specification MUST be prepared
+   In addition, implementations of this specification <em>MUST</em> be prepared
    to receive the domainComponent attribute, as defined in [<a href="./rfc2247.html">RFC 2247</a>].
    The Domain Name System (DNS) provides a hierarchical resource
    labeling system.  This attribute provides a convenient mechanism for
@@ -1324,7 +1324,7 @@ Table of Contents
    such names into DNS names.  The syntax and associated OID for this
    attribute type is provided in the ASN.1 modules in <a href="#appendix-A">Appendix A</a>.
 
-   Certificate users MUST be prepared to process the issuer
+   Certificate users <em>MUST</em> be prepared to process the issuer
    distinguished name and subject distinguished name (<a href="#section-4.1.2.6">section 4.1.2.6</a>)
    fields to perform name chaining for certification path validation
    (<a href="#section-6">section 6</a>).  Name chaining is performed by matching the issuer
@@ -1333,11 +1333,11 @@ Table of Contents
 
    This specification requires only a subset of the name comparison
    functionality specified in the X.500 series of specifications.
-   Conforming implementations are REQUIRED to implement the following
+   Conforming implementations are <em>REQUIRED</em> to implement the following
    name comparison rules:
 
       (a)  attribute values encoded in different types (e.g.,
-      PrintableString and BMPString) MAY be assumed to represent
+      PrintableString and BMPString) <em>MAY</em> be assumed to represent
       different strings;
 
       (b) attribute values in types other than PrintableString are case
@@ -1356,7 +1356,7 @@ Table of Contents
    certificates issued using languages or encodings unfamiliar to the
    certificate user.
 
-   In addition, implementations of this specification MAY use these
+   In addition, implementations of this specification <em>MAY</em> use these
    comparison rules to process unfamiliar attribute types for name
    chaining.  This allows implementations to process certificates with
    unfamiliar attributes in the issuer name.
@@ -1386,9 +1386,9 @@ Table of Contents
    (notAfter).  Both notBefore and notAfter may be encoded as UTCTime or
    GeneralizedTime.
 
-   CAs conforming to this profile MUST always encode certificate
+   CAs conforming to this profile <em>MUST</em> always encode certificate
    validity dates through the year 2049 as UTCTime; certificate validity
-   dates in 2050 or later MUST be encoded as GeneralizedTime.
+   dates in 2050 or later <em>MUST</em> be encoded as GeneralizedTime.
 
    The validity period for a certificate is the period of time from
    notBefore through notAfter, inclusive.
@@ -1401,15 +1401,15 @@ Table of Contents
    precision of one minute or one second.  UTCTime includes either Z
    (for Zulu, or Greenwich Mean Time) or a time differential.
 
-   For the purposes of this profile, UTCTime values MUST be expressed
-   Greenwich Mean Time (Zulu) and MUST include seconds (i.e., times are
+   For the purposes of this profile, UTCTime values <em>MUST</em> be expressed
+   Greenwich Mean Time (Zulu) and <em>MUST</em> include seconds (i.e., times are
    YYMMDDHHMMSSZ), even where the number of seconds is zero.  Conforming
-   systems MUST interpret the year field (YY) as follows:
+   systems <em>MUST</em> interpret the year field (YY) as follows:
 
-      Where YY is greater than or equal to 50, the year SHALL be
+      Where YY is greater than or equal to 50, the year <em>SHALL</em> be
       interpreted as 19YY; and
 
-      Where YY is less than 50, the year SHALL be interpreted as 20YY.
+      Where YY is less than 50, the year <em>SHALL</em> be interpreted as 20YY.
 
 <span class="h6"><a class="selflink" name="section-4.1.2.5.2" href="#section-4.1.2.5.2">4.1.2.5.2</a>  GeneralizedTime</span>
 
@@ -1418,10 +1418,10 @@ Table of Contents
    GeneralizedTime field can include a representation of the time
    differential between local and Greenwich Mean Time.
 
-   For the purposes of this profile, GeneralizedTime values MUST be
-   expressed Greenwich Mean Time (Zulu) and MUST include seconds (i.e.,
+   For the purposes of this profile, GeneralizedTime values <em>MUST</em> be
+   expressed Greenwich Mean Time (Zulu) and <em>MUST</em> include seconds (i.e.,
    times are YYYYMMDDHHMMSSZ), even where the number of seconds is zero.
-   GeneralizedTime values MUST NOT include fractional seconds.
+   GeneralizedTime values <em>MUST NOT</em> include fractional seconds.
 
 
 
@@ -1435,40 +1435,40 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-4.1.2.6" href="#section-4.1.2.6">4.1.2.6</a>  Subject</span>
 
    The subject field identifies the entity associated with the public
-   key stored in the subject public key field.  The subject name MAY be
+   key stored in the subject public key field.  The subject name <em>MAY</em> be
    carried in the subject field and/or the subjectAltName extension.  If
    the subject is a CA (e.g., the basic constraints extension, as
    discussed in 4.2.1.10, is present and the value of cA is TRUE), then
-   the subject field MUST be populated with a non-empty distinguished
+   the subject field <em>MUST</em> be populated with a non-empty distinguished
    name matching the contents of the issuer field (<a href="#section-4.1.2.4">section 4.1.2.4</a>) in
    all certificates issued by the subject CA.  If the subject is a CRL
    issuer (e.g., the key usage extension, as discussed in 4.2.1.3, is
-   present and the value of cRLSign is TRUE) then the subject field MUST
+   present and the value of cRLSign is TRUE) then the subject field <em>MUST</em>
    be populated with a non-empty distinguished name matching the
    contents of the issuer field (<a href="#section-4.1.2.4">section 4.1.2.4</a>) in all CRLs issued by
    the subject CRL issuer.  If subject naming information is present
    only in the subjectAltName extension (e.g., a key bound only to an
-   email address or URI), then the subject name MUST be an empty
-   sequence and the subjectAltName extension MUST be critical.
+   email address or URI), then the subject name <em>MUST</em> be an empty
+   sequence and the subjectAltName extension <em>MUST</em> be critical.
 
-   Where it is non-empty, the subject field MUST contain an X.500
-   distinguished name (DN).  The DN MUST be unique for each subject
+   Where it is non-empty, the subject field <em>MUST</em> contain an X.500
+   distinguished name (DN).  The DN <em>MUST</em> be unique for each subject
    entity certified by the one CA as defined by the issuer name field.
-   A CA MAY issue more than one certificate with the same DN to the same
+   A CA <em>MAY</em> issue more than one certificate with the same DN to the same
    subject entity.
 
    The subject name field is defined as the X.501 type Name.
    Implementation requirements for this field are those defined for the
    issuer field (<a href="#section-4.1.2.4">section 4.1.2.4</a>).  When encoding attribute values of
-   type DirectoryString, the encoding rules for the issuer field MUST be
-   implemented.  Implementations of this specification MUST be prepared
+   type DirectoryString, the encoding rules for the issuer field <em>MUST</em> be
+   implemented.  Implementations of this specification <em>MUST</em> be prepared
    to receive subject names containing the attribute types required for
-   the issuer field.  Implementations of this specification SHOULD be
+   the issuer field.  Implementations of this specification <em>SHOULD</em> be
    prepared to receive subject names containing the recommended
    attribute types for the issuer field.  The syntax and associated
    object identifiers (OIDs) for these attribute types are provided in
    the ASN.1 modules in <a href="#appendix-A">Appendix A</a>.  Implementations of this
-   specification MAY use these comparison rules to process unfamiliar
+   specification <em>MAY</em> use these comparison rules to process unfamiliar
    attribute types (i.e., for name chaining).  This allows
    implementations to process certificates with unfamiliar attributes in
    the subject name.
@@ -1489,7 +1489,7 @@ Table of Contents
 
 
    Conforming implementations generating new certificates with
-   electronic mail addresses MUST use the rfc822Name in the subject
+   electronic mail addresses <em>MUST</em> use the rfc822Name in the subject
    alternative name field (<a href="#section-4.2.1.7">section 4.2.1.7</a>) to describe such identities.
    Simultaneous inclusion of the EmailAddress attribute in the subject
    distinguished name to support legacy implementations is deprecated
@@ -1506,20 +1506,20 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-4.1.2.8" href="#section-4.1.2.8">4.1.2.8</a>  Unique Identifiers</span>
 
-   These fields MUST only appear if the version is 2 or 3 (<a href="#section-4.1.2.1">section</a>
-   <a href="#section-4.1.2.1">4.1.2.1</a>).  These fields MUST NOT appear if the version is 1.  The
+   These fields <em>MUST</em> only appear if the version is 2 or 3 (<a href="#section-4.1.2.1">section</a>
+   <a href="#section-4.1.2.1">4.1.2.1</a>).  These fields <em>MUST NOT</em> appear if the version is 1.  The
    subject and issuer unique identifiers are present in the certificate
    to handle the possibility of reuse of subject and/or issuer names
    over time.  This profile RECOMMENDS that names not be reused for
    different entities and that Internet certificates not make use of
-   unique identifiers.  CAs conforming to this profile SHOULD NOT
+   unique identifiers.  CAs conforming to this profile <em>SHOULD NOT</em>
    generate certificates with unique identifiers.  Applications
-   conforming to this profile SHOULD be capable of parsing unique
+   conforming to this profile <em>SHOULD</em> be capable of parsing unique
    identifiers.
 
 <span class="h5"><a class="selflink" name="section-4.1.2.9" href="#section-4.1.2.9">4.1.2.9</a>  Extensions</span>
 
-   This field MUST only appear if the version is 3 (<a href="#section-4.1.2.1">section 4.1.2.1</a>).
+   This field <em>MUST</em> only appear if the version is 3 (<a href="#section-4.1.2.1">section 4.1.2.1</a>).
    If present, this field is a SEQUENCE of one or more certificate
    extensions.  The format and content of certificate extensions in the
    Internet PKI is defined in <a href="#section-4.2">section 4.2</a>.
@@ -1532,9 +1532,9 @@ Table of Contents
    also allows communities to define private extensions to carry
    information unique to those communities.  Each extension in a
    certificate is designated as either critical or non-critical.  A
-   certificate using system MUST reject the certificate if it encounters
+   certificate using system <em>MUST</em> reject the certificate if it encounters
    a critical extension it does not recognize; however, a non-critical
-   extension MAY be ignored if it is not recognized.  The following
+   extension <em>MAY</em> be ignored if it is not recognized.  The following
    sections present recommended extensions used within Internet
 
 
@@ -1552,24 +1552,24 @@ Table of Contents
    Each extension includes an OID and an ASN.1 structure.  When an
    extension appears in a certificate, the OID appears as the field
    extnID and the corresponding ASN.1 encoded structure is the value of
-   the octet string extnValue.  A certificate MUST NOT include more than
+   the octet string extnValue.  A certificate <em>MUST NOT</em> include more than
    one instance of a particular extension.  For example, a certificate
    may contain only one authority key identifier extension (<a href="#section-4.2.1.1">section</a>
    <a href="#section-4.2.1.1">4.2.1.1</a>).  An extension includes the boolean critical, with a default
    value of FALSE.  The text for each extension specifies the acceptable
    values for the critical field.
 
-   Conforming CAs MUST support key identifiers (sections <a href="#section-4.2.1.1">4.2.1.1</a> and
+   Conforming CAs <em>MUST</em> support key identifiers (sections <a href="#section-4.2.1.1">4.2.1.1</a> and
    4.2.1.2), basic constraints (<a href="#section-4.2.1.10">section 4.2.1.10</a>), key usage (<a href="#section-4.2.1.3">section</a>
    <a href="#section-4.2.1.3">4.2.1.3</a>), and certificate policies (<a href="#section-4.2.1.5">section 4.2.1.5</a>) extensions.  If
    the CA issues certificates with an empty sequence for the subject
-   field, the CA MUST support the subject alternative name extension
-   (<a href="#section-4.2.1.7">section 4.2.1.7</a>).  Support for the remaining extensions is OPTIONAL.
-   Conforming CAs MAY support extensions that are not identified within
+   field, the CA <em>MUST</em> support the subject alternative name extension
+   (<a href="#section-4.2.1.7">section 4.2.1.7</a>).  Support for the remaining extensions is <em>OPTIONAL</em>.
+   Conforming CAs <em>MAY</em> support extensions that are not identified within
    this specification; certificate issuers are cautioned that marking
    such extensions as critical may inhibit interoperability.
 
-   At a minimum, applications conforming to this profile MUST recognize
+   At a minimum, applications conforming to this profile <em>MUST</em> recognize
    the following extensions: key usage (<a href="#section-4.2.1.3">section 4.2.1.3</a>), certificate
    policies (<a href="#section-4.2.1.5">section 4.2.1.5</a>), the subject alternative name (<a href="#section-4.2.1.7">section</a>
    <a href="#section-4.2.1.7">4.2.1.7</a>), basic constraints (<a href="#section-4.2.1.10">section 4.2.1.10</a>), name constraints
@@ -1577,7 +1577,7 @@ Table of Contents
    key usage (<a href="#section-4.2.1.13">section 4.2.1.13</a>), and inhibit any-policy (<a href="#section-4.2.1.15">section</a>
    <a href="#section-4.2.1.15">4.2.1.15</a>).
 
-   In addition, applications conforming to this profile SHOULD recognize
+   In addition, applications conforming to this profile <em>SHOULD</em> recognize
    the authority and subject key identifier (sections <a href="#section-4.2.1.1">4.2.1.1</a> and
    4.2.1.2), and policy mapping (<a href="#section-4.2.1.6">section 4.2.1.6</a>) extensions.
 
@@ -1606,15 +1606,15 @@ Table of Contents
    identifying the public key corresponding to the private key used to
    sign a certificate.  This extension is used where an issuer has
    multiple signing keys (either due to multiple concurrent key pairs or
-   due to changeover).  The identification MAY be based on either the
+   due to changeover).  The identification <em>MAY</em> be based on either the
    key identifier (the subject key identifier in the issuer's
    certificate) or on the issuer name and serial number.
 
-   The keyIdentifier field of the authorityKeyIdentifier extension MUST
+   The keyIdentifier field of the authorityKeyIdentifier extension <em>MUST</em>
    be included in all certificates generated by conforming CAs to
    facilitate certification path construction.  There is one exception;
    where a CA distributes its public key in the form of a "self-signed"
-   certificate, the authority key identifier MAY be omitted.  The
+   certificate, the authority key identifier <em>MAY</em> be omitted.  The
    signature on a self-signed certificate is generated with the private
    key associated with the certificate's subject public key.  (This
    proves that the issuer possesses both the public and private keys.)
@@ -1622,27 +1622,27 @@ Table of Contents
    identical, but only the subject key identifier is needed for
    certification path building.
 
-   The value of the keyIdentifier field SHOULD be derived from the
+   The value of the keyIdentifier field <em>SHOULD</em> be derived from the
    public key used to verify the certificate's signature or a method
    that generates unique values.  Two common methods for generating key
    identifiers from the public key, and one common method for generating
    unique values, are described in <a href="#section-4.2.1.2">section 4.2.1.2</a>.  Where a key
    identifier has not been previously established, this specification
    RECOMMENDS use of one of these methods for generating keyIdentifiers.
-   Where a key identifier has been previously established, the CA SHOULD
+   Where a key identifier has been previously established, the CA <em>SHOULD</em>
    use the previously established identifier.
 
    This profile RECOMMENDS support for the key identifier method by all
    certificate users.
 
-   This extension MUST NOT be marked critical.
+   This extension <em>MUST NOT</em> be marked critical.
 
    id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
 
    AuthorityKeyIdentifier ::= SEQUENCE {
-      keyIdentifier             [0] KeyIdentifier           OPTIONAL,
-      authorityCertIssuer       [1] GeneralNames            OPTIONAL,
-      authorityCertSerialNumber [2] CertificateSerialNumber OPTIONAL  }
+      keyIdentifier             [0] KeyIdentifier           <em>OPTIONAL</em>,
+      authorityCertIssuer       [1] GeneralNames            <em>OPTIONAL</em>,
+      authorityCertSerialNumber [2] CertificateSerialNumber <em>OPTIONAL</em>  }
 
    KeyIdentifier ::= OCTET STRING
 
@@ -1661,15 +1661,15 @@ Table of Contents
    The subject key identifier extension provides a means of identifying
    certificates that contain a particular public key.
 
-   To facilitate certification path construction, this extension MUST
+   To facilitate certification path construction, this extension <em>MUST</em>
    appear in all conforming CA certificates, that is, all certificates
    including the basic constraints extension (<a href="#section-4.2.1.10">section 4.2.1.10</a>) where
    the value of cA is TRUE.  The value of the subject key identifier
-   MUST be the value placed in the key identifier field of the Authority
+   <em>MUST</em> be the value placed in the key identifier field of the Authority
    Key Identifier extension (<a href="#section-4.2.1.1">section 4.2.1.1</a>) of certificates issued by
    the subject of this certificate.
 
-   For CA certificates, subject key identifiers SHOULD be derived from
+   For CA certificates, subject key identifiers <em>SHOULD</em> be derived from
    the public key or a method that generates unique values.  Two common
    methods for generating key identifiers from the public key are:
 
@@ -1692,18 +1692,18 @@ Table of Contents
    subject key identifier provides a means to quickly identify the set
    of certificates containing a particular public key.  To assist
    applications in identifying the appropriate end entity certificate,
-   this extension SHOULD be included in all end entity certificates.
+   this extension <em>SHOULD</em> be included in all end entity certificates.
 
-   For end entity certificates, subject key identifiers SHOULD be
+   For end entity certificates, subject key identifiers <em>SHOULD</em> be
    derived from the public key.  Two common methods for generating key
    identifiers from the public key are identified above.
 
    Where a key identifier has not been previously established, this
    specification RECOMMENDS use of one of these methods for generating
    keyIdentifiers.  Where a key identifier has been previously
-   established, the CA SHOULD use the previously established identifier.
+   established, the CA <em>SHOULD</em> use the previously established identifier.
 
-   This extension MUST NOT be marked critical.
+   This extension <em>MUST NOT</em> be marked critical.
 
 
 
@@ -1728,9 +1728,9 @@ Table of Contents
    Likewise, when an RSA key should be used only for key management, the
    keyEncipherment bit would be asserted.
 
-   This extension MUST appear in certificates that contain public keys
+   This extension <em>MUST</em> appear in certificates that contain public keys
    that are used to validate digital signatures on other public key
-   certificates or CRLs.  When this extension appears, it SHOULD be
+   certificates or CRLs.  When this extension appears, it <em>SHOULD</em> be
    marked critical.
 
       id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
@@ -1786,11 +1786,11 @@ Table of Contents
       The keyCertSign bit is asserted when the subject public key is
       used for verifying a signature on public key certificates.  If the
       keyCertSign bit is asserted, then the cA bit in the basic
-      constraints extension (<a href="#section-4.2.1.10">section 4.2.1.10</a>) MUST also be asserted.
+      constraints extension (<a href="#section-4.2.1.10">section 4.2.1.10</a>) <em>MUST</em> also be asserted.
 
       The cRLSign bit is asserted when the subject public key is used
       for verifying a signature on certificate revocation list (e.g., a
-      CRL, delta CRL, or an ARL).  This bit MUST be asserted in
+      CRL, delta CRL, or an ARL).  This bit <em>MUST</em> be asserted in
       certificates that are used to verify signatures on CRLs.
 
       The meaning of the encipherOnly bit is undefined in the absence of
@@ -1810,8 +1810,8 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-4.2.1.4" href="#section-4.2.1.4">4.2.1.4</a>  Private Key Usage Period</span>
 
-   This extension SHOULD NOT be used within the Internet PKI.  CAs
-   conforming to this profile MUST NOT generate certificates that
+   This extension <em>SHOULD NOT</em> be used within the Internet PKI.  CAs
+   conforming to this profile <em>MUST NOT</em> generate certificates that
    include a critical private key usage period extension.
 
 
@@ -1829,28 +1829,28 @@ Table of Contents
    certificate.  This extension is intended for use with digital
    signature keys.  This extension consists of two optional components,
    notBefore and notAfter.  The private key associated with the
-   certificate SHOULD NOT be used to sign objects before or after the
+   certificate <em>SHOULD NOT</em> be used to sign objects before or after the
    times specified by the two components, respectively.  CAs conforming
-   to this profile MUST NOT generate certificates with private key usage
+   to this profile <em>MUST NOT</em> generate certificates with private key usage
    period extensions unless at least one of the two components is
    present and the extension is non-critical.
 
    Where used, notBefore and notAfter are represented as GeneralizedTime
-   and MUST be specified and interpreted as defined in <a href="#section-4.1.2.5.2">section</a>
+   and <em>MUST</em> be specified and interpreted as defined in <a href="#section-4.1.2.5.2">section</a>
    <a href="#section-4.1.2.5.2">4.1.2.5.2</a>.
 
    id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
 
    PrivateKeyUsagePeriod ::= SEQUENCE {
-        notBefore       [0]     GeneralizedTime OPTIONAL,
-        notAfter        [1]     GeneralizedTime OPTIONAL }
+        notBefore       [0]     GeneralizedTime <em>OPTIONAL</em>,
+        notAfter        [1]     GeneralizedTime <em>OPTIONAL</em> }
 
 <span class="h5"><a class="selflink" name="section-4.2.1.5" href="#section-4.2.1.5">4.2.1.5</a>  Certificate Policies</span>
 
    The certificate policies extension contains a sequence of one or more
    policy information terms, each of which consists of an object
    identifier (OID) and optional qualifiers.  Optional qualifiers, which
-   MAY be present, are not expected to change the definition of the
+   <em>MAY</em> be present, are not expected to change the definition of the
    policy.
 
    In an end entity certificate, these policy information terms indicate
@@ -1859,14 +1859,14 @@ Table of Contents
    these policy information terms limit the set of policies for
    certification paths which include this certificate.  When a CA does
    not wish to limit the set of policies for certification paths which
-   include this certificate, it MAY assert the special policy anyPolicy,
+   include this certificate, it <em>MAY</em> assert the special policy anyPolicy,
    with a value of { 2 5 29 32 0 }.
 
    Applications with specific policy requirements are expected to have a
    list of those policies which they will accept and to compare the
    policy OIDs in the certificate to that list.  If this extension is
-   critical, the path validation software MUST be able to interpret this
-   extension (including the optional qualifier), or MUST reject the
+   critical, the path validation software <em>MUST</em> be able to interpret this
+   extension (including the optional qualifier), or <em>MUST</em> reject the
    certificate.
 
    To promote interoperability, this profile RECOMMENDS that policy
@@ -1881,7 +1881,7 @@ Table of Contents
 
 
    be limited to those identified in this section.  When qualifiers are
-   used with the special policy anyPolicy, they MUST be limited to the
+   used with the special policy anyPolicy, they <em>MUST</em> be limited to the
    qualifiers identified in this section.
 
    This specification defines two policy qualifier types for use by
@@ -1895,10 +1895,10 @@ Table of Contents
    of the criticality value asserted for the extension.
 
    User notice is intended for display to a relying party when a
-   certificate is used.  The application software SHOULD display all
+   certificate is used.  The application software <em>SHOULD</em> display all
    user notices in all certificates of the certification path used,
    except that if a notice is duplicated only one copy need be
-   displayed.  To prevent such duplication, this qualifier SHOULD only
+   displayed.  To prevent such duplication, this qualifier <em>SHOULD</em> only
    be present in end entity certificates and CA certificates issued to
    other organizations.
 
@@ -1912,7 +1912,7 @@ Table of Contents
       implementation, the application software will have a notice file
       containing the current set of notices for CertsRUs; the
       application will extract the notice text from the file and display
-      it.  Messages MAY be multilingual, allowing the software to select
+      it.  Messages <em>MAY</em> be multilingual, allowing the software to select
       the particular language message for its own environment.
 
       An explicitText field includes the textual statement directly in
@@ -1921,12 +1921,12 @@ Table of Contents
 
    If both the noticeRef and explicitText options are included in the
    one qualifier and if the application software can locate the notice
-   text indicated by the noticeRef option, then that text SHOULD be
-   displayed; otherwise, the explicitText string SHOULD be displayed.
+   text indicated by the noticeRef option, then that text <em>SHOULD</em> be
+   displayed; otherwise, the explicitText string <em>SHOULD</em> be displayed.
 
    Note: While the explicitText has a maximum size of 200 characters,
    some non-conforming CAs exceed this limit.  Therefore, certificate
-   users SHOULD gracefully handle explicitText with more than 200
+   users <em>SHOULD</em> gracefully handle explicitText with more than 200
    characters.
 
 
@@ -1945,7 +1945,7 @@ Table of Contents
    PolicyInformation ::= SEQUENCE {
         policyIdentifier   CertPolicyId,
         policyQualifiers   SEQUENCE SIZE (1..MAX) OF
-                                PolicyQualifierInfo OPTIONAL }
+                                PolicyQualifierInfo <em>OPTIONAL</em> }
 
    CertPolicyId ::= OBJECT IDENTIFIER
 
@@ -1969,8 +1969,8 @@ Table of Contents
    CPSuri ::= IA5String
 
    UserNotice ::= SEQUENCE {
-        noticeRef        NoticeReference OPTIONAL,
-        explicitText     DisplayText OPTIONAL}
+        noticeRef        NoticeReference <em>OPTIONAL</em>,
+        explicitText     DisplayText <em>OPTIONAL</em>}
 
    NoticeReference ::= SEQUENCE {
         organization     DisplayText,
@@ -2005,13 +2005,13 @@ Table of Contents
    associated with the subject CA that may be accepted as comparable to
    the issuerDomainPolicy.
 
-   Each issuerDomainPolicy named in the policy mapping extension SHOULD
+   Each issuerDomainPolicy named in the policy mapping extension <em>SHOULD</em>
    also be asserted in a certificate policies extension in the same
-   certificate.  Policies SHOULD NOT be mapped either to or from the
+   certificate.  Policies <em>SHOULD NOT</em> be mapped either to or from the
    special value anyPolicy (<a href="#section-4.2.1.5">section 4.2.1.5</a>).
 
-   This extension MAY be supported by CAs and/or applications, and it
-   MUST be non-critical.
+   This extension <em>MAY</em> be supported by CAs and/or applications, and it
+   <em>MUST</em> be non-critical.
 
    id-ce-policyMappings OBJECT IDENTIFIER ::=  { id-ce 33 }
 
@@ -2026,19 +2026,19 @@ Table of Contents
    include an Internet electronic mail address, a DNS name, an IP
    address, and a uniform resource identifier (URI).  Other options
    exist, including completely local definitions.  Multiple name forms,
-   and multiple instances of each name form, MAY be included.  Whenever
+   and multiple instances of each name form, <em>MAY</em> be included.  Whenever
    such identities are to be bound into a certificate, the subject
-   alternative name (or issuer alternative name) extension MUST be used;
-   however, a DNS name MAY be represented in the subject field using the
+   alternative name (or issuer alternative name) extension <em>MUST</em> be used;
+   however, a DNS name <em>MAY</em> be represented in the subject field using the
    domainComponent attribute as described in <a href="#section-4.1.2.4">section 4.1.2.4</a>.
 
    Because the subject alternative name is considered to be definitively
    bound to the public key, all parts of the subject alternative name
-   MUST be verified by the CA.
+   <em>MUST</em> be verified by the CA.
 
    Further, if the only subject identity included in the certificate is
    an alternative name form (e.g., an electronic mail address), then the
-   subject distinguished name MUST be empty (an empty sequence), and the
+   subject distinguished name <em>MUST</em> be empty (an empty sequence), and the
 
 
 
@@ -2048,12 +2048,12 @@ Table of Contents
 <span class="grey"><a href="./rfc3280.html">RFC 3280</a>        Internet X.509 Public Key Infrastructure      April 2002</span>
 
 
-   subjectAltName extension MUST be present.  If the subject field
-   contains an empty sequence, the subjectAltName extension MUST be
+   subjectAltName extension <em>MUST</em> be present.  If the subject field
+   contains an empty sequence, the subjectAltName extension <em>MUST</em> be
    marked critical.
 
    When the subjectAltName extension contains an Internet mail address,
-   the address MUST be included as an rfc822Name.  The format of an
+   the address <em>MUST</em> be included as an rfc822Name.  The format of an
    rfc822Name is an "addr-spec" as defined in <a href="./rfc822.html">RFC 822</a> [<a href="./rfc822.html">RFC 822</a>].  An
    addr-spec has the form "local-part@domain".  Note that an addr-spec
    has no phrase (such as a common name) before it, has no comment (text
@@ -2062,23 +2062,23 @@ Table of Contents
    <a href="./rfc822.html">RFC 822</a> addr-spec, no significance is attached to the case.
 
    When the subjectAltName extension contains a iPAddress, the address
-   MUST be stored in the octet string in "network byte order," as
+   <em>MUST</em> be stored in the octet string in "network byte order," as
    specified in <a href="./rfc791.html">RFC 791</a> [<a href="./rfc791.html">RFC 791</a>].  The least significant bit (LSB) of
    each octet is the LSB of the corresponding byte in the network
    address.  For IP Version 4, as specified in <a href="./rfc791.html">RFC 791</a>, the octet string
-   MUST contain exactly four octets.  For IP Version 6, as specified in
-   <a href="./rfc1883.html">RFC 1883</a>, the octet string MUST contain exactly sixteen octets [RFC
+   <em>MUST</em> contain exactly four octets.  For IP Version 6, as specified in
+   <a href="./rfc1883.html">RFC 1883</a>, the octet string <em>MUST</em> contain exactly sixteen octets [RFC
    1883].
 
    When the subjectAltName extension contains a domain name system
-   label, the domain name MUST be stored in the dNSName (an IA5String).
-   The name MUST be in the "preferred name syntax," as specified by <a href="./rfc1034.html">RFC</a>
+   label, the domain name <em>MUST</em> be stored in the dNSName (an IA5String).
+   The name <em>MUST</em> be in the "preferred name syntax," as specified by <a href="./rfc1034.html">RFC</a>
    <a href="./rfc1034.html">1034</a> [<a href="./rfc1034.html">RFC 1034</a>].  Note that while upper and lower case letters are
    allowed in domain names, no signifigance is attached to the case.  In
    addition, while the string " " is a legal domain name, subjectAltName
-   extensions with a dNSName of " " MUST NOT be used.  Finally, the use
+   extensions with a dNSName of " " <em>MUST NOT</em> be used.  Finally, the use
    of the DNS representation for Internet mail addresses (wpolk.nist.gov
-   instead of wpolk@nist.gov) MUST NOT be used; such identities are to
+   instead of wpolk@nist.gov) <em>MUST NOT</em> be used; such identities are to
    be encoded as rfc822Name.
 
    Note: work is currently underway to specify domain names in
@@ -2086,12 +2086,12 @@ Table of Contents
    accommodated by IA5String.  Once this work is complete, this profile
    will be revisited and the appropriate functionality will be added.
 
-   When the subjectAltName extension contains a URI, the name MUST be
+   When the subjectAltName extension contains a URI, the name <em>MUST</em> be
    stored in the uniformResourceIdentifier (an IA5String).  The name
-   MUST NOT be a relative URL, and it MUST follow the URL syntax and
-   encoding rules specified in [<a href="./rfc1738.html">RFC 1738</a>].  The name MUST include both a
+   <em>MUST NOT</em> be a relative URL, and it <em>MUST</em> follow the URL syntax and
+   encoding rules specified in [<a href="./rfc1738.html">RFC 1738</a>].  The name <em>MUST</em> include both a
    scheme (e.g., "http" or "ftp") and a scheme-specific-part.  The
-   scheme-specific-part MUST include a fully qualified domain name or IP
+   scheme-specific-part <em>MUST</em> include a fully qualified domain name or IP
    address as the host.
 
 
@@ -2108,15 +2108,15 @@ Table of Contents
    (e.g., "http" is equivalent to "HTTP").  The host part is also not
    case-sensitive, but other components of the scheme-specific-part may
    be case-sensitive.  When comparing URIs, conforming implementations
-   MUST compare the scheme and host without regard to case, but assume
+   <em>MUST</em> compare the scheme and host without regard to case, but assume
    the remainder of the scheme-specific-part is case sensitive.
 
    When the subjectAltName extension contains a DN in the directoryName,
-   the DN MUST be unique for each subject entity certified by the one CA
-   as defined by the issuer name field.  A CA MAY issue more than one
+   the DN <em>MUST</em> be unique for each subject entity certified by the one CA
+   as defined by the issuer name field.  A CA <em>MAY</em> issue more than one
    certificate with the same DN to the same subject entity.
 
-   The subjectAltName MAY carry additional name types through the use of
+   The subjectAltName <em>MAY</em> carry additional name types through the use of
    the otherName field.  The format and semantics of the name are
    indicated through the OBJECT IDENTIFIER in the type-id field.  The
    name itself is conveyed as value field in otherName.  For example,
@@ -2124,12 +2124,12 @@ Table of Contents
    using using a Kerberos 5 principal name OID and a SEQUENCE of the
    Realm and the PrincipalName.
 
-   Subject alternative names MAY be constrained in the same manner as
+   Subject alternative names <em>MAY</em> be constrained in the same manner as
    subject distinguished names using the name constraints extension as
    described in <a href="#section-4.2.1.11">section 4.2.1.11</a>.
 
-   If the subjectAltName extension is present, the sequence MUST contain
-   at least one entry.  Unlike the subject field, conforming CAs MUST
+   If the subjectAltName extension is present, the sequence <em>MUST</em> contain
+   at least one entry.  Unlike the subject field, conforming CAs <em>MUST</em>
    NOT issue certificates with subjectAltNames containing empty
    GeneralName fields.  For example, an rfc822Name is represented as an
    IA5String.  While an empty string is a valid IA5String, such an
@@ -2140,7 +2140,7 @@ Table of Contents
    Finally, the semantics of subject alternative names that include
    wildcard characters (e.g., as a placeholder for a set of names) are
    not addressed by this specification.  Applications with specific
-   requirements MAY use such names, but they must define the semantics.
+   requirements <em>MAY</em> use such names, but they must define the semantics.
 
    id-ce-subjectAltName OBJECT IDENTIFIER ::=  { id-ce 17 }
 
@@ -2176,16 +2176,16 @@ Table of Contents
         value      [0] EXPLICIT ANY DEFINED BY type-id }
 
    EDIPartyName ::= SEQUENCE {
-        nameAssigner            [0]     DirectoryString OPTIONAL,
+        nameAssigner            [0]     DirectoryString <em>OPTIONAL</em>,
         partyName               [1]     DirectoryString }
 
 <span class="h5"><a class="selflink" name="section-4.2.1.8" href="#section-4.2.1.8">4.2.1.8</a>  Issuer Alternative Names</span>
 
    As with 4.2.1.7, this extension is used to associate Internet style
    identities with the certificate issuer.  Issuer alternative names
-   MUST be encoded as in 4.2.1.7.
+   <em>MUST</em> be encoded as in 4.2.1.7.
 
-   Where present, this extension SHOULD NOT be marked critical.
+   Where present, this extension <em>SHOULD NOT</em> be marked critical.
 
    id-ce-issuerAltName OBJECT IDENTIFIER ::=  { id-ce 18 }
 
@@ -2196,7 +2196,7 @@ Table of Contents
    The subject directory attributes extension is used to convey
    identification attributes (e.g., nationality) of the subject.  The
    extension is defined as a sequence of one or more attributes.  This
-   extension MUST be non-critical.
+   extension <em>MUST</em> be non-critical.
 
    id-ce-subjectDirectoryAttributes OBJECT IDENTIFIER ::=  { id-ce 9 }
 
@@ -2218,7 +2218,7 @@ Table of Contents
 
    The cA boolean indicates whether the certified public key belongs to
    a CA.  If the cA boolean is not asserted, then the keyCertSign bit in
-   the key usage extension MUST NOT be asserted.
+   the key usage extension <em>MUST NOT</em> be asserted.
 
    The pathLenConstraint field is meaningful only if the cA boolean is
    asserted and the key usage extension asserts the keyCertSign bit
@@ -2232,22 +2232,22 @@ Table of Contents
    entity certificate, but it can be a CA certificate.)  A
    pathLenConstraint of zero indicates that only one more certificate
    may follow in a valid certification path.  Where it appears, the
-   pathLenConstraint field MUST be greater than or equal to zero.  Where
+   pathLenConstraint field <em>MUST</em> be greater than or equal to zero.  Where
    pathLenConstraint does not appear, no limit is imposed.
 
-   This extension MUST appear as a critical extension in all CA
+   This extension <em>MUST</em> appear as a critical extension in all CA
    certificates that contain public keys used to validate digital
-   signatures on certificates.  This extension MAY appear as a critical
+   signatures on certificates.  This extension <em>MAY</em> appear as a critical
    or non-critical extension in CA certificates that contain public keys
    used exclusively for purposes other than validating digital
    signatures on certificates.  Such CA certificates include ones that
    contain public keys used exclusively for validating digital
    signatures on CRLs and ones that contain key management public keys
-   used with certificate enrollment protocols.  This extension MAY
+   used with certificate enrollment protocols.  This extension <em>MAY</em>
    appear as a critical or non-critical extension in end entity
    certificates.
 
-   CAs MUST NOT include the pathLenConstraint field unless the cA
+   CAs <em>MUST NOT</em> include the pathLenConstraint field unless the cA
    boolean is asserted and the key usage extension asserts the
    keyCertSign bit.
 
@@ -2255,13 +2255,13 @@ Table of Contents
 
    BasicConstraints ::= SEQUENCE {
         cA                      BOOLEAN DEFAULT FALSE,
-        pathLenConstraint       INTEGER (0..MAX) OPTIONAL }
+        pathLenConstraint       INTEGER (0..MAX) <em>OPTIONAL</em> }
 
 <span class="h5"><a class="selflink" name="section-4.2.1.11" href="#section-4.2.1.11">4.2.1.11</a>  Name Constraints</span>
 
-   The name constraints extension, which MUST be used only in a CA
+   The name constraints extension, which <em>MUST</em> be used only in a CA
    certificate, indicates a name space within which all subject names in
-   subsequent certificates in a certification path MUST be located.
+   subsequent certificates in a certification path <em>MUST</em> be located.
    Restrictions apply to the subject distinguished name and apply to
    subject alternative names.  Restrictions apply only when the
 
@@ -2284,22 +2284,22 @@ Table of Contents
    Restrictions are defined in terms of permitted or excluded name
    subtrees.  Any name matching a restriction in the excludedSubtrees
    field is invalid regardless of information appearing in the
-   permittedSubtrees.  This extension MUST be critical.
+   permittedSubtrees.  This extension <em>MUST</em> be critical.
 
    Within this profile, the minimum and maximum fields are not used with
-   any name forms, thus minimum MUST be zero, and maximum MUST be
+   any name forms, thus minimum <em>MUST</em> be zero, and maximum <em>MUST</em> be
    absent.
 
    For URIs, the constraint applies to the host part of the name.  The
-   constraint MAY specify a host or a domain.  Examples would be
+   constraint <em>MAY</em> specify a host or a domain.  Examples would be
    "foo.bar.com";  and ".xyz.com".  When the the constraint begins with
-   a period, it MAY be expanded with one or more subdomains.  That is,
+   a period, it <em>MAY</em> be expanded with one or more subdomains.  That is,
    the constraint ".xyz.com" is satisfied by both abc.xyz.com and
    abc.def.xyz.com.  However, the constraint ".xyz.com" is not satisfied
    by "xyz.com".  When the constraint does not begin with a period, it
    specifies a host.
 
-   A name constraint for Internet mail addresses MAY specify a
+   A name constraint for Internet mail addresses <em>MAY</em> specify a
    particular mailbox, all addresses at a particular host, or all
    mailboxes in a domain.  To indicate a particular mailbox, the
    constraint is the complete mail address.  For example, "root@xyz.com"
@@ -2329,30 +2329,30 @@ Table of Contents
 
 
    certificate does not include a subject alternative name, the <a href="./rfc822.html">rfc822</a>
-   name constraint MUST be applied to the attribute of type EmailAddress
+   name constraint <em>MUST</em> be applied to the attribute of type EmailAddress
    in the subject distinguished name.  The ASN.1 syntax for EmailAddress
    and the corresponding OID are supplied in <a href="#appendix-A">Appendix A</a>.
 
-   Restrictions of the form directoryName MUST be applied to the subject
+   Restrictions of the form directoryName <em>MUST</em> be applied to the subject
    field in the certificate and to the subjectAltName extensions of type
-   directoryName.  Restrictions of the form x400Address MUST be applied
+   directoryName.  Restrictions of the form x400Address <em>MUST</em> be applied
    to subjectAltName extensions of type x400Address.
 
    When applying restrictions of the form directoryName, an
-   implementation MUST compare DN attributes.  At a minimum,
-   implementations MUST perform the DN comparison rules specified in
+   implementation <em>MUST</em> compare DN attributes.  At a minimum,
+   implementations <em>MUST</em> perform the DN comparison rules specified in
    <a href="#section-4.1.2.4">Section 4.1.2.4</a>.  CAs issuing certificates with a restriction of the
-   form directoryName SHOULD NOT rely on implementation of the full ISO
-   DN name comparison algorithm.  This implies name restrictions MUST be
+   form directoryName <em>SHOULD NOT</em> rely on implementation of the full ISO
+   DN name comparison algorithm.  This implies name restrictions <em>MUST</em> be
    stated identically to the encoding used in the subject field or
    subjectAltName extension.
 
-   The syntax of iPAddress MUST be as described in <a href="#section-4.2.1.7">section 4.2.1.7</a> with
+   The syntax of iPAddress <em>MUST</em> be as described in <a href="#section-4.2.1.7">section 4.2.1.7</a> with
    the following additions specifically for Name Constraints.  For IPv4
-   addresses, the ipAddress field of generalName MUST contain eight (8)
+   addresses, the ipAddress field of generalName <em>MUST</em> contain eight (8)
    octets, encoded in the style of <a href="./rfc1519.html">RFC 1519</a> (CIDR) to represent an
    address range [<a href="./rfc1519.html">RFC 1519</a>].  For IPv6 addresses, the ipAddress field
-   MUST contain 32 octets similarly encoded.  For example, a name
+   <em>MUST</em> contain 32 octets similarly encoded.  For example, a name
    constraint for "class C" subnet 10.9.8.0 is represented as the octets
    0A 09 08 00 FF FF FF 00, representing the CIDR notation
    10.9.8.0/255.255.255.0.
@@ -2363,15 +2363,15 @@ Table of Contents
       id-ce-nameConstraints OBJECT IDENTIFIER ::=  { id-ce 30 }
 
       NameConstraints ::= SEQUENCE {
-           permittedSubtrees       [0]     GeneralSubtrees OPTIONAL,
-           excludedSubtrees        [1]     GeneralSubtrees OPTIONAL }
+           permittedSubtrees       [0]     GeneralSubtrees <em>OPTIONAL</em>,
+           excludedSubtrees        [1]     GeneralSubtrees <em>OPTIONAL</em> }
 
       GeneralSubtrees ::= SEQUENCE SIZE (1..MAX) OF GeneralSubtree
 
       GeneralSubtree ::= SEQUENCE {
            base                    GeneralName,
            minimum         [0]     BaseDistance DEFAULT 0,
-           maximum         [1]     BaseDistance OPTIONAL }
+           maximum         [1]     BaseDistance <em>OPTIONAL</em> }
 
       BaseDistance ::= INTEGER (0..MAX)
 
@@ -2409,19 +2409,19 @@ Table of Contents
    by the user of the certification path or the identifier of a policy
    which has been declared equivalent through policy mapping.
 
-   Conforming CAs MUST NOT issue certificates where policy constraints
+   Conforming CAs <em>MUST NOT</em> issue certificates where policy constraints
    is a empty sequence.  That is, at least one of the
-   inhibitPolicyMapping field or the requireExplicitPolicy field MUST be
+   inhibitPolicyMapping field or the requireExplicitPolicy field <em>MUST</em> be
    present.  The behavior of clients that encounter a empty policy
    constraints field is not addressed in this profile.
 
-   This extension MAY be critical or non-critical.
+   This extension <em>MAY</em> be critical or non-critical.
 
    id-ce-policyConstraints OBJECT IDENTIFIER ::=  { id-ce 36 }
 
    PolicyConstraints ::= SEQUENCE {
-        requireExplicitPolicy           [0] SkipCerts OPTIONAL,
-        inhibitPolicyMapping            [1] SkipCerts OPTIONAL }
+        requireExplicitPolicy           [0] SkipCerts <em>OPTIONAL</em>,
+        inhibitPolicyMapping            [1] SkipCerts <em>OPTIONAL</em> }
 
    SkipCerts ::= INTEGER (0..MAX)
 
@@ -2447,30 +2447,30 @@ Table of Contents
    KeyPurposeId ::= OBJECT IDENTIFIER
 
    Key purposes may be defined by any organization with a need.  Object
-   identifiers used to identify key purposes MUST be assigned in
+   identifiers used to identify key purposes <em>MUST</em> be assigned in
    accordance with IANA or ITU-T Recommendation X.660 [<a href="#ref-X.660" title="Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)">X.660</a>].
 
-   This extension MAY, at the option of the certificate issuer, be
+   This extension <em>MAY</em>, at the option of the certificate issuer, be
    either critical or non-critical.
 
-   If the extension is present, then the certificate MUST only be used
+   If the extension is present, then the certificate <em>MUST</em> only be used
    for one of the purposes indicated.  If multiple purposes are
    indicated the application need not recognize all purposes indicated,
    as long as the intended purpose is present.  Certificate using
-   applications MAY require that a particular purpose be indicated in
+   applications <em>MAY</em> require that a particular purpose be indicated in
    order for the certificate to be acceptable to that application.
 
    If a CA includes extended key usages to satisfy such applications,
    but does not wish to restrict usages of the key, the CA can include
    the special keyPurposeID anyExtendedKeyUsage.  If the
-   anyExtendedKeyUsage keyPurposeID is present, the extension SHOULD NOT
+   anyExtendedKeyUsage keyPurposeID is present, the extension <em>SHOULD NOT</em>
    be critical.
 
    If a certificate contains both a key usage extension and an extended
-   key usage extension, then both extensions MUST be processed
-   independently and the certificate MUST only be used for a purpose
+   key usage extension, then both extensions <em>MUST</em> be processed
+   independently and the certificate <em>MUST</em> only be used for a purpose
    consistent with both extensions.  If there is no purpose consistent
-   with both extensions, then the certificate MUST NOT be used for any
+   with both extensions, then the certificate <em>MUST NOT</em> be used for any
    purpose.
 
    The following key usage purposes are defined:
@@ -2518,27 +2518,27 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-4.2.1.14" href="#section-4.2.1.14">4.2.1.14</a>  CRL Distribution Points</span>
 
    The CRL distribution points extension identifies how CRL information
-   is obtained.  The extension SHOULD be non-critical, but this profile
+   is obtained.  The extension <em>SHOULD</em> be non-critical, but this profile
    RECOMMENDS support for this extension by CAs and applications.
    Further discussion of CRL management is contained in <a href="#section-5">section 5</a>.
 
    The cRLDistributionPoints extension is a SEQUENCE of
    DistributionPoint.  A DistributionPoint consists of three fields,
    each of which is optional: distributionPoint, reasons, and cRLIssuer.
-   While each of these fields is optional, a DistributionPoint MUST NOT
+   While each of these fields is optional, a DistributionPoint <em>MUST NOT</em>
    consist of only the reasons field; either distributionPoint or
-   cRLIssuer MUST be present.  If the certificate issuer is not the CRL
-   issuer, then the cRLIssuer field MUST be present and contain the Name
+   cRLIssuer <em>MUST</em> be present.  If the certificate issuer is not the CRL
+   issuer, then the cRLIssuer field <em>MUST</em> be present and contain the Name
    of the CRL issuer.  If the certificate issuer is also the CRL issuer,
-   then the cRLIssuer field MUST be omitted and the distributionPoint
-   field MUST be present.  If the distributionPoint field is omitted,
-   cRLIssuer MUST be present and include a Name corresponding to an
+   then the cRLIssuer field <em>MUST</em> be omitted and the distributionPoint
+   field <em>MUST</em> be present.  If the distributionPoint field is omitted,
+   cRLIssuer <em>MUST</em> be present and include a Name corresponding to an
    X.500 or LDAP directory entry where the CRL is located.
 
    When the distributionPoint field is present, it contains either a
    SEQUENCE of general names or a single value, nameRelativeToCRLIssuer.
    If the cRLDistributionPoints extension contains a general name of
-   type URI, the following semantics MUST be assumed: the URI is a
+   type URI, the following semantics <em>MUST</em> be assumed: the URI is a
    pointer to the current CRL for the associated reasons and will be
    issued by the associated cRLIssuer.  The expected values for the URI
    are those defined in 4.2.1.7.  Processing rules for other values are
@@ -2564,18 +2564,18 @@ Table of Contents
    cRLIssuer field in the DistributionPoint is present, then the name
    fragment is appended to the distinguished name that it contains;
    otherwise, the name fragment is appended to the certificate issuer
-   distinguished name.  The DistributionPointName MUST NOT use the
+   distinguished name.  The DistributionPointName <em>MUST NOT</em> use the
    nameRealtiveToCRLIssuer alternative when cRLIssuer contains more than
    one distinguished name.
 
-   If the DistributionPoint omits the reasons field, the CRL MUST
+   If the DistributionPoint omits the reasons field, the CRL <em>MUST</em>
    include revocation information for all reasons.
 
    The cRLIssuer identifies the entity who signs and issues the CRL.  If
-   present, the cRLIssuer MUST contain at least one an X.500
-   distinguished name (DN), and MAY also contain other name forms.
+   present, the cRLIssuer <em>MUST</em> contain at least one an X.500
+   distinguished name (DN), and <em>MAY</em> also contain other name forms.
    Since the cRLIssuer is compared to the CRL issuer name, the X.501
-   type Name MUST follow the encoding rules for the issuer name field in
+   type Name <em>MUST</em> follow the encoding rules for the issuer name field in
    the certificate (<a href="#section-4.1.2.4">section 4.1.2.4</a>).
 
    id-ce-cRLDistributionPoints OBJECT IDENTIFIER ::=  { id-ce 31 }
@@ -2583,9 +2583,9 @@ Table of Contents
    CRLDistributionPoints ::= SEQUENCE SIZE (1..MAX) OF DistributionPoint
 
    DistributionPoint ::= SEQUENCE {
-        distributionPoint       [0]     DistributionPointName OPTIONAL,
-        reasons                 [1]     ReasonFlags OPTIONAL,
-        cRLIssuer               [2]     GeneralNames OPTIONAL }
+        distributionPoint       [0]     DistributionPointName <em>OPTIONAL</em>,
+        reasons                 [1]     ReasonFlags <em>OPTIONAL</em>,
+        cRLIssuer               [2]     GeneralNames <em>OPTIONAL</em> }
 
    DistributionPointName ::= CHOICE {
         fullName                [0]     GeneralNames,
@@ -2631,7 +2631,7 @@ Table of Contents
    the subject of this certificate, but not in additional certificates
    in the path.
 
-   This extension MUST be critical.
+   This extension <em>MUST</em> be critical.
 
    id-ce-inhibitAnyPolicy OBJECT IDENTIFIER ::=  { id-ce 54 }
 
@@ -2642,7 +2642,7 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-4.2.1.16" href="#section-4.2.1.16">4.2.1.16</a>  Freshest CRL (a.k.a. Delta CRL Distribution Point)</span>
 
    The freshest CRL extension identifies how delta CRL information is
-   obtained.  The extension MUST be non-critical.  Further discussion of
+   obtained.  The extension <em>MUST</em> be non-critical.  Further discussion of
    CRL management is contained in <a href="#section-5">section 5</a>.
 
    The same syntax is used for this extension and the
@@ -2694,7 +2694,7 @@ Table of Contents
    validation services and CA policy data.  (The location of CRLs is not
    specified in this extension; that information is provided by the
    cRLDistributionPoints extension.)  This extension may be included in
-   end entity or CA certificates, and it MUST be non-critical.
+   end entity or CA certificates, and it <em>MUST</em> be non-critical.
 
    id-pe-authorityInfoAccess OBJECT IDENTIFIER ::= { id-pe 1 }
 
@@ -2743,12 +2743,12 @@ Table of Contents
    protocol to obtain the referenced description.  The accessLocation
    field is defined as a GeneralName, which can take several forms.
    Where the information is available via http, ftp, or ldap,
-   accessLocation MUST be a uniformResourceIdentifier.  Where the
+   accessLocation <em>MUST</em> be a uniformResourceIdentifier.  Where the
    information is available via the Directory Access Protocol (DAP),
-   accessLocation MUST be a directoryName.  The entry for that
+   accessLocation <em>MUST</em> be a directoryName.  The entry for that
    directoryName contains CA certificates in the crossCertificatePair
    attribute.  When the information is available via electronic mail,
-   accessLocation MUST be an rfc822Name.  The semantics of other
+   accessLocation <em>MUST</em> be an rfc822Name.  The semantics of other
    id-ad-caIssuers accessLocation name forms are not defined.
 
    The id-ad-ocsp OID is used when revocation information for the
@@ -2780,7 +2780,7 @@ Table of Contents
    the type of services offered and how to access them.  In this case,
    the contents of this extension are defined in the protocol
    specifications for the suported services.  This extension may be
-   included in subject or CA certificates, and it MUST be non-critical.
+   included in subject or CA certificates, and it <em>MUST</em> be non-critical.
 
    id-pe-subjectInfoAccess OBJECT IDENTIFIER ::= { id-pe 11 }
 
@@ -2808,10 +2808,10 @@ Table of Contents
    publishes its certificates and CRLs (if issued) in a repository.  The
    accessLocation field is defined as a GeneralName, which can take
    several forms.  Where the information is available via http, ftp, or
-   ldap, accessLocation MUST be a uniformResourceIdentifier.  Where the
+   ldap, accessLocation <em>MUST</em> be a uniformResourceIdentifier.  Where the
    information is available via the directory access protocol (dap),
-   accessLocation MUST be a directoryName.  When the information is
-   available via electronic mail, accessLocation MUST be an rfc822Name.
+   accessLocation <em>MUST</em> be a directoryName.  When the information is
+   available via electronic mail, accessLocation <em>MUST</em> be an rfc822Name.
    The semantics of other name forms of of accessLocation (when
    accessMethod is id-ad-caRepository) are not defined by this
    specification.
@@ -2819,9 +2819,9 @@ Table of Contents
    The id-ad-timeStamping OID is used when the subject offers
    timestamping services using the Time Stamp Protocol defined in
    [<a href="#ref-PKIXTSA" title="&quot;Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)&quot;">PKIXTSA</a>].  Where the timestamping services are available via http or
-   ftp, accessLocation MUST be a uniformResourceIdentifier.  Where the
+   ftp, accessLocation <em>MUST</em> be a uniformResourceIdentifier.  Where the
    timestamping services are available via electronic mail,
-   accessLocation MUST be an rfc822Name.  Where timestamping services
+   accessLocation <em>MUST</em> be an rfc822Name.  Where timestamping services
 
 
 
@@ -2890,11 +2890,11 @@ Table of Contents
 
    A complete CRL lists all unexpired certificates, within its scope,
    that have been revoked for one of the revocation reasons covered by
-   the CRL scope.  The CRL issuer MAY also generate delta CRLs.  A delta
+   the CRL scope.  The CRL issuer <em>MAY</em> also generate delta CRLs.  A delta
    CRL only lists those certificates, within its scope, whose revocation
    status has changed since the issuance of a referenced complete CRL.
    The referenced complete CRL is referred to as a base CRL.  The scope
-   of a delta CRL MUST be the same as the base CRL that it references.
+   of a delta CRL <em>MUST</em> be the same as the base CRL that it references.
 
    This profile does not define any private Internet CRL extensions or
    CRL entry extensions.
@@ -2904,14 +2904,14 @@ Table of Contents
 
    Conforming CAs are not required to issue CRLs if other revocation or
    certificate status mechanisms are provided.  When CRLs are issued,
-   the CRLs MUST be version 2 CRLs, include the date by which the next
+   the CRLs <em>MUST</em> be version 2 CRLs, include the date by which the next
    CRL will be issued in the nextUpdate field (<a href="#section-5.1.2.5">section 5.1.2.5</a>), include
    the CRL number extension (<a href="#section-5.2.3">section 5.2.3</a>), and include the authority
    key identifier extension (<a href="#section-5.2.1">section 5.2.1</a>).  Conforming applications
-   that support CRLs are REQUIRED to process both version 1 and version
+   that support CRLs are <em>REQUIRED</em> to process both version 1 and version
    2 complete CRLs that provide revocation information for all
    certificates issued by one CA.  Conforming applications are NOT
-   REQUIRED to support processing of delta CRLs, indirect CRLs, or CRLs
+   <em>REQUIRED</em> to support processing of delta CRLs, indirect CRLs, or CRLs
    with a scope other than all certificates issued by one CA.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>  CRL Fields</span>
@@ -2945,20 +2945,20 @@ Table of Contents
 
 
    TBSCertList  ::=  SEQUENCE  {
-        version                 Version OPTIONAL,
-                                     -- if present, MUST be v2
+        version                 Version <em>OPTIONAL</em>,
+                                     -- if present, <em>MUST</em> be v2
         signature               AlgorithmIdentifier,
         issuer                  Name,
         thisUpdate              Time,
-        nextUpdate              Time OPTIONAL,
+        nextUpdate              Time <em>OPTIONAL</em>,
         revokedCertificates     SEQUENCE OF SEQUENCE  {
              userCertificate         CertificateSerialNumber,
              revocationDate          Time,
-             crlEntryExtensions      Extensions OPTIONAL
-                                           -- if present, MUST be v2
-                                  }  OPTIONAL,
-        crlExtensions           [0]  EXPLICIT Extensions OPTIONAL
-                                           -- if present, MUST be v2
+             crlEntryExtensions      Extensions <em>OPTIONAL</em>
+                                           -- if present, <em>MUST</em> be v2
+                                  }  <em>OPTIONAL</em>,
+        crlExtensions           [0]  EXPLICIT Extensions <em>OPTIONAL</em>
+                                           -- if present, <em>MUST</em> be v2
                                   }
 
    -- Version, Time, CertificateSerialNumber, and Extensions
@@ -2991,7 +2991,7 @@ Table of Contents
    the algorithm used by the CRL issuer to sign the CertificateList.
    The field is of type AlgorithmIdentifier, which is defined in <a href="#section-4.1.1.2">section</a>
    <a href="#section-4.1.1.2">4.1.1.2</a>.  [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>] lists the supported algorithms for this
-   specification, but other signature algorithms MAY also be supported.
+   specification, but other signature algorithms <em>MAY</em> also be supported.
 
 
 
@@ -3000,7 +3000,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3280.html">RFC 3280</a>        Internet X.509 Public Key Infrastructure      April 2002</span>
 
 
-   This field MUST contain the same algorithm identifier as the
+   This field <em>MUST</em> contain the same algorithm identifier as the
    signature field in the sequence tbsCertList (<a href="#section-5.1.2.2">section 5.1.2.2</a>).
 
 <span class="h5"><a class="selflink" name="section-5.1.1.3" href="#section-5.1.1.3">5.1.1.3</a>  signatureValue</span>
@@ -3012,8 +3012,8 @@ Table of Contents
    field.  The details of this process are specified for each of the
    supported algorithms in [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>].
 
-   CAs that are also CRL issuers MAY use one private key to digitally
-   sign certificates and CRLs, or MAY use separate private keys to
+   CAs that are also CRL issuers <em>MAY</em> use one private key to digitally
+   sign certificates and CRLs, or <em>MAY</em> use separate private keys to
    digitally sign certificates and CRLs.  When separate private keys are
    employed, each of the public keys associated with these private keys
    is placed in a separate certificate, one with the keyCertSign bit set
@@ -3029,9 +3029,9 @@ Table of Contents
    path (<a href="#section-6">section 6</a>).  CRL checking in turn requires a separate
    certification path to be constructed and validated for the CA's CRL
    signature validation certificate.  Applications that perform CRL
-   checking MUST support certification path validation when certificates
+   checking <em>MUST</em> support certification path validation when certificates
    and CRLs are digitally signed with the same CA private key.  These
-   applications SHOULD support certification path validation when
+   applications <em>SHOULD</em> support certification path validation when
    certificates and CRLs are digitally signed with different CA private
    keys.
 
@@ -3063,8 +3063,8 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-5.1.2.1" href="#section-5.1.2.1">5.1.2.1</a>  Version</span>
 
    This optional field describes the version of the encoded CRL.  When
-   extensions are used, as required by this profile, this field MUST be
-   present and MUST specify version 2 (the integer value is 1).
+   extensions are used, as required by this profile, this field <em>MUST</em> be
+   present and <em>MUST</em> specify version 2 (the integer value is 1).
 
 <span class="h5"><a class="selflink" name="section-5.1.2.2" href="#section-5.1.2.2">5.1.2.2</a>  Signature</span>
 
@@ -3072,7 +3072,7 @@ Table of Contents
    to sign the CRL.  [<a href="#ref-PKIXALGS" title="&quot;Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation Lists (CRL) Profile&quot;">PKIXALGS</a>] lists OIDs for the most popular
    signature algorithms used in the Internet PKI.
 
-   This field MUST contain the same algorithm identifier as the
+   This field <em>MUST</em> contain the same algorithm identifier as the
    signatureAlgorithm field in the sequence CertificateList (<a href="#section-5.1.1.2">section</a>
    <a href="#section-5.1.1.2">5.1.1.2</a>).
 
@@ -3081,9 +3081,9 @@ Table of Contents
    The issuer name identifies the entity who has signed and issued the
    CRL.  The issuer identity is carried in the issuer name field.
    Alternative name forms may also appear in the issuerAltName extension
-   (<a href="#section-5.2.2">section 5.2.2</a>).  The issuer name field MUST contain an X.500
+   (<a href="#section-5.2.2">section 5.2.2</a>).  The issuer name field <em>MUST</em> contain an X.500
    distinguished name (DN).  The issuer name field is defined as the
-   X.501 type Name, and MUST follow the encoding rules for the issuer
+   X.501 type Name, and <em>MUST</em> follow the encoding rules for the issuer
    name field in the certificate (<a href="#section-4.1.2.4">section 4.1.2.4</a>).
 
 <span class="h5"><a class="selflink" name="section-5.1.2.4" href="#section-5.1.2.4">5.1.2.4</a>  This Update</span>
@@ -3091,14 +3091,14 @@ Table of Contents
    This field indicates the issue date of this CRL.  ThisUpdate may be
    encoded as UTCTime or GeneralizedTime.
 
-   CRL issuers conforming to this profile MUST encode thisUpdate as
+   CRL issuers conforming to this profile <em>MUST</em> encode thisUpdate as
    UTCTime for dates through the year 2049.  CRL issuers conforming to
-   this profile MUST encode thisUpdate as GeneralizedTime for dates in
+   this profile <em>MUST</em> encode thisUpdate as GeneralizedTime for dates in
    the year 2050 or later.
 
-   Where encoded as UTCTime, thisUpdate MUST be specified and
+   Where encoded as UTCTime, thisUpdate <em>MUST</em> be specified and
    interpreted as defined in <a href="#section-4.1.2.5.1">section 4.1.2.5.1</a>.  Where encoded as
-   GeneralizedTime, thisUpdate MUST be specified and interpreted as
+   GeneralizedTime, thisUpdate <em>MUST</em> be specified and interpreted as
    defined in <a href="#section-4.1.2.5.2">section 4.1.2.5.2</a>.
 
 
@@ -3116,33 +3116,33 @@ Table of Contents
 
    This field indicates the date by which the next CRL will be issued.
    The next CRL could be issued before the indicated date, but it will
-   not be issued any later than the indicated date.  CRL issuers SHOULD
+   not be issued any later than the indicated date.  CRL issuers <em>SHOULD</em>
    issue CRLs with a nextUpdate time equal to or later than all previous
    CRLs.  nextUpdate may be encoded as UTCTime or GeneralizedTime.
 
    This profile requires inclusion of nextUpdate in all CRLs issued by
    conforming CRL issuers.  Note that the ASN.1 syntax of TBSCertList
-   describes this field as OPTIONAL, which is consistent with the ASN.1
+   describes this field as <em>OPTIONAL</em>, which is consistent with the ASN.1
    structure defined in [<a href="#ref-X.509">X.509</a>].  The behavior of clients processing
    CRLs which omit nextUpdate is not specified by this profile.
 
-   CRL issuers conforming to this profile MUST encode nextUpdate as
+   CRL issuers conforming to this profile <em>MUST</em> encode nextUpdate as
    UTCTime for dates through the year 2049.  CRL issuers conforming to
-   this profile MUST encode nextUpdate as GeneralizedTime for dates in
+   this profile <em>MUST</em> encode nextUpdate as GeneralizedTime for dates in
    the year 2050 or later.
 
-   Where encoded as UTCTime, nextUpdate MUST be specified and
+   Where encoded as UTCTime, nextUpdate <em>MUST</em> be specified and
    interpreted as defined in <a href="#section-4.1.2.5.1">section 4.1.2.5.1</a>.  Where encoded as
-   GeneralizedTime, nextUpdate MUST be specified and interpreted as
+   GeneralizedTime, nextUpdate <em>MUST</em> be specified and interpreted as
    defined in <a href="#section-4.1.2.5.2">section 4.1.2.5.2</a>.
 
 <span class="h5"><a class="selflink" name="section-5.1.2.6" href="#section-5.1.2.6">5.1.2.6</a>  Revoked Certificates</span>
 
    When there are no revoked certificates, the revoked certificates list
-   MUST be absent.  Otherwise, revoked certificates are listed by their
+   <em>MUST</em> be absent.  Otherwise, revoked certificates are listed by their
    serial numbers.  Certificates revoked by the CA are uniquely
    identified by the certificate serial number.  The date on which the
-   revocation occurred is specified.  The time for revocationDate MUST
+   revocation occurred is specified.  The time for revocationDate <em>MUST</em>
    be expressed as described in <a href="#section-5.1.2.4">section 5.1.2.4</a>. Additional information
    may be supplied in CRL entry extensions; CRL entry extensions are
    discussed in <a href="#section-5.3">section 5.3</a>.
@@ -3168,7 +3168,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3280.html">RFC 3280</a>        Internet X.509 Public Key Infrastructure      April 2002</span>
 
 
-   critical or non-critical.  A CRL validation MUST fail if it
+   critical or non-critical.  A CRL validation <em>MUST</em> fail if it
    encounters a critical extension which it does not know how to
    process.  However, an unrecognized non-critical extension may be
    ignored.  The following subsections present those extensions used
@@ -3177,7 +3177,7 @@ Table of Contents
    should be exercised in adopting any critical extensions in CRLs which
    might be used in a general context.
 
-   Conforming CRL issuers are REQUIRED to include the authority key
+   Conforming CRL issuers are <em>REQUIRED</em> to include the authority key
    identifier (<a href="#section-5.2.1">section 5.2.1</a>) and the CRL number (<a href="#section-5.2.3">section 5.2.3</a>)
    extensions in all CRLs issued.
 
@@ -3191,7 +3191,7 @@ Table of Contents
    is especially useful where an issuer has more than one signing key,
    either due to multiple concurrent key pairs or due to changeover.
 
-   Conforming CRL issuers MUST use the key identifier method, and MUST
+   Conforming CRL issuers <em>MUST</em> use the key identifier method, and <em>MUST</em>
    include this extension in all CRLs issued.
 
    The syntax for this CRL extension is defined in <a href="#section-4.2.1.1">section 4.2.1.1</a>.
@@ -3203,11 +3203,11 @@ Table of Contents
    an <a href="./rfc822.html">rfc822</a> name (electronic mail address), a DNS name, an IP address,
    and a URI.  Multiple instances of a name and multiple name forms may
    be included.  Whenever such identities are used, the issuer
-   alternative name extension MUST be used; however, a DNS name MAY be
+   alternative name extension <em>MUST</em> be used; however, a DNS name <em>MAY</em> be
    represented in the issuer field using the domainComponent attribute
    as described in <a href="#section-4.1.2.4">section 4.1.2.4</a>.
 
-   The issuerAltName extension SHOULD NOT be marked critical.
+   The issuerAltName extension <em>SHOULD NOT</em> be marked critical.
 
    The OID and syntax for this CRL extension are defined in <a href="#section-4.2.1.8">section</a>
    <a href="#section-4.2.1.8">4.2.1.8</a>.
@@ -3231,27 +3231,27 @@ Table of Contents
    CRL issuer.  This extension allows users to easily determine when a
    particular CRL supersedes another CRL.  CRL numbers also support the
    identification of complementary complete CRLs and delta CRLs.  CRL
-   issuers conforming to this profile MUST include this extension in all
+   issuers conforming to this profile <em>MUST</em> include this extension in all
    CRLs.
 
    If a CRL issuer generates delta CRLs in addition to complete CRLs for
-   a given scope, the complete CRLs and delta CRLs MUST share one
+   a given scope, the complete CRLs and delta CRLs <em>MUST</em> share one
    numbering sequence.  If a delta CRL and a complete CRL that cover the
-   same scope are issued at the same time, they MUST have the same CRL
+   same scope are issued at the same time, they <em>MUST</em> have the same CRL
    number and provide the same revocation information.  That is, the
-   combination of the delta CRL and an acceptable complete CRL MUST
+   combination of the delta CRL and an acceptable complete CRL <em>MUST</em>
    provide the same revocation information as the simultaneously issued
    complete CRL.
 
    If a CRL issuer generates two CRLs (two complete CRLs, two delta
    CRLs, or a complete CRL and a delta CRL) for the same scope at
-   different times, the two CRLs MUST NOT have the same CRL number.
+   different times, the two CRLs <em>MUST NOT</em> have the same CRL number.
    That is, if the this update field (<a href="#section-5.1.2.4">section 5.1.2.4</a>) in the two CRLs
-   are not identical, the CRL numbers MUST be different.
+   are not identical, the CRL numbers <em>MUST</em> be different.
 
    Given the requirements above, CRL numbers can be expected to contain
-   long integers.  CRL verifiers MUST be able to handle CRLNumber values
-   up to 20 octets.  Conformant CRL issuers MUST NOT use CRLNumber
+   long integers.  CRL verifiers <em>MUST</em> be able to handle CRLNumber values
+   up to 20 octets.  Conformant CRL issuers <em>MUST NOT</em> use CRLNumber
    values longer than 20 octets.
 
    id-ce-cRLNumber OBJECT IDENTIFIER ::= { id-ce 20 }
@@ -3283,7 +3283,7 @@ Table of Contents
    The delta CRL indicator extension contains the single value of type
    BaseCRLNumber.  The CRL number identifies the CRL, complete for a
    given scope, that was used as the starting point in the generation of
-   this delta CRL.  A conforming CRL issuer MUST publish the referenced
+   this delta CRL.  A conforming CRL issuer <em>MUST</em> publish the referenced
    base CRL as a complete CRL.  The delta CRL contains all updates to
    the revocation status for that same scope.  The combination of a
    delta CRL plus the referenced base CRL is equivalent to a complete
@@ -3291,15 +3291,15 @@ Table of Contents
    delta CRL.
 
    When a conforming CRL issuer generates a delta CRL, the delta CRL
-   MUST include a critical delta CRL indicator extension.
+   <em>MUST</em> include a critical delta CRL indicator extension.
 
-   When a delta CRL is issued, it MUST cover the same set of reasons and
+   When a delta CRL is issued, it <em>MUST</em> cover the same set of reasons and
    the same set of certificates that were covered by the base CRL it
-   references.  That is, the scope of the delta CRL MUST be the same as
+   references.  That is, the scope of the delta CRL <em>MUST</em> be the same as
    the scope of the complete CRL referenced as the base.  The referenced
-   base CRL and the delta CRL MUST omit the issuing distribution point
+   base CRL and the delta CRL <em>MUST</em> omit the issuing distribution point
    extension or contain identical issuing distribution point extensions.
-   Further, the CRL issuer MUST use the same private key to sign the
+   Further, the CRL issuer <em>MUST</em> use the same private key to sign the
    delta CRL and any complete CRL that it can be used to update.
 
    An application that supports delta CRLs can construct a CRL that is
@@ -3316,7 +3316,7 @@ Table of Contents
    In addition, the locally constructed CRL inherits the issuing
    distribution point from the delta CRL.
 
-   A complete CRL and a delta CRL MAY be combined if the following four
+   A complete CRL and a delta CRL <em>MAY</em> be combined if the following four
    conditions are satisfied:
 
       (a)  The complete CRL and delta CRL have the same issuer.
@@ -3349,9 +3349,9 @@ Table of Contents
       number of the delta CRL.  That is, the delta CRL follows the
       complete CRL in the numbering sequence.
 
-   CRL issuers MUST ensure that the combination of a delta CRL and any
+   CRL issuers <em>MUST</em> ensure that the combination of a delta CRL and any
    appropriate complete CRL accurately reflects the current revocation
-   status.  The CRL issuer MUST include an entry in the delta CRL for
+   status.  The CRL issuer <em>MUST</em> include an entry in the delta CRL for
    each certificate within the scope of the delta CRL whose status has
    changed since the generation of the referenced base CRL:
 
@@ -3393,10 +3393,10 @@ Table of Contents
 
 
    any CRL issued after the base but before this delta CRL and then
-   released from hold, it MUST be listed on the delta CRL with
+   released from hold, it <em>MUST</em> be listed on the delta CRL with
    revocation reason removeFromCRL.
 
-   A CRL issuer MAY optionally list a certificate on a delta CRL with
+   A CRL issuer <em>MAY</em> optionally list a certificate on a delta CRL with
    reason code removeFromCRL if the notAfter time specified in the
    certificate precedes the thisUpdate time specified in the delta CRL
    and the certificate was listed on the referenced base CRL or in any
@@ -3405,21 +3405,21 @@ Table of Contents
    If a certificate revocation notice first appears on a delta CRL, then
    it is possible for the certificate validity period to expire before
    the next complete CRL for the same scope is issued.  In this case,
-   the revocation notice MUST be included in all subsequent delta CRLs
+   the revocation notice <em>MUST</em> be included in all subsequent delta CRLs
    until the revocation notice is included on at least one explicitly
    issued complete CRL for this scope.
 
-   An application that supports delta CRLs MUST be able to construct a
+   An application that supports delta CRLs <em>MUST</em> be able to construct a
    current complete CRL by combining a previously issued complete CRL
    and the most current delta CRL.  An application that supports delta
-   CRLs MAY also be able to construct a current complete CRL by
+   CRLs <em>MAY</em> also be able to construct a current complete CRL by
    combining a previously locally constructed complete CRL and the
    current delta CRL.  A delta CRL is considered to be the current one
    if the current time is between the times contained in the thisUpdate
    and nextUpdate fields.  Under some circumstances, the CRL issuer may
    publish one or more delta CRLs before indicated by the nextUpdate
    field.  If more than one current delta CRL for a given scope is
-   encountered, the application SHOULD consider the one with the latest
+   encountered, the application <em>SHOULD</em> consider the one with the latest
    value in thisUpdate to be the most current one.
 
    id-ce-deltaCRLIndicator OBJECT IDENTIFIER ::= { id-ce 27 }
@@ -3454,9 +3454,9 @@ Table of Contents
    corresponding to the CRL distribution point, which may be different
    than the Directory entry of the CRL issuer.
 
-   The reason codes associated with a distribution point MUST be
+   The reason codes associated with a distribution point <em>MUST</em> be
    specified in onlySomeReasons.  If onlySomeReasons does not appear,
-   the distribution point MUST contain revocations for all reason codes.
+   the distribution point <em>MUST</em> contain revocations for all reason codes.
    CAs may use CRL distribution points to partition the CRL on the basis
    of compromise and routine revocation.  In this case, the revocations
    with reason code keyCompromise (1), cACompromise (2), and
@@ -3465,17 +3465,17 @@ Table of Contents
    point.
 
    If the distributionPoint field is present and contains a URI, the
-   following semantics MUST be assumed: the object is a pointer to the
+   following semantics <em>MUST</em> be assumed: the object is a pointer to the
    most current CRL issued by this CRL issuer.  The URI schemes ftp,
    http, mailto [<a href="./rfc1738.html">RFC1738</a>] and ldap [<a href="./rfc1778.html">RFC1778</a>] are defined for this
-   purpose.  The URI MUST be an absolute pathname, not a relative
-   pathname, and MUST specify the host.
+   purpose.  The URI <em>MUST</em> be an absolute pathname, not a relative
+   pathname, and <em>MUST</em> specify the host.
 
-   If the distributionPoint field is absent, the CRL MUST contain
+   If the distributionPoint field is absent, the CRL <em>MUST</em> contain
    entries for all revoked unexpired certificates issued by the CRL
    issuer, if any, within the scope of the CRL.
 
-   The CRL issuer MUST assert the indirectCRL boolean, if the scope of
+   The CRL issuer <em>MUST</em> assert the indirectCRL boolean, if the scope of
    the CRL includes certificates issued by authorities other than the
    CRL issuer.  The authority responsible for each entry is indicated by
    the certificate issuer CRL entry extension (<a href="#section-5.3.4">section 5.3.4</a>).
@@ -3483,18 +3483,18 @@ Table of Contents
    id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
 
    issuingDistributionPoint ::= SEQUENCE {
-        distributionPoint          [0] DistributionPointName OPTIONAL,
+        distributionPoint          [0] DistributionPointName <em>OPTIONAL</em>,
         onlyContainsUserCerts      [1] BOOLEAN DEFAULT FALSE,
         onlyContainsCACerts        [2] BOOLEAN DEFAULT FALSE,
-        onlySomeReasons            [3] ReasonFlags OPTIONAL,
+        onlySomeReasons            [3] ReasonFlags <em>OPTIONAL</em>,
         indirectCRL                [4] BOOLEAN DEFAULT FALSE,
         onlyContainsAttributeCerts [5] BOOLEAN DEFAULT FALSE }
 
 <span class="h4"><a class="selflink" name="section-5.2.6" href="#section-5.2.6">5.2.6</a>  Freshest CRL (a.k.a. Delta CRL Distribution Point)</span>
 
    The freshest CRL extension identifies how delta CRL information for
-   this complete CRL is obtained.  The extension MUST be non-critical.
-   This extension MUST NOT appear in delta CRLs.
+   this complete CRL is obtained.  The extension <em>MUST</em> be non-critical.
+   This extension <em>MUST NOT</em> appear in delta CRLs.
 
 
 
@@ -3507,12 +3507,12 @@ Table of Contents
    The same syntax is used for this extension as the
    cRLDistributionPoints certificate extension, and is described in
    <a href="#section-4.2.1.14">section 4.2.1.14</a>.  However, only the distribution point field is
-   meaningful in this context.  The reasons and CRLIssuer fields MUST be
+   meaningful in this context.  The reasons and CRLIssuer fields <em>MUST</em> be
    omitted from this CRL extension.
 
    Each distribution point name provides the location at which a delta
    CRL for this complete CRL can be found.  The scope of these delta
-   CRLs MUST be the same as the scope of this complete CRL.  The
+   CRLs <em>MUST</em> be the same as the scope of this complete CRL.  The
    contents of this CRL extension are only used to locate delta CRLs;
    the contents are not used to validate the CRL or the referenced delta
    CRLs.  The encoding conventions defined for distribution points in
@@ -3530,7 +3530,7 @@ Table of Contents
    allows communities to define private CRL entry extensions to carry
    information unique to those communities.  Each extension in a CRL
    entry may be designated as critical or non-critical.  A CRL
-   validation MUST fail if it encounters a critical CRL entry extension
+   validation <em>MUST</em> fail if it encounters a critical CRL entry extension
    which it does not know how to process.  However, an unrecognized non-
    critical CRL entry extension may be ignored.  The following
    subsections present recommended extensions used within Internet CRL
@@ -3541,7 +3541,7 @@ Table of Contents
 
    All CRL entry extensions used in this specification are non-critical.
    Support for these extensions is optional for conforming CRL issuers
-   and applications.  However, CRL issuers SHOULD include reason codes
+   and applications.  However, CRL issuers <em>SHOULD</em> include reason codes
    (<a href="#section-5.3.1">section 5.3.1</a>) and invalidity dates (<a href="#section-5.3.3">section 5.3.3</a>) whenever this
    information is available.
 
@@ -3550,7 +3550,7 @@ Table of Contents
    The reasonCode is a non-critical CRL entry extension that identifies
    the reason for the certificate revocation.  CRL issuers are strongly
    encouraged to include meaningful reason codes in CRL entries;
-   however, the reason code CRL entry extension SHOULD be absent instead
+   however, the reason code CRL entry extension <em>SHOULD</em> be absent instead
    of using the unspecified (0) reasonCode value.
 
 
@@ -3588,7 +3588,7 @@ Table of Contents
    holdInstructionCode ::= OBJECT IDENTIFIER
 
    The following instruction codes have been defined.  Conforming
-   applications that process this extension MUST recognize the following
+   applications that process this extension <em>MUST</em> recognize the following
    instruction codes.
 
    holdInstruction    OBJECT IDENTIFIER ::=
@@ -3600,9 +3600,9 @@ Table of Contents
    id-holdinstruction-reject OBJECT IDENTIFIER ::= {holdInstruction 3}
 
    Conforming applications which encounter an id-holdinstruction-
-   callissuer MUST call the certificate issuer or reject the
+   callissuer <em>MUST</em> call the certificate issuer or reject the
    certificate.  Conforming applications which encounter an id-
-   holdinstruction-reject MUST reject the certificate.  The hold
+   holdinstruction-reject <em>MUST</em> reject the certificate.  The hold
    instruction id-holdinstruction-none is semantically equivalent to the
    absence of a holdInstructionCode, and its use is strongly deprecated
    for the Internet PKI.
@@ -3625,12 +3625,12 @@ Table of Contents
    which is the date at which the CA processed the revocation.  When a
    revocation is first posted by a CRL issuer in a CRL, the invalidity
    date may precede the date of issue of earlier CRLs, but the
-   revocation date SHOULD NOT precede the date of issue of earlier CRLs.
+   revocation date <em>SHOULD NOT</em> precede the date of issue of earlier CRLs.
    Whenever this information is available, CRL issuers are strongly
    encouraged to share it with CRL users.
 
-   The GeneralizedTime values included in this field MUST be expressed
-   in Greenwich Mean Time (Zulu), and MUST be specified and interpreted
+   The GeneralizedTime values included in this field <em>MUST</em> be expressed
+   in Greenwich Mean Time (Zulu), and <em>MUST</em> be specified and interpreted
    as defined in <a href="#section-4.1.2.5.2">section 4.1.2.5.2</a>.
 
    id-ce-invalidityDate OBJECT IDENTIFIER ::= { id-ce 24 }
@@ -3652,7 +3652,7 @@ Table of Contents
 
    certificateIssuer ::=     GeneralNames
 
-   If used by conforming CRL issuers, this extension MUST always be
+   If used by conforming CRL issuers, this extension <em>MUST</em> always be
    critical.  If an implementation ignored this extension it could not
    correctly attribute CRL entries to certificates.  This specification
    RECOMMENDS that implementations recognize this extension.
@@ -3679,7 +3679,7 @@ Table of Contents
 
    This section describes an algorithm for validating certification
    paths.  Conforming implementations of this specification are not
-   required to implement this algorithm, but MUST provide functionality
+   required to implement this algorithm, but <em>MUST</em> provide functionality
    equivalent to the external behavior resulting from this procedure.
    Any algorithm may be used by a particular implementation so long as
    it derives the correct result.
@@ -3710,11 +3710,11 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>  Basic Path Validation</span>
 
    This text describes an algorithm for X.509 path processing.  A
-   conformant implementation MUST include an X.509 path processing
+   conformant implementation <em>MUST</em> include an X.509 path processing
    procedure that is functionally equivalent to the external behavior of
    this algorithm.  However, support for some of the certificate
-   extensions processed in this algorithm are OPTIONAL for compliant
-   implementations.  Clients that do not support these extensions MAY
+   extensions processed in this algorithm are <em>OPTIONAL</em> for compliant
+   implementations.  Clients that do not support these extensions <em>MAY</em>
    omit the corresponding steps in the path validation algorithm.
 
 
@@ -3728,22 +3728,22 @@ Table of Contents
 <span class="grey"><a href="./rfc3280.html">RFC 3280</a>        Internet X.509 Public Key Infrastructure      April 2002</span>
 
 
-   For example, clients are NOT REQUIRED to support the policy mapping
-   extension.  Clients that do not support this extension MAY omit the
+   For example, clients are NOT <em>REQUIRED</em> to support the policy mapping
+   extension.  Clients that do not support this extension <em>MAY</em> omit the
    path validation steps where policy mappings are processed.  Note that
-   clients MUST reject the certificate if it contains an unsupported
+   clients <em>MUST</em> reject the certificate if it contains an unsupported
    critical extension.
 
    The algorithm presented in this section validates the certificate
    with respect to the current date and time.  A conformant
-   implementation MAY also support validation with respect to some point
+   implementation <em>MAY</em> also support validation with respect to some point
    in the past.  Note that mechanisms are not available for validating a
    certificate with respect to a time outside the certificate validity
    period.
 
    The trust anchor is an input to the algorithm.  There is no
    requirement that the same trust anchor be used to validate all
-   certification paths.  Different trust anchors MAY be used to validate
+   certification paths.  Different trust anchors <em>MAY</em> be used to validate
    different paths, as discussed further in <a href="#section-6.2">Section 6.2</a>.
 
    The primary goal of path validation is to verify the binding between
@@ -3785,7 +3785,7 @@ Table of Contents
 
 
    A particular certification path may not, however, be appropriate for
-   all applications.  Therefore, an application MAY augment this
+   all applications.  Therefore, an application <em>MAY</em> augment this
    algorithm to further limit the set of valid paths.  The path
    validation process also determines the set of certificate policies
    that are valid for this path, based on the certificate policies
@@ -4011,7 +4011,7 @@ Table of Contents
       (b) permitted_subtrees:  A set of root names for each name type
       (e.g., X.500 distinguished names, email addresses, or ip
       addresses) defining a set of subtrees within which all subject
-      names in subsequent certificates in the certification path MUST
+      names in subsequent certificates in the certification path <em>MUST</em>
       fall.  This variable includes a set for each name type: the
       initial value for the set for Distinguished Names is the set of
       all Distinguished names; the initial value for the set of <a href="./rfc822.html">RFC822</a>
@@ -4094,7 +4094,7 @@ Table of Contents
    (for all i in [1..n]) are listed below.
 
       (a)  Verify the basic certificate information.  The certificate
-      MUST satisfy each of the following:
+      <em>MUST</em> satisfy each of the following:
 
          (1)  The certificate was signed with the
          working_public_key_algorithm using the working_public_key and
@@ -4667,11 +4667,11 @@ Table of Contents
    a specific trust anchor, there is no requirement that all
    certification paths validated by a particular system share a single
    trust anchor.  An implementation that supports multiple trust anchors
-   MAY augment the algorithm presented in <a href="#section-6.1">section 6.1</a> to further limit
+   <em>MAY</em> augment the algorithm presented in <a href="#section-6.1">section 6.1</a> to further limit
    the set of valid certification paths which begin with a particular
-   trust anchor.  For example, an implementation MAY modify the
+   trust anchor.  For example, an implementation <em>MAY</em> modify the
    algorithm to apply name constraints to a specific trust anchor during
-   the initialization phase, or the application MAY require the presence
+   the initialization phase, or the application <em>MAY</em> require the presence
 
 
 
@@ -4681,7 +4681,7 @@ Table of Contents
 
 
    of a particular alternative name form in the end entity certificate,
-   or the application MAY impose requirements on application-specific
+   or the application <em>MAY</em> impose requirements on application-specific
    extensions.  Thus, the path validation algorithm presented in <a href="#section-6.1">section</a>
    <a href="#section-6.1">6.1</a> defines the minimum conditions for a path to be considered valid.
 
@@ -4715,7 +4715,7 @@ Table of Contents
    certificate is revoked or on hold status when CRLs are the revocation
    mechanism used by the certificate issuer.  Conforming implementations
    that support CRLs are not required to implement this algorithm, but
-   they MUST be functionally equivalent to the external behavior
+   they <em>MUST</em> be functionally equivalent to the external behavior
    resulting from this procedure.  Any algorithm may be used by a
    particular implementation so long as it derives the correct result.
 
@@ -5175,7 +5175,7 @@ Table of Contents
    private key unnoticed, the attacker may issue bogus certificates and
    CRLs.  Existence of bogus certificates and CRLs will undermine
    confidence in the system.  If such a compromise is detected, all
-   certificates issued to the compromised CA MUST be revoked, preventing
+   certificates issued to the compromised CA <em>MUST</em> be revoked, preventing
 
 
 
@@ -5192,7 +5192,7 @@ Table of Contents
 
    Loss of a CA's private signing key may also be problematic.  The CA
    would not be able to produce CRLs or perform normal key rollover.
-   CAs SHOULD maintain secure backup for signing keys.  The security of
+   CAs <em>SHOULD</em> maintain secure backup for signing keys.  The security of
    the key backup procedures is a critical factor in avoiding key
    compromise.
 
@@ -5203,7 +5203,7 @@ Table of Contents
    If revocation information is untimely or unavailable, the assurance
    associated with the binding is clearly reduced.  Relying parties
    might not be able to process every critical extension that can appear
-   in a CRL.  CAs SHOULD take extra care when making revocation
+   in a CRL.  CAs <em>SHOULD</em> take extra care when making revocation
    information available only through CRLs that contain critical
    extensions, particularly if support for those extensions is not
    mandated by this profile.  For example, if revocation information is
@@ -5257,7 +5257,7 @@ Table of Contents
    generate the signature.  Short key lengths or weak hash algorithms
    will limit the utility of a certificate.  CAs are encouraged to note
    advances in cryptology so they can employ strong cryptographic
-   techniques.  In addition, CAs SHOULD decline to issue certificates to
+   techniques.  In addition, CAs <em>SHOULD</em> decline to issue certificates to
    CAs or end entities that generate weak signatures.
 
    Inconsistent application of name comparison rules can result in
@@ -5269,20 +5269,20 @@ Table of Contents
    relaxes these requirements, requiring support for binary comparison
    at a minimum.
 
-   CAs MUST encode the distinguished name in the subject field of a CA
+   CAs <em>MUST</em> encode the distinguished name in the subject field of a CA
    certificate identically to the distinguished name in the issuer field
    in certificates issued by that CA.  If CAs use different encodings,
    implementations might fail to recognize name chains for paths that
    include this certificate.  As a consequence, valid paths could be
    rejected.
 
-   In addition, name constraints for distinguished names MUST be stated
+   In addition, name constraints for distinguished names <em>MUST</em> be stated
    identically to the encoding used in the subject field or
    subjectAltName extension.  If not, then name constraints stated as
    excludedSubTrees will not match and invalid paths will be accepted
    and name constraints expressed as permittedSubtrees will not match
    and valid paths will be rejected.  To avoid acceptance of invalid
-   paths, CAs SHOULD state name constraints for distinguished names as
+   paths, CAs <em>SHOULD</em> state name constraints for distinguished names as
    permittedSubtrees wherever possible.
 
 
@@ -5603,12 +5603,12 @@ TBSCertificate  ::=  SEQUENCE  {
      validity             Validity,
      subject              Name,
      subjectPublicKeyInfo SubjectPublicKeyInfo,
-     issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
-                          -- If present, version MUST be v2 or v3
-     subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
-                          -- If present, version MUST be v2 or v3
-     extensions      [3]  Extensions OPTIONAL
-                          -- If present, version MUST be v3 --  }
+     issuerUniqueID  [1]  IMPLICIT UniqueIdentifier <em>OPTIONAL</em>,
+                          -- If present, version <em>MUST</em> be v2 or v3
+     subjectUniqueID [2]  IMPLICIT UniqueIdentifier <em>OPTIONAL</em>,
+                          -- If present, version <em>MUST</em> be v2 or v3
+     extensions      [3]  Extensions <em>OPTIONAL</em>
+                          -- If present, version <em>MUST</em> be v3 --  }
 
 Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
 
@@ -5651,27 +5651,27 @@ CertificateList  ::=  SEQUENCE  {
      signature            BIT STRING  }
 
 TBSCertList  ::=  SEQUENCE  {
-     version                 Version OPTIONAL,
-                                  -- if present, MUST be v2
+     version                 Version <em>OPTIONAL</em>,
+                                  -- if present, <em>MUST</em> be v2
      signature               AlgorithmIdentifier,
      issuer                  Name,
      thisUpdate              Time,
-     nextUpdate              Time OPTIONAL,
+     nextUpdate              Time <em>OPTIONAL</em>,
      revokedCertificates     SEQUENCE OF SEQUENCE  {
           userCertificate         CertificateSerialNumber,
           revocationDate          Time,
-          crlEntryExtensions      Extensions OPTIONAL
-                                         -- if present, MUST be v2
-                               }  OPTIONAL,
-     crlExtensions           [0] Extensions OPTIONAL }
-                                         -- if present, MUST be v2
+          crlEntryExtensions      Extensions <em>OPTIONAL</em>
+                                         -- if present, <em>MUST</em> be v2
+                               }  <em>OPTIONAL</em>,
+     crlExtensions           [0] Extensions <em>OPTIONAL</em> }
+                                         -- if present, <em>MUST</em> be v2
 
 -- Version, Time, CertificateSerialNumber, and Extensions were
 -- defined earlier for use in the certificate structure
 
 AlgorithmIdentifier  ::=  SEQUENCE  {
      algorithm               OBJECT IDENTIFIER,
-     parameters              ANY DEFINED BY algorithm OPTIONAL  }
+     parameters              ANY DEFINED BY algorithm <em>OPTIONAL</em>  }
                                 -- contains a value of the type
                                 -- registered for use with the
                                 -- algorithm object identifier value
@@ -5691,27 +5691,27 @@ AlgorithmIdentifier  ::=  SEQUENCE  {
 ORAddress ::= SEQUENCE {
    built-in-standard-attributes BuiltInStandardAttributes,
    built-in-domain-defined-attributes
-                   BuiltInDomainDefinedAttributes OPTIONAL,
+                   BuiltInDomainDefinedAttributes <em>OPTIONAL</em>,
    -- see also teletex-domain-defined-attributes
-   extension-attributes ExtensionAttributes OPTIONAL }
+   extension-attributes ExtensionAttributes <em>OPTIONAL</em> }
 
 -- Built-in Standard Attributes
 
 BuiltInStandardAttributes ::= SEQUENCE {
-   country-name                  CountryName OPTIONAL,
-   administration-domain-name    AdministrationDomainName OPTIONAL,
-   network-address           [0] IMPLICIT NetworkAddress OPTIONAL,
+   country-name                  CountryName <em>OPTIONAL</em>,
+   administration-domain-name    AdministrationDomainName <em>OPTIONAL</em>,
+   network-address           [0] IMPLICIT NetworkAddress <em>OPTIONAL</em>,
      -- see also extended-network-address
-   terminal-identifier       [1] IMPLICIT TerminalIdentifier OPTIONAL,
-   private-domain-name       [2] PrivateDomainName OPTIONAL,
-   organization-name         [3] IMPLICIT OrganizationName OPTIONAL,
+   terminal-identifier       [1] IMPLICIT TerminalIdentifier <em>OPTIONAL</em>,
+   private-domain-name       [2] PrivateDomainName <em>OPTIONAL</em>,
+   organization-name         [3] IMPLICIT OrganizationName <em>OPTIONAL</em>,
      -- see also teletex-organization-name
    numeric-user-identifier   [4] IMPLICIT NumericUserIdentifier
-                                 OPTIONAL,
-   personal-name             [5] IMPLICIT PersonalName OPTIONAL,
+                                 <em>OPTIONAL</em>,
+   personal-name             [5] IMPLICIT PersonalName <em>OPTIONAL</em>,
      -- see also teletex-personal-name
    organizational-unit-names [6] IMPLICIT OrganizationalUnitNames
-                                 OPTIONAL }
+                                 <em>OPTIONAL</em> }
      -- see also teletex-organizational-unit-names
 
 CountryName ::= [APPLICATION 1] CHOICE {
@@ -5755,12 +5755,12 @@ PersonalName ::= SET {
    surname     [0] IMPLICIT PrintableString
                     (SIZE (1..ub-surname-length)),
    given-name  [1] IMPLICIT PrintableString
-                    (SIZE (1..ub-given-name-length)) OPTIONAL,
+                    (SIZE (1..ub-given-name-length)) <em>OPTIONAL</em>,
    initials    [2] IMPLICIT PrintableString
-                    (SIZE (1..ub-initials-length)) OPTIONAL,
+                    (SIZE (1..ub-initials-length)) <em>OPTIONAL</em>,
    generation-qualifier [3] IMPLICIT PrintableString
                     (SIZE (1..ub-generation-qualifier-length))
-                    OPTIONAL }
+                    <em>OPTIONAL</em> }
   -- see also teletex-personal-name
 
 OrganizationalUnitNames ::= SEQUENCE SIZE (1..ub-organizational-units)
@@ -5821,12 +5821,12 @@ TeletexPersonalName ::= SET {
    surname     [0] IMPLICIT TeletexString
                     (SIZE (1..ub-surname-length)),
    given-name  [1] IMPLICIT TeletexString
-                    (SIZE (1..ub-given-name-length)) OPTIONAL,
+                    (SIZE (1..ub-given-name-length)) <em>OPTIONAL</em>,
    initials    [2] IMPLICIT TeletexString
-                    (SIZE (1..ub-initials-length)) OPTIONAL,
+                    (SIZE (1..ub-initials-length)) <em>OPTIONAL</em>,
    generation-qualifier [3] IMPLICIT TeletexString
                     (SIZE (1..ub-generation-qualifier-length))
-                    OPTIONAL }
+                    <em>OPTIONAL</em> }
 
 teletex-organizational-unit-names INTEGER ::= 5
 
@@ -5891,9 +5891,9 @@ unformatted-postal-address INTEGER ::= 16
 UnformattedPostalAddress ::= SET {
    printable-address SEQUENCE SIZE (1..ub-pds-physical-address-lines)
          OF PrintableString (SIZE (1..ub-pds-parameter-length))
-         OPTIONAL,
+         <em>OPTIONAL</em>,
    teletex-string TeletexString
-         (SIZE (1..ub-unformatted-address-length)) OPTIONAL }
+         (SIZE (1..ub-unformatted-address-length)) <em>OPTIONAL</em> }
 
 street-address INTEGER ::= 17
 
@@ -5924,9 +5924,9 @@ LocalPostalAttributes ::= PDSParameter
 
 PDSParameter ::= SET {
    printable-string PrintableString
-                (SIZE(1..ub-pds-parameter-length)) OPTIONAL,
+                (SIZE(1..ub-pds-parameter-length)) <em>OPTIONAL</em>,
    teletex-string TeletexString
-                (SIZE(1..ub-pds-parameter-length)) OPTIONAL }
+                (SIZE(1..ub-pds-parameter-length)) <em>OPTIONAL</em> }
 
 extended-network-address INTEGER ::= 22
 
@@ -5936,13 +5936,13 @@ ExtendedNetworkAddress ::= CHOICE {
                        (SIZE (1..ub-e163-4-number-length)),
       sub-address [1] IMPLICIT NumericString
                        (SIZE (1..ub-e163-4-sub-address-length))
-                       OPTIONAL },
+                       <em>OPTIONAL</em> },
    psap-address [0] IMPLICIT PresentationAddress }
 
 PresentationAddress ::= SEQUENCE {
-    pSelector     [0] EXPLICIT OCTET STRING OPTIONAL,
-    sSelector     [1] EXPLICIT OCTET STRING OPTIONAL,
-    tSelector     [2] EXPLICIT OCTET STRING OPTIONAL,
+    pSelector     [0] EXPLICIT OCTET STRING <em>OPTIONAL</em>,
+    sSelector     [1] EXPLICIT OCTET STRING <em>OPTIONAL</em>,
+    tSelector     [2] EXPLICIT OCTET STRING <em>OPTIONAL</em>,
     nAddresses    [3] EXPLICIT SET SIZE (1..MAX) OF OCTET STRING }
 
 terminal-type  INTEGER ::= 23
@@ -5977,7 +5977,7 @@ TeletexDomainDefinedAttribute ::= SEQUENCE {
         value TeletexString
                (SIZE (1..ub-domain-defined-attribute-value-length)) }
 
---  specifications of Upper Bounds MUST be regarded as mandatory
+--  specifications of Upper Bounds <em>MUST</em> be regarded as mandatory
 --  from Annex B of ITU-T X.411 Reference Definition of MTS Parameter
 --  Upper Bounds
 
@@ -6081,10 +6081,10 @@ id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
 
 
 AuthorityKeyIdentifier ::= SEQUENCE {
-    keyIdentifier             [0] KeyIdentifier            OPTIONAL,
-    authorityCertIssuer       [1] GeneralNames             OPTIONAL,
-    authorityCertSerialNumber [2] CertificateSerialNumber  OPTIONAL }
-    -- authorityCertIssuer and authorityCertSerialNumber MUST both
+    keyIdentifier             [0] KeyIdentifier            <em>OPTIONAL</em>,
+    authorityCertIssuer       [1] GeneralNames             <em>OPTIONAL</em>,
+    authorityCertSerialNumber [2] CertificateSerialNumber  <em>OPTIONAL</em> }
+    -- authorityCertIssuer and authorityCertSerialNumber <em>MUST</em> both
     -- be present or both be absent
 
 KeyIdentifier ::= OCTET STRING
@@ -6115,9 +6115,9 @@ KeyUsage ::= BIT STRING {
 id-ce-privateKeyUsagePeriod OBJECT IDENTIFIER ::=  { id-ce 16 }
 
 PrivateKeyUsagePeriod ::= SEQUENCE {
-     notBefore       [0]     GeneralizedTime OPTIONAL,
-     notAfter        [1]     GeneralizedTime OPTIONAL }
-     -- either notBefore or notAfter MUST be present
+     notBefore       [0]     GeneralizedTime <em>OPTIONAL</em>,
+     notAfter        [1]     GeneralizedTime <em>OPTIONAL</em> }
+     -- either notBefore or notAfter <em>MUST</em> be present
 
 -- certificate policies extension OID and syntax
 
@@ -6138,7 +6138,7 @@ PolicyInformation ::= SEQUENCE {
 
      policyIdentifier   CertPolicyId,
      policyQualifiers   SEQUENCE SIZE (1..MAX) OF
-             PolicyQualifierInfo OPTIONAL }
+             PolicyQualifierInfo <em>OPTIONAL</em> }
 
 CertPolicyId ::= OBJECT IDENTIFIER
 
@@ -6146,7 +6146,7 @@ PolicyQualifierInfo ::= SEQUENCE {
        policyQualifierId  PolicyQualifierId,
        qualifier        ANY DEFINED BY policyQualifierId }
 
--- Implementations that recognize additional policy qualifiers MUST
+-- Implementations that recognize additional policy qualifiers <em>MUST</em>
 -- augment the following definition for PolicyQualifierId
 
 PolicyQualifierId ::=
@@ -6159,8 +6159,8 @@ CPSuri ::= IA5String
 -- user notice qualifier
 
 UserNotice ::= SEQUENCE {
-     noticeRef        NoticeReference OPTIONAL,
-     explicitText     DisplayText OPTIONAL}
+     noticeRef        NoticeReference <em>OPTIONAL</em>,
+     explicitText     DisplayText <em>OPTIONAL</em>}
 
 NoticeReference ::= SEQUENCE {
      organization     DisplayText,
@@ -6215,7 +6215,7 @@ AnotherName ::= SEQUENCE {
      value      [0] EXPLICIT ANY DEFINED BY type-id }
 
 EDIPartyName ::= SEQUENCE {
-     nameAssigner            [0]     DirectoryString OPTIONAL,
+     nameAssigner            [0]     DirectoryString <em>OPTIONAL</em>,
      partyName               [1]     DirectoryString }
 
 -- issuer alternative name extension OID and syntax
@@ -6234,7 +6234,7 @@ id-ce-basicConstraints OBJECT IDENTIFIER ::=  { id-ce 19 }
 
 BasicConstraints ::= SEQUENCE {
      cA                      BOOLEAN DEFAULT FALSE,
-     pathLenConstraint       INTEGER (0..MAX) OPTIONAL }
+     pathLenConstraint       INTEGER (0..MAX) <em>OPTIONAL</em> }
 
 -- name constraints extension OID and syntax
 
@@ -6249,15 +6249,15 @@ id-ce-nameConstraints OBJECT IDENTIFIER ::=  { id-ce 30 }
 
 
 NameConstraints ::= SEQUENCE {
-     permittedSubtrees       [0]     GeneralSubtrees OPTIONAL,
-     excludedSubtrees        [1]     GeneralSubtrees OPTIONAL }
+     permittedSubtrees       [0]     GeneralSubtrees <em>OPTIONAL</em>,
+     excludedSubtrees        [1]     GeneralSubtrees <em>OPTIONAL</em> }
 
 GeneralSubtrees ::= SEQUENCE SIZE (1..MAX) OF GeneralSubtree
 
 GeneralSubtree ::= SEQUENCE {
      base                    GeneralName,
      minimum         [0]     BaseDistance DEFAULT 0,
-     maximum         [1]     BaseDistance OPTIONAL }
+     maximum         [1]     BaseDistance <em>OPTIONAL</em> }
 
 BaseDistance ::= INTEGER (0..MAX)
 
@@ -6266,8 +6266,8 @@ BaseDistance ::= INTEGER (0..MAX)
 id-ce-policyConstraints OBJECT IDENTIFIER ::=  { id-ce 36 }
 
 PolicyConstraints ::= SEQUENCE {
-     requireExplicitPolicy           [0] SkipCerts OPTIONAL,
-     inhibitPolicyMapping            [1] SkipCerts OPTIONAL }
+     requireExplicitPolicy           [0] SkipCerts <em>OPTIONAL</em>,
+     inhibitPolicyMapping            [1] SkipCerts <em>OPTIONAL</em> }
 
 SkipCerts ::= INTEGER (0..MAX)
 
@@ -6278,9 +6278,9 @@ id-ce-cRLDistributionPoints     OBJECT IDENTIFIER  ::=  {id-ce 31}
 CRLDistributionPoints ::= SEQUENCE SIZE (1..MAX) OF DistributionPoint
 
 DistributionPoint ::= SEQUENCE {
-     distributionPoint       [0]     DistributionPointName OPTIONAL,
-     reasons                 [1]     ReasonFlags OPTIONAL,
-     cRLIssuer               [2]     GeneralNames OPTIONAL }
+     distributionPoint       [0]     DistributionPointName <em>OPTIONAL</em>,
+     reasons                 [1]     ReasonFlags <em>OPTIONAL</em>,
+     cRLIssuer               [2]     GeneralNames <em>OPTIONAL</em> }
 
 DistributionPointName ::= CHOICE {
      fullName                [0]     GeneralNames,
@@ -6374,10 +6374,10 @@ CRLNumber ::= INTEGER (0..MAX)
 id-ce-issuingDistributionPoint OBJECT IDENTIFIER ::= { id-ce 28 }
 
 IssuingDistributionPoint ::= SEQUENCE {
-     distributionPoint          [0] DistributionPointName OPTIONAL,
+     distributionPoint          [0] DistributionPointName <em>OPTIONAL</em>,
      onlyContainsUserCerts      [1] BOOLEAN DEFAULT FALSE,
      onlyContainsCACerts        [2] BOOLEAN DEFAULT FALSE,
-     onlySomeReasons            [3] ReasonFlags OPTIONAL,
+     onlySomeReasons            [3] ReasonFlags <em>OPTIONAL</em>,
      indirectCRL                [4] BOOLEAN DEFAULT FALSE,
      onlyContainsAttributeCerts [5] BOOLEAN DEFAULT FALSE }
 
@@ -6448,20 +6448,20 @@ END
 
 <span class="h2"><a class="selflink" name="appendix-B" href="#appendix-B">Appendix B</a>.  ASN.1 Notes</span>
 
-   CAs MUST force the serialNumber to be a non-negative integer, that
-   is, the sign bit in the DER encoding of the INTEGER value MUST be
+   CAs <em>MUST</em> force the serialNumber to be a non-negative integer, that
+   is, the sign bit in the DER encoding of the INTEGER value <em>MUST</em> be
    zero - this can be done by adding a leading (leftmost) `00'H octet if
    necessary.  This removes a potential ambiguity in mapping between a
    string of octets and an integer value.
 
    As noted in <a href="#section-4.1.2.2">section 4.1.2.2</a>, serial numbers can be expected to
-   contain long integers.  Certificate users MUST be able to handle
-   serialNumber values up to 20 octets in length.  Conformant CAs MUST
+   contain long integers.  Certificate users <em>MUST</em> be able to handle
+   serialNumber values up to 20 octets in length.  Conformant CAs <em>MUST</em>
    NOT use serialNumber values longer than 20 octets.
 
    As noted in <a href="#section-5.2.3">section 5.2.3</a>, CRL numbers can be expected to contain
-   long integers.  CRL validators MUST be able to handle cRLNumber
-   values up to 20 octets in length.  Conformant CRL issuers MUST NOT
+   long integers.  CRL validators <em>MUST</em> be able to handle cRLNumber
+   values up to 20 octets in length.  Conformant CRL issuers <em>MUST NOT</em>
    use cRLNumber values longer than 20 octets.
 
 
@@ -6492,10 +6492,10 @@ END
    Implementers should note that the at sign ('@') and underscore ('_')
    characters are not supported by the ASN.1 type PrintableString.
    These characters often appear in internet addresses.  Such addresses
-   MUST be encoded using an ASN.1 type that supports them.  They are
+   <em>MUST</em> be encoded using an ASN.1 type that supports them.  They are
    usually encoded as IA5String in either the emailAddress attribute
    within a distinguished name or the rfc822Name field of GeneralName.
-   Conforming implementations MUST NOT encode strings which include
+   Conforming implementations <em>MUST NOT</em> encode strings which include
    either the at sign or underscore character as PrintableString.
 
    The character string type TeletexString is a superset of
@@ -6508,7 +6508,7 @@ END
    definitions for the key usage, CRL distribution points and freshest
    CRL certificate extensions, as well as the freshest CRL and issuing
    distribution point CRL extensions.  When DER encoding a named bit
-   list, trailing zeroes MUST be omitted.  That is, the encoded value
+   list, trailing zeroes <em>MUST</em> be omitted.  That is, the encoded value
    ends with the last named bit that is set to one.
 
    The character string type UniversalString supports any of the
@@ -6554,15 +6554,15 @@ END
    identify certificate policies, public key and signature algorithms,
    certificate extensions, etc.  There is no maximum size for OIDs.
    This specification mandates support for OIDs which have arc elements
-   with values that are less than 2^28, that is, they MUST be between 0
+   with values that are less than 2^28, that is, they <em>MUST</em> be between 0
    and 268,435,455, inclusive.  This allows each arc element to be
-   represented within a single 32 bit word.  Implementations MUST also
+   represented within a single 32 bit word.  Implementations <em>MUST</em> also
    support OIDs where the length of the dotted decimal (see <a href="./rfc2252.html#section-4.1">[RFC 2252],
    section&nbsp;4.1</a>) string representation can be up to 100 bytes
-   (inclusive).  Implementations MUST be able to handle OIDs with up to
-   20 elements (inclusive).  CAs SHOULD NOT issue certificates which
+   (inclusive).  Implementations <em>MUST</em> be able to handle OIDs with up to
+   20 elements (inclusive).  CAs <em>SHOULD NOT</em> issue certificates which
    contain OIDs that exceed these requirements.  Likewise, CRL issuers
-   SHOULD NOT issue CRLs which contain OIDs that exceed these
+   <em>SHOULD NOT</em> issue CRLs which contain OIDs that exceed these
    requirements.
 
    Implementors are warned that the X.500 standards community has
@@ -6593,7 +6593,7 @@ END
       SET or SEQUENCE.
 
    If an extension containing unexpected values is marked critical, the
-   implementation MUST reject the certificate or CRL containing the
+   implementation <em>MUST</em> reject the certificate or CRL containing the
    unrecognized extension.
 
 <span class="h2"><a class="selflink" name="appendix-C" href="#appendix-C">Appendix C</a>.  Examples</span>

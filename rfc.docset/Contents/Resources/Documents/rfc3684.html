@@ -372,8 +372,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements</span>
 
-   The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL", when
+   The keywords "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>", when
    they appear in this document, are to be interpreted as described in
    <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
@@ -736,10 +736,10 @@ Table of Contents
    Nodes send TBRPF protocol data in contiguous units known as packets.
    Each packet includes a header, optional header extensions, and a body
    comprising one or more messages and padding options as needed.  To
-   facilitate efficient receiver processing, senders SHOULD insert
+   facilitate efficient receiver processing, senders <em>SHOULD</em> insert
    padding options as necessary to align multi-octet words within the
    TBRPF packet on natural boundaries (i.e., modulo-8/4/2 addresses for
-   64/32/16-bit words, respectively).  Receivers MUST be capable of
+   64/32/16-bit words, respectively).  Receivers <em>MUST</em> be capable of
    processing multi-octet words whether or not aligned on natural
    boundaries.  The following sections specify elements of the TBRPF
    packet in more detail.
@@ -768,14 +768,14 @@ Table of Contents
 
    Flags (4 bits)
       Two bits (L,I) specify which header extensions (if any) follow.
-      Two bits (R) are reserved for future use, and MUST be zero.  Any
-      extensions specified by these bits MUST appear in the same order
+      Two bits (R) are reserved for future use, and <em>MUST</em> be zero.  Any
+      extensions specified by these bits <em>MUST</em> appear in the same order
       as the bits (i.e., first L, then I) as follows:
 
    L - Length included
       If the underlying delivery service provides a length field, the
-      sender MAY set L = '0' and omit the length extension.  Otherwise,
-      the sender MUST set L = '1' and include a 16-bit unsigned integer
+      sender <em>MAY</em> set L = '0' and omit the length extension.  Otherwise,
+      the sender <em>MUST</em> set L = '1' and include a 16-bit unsigned integer
       length immediately after any previous header field.  The length
       includes all header and data bytes and is written into the length
       field in network byte order.
@@ -789,16 +789,16 @@ Table of Contents
 
    I - Router ID (RID) included
       If the underlying delivery service encodes the sender's RID, the
-      sender MAY set I = '0' and omit the RID field.  Otherwise, the
-      sender MUST set I = '1' and include a 4-octet RID in network byte
+      sender <em>MAY</em> set I = '0' and omit the RID field.  Otherwise, the
+      sender <em>MUST</em> set I = '1' and include a 4-octet RID in network byte
       order immediately after any previous header fields.  The RID
       option provides a mechanism for implicit network-level address
-      resolution.  A receiver that detects a RID option SHOULD create a
+      resolution.  A receiver that detects a RID option <em>SHOULD</em> create a
       binding between the RID and the source address that appears in the
       network-level header.
 
    Reserved
-      Reserved for future use; MUST be zero.
+      Reserved for future use; <em>MUST</em> be zero.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  TBRPF Packet Body</span>
 
@@ -828,7 +828,7 @@ Table of Contents
       Variable-length field.  (Format and length depend on TYPE, as
       described in the following sections.)
 
-   The sequence of elements MUST be processed strictly in the order they
+   The sequence of elements <em>MUST</em> be processed strictly in the order they
    appear within the TBRPF packet body; a receiver must not, for
    example, scan through the packet body looking for a particular type
    of element prior to processing all preceding elements [<a href="#ref-2" title="&quot;Internet Protocol, Version 6 (IPv6) Specification&quot;">2</a>].  TBRPF
@@ -837,7 +837,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-6.2.1" href="#section-6.2.1">6.2.1</a>.  Padding Options (TYPE = 0 thru 1)</span>
 
-   Senders MAY insert two types of padding options where necessary,
+   Senders <em>MAY</em> insert two types of padding options where necessary,
    e.g., to satisfy alignment requirements for other elements [<a href="#ref-2" title="&quot;Internet Protocol, Version 6 (IPv6) Specification&quot;">2</a>].
    Padding options may occur anywhere within the TBRPF packet body.  The
    following two padding options are defined:
@@ -881,7 +881,7 @@ Table of Contents
    message formats.  Receivers detect errors in message construction,
    e.g., messages with unrecognized types, messages with a non-integral
    number of elements, or with fewer elements than indicated, etc.  In
-   all cases, upon detecting an error, the receiver MUST discontinue
+   all cases, upon detecting an error, the receiver <em>MUST</em> discontinue
    processing the current TBRPF packet and discard any unprocessed
    elements.
 
@@ -936,7 +936,7 @@ Table of Contents
       is more likely to be selected as the next hop on a route.  The
       value 0 is reserved for non-relay nodes, i.e., nodes that should
       never forward packets originating from other nodes.  A router in
-      normal operation SHOULD have a relay priority equal to 7.  A
+      normal operation <em>SHOULD</em> have a relay priority equal to 7.  A
       router can change its relay priority dynamically, e.g., when its
       power supply becomes critical.
 
@@ -1017,18 +1017,18 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  Sending HELLO Messages</span>
 
-   Each node MUST send, on each local interface, at least one HELLO
-   message per HELLO_INTERVAL.  HELLO messages MAY be sent more
+   Each node <em>MUST</em> send, on each local interface, at least one HELLO
+   message per HELLO_INTERVAL.  HELLO messages <em>MAY</em> be sent more
    frequently than this (e.g., for faster detection of topology
    changes).  However, to avoid the possibility that HSEQ wraps around
    to the same number before a neighbor that stops receiving HELLO
    messages changes the status of the link to LOST, the time between two
-   consecutive HELLO messages (sent on a given interface) MUST be
+   consecutive HELLO messages (sent on a given interface) <em>MUST</em> be
    greater than NBR_HOLD_TIME/128 second.
 
    To avoid synchronization of control messages, which can result in
-   collisions, HELLO messages SHOULD NOT be transmitted at equal
-   intervals.  To achieve this, a node MAY choose the interval between
+   collisions, HELLO messages <em>SHOULD NOT</em> be transmitted at equal
+   intervals.  To achieve this, a node <em>MAY</em> choose the interval between
    consecutive HELLO messages to be HELLO_INTERVAL - jitter, where
    jitter is selected randomly from the interval [0, MAX_JITTER].
 
@@ -1064,7 +1064,7 @@ Table of Contents
       decrement nbr_count(I,J).
 
    If a node restarts, so that all entries are removed from the neighbor
-   table, then the node MUST ensure that (for each interface) at least
+   table, then the node <em>MUST</em> ensure that (for each interface) at least
    one of the following two conditions is satisfied:
 
    1. The difference between the transmission times of the first HELLO
@@ -1167,7 +1167,7 @@ Table of Contents
    Some link-layer protocols (e.g., IEEE 802.11) provide a notification
    that the link to a particular neighbor has failed, e.g., after
    attempting a maximum number of retransmissions.  If such an
-   notification is provided by the link layer, then node i SHOULD
+   notification is provided by the link layer, then node i <em>SHOULD</em>
    perform the following step upon receipt of a link-layer failure
    notification for the link (I,J) from local interface I to neighbor
    interface J:
@@ -1177,17 +1177,17 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.7" href="#section-7.7">7.7</a>.  Optional Link Metrics</span>
 
-   Each node MAY maintain and update one or more link metrics for each
+   Each node <em>MAY</em> maintain and update one or more link metrics for each
    link (I,J), representing the quality of the link, e.g., signal
    strength, number of HELLOs received over some time interval,
-   reliability, stability, bandwidth, etc.  Each node MUST declare a
+   reliability, stability, bandwidth, etc.  Each node <em>MUST</em> declare a
    neighbor to be LOST if either NBR_HOLD_COUNT HELLOs are missed or if
    no HELLO is received within NBR_HOLD_TIME seconds; however, a node
-   MAY also declare a neighbor to be LOST based on a link metric being
-   above or below some threshold.  Each node MUST receive at least
+   <em>MAY</em> also declare a neighbor to be LOST based on a link metric being
+   above or below some threshold.  Each node <em>MUST</em> receive at least
    HELLO_ACQUIRE_COUNT of the last HELLO_ACQUIRE_WINDOW HELLOs from a
    neighbor before declaring the neighbor 1-WAY or 2-WAY; however, a
-   node MAY require an additional condition based on a link metric being
+   node <em>MAY</em> require an additional condition based on a link metric being
    above or below some threshold, before declaring the neighbor 1-WAY or
    2-WAY.  This document does not specify any particular link metric,
    but an implementation of TBRPF that uses such metrics is considered
@@ -1213,7 +1213,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.8" href="#section-7.8">7.8</a>.  Configurable Parameters</span>
 
    This section lists the parameters used by the neighbor discovery
-   protocol, and their proposed default values.  All nodes MUST be
+   protocol, and their proposed default values.  All nodes <em>MUST</em> be
    configured to have the same value for all of the following
    parameters.
 
@@ -1337,7 +1337,7 @@ Table of Contents
    The "interface table" consists of tuples of the form (if_addr,
    if_rid, if_expire), where if_addr is an interface IP address
    associated with the router with RID = if_rid, and if_expire is the
-   time at which the tuple expires and MUST be removed.  The interface
+   time at which the tuple expires and <em>MUST</em> be removed.  The interface
    table at a node does NOT contain an entry in which if_addr equals the
    node's own RID; thus, a node does not advertise its own RID as an
    associated interface.
@@ -1345,13 +1345,13 @@ Table of Contents
    The "host table" consists of tuples of the form (h_addr, h_rid,
    h_expire), where h_addr is a host IP address associated with the
    router with RID = h_rid, and h_expire is the time at which the tuple
-   expires and MUST be removed.
+   expires and <em>MUST</em> be removed.
 
    The "network prefix table" consists of tuples of the form
    (net_prefix, net_length, net_rid, net_expire), where net_prefix and
    net_length describe a network prefix associated with the router with
    RID = net_rid, and net_expire is the time at which the tuple expires
-   and MUST be removed.  A MANET may be configured as a "stub" network,
+   and <em>MUST</em> be removed.  A MANET may be configured as a "stub" network,
    in which case one or more gateway routers may announce a default
    prefix such that net_prefix = net_length = 0.  Two copies of each
    table are kept:  an "old" copy that was last reported to neighbors,
@@ -1971,7 +1971,7 @@ Expire_Links()
         3.2. For each link (u,v) s.t. j is in r(u,v),
              remove j from r(u,v).
 
-   In addition, the following cleanup steps SHOULD be executed
+   In addition, the following cleanup steps <em>SHOULD</em> be executed
    periodically to remove unnecessary entries from the topology table
    TT.  A link (u,v) should be removed from TT if it is not in TG and
    not in old_T.  A node u should be removed from TT if all of the
@@ -1981,7 +1981,7 @@ Expire_Links()
 <span class="h4"><a class="selflink" name="section-8.4.9" href="#section-8.4.9">8.4.9</a>.  Optional Reporting of Redundant Topology Information</span>
 
    Each node is required to report its reported subtree RT to neighbors.
-   However, each node (independently of the other nodes) MAY report
+   However, each node (independently of the other nodes) <em>MAY</em> report
    additional links, e.g., to provide increased robustness in highly
    mobile networks.  For example, a node may compute any subgraph H of
    TG that contains T, and may report the "reported subgraph" RH which
@@ -1996,7 +1996,7 @@ Expire_Links()
 
    each periodic update describes RH instead of RT, and each
    differential update describes changes to RH.  If this option is used,
-   then the parameter IMPLICIT_DELETION MUST be set to 0, since the
+   then the parameter IMPLICIT_DELETION <em>MUST</em> be set to 0, since the
    deletion of a link cannot be implied by the addition of another link
    if redundant topology information is reported.
 
@@ -2277,7 +2277,7 @@ Process_Network_Prefix_Association_Messages(j, msg_list)
 <span class="h3"><a class="selflink" name="section-8.5" href="#section-8.5">8.5</a>.  Configurable Parameters</span>
 
    This section lists the configurable parameters used by the routing
-   module, and their proposed default values.  All nodes MUST have the
+   module, and their proposed default values.  All nodes <em>MUST</em> have the
    same value for all of the following parameters except
    REPORT_FULL_TREE and IMPLICIT_DELETION.
 
@@ -2402,12 +2402,12 @@ Process_Network_Prefix_Association_Messages(j, msg_list)
    layer that maintains bi-directional link state for neighboring nodes
    through the periodic transmission of messages.  Since TBRPF neighbor
    discovery messages contain both the data link and network layer
-   address of the sender, implementations MAY perform automatic
+   address of the sender, implementations <em>MAY</em> perform automatic
    network-to-data link layer address resolution for the nodes with
    which they form links.  An implementation may use such a mechanism to
    avoid additional message overhead and potential for packet loss
    associated with on-demand address resolution mechanisms such as ARP
-   [<a href="#ref-15" title="&quot;Ethernet Address Resolution Protocol: Or converting network protocol addresses to 48.bit Ethernet address for transmission on Ethernet hardware&quot;">15</a>] or IPv6 Neighbor Discovery [<a href="#ref-16" title="&quot;Neighbor Discovery for IP Version 6 (IPv6)&quot;">16</a>].  Implementations MUST respond
+   [<a href="#ref-15" title="&quot;Ethernet Address Resolution Protocol: Or converting network protocol addresses to 48.bit Ethernet address for transmission on Ethernet hardware&quot;">15</a>] or IPv6 Neighbor Discovery [<a href="#ref-16" title="&quot;Neighbor Discovery for IP Version 6 (IPv6)&quot;">16</a>].  Implementations <em>MUST</em> respond
    to on-demand address resolution requests in the normal manner.
 
 <span class="h3"><a class="selflink" name="section-10.4" href="#section-10.4">10.4</a>.  Support for Multiple Interfaces and/or Alias Addresses</span>
@@ -2449,11 +2449,11 @@ Process_Network_Prefix_Association_Messages(j, msg_list)
 
    TBRPF packets are communicated using UDP/IP.  Port 712 has been
    assigned by IANA for exclusive use by TBRPF.  Implementations in
-   private networks MAY employ alternate data delivery services (i.e.,
+   private networks <em>MAY</em> employ alternate data delivery services (i.e.,
    raw IP or local data-link encapsulation).  The selection of an
-   alternate data delivery service MUST be consistent among all MANET
+   alternate data delivery service <em>MUST</em> be consistent among all MANET
    routers in the private network.  In all implementations, the data
-   delivery service MUST provide a checksum facility.
+   delivery service <em>MUST</em> provide a checksum facility.
 
    The following sections specify the operation of TBRPF over UDP/IP.
 
@@ -2462,14 +2462,14 @@ Process_Network_Prefix_Association_Messages(j, msg_list)
    When IPv4 is used, TBRPF nodes obey IPv4 host and router requirements
    [<a href="#ref-4" title="&quot;Requirements for Internet Hosts - Communication Layers&quot;">4</a>][5].  TBRPF packets are sent to the multicast address 224.0.0.2
    (All Routers) and thus reach all TBRPF routers within single-hop
-   transmission range of the sender.  TBRPF routers MUST NOT forward
+   transmission range of the sender.  TBRPF routers <em>MUST NOT</em> forward
    packets sent to this multicast address.
 
    Since non-negligible packet loss due to link failure, interference,
-   etc. can occur, implementations SHOULD avoid IPv4 fragmentation/
+   etc. can occur, implementations <em>SHOULD</em> avoid IPv4 fragmentation/
    reassembly whenever possible, by splitting large TBRPF protocol
    packets into multiple smaller packets at the application layer.  When
-   fragmentation is unavoidable, senders SHOULD NOT send TBRPF packets
+   fragmentation is unavoidable, senders <em>SHOULD NOT</em> send TBRPF packets
    that exceed the minimum reassembly buffer size ([<a href="#ref-4" title="&quot;Requirements for Internet Hosts - Communication Layers&quot;">4</a>], section 3.3.2)
    for all receivers in the network.
 

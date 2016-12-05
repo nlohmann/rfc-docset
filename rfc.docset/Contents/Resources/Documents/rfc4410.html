@@ -346,9 +346,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>] and
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>] and
    indicate requirement levels for compliant implementations.
 
 
@@ -575,7 +575,7 @@ Table of Contents
       16 bits   Echo of the Receiver_Time_Stamp field (in milliseconds)
                 of the receiver feedback message.  If the sender has
                 time delay between receiving the feedback and echoing
-                the timestamp, it MUST adjust the Receiver_Timestamp
+                the timestamp, it <em>MUST</em> adjust the Receiver_Timestamp
                 value to compensate.
 
 
@@ -620,7 +620,7 @@ Table of Contents
 
    DSN:
       32 bits   There can be up to 256 of these in a header.  An SRMP
-                implementation MUST support a minimum of 1.  Each DSN
+                implementation <em>MUST</em> support a minimum of 1.  Each DSN
                 consists of three fields:
 
       dataID:
@@ -703,7 +703,7 @@ Table of Contents
    Sender_Timestamp:
       16 bits   Echo of the Sender_Timestamp in bundle header.  If the
                 receiver has time delay between receiving the bundle and
-                echoing the timestamp, it MUST adjust the
+                echoing the timestamp, it <em>MUST</em> adjust the
                 Sender_Timestamp value correspondently.
 
    Receiver_Timestamp:
@@ -884,7 +884,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  TCP Rate Prediction Equation for TFMCC</span>
 
-   The RECOMMENDED throughput equation for SRMP is a slightly simplified
+   The <em>RECOMMENDED</em> throughput equation for SRMP is a slightly simplified
    version of the throughput equation for Reno TCP from [<a href="#ref-5" title="&quot;Modeling TCP Throughput: A Simple Model and its Empirical Validation&quot;">5</a>]:
 
                                       8*s
@@ -913,7 +913,7 @@ Table of Contents
    new SRMP message (Mode 0 or Mode 1) arrives, the SRMP daemon will try
    to add the new message into the current bundle.
 
-   The SRMP daemon MUST keep a timer, which will be reset when the first
+   The SRMP daemon <em>MUST</em> keep a timer, which will be reset when the first
    SRMP message is added into the bundle.  After Bundle_Timeout, the
    timer will time out, and the current bundle should be transmitted
 
@@ -925,11 +925,11 @@ Table of Contents
 
 
    immediately.  A new bundle will then be initialized to hold new SRMP
-   messages.  Bundle_Timeout SHALL NOT be less than 1 ms.  The
+   messages.  Bundle_Timeout <em>SHALL NOT</em> be less than 1 ms.  The
    recommended value is 10 ms.
 
-   Also, the bundle length MUST NOT exceed LENGTH_MAX.  If adding a new
-   SRMP message will produce a greater length, the SRMP daemon MUST
+   Also, the bundle length <em>MUST NOT</em> exceed LENGTH_MAX.  If adding a new
+   SRMP message will produce a greater length, the SRMP daemon <em>MUST</em>
    initialize a new bundle for the new SRMP messages, and the current
    bundle should be transmitted immediately.  The recommended value for
    LENGTH_MAX is 1454 bytes (Ethernet MTU minus IP and UDP header
@@ -949,7 +949,7 @@ Table of Contents
    dataID_Timeout, after which a given dataID will not be announced in
    the bundle header unless a new Mode 1 message has been sent.  If the
    sender has more dataIDs sent (and not timed out) than will fit in the
-   bundle header, the DSNs MUST be announced on a round-robin basis,
+   bundle header, the DSNs <em>MUST</em> be announced on a round-robin basis,
    with the exception that no bundle header will announce a DSN for a
    Mode 1 message contained within that bundle.  If a duplicate DSN is
    received, it may be silently discarded.
@@ -1023,7 +1023,7 @@ Table of Contents
    If the source rate is larger than the sender's desired transmission
    rate, it is the sender's responsibility to do traffic shaping.  Any
    method that conforms to the target sending rate may be used.  The
-   RECOMMENDED method is to randomly discard enough Mode 0 messages to
+   <em>RECOMMENDED</em> method is to randomly discard enough Mode 0 messages to
    meet the target rate.
 
 
@@ -1048,7 +1048,7 @@ Table of Contents
       Mode 1 message for that dataID, or
 
    o  the SegNo has not been received, some segment of the &lt;dataID,SN&gt;
-      has been received, and a user-defined Segment_Timeout, which SHALL
+      has been received, and a user-defined Segment_Timeout, which <em>SHALL</em>
       NOT be less than 50 ms, has expired since receipt of the first
       SegNo for the &lt;dataID,SN&gt;.
 
@@ -1101,7 +1101,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.10" href="#section-4.10">4.10</a>.  Heartbeat Bundle</span>
 
    SRMP implementations may support a user-defined Heartbeat_Interval,
-   which SHALL NOT be less than one second.  At the end of each
+   which <em>SHALL NOT</em> be less than one second.  At the end of each
    heartbeat interval, if the sender has not sent any bundle, an empty
    bundle will be sent in order to trigger Mode 1 loss detection.
 
@@ -1161,33 +1161,33 @@ Table of Contents
    When an application requests transmission of Mode 0 data, a
    destination multicast group must be provided to SRMP along with the
    data to be sent.  After verifying the data length and multicast
-   group, the following steps MUST be performed by the SRT sublayer:
+   group, the following steps <em>MUST</em> be performed by the SRT sublayer:
 
-   1. An SRT message MUST be generated with the following
+   1. An SRT message <em>MUST</em> be generated with the following
       characteristics:
 
       the version is set to the current version, the message type is set
       to 0x0, the mode is set to 0x0.  User data is included after the
       message header.  If the message cannot be generated as described
-      above, the user data is discarded and the error MUST be reported
+      above, the user data is discarded and the error <em>MUST</em> be reported
       to the application.
 
    2. If step 1 was completed without error, the newly generated message
-      MUST be sent to the bundling sublayer.  The implementation MUST
+      <em>MUST</em> be sent to the bundling sublayer.  The implementation <em>MUST</em>
       report to the application whether the message was ultimately
       accepted by UDP.
 
 <span class="h4"><a class="selflink" name="section-5.1.2" href="#section-5.1.2">5.1.2</a>.  Receiving Mode 0 Messages</span>
 
-   When a Mode 0 message is received by SRMP, it MUST be processed as
+   When a Mode 0 message is received by SRMP, it <em>MUST</em> be processed as
    follows: after verifying the version, message type, and destination
-   multicast address fields, the user data MUST be delivered to all
+   multicast address fields, the user data <em>MUST</em> be delivered to all
    applications that are associated with the multicast group in the
    message.  If the SRMP receiver has never received any Mode 1 messages
    before the Mode 0 message is received, the Mode 0 message should be
    silently discarded.
 
-   It is RECOMMENDED that the following information be provided to the
+   It is <em>RECOMMENDED</em> that the following information be provided to the
    receiving applications: message body, multicast address.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Mode 1 Operation</span>
@@ -1210,10 +1210,10 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.2.1" href="#section-5.2.1">5.2.1</a>.  Sending Mode 1 Data Messages</span>
 
    After the data length, dataID, and destination multicast group are
-   verified, SRT MUST take the following steps:
+   verified, SRT <em>MUST</em> take the following steps:
 
    1. If the message will not fit in an empty bundle with DSN_Max DSN in
-      the header, the message MUST be segmented.  The remaining steps
+      the header, the message <em>MUST</em> be segmented.  The remaining steps
       pertain to each segment of the message.  Each segment receives a
       unique SegNo, starting with 0 and ending with (NoSegs-1).
 
@@ -1239,16 +1239,16 @@ Table of Contents
    as follows (assuming that the version field has already been verified
    to be 0x02):
 
-   1. The destination address MUST be verified to be a valid IP
+   1. The destination address <em>MUST</em> be verified to be a valid IP
       multicast address on which this instance of SRMP is a member.  If
       this is not the case, the message should be silently discarded.
 
-   2. The destination address MUST be verified to be one for which some
+   2. The destination address <em>MUST</em> be verified to be one for which some
       application has indicated interest.  Otherwise, the message should
       be silently discarded.
 
    3. The SN, SegNo, source_ip_address, and the body of the received
-      message MUST be buffered, and the user data MUST then be delivered
+      message <em>MUST</em> be buffered, and the user data <em>MUST</em> then be delivered
       to all applications that have indicated interest in the multicast
       group of the received message.
 
@@ -1266,16 +1266,16 @@ Table of Contents
       for Segment_Timeout.
 
    5. If NoSegs in the received message is not 0, a reassembly process
-      MUST be started.  Each segment MUST be buffered.  If receipt of
+      <em>MUST</em> be started.  Each segment <em>MUST</em> be buffered.  If receipt of
       the current message completes the segment, the reassembled message
-      MUST be released to the application and the Segment_Timeout timer
+      <em>MUST</em> be released to the application and the Segment_Timeout timer
       cancelled.
 
    6. If a new DSN is received before all segments of the previous DSN
       are received, the segments that have been received should be
       dropped silently.
 
-   7. It is RECOMMENDED that the following information be provided to
+   7. It is <em>RECOMMENDED</em> that the following information be provided to
       the receiving applications: message body, dataID,
       source_ip_address, multicast_group address.
 
@@ -1301,7 +1301,7 @@ Table of Contents
 
    o  Based on the DSN list in the bundle header, the SRT implementation
       may determine that an entire segmented Mode 1 message was lost.
-      In this case, the NACK MUST carry SegNo=0x7F (all in one field).
+      In this case, the NACK <em>MUST</em> carry SegNo=0x7F (all in one field).
 
    o  Based on the Segment Timeout, the SRT implementation may determine
       that one or more segments of a message have not been delivered.
@@ -1318,7 +1318,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.2.4" href="#section-5.2.4">5.2.4</a>.  Receiving a Negative Acknowledgement</span>
 
-   When a NACK is received by SRT, it MUST be processed as follows,
+   When a NACK is received by SRT, it <em>MUST</em> be processed as follows,
    after verifying the multicast address, dataID, source IP address, and
    transmission mode:
 
@@ -1328,14 +1328,14 @@ Table of Contents
       retransmitted to the multicast address indicated in the received
       NACK.  If the most recent Mode 1 message has an SN equal to the SN
       indicated in the NACK, and if the SegNo field in the NACK contains
-      0x7F, all segments of the buffered Mode 1 message MUST be
+      0x7F, all segments of the buffered Mode 1 message <em>MUST</em> be
       retransmitted; if the SegNo has some other value, only the
       indicated segment should be retransmitted.
 
    2. Whether or not step 1 results in the retransmission of a message,
       the event of receiving the NACK and the (local machine) time at
       which the NACK was received should be buffered.  Each instance of
-      SRT MUST buffer the number of NACKs that have been received for
+      SRT <em>MUST</em> buffer the number of NACKs that have been received for
       each dataID-multicast address pair, since the most recent Mode 1
       message of the same pair was received and the time at which the
       most recent of these NACKs was received.
@@ -1354,9 +1354,9 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.3.1" href="#section-5.3.1">5.3.1</a>.  Sending Mode 2 Data Messages</span>
 
    When an application requests transmission of Mode 2 data, a dataID
-   and a destination unicast IP address MUST be provided to SRT along
+   and a destination unicast IP address <em>MUST</em> be provided to SRT along
    with the data to be sent.  After verifying the data length, dataID,
-   and destination address, SRT MUST perform the following steps:
+   and destination address, SRT <em>MUST</em> perform the following steps:
 
    1. An SRT message is generated with the following characteristics:
       the version is set to 0x02, the message type is set to 0x02, the
@@ -1377,25 +1377,25 @@ Table of Contents
 
    2. The newly generated message is buffered.  This new message does
       not replace any formerly buffered Mode 2 messages.  An
-      implementation MUST provide a Mode 2 message buffer that can hold
+      implementation <em>MUST</em> provide a Mode 2 message buffer that can hold
       one or more Mode 2 messages. Mode 2 messages are expected to be
       infrequent (less than 1 percent of total traffic), but it is still
-      strongly RECOMMENDED that an implementation provide a buffer of
+      strongly <em>RECOMMENDED</em> that an implementation provide a buffer of
       user-configurable size Mode2_Max that can hold more than a single
       Mode 2 message.  If the message cannot be buffered, the user data
-      is discarded and the error MUST be reported to the application.
+      is discarded and the error <em>MUST</em> be reported to the application.
       If the message can be buffered, it should be sent to UDP
       immediately after being buffered.
 
    3. If step 2 was completed without error, the newly generated message
-      MUST be sent to the IP address contained in its destination
+      <em>MUST</em> be sent to the IP address contained in its destination
       address field, encapsulated within a UDP datagram.  If the UDP
       interface on the sending system reports an error to SRT when the
       attempt to send the SRT message is made, an implementation may
       attempt to resend the message any finite number of times.
-      However, every implementation MUST provide a mode in which no
+      However, every implementation <em>MUST</em> provide a mode in which no
       retries are attempted.  Implementations should default to this
-      latter mode of operation.  The implementation MUST report to the
+      latter mode of operation.  The implementation <em>MUST</em> report to the
       application whether the message was ultimately accepted by UDP.
 
    4. If some user-configurable "ACK_Threshold" (which should be greater
@@ -1417,7 +1417,7 @@ Table of Contents
       indicated interest in the dataID and multicast address of the
       received message, regardless of the value of the SN field.
 
-   2. Additionally, an ACK MUST be sent to the host from which the Mode
+   2. Additionally, an ACK <em>MUST</em> be sent to the host from which the Mode
       2 data message originated.  See <a href="#section-5.3.3">section 5.3.3</a>. below for details.
 
 
@@ -1444,7 +1444,7 @@ Table of Contents
 
    When an ACK is received by SRT, after verifying the transmission
    mode, dataID, and source IP address against outstanding Mode 2
-   transmission, SRT MUST remove the pending transmission from its
+   transmission, SRT <em>MUST</em> remove the pending transmission from its
    buffer.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  <a href="./rfc2357.html">RFC 2357</a> Analysis</span>
@@ -1606,7 +1606,7 @@ Table of Contents
    e. Inadvertent errors: A receiver with an incorrect or corrupted
       implementation of TFMCC could respond with values of RTT that
       might stimulate a TFMCC sender to create or increase congestion in
-      the path to that sender.  It is therefore RECOMMENDED that
+      the path to that sender.  It is therefore <em>RECOMMENDED</em> that
       receivers be required to identify themselves as legitimate before
       they receive the Session Description needed to join the session.
       How receivers identify themselves as legitimate is outside the

@@ -439,8 +439,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Voiceband Data Package Definition</span>
@@ -484,7 +484,7 @@ Table of Contents
    The "gwvbd" event may occur when the gwvbd procedure is updated
    (e.g., upon detecting new stimulus) and when the procedure fails.
    The "gwvbd" event occurs when the gwvbd procedure ends.  The gwvbd
-   procedure MUST be negotiated with the other side by passing and
+   procedure <em>MUST</em> be negotiated with the other side by passing and
    recognizing relevant parameters via the LocalConnectionDescriptor and
    RemoteConnectionDescriptor.
 
@@ -497,7 +497,7 @@ Table of Contents
    here.  Furthermore, the syntax follows the case-sensitivity rules of
    [<a href="./rfc5234.html" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">RFC5234</a>], i.e., MGCP is case-insensitive (but SDP is not).  It
    should be noted that ABNF does not provide for implicit specification
-   of linear white space, and MGCP messages MUST thus follow the
+   of linear white space, and MGCP messages <em>MUST</em> thus follow the
    explicit linear white space rules provided in the grammar below.
    However, in line with general robustness principles, implementers are
    strongly encouraged to tolerate additional linear white space in
@@ -543,7 +543,7 @@ Table of Contents
       Direction = "GstnToIp" / "IpToGstn"
 
    ABNF does not provide for position-independent parameters.  The "rc",
-   "codec", "coord", and "dir" parameters, if present, MUST appear in
+   "codec", "coord", and "dir" parameters, if present, <em>MUST</em> appear in
    the relative order shown.
 
    The "start", "update", "stop", and "failure" ObservedEvent parameters
@@ -551,7 +551,7 @@ Table of Contents
 
    1) VBD Start (start)
 
-      The gwvbd procedure was initiated.  The Call Agent SHOULD refrain
+      The gwvbd procedure was initiated.  The Call Agent <em>SHOULD</em> refrain
       from issuing media handling instructions to the gateway until
       either a "gwvbd(stop)" or "gwvbd(failure)" event is generated.
       One and only one "gwvbd(stop)" or "gwvbd(failure)" event is
@@ -559,7 +559,7 @@ Table of Contents
 
    2) VBD Update (update)
 
-      The gwvbd procedure was updated.  The "gwvbd(update)" event MUST
+      The gwvbd procedure was updated.  The "gwvbd(update)" event <em>MUST</em>
       only be generated after a "gwvbd(start)" event and before a
       "gwvbd(stop)" or "gwvbd(failure)" event.
 
@@ -593,7 +593,7 @@ Table of Contents
       encountered in the gwvbd procedure, and the procedure ended.
 
    When the "gwvbd" event is reported, exactly one of the "start",
-   "update", "stop", or "failure" parameters MUST be present and MUST be
+   "update", "stop", or "failure" parameters <em>MUST</em> be present and <em>MUST</em> be
    the first parameter supplied.
 
    The "rc", "codec", "coord", and "dir" ObservedEvent parameters are
@@ -681,10 +681,10 @@ Table of Contents
 
       For solutions involving textphones using a modulation with
       interspersed text and speech on the same "channel", such as Baudot
-      and EDT, the Call Agent SHOULD interpret the ReasonCode parameter
+      and EDT, the Call Agent <em>SHOULD</em> interpret the ReasonCode parameter
       as part of the "vbd/gwvbd(start)" event in order to differentiate
       between fax, modem, and text.  In the case of interspersed text
-      and speech, the Call Agent SHOULD remove the notification request
+      and speech, the Call Agent <em>SHOULD</em> remove the notification request
       for "vbd/gwvbd" upon receiving the "vbd/gwvbd(start)" event in
       order to avoid large numbers of notifications.
 
@@ -700,27 +700,27 @@ Table of Contents
 
 
       With a ReasonCode of "PTSW", the Call Agent cannot differentiate
-      text from fax/modem.  In this case, the Call Agent SHOULD adopt a
+      text from fax/modem.  In this case, the Call Agent <em>SHOULD</em> adopt a
       policy that guards against large numbers of notifications.  We
       consider several such policies.
 
-      The Call Agent MAY remove the notification request for "vbd/gwvbd"
+      The Call Agent <em>MAY</em> remove the notification request for "vbd/gwvbd"
       upon receiving the "vbd/gwvbd(start, rc=PTSW)" event.  With this
       policy, "update", "stop", and "failure" notifications will not be
       generated with text AND fax/modem.
 
-      The Call Agent MAY wait for a subsequent "vbd/gwvbd(update)" event
+      The Call Agent <em>MAY</em> wait for a subsequent "vbd/gwvbd(update)" event
       that differentiates text from fax/modem.  If the ReasonCode
-      indicates interspersed text and speech, the Call Agent SHOULD
+      indicates interspersed text and speech, the Call Agent <em>SHOULD</em>
       remove the notification request for "vbd/gwvbd".  For example,
 
          vbd/gwvbd(update, rc=Edt)
 
-      The Call Agent MAY remove the notification request for "vbd/gwvbd"
+      The Call Agent <em>MAY</em> remove the notification request for "vbd/gwvbd"
       upon receiving a "vbd/gwvbd(stop)" event without having
       differentiated between text and fax/modem.
 
-      The Call Agent MAY remove the notification request for "vbd/gwvbd"
+      The Call Agent <em>MAY</em> remove the notification request for "vbd/gwvbd"
       after having received a number of "vbd/gwvbd(start)" events
       without having differentiated between text and fax/modem.  The
       specific number of events after which the notification request is
@@ -765,7 +765,7 @@ Table of Contents
       consequence of the media change, not as a direct consequence of
       the T.38 procedure being initiated.  Note that in this situation
       the "t38(start)" event will be sent before the "gwvbd(stop)"
-      event.  The Call Agent MAY choose to infer that the gwvbd
+      event.  The Call Agent <em>MAY</em> choose to infer that the gwvbd
       procedure has ended upon receiving the "t38(start)" event and
       disable the notification of the "gwvbd" event.  Refer to the
       example call flow in <a href="#section-9.2">Section 9.2</a>.
@@ -780,7 +780,7 @@ Table of Contents
 
       The list of Reason Codes may be extended to include values with
       meaning mutually understood between the gateway and the Call
-      Agent.  Obviously, the use of extended values MUST be a
+      Agent.  Obviously, the use of extended values <em>MUST</em> be a
       provisionable option on the gateway in order to ensure
       interoperability with the Call Agent.
 
@@ -832,7 +832,7 @@ Table of Contents
 
       The list of coordination techniques may be extended to include
       values with meaning mutually understood between the gateway and
-      the Call Agent.  Obviously, the use of extended values MUST be a
+      the Call Agent.  Obviously, the use of extended values <em>MUST</em> be a
       provisionable option on the gateway in order to ensure
       interoperability with the Call Agent.
 
@@ -867,14 +867,14 @@ Table of Contents
 <span class="grey"><a href="./rfc6498.html">RFC 6498</a>                    MGCP VBD Package               February 2012</span>
 
 
-   Call Agents and gateways MUST implement the "start" and "stop"
-   parameters and MAY implement the "update" and "failure" parameters.
-   Call Agents and gateways MAY implement the "coord", "codec", and
-   "dir" parameters.  Call Agents MAY, and gateways MUST, implement the
+   Call Agents and gateways <em>MUST</em> implement the "start" and "stop"
+   parameters and <em>MAY</em> implement the "update" and "failure" parameters.
+   Call Agents and gateways <em>MAY</em> implement the "coord", "codec", and
+   "dir" parameters.  Call Agents <em>MAY</em>, and gateways <em>MUST</em>, implement the
    "rc" parameter in conjunction with the "start" and "update"
-   parameters.  Call Agents and gateways MAY implement the "rc"
+   parameters.  Call Agents and gateways <em>MAY</em> implement the "rc"
    parameter in conjunction with the "stop" and "failure" parameters.  A
-   Call Agent MUST ignore all unknown ObservedEvent parameters,
+   Call Agent <em>MUST</em> ignore all unknown ObservedEvent parameters,
    including parameters that are defined as part of this specification
    and not implemented.
 
@@ -912,7 +912,7 @@ Table of Contents
    stimulus is detected.  The "nopvbd" event may occur when the
    procedure is updated (e.g., upon detecting new stimulus), when the
    procedure ends, and when the procedure fails.  Even though a
-   procedure was not negotiated, a VBD handling procedure MAY still be
+   procedure was not negotiated, a VBD handling procedure <em>MAY</em> still be
    in place locally on the endpoint, as described further below.
 
 
@@ -923,10 +923,10 @@ Table of Contents
 <span class="grey"><a href="./rfc6498.html">RFC 6498</a>                    MGCP VBD Package               February 2012</span>
 
 
-   The nopvbd procedure MAY involve VBD handling including, but not
+   The nopvbd procedure <em>MAY</em> involve VBD handling including, but not
    limited to, adjusting gain and jitter, disabling voice activity
-   detection, and DC offset filters.  The nopvbd procedure MAY involve
-   switching to another codec.  The Call Agent MAY have to issue further
+   detection, and DC offset filters.  The nopvbd procedure <em>MAY</em> involve
+   switching to another codec.  The Call Agent <em>MAY</em> have to issue further
    commands in response to the "nopvbd" event in order to ensure a
    successful VBD call.
 
@@ -961,7 +961,7 @@ Table of Contents
      Direction = "GstnToIp" / "IpToGstn"
 
    ABNF does not provide for position-independent parameters.  The "rc",
-   "codec", and "dir" parameters, if present, MUST appear in the
+   "codec", and "dir" parameters, if present, <em>MUST</em> appear in the
    relative order shown.
 
 
@@ -987,13 +987,13 @@ Table of Contents
       The nopvbd procedure was initiated.  The Call Agent may have to
       issue further commands in order to ensure a successful VBD call
       (e.g., switch to another codec).  At most one "nopvbd(stop)" or
-      "nopvbd(failure)" event MAY be generated corresponding to each
-      "nopvbd(start)" event.  The Call Agent MAY need to infer that the
+      "nopvbd(failure)" event <em>MAY</em> be generated corresponding to each
+      "nopvbd(start)" event.  The Call Agent <em>MAY</em> need to infer that the
       nopvbd procedure has ended.
 
    2) VBD Update (update)
 
-      The nopvbd procedure was updated.  The "nopvbd(update)" event MUST
+      The nopvbd procedure was updated.  The "nopvbd(update)" event <em>MUST</em>
       only be generated after a "nopvbd(start)" event and before a
       "nopvbd(stop)" or "nopvbd(failure)" event.
 
@@ -1012,12 +1012,12 @@ Table of Contents
       The nopvbd procedure ended abnormally.  Some kind of problem was
       encountered in the nopvbd procedure, and the procedure ended.
 
-   Call Agents and gateways MUST implement the "start" parameter and MAY
+   Call Agents and gateways <em>MUST</em> implement the "start" parameter and <em>MAY</em>
    implement the "update", "stop", and "failure" parameters.  Call
-   Agents MAY, and gateways MUST, implement the "rc" parameter in
+   Agents <em>MAY</em>, and gateways <em>MUST</em>, implement the "rc" parameter in
    conjunction with the "start" and "update" parameters.  Call Agents
-   and gateways MAY implement the "rc" parameter in conjunction with the
-   "stop" and "failure" parameters.  A Call Agent MUST ignore all
+   and gateways <em>MAY</em> implement the "rc" parameter in conjunction with the
+   "stop" and "failure" parameters.  A Call Agent <em>MUST</em> ignore all
    unknown ObservedEvent parameters including parameters that are
    defined as part of this specification and not implemented.
 
@@ -1177,7 +1177,7 @@ Table of Contents
    associated codec is considered "not supported".
 
    When auditing capabilities, the "gpmd" LocalConnectionOption
-   parameter MUST be returned with a semicolon-separated list of
+   parameter <em>MUST</em> be returned with a semicolon-separated list of
    supported formats and/or multiple independent "gpmd" parameters,
    as in
 
@@ -1235,7 +1235,7 @@ Table of Contents
             gpmd/gpmd:"PCMU vbd=yes"
 
    Given that some parameters, e.g., silence suppression, are only
-   compatible with G.711u as an audio codec, then the gateway MUST
+   compatible with G.711u as an audio codec, then the gateway <em>MUST</em>
    return different capability sets corresponding to audio and VBD.
 
    If we combine V.152 and redundancy [<a href="./rfc2198.html" title="&quot;RTP Payload for Redundant Audio Data&quot;">RFC2198</a>], an example
@@ -1279,7 +1279,7 @@ Table of Contents
    with each redundancy level.  An example of this was demonstrated in
    <a href="#section-5">Section 5</a>.
 
-   The FM package states that the "fmtp" LocalConnectionOption MUST be
+   The FM package states that the "fmtp" LocalConnectionOption <em>MUST</em> be
    returned when auditing capabilities.  Applying this to VBD and
    redundancy might result in
 
@@ -1438,7 +1438,7 @@ Table of Contents
          a=gpmd:97 vbd=yes
          a=rtpmap:98 parityfec/8000
 
-   The FM package states that the "fmtp" LocalConnectionOption MUST be
+   The FM package states that the "fmtp" LocalConnectionOption <em>MUST</em> be
    returned when auditing capabilities.  Applying this to VBD,
    redundancy and FEC might result in
 
@@ -1458,11 +1458,11 @@ Table of Contents
    gateway procedure (resulting in the "gwfax" event), or "no special
    fax handling" as part of the gateway and Off procedures (resulting in
    the "nopfax" event).  In order for a VBD procedure to fall into the
-   "special fax handling" category, support for it MUST be negotiated
+   "special fax handling" category, support for it <em>MUST</em> be negotiated
    with the other side by passing and recognizing relevant parameters
    via the LocalConnectionDescriptor and RemoteConnectionDescriptor.
 
-   A gateway controlled VBD procedure such as V.152 MUST fall into the
+   A gateway controlled VBD procedure such as V.152 <em>MUST</em> fall into the
    category of gateway controlled mode involving "special fax handling".
    The resulting "gwfax" event is what informs the Call Agent to refrain
    from issuing media handling instructions that could otherwise have a
@@ -1569,7 +1569,7 @@ Table of Contents
 
    Only "special fax handling" involving one of the specified MIME types
    is authorized.  Support for "special fax handling" involving one of
-   the specified MIME types MUST be negotiated, or this "instance" of
+   the specified MIME types <em>MUST</em> be negotiated, or this "instance" of
    the gateway procedure is not initiated.  Consider the following
    example in which the Call Agent authorizes the use of a gateway
    controlled fax handling procedure:
@@ -1581,9 +1581,9 @@ Table of Contents
    In this example, the call will fail if the gateway fails to negotiate
    "audio/t38".
 
-   The "fx" LocalConnectionOption MAY now involve multiple instances of
+   The "fx" LocalConnectionOption <em>MAY</em> now involve multiple instances of
    the "gw" parameter, each with a different list of MIME types.  In
-   order to authorize "no special fax handling", the Call Agent MUST
+   order to authorize "no special fax handling", the Call Agent <em>MUST</em>
    include the "gw" parameter without a MIME type, or the "off"
 
 
@@ -1661,13 +1661,13 @@ Table of Contents
    Note that the bracketed form of the "gw" parameter is NOT defined as
    part of the VBD package.  The bracketed form of the "gw" parameter is
    defined as an extension to the FXR package.  Gateways that implement
-   the bracketed form of the "gw" parameter MUST return this form of the
+   the bracketed form of the "gw" parameter <em>MUST</em> return this form of the
    parameter when capabilities are audited as illustrated by the
    following example:
 
         A: fxr/fx:t38;t38-loose;gw[audio/t38|image/t38];gw;off
 
-   Support for the bracketed "gw" parameter MAY be spread across
+   Support for the bracketed "gw" parameter <em>MAY</em> be spread across
    multiple capability lines:
 
         A: a:RED;PCMU, p:10-40, e:on, s:off,
@@ -1678,12 +1678,12 @@ Table of Contents
         A: a:t38, fxr/fx:gw[audio/t38]
         A: a:image/t38, fxr/fx:t38;t38-loose;gw[image/t38]
 
-   A Call Agent SHOULD only attempt to leverage the bracketed form of
+   A Call Agent <em>SHOULD</em> only attempt to leverage the bracketed form of
    the "gw" parameter in conjunction with an endpoint that indicates
    support for the bracketed syntax as part of its capabilities.
 
    Call Agents and gateways that do not support this form of the "gw"
-   parameter MUST ignore the bracketed MIME type information consistent
+   parameter <em>MUST</em> ignore the bracketed MIME type information consistent
    with the MGCP grammar [<a href="./rfc3435.html" title="&quot;Media Gateway Control Protocol (MGCP) Version 1.0&quot;">RFC3435</a>].
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Call Flow Examples</span>
@@ -2551,7 +2551,7 @@ Table of Contents
    parameter that can carry any codec parameter information, and hence
    it is possible that confidential information is conveyed through this
    parameter.  If confidentiality of any such potential information is a
-   concern, confidentiality protection of the MGCP signaling MUST be
+   concern, confidentiality protection of the MGCP signaling <em>MUST</em> be
    provided as well.  It should be noted that <a href="./rfc5406.html#section-8">Section&nbsp;8 of [RFC5406]</a>
    provides considerations for specifying the use of IPsec that are
    above and beyond those provided in [<a href="./rfc3435.html" title="&quot;Media Gateway Control Protocol (MGCP) Version 1.0&quot;">RFC3435</a>]; however, given that the
@@ -2569,7 +2569,7 @@ Table of Contents
    Integrity concerns are further compounded by the GPMD package's use
    of payload type switching, state signaling events, and media stream
    in-band triggers to drive overall Voiceband Data operation: Integrity
-   protection with replay protection MUST be used to counter these
+   protection with replay protection <em>MUST</em> be used to counter these
    threats.
 
    Ideally, there would be a single mandatory-to-implement media stream
@@ -2593,7 +2593,7 @@ Table of Contents
       Protocol [<a href="#ref-NCS" title="&quot;PacketCable(TM) 1.5 Specifications: Network-Based Call Signaling Protocol, PKT-SP-NCS1.5-I03- 070412&quot;">NCS</a>] defines another media stream security mechanism
       that is generally supported by PacketCable-compliant
       implementations.  Implementations targeted for those environments
-      SHOULD implement this security mechanism.
+      <em>SHOULD</em> implement this security mechanism.
 
 
 
@@ -2605,9 +2605,9 @@ Table of Contents
 
    Lower-Level Security:   In the absence of a common media stream
       security mechanism supported by both endpoints, a lower-level
-      security mechanism, e.g., IPsec, MUST be used.  Note that since
+      security mechanism, e.g., IPsec, <em>MUST</em> be used.  Note that since
       there is no inherent MGCP signaling support for such a lower-level
-      security mechanism, it MUST be configured by other means.
+      security mechanism, it <em>MUST</em> be configured by other means.
 
 <span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  IANA Considerations</span>
 

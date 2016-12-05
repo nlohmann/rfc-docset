@@ -287,8 +287,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -307,44 +307,44 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Connection Initiation</span>
 
-   The peer acting as the NETCONF manager MUST also act as the TLS
-   client.  It MUST connect to the server that passively listens for the
-   incoming TLS connection on the TCP port 6513.  It MUST therefore send
+   The peer acting as the NETCONF manager <em>MUST</em> also act as the TLS
+   client.  It <em>MUST</em> connect to the server that passively listens for the
+   incoming TLS connection on the TCP port 6513.  It <em>MUST</em> therefore send
    the TLS ClientHello message to begin the TLS handshake.  Once the TLS
-   handshake has finished, the client and the server MAY begin to
+   handshake has finished, the client and the server <em>MAY</em> begin to
    exchange NETCONF data.  In particular, the client will send complete
    XML documents to the server containing &lt;rpc&gt; elements, and the server
    will respond with complete XML documents containing &lt;rpc-reply&gt;
-   elements.  The client MAY indicate interest in receiving event
+   elements.  The client <em>MAY</em> indicate interest in receiving event
    notifications from a server by creating a subscription to receive
    event notifications [<a href="./rfc5277.html" title="&quot;NETCONF Event Notifications&quot;">RFC5277</a>].  In this case, the server replies to
    indicate whether the subscription request was successful and, if it
    was successful, the server begins sending the event notifications to
    the client as the events occur within the system.
 
-   All NETCONF messages MUST be sent as TLS "application data".  It is
+   All NETCONF messages <em>MUST</em> be sent as TLS "application data".  It is
    possible that multiple NETCONF messages be contained in one TLS
    record, or that a NETCONF message be transferred in multiple TLS
    records.
 
    This document uses the same delimiter sequence ("]]&gt;]]&gt;") defined in
-   [<a href="./rfc4742.html" title="&quot;Using the NETCONF Configuration Protocol over Secure SHell (SSH)&quot;">RFC4742</a>], which MUST be sent by both the client and the server after
+   [<a href="./rfc4742.html" title="&quot;Using the NETCONF Configuration Protocol over Secure SHell (SSH)&quot;">RFC4742</a>], which <em>MUST</em> be sent by both the client and the server after
    each XML document in the NETCONF exchange.  Since this character
    sequence can legally appear in plain XML in attribute values,
    comments, and processing instructions, implementations of this
-   document MUST ensure that this character sequence is never part of a
+   document <em>MUST</em> ensure that this character sequence is never part of a
    NETCONF message.
 
-   Implementation of the protocol specified in this document MAY
+   Implementation of the protocol specified in this document <em>MAY</em>
    implement any TLS cipher suite that provides certificate-based mutual
-   authentication [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>].  The server MUST support certificate-based
+   authentication [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>].  The server <em>MUST</em> support certificate-based
    client authentication.
 
-   Implementations MUST support TLS 1.2 [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] and are REQUIRED to
+   Implementations <em>MUST</em> support TLS 1.2 [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] and are <em>REQUIRED</em> to
    support the mandatory-to-implement cipher suite, which is
    TLS_RSA_WITH_AES_128_CBC_SHA.  This document is assumed to apply to
    future versions of TLS; in which case, the mandatory-to-implement
-   cipher suite for the implemented version MUST be supported.
+   cipher suite for the implemented version <em>MUST</em> be supported.
 
 
 
@@ -357,23 +357,23 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Connection Closure</span>
 
-   A TLS client (NETCONF manager) MUST close the associated TLS
+   A TLS client (NETCONF manager) <em>MUST</em> close the associated TLS
    connection if the connection is not expected to issue any NETCONF RPC
-   commands later.  It MUST send a TLS close_notify alert before closing
-   the connection.  The TLS client MAY choose to not wait for the TLS
+   commands later.  It <em>MUST</em> send a TLS close_notify alert before closing
+   the connection.  The TLS client <em>MAY</em> choose to not wait for the TLS
    server (NETCONF agent) close_notify alert and simply close the
    connection, thus generating an incomplete close on the TLS server
    side.  Once the TLS server gets a close_notify from the TLS client,
-   it MUST reply with a close_notify unless it becomes aware that the
+   it <em>MUST</em> reply with a close_notify unless it becomes aware that the
    connection has already been closed by the TLS client (e.g., the
    closure was indicated by TCP).
 
    When no data is received from a connection for a long time (where the
-   application decides what "long" means), a NETCONF peer MAY close the
-   connection.  The NETCONF peer MUST attempt to initiate an exchange of
+   application decides what "long" means), a NETCONF peer <em>MAY</em> close the
+   connection.  The NETCONF peer <em>MUST</em> attempt to initiate an exchange of
    close_notify alerts with the other NETCONF peer before closing the
    connection.  The close_notify's sender that is unprepared to receive
-   any more data MAY close the connection after sending the close_notify
+   any more data <em>MAY</em> close the connection after sending the close_notify
    alert, thus generating an incomplete close on the close_notify's
    receiver side.
 
@@ -381,9 +381,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Server Identity</span>
 
-   During the TLS negotiation, the client MUST carefully examine the
+   During the TLS negotiation, the client <em>MUST</em> carefully examine the
    certificate presented by the server to determine if it meets the
-   client's expectations.  Particularly, the client MUST check its
+   client's expectations.  Particularly, the client <em>MUST</em> check its
    understanding of the server hostname against the server's identity as
    presented in the server Certificate message, in order to prevent man-
    in-the-middle attacks.
@@ -391,16 +391,16 @@ Table of Contents
    Matching is performed according to the rules below (following the
    example of [<a href="./rfc4642.html" title="&quot;Using Transport Layer Security (TLS) with Network News Transfer Protocol (NNTP)&quot;">RFC4642</a>]):
 
-   o  The client MUST use the server hostname it used to open the
+   o  The client <em>MUST</em> use the server hostname it used to open the
       connection (or the hostname specified in the TLS "server_name"
       extension [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>]) as the value to compare against the server
-      name as expressed in the server certificate.  The client MUST NOT
+      name as expressed in the server certificate.  The client <em>MUST NOT</em>
       use any form of the server hostname derived from an insecure
       remote source (e.g., insecure DNS lookup).  CNAME canonicalization
       is not done.
 
    o  If a subjectAltName extension of type dNSName is present in the
-      certificate, it MUST be used as the source of the server's
+      certificate, it <em>MUST</em> be used as the source of the server's
       identity.
 
 
@@ -413,7 +413,7 @@ Table of Contents
 
    o  Matching is case-insensitive.
 
-   o  A "*" wildcard character MAY be used as the leftmost name
+   o  A "*" wildcard character <em>MAY</em> be used as the leftmost name
       component in the certificate.  For example, *.example.com would
       match a.example.com, foo.example.com, etc., but would not match
       example.com.
@@ -422,25 +422,25 @@ Table of Contents
       dNSName field), then a match with any one of the fields is
       considered acceptable.
 
-   If the match fails, the client MUST either ask for explicit user
+   If the match fails, the client <em>MUST</em> either ask for explicit user
    confirmation or terminate the connection and indicate the server's
    identity is suspect.
 
-   Additionally, clients MUST verify the binding between the identity of
+   Additionally, clients <em>MUST</em> verify the binding between the identity of
    the servers to which they connect and the public keys presented by
-   those servers.  Clients SHOULD implement the algorithm in <a href="./rfc5280.html#section-6">Section&nbsp;6
-   of [RFC5280]</a> for general certificate validation, but MAY supplement
+   those servers.  Clients <em>SHOULD</em> implement the algorithm in <a href="./rfc5280.html#section-6">Section&nbsp;6
+   of [RFC5280]</a> for general certificate validation, but <em>MAY</em> supplement
    that algorithm with other validation methods that achieve equivalent
    levels of verification (such as comparing the server certificate
    against a local store of already-verified certificates and identity
    bindings).
 
    If the client has external information as to the expected identity of
-   the server, the hostname check MAY be omitted.
+   the server, the hostname check <em>MAY</em> be omitted.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Client Identity</span>
 
-   The server MUST verify the identity of the client with certificate-
+   The server <em>MUST</em> verify the identity of the client with certificate-
    based authentication according to local policy to ensure that the
    incoming client request is legitimate before any configuration or
    state data is sent to or received from the client.
@@ -470,7 +470,7 @@ Table of Contents
    An attacker might be able to inject arbitrary NETCONF messages via
    some application that does not carefully check exchanged messages or
    deliberately insert the delimiter sequence in a NETCONF message to
-   create a DoS attack.  Hence, applications and NETCONF APIs MUST
+   create a DoS attack.  Hence, applications and NETCONF APIs <em>MUST</em>
    ensure that the delimiter sequence defined in <a href="#section-2.1">Section 2.1</a> never
    appears in NETCONF messages; otherwise, those messages can be
    dropped, garbled, or misinterpreted.  If the delimiter sequence is

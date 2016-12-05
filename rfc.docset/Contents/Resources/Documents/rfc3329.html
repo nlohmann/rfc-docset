@@ -341,8 +341,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a> Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-9" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">9</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Solution</span>
@@ -462,7 +462,7 @@ Table of Contents
       Preference
          The "q" value indicates a relative preference for the
          particular mechanism.  The higher the value the more preferred
-         the mechanism is.  All the security mechanisms MUST have
+         the mechanism is.  All the security mechanisms <em>MUST</em> have
          different "q" values.  It is an error to provide two mechanisms
          with the same "q" value.
 
@@ -503,7 +503,7 @@ Table of Contents
             security-server
 
          All linear white spaces in the Security-Server header field
-         MUST be replaced by a single SP before calculating or
+         <em>MUST</em> be replaced by a single SP before calculating or
          interpreting the digest-verify parameter.  Method, digest-uri-
          value, entity-body, and any other HTTP Digest parameter are as
          specified in [<a href="#ref-4" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">4</a>].
@@ -525,7 +525,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-2.3.1" href="#section-2.3.1">2.3.1</a> Client Initiated</span>
 
    If a client ends up using TLS to contact the server because it has
-   followed the rules specified in [<a href="#ref-5" title="&quot;Session Initiation Protocol (SIP): Locating SIP Servers&quot;">5</a>], the client MUST NOT use the
+   followed the rules specified in [<a href="#ref-5" title="&quot;Session Initiation Protocol (SIP): Locating SIP Servers&quot;">5</a>], the client <em>MUST NOT</em> use the
    security agreement procedure of this specification.  If a client ends
 
 
@@ -537,15 +537,15 @@ Table of Contents
 
 
    up using non-TLS connections because of the rules in [<a href="#ref-5" title="&quot;Session Initiation Protocol (SIP): Locating SIP Servers&quot;">5</a>], the client
-   MAY use the security agreement of this specification to detect DNS
+   <em>MAY</em> use the security agreement of this specification to detect DNS
    spoofing, or to negotiate some other security than TLS.
 
    A client wishing to use the security agreement of this specification
-   MUST add a Security-Client header field to a request addressed to its
+   <em>MUST</em> add a Security-Client header field to a request addressed to its
    first-hop proxy (i.e., the destination of the request is the first-
    hop proxy).  This header field contains a list of all the security
-   mechanisms that the client supports.  The client SHOULD NOT add
-   preference parameters to this list.  The client MUST add both a
+   mechanisms that the client supports.  The client <em>SHOULD NOT</em> add
+   preference parameters to this list.  The client <em>MUST</em> add both a
    Require and Proxy-Require header field with the value "sec-agree" to
    its request.
 
@@ -553,26 +553,26 @@ Table of Contents
    server to include any necessary information in its response.
 
    A server receiving an unprotected request that contains a Require or
-   Proxy-Require header field with the value "sec-agree" MUST respond to
+   Proxy-Require header field with the value "sec-agree" <em>MUST</em> respond to
    the client with a 494 (Security Agreement Required) response.  The
-   server MUST add a Security-Server header field to this response
+   server <em>MUST</em> add a Security-Server header field to this response
    listing the security mechanisms that the server supports.  The server
-   MUST add its list to the response even if there are no common
+   <em>MUST</em> add its list to the response even if there are no common
    security mechanisms in the client's and server's lists.  The server's
-   list MUST NOT depend on the contents of the client's list.
+   list <em>MUST NOT</em> depend on the contents of the client's list.
 
-   The server MUST compare the list received in the Security-Client
+   The server <em>MUST</em> compare the list received in the Security-Client
    header field with the list to be sent in the Security-Server header
    field.  When the client receives this response, it will choose the
    common security mechanism with the highest "q" value.  Therefore, the
-   server MUST add the necessary information so that the client can
+   server <em>MUST</em> add the necessary information so that the client can
    initiate that mechanism (e.g., a Proxy-Authenticate header field for
    HTTP Digest).
 
    When the client receives a response with a Security-Server header
-   field, it MUST choose the security mechanism in the server's list
+   field, it <em>MUST</em> choose the security mechanism in the server's list
    with the highest "q" value among all the mechanisms that are known to
-   the client.  Then, it MUST initiate that particular security
+   the client.  Then, it <em>MUST</em> initiate that particular security
    mechanism as described in <a href="#section-3.5">Section 3.5</a>.  This initiation may be
    carried out without involving any SIP message exchange (e.g.,
    establishing a TLS connection).
@@ -592,18 +592,18 @@ Table of Contents
 <span class="grey"><a href="./rfc3329.html">RFC 3329</a>                 SIP Security Agreement             January 2003</span>
 
 
-   response MUST consider the current security agreement process
-   aborted, and MAY try to start it again by sending a new request with
+   response <em>MUST</em> consider the current security agreement process
+   aborted, and <em>MAY</em> try to start it again by sending a new request with
    a Security-Client header field as described above.
 
    All the subsequent SIP requests sent by the client to that server
-   SHOULD make use of the security mechanism initiated in the previous
-   step.  These requests MUST contain a Security-Verify header field
+   <em>SHOULD</em> make use of the security mechanism initiated in the previous
+   step.  These requests <em>MUST</em> contain a Security-Verify header field
    that mirrors the server's list received previously in the Security-
-   Server header field.  These requests MUST also have both a Require
+   Server header field.  These requests <em>MUST</em> also have both a Require
    and Proxy-Require header fields with the value "sec-agree".
 
-   The server MUST check that the security mechanisms listed in the
+   The server <em>MUST</em> check that the security mechanisms listed in the
    Security-Verify header field of incoming requests correspond to its
    static list of supported security mechanisms.
 
@@ -615,22 +615,22 @@ Table of Contents
 
    The server can proceed processing a particular request if, and only
    if, the list was not modified.  If modification of the list is
-   detected, the server MUST respond to the client with a 494 (Security
-   Agreement Required) response.  This response MUST include the
+   detected, the server <em>MUST</em> respond to the client with a 494 (Security
+   Agreement Required) response.  This response <em>MUST</em> include the
    server's unmodified list of supported security mechanisms.  If the
-   list was not modified, and the server is a proxy, it MUST remove the
+   list was not modified, and the server is a proxy, it <em>MUST</em> remove the
    "sec-agree" value from both the Require and Proxy-Require header
    fields, and then remove the header fields if no values remain.
 
    Once the security has been negotiated between two SIP entities, the
-   same SIP entities MAY use the same security when communicating with
+   same SIP entities <em>MAY</em> use the same security when communicating with
    each other in different SIP roles.  For example, if a UAC and its
    outbound proxy negotiate some security, they may try to use the same
    security for incoming requests (i.e., the UA will be acting as a
    UAS).
 
-   The user of a UA SHOULD be informed about the results of the security
-   mechanism agreement.  The user MAY decline to accept a particular
+   The user of a UA <em>SHOULD</em> be informed about the results of the security
+   mechanism agreement.  The user <em>MAY</em> decline to accept a particular
    security mechanism, and abort further SIP communications with the
    peer.
 
@@ -649,27 +649,27 @@ Table of Contents
 
 
    several Via entries, the server is not the first-hop SIP entity, and
-   it MUST NOT use this mechanism.  For such a request, the server must
+   it <em>MUST NOT</em> use this mechanism.  For such a request, the server must
    return a 502 (Bad Gateway) response.
 
-   A server that decides to use this agreement mechanism MUST challenge
+   A server that decides to use this agreement mechanism <em>MUST</em> challenge
    unprotected requests with one Via entry regardless of the presence or
    the absence of any Require, Proxy-Require or Supported header fields
    in incoming requests.
 
    A server that by policy requires the use of this specification and
    receives a request that does not have the sec-agree option tag in a
-   Require, Proxy-Require or Supported header field MUST return a 421
+   Require, Proxy-Require or Supported header field <em>MUST</em> return a 421
    (Extension Required) response.  If the request had the sec-agree
-   option tag in a Supported header field, it MUST return a 494
+   option tag in a Supported header field, it <em>MUST</em> return a 494
    (Security Agreement Required) response.  In both situation the server
-   MUST also include in the response a Security-Server header field
+   <em>MUST</em> also include in the response a Security-Server header field
    listing its capabilities and a Require header field with an option-
-   tag "sec-agree" in it.  The server MUST also add necessary
+   tag "sec-agree" in it.  The server <em>MUST</em> also add necessary
    information so that the client can initiate the preferred security
    mechanism (e.g., a Proxy-Authenticate header field for HTTP Digest).
 
-   Clients that support the extension defined in this document SHOULD
+   Clients that support the extension defined in this document <em>SHOULD</em>
    add a Supported header field with a value of "sec-agree".
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a> Security Mechanism Initiation</span>
@@ -681,15 +681,15 @@ Table of Contents
 
    If "tls" is chosen, the client uses the procedures of Section 8.1.2
    of [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>] to determine the URI to be used as an input to the DNS
-   procedures of [<a href="#ref-5" title="&quot;Session Initiation Protocol (SIP): Locating SIP Servers&quot;">5</a>].  However, if the URI is a SIP URI, it MUST treat
+   procedures of [<a href="#ref-5" title="&quot;Session Initiation Protocol (SIP): Locating SIP Servers&quot;">5</a>].  However, if the URI is a SIP URI, it <em>MUST</em> treat
    the scheme as if it were sips, not sip.  If the URI scheme is not
-   sip, the request MUST be sent using TLS.
+   sip, the request <em>MUST</em> be sent using TLS.
 
    If "digest" is chosen, the 494 (Security Agreement Required) response
    will contain an HTTP Digest authentication challenge.  The client
-   MUST use the algorithm and qop parameters in the Security-Server
+   <em>MUST</em> use the algorithm and qop parameters in the Security-Server
    header field to replace the same parameters in the HTTP Digest
-   challenge.  The client MUST also use the digest-verify parameter in
+   challenge.  The client <em>MUST</em> also use the digest-verify parameter in
    the Security-Verify header field to protect the Security-Server
    header field as specified in 2.2.
 
@@ -707,7 +707,7 @@ Table of Contents
    To use "ipsec-ike", the client attempts to establish an IKE
    connection to the host part of the Request-URI in the first request
    to the server.  If the IKE connection attempt fails, the agreement
-   procedure MUST be considered to have failed, and MUST be terminated.
+   procedure <em>MUST</em> be considered to have failed, and <em>MUST</em> be terminated.
 
    Note that "ipsec-man" will only work if the communicating SIP
    entities know which keys and other parameters to use.  It is outside
@@ -804,7 +804,7 @@ Table of Contents
    The use of this extension in a network interface is a matter of local
    policy.  Different network interfaces may follow different policies,
    and consequently the use of this extension may be situational by
-   nature.  UA and server implementations MUST be configurable to
+   nature.  UA and server implementations <em>MUST</em> be configurable to
    operate with or without this extension.
 
 
@@ -1076,7 +1076,7 @@ Table of Contents
       utilize existing reply protection options such as including a
       time-stamp to the nonce parameter, and using nonce counters [<a href="#ref-4" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">4</a>].
 
-   All clients that implement this specification MUST select HTTP
+   All clients that implement this specification <em>MUST</em> select HTTP
    Digest, TLS, IPsec, or any stronger method for the protection of the
    second request.
 
@@ -1109,7 +1109,7 @@ Table of Contents
    also registered (see <a href="#appendix-A">Appendix A</a>).  Following the policies outlined in
    [<a href="#ref-10" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">10</a>], further mechanism-names are allocated based on IETF Consensus.
 
-   Registrations with the IANA MUST include the mechanism-name token
+   Registrations with the IANA <em>MUST</em> include the mechanism-name token
    being registered, and a pointer to a published RFC describing the
    details of the corresponding security mechanism.
 

@@ -374,7 +374,7 @@ Mogul &amp; Deering                                                 [page 3]</pr
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Host specification</span>
 
-   When a host receives a Datagram Too Big message, it MUST reduce its
+   When a host receives a Datagram Too Big message, it <em>MUST</em> reduce its
    estimate of the PMTU for the relevant path, based on the value of the
    Next-Hop MTU field in the message (see <a href="#section-4">section 4</a>).  We do not specify
    the precise behavior of a host in this circumstance, since different
@@ -382,28 +382,28 @@ Mogul &amp; Deering                                                 [page 3]</pr
    implementation architectures may favor different strategies.
 
    We do require that after receiving a Datagram Too Big message, a host
-   MUST attempt to avoid eliciting more such messages in the near
+   <em>MUST</em> attempt to avoid eliciting more such messages in the near
    future.  The host may either reduce the size of the datagrams it is
    sending along the path, or cease setting the Don't Fragment bit in
    the headers of those datagrams.  Clearly, the former strategy may
    continue to elicit Datagram Too Big messages for a while, but since
    each of these messages (and the dropped datagrams they respond to)
-   consume Internet resources, the host MUST force the PMTU Discovery
+   consume Internet resources, the host <em>MUST</em> force the PMTU Discovery
    process to converge.
 
-   Hosts using PMTU Discovery MUST detect decreases in Path MTU as fast
-   as possible.  Hosts MAY detect increases in Path MTU, but because
+   Hosts using PMTU Discovery <em>MUST</em> detect decreases in Path MTU as fast
+   as possible.  Hosts <em>MAY</em> detect increases in Path MTU, but because
    doing so requires sending datagrams larger than the current estimated
    PMTU, and because the likelihood is that the PMTU will not have
-   increased, this MUST be done at infrequent intervals.  An attempt to
+   increased, this <em>MUST</em> be done at infrequent intervals.  An attempt to
    detect an increase (by sending a datagram larger than the current
-   estimate) MUST NOT be done less than 5 minutes after a Datagram Too
+   estimate) <em>MUST NOT</em> be done less than 5 minutes after a Datagram Too
    Big message has been received for the given destination, or less than
    1 minute after a previous, successful attempted increase.  We
    recommend setting these timers at twice their minimum values (10
    minutes and 2 minutes, respectively).
 
-   Hosts MUST be able to deal with Datagram Too Big messages that do not
+   Hosts <em>MUST</em> be able to deal with Datagram Too Big messages that do not
    include the next-hop MTU, since it is not feasible to upgrade all the
    routers in the Internet in any finite time.  A Datagram Too Big
    message from an unmodified router can be recognized by the presence
@@ -422,10 +422,10 @@ Mogul &amp; Deering                                                 [page 4]</pr
    for a host to follow in response to an old-style Datagram Too Big
    message (one sent by an unmodified router).
 
-   A host MUST never reduce its estimate of the Path MTU below 68
+   A host <em>MUST</em> never reduce its estimate of the Path MTU below 68
    octets.
 
-   A host MUST not increase its estimate of the Path MTU in response to
+   A host <em>MUST</em> not increase its estimate of the Path MTU in response to
    the contents of a Datagram Too Big message.  A message purporting to
    announce an increase in the Path MTU might be a stale datagram that
    has been floating around in the Internet, a false packet injected as
@@ -465,7 +465,7 @@ Mogul &amp; Deering                                                 [page 4]</pr
    non-local peers.
 
    Moreover, doing this prevents PMTU Discovery from discovering PMTUs
-   larger than 576, so hosts SHOULD no longer lower the value they send
+   larger than 576, so hosts <em>SHOULD</em> no longer lower the value they send
 
 
 Mogul &amp; Deering                                                 [page 5]</pre>
@@ -478,7 +478,7 @@ Mogul &amp; Deering                                                 [page 5]</pr
    in the MSS option.  The MSS option should be 40 octets less than the
    size of the largest datagram the host is able to reassemble (MMS_R,
    as defined in [<a href="#ref-1" title="October">1</a>]); in many cases, this will be the architectural
-   limit of 65495 (65535 - 40) octets.  A host MAY send an MSS value
+   limit of 65495 (65535 - 40) octets.  A host <em>MAY</em> send an MSS value
    derived from the MTU of its connected network (the maximum MTU over
    its connected networks, for a multi-homed host); this should not
    cause problems for PMTU Discovery, and may dissuade a broken peer
@@ -498,10 +498,10 @@ Mogul &amp; Deering                                                 [page 5]</pr
    router is required to return an ICMP Destination Unreachable message
    to the source of the datagram, with the Code indicating
    "fragmentation needed and DF set".  To support the Path MTU Discovery
-   technique specified in this memo, the router MUST include the MTU of
+   technique specified in this memo, the router <em>MUST</em> include the MTU of
    that next-hop network in the low-order 16 bits of the ICMP header
    field that is labelled "unused" in the ICMP specification [<a href="#ref-7" title="September">7</a>].  The
-   high-order 16 bits remain unused, and MUST be set to zero.  Thus, the
+   high-order 16 bits remain unused, and <em>MUST</em> be set to zero.  Thus, the
    message has the following format:
 
        0                   1                   2                   3
@@ -828,7 +828,7 @@ Mogul &amp; Deering                                                [page 11]</pr
           should not have to put up with dropped datagrams every 10
           minutes.
 
-   An upper layer MUST not retransmit datagrams in response to an
+   An upper layer <em>MUST</em> not retransmit datagrams in response to an
    increase in the PMTU estimate, since this increase never comes in
    response to an indication of a dropped datagram.
 
@@ -903,7 +903,7 @@ Mogul &amp; Deering                                                [page 12]</pr
    datagram size used in the retransmission should, of course, be no
    larger than the new PMTU.
 
-          Note: One MUST not retransmit in response to every Datagram
+          Note: One <em>MUST</em> not retransmit in response to every Datagram
           Too Big message, since a burst of several oversized segments
           will give rise to several such messages and hence several
           retransmissions of the same data.  If the new estimated PMTU

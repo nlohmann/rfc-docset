@@ -216,8 +216,8 @@ Abstract
    Comments are solicited and should be addressed to the working group
    mailing list rem-conf@es.net and/or the author(s).
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Introduction</span>
@@ -391,7 +391,7 @@ Abstract
    saved uncompressed header as each compressed packet is received.
 
    Just as TCP/IP header compression maintains shared state for multiple
-   simultaneous TCP connections, this IP/UDP/RTP compression SHOULD
+   simultaneous TCP connections, this IP/UDP/RTP compression <em>SHOULD</em>
    maintain state for multiple session contexts.  A session context is
    defined by the combination of the IP source and destination
    addresses, the UDP source and destination ports, and the RTP SSRC
@@ -425,18 +425,18 @@ Abstract
    header that are expected to remain constant most of the time, such as
    the payload type field, keep changing.  Even if the other such fields
    remain constant, a packet stream with a constantly changing SSRC
-   field SHOULD be entered in the negative cache to avoid consuming all
+   field <em>SHOULD</em> be entered in the negative cache to avoid consuming all
    of the available session contexts.  The negative cache is indexed by
    the source and destination IP address and UDP port pairs but not the
    RTP SSRC field since the latter may be changing.  When RTP
-   compression fails, the IP and UDP headers MAY still be compressed.
+   compression fails, the IP and UDP headers <em>MAY</em> still be compressed.
 
    Fragmented IP Packets that are not initial fragments and packets that
-   are not long enough to contain a complete UDP header MUST NOT be sent
+   are not long enough to contain a complete UDP header <em>MUST NOT</em> be sent
    as FULL_HEADER packets.  Furthermore, packets that do not
-   additionally contain at least 12 bytes of UDP data MUST NOT be used
+   additionally contain at least 12 bytes of UDP data <em>MUST NOT</em> be used
    to establish RTP context.  If such a packet is sent as a FULL_HEADER
-   packet, it MAY be followed by COMPRESSED_UDP packets but MUST NOT be
+   packet, it <em>MAY</em> be followed by COMPRESSED_UDP packets but <em>MUST NOT</em> be
    followed by COMPRESSED_RTP packets.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Header Compression for RTP Data Packets</span>
@@ -523,10 +523,10 @@ Abstract
 
 
    ports, and the RTP SSRC field.  The number of session contexts to be
-   maintained MAY be negotiated between the compressor and decompressor.
+   maintained <em>MAY</em> be negotiated between the compressor and decompressor.
    Each context is identified by an 8- or 16-bit identifier, depending
    upon the number of contexts negotiated, so the maximum number is
-   65536.  Both uncompressed and compressed packets MUST carry the
+   65536.  Both uncompressed and compressed packets <em>MUST</em> carry the
    context ID and a 4-bit sequence number used to detect packet loss
    between the compressor and decompressor.  Each context has its own
    separate sequence number space so that a single packet loss need only
@@ -608,7 +608,7 @@ Abstract
 
    When this compression scheme is used with IPv6 as part of the general
    header compression framework specified in [<a href="#ref-3" title="&quot;Header Compression for IPv6&quot;">3</a>], another packet type
-   MAY be used:
+   <em>MAY</em> be used:
 
       COMPRESSED_NON_TCP - communicates the compressed IP and UDP
       headers as defined in [<a href="#ref-3" title="&quot;Header Compression for IPv6&quot;">3</a>] without differential encoding.  If it
@@ -691,8 +691,8 @@ Abstract
 
 
    The first bit in the first length field indicates the length of the
-   CID.  The length of the CID MUST either be constant for all contexts
-   or two additional distinct packet types MUST be provided to
+   CID.  The length of the CID <em>MUST</em> either be constant for all contexts
+   or two additional distinct packet types <em>MUST</em> be provided to
    separately indicate COMPRESSED_UDP and COMPRESSED_RTP packet formats
    with 8- and 16-bit CIDs.  The second bit in the first length field is
    1 to indicate that the 4-bit sequence number is present, as is always
@@ -700,7 +700,7 @@ Abstract
 
    The generation field is used with IPv6 for COMPRESSED_NON_TCP packets
    as described in [<a href="#ref-3" title="&quot;Header Compression for IPv6&quot;">3</a>].  For IPv4-only implementations that do not use
-   COMPRESSED_NON_TCP packets, the compressor SHOULD set the generation
+   COMPRESSED_NON_TCP packets, the compressor <em>SHOULD</em> set the generation
    value to zero.  For consistent operation between IPv4 and IPv6, the
    generation value is stored in the context when it is received by the
    decompressor, and the most recent value is returned in the
@@ -716,14 +716,14 @@ Abstract
    as described in Section 6 of [<a href="#ref-3" title="&quot;Header Compression for IPv6&quot;">3</a>].  When a COMPRESSED_NON_TCP packet
    is received, the generation number is compared to the value stored in
    the context.  If they are not the same, the context is not up to date
-   and MUST be refreshed by a FULL_HEADER packet.  If the generation
+   and <em>MUST</em> be refreshed by a FULL_HEADER packet.  If the generation
    does match, then the compressed IP and UDP header information, the
    4-bit sequence number, and the (potential) RTP header are all stored
    into the saved context.
 
    The amount of memory required to store the context will vary
    depending upon how many encapsulating headers are included in the
-   FULL_HEADER packet.  The compressor and decompressor MAY negotiate a
+   FULL_HEADER packet.  The compressor and decompressor <em>MAY</em> negotiate a
    maximum header size.
 
 <span class="h4"><a class="selflink" name="section-3.3.2" href="#section-3.3.2">3.3.2</a>.  COMPRESSED_RTP packet format</span>
@@ -838,7 +838,7 @@ Abstract
    type and SSRC identifier) are assumed to remain relatively constant.
    In particular, the SSRC identifier is defined to be constant for a
    given context because it is one of the factors selecting the context.
-   If any of the other fields change, the uncompressed RTP header MUST
+   If any of the other fields change, the uncompressed RTP header <em>MUST</em>
    sent as described in <a href="#section-3.3.3">Section 3.3.3</a>.
 
    The following diagram shows the compressed IP/UDP/RTP header with
@@ -903,7 +903,7 @@ Abstract
 
    When more than one IPv4 header is present in the context as
    initialized by the FULL_HEADER packet, then the IP ID fields of
-   encapsulating headers MUST be sent as absolute values as described in
+   encapsulating headers <em>MUST</em> be sent as absolute values as described in
 
 
 
@@ -922,15 +922,15 @@ Abstract
    IP ID of that header be sent differentially, i.e., potentially with
    no bits if the second difference is zero, or as a delta IPv4 ID field
    if not.  If there is not an IPv4 header immediately preceding the UDP
-   header, then the I bit MUST be 0 and no delta IPv4 ID field will be
+   header, then the I bit <em>MUST</em> be 0 and no delta IPv4 ID field will be
    present.
 
 <span class="h4"><a class="selflink" name="section-3.3.3" href="#section-3.3.3">3.3.3</a>.  COMPRESSED_UDP packet format</span>
 
    If there is a change in any of the fields of the RTP header that are
    normally constant (such as the payload type field), then an
-   uncompressed RTP header MUST be sent.  If the IP and UDP headers do
-   not also require updating, this RTP header MAY be carried in a
+   uncompressed RTP header <em>MUST</em> be sent.  If the IP and UDP headers do
+   not also require updating, this RTP header <em>MAY</em> be carried in a
    COMPRESSED_UDP packet rather than a FULL_HEADER packet.  The
    COMPRESSED_UDP packet has the same format as the COMPRESSED_RTP
    packet except that the M, S and T bits are always 0 and the
@@ -972,14 +972,14 @@ Abstract
 
    bytes of IP ID, and two bytes of UDP checksum if nonzero, would
    always be transmitted in addition to two bytes of compression prefix.
-   For IPv6, the COMPRESSED_NON_TCP packet type MAY be used instead.
+   For IPv6, the COMPRESSED_NON_TCP packet type <em>MAY</em> be used instead.
 
 <span class="h4"><a class="selflink" name="section-3.3.4" href="#section-3.3.4">3.3.4</a>.  Encoding of differences</span>
 
    The delta fields in the COMPRESSED_RTP and COMPRESSED_UDP packets are
    encoded with a variable-length mapping for compactness of the more
    commonly-used values.  A default encoding is specified below, but it
-   is RECOMMENDED that implementations use a table-driven delta encoder
+   is <em>RECOMMENDED</em> that implementations use a table-driven delta encoder
    and decoder to allow negotiation of a table specific for each session
    if appropriate, possibly even an optimal Huffman encoding.  Encodings
    based on sequential interpretation of the bit stream, of which this
@@ -1040,23 +1040,23 @@ Abstract
    4194303 forces the RTP header to be sent uncompressed using a
    FULL_HEADER, COMPRESSED_NON_TCP or COMPRESSED_UDP packet type.  The
    IP ID and RTP sequence number fields are only 16 bits, so negative
-   deltas for those fields SHOULD be masked to 16 bits and then encoded
+   deltas for those fields <em>SHOULD</em> be masked to 16 bits and then encoded
    (as large positive 16-bit numbers).
 
 <span class="h4"><a class="selflink" name="section-3.3.5" href="#section-3.3.5">3.3.5</a>.  Error Recovery</span>
 
    Whenever the 4-bit sequence number for a particular context
    increments by other than 1, except when set by a FULL_HEADER or
-   COMPRESSED_NON_TCP packet, the decompressor MUST invalidate that
+   COMPRESSED_NON_TCP packet, the decompressor <em>MUST</em> invalidate that
    context and send a CONTEXT_STATE packet back to the compressor
    indicating that the context has been invalidated.  All packets for
-   the invalid context MUST be discarded until a FULL_HEADER or
+   the invalid context <em>MUST</em> be discarded until a FULL_HEADER or
    COMPRESSED_NON_TCP packet is received for that context to re-
    establish consistent state (unless the "twice" algorithm is used as
    described later in this section).  Since multiple compressed packets
-   may arrive in the interim, the decompressor SHOULD NOT retransmit the
+   may arrive in the interim, the decompressor <em>SHOULD NOT</em> retransmit the
    CONTEXT_STATE packet for every compressed packet received, but
-   instead SHOULD limit the rate of retransmission to avoid flooding the
+   instead <em>SHOULD</em> limit the rate of retransmission to avoid flooding the
    reverse channel.
 
    When an error occurs on the link, the link layer will usually discard
@@ -1066,13 +1066,13 @@ Abstract
    discarded by the decompressor when it is observed to be out of
    sequence, resulting in at least two packets lost.  To allow faster
    recovery if the link does provide an explicit error indication, the
-   decompressor MAY optionally send an advisory CONTEXT_STATE packet
+   decompressor <em>MAY</em> optionally send an advisory CONTEXT_STATE packet
    listing the last valid sequence number and generation number for one
    or more recently active contexts (not necessarily all).  For a given
    context, if the compressor has sent no compressed packet with a
    higher sequence number, and if the generation number matches the
    current generation, no corrective action is required.  Otherwise, the
-   compressor MAY choose to mark the context invalid so that the next
+   compressor <em>MAY</em> choose to mark the context invalid so that the next
    packet is sent in FULL_HEADER or COMPRESSED_NON_TCP mode (FULL_HEADER
 
 
@@ -1167,22 +1167,22 @@ Abstract
    The bit labeled "I" is set to one for contexts that have been marked
    invalid and require a FULL_HEADER of COMPRESSED_NON_TCP packet to be
    transmitted.  If the I bit is zero, the context state is advisory.
-   The I bit is set to zero to indicate advisory context state that MAY
+   The I bit is set to zero to indicate advisory context state that <em>MAY</em>
    be sent following a link error indication.
 
    Since the CONTEXT_STATE packet itself may be lost, retransmission of
    one or more blocks is allowed.  It is expected that retransmission
    will be triggered only by receipt of another packet, but if the line
-   is near idle, retransmission MAY be triggered by a relatively long
+   is near idle, retransmission <em>MAY</em> be triggered by a relatively long
    timer (on the order of 1 second).
 
    If a CONTEXT_STATE block for a given context is retransmitted, it may
    cross paths with the FULL_HEADER or COMPRESSED_NON_TCP packet
-   intended to refresh that context.  In that case, the compressor MAY
+   intended to refresh that context.  In that case, the compressor <em>MAY</em>
    choose to ignore the error indication.
 
    In the case where UDP checksums are being transmitted, the
-   decompressor MAY attempt to use the "twice" algorithm described in
+   decompressor <em>MAY</em> attempt to use the "twice" algorithm described in
    section 10.1 of [<a href="#ref-3" title="&quot;Header Compression for IPv6&quot;">3</a>].  In this algorithm, the delta is applied more
    than once on the assumption that the delta may have been the same on
    the missing packet(s) and the one subsequently received.  Success is
@@ -1207,7 +1207,7 @@ Abstract
    If UDP checksums are being transmitted, the receiver will probably
    detect the invalid packets and discard them, but the receiver does
    not have any means to signal the decompressor.  Therefore, it is
-   RECOMMENDED that the decompressor verify the UDP checksum
+   <em>RECOMMENDED</em> that the decompressor verify the UDP checksum
    periodically, perhaps one out of 16 packets.  If an error is
    detected, the decompressor would invalidate the context and signal
    the compressor with a CONTEXT_STATE packet.
@@ -1229,7 +1229,7 @@ Abstract
 
    However, in the compression scheme defined here, no compression will
    be done on the RTCP headers and "data" for several reasons (though
-   compression SHOULD still be applied to the IP and UDP headers).
+   compression <em>SHOULD</em> still be applied to the IP and UDP headers).
    Since the RTP protocol specification suggests that the RTCP packet
    interval be scaled so that the aggregate RTCP bandwidth used by all
    participants in a session will be no more than 5% of the session
@@ -1265,7 +1265,7 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Compression of non-RTP UDP Packets</span>
 
-   As described earlier, the COMPRESSED_UDP packet MAY be used to
+   As described earlier, the COMPRESSED_UDP packet <em>MAY</em> be used to
    compress UDP packets that don't carry RTP.  Whatever data follows the
    UDP header is unlikely to have some constant values in the bits that
    correspond to usually constant fields in the RTP header.  In
@@ -1307,12 +1307,12 @@ Abstract
 
 
    Link errors detected by the segmentation scheme using its own
-   sequencing information MAY be indicated to the compressor with an
+   sequencing information <em>MAY</em> be indicated to the compressor with an
    advisory CONTEXT_STATE message just as for link errors detected by
    the link layer itself.
 
    The context ID byte is placed first in the COMPRESSED_RTP header so
-   that this byte MAY be shared with the segmentation layer if such
+   that this byte <em>MAY</em> be shared with the segmentation layer if such
    sharing is feasible and has been negotiated.  Since the compressor
    may assign context ID values arbitrarily, the value can be set to
    match the context identifier from the segmentation layer.
@@ -1322,7 +1322,7 @@ Abstract
    The use of IP/UDP/RTP compression over a particular link is a
    function of the link-layer protocol.  It is expected that such
    negotiation will be defined separately for PPP [<a href="#ref-4" title="&quot;The Point-to-Point Protocol (PPP)&quot;">4</a>], for example.  The
-   following items MAY be negotiated:
+   following items <em>MAY</em> be negotiated:
 
       o The size of the context ID.
       o The maximum size of the stack of headers in the context.

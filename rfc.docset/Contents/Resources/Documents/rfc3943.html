@@ -329,8 +329,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Compression Methods</span>
@@ -378,7 +378,7 @@ Table of Contents
    sessions, as pathological compressed data can potentially reference
    data prior to the beginning of the current record.  LZS
    implementations guard against this situation.  However, to avoid this
-   potential threat, implementations supporting TLS compression MUST use
+   potential threat, implementations supporting TLS compression <em>MUST</em> use
    separate compression histories for each TLS session.  This is not a
    limitation of LZS compression but is an artifact for any compression
    algorithm.
@@ -386,7 +386,7 @@ Table of Contents
    Furthermore, the LZS compression history (as well as any compression
    history) contains plaintext.  Specifically, the LZS history contains
    the last 2K bytes of plaintext of the TLS session.  Thus, when the
-   TLS session terminates, the implementation SHOULD treat the history
+   TLS session terminates, the implementation <em>SHOULD</em> treat the history
    as it does any plaintext (e.g., free memory, overwrite contents).
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  LZS Compression</span>
@@ -433,10 +433,10 @@ Table of Contents
    record delivery to ensure that all records can be decompressed in the
    same order they were compressed.  Since TLS and lower-layer protocols
    provide reliable, sequenced record delivery, compression history
-   information MAY be maintained and exploited when the LZS
+   information <em>MAY</em> be maintained and exploited when the LZS
    CompressionMethod is used.
 
-   Furthermore, there MUST be a separate LZS compression history
+   Furthermore, there <em>MUST</em> be a separate LZS compression history
    associated with each open TLS session.  This not only provides
    enhanced security (no potential information leakage between sessions
    via a shared compression history), but also enables superior
@@ -447,15 +447,15 @@ Table of Contents
    require resetting the compression (and decompression) history between
    each record.
 
-   The sender MUST reset the compression history prior to compressing
+   The sender <em>MUST</em> reset the compression history prior to compressing
    the first TLS record of a TLS session after TLS handshake completes.
    It is advantageous for the sender to maintain the compression history
    for all subsequent records processed during the TLS session.  This
    results in the greatest compression ratio for a given data set.  In
-   either case, this compression history MUST NOT be used for any other
+   either case, this compression history <em>MUST NOT</em> be used for any other
    open TLS session, to ensure privacy between TLS sessions.
 
-   The sender MUST "flush" the compressor each time it transmits a
+   The sender <em>MUST</em> "flush" the compressor each time it transmits a
    compressed record.  Flushing means that all data going into the
    compressor is included in the output, i.e., no data is retained in
    the hope of achieving better compression.  Flushing ensures that each
@@ -473,9 +473,9 @@ Table of Contents
 <span class="grey"><a href="./rfc3943.html">RFC 3943</a>               TLS Compression Using LZS           November 2004</span>
 
 
-   When the TLS session terminates, the implementation SHOULD dispose of
+   When the TLS session terminates, the implementation <em>SHOULD</em> dispose of
    the memory resources associated with the related TLS compression
-   history.  That is, the compression history SHOULD be handled as the
+   history.  That is, the compression history <em>SHOULD</em> be handled as the
    TLS key material is handled.
 
    The LZS CompressionMethod also features "decompressing" uncompressed
@@ -514,7 +514,7 @@ Table of Contents
 
    Res-Reserved
 
-      Reserved for future use.  MUST be set to zero.  MUST be ignored by
+      Reserved for future use.  <em>MUST</em> be set to zero.  <em>MUST</em> be ignored by
       the receiving node.
 
 
@@ -537,7 +537,7 @@ Table of Contents
       bit is set to "1", a compression history reset is performed; when
       RST is set to "0", a compression history reset is not performed.
 
-      This bit MUST be set to a value of "1" for the first compressed
+      This bit <em>MUST</em> be set to a value of "1" for the first compressed
       TLS transmitted record of a TLS session.  This bit may also be
       used by the transmitter for other exception cases when the
       compression history must be reset.
@@ -621,7 +621,7 @@ Table of Contents
    to disambiguate padding.  This allows trailing bits, as well as
    bytes, to be considered padding.
 
-   The size of a compressed payload MUST be in whole octet units.
+   The size of a compressed payload <em>MUST</em> be in whole octet units.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Sending Compressed Datagrams</span>
 
@@ -649,11 +649,11 @@ Table of Contents
    buffer.  It is processed according to ANSI X3.241-1994 to form
    compressed data or used as is to form uncompressed data.  For the
    first record of the session, or for exception conditions, the
-   compression history MUST be cleared.  In performing the compression
-   operation, the compression history MUST be updated when either a
+   compression history <em>MUST</em> be cleared.  In performing the compression
+   operation, the compression history <em>MUST</em> be updated when either a
    compressed record or an uncompressed record is produced.
-   Uncompressed TLS records MAY be sent at any time. Uncompressed TLS
-   records MUST be sent if compression causes enough expansion to make
+   Uncompressed TLS records <em>MAY</em> be sent at any time. Uncompressed TLS
+   records <em>MUST</em> be sent if compression causes enough expansion to make
    the data compression TLS record size exceed the MTU defined in
    <a href="./rfc2246.html#section-6.2.2">section&nbsp;6.2.2 in RFC 2246</a>.  The output of the compression operation
    is placed in the fragment field of the TLSCompressed structure
@@ -665,14 +665,14 @@ Table of Contents
    contains compressed or uncompressed data.  The RST bit in the TLSComp
    header is set to "1" if the compression history was reset prior to
    compressing the TLSplaintext.fragment that is composed of a
-   TLSCompressed.fragment.  Uncompressed data MUST be transmitted (and
+   TLSCompressed.fragment.  Uncompressed data <em>MUST</em> be transmitted (and
    the C/U bit set to 0) if the "compressed" (expanded) data exceeded
    17K bytes.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Receiver Process</span>
 
    Prior to decompressing the first compressed TLS record in the TLS
-   session, the receiver MUST reset the decompression history.
+   session, the receiver <em>MUST</em> reset the decompression history.
    Subsequent records are decompressed in the order received.  The
    receiver decompresses the Payload Data field according to the
    encoding specified in <a href="#section-3.5">section 3.5</a> above.
@@ -682,13 +682,13 @@ Table of Contents
    of the datagram is ready for processing by the next protocol layer.
 
    After a TLS record is received from the peer and decrypted, the RST
-   and C/U bits MUST be checked.
+   and C/U bits <em>MUST</em> be checked.
 
    If the C/U bit is set to "1", the resulting compressed data block
-   MUST be decompressed according to <a href="#section-3.5">section 3.5</a> above.
+   <em>MUST</em> be decompressed according to <a href="#section-3.5">section 3.5</a> above.
 
    If the C/U bit is set to "0", the specified decompression history
-   MUST be updated with the received uncompressed data.
+   <em>MUST</em> be updated with the received uncompressed data.
 
 
 
@@ -697,7 +697,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3943.html">RFC 3943</a>               TLS Compression Using LZS           November 2004</span>
 
 
-   If the RST bit is set to "1", the receiving decompression history MAY
+   If the RST bit is set to "1", the receiving decompression history <em>MAY</em>
    be reset to an initial state prior to decompressing the TLS record.
    (However, due to the characteristics of the Hifn LZS algorithm, a
    decompression history reset is not required).  After reset, any
@@ -716,7 +716,7 @@ Table of Contents
       history; the decompressor will update its history, thus conserving
       the current bandwidth and future bandwidth on the link.
 
-   The second option is the preferred option and SHOULD be implemented.
+   The second option is the preferred option and <em>SHOULD</em> be implemented.
 
    There is a third option:
 
@@ -724,7 +724,7 @@ Table of Contents
       current bandwidth but allowing possible loss of future bandwidth
       on the link.
 
-   This option SHOULD NOT be implemented.
+   This option <em>SHOULD NOT</em> be implemented.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Internationalization Considerations</span>
 
@@ -770,14 +770,14 @@ Table of Contents
    ciphersuites that use stream cipher encryption without padding do not
    hide length at all; ciphersuites that use Cipher Block Chaining (CBC)
    encryption with padding provide some length hiding, depending on how
-   the amount of padding is chosen.  Use of TLS compression SHOULD take
+   the amount of padding is chosen.  Use of TLS compression <em>SHOULD</em> take
    into account that the length of compressed data may leak more
    information than the length of the original uncompressed data.
 
    Another security issue to be aware of is that the LZS compression
    history contains plaintext.  In order to prevent any kind of
    information leakage outside the system, when a TLS session with
-   compression terminates, the implementation SHOULD treat the
+   compression terminates, the implementation <em>SHOULD</em> treat the
    compression history as it does plaintext -- that is, care should be
    taken not to reveal the compression history in any form or to use it
    again.  This is described in sections <a href="#section-2.2">2.2</a> and <a href="#section-3.2">3.2</a> above.

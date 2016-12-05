@@ -327,8 +327,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Motivation</span>
@@ -480,7 +480,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Relay Node Address Stack</span>
 
-   The Relay Node Address Stack TLV is an optional TLV.  It MUST be
+   The Relay Node Address Stack TLV is an optional TLV.  It <em>MUST</em> be
    carried in the Echo Request, Echo Reply, and Relayed Echo Reply
    messages if the Echo Reply relayed mechanism described in this
    document is required.  Figure 3 illustrates the TLV format.
@@ -530,7 +530,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7743.html">RFC 7743</a>            MPLS LSP Ping Relayed Echo Reply        January 2016</span>
 
 
-   -  Reserved: This field is reserved and MUST be set to zero.
+   -  Reserved: This field is reserved and <em>MUST</em> be set to zero.
 
    -  Source Address of Replying Router: Source IP address of the
       originator of Echo Reply or Relay Echo Reply message.
@@ -566,9 +566,9 @@ Table of Contents
    1       IPv4           4                8
    2       IPv6           16               20
 
-   Reserved: The two fields are reserved and MUST be set to zero.
+   Reserved: The two fields are reserved and <em>MUST</em> be set to zero.
 
-   K bit: If the K bit is set to 1, then this address stack entry MUST
+   K bit: If the K bit is set to 1, then this address stack entry <em>MUST</em>
    NOT be stripped from the Relay Node Address Stack during the
    processing described in <a href="#section-4.2">Section 4.2</a>.  If the K bit is clear, the
    entry might be stripped according to the processing described in
@@ -576,7 +576,7 @@ Table of Contents
 
    Having the K bit set in the relay node address entry causes that
    entry to be preserved in the Relay Node Address Stack TLV for the
-   entire traceroute operation.  A responder node MAY set the K bit to
+   entire traceroute operation.  A responder node <em>MAY</em> set the K bit to
    ensure its relay node address entry remains as one of the relay nodes
 
 
@@ -597,9 +597,9 @@ Table of Contents
 
    This Return Code is defined to indicate that one or more TLVs were
    omitted from the Echo Reply or Relayed Echo Reply message to avoid
-   exceeding the message's effective MTU size.  These TLVs MAY be
+   exceeding the message's effective MTU size.  These TLVs <em>MAY</em> be
    included in an Errored TLV's Object with their lengths set to 0 and
-   no value.  The return sub-code MUST be set to the value that
+   no value.  The return sub-code <em>MUST</em> be set to the value that
    otherwise would have been sent.  For more detail, please refer to
    <a href="#section-4.2">Section 4.2</a>.
 
@@ -645,17 +645,17 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Sending an Echo Request</span>
 
    In addition to the procedures described in <a href="./rfc4379.html#section-4.3">Section&nbsp;4.3 of [RFC4379]</a>,
-   a Relay Node Address Stack TLV MUST be carried in the Echo Request
+   a Relay Node Address Stack TLV <em>MUST</em> be carried in the Echo Request
    message if the relay functionality is required.  The relay function
    initiation is out of the scope of this document.  One possible way to
    do this is that the operator can explicitly add an option to the ping
    command.
 
    When the initiator sends the first Echo Request with a Relay Node
-   Address Stack TLV, the TLV MUST contain the initiator address as the
+   Address Stack TLV, the TLV <em>MUST</em> contain the initiator address as the
    first entry of the stack of relayed addresses, the Destination
    Address Offset set to this entry, and the source address of the
-   replying router set to null.  The Initiator Source Port field MUST be
+   replying router set to null.  The Initiator Source Port field <em>MUST</em> be
    set to the source UDP port.  Note that the first relay node address
    in the stack will always be the initiator's address.
 
@@ -666,29 +666,29 @@ Table of Contents
    The Type of the Relay Node Address Stack TLV (32768) falls within the
    range defined in [<a href="./rfc4379.html" title="&quot;Detecting Multi-Protocol Label Switched (MPLS) Data Plane Failures&quot;">RFC4379</a>] as "optional TLVs" that can be silently
    dropped if not recognized.  An LSR that does not recognize the TLV
-   SHOULD ignore it.
+   <em>SHOULD</em> ignore it.
 
    In addition to the processes in <a href="./rfc4379.html#section-4.4">Section&nbsp;4.4 of [RFC4379]</a>, the
    procedures of the Relay Node Address Stack TLV are defined here.
 
    Upon receiving a Relay Node Address Stack TLV in an Echo Request
    message, the receiver updates the "Source Address of Replying
-   Router".  The address MUST be the same as the source IP address of
+   Router".  The address <em>MUST</em> be the same as the source IP address of
    Relay Echo Reply (<a href="#section-4.3">Section 4.3</a>) or Echo Reply message (<a href="#section-4.5">Section 4.5</a>)
    being sent.
 
-   Those address entries with the K bit set to 1 MUST be kept in the
-   stack.  The receiver MUST check the addresses of the stack in
+   Those address entries with the K bit set to 1 <em>MUST</em> be kept in the
+   stack.  The receiver <em>MUST</em> check the addresses of the stack in
    sequence from bottom to top to find the last address in the stack
    with the K bit set (or the top of the stack if no K bit was found).
    The receiver then checks the stack beginning with this entry,
    proceeding towards the bottom to find the first routable address IP
-   address.  The Destination Address Offset MUST be set to this entry,
+   address.  The Destination Address Offset <em>MUST</em> be set to this entry,
    which is also the resolved destination address.  Address entries
-   below the first routable IP address MUST be deleted.  At least one
-   address entry of the replying LSR MUST be added at the bottom of the
-   stack.  A second address entry (or more) MAY also be added if
-   necessary, depending on implementation.  The final address added MUST
+   below the first routable IP address <em>MUST</em> be deleted.  At least one
+   address entry of the replying LSR <em>MUST</em> be added at the bottom of the
+   stack.  A second address entry (or more) <em>MAY</em> also be added if
+   necessary, depending on implementation.  The final address added <em>MUST</em>
    be an address that is reachable through the interface that the Echo
 
 
@@ -699,16 +699,16 @@ Table of Contents
 
 
    Request message would have been forwarded to if its TTL had not
-   expired at this node.  The updated Relay Node Address Stack TLV MUST
+   expired at this node.  The updated Relay Node Address Stack TLV <em>MUST</em>
    be carried in the response message.
 
    If the replying LSR is configured to hide its routable address
-   information, the address entry added in the stack MUST be a NIL entry
+   information, the address entry added in the stack <em>MUST</em> be a NIL entry
    with Address Type set to NULL.
 
    If a node spans two addressing domains (with respect to this message)
    where nodes on either side may not be able to reach nodes in the
-   other domain, then the final address added SHOULD set the K bit.  One
+   other domain, then the final address added <em>SHOULD</em> set the K bit.  One
    example of spanning two address domains is the ASBR node.
 
    K bit applies in the case of a NULL address, to serve as a warning to
@@ -716,7 +716,7 @@ Table of Contents
    receiving Echo Reply messages.
 
    If the full reply message would exceed the MTU size, the Relay Node
-   Address Stack TLV SHOULD be included in the Echo Reply message (i.e.,
+   Address Stack TLV <em>SHOULD</em> be included in the Echo Reply message (i.e.,
    other optional TLVs are excluded).
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Originating a Relayed Echo Reply</span>
@@ -727,7 +727,7 @@ Table of Contents
    or Echo Reply will fail.
 
    If the first IP address in the Relay Node Address Stack TLV is not
-   the next relay node address, the replying LSR SHOULD send a Relayed
+   the next relay node address, the replying LSR <em>SHOULD</em> send a Relayed
    Echo Reply message to the next relay node.  The processing of Relayed
    Echo Reply is the same with the procedure of the Echo Reply described
    in <a href="./rfc4379.html#section-4.5">Section&nbsp;4.5 of [RFC4379]</a>, except the destination IP address and
@@ -735,7 +735,7 @@ Table of Contents
    Echo Reply is set to the next relay node address from the Relay Node
    Address Stack TLV, and both the source and destination UDP port are
    set to 3503.  The updated Relay Node Address Stack TLV described in
-   <a href="#section-4.2">Section 4.2</a> MUST be carried in the Relayed Echo Reply message.  The
+   <a href="#section-4.2">Section 4.2</a> <em>MUST</em> be carried in the Relayed Echo Reply message.  The
    Source Address of the Replying Router field is kept unmodified, and
    the Source IP address field of the IP header is set to an address of
    the sending node.
@@ -757,7 +757,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Relaying a Relayed Echo Reply</span>
 
    Upon receiving a Relayed Echo Reply message with its own address as
-   the destination address in the IP header, the relay node MUST
+   the destination address in the IP header, the relay node <em>MUST</em>
    determine the next relay node address as described in <a href="#section-4.2">Section 4.2</a>,
    with the modification that the location of the received destination
    address is used instead of the bottom of stack in the algorithm.  The
@@ -766,10 +766,10 @@ Table of Contents
    no changes are made to the Stack of Relayed Addresses.
 
    If the next relay node address is not the first one in the address
-   list, i.e., another intermediate relay node, the relay node MUST send
+   list, i.e., another intermediate relay node, the relay node <em>MUST</em> send
    a Relayed Echo Reply message to the determined upstream node with the
    payload unchanged other than the Relay Node Address Stack TLV.  The
-   TTL SHOULD be copied from the received Relay Echo Reply and
+   TTL <em>SHOULD</em> be copied from the received Relay Echo Reply and
    decremented by 1.  The Source Address of the Replying Router field is
    kept unmodified and the Source IP address field of the IP header is
    set to an address of the sending node.
@@ -787,7 +787,7 @@ Table of Contents
        node address (<a href="#section-4.3">Section 4.3</a>), the replying LSR would send an Echo
        Reply to the initiator.  In addition to the procedure of the Echo
        Reply described in <a href="./rfc4379.html#section-4.5">Section&nbsp;4.5 of [RFC4379]</a>, the updated Relay
-       Node Address Stack TLV described in <a href="#section-4.2">Section 4.2</a> MUST be carried
+       Node Address Stack TLV described in <a href="#section-4.2">Section 4.2</a> <em>MUST</em> be carried
        in the Echo Reply.
 
        If the receiver does not recognize the Relay Node Address Stack
@@ -800,7 +800,7 @@ Table of Contents
        node will send the Echo Reply to the initiator, and update the
        Message Type field from type of "Relayed Echo Reply" to "Echo
        Reply".  The updated Relay Node Address Stack TLV described in
-       <a href="#section-4.4">Section 4.4</a> MUST be carried in the Echo Reply.  The destination
+       <a href="#section-4.4">Section 4.4</a> <em>MUST</em> be carried in the Echo Reply.  The destination
        IP address of the Echo Reply is set to the first IP address in
 
 
@@ -813,7 +813,7 @@ Table of Contents
        the stack, and the destination UDP port will be copied from the
        Initiator Source Port field of the Relay Node Address Stack TLV.
        The source UDP port should be 3503.  The TTL of the Echo Reply
-       SHOULD be copied from the received Relay Echo Reply and
+       <em>SHOULD</em> be copied from the received Relay Echo Reply and
        decremented by 1.  The Source Address of the Replying Router
        field is kept unmodified, and the Source IP address field of the
        IP header is set to an address of the sending node.
@@ -821,14 +821,14 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>.  Sending Subsequent Echo Requests</span>
 
    During a traceroute operation, multiple Echo Request messages are
-   sent.  Each time the TTL is increased, the initiator SHOULD copy the
+   sent.  Each time the TTL is increased, the initiator <em>SHOULD</em> copy the
    Relay Node Address Stack TLV received in the previous Echo Reply to
-   the next Echo Request.  The Relay Node Address Stack TLV MUST NOT be
+   the next Echo Request.  The Relay Node Address Stack TLV <em>MUST NOT</em> be
    modified except as follows.  A NIL entry that does not have the K bit
-   set MAY be removed.  A NIL entry with the K bit serves as a warning
+   set <em>MAY</em> be removed.  A NIL entry with the K bit serves as a warning
    that further Echo Request messages are likely not to result in a
    reply.  If, however, the initiator decides to continue a traceroute
-   operation, the NIL entry with the K bit set MUST be removed.  The
+   operation, the NIL entry with the K bit set <em>MUST</em> be removed.  The
    Source Address of the Replying Router and Destination Address Offset
    fields may be preserved or reset since these fields are ignored in
    the received MPLS Echo Request.
@@ -952,13 +952,13 @@ Table of Contents
    risk of DoS by putting the IP address of a target router in the Relay
    Node Address Stack.  These messages could then be used to attack the
    control plane of an LSR by overwhelming it with these packets.  A
-   rate limiter SHOULD be applied to the well-known UDP port on the
+   rate limiter <em>SHOULD</em> be applied to the well-known UDP port on the
    relay node as suggested in [<a href="./rfc4379.html" title="&quot;Detecting Multi-Protocol Label Switched (MPLS) Data Plane Failures&quot;">RFC4379</a>].  The node that acts as a relay
-   node SHOULD validate the relay reply against a set of valid source
+   node <em>SHOULD</em> validate the relay reply against a set of valid source
    addresses and discard packets from untrusted border router addresses.
-   An implementation SHOULD provide such filtering capabilities.
+   An implementation <em>SHOULD</em> provide such filtering capabilities.
 
-   If an operator wants to obscure their nodes, it is RECOMMENDED that
+   If an operator wants to obscure their nodes, it is <em>RECOMMENDED</em> that
    they replace the replying node address that originated the Echo Reply
    with the NIL address entry in the Relay Node Address Stack TLV.
 

@@ -314,8 +314,8 @@ Table of Contents
    be used in conjunction with AH, and the different key management
    options available for ESP and AH.
 
-   The keywords MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD,
-   SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL, when they appear in this
+   The keywords <em>MUST</em>, <em>MUST NOT</em>, <em>REQUIRED</em>, <em>SHALL</em>, <em>SHALL NOT</em>, <em>SHOULD</em>,
+   <em>SHOULD NOT</em>, <em>RECOMMENDED</em>, <em>MAY</em>, and <em>OPTIONAL</em>, when they appear in this
    document, are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-Bra97" title="&quot;Key words for use in RFCs to Indicate Requirement Level&quot;">Bra97</a>].
 
    The Encapsulating Security Payload (ESP) header is designed to
@@ -369,9 +369,9 @@ Table of Contents
    authentication is provided indirectly as a result of binding the key
    used to verify the integrity to the identity of the IPsec peer.
    Typically, this binding is effected through the use of a shared,
-   symmetric key.)  Integrity-only ESP MUST be offered as a service
+   symmetric key.)  Integrity-only ESP <em>MUST</em> be offered as a service
    selection option, e.g., it must be negotiable in SA management
-   protocols and MUST be configurable via management interfaces.
+   protocols and <em>MUST</em> be configurable via management interfaces.
    Integrity-only ESP is an attractive alternative to AH in many
    contexts, e.g., because it is faster to process and more amenable to
    pipelining in many implementations.
@@ -382,9 +382,9 @@ Table of Contents
    are three possible ESP security service combinations involving these
    services:
 
-            - confidentiality-only (MAY be supported)
-            - integrity only (MUST be supported)
-            - confidentiality and integrity (MUST be supported)
+            - confidentiality-only (<em>MAY</em> be supported)
+            - integrity only (<em>MUST</em> be supported)
+            - confidentiality and integrity (<em>MUST</em> be supported)
 
    The anti-replay service may be selected for an SA only if the
    integrity service is selected for that SA.  The selection of this
@@ -420,7 +420,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Encapsulating Security Payload Packet Format</span>
 
    The (outer) protocol header (IPv4, IPv6, or Extension) that
-   immediately precedes the ESP header SHALL contain the value 50 in its
+   immediately precedes the ESP header <em>SHALL</em> contain the value 50 in its
    Protocol (IPv4) or Next Header (IPv6, Extension) field (see IANA web
    page at <a href="http://www.iana.org/assignments/protocol-numbers">http://www.iana.org/assignments/protocol-numbers</a>).  Figure 1
    illustrates the top-level format of an ESP packet.  The packet begins
@@ -695,7 +695,7 @@ Table of Contents
 
 
    ESP does not contain a version number, therefore if there are
-   concerns about backward compatibility, they MUST be addressed by
+   concerns about backward compatibility, they <em>MUST</em> be addressed by
    using a signaling mechanism between the two IPsec peers to ensure
    compatible versions of ESP (e.g., Internet Key Exchange (IKEv2)
    [<a href="#ref-Kau05" title="&quot;The Internet Key Exchange (IKEv2) Protocol&quot;">Kau05</a>]) or an out-of-band configuration mechanism.
@@ -712,9 +712,9 @@ Table of Contents
    unicast SA, whether the value is sufficient to identify an SA by
    itself or whether it must be used in conjunction with the IPsec
    protocol value is a local matter.  This mechanism for mapping inbound
-   traffic to unicast SAs MUST be supported by all ESP implementations.
+   traffic to unicast SAs <em>MUST</em> be supported by all ESP implementations.
 
-   If an IPsec implementation supports multicast, then it MUST support
+   If an IPsec implementation supports multicast, then it <em>MUST</em> support
    multicast SAs using the algorithm below for mapping inbound IPsec
    datagrams to SAs.  Implementations that support only unicast traffic
    need not implement this de-multiplexing algorithm.
@@ -726,7 +726,7 @@ Table of Contents
    reside in the individual end systems that comprise the group.
    Consequently, it is possible that a group security association and a
    unicast security association can simultaneously use the same SPI.  A
-   multicast-capable IPsec implementation MUST correctly de-multiplex
+   multicast-capable IPsec implementation <em>MUST</em> correctly de-multiplex
    inbound traffic even in the context of SPI collisions.
 
    Each entry in the Security Association Database (SAD) [<a href="#ref-Ken-Arch" title="&quot;Security Architecture for the Internet Protocol&quot;">Ken-Arch</a>] must
@@ -766,8 +766,8 @@ Table of Contents
             process the inbound ESP packet with that matching SAD entry.
             Otherwise, discard the packet and log an auditable event.
 
-   In practice, an implementation MAY choose any method to accelerate
-   this search, although its externally visible behavior MUST be
+   In practice, an implementation <em>MAY</em> choose any method to accelerate
+   this search, although its externally visible behavior <em>MUST</em> be
    functionally equivalent to having searched the SAD in the above
    order.  For example, a software-based implementation could index into
    a hash table by the SPI.  The SAD entries in each hash table bucket's
@@ -780,7 +780,7 @@ Table of Contents
    features.
 
    The indication of whether source and destination address matching is
-   required to map inbound IPsec traffic to SAs MUST be set either as a
+   required to map inbound IPsec traffic to SAs <em>MUST</em> be set either as a
    side effect of manual SA configuration or via negotiation using an SA
    management protocol, e.g., IKE or Group Domain of Interpretation
    (GDOI) [<a href="./rfc3547.html" title="&quot;The Group Domain of Interpretation&quot;">RFC3547</a>].  Typically, Source-Specific Multicast (SSM) [<a href="#ref-HC03" title="&quot;Source-Specific Multicast for IP&quot;">HC03</a>]
@@ -793,7 +793,7 @@ Table of Contents
    Internet Assigned Numbers Authority (IANA) for future use; a reserved
    SPI value will not normally be assigned by IANA unless the use of the
    assigned SPI value is specified in an RFC.  The SPI value of zero (0)
-   is reserved for local, implementation-specific use and MUST NOT be
+   is reserved for local, implementation-specific use and <em>MUST NOT</em> be
    sent on the wire.  (For example, a key management implementation
    might use the zero SPI value to mean "No Security Association Exists"
 
@@ -814,7 +814,7 @@ Table of Contents
 
    This unsigned 32-bit field contains a counter value that increases by
    one for each packet sent, i.e., a per-SA packet sequence number.  For
-   a unicast SA or a single-sender multicast SA, the sender MUST
+   a unicast SA or a single-sender multicast SA, the sender <em>MUST</em>
    increment this field for every transmitted packet.  Sharing an SA
    among multiple senders is permitted, though generally not
    recommended.  ESP provides no means of synchronizing packet counters
@@ -823,12 +823,12 @@ Table of Contents
    multi-sender SA, the anti-replay features of ESP are not available
    (see Sections <a href="#section-3.3.3">3.3.3</a> and <a href="#section-3.4.3">3.4.3</a>.)
 
-   The field is mandatory and MUST always be present even if the
+   The field is mandatory and <em>MUST</em> always be present even if the
    receiver does not elect to enable the anti-replay service for a
    specific SA.  Processing of the Sequence Number field is at the
-   discretion of the receiver, but all ESP implementations MUST be
+   discretion of the receiver, but all ESP implementations <em>MUST</em> be
    capable of performing the processing described in Sections <a href="#section-3.3.3">3.3.3</a> and
-   3.4.3. Thus, the sender MUST always transmit this field, but the
+   3.4.3. Thus, the sender <em>MUST</em> always transmit this field, but the
    receiver need not act upon it (see the discussion of Sequence Number
    Verification in the "Inbound Packet Processing" section (3.4.3)
    below).
@@ -838,15 +838,15 @@ Table of Contents
    will have a sequence number of 1; see <a href="#section-3.3.3">Section 3.3.3</a> for more details
    on how the sequence number is generated.)  If anti-replay is enabled
    (the default), the transmitted sequence number must never be allowed
-   to cycle.  Thus, the sender's counter and the receiver's counter MUST
+   to cycle.  Thus, the sender's counter and the receiver's counter <em>MUST</em>
    be reset (by establishing a new SA and thus a new key) prior to the
    transmission of the 2^32nd packet on an SA.
 
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a>.  Extended (64-bit) Sequence Number</span>
 
    To support high-speed IPsec implementations, Extended Sequence
-   Numbers (ESNs) SHOULD be implemented, as an extension to the current,
-   32-bit sequence number field.  Use of an ESN MUST be negotiated by an
+   Numbers (ESNs) <em>SHOULD</em> be implemented, as an extension to the current,
+   32-bit sequence number field.  Use of an ESN <em>MUST</em> be negotiated by an
    SA management protocol.  Note that in IKEv2, this negotiation is
    implicit; the default is ESN unless 32-bit sequence numbers are
    explicitly negotiated.  (The ESN feature is applicable to multicast
@@ -887,18 +887,18 @@ Table of Contents
    data is carried explicitly in the Payload field, but it is not called
    out as a separate field in ESP, i.e., the transmission of an explicit
    IV is invisible to ESP.  (See Figure 2.)  Any encryption algorithm
-   that requires such explicit, per-packet synchronization data MUST
+   that requires such explicit, per-packet synchronization data <em>MUST</em>
    indicate the length, any structure for such data, and the location of
    this data as part of an RFC specifying how the algorithm is used with
    ESP.  (Typically, the IV immediately precedes the ciphertext.  See
    Figure 2.)  If such synchronization data is implicit, the algorithm
-   for deriving the data MUST be part of the algorithm definition RFC.
+   for deriving the data <em>MUST</em> be part of the algorithm definition RFC.
    (If included in the Payload field, cryptographic synchronization
    data, e.g., an Initialization Vector (IV), usually is not encrypted
    per se (see Tables 1 and 2), although it sometimes is referred to as
    being part of the ciphertext.)
 
-   Note that the beginning of the next layer protocol header MUST be
+   Note that the beginning of the next layer protocol header <em>MUST</em> be
    aligned relative to the beginning of the ESP header as follows.  For
    IPv4, this alignment is a multiple of 4 bytes.  For IPv6, the
    alignment is a multiple of 8 bytes.
@@ -920,7 +920,7 @@ Table of Contents
 
          o In some cases, the receiver reads the IV in separately from
            the ciphertext.  In these cases, the algorithm specification
-           MUST address how alignment of the (real) ciphertext is to be
+           <em>MUST</em> address how alignment of the (real) ciphertext is to be
            achieved.
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a>.  Padding (for Encryption)</span>
@@ -949,9 +949,9 @@ Table of Contents
    that purpose.  Instead, the separate mechanism described below (see
    <a href="#section-2.7">Section 2.7</a>) should be used when TFC is required.
 
-   The sender MAY add 0 to 255 bytes of padding.  Inclusion of the
+   The sender <em>MAY</em> add 0 to 255 bytes of padding.  Inclusion of the
    Padding field in an ESP packet is optional, subject to the
-   requirements noted above, but all implementations MUST support
+   requirements noted above, but all implementations <em>MUST</em> support
    generation and consumption of padding.
 
       o For the purpose of ensuring that the bits to be encrypted
@@ -988,11 +988,11 @@ Table of Contents
 
    If Padding bytes are needed but the encryption algorithm does not
    specify the padding contents, then the following default processing
-   MUST be used.  The Padding bytes are initialized with a series of
+   <em>MUST</em> be used.  The Padding bytes are initialized with a series of
    (unsigned, 1-byte) integer values.  The first padding byte appended
    to the plaintext is numbered 1, with subsequent padding bytes making
    up a monotonically increasing sequence: 1, 2, 3, ....  When this
-   padding scheme is employed, the receiver SHOULD inspect the Padding
+   padding scheme is employed, the receiver <em>SHOULD</em> inspect the Padding
    field.  (This scheme was selected because of its relative simplicity,
    ease of implementation in hardware, and because it offers limited
    protection against certain forms of "cut and paste" attacks in the
@@ -1000,10 +1000,10 @@ Table of Contents
    padding values upon decryption.)
 
    If an encryption or combined mode algorithm imposes constraints on
-   the values of the bytes used for padding, they MUST be specified by
+   the values of the bytes used for padding, they <em>MUST</em> be specified by
    the RFC defining how the algorithm is employed with ESP.  If the
    algorithm requires checking of the values of the bytes used for
-   padding, this too MUST be specified in that RFC.
+   padding, this too <em>MUST</em> be specified in that RFC.
 
 <span class="h3"><a class="selflink" name="section-2.5" href="#section-2.5">2.5</a>.  Pad Length</span>
 
@@ -1041,18 +1041,18 @@ Table of Contents
 
    To facilitate the rapid generation and discarding of the padding
    traffic in support of traffic flow confidentiality (see <a href="#section-2.4">Section 2.4</a>),
-   the protocol value 59 (which means "no next header") MUST be used to
-   designate a "dummy" packet.  A transmitter MUST be capable of
+   the protocol value 59 (which means "no next header") <em>MUST</em> be used to
+   designate a "dummy" packet.  A transmitter <em>MUST</em> be capable of
    generating dummy packets marked with this value in the next protocol
-   field, and a receiver MUST be prepared to discard such packets,
+   field, and a receiver <em>MUST</em> be prepared to discard such packets,
    without indicating an error.  All other ESP header and trailer fields
    (SPI, Sequence Number, Padding, Pad Length, Next Header, and ICV)
-   MUST be present in dummy packets, but the plaintext portion of the
+   <em>MUST</em> be present in dummy packets, but the plaintext portion of the
    payload, other than this Next Header field, need not be well-formed,
    e.g., the rest of the Payload Data may consist of only random bytes.
    Dummy packets are discarded without prejudice.
 
-   Implementations SHOULD provide local management controls to enable
+   Implementations <em>SHOULD</em> provide local management controls to enable
    the use of this capability on a per-SA basis.  The controls should
    allow the user to specify if this feature is to be used and also
    provide parametric controls; for example, the controls might allow an
@@ -1072,7 +1072,7 @@ Table of Contents
    e.g., when there are multiple SAs active, because it would imply
    reducing the allowed bandwidth for a site, based on the number of
    SAs, and that would undermine the benefits of packet switching.
-   Implementations SHOULD provide controls to enable local
+   Implementations <em>SHOULD</em> provide controls to enable local
    administrators to manage the generation of dummy packets for TFC
    purposes.
 
@@ -1094,7 +1094,7 @@ Table of Contents
    field, within the payload data, is provided specifically to address
    the TFC requirement.
 
-   An IPsec implementation SHOULD be capable of padding traffic by
+   An IPsec implementation <em>SHOULD</em> be capable of padding traffic by
    adding bytes after the end of the Payload Data, prior to the
    beginning of the Padding field.  However, this padding (hereafter
    referred to as TFC padding) can be added only if the Payload Data
@@ -1106,21 +1106,21 @@ Table of Contents
    length of the Payload Data will be known.  (ESP trailer fields are
    located by counting back from the end of the ESP packet.)
    Accordingly, if TFC padding is added, the field containing the
-   specification of the length of the IP datagram MUST NOT be modified
+   specification of the length of the IP datagram <em>MUST NOT</em> be modified
    to reflect this padding.  No requirements for the value of this
    padding are established by this standard.
 
    In principle, existing IPsec implementations could have made use of
    this capability previously, in a transparent fashion.  However,
    because receivers may not have been prepared to deal with this
-   padding, the SA management protocol MUST negotiate this service prior
+   padding, the SA management protocol <em>MUST</em> negotiate this service prior
    to a transmitter employing it, to ensure backward compatibility.
    Combined with the convention described in <a href="#section-2.6">Section 2.6</a> above, about
    the use of protocol ID 59, an ESP implementation is capable of
    generating dummy and real packets that exhibit much greater length
    variability, in support of TFC.
 
-   Implementations SHOULD provide local management controls to enable
+   Implementations <em>SHOULD</em> provide local management controls to enable
    the use of this capability on a per-SA basis.  The controls should
    allow the user to specify if this feature is to be used and also
    provide parametric controls for the feature.
@@ -1143,7 +1143,7 @@ Table of Contents
 
 
    specified by the integrity algorithm selected and associated with the
-   SA.  The integrity algorithm specification MUST specify the length of
+   SA.  The integrity algorithm specification <em>MUST</em> specify the length of
    the ICV and the comparison rules and processing steps for validation.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Encapsulating Security Protocol Processing</span>
@@ -1294,9 +1294,9 @@ Table of Contents
    The mandatory-to-implement algorithms for use with ESP are described
    in a separate RFC, to facilitate updating the algorithm requirements
    independently from the protocol per se.  Additional algorithms,
-   beyond those mandated for ESP, MAY be supported.  Note that although
+   beyond those mandated for ESP, <em>MAY</em> be supported.  Note that although
    both confidentiality and integrity are optional, at least one of
-   these services MUST be selected, hence both algorithms MUST NOT be
+   these services <em>MUST</em> be selected, hence both algorithms <em>MUST NOT</em> be
    simultaneously NULL.
 
 
@@ -1330,8 +1330,8 @@ Table of Contents
    significantly extend the scope of a cryptographic module evaluation.)
    Because ESP makes provision for padding of the plaintext, encryption
    algorithms employed with ESP may exhibit either block or stream mode
-   characteristics.  Note that because encryption (confidentiality) MAY
-   be an optional service (e.g., integrity-only ESP), this algorithm MAY
+   characteristics.  Note that because encryption (confidentiality) <em>MAY</em>
+   be an optional service (e.g., integrity-only ESP), this algorithm <em>MAY</em>
    be "NULL" [<a href="#ref-Ken-Arch" title="&quot;Security Architecture for the Internet Protocol&quot;">Ken-Arch</a>].
 
    To allow an ESP implementation to compute the encryption padding
@@ -1348,7 +1348,7 @@ Table of Contents
    out of order and to accommodate packet loss.  The same admonition
    noted above applies to use of any plaintext data to facilitate
    receiver synchronization of integrity algorithms.  Note that because
-   the integrity service MAY be optional, this algorithm may be "NULL".
+   the integrity service <em>MAY</em> be optional, this algorithm may be "NULL".
 
    To allow an ESP implementation to compute any implicit integrity
    algorithm padding required, the RFC for each algorithm used with ESP
@@ -1482,18 +1482,18 @@ Table of Contents
    computation is performed must be a multiple of a block size specified
    by the algorithm.  If the length of ESP packet (as described above)
    does not match the block size requirements for the algorithm,
-   implicit padding MUST be appended to the end of the ESP packet.
+   implicit padding <em>MUST</em> be appended to the end of the ESP packet.
    (This padding is added after the Next Header field, or after the
    high-order 32 bits of the sequence number, if ESN is selected.)  The
    block size (and hence the length of the padding) is specified by the
    integrity algorithm specification.  This padding is not transmitted
    with the packet.  The document that defines an integrity algorithm
-   MUST be consulted to determine if implicit padding is required as
+   <em>MUST</em> be consulted to determine if implicit padding is required as
    described above.  If the document does not specify an answer to this
    question, then the default is to assume that implicit padding is
    required (as needed to match the packet length to the algorithm's
    block size.)  If padding bytes are needed but the algorithm does not
-   specify the padding contents, then the padding octets MUST have a
+   specify the padding contents, then the padding octets <em>MUST</em> have a
    value of zero.
 
 <span class="h5"><a class="selflink" name="section-3.3.2.2" href="#section-3.3.2.2">3.3.2.2</a>.  Combined Confidentiality and Integrity Algorithms</span>
@@ -1536,13 +1536,13 @@ Table of Contents
 
                    the combined mode algorithm employed and thus not
                    specified in this standard.
-                 - The (explicit) ICV field MAY be a part of the ESP
+                 - The (explicit) ICV field <em>MAY</em> be a part of the ESP
                    packet format when a combined mode algorithm is
                    employed.  If one is not used, an analogous field
                    usually will be a part of the ciphertext payload.
                    The location of any integrity fields, and the means
                    by which the Sequence Number and SPI are included in
-                   the integrity computation, MUST be defined in an RFC
+                   the integrity computation, <em>MUST</em> be defined in an RFC
                    that defines the use of the combined mode algorithm
                    with ESP.
 
@@ -1556,11 +1556,11 @@ Table of Contents
 
    If anti-replay is enabled (the default), the sender checks to ensure
    that the counter has not cycled before inserting the new value in the
-   Sequence Number field.  In other words, the sender MUST NOT send a
+   Sequence Number field.  In other words, the sender <em>MUST NOT</em> send a
    packet on an SA if doing so would cause the sequence number to cycle.
    An attempt to transmit a packet that would result in sequence number
    overflow is an auditable event.  The audit log entry for this event
-   SHOULD include the SPI value, current date/time, Source Address,
+   <em>SHOULD</em> include the SPI value, current date/time, Source Address,
    Destination Address, and (in IPv6) the cleartext Flow ID.
 
    The sender assumes anti-replay is enabled as a default, unless
@@ -1570,9 +1570,9 @@ Table of Contents
    anticipation of this value cycling.
 
    If the key used to compute an ICV is manually distributed, a
-   compliant implementation SHOULD NOT provide anti-replay service.  If
+   compliant implementation <em>SHOULD NOT</em> provide anti-replay service.  If
    a user chooses to employ anti-replay in conjunction with SAs that are
-   manually keyed, the sequence number counter at the sender MUST be
+   manually keyed, the sequence number counter at the sender <em>MUST</em> be
    correctly maintained across local reboots, etc., until the key is
    replaced.  (See <a href="#section-5">Section 5</a>.)
 
@@ -1602,7 +1602,7 @@ Table of Contents
    algorithm is employed.
 
    Note: If a receiver chooses to not enable anti-replay for an SA, then
-   the receiver SHOULD NOT negotiate ESN in an SA management protocol.
+   the receiver <em>SHOULD NOT</em> negotiate ESN in an SA management protocol.
    Use of ESN creates a need for the receiver to manage the anti-replay
    window (in order to determine the correct value for the high-order
    bits of the ESN, which are employed in the ICV computation), which is
@@ -1635,9 +1635,9 @@ Table of Contents
    routers along the path between IPsec peers, significantly reduces
    performance.  Moreover, the requirement for an ESP receiver to accept
    fragments for reassembly creates denial of service vulnerabilities.
-   Thus, an ESP implementation MAY choose to not support fragmentation
+   Thus, an ESP implementation <em>MAY</em> choose to not support fragmentation
    and may mark transmitted packets with the DF bit, to facilitate Path
-   MTU (PMTU) discovery.  In any case, an ESP implementation MUST
+   MTU (PMTU) discovery.  In any case, an ESP implementation <em>MUST</em>
 
 
 
@@ -1658,8 +1658,8 @@ Table of Contents
    If required, reassembly is performed prior to ESP processing.  If a
    packet offered to ESP for processing appears to be an IP fragment,
    i.e., the OFFSET field is non-zero or the MORE FRAGMENTS flag is set,
-   the receiver MUST discard the packet; this is an auditable event.
-   The audit log entry for this event SHOULD include the SPI value,
+   the receiver <em>MUST</em> discard the packet; this is an auditable event.
+   The audit log entry for this event <em>SHOULD</em> include the SPI value,
    date/time received, Source Address, Destination Address, Sequence
    Number, and (in IPv6) the Flow ID.
 
@@ -1687,8 +1687,8 @@ Table of Contents
    computation (if applicable).
 
    If no valid Security Association exists for this packet, the receiver
-   MUST discard the packet; this is an auditable event.  The audit log
-   entry for this event SHOULD include the SPI value, date/time
+   <em>MUST</em> discard the packet; this is an auditable event.  The audit log
+   entry for this event <em>SHOULD</em> include the SPI value, date/time
    received, Source Address, Destination Address, Sequence Number, and
    (in IPv6) the cleartext Flow ID.
 
@@ -1708,9 +1708,9 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.4.3" href="#section-3.4.3">3.4.3</a>.  Sequence Number Verification</span>
 
-   All ESP implementations MUST support the anti-replay service, though
+   All ESP implementations <em>MUST</em> support the anti-replay service, though
    its use may be enabled or disabled by the receiver on a per-SA basis.
-   This service MUST NOT be enabled unless the ESP integrity service
+   This service <em>MUST NOT</em> be enabled unless the ESP integrity service
    also is enabled for the SA, because otherwise the Sequence Number
    field has not been integrity protected.  Anti-replay is applicable to
    unicast as well as multicast SAs.  However, this standard specifies
@@ -1727,15 +1727,15 @@ Table of Contents
    is enabled at the receiver.  To avoid having the sender do
    unnecessary sequence number monitoring and SA setup (see <a href="#section-3.3.3">section</a>
    <a href="#section-3.3.3">3.3.3</a>), if an SA establishment protocol is employed, the receiver
-   SHOULD notify the sender, during SA establishment, if the receiver
+   <em>SHOULD</em> notify the sender, during SA establishment, if the receiver
    will not provide anti-replay protection.
 
    If the receiver has enabled the anti-replay service for this SA, the
-   receive packet counter for the SA MUST be initialized to zero when
-   the SA is established.  For each received packet, the receiver MUST
+   receive packet counter for the SA <em>MUST</em> be initialized to zero when
+   the SA is established.  For each received packet, the receiver <em>MUST</em>
    verify that the packet contains a Sequence Number that does not
    duplicate the Sequence Number of any other packets received during
-   the life of this SA.  This SHOULD be the first ESP check applied to a
+   the life of this SA.  This <em>SHOULD</em> be the first ESP check applied to a
    packet after it has been matched to an SA, to speed rejection of
    duplicate packets.
 
@@ -1785,26 +1785,26 @@ Table of Contents
    algorithm accommodates gaps in reception for a single SA as large as
    2**32-1 packets.  If a larger gap occurs, additional, heuristic
    checks for re-synchronization of the receiver sequence number counter
-   MAY be employed, as described in the Appendix.)
+   <em>MAY</em> be employed, as described in the Appendix.)
 
    If the received packet falls within the window and is not a
    duplicate, or if the packet is to the right of the window, and if a
    separate integrity algorithm is employed, then the receiver proceeds
    to integrity verification.  If a combined mode algorithm is employed,
    the integrity check is performed along with decryption.  In either
-   case, if the integrity check fails, the receiver MUST discard the
+   case, if the integrity check fails, the receiver <em>MUST</em> discard the
    received IP datagram as invalid; this is an auditable event.  The
-   audit log entry for this event SHOULD include the SPI value,
+   audit log entry for this event <em>SHOULD</em> include the SPI value,
    date/time received, Source Address, Destination Address, the Sequence
    Number, and (in IPv6) the Flow ID.  The receive window is updated
    only if the integrity verification succeeds.  (If a combined mode
    algorithm is being used, then the integrity protected Sequence Number
    must also match the Sequence Number used for anti-replay protection.)
 
-   A minimum window size of 32 packets MUST be supported when 32-bit
+   A minimum window size of 32 packets <em>MUST</em> be supported when 32-bit
    sequence numbers are employed; a window size of 64 is preferred and
-   SHOULD be employed as the default.  Another window size (larger than
-   the minimum) MAY be chosen by the receiver.  (The receiver does NOT
+   <em>SHOULD</em> be employed as the default.  Another window size (larger than
+   the minimum) <em>MAY</em> be chosen by the receiver.  (The receiver does NOT
    notify the sender of the window size.)  The receive window size
 
 
@@ -1837,8 +1837,8 @@ Table of Contents
 
             If the computed and received ICVs match, then the datagram
             is valid, and it is accepted.  If the test fails, then the
-            receiver MUST discard the received IP datagram as invalid;
-            this is an auditable event.  The log data SHOULD include the
+            receiver <em>MUST</em> discard the received IP datagram as invalid;
+            this is an auditable event.  The log data <em>SHOULD</em> include the
             SPI value, date/time received, Source Address, Destination
             Address, the Sequence Number, and (for IPv6) the cleartext
             Flow ID.
@@ -1887,7 +1887,7 @@ Table of Contents
          3. The receiver processes any Padding as specified in the
             encryption algorithm specification.  If the default padding
             scheme (see <a href="#section-2.4">Section 2.4</a>) has been employed, the receiver
-            SHOULD inspect the Padding field before removing the padding
+            <em>SHOULD</em> inspect the Padding field before removing the padding
             prior to passing the decrypted data to the next layer.
 
          4. The receiver checks the Next Header field.  If the value is
@@ -1905,7 +1905,7 @@ Table of Contents
             The exact steps for reconstructing the original datagram
             depend on the mode (transport or tunnel) and are described
             in the Security Architecture document.  At a minimum, in an
-            IPv6 context, the receiver SHOULD ensure that the decrypted
+            IPv6 context, the receiver <em>SHOULD</em> ensure that the decrypted
             data is 8-byte aligned, to facilitate processing by the
             protocol identified in the Next Header field.  This
             processing "discards" any (optional) TFC padding that has
@@ -1915,7 +1915,7 @@ Table of Contents
             <a href="#section-2.4">Section 2.4</a>).)
 
    If integrity checking and encryption are performed in parallel,
-   integrity checking MUST be completed before the decrypted packet is
+   integrity checking <em>MUST</em> be completed before the decrypted packet is
    passed on for further processing.  This order of processing
    facilitates rapid detection and rejection of replayed or bogus
 
@@ -1958,9 +1958,9 @@ Table of Contents
                    per the algorithm specification.
 
          2. If the integrity check performed by the combined mode
-            algorithm fails, the receiver MUST discard the received IP
+            algorithm fails, the receiver <em>MUST</em> discard the received IP
             datagram as invalid; this is an auditable event.  The log
-            data SHOULD include the SPI value, date/time received,
+            data <em>SHOULD</em> include the SPI value, date/time received,
             Source Address, Destination Address, the Sequence Number,
             and (in IPv6) the cleartext Flow ID.
 
@@ -1990,44 +1990,44 @@ Table of Contents
 
    Not all systems that implement ESP will implement auditing.  However,
    if ESP is incorporated into a system that supports auditing, then the
-   ESP implementation MUST also support auditing and MUST allow a system
+   ESP implementation <em>MUST</em> also support auditing and <em>MUST</em> allow a system
    administrator to enable or disable auditing for ESP.  For the most
    part, the granularity of auditing is a local matter.  However,
    several auditable events are identified in this specification and for
-   each of these events a minimum set of information that SHOULD be
+   each of these events a minimum set of information that <em>SHOULD</em> be
    included in an audit log is defined.
 
          - No valid Security Association exists for a session.  The
-           audit log entry for this event SHOULD include the SPI value,
+           audit log entry for this event <em>SHOULD</em> include the SPI value,
            date/time received, Source Address, Destination Address,
            Sequence Number, and (for IPv6) the cleartext Flow ID.
 
          - A packet offered to ESP for processing appears to be an IP
            fragment, i.e., the OFFSET field is non-zero or the MORE
            FRAGMENTS flag is set.  The audit log entry for this event
-           SHOULD include the SPI value, date/time received, Source
+           <em>SHOULD</em> include the SPI value, date/time received, Source
            Address, Destination Address, Sequence Number, and (in IPv6)
            the Flow ID.
 
          - Attempt to transmit a packet that would result in Sequence
-           Number overflow.  The audit log entry for this event SHOULD
+           Number overflow.  The audit log entry for this event <em>SHOULD</em>
            include the SPI value, current date/time, Source Address,
            Destination Address, Sequence Number, and (for IPv6) the
            cleartext Flow ID.
 
          - The received packet fails the anti-replay checks.  The audit
-           log entry for this event SHOULD include the SPI value,
+           log entry for this event <em>SHOULD</em> include the SPI value,
            date/time received, Source Address, Destination Address, the
            Sequence Number, and (in IPv6) the Flow ID.
 
          - The integrity check fails.  The audit log entry for this
-           event SHOULD include the SPI value, date/time received,
+           event <em>SHOULD</em> include the SPI value, date/time received,
            Source Address, Destination Address, the Sequence Number, and
            (for IPv6) the Flow ID.
 
-   Additional information also MAY be included in the audit log for each
+   Additional information also <em>MAY</em> be included in the audit log for each
    of these events, and additional events, not explicitly called out in
-   this specification, also MAY result in audit log entries.  There is
+   this specification, also <em>MAY</em> result in audit log entries.  There is
    no requirement for the receiver to transmit any message to the
 
 
@@ -2044,33 +2044,33 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Conformance Requirements</span>
 
    Implementations that claim conformance or compliance with this
-   specification MUST implement the ESP syntax and processing described
-   here for unicast traffic, and MUST comply with all additional packet
+   specification <em>MUST</em> implement the ESP syntax and processing described
+   here for unicast traffic, and <em>MUST</em> comply with all additional packet
    processing requirements levied by the Security Architecture document
    [<a href="#ref-Ken-Arch" title="&quot;Security Architecture for the Internet Protocol&quot;">Ken-Arch</a>].  Additionally, if an implementation claims to support
-   multicast traffic, it MUST comply with the additional requirements
+   multicast traffic, it <em>MUST</em> comply with the additional requirements
    specified for support of such traffic.  If the key used to compute an
    ICV is manually distributed, correct provision of the anti-replay
    service requires correct maintenance of the counter state at the
    sender (across local reboots, etc.), until the key is replaced, and
    there likely would be no automated recovery provision if counter
-   overflow were imminent.  Thus, a compliant implementation SHOULD NOT
+   overflow were imminent.  Thus, a compliant implementation <em>SHOULD NOT</em>
    provide anti-replay service in conjunction with SAs that are manually
    keyed.
 
    The mandatory-to-implement algorithms for use with ESP are described
    in a separate document [<a href="#ref-Eas04" title="&quot;Cryptographic Algorithm Implementation Requirements for Encapsulating Security Payload (ESP) and Authentication Header (AH)&quot;">Eas04</a>], to facilitate updating the algorithm
    requirements independently from the protocol per se.  Additional
-   algorithms, beyond those mandated for ESP, MAY be supported.
+   algorithms, beyond those mandated for ESP, <em>MAY</em> be supported.
 
    Because use of encryption in ESP is optional, support for the "NULL"
    encryption algorithm also is required to maintain consistency with
    the way ESP services are negotiated.  Support for the
    confidentiality-only service version of ESP is optional.  If an
-   implementation offers this service, it MUST also support the
+   implementation offers this service, it <em>MUST</em> also support the
    negotiation of the "NULL" integrity algorithm.  NOTE that although
    integrity and encryption may each be "NULL" under the circumstances
-   noted above, they MUST NOT both be "NULL".
+   noted above, they <em>MUST NOT</em> both be "NULL".
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Security Considerations</span>
 
@@ -2083,7 +2083,7 @@ Table of Contents
 
    This document differs from <a href="./rfc2406.html">RFC 2406</a> in a number of significant ways.
 
-        o Confidentiality-only service -- now a MAY, not a MUST.
+        o Confidentiality-only service -- now a <em>MAY</em>, not a <em>MUST</em>.
 
 
 
@@ -2501,7 +2501,7 @@ A3.  Handling Loss of Synchronization due to Significant Packet Loss
    Section A2.2. will fail to yield the correct value.  Unless this
    problem is detected and addressed, subsequent packets on this SA will
    fail authentication checks and be discarded.  The following procedure
-   SHOULD be implemented by any IPsec (ESP or AH) implementation that
+   <em>SHOULD</em> be implemented by any IPsec (ESP or AH) implementation that
    supports the ESN option.
 
    Note that this sort of extended traffic loss is likely to be detected

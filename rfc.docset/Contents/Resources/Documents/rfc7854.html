@@ -377,9 +377,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
    <a href="./rfc2119.html">2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Definitions</span>
@@ -443,10 +443,10 @@ Table of Contents
 
    BMP operates over TCP.  All options are controlled by configuration
    on the monitored router.  No BMP message is ever sent from the
-   monitoring station to the monitored router.  The monitored router MAY
+   monitoring station to the monitored router.  The monitored router <em>MAY</em>
    take steps to prevent the monitoring station from sending data (for
    example, by half-closing the TCP session or setting its window size
-   to 0) or it MAY silently discard any data sent by the monitoring
+   to 0) or it <em>MAY</em> silently discard any data sent by the monitoring
    station.
 
    The router may be monitored by one or more monitoring stations.  With
@@ -458,7 +458,7 @@ Table of Contents
    The passive party is configured to listen on a particular TCP port
    and the active party is configured to establish a connection to that
    port.  If the active party is unable to connect to the passive party,
-   it periodically retries the connection.  Retries MUST be subject to
+   it periodically retries the connection.  Retries <em>MUST</em> be subject to
    some variety of backoff.  Exponential backoff with a default initial
    backoff of 30 seconds and a maximum of 720 seconds is suggested.
 
@@ -472,17 +472,17 @@ Table of Contents
 <span class="grey"><a href="./rfc7854.html">RFC 7854</a>                 BGP Monitoring Protocol               June 2016</span>
 
 
-   The router MAY restrict the set of IP addresses from which it will
-   accept connections.  It SHOULD restrict the number of simultaneous
+   The router <em>MAY</em> restrict the set of IP addresses from which it will
+   accept connections.  It <em>SHOULD</em> restrict the number of simultaneous
    connections it will permit from a given IP address.  The default
-   value for this restriction SHOULD be 1, though an implementation MAY
+   value for this restriction <em>SHOULD</em> be 1, though an implementation <em>MAY</em>
    permit this restriction to be disabled in configuration.  The router
-   MUST also restrict the rate at which sessions may be established.  A
+   <em>MUST</em> also restrict the rate at which sessions may be established.  A
    suggested default is an establishment rate of 2 sessions per minute.
 
-   A router (or management station) MAY implement logic to detect
+   A router (or management station) <em>MAY</em> implement logic to detect
    redundant connections, as might occur if both parties are configured
-   to be active, and MAY elect to terminate redundant connections.  A
+   to be active, and <em>MAY</em> elect to terminate redundant connections.  A
    Termination reason code is defined for this purpose.
 
    Once a connection is established, the router sends messages over it.
@@ -495,20 +495,20 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Lifecycle of a BMP Session</span>
 
    A router is configured to speak BMP to one or more monitoring
-   stations.  It MAY be configured to send monitoring information for
+   stations.  It <em>MAY</em> be configured to send monitoring information for
    only a subset of its BGP peers.  Otherwise, all BGP peers are assumed
    to be monitored.
 
    A BMP session begins when the active party (either router or
    management station, as determined by configuration) successfully
    opens a TCP session (the "BMP session").  Once the session is up, the
-   router begins to send BMP messages.  It MUST begin by sending an
+   router begins to send BMP messages.  It <em>MUST</em> begin by sending an
    Initiation message.  It subsequently sends a Peer Up message over the
    BMP session for each of its monitored BGP peers that is in the
    Established state.  It follows by sending the contents of its Adj-
    RIBs-In (pre-policy, post-policy, or both, see <a href="#section-5">Section 5</a>)
    encapsulated in Route Monitoring messages.  Once it has sent all the
-   routes for a given peer, it MUST send an End-of-RIB message for that
+   routes for a given peer, it <em>MUST</em> send an End-of-RIB message for that
    peer; when End-of-RIB has been sent for each monitored peer, the
    initial table dump has completed.  (A monitoring station that only
    wants to gather a table dump could close the connection once it has
@@ -516,7 +516,7 @@ Table of Contents
    Peer Up message.)
 
    Following the initial table dump, the router sends incremental
-   updates encapsulated in Route Monitoring messages.  It MAY
+   updates encapsulated in Route Monitoring messages.  It <em>MAY</em>
    periodically send Stats Reports or even new Initiation messages,
    according to configuration.  If any new monitored BGP peer becomes
    Established, a corresponding Peer Up message is sent.  If any BGP
@@ -532,7 +532,7 @@ Table of Contents
    Established state, corresponding Peer Down messages are sent.
 
    A BMP session ends when the TCP session that carries it is closed for
-   any reason.  The router MAY send a Termination message prior to
+   any reason.  The router <em>MAY</em> send a Termination message prior to
    closing the session.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  BMP Message Format</span>
@@ -556,13 +556,13 @@ Table of Contents
    o  Version (1 byte): Indicates the BMP version.  This is set to '3'
       for all messages defined in this specification. ('1' and '2' were
       used by draft versions of this document.)  Version 0 is reserved
-      and MUST NOT be sent.
+      and <em>MUST NOT</em> be sent.
 
    o  Message Length (4 bytes): Length of the message in bytes
       (including headers, data, and encapsulated messages, if any).
 
    o  Message Type (1 byte): This identifies the type of the BMP
-      message.  A BMP implementation MUST ignore unrecognized message
+      message.  A BMP implementation <em>MUST</em> ignore unrecognized message
       types upon receipt.
 
       *  Type = 0: Route Monitoring
@@ -651,16 +651,16 @@ Table of Contents
       *  The A flag, if set to 1, indicates that the message is
          formatted using the legacy 2-byte AS_PATH format.  If set to 0,
          the message is formatted using the 4-byte AS_PATH format
-         [<a href="./rfc6793.html" title="&quot;BGP Support for Four-Octet Autonomous System (AS) Number Space&quot;">RFC6793</a>].  A BMP speaker MAY choose to propagate the AS_PATH
-         information as received from its peer, or it MAY choose to
+         [<a href="./rfc6793.html" title="&quot;BGP Support for Four-Octet Autonomous System (AS) Number Space&quot;">RFC6793</a>].  A BMP speaker <em>MAY</em> choose to propagate the AS_PATH
+         information as received from its peer, or it <em>MAY</em> choose to
          reformat all AS_PATH information into a 4-byte format
          regardless of how it was received from the peer.  In the latter
-         case, AS4_PATH or AS4_AGGREGATOR path attributes SHOULD NOT be
+         case, AS4_PATH or AS4_AGGREGATOR path attributes <em>SHOULD NOT</em> be
          sent in the BMP UPDATE message.  This flag has no significance
          when used with route mirroring messages (<a href="#section-4.7">Section 4.7</a>).
 
-      *  The remaining bits are reserved for future use.  They MUST be
-         transmitted as 0 and their values MUST be ignored on receipt.
+      *  The remaining bits are reserved for future use.  They <em>MUST</em> be
+         transmitted as 0 and their values <em>MUST</em> be ignored on receipt.
 
    o  Peer Distinguisher (8 bytes): Routers today can have multiple
       instances (example: Layer 3 Virtual Private Networks (L3VPNs)
@@ -710,14 +710,14 @@ Table of Contents
 
    The initiation message provides a means for the monitored router to
    inform the monitoring station of its vendor, software version, and so
-   on.  An initiation message MUST be sent as the first message after
-   the TCP session comes up.  An initiation message MAY be sent at any
+   on.  An initiation message <em>MUST</em> be sent as the first message after
+   the TCP session comes up.  An initiation message <em>MAY</em> be sent at any
    point thereafter, if warranted by a change on the monitored router.
 
    The initiation message consists of the common BMP header followed by
    two or more Information TLVs (<a href="#section-4.4">Section 4.4</a>) containing information
    about the monitored router.  The sysDescr and sysName Information
-   TLVs MUST be sent, any others are optional.  The string TLV MAY be
+   TLVs <em>MUST</em> be sent, any others are optional.  The string TLV <em>MAY</em> be
    included multiple times.
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Information TLV</span>
@@ -743,7 +743,7 @@ Table of Contents
          requirement to terminate the string with a null (or any other
          particular) character -- the Information Length field gives its
          termination.  If multiple strings are included, their ordering
-         MUST be preserved when they are reported.
+         <em>MUST</em> be preserved when they are reported.
 
 
 
@@ -753,11 +753,11 @@ Table of Contents
 
 
       *  Type = 1: sysDescr.  The Information field contains an ASCII
-         string whose value MUST be set to be equal to the value of the
+         string whose value <em>MUST</em> be set to be equal to the value of the
          sysDescr MIB-II [<a href="./rfc1213.html" title="&quot;Management Information Base for Network Management of TCP/IP-based internets: MIB-II&quot;">RFC1213</a>] object.
 
       *  Type = 2: sysName.  The Information field contains an ASCII
-         string whose value MUST be set to be equal to the value of the
+         string whose value <em>MUST</em> be set to be equal to the value of the
          sysName MIB-II [<a href="./rfc1213.html" title="&quot;Management Information Base for Network Management of TCP/IP-based internets: MIB-II&quot;">RFC1213</a>] object.
 
    o  Information Length (2 bytes): The length of the following
@@ -770,10 +770,10 @@ Table of Contents
 
    The termination message provides a way for a monitored router to
    indicate why it is terminating a session.  Although use of this
-   message is RECOMMENDED, a monitoring station must always be prepared
+   message is <em>RECOMMENDED</em>, a monitoring station must always be prepared
    for the session to terminate with no message.  Once the router has
-   sent a termination message, it MUST close the TCP session without
-   sending any further messages.  Likewise, the monitoring station MUST
+   sent a termination message, it <em>MUST</em> close the TCP session without
+   sending any further messages.  Likewise, the monitoring station <em>MUST</em>
    close the TCP session after receiving a termination message.
 
    The termination message consists of the common BMP header followed by
@@ -794,9 +794,9 @@ Table of Contents
 
       *  Type = 0: String.  The Information field contains a free-form
          UTF-8 string whose length is given by the Information Length
-         field.  Inclusion of this TLV is optional.  It MAY be used to
+         field.  Inclusion of this TLV is optional.  It <em>MAY</em> be used to
          provide further detail for any of the defined reasons.
-         Multiple String TLVs MAY be included in the message.
+         Multiple String TLVs <em>MAY</em> be included in the message.
 
 
 
@@ -811,7 +811,7 @@ Table of Contents
       *  Type = 1: Reason.  The Information field contains a 2-byte code
          indicating the reason that the connection was terminated.  Some
          reasons may have further TLVs associated with them.  Inclusion
-         of this TLV is REQUIRED.  Defined reasons are:
+         of this TLV is <em>REQUIRED</em>.  Defined reasons are:
 
          +  Reason = 0: Session administratively closed.  The session
             might be re-initiated.
@@ -867,20 +867,20 @@ Table of Contents
    Following the common BMP header and per-peer header is a set of TLVs
    that contain information about a message or set of messages.  Each
    TLV comprises a 2-byte type code, a 2-byte length field, and a
-   variable-length value.  Inclusion of any given TLV is OPTIONAL;
-   however, at least one TLV SHOULD be included, otherwise there's no
+   variable-length value.  Inclusion of any given TLV is <em>OPTIONAL</em>;
+   however, at least one TLV <em>SHOULD</em> be included, otherwise there's no
    point in sending the message.  Defined TLVs are as follows:
 
    o  Type = 0: BGP Message.  A BGP PDU.  This PDU may or may not be an
       Update message.  If the BGP Message TLV occurs in the Route
-      Mirroring message, it MUST occur last in the list of TLVs.
+      Mirroring message, it <em>MUST</em> occur last in the list of TLVs.
 
    o  Type = 1: Information.  A 2-byte code that provides information
       about the mirrored message or message stream.  Defined codes are:
 
       *  Code = 0: Errored PDU.  The contained message was found to have
          some error that made it unusable, causing it to be treated-as-
-         withdraw [<a href="./rfc7606.html" title="&quot;Revised Error Handling for BGP UPDATE Messages&quot;">RFC7606</a>].  A BGP Message TLV MUST also occur in the
+         withdraw [<a href="./rfc7606.html" title="&quot;Revised Error Handling for BGP UPDATE Messages&quot;">RFC7606</a>].  A BGP Message TLV <em>MUST</em> also occur in the
          TLV list.
 
       *  Code = 1: Messages Lost.  One or more messages may have been
@@ -943,8 +943,8 @@ Table of Contents
    o  Stat Len (2 bytes): Defines the length of the Stat Data field.
 
    This specification defines the following statistics.  A BMP
-   implementation MUST ignore unrecognized stat types on receipt, and
-   likewise MUST ignore unexpected data in the Stat Data field.
+   implementation <em>MUST</em> ignore unrecognized stat types on receipt, and
+   likewise <em>MUST</em> ignore unexpected data in the Stat Data field.
 
    Stats are either counters or gauges, defined as follows after the
    examples in <a href="./rfc1155.html#section-3.2.3.3">Section&nbsp;3.2.3.3 of [RFC1155]</a> and <a href="./rfc2856.html#section-4">Section&nbsp;4 of [RFC2856]</a>,
@@ -1020,7 +1020,7 @@ Table of Contents
    8-byte gauges as "Stat Data", this does not preclude future versions
    from incorporating more complex TLV-type "Stat Data" (for example,
    one that can carry prefix-specific data).  SR messages are optional.
-   However, if an SR message is transmitted, at least one statistic MUST
+   However, if an SR message is transmitted, at least one statistic <em>MUST</em>
    be carried in it.
 
 
@@ -1075,7 +1075,7 @@ Table of Contents
       for the peer.
 
    A Peer Down message implicitly withdraws all routes that were
-   associated with the peer in question.  A BMP implementation MAY omit
+   associated with the peer in question.  A BMP implementation <em>MAY</em> omit
    sending explicit withdraws for such routes.
 
 
@@ -1147,7 +1147,7 @@ Table of Contents
    o  Information: Information about the peer, using the Information TLV
       (<a href="#section-4.4">Section 4.4</a>) format.  Only the string type is defined in this
       context; it may be repeated.  Inclusion of the Information field
-      is OPTIONAL.  Its presence or absence can be inferred by
+      is <em>OPTIONAL</em>.  Its presence or absence can be inferred by
       inspection of the Message Length in the common header.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Route Monitoring</span>
@@ -1158,38 +1158,38 @@ Table of Contents
    the Adj-RIB-In of those peers using standard BGP Update messages,
    encapsulated in Route Monitoring messages.  There is no requirement
    on the ordering of messages in the peer dumps.  When the initial dump
-   is completed for a given peer, this MUST be indicated by sending an
+   is completed for a given peer, this <em>MUST</em> be indicated by sending an
    End-of-RIB marker for that peer (as specified in <a href="./rfc4724.html#section-2">Section&nbsp;2 of
    [RFC4724]</a>, plus the BMP encapsulation header).  See also <a href="#section-9">Section 9</a>.
 
    A BMP speaker may send pre-policy routes, post-policy routes, or
    both.  The selection may be due to implementation constraints (it is
    possible that a BGP implementation may not store, for example, routes
-   that have been filtered out by policy).  Pre-policy routes MUST have
+   that have been filtered out by policy).  Pre-policy routes <em>MUST</em> have
    their L flag clear in the BMP header (see <a href="#section-4">Section 4</a>), post-policy
-   routes MUST have their L flag set.  When an implementation chooses to
+   routes <em>MUST</em> have their L flag set.  When an implementation chooses to
    send both pre- and post-policy routes, it is effectively multiplexing
    two update streams onto the BMP session.  The streams are
    distinguished by their L flags.
 
    If the implementation is able to provide information about when
-   routes were received, it MAY provide such information in the BMP
-   Timestamp field.  Otherwise, the BMP Timestamp field MUST be set to
+   routes were received, it <em>MAY</em> provide such information in the BMP
+   Timestamp field.  Otherwise, the BMP Timestamp field <em>MUST</em> be set to
    0, indicating that time is not available.
 
    Ongoing monitoring is accomplished by propagating route changes in
    BGP Update PDUs and forwarding those PDUs to the monitoring station,
    again using RM messages.  When a change occurs to a route, such as an
    attribute change, the router must update the monitoring station with
-   the new attribute.  As discussed above, it MAY generate either an
+   the new attribute.  As discussed above, it <em>MAY</em> generate either an
    update with the L flag clear, with it set, or two updates, one with
    the L flag clear and the other with the L flag set.  When a route is
    withdrawn by a peer, a corresponding withdraw is sent to the
-   monitoring station.  The withdraw MUST have its L flag set to
+   monitoring station.  The withdraw <em>MUST</em> have its L flag set to
    correspond to that of any previous announcement; if the route in
    question was previously announced with L flag both clear and set, the
-   withdraw MUST similarly be sent twice, with L flag clear and set.
-   Multiple changed routes MAY be grouped into a single BGP UPDATE PDU
+   withdraw <em>MUST</em> similarly be sent twice, with L flag clear and set.
+   Multiple changed routes <em>MAY</em> be grouped into a single BGP UPDATE PDU
    when feasible, exactly as in the standard BGP protocol.
 
 
@@ -1223,7 +1223,7 @@ Table of Contents
    without state compression, an implementation could require unbounded
    storage to buffer messages queued to be mirrored.  Route Mirroring is
    unlikely to be suitable for implementation in conventional routers,
-   and its use is NOT RECOMMENDED except in cases where implementors
+   and its use is NOT <em>RECOMMENDED</em> except in cases where implementors
    have carefully considered the tradeoffs.  These tradeoffs include:
    router resource exhaustion, the potential to interfere with the
    transmission or reception of BGP UPDATE messages, and the slowing of
@@ -1233,10 +1233,10 @@ Table of Contents
    diagnosis.  When Revised Error Handling for BGP UPDATE messages
    [<a href="./rfc7606.html" title="&quot;Revised Error Handling for BGP UPDATE Messages&quot;">RFC7606</a>] is in use, a router can process BGP messages that are
    determined to contain errors, without resetting the BGP session.
-   Such messages MAY be mirrored.  The buffering used for such mirroring
-   SHOULD be limited.  If an errored message is unable to be mirrored
+   Such messages <em>MAY</em> be mirrored.  The buffering used for such mirroring
+   <em>SHOULD</em> be limited.  If an errored message is unable to be mirrored
    due to buffer exhaustion, a message with the "Messages Lost" code
-   SHOULD be sent to indicate this.  (This implies that a buffer should
+   <em>SHOULD</em> be sent to indicate this.  (This implies that a buffer should
    be reserved for this use.)
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Stat Reports</span>
@@ -1268,7 +1268,7 @@ Table of Contents
    example, as "logical routers" or through some other facility.  The
    BMP protocol relates to a single instance of BGP; thus, if a router
    supports multiple BGP instances it should also support multiple BMP
-   instances (one per BGP instance).  Different BMP instances SHOULD
+   instances (one per BGP instance).  Different BMP instances <em>SHOULD</em>
    generate Initiation Messages that are distinct from one another, for
    example, by using distinguishable sysNames or by the inclusion of
    instance-identifying information in a string TLV.
@@ -1281,10 +1281,10 @@ Table of Contents
 
    Such routes can be modeled as having been sent by the router to
    itself, placing the router's own address in the Peer Address field of
-   the header.  It is RECOMMENDED that when doing so, the router should
+   the header.  It is <em>RECOMMENDED</em> that when doing so, the router should
    use the same address it has used as its local address for the BMP
    session.  Since in this case no transport session actually exists,
-   the Local and Remote Port fields of the Peer Up message MUST be set
+   the Local and Remote Port fields of the Peer Up message <em>MUST</em> be set
    to 0.  Clearly, the OPEN Message fields of the Peer Up message will
    equally not have been transmitted physically, but should represent
    the relevant capabilities of the local router.
@@ -1337,7 +1337,7 @@ Table of Contents
    o  Type 5: Termination
    o  Type 6: Route Mirroring
 
-   Type values 0 through 127 MUST be assigned using the "Standards
+   Type values 0 through 127 <em>MUST</em> be assigned using the "Standards
    Action" policy, and values 128 through 250 using the "Specification
    Required" policy defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 251 through 254 are
    Experimental, and value 255 is Reserved.
@@ -1351,7 +1351,7 @@ Table of Contents
    o  Peer Type = 1: RD Instance Peer
    o  Peer Type = 2: Local Instance Peer
 
-   Peer Type values 0 through 127 MUST be assigned using the "Standards
+   Peer Type values 0 through 127 <em>MUST</em> be assigned using the "Standards
    Action" policy, and values 128 through 250 using the "Specification
    Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 251 through 254 are
    Experimental, and value 255 is Reserved.
@@ -1404,7 +1404,7 @@ Table of Contents
    o  Stat Type = 12: Number of prefixes subjected to treat-as-withdraw
    o  Stat Type = 13: Number of duplicate update messages received
 
-   Stat Type values 0 through 32767 MUST be assigned using the
+   Stat Type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and value 65535 is Reserved.
@@ -1433,7 +1433,7 @@ Table of Contents
    o  Type = 1: sysDescr
    o  Type = 2: sysName
 
-   Information type values 0 through 32767 MUST be assigned using the
+   Information type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and value 65535 is reserved.
@@ -1446,7 +1446,7 @@ Table of Contents
    o  Type = 0: String
    o  Type = 1: Reason
 
-   Information type values 0 through 32767 MUST be assigned using the
+   Information type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and value 65535 is Reserved.
@@ -1462,7 +1462,7 @@ Table of Contents
    o  Type = 3: Redundant connection
    o  Type = 4: Permanently administratively closed
 
-   Information type values 0 through 32767 MUST be assigned using the
+   Information type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and value 65535 is Reserved.
@@ -1493,7 +1493,7 @@ Table of Contents
    o  Type = 4: Remote system closed, no data
    o  Type = 5: Peer de-configured
 
-   Information type values 0 through 32767 MUST be assigned using the
+   Information type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and values 0 and 65535 are Reserved.
@@ -1506,7 +1506,7 @@ Table of Contents
    o  Type = 0: BGP Message
    o  Type = 1: Information
 
-   Information type values 0 through 32767 MUST be assigned using the
+   Information type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and value 65535 is Reserved.
@@ -1519,7 +1519,7 @@ Table of Contents
    o  Type = 0: Errored PDU
    o  Type = 1: Messages Lost
 
-   Information type values 0 through 32767 MUST be assigned using the
+   Information type values 0 through 32767 <em>MUST</em> be assigned using the
    "Standards Action" policy, and values 32768 through 65530 using the
    "Specification Required" policy, defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  Values 65531
    through 65534 are Experimental, and value 65535 is Reserved.
@@ -1549,7 +1549,7 @@ Table of Contents
    router's import policy by comparing the pre-policy routes exposed by
    BMP, to post-policy routes exported in BGP.
 
-   Implementations of this protocol SHOULD require manual configuration
+   Implementations of this protocol <em>SHOULD</em> require manual configuration
    of the monitored and monitoring devices.
 
    Unless a transport that provides mutual authentication is used, an

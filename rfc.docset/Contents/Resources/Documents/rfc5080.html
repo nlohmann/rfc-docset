@@ -323,17 +323,17 @@ Table of Contents
 
    silently discard
       This means the implementation discards the packet without further
-      processing.  The implementation SHOULD provide the capability of
+      processing.  The implementation <em>SHOULD</em> provide the capability of
       logging the error, including the contents of the silently
-      discarded packet, and SHOULD record the event in a statistics
+      discarded packet, and <em>SHOULD</em> record the event in a statistics
       counter.
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Requirements Language</span>
 
    In this document, several words are used to signify the requirements
-   of the specification.  The key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY",
-   and "OPTIONAL" in this document are to be interpreted as described in
+   of the specification.  The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>",  "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Issues</span>
@@ -345,7 +345,7 @@ Table of Contents
    Regarding the State attribute, <a href="./rfc2865.html#section-5.24">[RFC2865] Section&nbsp;5.24</a> states:
 
       This Attribute is available to be sent by the server to the client
-      in an Access-Challenge and MUST be sent unmodified from the client
+      in an Access-Challenge and <em>MUST</em> be sent unmodified from the client
       to the server in the new Access-Request reply to that challenge,
       if any.
 
@@ -360,7 +360,7 @@ Table of Contents
       in an Access-Accept that also includes a Termination-Action
       Attribute with the value of RADIUS-Request.  If the NAS performs
       the Termination-Action by sending a new Access-Request upon
-      termination of the current session, it MUST include the State
+      termination of the current session, it <em>MUST</em> include the State
       attribute unchanged in that Access-Request.
 
    Some RADIUS client implementations do not properly use the State
@@ -368,7 +368,7 @@ Table of Contents
    process from the continuation of an ongoing process (by the same user
    on the same NAS and port).  Where an EAP-Message attribute is
    included in an Access-Challenge or Access-Accept attribute, RADIUS
-   servers SHOULD also include a State attribute.  See <a href="#section-2.1.2">Section 2.1.2</a> on
+   servers <em>SHOULD</em> also include a State attribute.  See <a href="#section-2.1.2">Section 2.1.2</a> on
    Request ID supplementation for additional benefits to using the State
    attribute in this fashion.
 
@@ -379,12 +379,12 @@ Table of Contents
 
    We extend the requirements of [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>] to say that Access-Requests
    that are part of an ongoing Access-Request / Access-Challenge
-   authentication process SHOULD contain a State attribute.  It is the
+   authentication process <em>SHOULD</em> contain a State attribute.  It is the
    responsibility of the server, to send a State attribute in an
    Access-Challenge packet, if that server needs a State attribute in a
    subsequent Access-Request to tie multiple Access-Requests together
    into one authentication session.  As defined in [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>] <a href="#section-5.24">Section</a>
-   <a href="#section-5.24">5.24</a>, the State MUST be sent unmodified from the client to the server
+   <a href="#section-5.24">5.24</a>, the State <em>MUST</em> be sent unmodified from the client to the server
    in the new Access-Request reply to that challenge, if any.
 
    While most server implementations require the presence of a State
@@ -397,12 +397,12 @@ Table of Contents
    Other authentication mechanisms need to tie a sequence of Access-
    Request / Access-Challenge packets together into one ongoing
    authentication session.  Servers implementing those authentication
-   mechanisms SHOULD include a State attribute in Access-Challenge
+   mechanisms <em>SHOULD</em> include a State attribute in Access-Challenge
    packets.
 
    In general, if the authentication process involves one or more
    Access-Request / Access-Challenge sequences, the State attribute
-   SHOULD be sent by the server in the Access-Challenge packets.  Using
+   <em>SHOULD</em> be sent by the server in the Access-Challenge packets.  Using
    the State attribute to create a multi-packet session is the simplest
 
 
@@ -414,22 +414,22 @@ Table of Contents
 
    method available in RADIUS today.  While other methods of creating
    multi-packet sessions are possible (e.g., <a href="./rfc3579.html#section-2.6.1">[RFC3579] Section&nbsp;2.6.1</a>),
-   those methods are NOT RECOMMENDED.
+   those methods are NOT <em>RECOMMENDED</em>.
 
    The only permissible values for a State attribute are values provided
    in an Access-Accept, Access-Challenge, CoA-Request or Disconnect-
-   Request packet.  A RADIUS client MUST use only those values for the
+   Request packet.  A RADIUS client <em>MUST</em> use only those values for the
    State attribute that it has previously received from a server.  An
    Access-Request sent as a result of a new or restarted authentication
-   run MUST NOT include the State attribute, even if a State attribute
+   run <em>MUST NOT</em> include the State attribute, even if a State attribute
    has previously been received in an Access-Challenge for the same user
    and port.
 
    Access-Request packets that contain a Service-Type attribute with the
-   value Authorize Only (17) MUST contain a State attribute.  Access-
+   value Authorize Only (17) <em>MUST</em> contain a State attribute.  Access-
    Request packets that contain a Service-Type attribute with value Call
-   Check (10) SHOULD NOT contain a State attribute.  Any other Access-
-   Request packet that performs authorization checks MUST contain a
+   Check (10) <em>SHOULD NOT</em> contain a State attribute.  Any other Access-
+   Request packet that performs authorization checks <em>MUST</em> contain a
    State attribute.  This last requirement often means that an Access-
    Accept needs to contain a State attribute, which can then be used in
    a later Access-Request that performs authorization checks.
@@ -444,10 +444,10 @@ Table of Contents
    document.
 
    In an Access-Request with a Service-Type Attribute with value Call
-   Check, it is NOT RECOMMENDED for the User-Name and User-Password
+   Check, it is NOT <em>RECOMMENDED</em> for the User-Name and User-Password
    attributes to contain the same values (e.g., a MAC address).
    Implementing MAC address checking without using a Service-Type of
-   Call Check is NOT RECOMMENDED.  This practice gives an attacker both
+   Call Check is NOT <em>RECOMMENDED</em>.  This practice gives an attacker both
    the clear-text and cipher-text of the User-Password field, which
    permits many attacks on the security of the RADIUS protocol.  For
    example, if the Request Authenticator does not satisfy the [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>]
@@ -469,19 +469,19 @@ Table of Contents
 
 
    Any Access-Request packet that performs authorization checks,
-   including Call Check, SHOULD contain a Message-Authenticator
+   including Call Check, <em>SHOULD</em> contain a Message-Authenticator
    attribute.  Any response to an Access-Request performing an
-   authorization check MUST NOT contain confidential information about
+   authorization check <em>MUST NOT</em> contain confidential information about
    any user (such as Tunnel-Password), unless that Access-Request
    contains a State attribute.  The use of State here permits the
    authorization check to be tied to an earlier user authentication.  In
-   that case, the server MAY respond to the NAS with confidential
-   information about that user.  The server MUST NOT respond to that
+   that case, the server <em>MAY</em> respond to the NAS with confidential
+   information about that user.  The server <em>MUST NOT</em> respond to that
    authorization check with confidential information about any other
    user.
 
    For an Access-Request packet performing an authorization check that
-   does not contain a State attribute, the server MUST respond with an
+   does not contain a State attribute, the server <em>MUST</em> respond with an
    Access-Reject.
 
 <span class="h4"><a class="selflink" name="section-2.1.2" href="#section-2.1.2">2.1.2</a>.  Request-ID Supplementation</span>
@@ -489,7 +489,7 @@ Table of Contents
    [<a name="ref-RFC3579" id="ref-RFC3579">RFC3579</a>] <a href="#section-2.6.1">Section 2.6.1</a> states:
 
       In EAP, each session has its own unique Identifier space.  RADIUS
-      server implementations MUST be able to distinguish between EAP
+      server implementations <em>MUST</em> be able to distinguish between EAP
       packets with the same Identifier existing within distinct
       sessions, originating on the same NAS.  For this purpose, sessions
       can be distinguished based on NAS and session identification
@@ -540,7 +540,7 @@ Table of Contents
    to having an EAP Identifier space per NAS, or perhaps one that is
    global to the implementation.  These restrictions are unnecessary
    when the above algorithm is used, which gives each session a unique
-   EAP Identifier space.  The above algorithm SHOULD be used to track
+   EAP Identifier space.  The above algorithm <em>SHOULD</em> be used to track
    EAP sessions in preference to any other method.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Overload Conditions</span>
@@ -582,13 +582,13 @@ Table of Contents
 
    Suggested solutions include:
 
-      [<a name="ref-a" id="ref-a">a</a>]   Jitter.  To avoid synchronization, a RADIUS client SHOULD
+      [<a name="ref-a" id="ref-a">a</a>]   Jitter.  To avoid synchronization, a RADIUS client <em>SHOULD</em>
             incorporate induced jitter within its retransmission
             algorithm, as specified below.
 
       [<a name="ref-b" id="ref-b">b</a>]   Congestive backoff.  While it is not necessary for RADIUS
             client implementations to implement complex retransmission
-            algorithms, implementations SHOULD support congestive
+            algorithms, implementations <em>SHOULD</em> support congestive
             backoff.
 
    RADIUS retransmission timers are based on the model used in Dynamic
@@ -596,7 +596,7 @@ Table of Contents
    used here are also borrowed from this specification.  RADIUS is a
    request/response-based protocol.  The message exchange terminates
    when the requester successfully receives the answer, or the message
-   exchange is considered to have failed according to the RECOMMENDED
+   exchange is considered to have failed according to the <em>RECOMMENDED</em>
    retransmission mechanism described below.  Other retransmission
    mechanisms are possible, as long as they satisfy the requirements on
    jitter and congestive backoff.
@@ -642,7 +642,7 @@ Table of Contents
    minimize the synchronization of messages.
 
    The algorithm for choosing a random number does not need to be
-   cryptographically sound.  The algorithm SHOULD produce a different
+   cryptographically sound.  The algorithm <em>SHOULD</em> produce a different
    sequence of random numbers from each invocation.
 
    RT for the first message transmission is based on IRT:
@@ -664,7 +664,7 @@ Table of Contents
    MRD specifies an upper bound on the length of time a sender may
    retransmit a message.  The message exchange fails once MRD seconds
    have elapsed since the client first transmitted the message.  MRD
-   MUST be set, and SHOULD have a value between 5 and 30 seconds.  These
+   <em>MUST</em> be set, and <em>SHOULD</em> have a value between 5 and 30 seconds.  These
    values mirror the values for a server's duplicate detection cache, as
    described in the next section.
 
@@ -676,7 +676,7 @@ Table of Contents
    have elapsed since the client first transmitted the message.
 
    For Accounting-Request packets, the default values for MRC, MRD, and
-   MRT SHOULD be zero.  These settings will enable a RADIUS client to
+   MRT <em>SHOULD</em> be zero.  These settings will enable a RADIUS client to
    continue sending accounting requests to a RADIUS server until the
    request is acknowledged.  If any of MRC, MRD, or MRT are non-zero,
    then the accounting information could potentially be discarded
@@ -727,14 +727,14 @@ Table of Contents
    Implementing duplicate detection results in new packets being
    processed only once, ensuring order.
 
-   RADIUS servers MUST therefore implement duplicate detection for
+   RADIUS servers <em>MUST</em> therefore implement duplicate detection for
    Access-Request packets, as described in <a href="./rfc2865.html#section-3">Section&nbsp;3 of [RFC2865]</a>.
-   Implementations MUST also cache the Responses (Access-Accept,
+   Implementations <em>MUST</em> also cache the Responses (Access-Accept,
    Access-Challenge, or Access-Reject) that they send in response to
    Access-Request packets.  If a server receives a valid duplicate
-   Access-Request for which it has already sent a Response, it MUST
+   Access-Request for which it has already sent a Response, it <em>MUST</em>
    resend its original Response without reprocessing the request.  The
-   server MUST silently discard any duplicate Access-Requests for which
+   server <em>MUST</em> silently discard any duplicate Access-Requests for which
    a Response has not yet been sent.
 
 
@@ -748,42 +748,42 @@ Table of Contents
 <span class="grey"><a href="./rfc5080.html">RFC 5080</a>                 RADIUS Issues &amp; Fixes             December 2007</span>
 
 
-   Each cache entry SHOULD be purged after a period of time.  This time
-   SHOULD be no less than 5 seconds, and no more than 30 seconds.  After
+   Each cache entry <em>SHOULD</em> be purged after a period of time.  This time
+   <em>SHOULD</em> be no less than 5 seconds, and no more than 30 seconds.  After
    about 30 seconds, most RADIUS clients and end users will have given
    up on the authentication request.  Therefore, there is little value
    in having a larger cache timeout.
 
-   Cache entries MUST also be purged if the server receives a valid
+   Cache entries <em>MUST</em> also be purged if the server receives a valid
    Access-Request packet that matches a cached Access-Request packet in
    source address, source port, RADIUS Identifier, and receiving socket,
    but where the Request Authenticator field is different from the one
    in the cached packet.  If the request contains a Message-
-   Authenticator attribute, the request MUST be processed as described
+   Authenticator attribute, the request <em>MUST</em> be processed as described
    in <a href="./rfc3580.html#section-3.2">[RFC3580] Section&nbsp;3.2</a>.  Packets with invalid Message-
-   Authenticators MUST NOT affect the cache in any way.
+   Authenticators <em>MUST NOT</em> affect the cache in any way.
 
    However, Access-Request packets not containing a Message-
    Authenticator attribute always affect the cache, even though they may
    be trivially forged.  To avoid this issue, server implementations may
    be configured to require the presence of a Message-Authenticator
    attribute in Access-Request packets.  Requests not containing a
-   Message-Authenticator attribute MAY then be silently discarded.
+   Message-Authenticator attribute <em>MAY</em> then be silently discarded.
 
-   Client implementations SHOULD include a Message-Authenticator
+   Client implementations <em>SHOULD</em> include a Message-Authenticator
    attribute in every Access-Request to further help mitigate this
    issue.
 
-   When sending requests, RADIUS clients MUST NOT reuse Identifiers for
+   When sending requests, RADIUS clients <em>MUST NOT</em> reuse Identifiers for
    a source IP address and source UDP port until either a valid response
-   has been received, or the request has timed out.  Clients SHOULD
+   has been received, or the request has timed out.  Clients <em>SHOULD</em>
    allocate Identifiers via a least-recently-used (LRU) method for a
    particular source IP address and source UDP port.
 
    RADIUS clients do not have to perform duplicate detection.  When a
    client sends a request, it processes the first response that has a
    valid Response Authenticator as defined in <a href="./rfc2865.html#section-3">[RFC2865] Section&nbsp;3</a>.  Any
-   later responses MUST be silently discarded, as they do not match a
+   later responses <em>MUST</em> be silently discarded, as they do not match a
    pending request.  That is, later responses are treated exactly the
    same as unsolicited responses, and are silently discarded.
 
@@ -839,7 +839,7 @@ Table of Contents
 
    [<a name="ref-RFC2866" id="ref-RFC2866">RFC2866</a>] <a href="#section-5.5">Section 5.5</a> describes Acct-Session-Id as Text within the
    figure summarizing the attribute format, but then goes on to state
-   that "The String field SHOULD be a string of UTF-8 encoded 10646
+   that "The String field <em>SHOULD</em> be a string of UTF-8 encoded 10646
    characters".
 
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] defines the Text type as "containing UTF-8 encoded 10646
@@ -873,7 +873,7 @@ Table of Contents
    String.  However, the language in the text strongly recommends that
    implementors consider the attribute as being of type Text.  It is
    unclear why the type String was chosen for this attribute when the
-   type Text would be sufficient.  This attribute SHOULD be treated as
+   type Text would be sufficient.  This attribute <em>SHOULD</em> be treated as
    Text.
 
 <span class="h4"><a class="selflink" name="section-2.3.3" href="#section-2.3.3">2.3.3</a>.  Request Authenticator</span>
@@ -889,12 +889,12 @@ Table of Contents
    The following text should be considered to be part of the above
    description:
 
-      The Request Authenticator field MUST contain the correct data, as
+      The Request Authenticator field <em>MUST</em> contain the correct data, as
       given by the above calculation.  Invalid packets are silently
       discarded.  Note that some early implementations always set the
       Request Authenticator to all zeros.  New implementations of RADIUS
-      clients MUST use the above algorithm to calculate the Request
-      Authenticator field.  New RADIUS server implementations MUST
+      clients <em>MUST</em> use the above algorithm to calculate the Request
+      Authenticator field.  New RADIUS server implementations <em>MUST</em>
       silently discard invalid packets.
 
 <span class="h4"><a class="selflink" name="section-2.3.4" href="#section-2.3.4">2.3.4</a>.  Interim-Accounting-Interval</span>
@@ -903,7 +903,7 @@ Table of Contents
 
       It is also possible to statically configure an interim value on
       the NAS itself.  Note that a locally configured value on the NAS
-      MUST override the value found in an Access-Accept.
+      <em>MUST</em> override the value found in an Access-Accept.
 
    This requirement may be phrased too strongly.  It is conceivable that
    a NAS implementation has a setting for a "minimum" value of Interim-
@@ -982,7 +982,7 @@ Table of Contents
    Transmitted".
 
    In addition, the definition of Accept, Reject or Challenge counters
-   indicates that they MUST be incremented before the message is
+   indicates that they <em>MUST</em> be incremented before the message is
    validated.  If the message is invalid, one of MalformedResponses,
    BadAuthenticators, or PacketsDropped counters will be additionally
    incremented.  In that case, the first two equations are consistent,
@@ -1013,7 +1013,7 @@ Table of Contents
 
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] <a href="#section-5.11">Section 5.11</a> states:
 
-      Zero or more Filter-Id attributes MAY be sent in an Access-Accept
+      Zero or more Filter-Id attributes <em>MAY</em> be sent in an Access-Accept
       packet.
 
 
@@ -1037,7 +1037,7 @@ Table of Contents
 
    As a result, the interpretation of multiple Filter-ID attributes is
    undefined within RADIUS.  The sending of multiple Filter-ID
-   attributes within an Access-Accept SHOULD be avoided within
+   attributes within an Access-Accept <em>SHOULD</em> be avoided within
    heterogeneous deployments and roaming scenarios, where it is likely
    to produce unpredictable results.
 
@@ -1049,10 +1049,10 @@ Table of Contents
 
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] <a href="#section-1.1">Section 1.1</a> states:
 
-      A NAS that does not implement a given service MUST NOT implement
+      A NAS that does not implement a given service <em>MUST NOT</em> implement
       the RADIUS attributes for that service.  For example, a NAS that
       is unable to offer Apple Remote Access Protocol (ARAP) service
-      MUST NOT implement the RADIUS attributes for ARAP.  A NAS MUST
+      <em>MUST NOT</em> implement the RADIUS attributes for ARAP.  A NAS <em>MUST</em>
       treat a RADIUS access-accept authorizing an unavailable service as
       an access-reject instead.
 
@@ -1060,17 +1060,17 @@ Table of Contents
    says:
 
       This Attribute indicates the type of service the user has
-      requested, or the type of service to be provided.  It MAY be used
+      requested, or the type of service to be provided.  It <em>MAY</em> be used
       in both Access-Request and Access-Accept packets.  A NAS is not
-      required to implement all of these service types, and MUST treat
+      required to implement all of these service types, and <em>MUST</em> treat
       unknown or unsupported Service-Types as though an Access-Reject
       had been received instead.
 
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] <a href="#section-5">Section 5</a> states:
 
-      A RADIUS server MAY ignore Attributes with an unknown Type.
+      A RADIUS server <em>MAY</em> ignore Attributes with an unknown Type.
 
-      A RADIUS client MAY ignore Attributes with an unknown Type.
+      A RADIUS client <em>MAY</em> ignore Attributes with an unknown Type.
 
 
 
@@ -1088,9 +1088,9 @@ Table of Contents
    <a href="#section-5.26">5.26</a> states:
 
       Servers not equipped to interpret the vendor-specific information
-      sent by a client MUST ignore it (although it may be reported).
+      sent by a client <em>MUST</em> ignore it (although it may be reported).
       Clients which do not receive desired vendor-specific information
-      SHOULD make an attempt to operate without it, although they may do
+      <em>SHOULD</em> make an attempt to operate without it, although they may do
       so (and report they are doing so) in a degraded mode.
 
    It is possible for either a standard attribute or a VSA to represent
@@ -1100,11 +1100,11 @@ Table of Contents
 
    In general, it is best for a RADIUS client to err on the side of
    caution.  On receiving an Access-Accept including an attribute of
-   known Type for an unimplemented service, a RADIUS client MUST treat
+   known Type for an unimplemented service, a RADIUS client <em>MUST</em> treat
    it as an Access-Reject, as directed in <a href="./rfc2865.html#section-1.1">[RFC2865] Section&nbsp;1.1</a>.  On
    receiving an Access-Accept including an attribute of unknown Type, a
-   RADIUS client SHOULD assume that it is a potential service
-   definition, and treat it as an Access-Reject.  Unknown VSAs SHOULD be
+   RADIUS client <em>SHOULD</em> assume that it is a potential service
+   definition, and treat it as an Access-Reject.  Unknown VSAs <em>SHOULD</em> be
    ignored by RADIUS clients.
 
    In order to avoid introducing changes in default behavior, existing
@@ -1117,15 +1117,15 @@ Table of Contents
    attributes in Access-Accepts are silently ignored.
 
    On receiving a packet including an attribute of unknown Type, RADIUS
-   authentication server implementations SHOULD ignore such attributes.
+   authentication server implementations <em>SHOULD</em> ignore such attributes.
    However, RADIUS accounting server implementations typically do not
    need to understand attributes in order to write them to stable
    storage or pass them to the billing engine.  Therefore, accounting
-   server implementations SHOULD be equipped to handle unknown
+   server implementations <em>SHOULD</em> be equipped to handle unknown
    attributes.
 
    To avoid misinterpretation of service requests encoded within VSAs,
-   RADIUS servers SHOULD NOT send VSAs containing service requests to
+   RADIUS servers <em>SHOULD NOT</em> send VSAs containing service requests to
    RADIUS clients that are not known to understand them.  For example, a
    RADIUS server should not send a VSA encoding a filter without
    knowledge that the RADIUS client supports the VSA.
@@ -1149,8 +1149,8 @@ Table of Contents
 
       If any condition is not met, the RADIUS server sends an "Access-
       Reject" response indicating that this user request is invalid.  If
-      desired, the server MAY include a text message in the Access-
-      Reject which MAY be displayed by the client to the user.  No other
+      desired, the server <em>MAY</em> include a text message in the Access-
+      Reject which <em>MAY</em> be displayed by the client to the user.  No other
       Attributes (except Proxy-State) are permitted in an Access-Reject.
 
    This text makes it clear that RADIUS does not allow the provisioning
@@ -1169,7 +1169,7 @@ Table of Contents
       If that authentication fails, the RADIUS server should return an
       Access-Reject packet to the NAS, with optional Password-Retry and
       Reply-Messages attributes.  The presence of Password-Retry
-      indicates the ARAP NAS MAY choose to initiate another challenge-
+      indicates the ARAP NAS <em>MAY</em> choose to initiate another challenge-
       response cycle...
 
    This paragraph is problematic from two perspectives.  Firstly, a
@@ -1184,7 +1184,7 @@ Table of Contents
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] <a href="#section-4.4">Section 4.4</a> addresses the semantics of Access-Challenge
    being equivalent to Access-Reject in some cases:
 
-      If the NAS does not support challenge/response, it MUST treat an
+      If the NAS does not support challenge/response, it <em>MUST</em> treat an
       Access-Challenge as though it had received an Access-Reject
       instead.
 
@@ -1199,16 +1199,16 @@ Table of Contents
    While it is difficult to correct existing deployments of [<a href="./rfc2869.html" title="&quot;RADIUS Extensions&quot;">RFC2869</a>],
    we make the following recommendations:
 
-      [<a name="ref-1" id="ref-1">1</a>]   New RADIUS specifications and implementations MUST NOT use
+      [<a name="ref-1" id="ref-1">1</a>]   New RADIUS specifications and implementations <em>MUST NOT</em> use
             Access-Reject where the semantics of Access-Challenge are
             intended.
 
-      [<a name="ref-2" id="ref-2">2</a>]   Access-Reject MUST mean denial of access to the requested
-            service.  In response to an Access-Reject, the NAS MUST NOT
+      [<a name="ref-2" id="ref-2">2</a>]   Access-Reject <em>MUST</em> mean denial of access to the requested
+            service.  In response to an Access-Reject, the NAS <em>MUST NOT</em>
             send any additional Access-Request packets for that user
             session.
 
-      [<a name="ref-3" id="ref-3">3</a>]   New deployments of ARAP [<a href="./rfc2869.html" title="&quot;RADIUS Extensions&quot;">RFC2869</a>] SHOULD use Access-
+      [<a name="ref-3" id="ref-3">3</a>]   New deployments of ARAP [<a href="./rfc2869.html" title="&quot;RADIUS Extensions&quot;">RFC2869</a>] <em>SHOULD</em> use Access-
             Challenge instead of Access-Reject packets in the
             conversations described in <a href="./rfc2869.html#section-2.2">[RFC2869] Section&nbsp;2.2</a>.
 
@@ -1241,8 +1241,8 @@ Table of Contents
    (e.g., Apache), File Transfer Protocol (FTP) sessions (e.g.,
    proftpd), and machine logins for multiple operating systems (e.g.,
    bsdi, pam, and gina).  In those contexts, an Access-Reject sent to
-   the RADIUS client MUST be interpreted as a rejection of the request
-   for service, and the RADIUS client MUST NOT offer that service to the
+   the RADIUS client <em>MUST</em> be interpreted as a rejection of the request
+   for service, and the RADIUS client <em>MUST NOT</em> offer that service to the
    user.
 
 
@@ -1255,11 +1255,11 @@ Table of Contents
    For example, when an authentication failure occurs in the context of
    an FTP session, the normal semantics for rejecting FTP services
    apply.  The rejection does not necessarily cause the FTP server to
-   terminate the underlying TCP connection, but the FTP server MUST NOT
+   terminate the underlying TCP connection, but the FTP server <em>MUST NOT</em>
    offer any services protected by user authentication.
 
    Users may request multiple services from the NAS.  Where those
-   services are independent, the deployment MUST treat the RADIUS
+   services are independent, the deployment <em>MUST</em> treat the RADIUS
    sessions as being independent.
 
    For example, a NAS may offer multi-link services where a user may
@@ -1277,16 +1277,16 @@ Table of Contents
    Since Link-Local addresses are unique only on the local link, if the
    NAS and RADIUS server are not on the same link, then an IPv6 Link-
    Local address [<a href="./rfc4862.html" title="&quot;IPv6 Stateless Address Autoconfiguration&quot;">RFC4862</a>] or an IPv4 Link-Local Address [<a href="./rfc3927.html" title="&quot;Dynamic Configuration of IPv4 Link-Local Addresses&quot;">RFC3927</a>]
-   cannot be used to uniquely identify the NAS.  A NAS SHOULD NOT
+   cannot be used to uniquely identify the NAS.  A NAS <em>SHOULD NOT</em>
    utilize a link-scope address within a NAS-IPv6-Address or NAS-IP-
    Address attribute.  A RADIUS server receiving a NAS-IPv6-Address or
-   NAS-IP-Address attribute containing a Link-Local address SHOULD NOT
+   NAS-IP-Address attribute containing a Link-Local address <em>SHOULD NOT</em>
    count such an attribute toward satisfying the requirements of
    <a href="./rfc3162.html#section-2.1">[RFC3162] Section&nbsp;2.1</a>:
 
-      NAS-IPv6-Address and/or NAS-IP-Address MAY be present in an
+      NAS-IPv6-Address and/or NAS-IP-Address <em>MAY</em> be present in an
       Access-Request packet; however, if neither attribute is present
-      then NAS-Identifier MUST be present.
+      then NAS-Identifier <em>MUST</em> be present.
 
 <span class="h4"><a class="selflink" name="section-2.7.2" href="#section-2.7.2">2.7.2</a>.  Multiple Addresses</span>
 
@@ -1308,13 +1308,13 @@ Table of Contents
 <span class="grey"><a href="./rfc5080.html">RFC 5080</a>                 RADIUS Issues &amp; Fixes             December 2007</span>
 
 
-   request, it is RECOMMENDED that the NAS include the NAS-Identifier
+   request, it is <em>RECOMMENDED</em> that the NAS include the NAS-Identifier
    attribute in an Access-Request in order to identify itself to the
    RADIUS server.
 
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] <a href="#section-3">Section 3</a> states:
 
-      A RADIUS server MUST use the source IP address of the RADIUS UDP
+      A RADIUS server <em>MUST</em> use the source IP address of the RADIUS UDP
       packet to decide which shared secret to use, so that RADIUS
       requests can be proxied.
 
@@ -1375,7 +1375,7 @@ Table of Contents
    [<a name="ref-RFC2865" id="ref-RFC2865">RFC2865</a>] <a href="#section-5.1">Section 5.1</a> states:
 
       This Attribute indicates the name of the user to be authenticated.
-      It MUST be sent in Access-Request packets if available.
+      It <em>MUST</em> be sent in Access-Request packets if available.
 
    This suggests that the User-Name attribute may be omitted if it is
    unavailable.
@@ -1384,9 +1384,9 @@ Table of Contents
 
       In order to permit non-EAP aware RADIUS proxies to forward the
       Access-Request packet, if the NAS initially sends an EAP-
-      Request/Identity message to the peer, the NAS MUST copy the
+      Request/Identity message to the peer, the NAS <em>MUST</em> copy the
       contents of the Type-Data field of the EAP-Response/Identity
-      received from the peer into the User-Name attribute and MUST
+      received from the peer into the User-Name attribute and <em>MUST</em>
       include the Type-Data field of the EAP-Response/Identity in the
       User-Name attribute in every subsequent Access-Request.
 
@@ -1396,11 +1396,11 @@ Table of Contents
 
    Note that [<a href="./rfc4282.html" title="&quot;The Network Access Identifier&quot;">RFC4282</a>] does not permit a Network Access Identifier (NAI)
    of zero octets, so that an EAP-Response/Identity with a Type-Data
-   field of zero octets MUST NOT be construed as a request for privacy
+   field of zero octets <em>MUST NOT</em> be construed as a request for privacy
    (e.g., anonymous NAI).
 
    When a NAS receives an EAP-Response/Identity with a Type-Data field
-   that is zero octets in length, it is RECOMMENDED that it either omit
+   that is zero octets in length, it is <em>RECOMMENDED</em> that it either omit
    the User-Name attribute in the Access-Request or include the
    Calling-Station-Id in the User-Name attribute, along with a Calling-
    Station-Id attribute.
@@ -1421,9 +1421,9 @@ Table of Contents
 
 
       If the NAS is retransmitting a RADIUS request to the same server
-      as before, and the attributes haven't changed, you MUST use the
+      as before, and the attributes haven't changed, you <em>MUST</em> use the
       same Request Authenticator, ID, and source port.  If any
-      attributes have changed, you MUST use a new Request Authenticator
+      attributes have changed, you <em>MUST</em> use a new Request Authenticator
       and ID.
 
    Note that changing the Request ID for a retransmission may have
@@ -1437,18 +1437,18 @@ Table of Contents
    the first request, and an Access-Reject for the retransmitted
    request, both of which apply to the same "session".
 
-   We suggest that the contents of Access-Request packets SHOULD NOT be
+   We suggest that the contents of Access-Request packets <em>SHOULD NOT</em> be
    changed during retransmissions.  If they must be changed due to the
    inclusion of an Event-Timestamp attribute, for example, then
-   responses to earlier transmissions MUST be silently discarded.  Any
-   response to the current request MUST be treated as the definitive
+   responses to earlier transmissions <em>MUST</em> be silently discarded.  Any
+   response to the current request <em>MUST</em> be treated as the definitive
    response, even if as noted above, it disagrees with earlier
    responses.
 
    This problem can be made worse by implementations that use a fixed
    retransmission timeout (30 seconds is common).  We reiterate the
    suggestions in <a href="#section-2.1">Section 2.1</a> about using congestive backoff.  In that
-   case, responses to earlier transmissions MAY be used as data points
+   case, responses to earlier transmissions <em>MAY</em> be used as data points
    for congestive backoff, even if their contents are discarded.
 
 <span class="h3"><a class="selflink" name="section-2.11" href="#section-2.11">2.11</a>.  Framed-IPv6-Prefix</span>
@@ -1456,8 +1456,8 @@ Table of Contents
    [<a name="ref-RFC3162" id="ref-RFC3162">RFC3162</a>] <a href="#section-2.3">Section 2.3</a> says:
 
       This Attribute indicates an IPv6 prefix (and corresponding route)
-      to be configured for the user.  It MAY be used in Access-Accept
-      packets, and can appear multiple times.  It MAY be used in an
+      to be configured for the user.  It <em>MAY</em> be used in Access-Accept
+      packets, and can appear multiple times.  It <em>MAY</em> be used in an
       Access-Request packet as a hint by the NAS to the server that it
       would prefer these prefix(es), but the server is not required to
       honor the hint.  Since it is assumed that the NAS will plumb a

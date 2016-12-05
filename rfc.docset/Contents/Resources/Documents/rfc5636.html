@@ -392,8 +392,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  General Overview</span>
@@ -452,14 +452,14 @@ Table of Contents
    with the standards used in existing PKIs.  To do this, the following
    requirements must be satisfied.
 
-   -  The Traceable Anonymous Certificate MUST be a syntactically valid
+   -  The Traceable Anonymous Certificate <em>MUST</em> be a syntactically valid
       X.509 certificate in which the Subject field contains a pseudonym.
 
    -  There must be technical means to counter a claim by a malicious
       user who later denies having participated in the activities that
       resulted in issuing a TAC.  Specifically, when a user is
       identified and requests issuance of a TAC, the mechanisms employed
-      MUST ensure that the user to whom the TAC is issued is the one who
+      <em>MUST</em> ensure that the user to whom the TAC is issued is the one who
       requested the TAC (unless that user transfers the private key to
       another party, unknown to the RA/CA).
 
@@ -475,9 +475,9 @@ Table of Contents
 <span class="grey"><a href="./rfc5636.html">RFC 5636</a>            Traceable Anonymous Certificate          August 2009</span>
 
 
-   -  The traceability and revocation functions MUST support the linkage
+   -  The traceability and revocation functions <em>MUST</em> support the linkage
       between a user's true identity and the pseudonym in a certificate
-      issued to the user.  Thus, the solution MUST enable determining a
+      issued to the user.  Thus, the solution <em>MUST</em> enable determining a
       true identity from the anonymous certificate, upon agreement among
       the authorities who collaborated to issue the certificate.
 
@@ -653,7 +653,7 @@ Table of Contents
       we require the BI to establish a record in a database for the user
       and to generate a (locally) unique identifier, called the UserKey,
       that will serve as a (database) key for the record.  The UserKey
-      value MUST NOT be generated in a fashion that permits any external
+      value <em>MUST NOT</em> be generated in a fashion that permits any external
       entity (including the AI) to infer a user's real identity from its
       value.  (For example, if the user's name is used as an input to a
       one-way hash algorithm to generate the UserKey value, then
@@ -664,7 +664,7 @@ Table of Contents
       enable the BI and AI to garbage-collect database records if a user
       initiates but does not complete the certificate request process.
 
-      It is RECOMMENDED that the UserKey be a random or pseudo-random
+      It is <em>RECOMMENDED</em> that the UserKey be a random or pseudo-random
       value.  Whenever the BI passes a UserKey to an external party, or
       accepts the UserKey from an external party (e.g., the AI), the
       value is embedded in a digitally signed CMS object called a Token,
@@ -680,7 +680,7 @@ Table of Contents
          Timeout ::= GeneralizedTime
 
       In the context of this specification, the GeneralizedTime value
-      MUST be expressed in Greenwich Mean Time (Zulu) and MUST include
+      <em>MUST</em> be expressed in Greenwich Mean Time (Zulu) and <em>MUST</em> include
       seconds (YYYYMMDDHHMMSSZ).
 
    Step 2:
@@ -721,11 +721,11 @@ Table of Contents
       and a content that holds a SignedData of CMS SignedData object
       [<a href="#ref-6" title="&quot;Cryptographic Message Syntax (CMS)&quot;">6</a>], signed by the BI, where the eContent
       (EncapsulatedContentInfo) is a SEQUENCE consisting of the UserKey
-      and Timeout, and eContentType MUST be id-data.
+      and Timeout, and eContentType <em>MUST</em> be id-data.
 
       EncapsulatedContentInfo ::= SEQUENCE {
          eContentType ContentType, -- OBJECT IDENTIFIER : id-data
-         eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+         eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
       -- DER encoded with the input of 'SEQUENCE of the UserKey and
       -- Timeout'
 
@@ -737,14 +737,14 @@ Table of Contents
       present in the BI's certificate.  (Note that this certificate is
       just a certificate suitable for use with TLS, and is NOT the
       split-key certificate used to verify a TAC.)  The certificate (or
-      certificates) MUST be present.  <a href="#appendix-A">Appendix A</a> provides the ASN.1
+      certificates) <em>MUST</em> be present.  <a href="#appendix-A">Appendix A</a> provides the ASN.1
       syntax for the Token, as a profiled CMS ContentInfo object.
       <a href="#appendix-C">Appendix C</a> provides the CMS SignedData object profile for wrapping
       the Token.
 
          Token ::= ContentInfo
 
-      Upon receipt of the Token, the user SHOULD verify the signature
+      Upon receipt of the Token, the user <em>SHOULD</em> verify the signature
       using the BI public key and note the Timeout value to ensure that
       the certificate request process is completed prior to that time.
 
@@ -772,17 +772,17 @@ Table of Contents
 
       After constructing the certificate request, the user sends it,
       along with the Token from Step 2, to the AI, via a secure channel.
-      This channel MUST be encrypted and one-way authenticated, i.e.,
-      the user MUST be able to verify that it is communicating with the
-      AI, but the AI MUST NOT be able to verify the real identity of the
+      This channel <em>MUST</em> be encrypted and one-way authenticated, i.e.,
+      the user <em>MUST</em> be able to verify that it is communicating with the
+      AI, but the AI <em>MUST NOT</em> be able to verify the real identity of the
       user.  Typical use of TLS for secure web site access satisfies
       this requirement.  The certificate request of PKCS10 [<a href="#ref-3" title="&quot;PKCS #10: Certification Request Syntax Specification Version 1.7&quot;">3</a>] or CMC
       [<a href="#ref-4" title="&quot;Certificate Management over CMS (CMC)&quot;">4</a>] carries the Token from Step 2.
 
       The Token is carried as an attribute in a certificate request
-      (CertificationRequestInfo.attributes) where the attrType MUST be
+      (CertificationRequestInfo.attributes) where the attrType <em>MUST</em> be
       id-kisa-tac below in PKCS10 format.  The Token is set to
-      attrValues (Certificate Request Controls) where the attrType MUST
+      attrValues (Certificate Request Controls) where the attrType <em>MUST</em>
       be id-kisa-tac in CMC [<a href="#ref-4" title="&quot;Certificate Management over CMS (CMC)&quot;">4</a>] format.  The TAC request message profile
       is described in the <a href="#section-5.3">section 5.3</a>.
 
@@ -812,7 +812,7 @@ Table of Contents
 
 
       If the Subject field contains a Subject name already issued by the
-      AI, the AI MUST either reject the certificate request, or
+      AI, the AI <em>MUST</em> either reject the certificate request, or
       substitute a pseudonym it generates, depending on the policy of
       the TAC CA.  If the certificate request is acceptable, the AI
       assigns a serial number and constructs a tbsCertificate (i.e., the
@@ -831,18 +831,18 @@ Table of Contents
       verify that the values were transmitted by the AI, and to prevent
       a wiretapper from acquiring the Token.  A TLS session in which
       both parties employ certificates to authenticate one another is
-      the RECOMMENDED way to achieve this communication.
+      the <em>RECOMMENDED</em> way to achieve this communication.
 
       The TokenandBlindHash is a CMS ContentInfo with a contentType of
       id-kisa-tac-tokenandblindhash and a content that holds a
       SignedData of CMS SignedData object [<a href="#ref-6" title="&quot;Cryptographic Message Syntax (CMS)&quot;">6</a>], signed by the AI, where
       the eContent (EncapsulatedContentInfo) is a SEQUENCE consisting of
-      the Token and BlindedCertificateHash, and eContentType MUST be
+      the Token and BlindedCertificateHash, and eContentType <em>MUST</em> be
       id-data.
 
       EncapsulatedContentInfo ::= SEQUENCE {
          eContentType ContentType, -- OBJECT IDENTIFIER : id-data
-         eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+         eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
       -- DER encoded with the input of 'SEQUENCE of the Token and
       -- BlindedCertificateHash'
 
@@ -851,7 +851,7 @@ Table of Contents
       present in the AI's certificate.  (Note that this certificate is
       just a certificate suitable for use with TLS, and is NOT the
       split-key certificate used to issue a TAC.)  The certificate (or
-      certificates) MUST be present.
+      certificates) <em>MUST</em> be present.
 
       The following ASN.1 syntax represents the Token and
       BlindedCertificateHash:
@@ -932,11 +932,11 @@ Table of Contents
       that holds a SignedData of CMS SignedData object [<a href="#ref-6" title="&quot;Cryptographic Message Syntax (CMS)&quot;">6</a>], signed by
       the BI, where the eContent (EncapsulatedContentInfo) is a SEQUENCE
       consisting of the Token and PartiallySignedCertificateHash, and
-      eContentType MUST be id-data.
+      eContentType <em>MUST</em> be id-data.
 
       EncapsulatedContentInfo ::= SEQUENCE {
          eContentType ContentType, -- OBJECT IDENTIFIER : id-data
-         eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+         eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
       -- DER encoded with the input of 'SEQUENCE of the Token and
       -- PartiallySignedCertificateHash'
 
@@ -945,7 +945,7 @@ Table of Contents
       present in the BI's certificate.  (Note that this certificate is
       just a certificate suitable for use with TLS, and is NOT the
       split-key certificate used to issue a TAC.) The certificate (or
-      certificates) MUST be present.  <a href="#appendix-A">Appendix A</a> provides the ASN.1
+      certificates) <em>MUST</em> be present.  <a href="#appendix-A">Appendix A</a> provides the ASN.1
       syntax for the Token, as a profiled CMS SignedData object.
       <a href="#appendix-C">Appendix C</a> provides the CMS SignedData object profile for wrapping
       the Token.
@@ -1055,7 +1055,7 @@ Table of Contents
       certificate (and thus it will be signed jointly by the BI and AI).
       We recommend that the CRL for this CA certificate be similarly
       long-lived, as it too needs to be signed by the BI and AI.  Each
-      EE TAC certificate MUST contain a CRL Distribution Point that
+      EE TAC certificate <em>MUST</em> contain a CRL Distribution Point that
       points to the CRL issued by this CA, to ensure that relying
       parties know to check this CRL vs. the CRL that covers only the
       CRL CA.  (If the AI uses the Online Certificate Status Protocol
@@ -1074,13 +1074,13 @@ Table of Contents
       disclosure of the Token, and two-way authentication is required to
       ensure that the aggrieved party and the AI know that they are
       communicating with each other.  Two-way authenticated TLS is the
-      RECOMMENDED means of implementing this channel, though other
+      <em>RECOMMENDED</em> means of implementing this channel, though other
       approaches are allowed.
 
    Steps C and D:
 
       The aggrieved party transits the Token to the BI, via an encrypted
-      and two-way authenticated channel.  The channel MUST be encrypted
+      and two-way authenticated channel.  The channel <em>MUST</em> be encrypted
       to prevent disclosure of the Token, and two-way authentication is
       required to ensure that the aggrieved party and the BI know that
 
@@ -1106,8 +1106,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  TAC Request Message Format Profile</span>
 
-   TAC request MAY use either PKCS10 or CMC.  An AI MUST support PKCS10
-   and MAY support CMC.
+   TAC request <em>MAY</em> use either PKCS10 or CMC.  An AI <em>MUST</em> support PKCS10
+   and <em>MAY</em> support CMC.
 
 <span class="h4"><a class="selflink" name="section-5.3.1" href="#section-5.3.1">5.3.1</a>.  PKCS10 Profile</span>
 
@@ -1119,14 +1119,14 @@ Table of Contents
    that may appear in a CertificationRequestInfo:
 
       Version
-         This field is mandatory and MUST have the value 0.
+         This field is mandatory and <em>MUST</em> have the value 0.
 
       Subject
-         This field MUST be present.  If the value of this field is
+         This field <em>MUST</em> be present.  If the value of this field is
          empty, the AI will generate a subject name that is unique in
          the context of certificates issued by this issuer.  If the
          Subject field contains a Subject name already issued by the AI,
-         the AI MUST either reject the certificate request, or
+         the AI <em>MUST</em> either reject the certificate request, or
          substitute a pseudonym it generates, depending on the policy of
          the TAC CA.
 
@@ -1137,7 +1137,7 @@ Table of Contents
       Attributes
          PKCS10 [<a href="#ref-3" title="&quot;PKCS #10: Certification Request Syntax Specification Version 1.7&quot;">3</a>] defines the attributes field as key-value pairs
          where the key is an OID and the value's structure depends on
-         the key.  The attribute field MUST include the id-kisa-tac
+         the key.  The attribute field <em>MUST</em> include the id-kisa-tac
          attribute, which holds the Token and is defined below.  The
 
 
@@ -1147,7 +1147,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5636.html">RFC 5636</a>            Traceable Anonymous Certificate          August 2009</span>
 
 
-         Attributes field MAY also contain X509v3 Certificate Extensions
+         Attributes field <em>MAY</em> also contain X509v3 Certificate Extensions
          and any PKCS9 [<a href="#ref-7" title="&quot;PKCS #9: Selected Object Classes and Attribute Types Version 2.0&quot;">7</a>] extensionRequest attributes that the
          subscriber would like to have included in the certificate.  The
          profile for extensions in certificate requests is specified in
@@ -1166,7 +1166,7 @@ Table of Contents
    certificate.
 
    This profile recommends the full PKI Request of the two types of PKI
-   requests (Simple or Full PKI Request), and the PKI Request SHOULD be
+   requests (Simple or Full PKI Request), and the PKI Request <em>SHOULD</em> be
    encapsulated in SignedData with an eContentType of id-cct-PKIData.
 
    This profile applies the following additional constraints to fields
@@ -1174,25 +1174,25 @@ Table of Contents
    Request Message Format (CRMF) [<a href="#ref-5" title="&quot;Internet X.509 Public Key Infrastructure Certificate Request Message Format (CRMF)&quot;">5</a>]:
 
       Version
-         This field MAY be absent, or MAY specify the request of a
-         Version 3 Certificate.  It SHOULD be omitted.
+         This field <em>MAY</em> be absent, or <em>MAY</em> specify the request of a
+         Version 3 Certificate.  It <em>SHOULD</em> be omitted.
 
       SerialNumber
-         As per CRMF [<a href="#ref-5" title="&quot;Internet X.509 Public Key Infrastructure Certificate Request Message Format (CRMF)&quot;">5</a>], this field is assigned by the CA and MUST be
+         As per CRMF [<a href="#ref-5" title="&quot;Internet X.509 Public Key Infrastructure Certificate Request Message Format (CRMF)&quot;">5</a>], this field is assigned by the CA and <em>MUST</em> be
          omitted in this profile.
 
       SigningAlgorithm
-         As per CRMF [<a href="#ref-5" title="&quot;Internet X.509 Public Key Infrastructure Certificate Request Message Format (CRMF)&quot;">5</a>], this field is assigned by the CA and MUST be
+         As per CRMF [<a href="#ref-5" title="&quot;Internet X.509 Public Key Infrastructure Certificate Request Message Format (CRMF)&quot;">5</a>], this field is assigned by the CA and <em>MUST</em> be
          omitted in this profile.
 
       Issuer
-         This field is assigned by the CA and MUST be omitted in this
+         This field is assigned by the CA and <em>MUST</em> be omitted in this
          profile.
 
       Validity
-         This field MAY be omitted.  If omitted, the AI will issue a
+         This field <em>MAY</em> be omitted.  If omitted, the AI will issue a
          Certificate with Validity dates as determined by the TAC CA
-         policy.  If specified, then the CA MAY override the requested
+         policy.  If specified, then the CA <em>MAY</em> override the requested
          values with dates as determined by the TAC CA policy.
 
 
@@ -1204,20 +1204,20 @@ Table of Contents
 
 
       Subject
-         This field MUST be present.  If the value of this field is
-         empty, the AI MUST generate a subject name that is unique in
+         This field <em>MUST</em> be present.  If the value of this field is
+         empty, the AI <em>MUST</em> generate a subject name that is unique in
          the context of certificates issued by this issuer.  If the
          Subject field contains a Subject name already issued by the AI,
-         the AI MUST either reject the certificate request, or
+         the AI <em>MUST</em> either reject the certificate request, or
          substitute a pseudonym it generates, depending on the policy of
          the TAC CA.
 
       PublicKey
-         This field MUST be present.
+         This field <em>MUST</em> be present.
 
    This profile also refines constraints that may appear in a
    Certificate Request controls: The Token is set to attrValues (in
-   CertRequest.controls) where the attrType MUST be id-kisa-tac.
+   CertRequest.controls) where the attrType <em>MUST</em> be id-kisa-tac.
 
    See <a href="#section-5.3.1">Section 5.3.1</a>, "PKCS10 Profile", for the certification request
    formats based on PKCS10.
@@ -1326,7 +1326,7 @@ Table of Contents
    any scheme of this sort, since the database maintained by the BI
    is intentionally ignorant of any info relating a UserKey to a TAC.
 
-   A TAC CA MUST describe in its CP how long it will retain the data
+   A TAC CA <em>MUST</em> describe in its CP how long it will retain the data
    about certificates it issued, beyond the lifetime of these
    certificates.  This will help a prospective TAC subject gauge the
    likelihood of unauthorized use of his identity as a result of a
@@ -1515,7 +1515,7 @@ DEFINITIONS IMPLICIT TAGS ::=
 --   CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,
 --   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 --   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
---   DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+--   DISCLAIMED.  IN NO EVENT <em>SHALL</em> THE COPYRIGHT OWNER OR CONTRIBUTORS
 --   BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
 --   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
 --   TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
@@ -1571,7 +1571,7 @@ PartiallySignedCertificateHash ::= OCTET STRING
 
 EncapsulatedContentInfo ::= SEQUENCE {
        eContentType ContentType, -- OBJECT IDENTIFIER : id-data
-       eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+       eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
 
 id-data OBJECT IDENTIFIER ::= { iso(1) member-body(2) us(840)
 rsadsi(113549) pkcs(1) pkcs7(7) 1 }
@@ -1730,8 +1730,8 @@ END
               version CMSVersion,
               digestAlgorithms DigestAlgorithmIdentifiers,
               encapContentInfo EncapsulatedContentInfo,
-              certificates [0] IMPLICIT CertificateSet OPTIONAL,
-              crls [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>] IMPLICIT RevocationInfoChoices OPTIONAL,
+              certificates [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+              crls [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>] IMPLICIT RevocationInfoChoices <em>OPTIONAL</em>,
               signerInfos SignerInfos }
 
       DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
@@ -1741,7 +1741,7 @@ END
    The elements of the signed-data content type are as follows:
 
       Version
-         The version is the syntax version number.  It MUST be 3,
+         The version is the syntax version number.  It <em>MUST</em> be 3,
          corresponding to the signerInfo structure having version number
          3.
 
@@ -1764,13 +1764,13 @@ END
 
 
       certificates
-         The certificates element MUST be included and MUST contain only
+         The certificates element <em>MUST</em> be included and <em>MUST</em> contain only
          the single PKI EE certificate needed to validate this CMS
          Object.  The CertificateSet type is defined in <a href="./rfc3852.html#section-10">section&nbsp;10 of
          RFC3852</a> [<a href="#ref-6" title="&quot;Cryptographic Message Syntax (CMS)&quot;">6</a>].
 
       crls
-         The crls element MUST be omitted.
+         The crls element <em>MUST</em> be omitted.
 
       signerInfos
          This element is defined in <a href="#appendix-C.1.2">Appendix C.1.2</a>.
@@ -1782,7 +1782,7 @@ END
 
          EncapsulatedContentInfo ::= SEQUENCE{
              eContentType ContentType,
-              eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+              eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
 
          ContentType ::= OBJECT IDENTIFIER
 
@@ -1804,10 +1804,10 @@ END
            version CMSVersion,
            sid SignerIdentifier,
            digestAlgorithm DigestAlgorithmIdentifier,
-           signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+           signedAttrs [0] IMPLICIT SignedAttributes <em>OPTIONAL</em>,
            signatureAlgorithm SignatureAlgorithmIdentifier,
            signature SignatureValue,
-           unsignedAttrs [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>] IMPLICIT UnsignedAttributes OPTIONAL }
+           unsignedAttrs [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>] IMPLICIT UnsignedAttributes <em>OPTIONAL</em> }
 
 
 
@@ -1822,7 +1822,7 @@ END
    The contents of the SignerInfo element are as follows:
 
       Version
-         The version number MUST be 3, corresponding with the choice of
+         The version number <em>MUST</em> be 3, corresponding with the choice of
          SubjectKeyIdentifier for the sid.
 
       sid
@@ -1832,13 +1832,13 @@ END
             issuerAndSerialNumber IssuerAndSerialNumber,
             subjectKeyIdentifier [0] SubjectKeyIdentifier }
 
-         For a TAC Token, the sid MUST be a SubjectKeyIdentifier.
+         For a TAC Token, the sid <em>MUST</em> be a SubjectKeyIdentifier.
 
       digestAlgorithm
          This field specifies digest Algorithms.
 
       signedAttrs
-         The signedAttr element MUST be omitted.
+         The signedAttr element <em>MUST</em> be omitted.
 
       SignatureAlgorithm
          This field specifies the signature Algorithm.
@@ -1852,7 +1852,7 @@ END
          signature algorithms.
 
       UnsignedAttrs
-         unsignedAttrs MUST be omitted.
+         unsignedAttrs <em>MUST</em> be omitted.
 
 
 

@@ -427,8 +427,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Definitions and Document Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>] and
    indicate requirement levels for compliant implementations.
 
@@ -623,7 +623,7 @@ Table of Contents
    request.  If the subscriber does not include at least one of the
    "max-rate", "min-rate", or "adaptive-min-rate" header field
    parameters in the most recent SUBSCRIBE request in a given dialog,
-   the subscriber MUST NOT include an Event header field with any of
+   the subscriber <em>MUST NOT</em> include an Event header field with any of
    those parameters in a 2xx response to a NOTIFY request in that
    dialog.
 
@@ -642,14 +642,14 @@ Table of Contents
    In general, a notifier processes SUBSCRIBE requests and generates
    NOTIFY requests as described in <a href="./rfc3265.html">RFC 3265</a> [<a href="./rfc3265.html" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">RFC3265</a>].
 
-   A notifier that supports the different rate control mechanisms MUST
+   A notifier that supports the different rate control mechanisms <em>MUST</em>
    adjust its rate of notification according to the rate control values
    agreed with the subscriber.  If the notifier needs to lower the
    subscription expiration value, or if a local policy or other
    implementation-determined constraint at the notifier cannot satisfy
    the rate control request, then the notifier can adjust (i.e.,
    increase or decrease) appropriately the subscriber-requested rate
-   control values.  The notifier MUST reflect back the possibly adjusted
+   control values.  The notifier <em>MUST</em> reflect back the possibly adjusted
    rate control values in a "max-rate", "min-rate", or "adaptive-min-
    rate" Subscription-State header field parameter of the subsequent
    NOTIFY requests.
@@ -659,7 +659,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Subscriber Behavior</span>
 
    A subscriber that wishes to apply a maximum rate to notifications in
-   a subscription MUST construct a SUBSCRIBE request that includes the
+   a subscription <em>MUST</em> construct a SUBSCRIBE request that includes the
    "max-rate" Event header field parameter.  This parameter specifies
    the requested maximum number of notifications per second.  The value
    of this parameter is a positive real number given by a finite decimal
@@ -676,12 +676,12 @@ Table of Contents
       recommends.
 
    A subscriber that wishes to update the previously agreed maximum rate
-   of notifications MUST include the updated "max-rate" Event header
+   of notifications <em>MUST</em> include the updated "max-rate" Event header
    field parameter in a subsequent SUBSCRIBE request or a 2xx response
    to the NOTIFY request.
 
    A subscriber that wishes to remove the maximum rate control from
-   notifications MUST indicate so by not including a "max-rate" Event
+   notifications <em>MUST</em> indicate so by not including a "max-rate" Event
    header field parameter in a subsequent SUBSCRIBE request or a 2xx
    response to the NOTIFY request.
 
@@ -701,13 +701,13 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Notifier Behavior</span>
 
-   A notifier that supports the maximum rate mechanism MUST extract the
+   A notifier that supports the maximum rate mechanism <em>MUST</em> extract the
    value of the "max-rate" Event header parameter from a SUBSCRIBE
    request or a 2xx response to the NOTIFY request and use it as the
    suggested maximum number of notifications per second.  This value can
    be adjusted by the notifier, as defined in <a href="#section-5.3">Section 5.3</a>.
 
-   A compliant notifier MUST reflect back the possibly adjusted maximum
+   A compliant notifier <em>MUST</em> reflect back the possibly adjusted maximum
    rate of notifications in a "max-rate" Subscription-State header field
    parameter of the subsequent NOTIFY requests.  The indicated "max-
    rate" value is adopted by the notifier, and the notification rate is
@@ -718,7 +718,7 @@ Table of Contents
    NOTIFY requests; the absence of this parameter indicates to the
    subscriber that no rate control is supported by the notifier.
 
-   A compliant notifier MUST NOT generate a notification if the interval
+   A compliant notifier <em>MUST NOT</em> generate a notification if the interval
    since the most recent notification is less than the reciprocal value
    of the "max-rate" parameter, except when generating the notification
    either upon receipt of a SUBSCRIBE request, when the subscription
@@ -728,7 +728,7 @@ Table of Contents
    When a local policy dictates a maximum rate for notifications, a
    notifier will not generate notifications more frequently than the
    local policy maximum rate, even if the subscriber is not asking for
-   maximum rate control.  The notifier MAY inform the subscriber about
+   maximum rate control.  The notifier <em>MAY</em> inform the subscriber about
    such a local policy maximum rate using the "max-rate" Subscription-
    State header field parameter included in subsequent NOTIFY requests.
 
@@ -757,12 +757,12 @@ Table of Contents
    Such a configuration would effectively quench the notifier, resulting
    in exactly two notifications being generated.  If the subscriber
    requests a maximum rate that would result in no notification before
-   the subscription expiration, the notifier MUST increase the maximum
+   the subscription expiration, the notifier <em>MUST</em> increase the maximum
    rate and set it to the reciprocal value of the remaining subscription
    expiration time.  According to <a href="./rfc3265.html">RFC 3265</a> [<a href="./rfc3265.html" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">RFC3265</a>], the notifier may
    also shorten the subscription expiry anytime during an active
    subscription.  If the subscription expiry is shortened during an
-   active subscription, the notifier MUST also increase the "max-rate"
+   active subscription, the notifier <em>MUST</em> also increase the "max-rate"
    value and set it to the reciprocal value of the reduced subscription
    expiration time.
 
@@ -770,16 +770,16 @@ Table of Contents
    stream on an existing subscription dialog without terminating the
    subscription, e.g., due to inactivity on the application user
    interface.  Whenever a subscriber discovers the need to perform the
-   notification pause operation, it SHOULD set the maximum rate to the
+   notification pause operation, it <em>SHOULD</em> set the maximum rate to the
    reciprocal value of the remaining subscription expiration value.
    This results in receiving no further notifications until the
    subscription expires or the subscriber sends a SUBSCRIBE request
    resuming notifications.
 
-   The notifier MAY decide to increase or decrease the proposed "max-
+   The notifier <em>MAY</em> decide to increase or decrease the proposed "max-
    rate" value by the subscriber based on its local policy, static
    configuration, or other implementation-determined constraints.  In
-   addition, different event packages MAY define other constraints for
+   addition, different event packages <em>MAY</em> define other constraints for
    the allowed maximum rate ranges.  Such constraints are out of the
    scope of this specification.
 
@@ -889,9 +889,9 @@ Table of Contents
    important that F' be replaced with F only when the difference of F
    and F' is already included in a partial-state notification to the
    subscriber allowed by the maximum rate mechanism.  Additionally, the
-   notifier implementation SHOULD check to see that the size of an
+   notifier implementation <em>SHOULD</em> check to see that the size of an
    accumulated partial state notification is smaller than the full
-   state, and if not, the notifier SHOULD send the full-state
+   state, and if not, the notifier <em>SHOULD</em> send the full-state
    notification instead.
 
 <span class="h4"><a class="selflink" name="section-5.5.2" href="#section-5.5.2">5.5.2</a>.  Full-State Notifications</span>
@@ -949,7 +949,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Subscriber Behavior</span>
 
    A subscriber that wishes to apply a minimum rate to notifications in
-   a subscription MUST construct a SUBSCRIBE request that includes the
+   a subscription <em>MUST</em> construct a SUBSCRIBE request that includes the
    "min-rate" Event header field parameter.  This parameter specifies
    the requested minimum number of notifications per second.  The value
    of this parameter is a positive real number given by a finite decimal
@@ -960,7 +960,7 @@ Table of Contents
       value.
 
    A subscriber that wishes to update the previously agreed minimum rate
-   of notifications MUST include the updated "min-rate" Event header
+   of notifications <em>MUST</em> include the updated "min-rate" Event header
    field parameter in a subsequent SUBSCRIBE request or a 2xx response
    to the NOTIFY request.
 
@@ -974,7 +974,7 @@ Table of Contents
 
 
    A subscriber that wishes to remove the minimum rate control from
-   notifications MUST indicate so by not including a "min-rate" Event
+   notifications <em>MUST</em> indicate so by not including a "min-rate" Event
    header field parameter in a subsequent SUBSCRIBE request or a 2xx
    response to the NOTIFY request.
 
@@ -986,13 +986,13 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Notifier Behavior</span>
 
-   A notifier that supports the minimum rate mechanism MUST extract the
+   A notifier that supports the minimum rate mechanism <em>MUST</em> extract the
    value of the "min-rate" Event header field parameter from a SUBSCRIBE
    request or a 2xx response to the NOTIFY request and use it as the
    suggested minimum number of notifications per second.  This value can
    be adjusted by the notifier, as defined in <a href="#section-6.3">Section 6.3</a>.
 
-   A compliant notifier MUST reflect back the possibly adjusted minimum
+   A compliant notifier <em>MUST</em> reflect back the possibly adjusted minimum
    rate of notifications in a "min-rate" Subscription-State header field
    parameter of the subsequent NOTIFY requests.  The indicated "min-
    rate" value is adopted by the notifier, and the notification rate is
@@ -1003,12 +1003,12 @@ Table of Contents
    NOTIFY requests; the absence of this parameter indicates to the
    subscriber that no rate control is supported by the notifier.
 
-   A compliant notifier MUST generate notifications when state changes
+   A compliant notifier <em>MUST</em> generate notifications when state changes
    occur or when the time since the most recent notification exceeds the
    reciprocal value of the "min-rate" parameter.  Depending on the event
    package and subscriber preferences indicated in the SUBSCRIBE
    request, the NOTIFY request sent as a result of a minimum rate
-   mechanism MUST contain either the current full state or the partial
+   mechanism <em>MUST</em> contain either the current full state or the partial
    state showing the difference between the current state and the last
    successfully communicated state.  If the subscriber and the notifier
    support the procedures in <a href="./rfc5839.html">RFC 5839</a> [<a href="./rfc5839.html" title="&quot;An Extension to Session Initiation Protocol (SIP) Events for Conditional Event Notification&quot;">RFC5839</a>], the complete NOTIFY
@@ -1036,12 +1036,12 @@ Table of Contents
    Some of the notifications may also be unnecessary possibly repeating
    already known state information to the subscriber.  It is difficult
    to provide generic guidelines for the acceptable minimum rate value
-   ranges; however, the subscriber SHOULD request the lowest possible
-   minimum rate.  Different event packages MAY define other constraints
+   ranges; however, the subscriber <em>SHOULD</em> request the lowest possible
+   minimum rate.  Different event packages <em>MAY</em> define other constraints
    for the allowed minimum rate values.  Such constraints are out of the
    scope of this specification.
 
-   The notifier MAY decide to increase or decrease the proposed "min-
+   The notifier <em>MAY</em> decide to increase or decrease the proposed "min-
    rate" value by the subscriber based on its local policy, static
    configuration, or other implementation-determined constraints.
 
@@ -1050,7 +1050,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.1" href="#section-7.1">7.1</a>.  Subscriber Behavior</span>
 
    A subscriber that wishes to apply an adaptive minimum rate to
-   notifications in a subscription MUST construct a SUBSCRIBE request
+   notifications in a subscription <em>MUST</em> construct a SUBSCRIBE request
    that includes the "adaptive-min-rate" Event header field parameter.
    This parameter specifies an adaptive minimum number of notifications
    per second.  The value of this parameter is a positive real number
@@ -1061,12 +1061,12 @@ Table of Contents
       value.
 
    A subscriber that wishes to update the previously agreed adaptive
-   minimum rate of notifications MUST include the updated "adaptive-min-
+   minimum rate of notifications <em>MUST</em> include the updated "adaptive-min-
    rate" Event header field parameter in a subsequent SUBSCRIBE request
    or a 2xx response to the NOTIFY request.
 
    A subscriber that wishes to remove the adaptive minimum rate control
-   from notifications MUST indicate so by not including an "adaptive-
+   from notifications <em>MUST</em> indicate so by not including an "adaptive-
    min-rate" Event header field parameter in a subsequent SUBSCRIBE
    request or a 2xx response to the NOTIFY request.
 
@@ -1087,7 +1087,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Notifier Behavior</span>
 
-   A notifier that supports the adaptive minimum rate mechanism MUST
+   A notifier that supports the adaptive minimum rate mechanism <em>MUST</em>
    extract the value of the "adaptive-min-rate" Event header parameter
    from a SUBSCRIBE request or a 2xx response to the NOTIFY request and
    use it to calculate the actual maximum time between two
@@ -1096,7 +1096,7 @@ Table of Contents
    The "adaptive-min-rate" value can be adjusted by the notifier, as
    defined in <a href="#section-7.3">Section 7.3</a>.
 
-   A compliant notifier MUST reflect back the possibly adjusted adaptive
+   A compliant notifier <em>MUST</em> reflect back the possibly adjusted adaptive
    minimum rate of notifications in an "adaptive-min-rate" Subscription-
    State header field parameter of the subsequent NOTIFY requests.  The
    indicated "adaptive-min-rate" value is adopted by the notifier, and
@@ -1107,12 +1107,12 @@ Table of Contents
    NOTIFY requests; the absence of this parameter indicates to the
    subscriber that no rate control is supported by the notifier.
 
-   A compliant notifier MUST generate notifications when state changes
+   A compliant notifier <em>MUST</em> generate notifications when state changes
    occur or when the time since the most recent notification exceeds the
    value calculated using the formula defined in <a href="#section-7.4">Section 7.4</a>.  Depending
    on the event package and subscriber preferences indicated in the
    SUBSCRIBE request, the NOTIFY request sent as a result of a minimum
-   rate mechanism MUST contain either the current full state or the
+   rate mechanism <em>MUST</em> contain either the current full state or the
    partial state showing the difference between the current state and
    the last successfully communicated state.  If the subscriber and the
    notifier support the procedures in <a href="./rfc5839.html">RFC 5839</a> [<a href="./rfc5839.html" title="&quot;An Extension to Session Initiation Protocol (SIP) Events for Conditional Event Notification&quot;">RFC5839</a>], the complete
@@ -1162,12 +1162,12 @@ Table of Contents
    Some of the notifications may also be unnecessary, possibly repeating
    already known state information to the subscriber.  It is difficult
    to provide generic guidelines for the acceptable adaptive minimum
-   rate value ranges; however, the subscriber SHOULD request the lowest
-   possible adaptive minimum rate value.  Different event packages MAY
+   rate value ranges; however, the subscriber <em>SHOULD</em> request the lowest
+   possible adaptive minimum rate value.  Different event packages <em>MAY</em>
    define other constraints for the allowed adaptive minimum rate
    values.  Such constraints are out of the scope of this specification.
 
-   The notifier MAY decide to increase or decrease the proposed
+   The notifier <em>MAY</em> decide to increase or decrease the proposed
    "adaptive-min-rate" value based on its local policy, static
    configuration, or other implementation-determined constraints.
 
@@ -1199,9 +1199,9 @@ Table of Contents
 
    period:  The rolling average period, in seconds.  The granularity of
       the values for the "period" parameter is set by local policy at
-      the notifier; however, the notifier MUST choose a value greater
+      the notifier; however, the notifier <em>MUST</em> choose a value greater
       than the reciprocal value of the "adaptive-min-rate" parameter.
-      It is also RECOMMENDED that the notifier choose a "period"
+      It is also <em>RECOMMENDED</em> that the notifier choose a "period"
       parameter several times larger than reciprocal value of the
       "adaptive-min-rate" parameter in order to maximize the
       effectiveness of equation (1).  It is an implementation decision
@@ -1228,7 +1228,7 @@ Table of Contents
 
    In some situations, it may be beneficial for the notifier to achieve
    an adaptive minimum rate in a different way than the algorithm
-   detailed in this document allows.  However, the notifier MUST comply
+   detailed in this document allows.  However, the notifier <em>MUST</em> comply
    with any "max-rate" or "min-rate" parameters that have been
    negotiated.
 
@@ -1257,8 +1257,8 @@ Table of Contents
       notification rate, but at the same time assures the reception of
       periodic notifications.
 
-      A subscriber SHOULD choose a "min-rate" value lower than the "max-
-      rate" value, otherwise, the notifier MUST adjust the subscriber
+      A subscriber <em>SHOULD</em> choose a "min-rate" value lower than the "max-
+      rate" value, otherwise, the notifier <em>MUST</em> adjust the subscriber
       provided "min-rate" value to a value equal to or lower than the
       "max-rate" value.
 
@@ -1266,8 +1266,8 @@ Table of Contents
       the combination above, but with the difference that the interval
       at which notifications are assured changes dynamically.
 
-      A subscriber SHOULD choose an "adaptive-min-rate" value lower than
-      the "max-rate" value, otherwise, the notifier MUST adjust the
+      A subscriber <em>SHOULD</em> choose an "adaptive-min-rate" value lower than
+      the "max-rate" value, otherwise, the notifier <em>MUST</em> adjust the
       subscriber provided "adaptive-min-rate" value to a value equal to
       or lower than the "max-rate" value.
 
@@ -1278,22 +1278,22 @@ Table of Contents
       that the subscriber always receives notifications after a
       specified interval.
 
-      A subscriber SHOULD choose a "min-rate" value lower than the
-      "adaptive-min-rate" value, otherwise, the notifier MUST NOT
+      A subscriber <em>SHOULD</em> choose a "min-rate" value lower than the
+      "adaptive-min-rate" value, otherwise, the notifier <em>MUST NOT</em>
       consider the "min-rate" value.
 
    maximum rate, minimum rate, and adaptive minimum rate:  This
       combination makes little sense to be used, although it is not
       forbidden.
 
-      A subscriber SHOULD choose a "min-rate" and "adaptive-min-rate"
+      A subscriber <em>SHOULD</em> choose a "min-rate" and "adaptive-min-rate"
       values lower than the "max-rate" value, otherwise, the notifier
-      MUST adjust the subscriber provided "min-rate" and "adaptive-min-
+      <em>MUST</em> adjust the subscriber provided "min-rate" and "adaptive-min-
       rate" values to a value equal to or lower than the "max-rate"
       value.
 
-      A subscriber SHOULD choose a "min-rate" value lower than the
-      "adaptive-min-rate" value, otherwise, the notifier MUST NOT
+      A subscriber <em>SHOULD</em> choose a "min-rate" value lower than the
+      "adaptive-min-rate" value, otherwise, the notifier <em>MUST NOT</em>
       consider the "min-rate" value.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Protocol Element Definitions</span>
@@ -1351,7 +1351,7 @@ Table of Contents
       Event             2xx          -   -   -   -   -   -   -   -   o
 
    A subscriber that wishes to update the previously agreed value for
-   maximum, minimum, or adaptive minimum rate of notifications MUST
+   maximum, minimum, or adaptive minimum rate of notifications <em>MUST</em>
    include all desired values for the "max-rate", "min-rate", and
    "adaptive-min-rate" parameters in an Event header field of the 2xx
    response to a NOTIFY request.  Any of the other header field
@@ -1368,10 +1368,10 @@ Table of Contents
    parameters currently defined for the Event header field by other
    specifications do not have a meaning if the Event header field is
    included in the 2xx response to the NOTIFY request.  These header
-   field parameters MUST be ignored by the notifier, if present.
+   field parameters <em>MUST</em> be ignored by the notifier, if present.
 
    The event type listed in the Event header field of the 2xx response
-   to the NOTIFY request MUST match the event type of the Event header
+   to the NOTIFY request <em>MUST</em> match the event type of the Event header
    field in the corresponding NOTIFY request.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  IANA Considerations</span>
@@ -1403,11 +1403,11 @@ Table of Contents
    Naturally, the security considerations listed in <a href="./rfc3265.html">RFC 3265</a> [<a href="./rfc3265.html" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">RFC3265</a>],
    which the rate control mechanisms described in this document extends,
    apply in their entirety.  In particular, authentication and message
-   integrity SHOULD be applied to subscriptions with this extension.
+   integrity <em>SHOULD</em> be applied to subscriptions with this extension.
 
    <a href="./rfc3265.html">RFC 3265</a> [<a href="./rfc3265.html" title="&quot;Session Initiation Protocol (SIP)-Specific Event Notification&quot;">RFC3265</a>] recommends the integrity protection of the Event
    header field of SUBSCRIBE requests.  Implementations of this
-   extension SHOULD also provide integrity protection for the Event
+   extension <em>SHOULD</em> also provide integrity protection for the Event
    header field included in the 2xx response to the NOTIFY request.
    Without integrity protection, an eavesdropper could see and modify
    the Event header field, or it could manipulate the transmission of a

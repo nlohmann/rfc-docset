@@ -343,7 +343,7 @@ Table of Contents
    adjacency [<a href="./rfc6863.html" title="&quot;Analysis of OSPF Security According to the Keying and Authentication for Routing Protocols (KARP) Design Guide&quot;">RFC6863</a>].  This is the IP-layer issue described in point
    18 in <a href="./rfc6862.html#section-4">Section&nbsp;4 of [RFC6862]</a>.
 
-   [<a name="ref-RFC2328" id="ref-RFC2328">RFC2328</a>] states that implementations MUST offer keyed MD5
+   [<a name="ref-RFC2328" id="ref-RFC2328">RFC2328</a>] states that implementations <em>MUST</em> offer keyed MD5
    authentication.  It is likely that this will be deprecated in favor
    of the stronger algorithms described in [<a href="./rfc5709.html" title="&quot;OSPFv2 HMAC-SHA Cryptographic Authentication&quot;">RFC5709</a>] and required in
    [<a href="./rfc6094.html" title="&quot;Summary of Cryptographic Authentication Algorithm Implementation Requirements for Routing Protocols&quot;">RFC6094</a>].
@@ -366,8 +366,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    When used in lowercase, these words convey their typical use in
@@ -388,26 +388,26 @@ Table of Contents
 
    Since there is no room in the OSPFv2 packet for a 64-bit sequence
    number, it will occupy the 8 octets following the OSPFv2 packet and
-   MUST be included when calculating the OSPFv2 packet digest.  These
+   <em>MUST</em> be included when calculating the OSPFv2 packet digest.  These
    additional 8 octets are not included in the OSPFv2 packet header
    length but are included in the OSPFv2 header Authentication Data
    length and the IPv4 packet header length.
 
-   The lower-order 32-bit sequence number MUST be incremented for every
+   The lower-order 32-bit sequence number <em>MUST</em> be incremented for every
    OSPF packet sent by the OSPF router.  Upon reception, the sequence
-   number MUST be greater than the sequence number in the last OSPF
+   number <em>MUST</em> be greater than the sequence number in the last OSPF
    packet of that type accepted from the sending OSPF neighbor.
    Otherwise, the OSPF packet is considered a replayed packet and
    dropped.  OSPF packets of different types may arrive out of order if
    they are prioritized as recommended in [<a href="./rfc4222.html" title="&quot;Prioritized Treatment of Specific OSPF Version 2 Packets and Congestion Avoidance&quot;">RFC4222</a>].
 
-   OSPF routers implementing this specification MUST use available
+   OSPF routers implementing this specification <em>MUST</em> use available
    mechanisms to preserve the sequence number's strictly increasing
    property for the deployed life of the OSPFv2 router (including cold
    restarts).  This is achieved by maintaining a boot count in non-
    volatile storage and incrementing it each time the OSPF router loses
    its prior sequence number state.  The SNMPv3 snmpEngineBoots variable
-   [<a href="./rfc3414.html" title="&quot;User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)&quot;">RFC3414</a>] MAY be used for this purpose.  However, maintaining a
+   [<a href="./rfc3414.html" title="&quot;User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)&quot;">RFC3414</a>] <em>MAY</em> be used for this purpose.  However, maintaining a
    separate boot count solely for OSPF sequence numbers has the
    advantage of decoupling SNMP reinitialization and OSPF
    reinitialization.  Also, in the rare event that the lower-order
@@ -422,7 +422,7 @@ Table of Contents
 
    32-bit sequence number wraps, the boot count can be incremented to
    preserve the strictly increasing property of the aggregate sequence
-   number.  Hence, a separate OSPF boot count is RECOMMENDED.
+   number.  Hence, a separate OSPF boot count is <em>RECOMMENDED</em>.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  OSPF Packet Extensions</span>
 
@@ -685,7 +685,7 @@ Table of Contents
    authentication computation so that any change of IP source address in
    a replayed packet can be detected.
 
-   When an OSPF packet is received, implementations MUST initialize the
+   When an OSPF packet is received, implementations <em>MUST</em> initialize the
    first 4 octets of Apad to the IP source address from the IP header of
    the incoming OSPFv2 packet.  The remainder of Apad will contain the
    value 0x878FE1F3 repeated (L - 4)/4 times, where L is the length of
@@ -738,7 +738,7 @@ Table of Contents
    Once the cryptographic key (Ko) used with the hash algorithm is
    derived, the rest of the authentication mechanism described in
    [<a href="./rfc5709.html" title="&quot;OSPFv2 HMAC-SHA Cryptographic Authentication&quot;">RFC5709</a>] remains unchanged other than one detail that was
-   unspecified.  When XORing Ko and Ipad of Opad, Ko MUST be padded with
+   unspecified.  When XORing Ko and Ipad of Opad, Ko <em>MUST</em> be padded with
    zeros to the length of Ipad or Opad.  It is expected that
    implementations of [<a href="./rfc5709.html" title="&quot;OSPFv2 HMAC-SHA Cryptographic Authentication&quot;">RFC5709</a>] perform this padding implicitly.
 
@@ -780,7 +780,7 @@ Table of Contents
    requires the OSPF implementation to be able to save its boot count in
    non-volatile storage.  If the non-volatile storage is ever repaired
    or upgraded such that the contents are lost or the OSPFv2 router is
-   replaced, the authentication keys MUST be changed to prevent replay
+   replaced, the authentication keys <em>MUST</em> be changed to prevent replay
    attacks.
 
    Second, if a router is taken out of service completely (either

@@ -326,7 +326,7 @@ Table of Contents
         plus  the computed signature formatted as an S/MIME message.
 
    No control is defined for the server to return in the LDAPResult as
-   defined in [<a href="#ref-4" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">4</a>].  The LDAP server MAY attempt to parse and verify the
+   defined in [<a href="#ref-4" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">4</a>].  The LDAP server <em>MAY</em> attempt to parse and verify the
    signature included in the SignedOperation control, but is not
    required to.  The server can accept the signed operation without
    verifying the signature.  Signature verification can be quite a
@@ -343,9 +343,9 @@ Table of Contents
    If the LDAP server is unable to verify the signature and wishes to
    return an error then the error code unwillingToPerform(53) should be
    returned, and the entire LDAP operation fails.  In this situation, an
-   appropriate message (e.g. "Unable to verify signature") MAY be
+   appropriate message (e.g. "Unable to verify signature") <em>MAY</em> be
    included in the errorMessage of the LDAPResult.  The SignedOperation
-   Control MAY be marked CRITICAL, and if it is CRITICAL then if the
+   Control <em>MAY</em> be marked CRITICAL, and if it is CRITICAL then if the
    LDAP Server performs the LDAP operation, then must include the
    signature in the signedAuditTrail information.
 
@@ -363,7 +363,7 @@ Table of Contents
       NAME 'signedAuditTrail'
       SUP top
       AUXILIARY
-      MUST (
+      <em>MUST</em> (
       Changes
       )
          )
@@ -444,7 +444,7 @@ Table of Contents
       NAME 'zombieObject'
       SUP top
       STRUCTURAL
-      MUST (
+      <em>MUST</em> (
       Cn $ Changes $ OriginalObject
       )
          )
@@ -458,7 +458,7 @@ Table of Contents
 
    The OriginalObject attribute contains the URL of the object that was
    deleted from the directory.  It is formatted in accordance with <a href="./rfc2255.html">RFC</a>
-   <a href="./rfc2255.html">2255</a>.  Directory servers that comply with this specification SHOULD
+   <a href="./rfc2255.html">2255</a>.  Directory servers that comply with this specification <em>SHOULD</em>
    create a zombieObject when performing the delete Operation that
    contains a SignedOperation LDAPControl.  The Cn attribute of the
 
@@ -472,7 +472,7 @@ Table of Contents
    zombieObject is synthesized by the LDAP server, and may or may not be
    related to the original name of the directory entry that was deleted.
    All changes attributes that were attached to the original entry are
-   copied over to the zombieObject.  In addition the LDAP Server MUST
+   copied over to the zombieObject.  In addition the LDAP Server <em>MUST</em>
    attach the signature of the Delete operation as the last successful
    change that was made to the entry.
 
@@ -481,15 +481,15 @@ Table of Contents
    A control is also defined that allows the LDAP v3 client to request
    that the server sign the results that it returns.  It is intended
    that this control is primarily used in concert with the LDAPSearch
-   operation.  This control MAY be marked as CRITICAL.  If it is marked
+   operation.  This control <em>MAY</em> be marked as CRITICAL.  If it is marked
    as CRITICAL and the LDAP Server supports this operation, then all
-   search results MUST be returned with a signature as attached in the
+   search results <em>MUST</em> be returned with a signature as attached in the
    SignedResult control if it is willing to sign results for this user.
    If the server supports this control but does not wish to sign the
    results for this user then the error code unwillingToPerform(53)
    should be returned, and the LDAP search will have failed.  In this
    situation, an appropriate message (e.g. "Unwilling to sign results
-   for you!") MUST be included in the errorMessage of the LDAPResult.
+   for you!") <em>MUST</em> be included in the errorMessage of the LDAPResult.
    If the LDAPSigType has the value FALSE then the client is requesting
    that the server not sign this operation.  This may be done in
    situations where servers are configured to always sign their
@@ -506,7 +506,7 @@ Table of Contents
    return a SignedResult control in addition to the normal result as
    defined by the operation (assuming that the server understands the
    con- trol, and is willing to perform it).  The SignedResult control
-   MUST NOT be marked CRITICAL.  Some LDAP v3 servers may be configured
+   <em>MUST NOT</em> be marked CRITICAL.  Some LDAP v3 servers may be configured
    to sign all of their operations.  In this situation the server always
    returns a SignedResult control, unless instructed otherwise by the
    DemandSigne-dResult Control.  Since the SignedResult control is not
@@ -582,7 +582,7 @@ Table of Contents
 
 
    If any of the controls in this specification are supported by an LDAP
-   v3 server then that server MUST make available its certificate (if
+   v3 server then that server <em>MUST</em> make available its certificate (if
    any) in the userCertificate attribute of its rootDSE object.  The
    UserCertificate attribute is defined in [<a href="#ref-6" title="&quot;A Summary of the X.500(96) User Schema for use with LDAPv3&quot;">6</a>], and contains the public
    key of the server that is used in the creation of the various

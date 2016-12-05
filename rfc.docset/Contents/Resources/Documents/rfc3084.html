@@ -251,8 +251,8 @@ Abstract
 
 Conventions used in this document
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html">RFC-2119</a>].
 
 Table of Contents
@@ -400,7 +400,7 @@ Glossary
    policy (e.g., QoS) will be used for all PIBs that exist in that
    area.  The client should treat all the COPS-PR client-types it
    supports as non-overlapping and independent namespaces where
-   instances MUST NOT be shared.
+   instances <em>MUST NOT</em> be shared.
 
    The examples used in this document are biased toward QoS Policy
    Provisioning in a Differentiated Services (DiffServ) environment.
@@ -564,7 +564,7 @@ Glossary
    by a PDP implementing the old PIB, the PEP will simply not receive
    any instances of the new PRC.  In the event that the PEP is
    implementing the old PIB and the PDP the new one, the PEP may receive
-   PRIs for the new PRC.  Under such conditions, the PEP MUST return an
+   PRIs for the new PRC.  Under such conditions, the PEP <em>MUST</em> return an
    error to the PDP, and rollback to its previous (good) state.
 
    Similarly, existing PRCs can be deprecated from a PIB.  In this case,
@@ -593,26 +593,26 @@ Glossary
    When deprecating the attributes of a PRC, it must be remembered that,
    with the COPS-PR protocol, the attributes of the PRC are identified
    by their order in the sequence rather than an explicit label (or
-   attribute OID).  Consequently, an ASN.1 value MUST be sent even for
+   attribute OID).  Consequently, an ASN.1 value <em>MUST</em> be sent even for
    deprecated attributes so that a PDP and PEP implementing different
    versions of the PIB are inter-operable.
 
    For a deprecated attribute, if the PDP is using a BER encoded PIB,
-   the PDP MUST send either an ASN.1 value of the correct type, or it
+   the PDP <em>MUST</em> send either an ASN.1 value of the correct type, or it
    may send an ASN.1 NULL value.  A PEP that receives an ASN.1 NULL for
-   an attribute that is not deprecated SHOULD substitute a default
-   value.  If it has no default value to substitute it MUST return an
+   an attribute that is not deprecated <em>SHOULD</em> substitute a default
+   value.  If it has no default value to substitute it <em>MUST</em> return an
    error to the PDP.
 
    When adding new attributes to a PIB, these new attributes must be
    added in sequence after the existing ones.  A PEP that receives a PRI
-   with more attributes than it is expecting MUST ignore the additional
+   with more attributes than it is expecting <em>MUST</em> ignore the additional
    attributes and send a warning back to the PDP.
 
    A PEP that receives a PRI with fewer attributes than it is expecting
-   SHOULD assume default values for the missing attributes. It MAY send
+   <em>SHOULD</em> assume default values for the missing attributes. It <em>MAY</em> send
    a warning back to the PDP.  If the missing attributes are required
-   and there is no suitable default, the PEP MUST send an error back to
+   and there is no suitable default, the PEP <em>MUST</em> send an error back to
    the PDP.  In all cases the missing attributes are assumed to
    correspond to the last attributes of the PRC.
 
@@ -627,7 +627,7 @@ Glossary
    o Install - This operation creates or updates a named instance of a
      PRC.  It includes two parameters: a PRID object to name the PRI and
      an Encoded Provisioning Instance Data (EPD) object with the
-     new/updated values.  The PRID value MUST uniquely identify a single
+     new/updated values.  The PRID value <em>MUST</em> uniquely identify a single
      PRI (i.e., PRID prefix or PRC values are illegal).  Updates to an
      existing PRI are achieved by simply reinstalling the same PRID with
      the updated EPD data.
@@ -646,7 +646,7 @@ Glossary
      individual PRI to be deleted or a PRID prefix naming one or more
      complete classes of PRIs.  Prefix-based deletion supports efficient
      bulk policy removal.  The removal of an unknown/non-existent PRID
-     SHOULD result in a warning to the PDP (no error).
+     <em>SHOULD</em> result in a warning to the PDP (no error).
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Message Content</span>
 
@@ -667,7 +667,7 @@ Glossary
    The REQ message is sent by policy provisioning clients to issue a
    'configuration request' to the PDP as specified in the COPS Context
    Object.  The Client Handle associated with the REQ message originated
-   by a provisioning client MUST be unique for that client.  The Client
+   by a provisioning client <em>MUST</em> be unique for that client.  The Client
    Handle is used to identify a specific request state.  Thus, one
    client can potentially open several configuration request states,
    each uniquely identified by its handle.  Different request states are
@@ -716,7 +716,7 @@ Glossary
    way, the PDP will be synchronized with the PEP's relevant internal
    state at all times.
 
-   The policy information supplied by the PDP MUST be consistent with
+   The policy information supplied by the PDP <em>MUST</em> be consistent with
    the named decision data defined for the policy provisioning client.
    The PDP responds to the configuration request with a DEC message
    containing any available provisioning policy data.
@@ -736,7 +736,7 @@ Glossary
 
    The DEC message is sent from the PDP to a policy provisioning client
    in response to the REQ message received from the PEP.  The Client
-   Handle MUST be the same Handle that was received in the corresponding
+   Handle <em>MUST</em> be the same Handle that was received in the corresponding
    REQ message.
 
    The DEC message is sent as an immediate response to a configuration
@@ -755,7 +755,7 @@ Glossary
 
    Each DEC message may contain multiple decisions.  This means a single
    message can install some policies and delete others.  In general a
-   single COPS-PR DEC message MUST contain any required remove decisions
+   single COPS-PR DEC message <em>MUST</em> contain any required remove decisions
    first, followed by any required install decisions.  This is used to
    solve a precedence issue, not a timing issue: the remove decision
    deletes what it specifies, except those items that are installed in
@@ -779,11 +779,11 @@ Glossary
    can be included in the corresponding decision (as it serves no
    purpose for this decision flag).  Note that only one decision with
    the Request-State flag can be present per DEC message, and, if
-   present, this MUST be the only decision in that message.  As
-   described below, the PEP MUST respond to each and every DEC with a
+   present, this <em>MUST</em> be the only decision in that message.  As
+   described below, the PEP <em>MUST</em> respond to each and every DEC with a
    corresponding solicited RPT.
 
-   A COPS-PR DEC message MUST be treated as a single "transaction",
+   A COPS-PR DEC message <em>MUST</em> be treated as a single "transaction",
    i.e., either all the decisions in a DEC message succeed or they all
    fail.  If they fail, the PEP will rollback to its previous good
    state, which is the last successful DEC transaction, if any.  This
@@ -813,7 +813,7 @@ Glossary
    in a COPS-PR Decision when it is an Install or Remove decision with
    no Decision Flags set.  Other types of COPS decision data objects
    (e.g., Stateless, Replacement) are not supported by COPS-PR client-
-   types.  The Named Decision Data object MUST NOT be included in the
+   types.  The Named Decision Data object <em>MUST NOT</em> be included in the
    decision if the Decision Flags object Command-Code is NULL (meaning
    there is no configuration information to install at this time) or if
    the Request-State flag is set in the Decision Flags object.
@@ -823,7 +823,7 @@ Glossary
    object on the Named Decision Data.  For the policy provisioning
    clients, the format for this data is defined in the context of the
    Policy Information Base (see <a href="#section-5">section 5</a>).  In response to a DEC
-   message, the policy provisioning client MUST send a RPT message, with
+   message, the policy provisioning client <em>MUST</em> send a RPT message, with
    the solicited message flag set, back to the PDP to inform the PDP of
    the action taken.
 
@@ -839,15 +839,15 @@ Glossary
    response to an 'Install' decision, the PEP informs the PDP if the
    policy data is installed (Report-Type = 'Success') or not (Report-
    Type = 'Failure').  Reports that are in response to a DEC message
-   MUST set the solicited message flag in their COPS message header.
-   Each solicited RTP MUST be sent for its corresponding DEC in the
+   <em>MUST</em> set the solicited message flag in their COPS message header.
+   Each solicited RTP <em>MUST</em> be sent for its corresponding DEC in the
    order the DEC messages were received.  In case of a solicited
    failure, the PEP is expected to rollback to its previous (good) state
-   as if the erroneous DEC transaction did not occur.  The PEP MUST
+   as if the erroneous DEC transaction did not occur.  The PEP <em>MUST</em>
    always respond to a DEC with a solicited RPT even in response to a
    NULL DEC, in which case the Report-Type will be 'Success'.
 
-   Reports can also be unsolicited and all unsolicited Reports MUST NOT
+   Reports can also be unsolicited and all unsolicited Reports <em>MUST NOT</em>
    set the solicited message flag in their COPS message header. Examples
    of unsolicited reports include 'Accounting' Report-Types, which were
    not triggered by a specific DEC messages, or 'Failure' Report-Types,
@@ -923,12 +923,12 @@ Glossary
 
    Length is a two-octet value that describes the number of octets
    (including the header) that compose the object.  If the length in
-   octets does not fall on a 32-bit word boundary, padding MUST be added
+   octets does not fall on a 32-bit word boundary, padding <em>MUST</em> be added
    to the end of the object so that it is aligned to the next 32-bit
    boundary before the object can be sent on the wire.  On the receiving
    side, a subsequent object boundary can be found by simply rounding up
    the stated object length of the current object to the next 32-bit
-   boundary.  The values for the padding MUST be all zeros.
+   boundary.  The values for the padding <em>MUST</em> be all zeros.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>. Complete Provisioning Instance Identifier (PRID)</span>
 
@@ -991,7 +991,7 @@ Glossary
    Certain operations, such as decision removal, can be optimized by
    specifying a PRID prefix with the intent that the requested operation
    be applied to all PRIs matching the prefix (for example, all
-   instances of the same PRC).  PRID prefix objects MUST only be used in
+   instances of the same PRC).  PRID prefix objects <em>MUST</em> only be used in
    the COPS protocol &lt;Remove Decision&gt; operation where it may be more
    optimal to perform bulk decision removal using class prefixes instead
    of a sequence of individual &lt;Remove Decision&gt; operations.  Other COPS
@@ -1333,7 +1333,7 @@ Glossary
 
      availMemLow(1)
      availMemExhausted(2)
-     unknownASN.1Tag(3)     - The erroneous tag type SHOULD be
+     unknownASN.1Tag(3)     - The erroneous tag type <em>SHOULD</em> be
                               specified in the Error Sub-Code field.
      maxMsgSizeExceeded(4)  - COPS message (transaction) was too big.
      unknownError(5)
@@ -1384,7 +1384,7 @@ Glossary
    the Error object in COPS [<a href="#ref-COPS" title="&quot;The COPS (Common Open Policy Service) Protocol&quot;">COPS</a>], except with C-Num and C-Type
    replaced by the S-Num and S-Type values shown.  The class-specific
    error object is used to communicate errors relating to specific PRCs
-   and MUST have an associated Error PRID Object.
+   and <em>MUST</em> have an associated Error PRID Object.
 
    The following Generic Class-Specific errors are defined:
 
@@ -1431,7 +1431,7 @@ Glossary
                                 PRC specific error code
 
      Where appropriate (errors 3, 4, 5, 6, 7 above) the error sub-code
-      SHOULD identify the OID sub-identifier of the attribute
+      <em>SHOULD</em> identify the OID sub-identifier of the attribute
       associated with the error.
 
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>. Error PRID Object (ErrorPRID)</span>
@@ -1464,8 +1464,8 @@ Glossary
    Object when no Decision Flags are set.  The data, in general, is
    composed of one or more bindings.  Each binding associates a PRID
    object and a EPD object.  The PRID object is always present in both
-   install and remove decisions, the EPD object MUST be present in the
-   case of an install decision and MUST NOT be present in the case of a
+   install and remove decisions, the EPD object <em>MUST</em> be present in the
+   case of an install decision and <em>MUST NOT</em> be present in the case of a
    remove decision.
 
 
@@ -1492,8 +1492,8 @@ Glossary
 
    Note that PRID objects in a Remove Decision may specify PRID prefix
    values.  Explicit and implicit deletion of installed policies is
-   supported by a client.  Install Decision data MUST be explicit (i.e.,
-   PRID prefix values are illegal and MUST be rejected by a client).
+   supported by a client.  Install Decision data <em>MUST</em> be explicit (i.e.,
+   PRID prefix values are illegal and <em>MUST</em> be rejected by a client).
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>. ClientSI Request Data</span>
 
@@ -1547,9 +1547,9 @@ Glossary
    is an indication of a general error at the PEP level (e.g., memory
    exhausted).
 
-   In the case of a 'Failure' Report-Type the PEP MUST report at least
-   the first error and SHOULD report as many errors as possible.  In
-   this case the PEP MUST roll-back its configuration to the last good
+   In the case of a 'Failure' Report-Type the PEP <em>MUST</em> report at least
+   the first error and <em>SHOULD</em> report as many errors as possible.  In
+   this case the PEP <em>MUST</em> roll-back its configuration to the last good
    transaction before the erroneous Decision message was received.
 
    The format for this data is encapsulated in the COPS Named ClientSI
@@ -1577,9 +1577,9 @@ Glossary
    NOTE: <a href="./rfc2748.html">RFC 2748</a> defines an optional Accounting-Timer (AcctTimer)
    object for use in the COPS Client-Accept message.  Periodic
    accounting reports for COPS-PR clients are also obligated to be paced
-   by this timer.  Periodic accounting reports SHOULD NOT be generated
+   by this timer.  Periodic accounting reports <em>SHOULD NOT</em> be generated
    by the PEP more frequently than the period specified by the COPS
-   AcctTimer.  Thus, the period between new accounting reports SHOULD be
+   AcctTimer.  Thus, the period between new accounting reports <em>SHOULD</em> be
    greater-than or equal-to the period specified (if specified) in the
    AcctTimer.  If no AcctTimer object is specified by the PDP, then
    there are no constraints imposed on the PEP's accounting interval.
@@ -1638,8 +1638,8 @@ Glossary
    object and specifying an "Install" Command-Code in the Decision Flags
    object.  If no filters are defined, the DEC message will simply
    specify that there are no filters using the "NULL Decision" Command-
-   Code in the Decision Flags object.  As the PEP MUST specify a Client
-   Handle in the request message, the PDP MUST process the Client Handle
+   Code in the Decision Flags object.  As the PEP <em>MUST</em> specify a Client
+   Handle in the request message, the PDP <em>MUST</em> process the Client Handle
    and copy it in the corresponding decision message.  A DEC message
 
 
@@ -1649,7 +1649,7 @@ Glossary
 <span class="grey"><a href="./rfc3084.html">RFC 3084</a>                        COPS-PR                       March 2001</span>
 
 
-   MUST be issued by the PDP with the Solicited Message Flag set in the
+   <em>MUST</em> be issued by the PDP with the Solicited Message Flag set in the
    COPS message header, regardless of whether or not the PDP has any
    configuration information for the PEP at the time of the request.
    This is to prevent the PEP from timing out the REQ and deleting the
@@ -1711,7 +1711,7 @@ Glossary
    the DEC message's Client Handle, thereby causing the PEP to issue a
    DRQ message for this Handle.
 
-   The PEP MUST acknowledge a DEC message and specify what action was
+   The PEP <em>MUST</em> acknowledge a DEC message and specify what action was
    taken by sending a RPT message with a "Success" or "Failure" Report-
    Type object with the Solicited Message Flag set in the COPS message
    header.  This serves as an indication to the PDP that the requestor
@@ -1720,7 +1720,7 @@ Glossary
    operation for any reason, a RPT message is sent with a Report-Type
    with the value "Failure" and optionally a Client Specific Information
    object specifying the policy data that was rejected.  Under such
-   solicited report failure conditions, the PEP MUST always rollback to
+   solicited report failure conditions, the PEP <em>MUST</em> always rollback to
    its previously installed (good) state as if the DEC never occurred.
    The PDP is then free to modify its decision and try again.
 
@@ -1746,7 +1746,7 @@ Glossary
    a OPN message with a &lt;LastPDPAddr&gt; object providing the address of
    the most recent PDP for which it is still caching decisions.  If no
    decisions are being cached on the PEP (due to reboot or TTL timeout
-   of state) the PEP MUST NOT include the last PDP address information.
+   of state) the PEP <em>MUST NOT</em> include the last PDP address information.
    Based on this object, the PDP may request the PEP to re-synch its
    current state information (by issuing a COPS SSQ message).  If, after
    re-connecting, the PDP does not request synchronization, the client
@@ -1761,10 +1761,10 @@ Glossary
 <span class="grey"><a href="./rfc3084.html">RFC 3084</a>                        COPS-PR                       March 2001</span>
 
 
-   to the PDP due to communication having been lost, MUST be reported to
+   to the PDP due to communication having been lost, <em>MUST</em> be reported to
    the PDP via the PEP sending an updated REQ message.  Whenever re-
-   synchronization is requested, the PEP MUST reissue any REQ messages
-   for all known Request-States and the PDP MUST issue DEC messages to
+   synchronization is requested, the PEP <em>MUST</em> reissue any REQ messages
+   for all known Request-States and the PDP <em>MUST</em> issue DEC messages to
    delete either individual PRIDs or prefixes as appropriate to ensure a
    consistent known state at the PEP.
 
@@ -1780,7 +1780,7 @@ Glossary
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>. Security Considerations</span>
 
    The COPS protocol [<a href="#ref-COPS" title="&quot;The COPS (Common Open Policy Service) Protocol&quot;">COPS</a>], from which this document derives, describes
-   the mandatory security mechanisms that MUST be supported by all COPS
+   the mandatory security mechanisms that <em>MUST</em> be supported by all COPS
    implementations.  These mandatory security mechanisms are used by the
    COPS protocol to transfer opaque information from PEP to PDP and vice
    versa in an authenticated and secure manner.  COPS for Policy
@@ -1793,7 +1793,7 @@ Glossary
    PIB (Policy Information Base) will likely be written in a separate
    document.  The authors of such a PIB document need to be aware of the
    security concerns associated with the specific data they have
-   defined.  These concerns MUST be fully specified in the security
+   defined.  These concerns <em>MUST</em> be fully specified in the security
    considerations section of the PIB document along with the required
    security mechanisms for  transporting this newly defined data.
 

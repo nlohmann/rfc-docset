@@ -281,8 +281,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   In this document, the key words "MAY", "MUST, "MUST NOT", "optional",
-   "recommended", "SHOULD", and "SHOULD NOT", are to be interpreted as
+   In this document, the key words "<em>MAY</em>", "<em>MUST</em>, "<em>MUST NOT</em>", "optional",
+   "recommended", "<em>SHOULD</em>", and "<em>SHOULD NOT</em>", are to be interpreted as
    described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Terminology</span>
@@ -595,7 +595,7 @@ Table of Contents
    connection have left the network.  Therefore it is conceivable that
    transactions sent on the alternate connection will arrive before
    those sent on the failed connection.  As a result, AAA agents and
-   servers MUST be prepared to handle duplicates, and MUST assume that
+   servers <em>MUST</em> be prepared to handle duplicates, and <em>MUST</em> assume that
    duplicates can arrive on any connection.
 
    For example, in billing, it is necessary to be able to weed out
@@ -834,8 +834,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Transport Mappings</span>
 
-   AAA Servers MUST support TCP and SCTP.  AAA clients SHOULD support
-   SCTP, but MUST support TCP if SCTP is not available.  As support for
+   AAA Servers <em>MUST</em> support TCP and SCTP.  AAA clients <em>SHOULD</em> support
+   SCTP, but <em>MUST</em> support TCP if SCTP is not available.  As support for
    SCTP improves, it is possible that SCTP support will be required on
    clients at some point in the future.  AAA agents inherit all the
    obligations of Servers with respect to transport support.
@@ -850,7 +850,7 @@ Table of Contents
 
    As a result, there are circumstances where the transport-layer
    batching provided by the Nagle Algorithm (12) is useful, and as a
-   result, AAA implementations running over TCP MUST enable the Nagle
+   result, AAA implementations running over TCP <em>MUST</em> enable the Nagle
    algorithm, [<a href="./rfc896.html" title="&quot;Congestion Control in IP/TCP internetworks&quot;">RFC896</a>].  The Nagle algorithm is not used with SCTP.
 
 
@@ -862,17 +862,17 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Multiple Connections</span>
 
-   AAA protocols SHOULD use only a single persistent connection between
-   a AAA client and a AAA agent or server.  They SHOULD provide for
+   AAA protocols <em>SHOULD</em> use only a single persistent connection between
+   a AAA client and a AAA agent or server.  They <em>SHOULD</em> provide for
    pipelining of requests, so that more than one request can be in
    progress at a time.  In order to minimize use of inactive connections
-   in roaming situations, a AAA client or agent MAY bring down a
+   in roaming situations, a AAA client or agent <em>MAY</em> bring down a
    connection to a AAA agent or server if the connection has been
    unutilized (discounting the watchdog) for a certain period of time,
-   which MUST NOT be less than BRINGDOWN_INTERVAL (5 minutes).
+   which <em>MUST NOT</em> be less than BRINGDOWN_INTERVAL (5 minutes).
 
-   While a AAA client/agent SHOULD only use a single persistent
-   connection to a given AAA agent or server, it MAY have connections to
+   While a AAA client/agent <em>SHOULD</em> only use a single persistent
+   connection to a given AAA agent or server, it <em>MAY</em> have connections to
    multiple AAA agents or servers.  A AAA client/agent connected to
    multiple agents/servers can treat them as primary/secondary or
    balance load between them.
@@ -880,7 +880,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Application Layer Watchdog</span>
 
    In order to enable AAA implementations to more quickly detect
-   transport and application-layer failures, AAA protocols MUST support
+   transport and application-layer failures, AAA protocols <em>MUST</em> support
    an application layer watchdog message.
 
    The application layer watchdog message enables failover from a peer
@@ -890,7 +890,7 @@ Table of Contents
    interfaces.  The SCTP heartbeat may enable a failover to another path
    to reach the same server, but does not address the situation where
    the server system or the application service has failed.  Therefore
-   both mechanisms MAY be used together.
+   both mechanisms <em>MAY</em> be used together.
 
    The watchdog is used in order to enable a AAA client or agent to
    determine when to resend on another connection.  It operates on all
@@ -935,7 +935,7 @@ Table of Contents
    The watchdog behavior is controlled by an algorithm defined in this
    section.  This algorithm is appropriate for use either within
    primary/secondary or load balancing configurations.  Implementations
-   SHOULD implement this algorithm, which operates as follows:
+   <em>SHOULD</em> implement this algorithm, which operates as follows:
 
    [<a name="ref-1" id="ref-1">1</a>] Watchdog behavior is controlled by a single timer (Tw).  The
        initial value of Tw, prior to jittering is Twinit.  The default
@@ -943,8 +943,8 @@ Table of Contents
        it minimizes the probability that failover will be initiated due
        to a routing flap, as noted in [<a href="#ref-Paxson" title="&quot;Measurement and Analysis of End-to-End Internet Dynamics&quot;">Paxson</a>].
 
-       While Twinit MAY be set as low as 6 seconds (not including
-       jitter), it MUST NOT be set lower than this.  Note that setting
+       While Twinit <em>MAY</em> be set as low as 6 seconds (not including
+       jitter), it <em>MUST NOT</em> be set lower than this.  Note that setting
        such a low value for Twinit is likely to result in an increased
        probability of duplicates, as well as an increase in spurious
        failover and failback attempts.
@@ -953,8 +953,8 @@ Table of Contents
        fixed timers among distributed systems, each time the watchdog
        interval is calculated with a jitter by using the Twinit value
        and randomly adding a value drawn between -2 and 2 seconds.
-       Alternative calculations to create jitter MAY be used.  These
-       MUST be pseudo-random, generated by a PRNG seeded as per
+       Alternative calculations to create jitter <em>MAY</em> be used.  These
+       <em>MUST</em> be pseudo-random, generated by a PRNG seeded as per
        [<a href="./rfc1750.html" title="&quot;Randomness Recommendations for Security&quot;">RFC1750</a>].
 
    [<a name="ref-2" id="ref-2">2</a>] When any AAA message is received, Tw is reset.  This need not be
@@ -982,13 +982,13 @@ Table of Contents
        to perform failover procedures, it is necessary to maintain a
        pending message queue for a given peer.  When an answer message
        is received, the corresponding request is removed from the queue.
-       The Hop-by-Hop Identifier field MAY be used to match the answer
+       The Hop-by-Hop Identifier field <em>MAY</em> be used to match the answer
        with the queued request.
 
        When failover is initiated, all messages in the queue are sent to
        an alternate agent, if available.  Multiple identical requests or
        answers may be received as a result of a failover.  The
-       combination of an end-to-end identifier and the origin host MUST
+       combination of an end-to-end identifier and the origin host <em>MUST</em>
        be used to identify duplicate messages.
 
        Note that where traffic is heavy, the application layer watchdog
@@ -1004,10 +1004,10 @@ Table of Contents
        that a watchdog response will be outstanding and failover will be
        initiated after only a single timer interval has expired.
 
-   [<a name="ref-4" id="ref-4">4</a>] The client MUST NOT close the primary connection until the
+   [<a name="ref-4" id="ref-4">4</a>] The client <em>MUST NOT</em> close the primary connection until the
        primary's watchdog timer has expired at least twice without a
        response (note that the watchdog is not sent a second time,
-       however).  Once this has occurred, the client SHOULD cause a
+       however).  Once this has occurred, the client <em>SHOULD</em> cause a
        transport reset or close to be done on the connection.
 
        Once the primary connection has failed, subsequent requests are
@@ -1060,13 +1060,13 @@ Table of Contents
        then the primary connection is closed and the suspension becomes
        permanent.
 
-   [<a name="ref-5" id="ref-5">5</a>] While the connection is in the closed state, the AAA client MUST
+   [<a name="ref-5" id="ref-5">5</a>] While the connection is in the closed state, the AAA client <em>MUST</em>
        NOT attempt to send further watchdog messages on the connection.
        However, after the connection is closed, the AAA client continues
        to periodically attempt to reopen the connection.
 
-       The AAA client SHOULD wait for the transport layer to report
-       connection failure before attempting again, but MAY choose to
+       The AAA client <em>SHOULD</em> wait for the transport layer to report
+       connection failure before attempting again, but <em>MAY</em> choose to
        bound this wait time by the watchdog interval, Tw.  If the
        connection is successfully opened, then the watchdog message is
        sent.  Once three watchdog messages have been sent and responded
@@ -1087,14 +1087,14 @@ Table of Contents
    [<a name="ref-6" id="ref-6">6</a>] When using SCTP as a transport, it is not necessary to disable
        SCTP's transport-layer heartbeats.  However, if AAA
        implementations have access to SCTP's heartbeat parameters, they
-       MAY chose to ensure that SCTP's heartbeat interval is longer than
+       <em>MAY</em> chose to ensure that SCTP's heartbeat interval is longer than
        the AAA watchdog interval, Tw.  This will ensure that alternate
        paths are still probed by SCTP, while the primary path has a
        minimum of heartbeat redundancy.
 
 <span class="h4"><a class="selflink" name="section-3.4.2" href="#section-3.4.2">3.4.2</a>.  Primary/Secondary Failover Support</span>
 
-   The watchdog timer MAY be integrated with primary/secondary style
+   The watchdog timer <em>MAY</em> be integrated with primary/secondary style
    failover so as to provide improved reliability and basic load
    balancing.  In order to balance load among multiple AAA servers, each
    AAA server is designated the primary for a portion of the clients,
@@ -1130,7 +1130,7 @@ Table of Contents
 
    [<a name="ref-5" id="ref-5">5</a>] In order to enable diagnosis of failover behavior, it is
        recommended that a table of failover events be kept within the
-       MIB.  These failover events SHOULD include appropriate
+       MIB.  These failover events <em>SHOULD</em> include appropriate
        transaction identifiers so that client and server data can be
 
 
@@ -1151,7 +1151,7 @@ Table of Contents
    at a time.
 
    A AAA client or agent maintaining connections to multiple agents or
-   servers MAY load balance between them.  Establishing connections to
+   servers <em>MAY</em> load balance between them.  Establishing connections to
    multiple agents or servers reduces, but does not eliminate, head of
    line blocking issues experienced on TCP connections.  This issue does
    not exist with SCTP connections utilizing multiple streams.
@@ -1255,7 +1255,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  Invalidation of Transport Parameter Estimates</span>
 
    In order to address invalidation of transport parameter estimates,
-   AAA protocol implementations MAY utilize Congestion Window Validation
+   AAA protocol implementations <em>MAY</em> utilize Congestion Window Validation
    [<a href="./rfc2861.html" title="&quot;TCP Congestion Window Validation&quot;">RFC2861</a>] and RTO validation when using TCP.  This specification also
    recommends a procedure for RTO validation.
 
@@ -1308,7 +1308,7 @@ Table of Contents
 <span class="grey"><a href="./rfc3539.html">RFC 3539</a>                 AAA Transport Profile                 June 2003</span>
 
 
-   RTO validation MAY be used to address this issue for TCP, via the
+   RTO validation <em>MAY</em> be used to address this issue for TCP, via the
    following procedure:
 
       After the congestion window is decayed according to [<a href="./rfc2861.html" title="&quot;TCP Congestion Window Validation&quot;">RFC2861</a>],
@@ -1316,10 +1316,10 @@ Table of Contents
       in, re-calculate RTTavg, RTTdev, and RTO according to the method
       described in [<a href="./rfc2581.html" title="&quot;TCP Congestion Control&quot;">RFC2581</a>].
 
-   To address this issue for SCTP, AAA implementations SHOULD use SCTP
+   To address this issue for SCTP, AAA implementations <em>SHOULD</em> use SCTP
    heartbeats.  [<a href="./rfc2960.html" title="&quot;Stream Control Transmission Protocol&quot;">RFC2960</a>] states that heartbeats should be enabled by
    default, with an interval of 30 seconds.  If this interval proves to
-   be too long to resolve this issue, AAA implementations MAY reduce the
+   be too long to resolve this issue, AAA implementations <em>MAY</em> reduce the
    heartbeat interval.
 
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  Inability to Use Fast Re-Transmit</span>
@@ -1333,9 +1333,9 @@ Table of Contents
    to encounter this issue, so the measures described below apply to
    TCP.
 
-   To address this issue, AAA implementations SHOULD support selective
+   To address this issue, AAA implementations <em>SHOULD</em> support selective
    acknowledgement as described in [<a href="./rfc2018.html" title="&quot;TCP Selective Acknowledgment Options&quot;">RFC2018</a>] and [<a href="./rfc2883.html" title="&quot;An Extension to the Selective Acknowledgment (SACK) Option for TCP&quot;">RFC2883</a>].  AAA
-   implementations SHOULD also implement Limited Transmit for TCP, as
+   implementations <em>SHOULD</em> also implement Limited Transmit for TCP, as
    described in [<a href="./rfc3042.html" title="&quot;Enhancing TCP's Loss Recovery Using Limited Transmit&quot;">RFC3042</a>].  Rather than reducing the number of duplicate
    ACKs required for triggering fast recovery, which would increase the
    number of inappropriate re-transmissions, Limited Transmit enables
@@ -1373,14 +1373,14 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.8.1" href="#section-3.8.1">3.8.1</a>.  Using SCTP Streams to Prevent Head of Line Blocking</span>
 
-   Each AAA node SHOULD distribute its messages evenly across the range
+   Each AAA node <em>SHOULD</em> distribute its messages evenly across the range
    of SCTP streams that it and its peer have agreed upon.  (A lost
    message in one stream will not cause any other streams to block.)  A
    trivial and effective implementation of this simply increments a
    counter for the stream ID to send on.  When the counter reaches the
    maximum number of streams for the association, it resets to 0.
 
-   AAA peers MUST be able to accept messages on any stream.  Note that
+   AAA peers <em>MUST</em> be able to accept messages on any stream.  Note that
    streams are used *solely* to prevent head-of-the-line blocking.  All
    identifying information is carried within the Diameter payload.
    Messages distributed across multiple streams may not be received in
@@ -1449,7 +1449,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.9" href="#section-3.9">3.9</a>.  Congestion Avoidance</span>
 
    In order to improve upon default timer estimates, AAA implementations
-   MAY implement the Congestion Manager (CM) [<a href="./rfc3124.html" title="&quot;The Congestion Manager&quot;">RFC3124</a>].  CM is an end-
+   <em>MAY</em> implement the Congestion Manager (CM) [<a href="./rfc3124.html" title="&quot;The Congestion Manager&quot;">RFC3124</a>].  CM is an end-
    system module that:
 
        (i) Enables an ensemble of multiple concurrent streams from a
@@ -1479,7 +1479,7 @@ Table of Contents
    The CM enables the AAA application to access transport parameters
    (RTTavg, RTTdev) via callbacks.  RTO estimates are currently not
    available via the callback interface, though they probably should be.
-   Where available, transport parameters SHOULD be used to improve upon
+   Where available, transport parameters <em>SHOULD</em> be used to improve upon
    default timer values.
 
 <span class="h3"><a class="selflink" name="section-3.10" href="#section-3.10">3.10</a>.  Premature Failover</span>
@@ -1733,7 +1733,7 @@ Appendix A - Detailed Watchdog Algorithm
     watchdog timer is calculated based on the default
     initial value TWINIT and a jitter ranging from
     -2 to 2 seconds.  The default for TWINIT is 30 seconds,
-    and MUST NOT be set lower than 6 seconds.
+    and <em>MUST NOT</em> be set lower than 6 seconds.
    */
        Tw=TWINIT -2.0 + 4.0 * random() ;
        SetTimer(Tw) ;
@@ -1742,7 +1742,7 @@ Appendix A - Detailed Watchdog Algorithm
 
    /*
     OnReceive() is called whenever a message
-    is received from the peer.  This message MAY
+    is received from the peer.  This message <em>MAY</em>
     be a request or an answer, and can include
     DWR and DWA messages.  Pending is assumed to
     be a global variable.
@@ -2208,7 +2208,7 @@ Appendix B - AAA Agents
    leaves the proxy responsible for delivering accounting packets.  If
    the proxy involves moving parts (e.g. a disk drive) while the NAS
    does not, overall system reliability can be reduced.  As a result,
-   store and forward proxies SHOULD NOT be used.
+   store and forward proxies <em>SHOULD NOT</em> be used.
 
    The sequence of events is as follows:
 

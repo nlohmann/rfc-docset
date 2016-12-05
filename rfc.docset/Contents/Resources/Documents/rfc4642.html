@@ -308,8 +308,8 @@ Table of Contents
    those in [<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>], and any term not defined in this document has the
    same meaning as in that one.
 
-   The key words "REQUIRED", "MUST", "MUST NOT", "SHOULD", "SHOULD NOT",
-   "MAY", and "OPTIONAL" in this document are to be interpreted as
+   The key words "<em>REQUIRED</em>", "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>",
+   "<em>MAY</em>", and "<em>OPTIONAL</em>" in this document are to be interpreted as
    described in "Key words for use in RFCs to Indicate Requirement
    Levels" [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
@@ -326,13 +326,13 @@ Table of Contents
    A server supporting the STARTTLS command as defined in this document
    will advertise the "STARTTLS" capability label in response to the
    CAPABILITIES command ([<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>] <a href="#section-5.2">Section 5.2</a>).  However, this capability
-   MUST NOT be advertised once a TLS layer is active (see <a href="#section-2.2.2">Section 2.2.2</a>)
-   or after successful authentication [<a href="#ref-NNTP-AUTH" title="&quot;Network News Transfer Protocol (NNTP) Extension for Authentication&quot;">NNTP-AUTH</a>].  This capability MAY
+   <em>MUST NOT</em> be advertised once a TLS layer is active (see <a href="#section-2.2.2">Section 2.2.2</a>)
+   or after successful authentication [<a href="#ref-NNTP-AUTH" title="&quot;Network News Transfer Protocol (NNTP) Extension for Authentication&quot;">NNTP-AUTH</a>].  This capability <em>MAY</em>
    be advertised both before and after any use of the MODE READER
    command ([<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>] <a href="#section-5.3">Section 5.3</a>), with the same semantics.
 
    As the STARTTLS command is related to security, cached results of
-   CAPABILITIES from a previous session MUST NOT be relied on, as per
+   CAPABILITIES from a previous session <em>MUST NOT</em> be relied on, as per
    Section 12.6 of [<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>].
 
    Example:
@@ -362,7 +362,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a>. Usage</span>
 
-   This command MUST NOT be pipelined.
+   This command <em>MUST NOT</em> be pipelined.
 
    Syntax
       STARTTLS
@@ -376,7 +376,7 @@ Table of Contents
    [<a name="ref-1" id="ref-1">1</a>] If a TLS layer is already active, or if authentication has
    occurred, STARTTLS is not a valid command (see <a href="#section-2.2.2">Section 2.2.2</a>).
 
-   NOTE: Notwithstanding Section 3.2.1 of [<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>], the server MUST NOT
+   NOTE: Notwithstanding Section 3.2.1 of [<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>], the server <em>MUST NOT</em>
    return either 480 or 483 in response to STARTTLS.
 
 <span class="h4"><a class="selflink" name="section-2.2.2" href="#section-2.2.2">2.2.2</a>. Description</span>
@@ -389,18 +389,18 @@ Table of Contents
    An NNTP server returns the 483 response to indicate that a secure or
    encrypted connection is required for the command sent by the client.
    Use of the STARTTLS command as described below is one way to
-   establish a connection with these properties.  The client MAY
+   establish a connection with these properties.  The client <em>MAY</em>
    therefore use the STARTTLS command after receiving a 483 response.
 
-   If a server advertises the STARTTLS capability, a client MAY attempt
+   If a server advertises the STARTTLS capability, a client <em>MAY</em> attempt
    to use the STARTTLS command at any time during a session to negotiate
-   TLS without having received a 483 response.  Servers SHOULD accept
+   TLS without having received a 483 response.  Servers <em>SHOULD</em> accept
    such unsolicited TLS negotiation requests.
 
    If the server is unable to initiate the TLS negotiation for any
    reason (e.g., a server configuration or resource problem), the server
-   MUST reject the STARTTLS command with a 580 response.  Then, it
-   SHOULD either reject subsequent restricted NNTP commands from the
+   <em>MUST</em> reject the STARTTLS command with a 580 response.  Then, it
+   <em>SHOULD</em> either reject subsequent restricted NNTP commands from the
    client with a 483 response code (possibly with a text string such as
    "Command refused due to lack of security") or reject a subsequent
    restricted command with a 400 response code (possibly with a text
@@ -414,7 +414,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4642.html">RFC 4642</a>                  Using TLS with NNTP               October 2006</span>
 
 
-   and TLS negotiation begins.  A server MUST NOT under any
+   and TLS negotiation begins.  A server <em>MUST NOT</em> under any
    circumstances reply to a STARTTLS command with either a 480 or 483
    response.
 
@@ -428,26 +428,26 @@ Table of Contents
    continue without TLS encryption, to wait and try again later, or to
    give up and notify the user of the error.
 
-   Upon receiving a 382 response to a STARTTLS command, the client MUST
+   Upon receiving a 382 response to a STARTTLS command, the client <em>MUST</em>
    start the TLS negotiation before giving any other NNTP commands.  The
    TLS negotiation begins for both the client and server with the first
    octet following the CRLF of the 382 response.  If, after having
    issued the STARTTLS command, the client finds out that some failure
-   prevents it from actually starting a TLS handshake, then it SHOULD
+   prevents it from actually starting a TLS handshake, then it <em>SHOULD</em>
    immediately close the connection.
 
-   Servers MUST be able to understand backwards-compatible TLS Client
+   Servers <em>MUST</em> be able to understand backwards-compatible TLS Client
    Hello messages (provided that client_version is TLS 1.0 or later),
-   and clients MAY use backwards-compatible Client Hello messages.
+   and clients <em>MAY</em> use backwards-compatible Client Hello messages.
    Neither clients nor servers are required to actually support Client
    Hello messages for anything other than TLS 1.0.  However, the TLS
-   extension for Server Name Indication ("server_name") [<a href="#ref-TLS-EXT" title="&quot;Transport Layer Security (TLS) Extensions&quot;">TLS-EXT</a>] SHOULD
-   be implemented by all clients; it also SHOULD be implemented by any
+   extension for Server Name Indication ("server_name") [<a href="#ref-TLS-EXT" title="&quot;Transport Layer Security (TLS) Extensions&quot;">TLS-EXT</a>] <em>SHOULD</em>
+   be implemented by all clients; it also <em>SHOULD</em> be implemented by any
    server implementing STARTTLS that is known by multiple names.
    (Otherwise, it is not possible for a server with several hostnames to
    present the correct certificate to the client.)
 
-   If the TLS negotiation fails, both client and server SHOULD
+   If the TLS negotiation fails, both client and server <em>SHOULD</em>
    immediately close the connection.  Note that while continuing the
    NNTP session is theoretically possible, in practice a TLS negotiation
    failure often leaves the session in an indeterminate state;
@@ -458,10 +458,10 @@ Table of Contents
    (see 5.1 of [<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>]) has been sent, with the exception that if a MODE
    READER command has been issued, its effects (if any) are not
    reversed.  At this point, as no greeting is sent, the next step is
-   for the client to send a command.  The server MUST discard any
+   for the client to send a command.  The server <em>MUST</em> discard any
    knowledge obtained from the client, such as the current newsgroup and
    article number, that was not obtained from the TLS negotiation
-   itself.  Likewise, the client SHOULD discard and MUST NOT rely on any
+   itself.  Likewise, the client <em>SHOULD</em> discard and <em>MUST NOT</em> rely on any
 
 
 
@@ -475,26 +475,26 @@ Table of Contents
 
    The server remains in the non-authenticated state, even if client
    credentials are supplied during the TLS negotiation.  The AUTHINFO
-   SASL command [<a href="#ref-NNTP-AUTH" title="&quot;Network News Transfer Protocol (NNTP) Extension for Authentication&quot;">NNTP-AUTH</a>] with the EXTERNAL mechanism [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] MAY be
+   SASL command [<a href="#ref-NNTP-AUTH" title="&quot;Network News Transfer Protocol (NNTP) Extension for Authentication&quot;">NNTP-AUTH</a>] with the EXTERNAL mechanism [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] <em>MAY</em> be
    used to authenticate once TLS client credentials are successfully
    exchanged, but servers supporting the STARTTLS command are not
    required to support AUTHINFO in general or the EXTERNAL mechanism in
-   particular.  The server MAY use information from the client
+   particular.  The server <em>MAY</em> use information from the client
    certificate for identification of connections or posted articles
    (either in its logs or directly in posted articles).
 
-   Both the client and the server MUST know if there is a TLS session
-   active.  A client MUST NOT attempt to start a TLS session if a TLS
-   session is already active.  A server MUST NOT return the STARTTLS
+   Both the client and the server <em>MUST</em> know if there is a TLS session
+   active.  A client <em>MUST NOT</em> attempt to start a TLS session if a TLS
+   session is already active.  A server <em>MUST NOT</em> return the STARTTLS
    capability label in response to a CAPABILITIES command received after
-   a TLS handshake has completed, and a server MUST respond with a 502
+   a TLS handshake has completed, and a server <em>MUST</em> respond with a 502
    response code if a STARTTLS command is received while a TLS session
-   is already active.  Additionally, the client MUST NOT issue a MODE
-   READER command while a TLS session is active, and a server MUST NOT
+   is already active.  Additionally, the client <em>MUST NOT</em> issue a MODE
+   READER command while a TLS session is active, and a server <em>MUST NOT</em>
    advertise the MODE-READER capability.
 
    The capability list returned in response to a CAPABILITIES command
-   received after a successful TLS handshake MAY be different from the
+   received after a successful TLS handshake <em>MAY</em> be different from the
    list returned before the TLS handshake.  For example, an NNTP server
    supporting SASL [<a href="#ref-NNTP-AUTH" title="&quot;Network News Transfer Protocol (NNTP) Extension for Authentication&quot;">NNTP-AUTH</a>] might not want to advertise support for a
    particular mechanism unless a client has sent an appropriate client
@@ -641,19 +641,19 @@ Table of Contents
    described in Section 12 of [<a href="#ref-NNTP" title="&quot;Network News Transfer Protocol (NNTP)&quot;">NNTP</a>]; those considerations remain
    relevant to any NNTP implementation.
 
-   NNTP client and server implementations MUST implement the
-   TLS_RSA_WITH_RC4_128_MD5 [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] cipher suite and SHOULD implement the
+   NNTP client and server implementations <em>MUST</em> implement the
+   TLS_RSA_WITH_RC4_128_MD5 [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] cipher suite and <em>SHOULD</em> implement the
    TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] cipher suite.  This is
    important, as it assures that any two compliant implementations can
-   be configured to interoperate.  All other cipher suites are OPTIONAL.
+   be configured to interoperate.  All other cipher suites are <em>OPTIONAL</em>.
 
    Before the TLS handshake has begun, any protocol interactions are
    performed in the clear and may be modified by an active attacker.
-   For this reason, clients and servers MUST discard any sensitive
+   For this reason, clients and servers <em>MUST</em> discard any sensitive
    knowledge obtained prior to the start of the TLS handshake upon the
    establishment of a security layer.  Furthermore, the CAPABILITIES
-   command SHOULD be re-issued upon the establishment of a security
-   layer, and other protocol state SHOULD be re-negotiated as well.
+   command <em>SHOULD</em> be re-issued upon the establishment of a security
+   layer, and other protocol state <em>SHOULD</em> be re-negotiated as well.
 
    Note that NNTP is not an end-to-end mechanism.  Thus, if an NNTP
    client/server pair decide to add TLS confidentiality, they are
@@ -666,21 +666,21 @@ Table of Contents
    authenticated by the NNTP client when the client itself received them
    (prior to forwarding them to the server).
 
-   During the TLS negotiation, the client MUST check its understanding
+   During the TLS negotiation, the client <em>MUST</em> check its understanding
    of the server hostname against the server's identity as presented in
    the server Certificate message, in order to prevent man-in-the-middle
    attacks.  Matching is performed according to these rules:
 
-   -  The client MUST use the server hostname it used to open the
+   -  The client <em>MUST</em> use the server hostname it used to open the
       connection (or the hostname specified in TLS "server_name"
       extension [<a href="#ref-TLS-EXT" title="&quot;Transport Layer Security (TLS) Extensions&quot;">TLS-EXT</a>]) as the value to compare against the server
-      name as expressed in the server certificate.  The client MUST NOT
+      name as expressed in the server certificate.  The client <em>MUST NOT</em>
       use any form of the server hostname derived from an insecure
       remote source (e.g., insecure DNS lookup).  CNAME canonicalization
       is not done.
 
    -  If a subjectAltName extension of type dNSName is present in the
-      certificate, it SHOULD be used as the source of the server's
+      certificate, it <em>SHOULD</em> be used as the source of the server's
       identity.
 
    -  Matching is case-insensitive.
@@ -694,7 +694,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4642.html">RFC 4642</a>                  Using TLS with NNTP               October 2006</span>
 
 
-   -  A "*" wildcard character MAY be used as the left-most name
+   -  A "*" wildcard character <em>MAY</em> be used as the left-most name
       component in the certificate.  For example, *.example.com would
       match a.example.com, foo.example.com, etc., but would not match
       example.com.
@@ -703,14 +703,14 @@ Table of Contents
       dNSName field), then a match with any one of the fields is
       considered acceptable.
 
-   If the match fails, the client SHOULD either ask for explicit user
+   If the match fails, the client <em>SHOULD</em> either ask for explicit user
    confirmation or terminate the connection with a QUIT command and
    indicate the server's identity is suspect.
 
-   Additionally, clients MUST verify the binding between the identity of
+   Additionally, clients <em>MUST</em> verify the binding between the identity of
    the servers to which they connect and the public keys presented by
-   those servers.  Clients SHOULD implement the algorithm in Section 6
-   of [<a href="#ref-PKI-CERT" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">PKI-CERT</a>] for general certificate validation, but MAY supplement
+   those servers.  Clients <em>SHOULD</em> implement the algorithm in Section 6
+   of [<a href="#ref-PKI-CERT" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">PKI-CERT</a>] for general certificate validation, but <em>MAY</em> supplement
    that algorithm with other validation methods that achieve equivalent
    levels of verification (such as comparing the server certificate
    against a local store of already-verified certificates and identity
@@ -783,14 +783,14 @@ Table of Contents
       STARTTLS command has been used successfully, the STARTTLS
       capability can no longer be advertised by CAPABILITIES.
 
-      Additionally, the MODE-READER capability MUST NOT be advertised
+      Additionally, the MODE-READER capability <em>MUST NOT</em> be advertised
       after a successful TLS negotiation.
 
    o  This extension does not cause any pre-existing command to produce
       a 401, 480, or 483 response.
 
    o  This extension is unaffected by any use of the MODE READER
-      command, however the MODE READER command MUST NOT be used in the
+      command, however the MODE READER command <em>MUST NOT</em> be used in the
       same session following a successful TLS negotiation.
 
    o  Published Specification: This document.

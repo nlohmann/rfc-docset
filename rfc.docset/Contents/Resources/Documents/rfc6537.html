@@ -303,8 +303,8 @@ Table of Contents
    based on implementation experience.  This document is not an IETF
    product and is not a standard.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  The OpenDHT Interface</span>
@@ -498,21 +498,21 @@ Table of Contents
      HDRR used with address lookup:
      HIP ( LOCATOR, SEQ, HOST_ID, [CERT], HIP_SIGNATURE )
 
-   The Initiator HIT (Sender's HIT, SRC HIT) MUST be set to the HIT that
+   The Initiator HIT (Sender's HIT, SRC HIT) <em>MUST</em> be set to the HIT that
    the host wishes to make available using the lookup service.  With the
    HIT lookup service, this is the main piece of information returned by
-   a get operation.  For the address lookup service, this HIT MUST be
+   a get operation.  For the address lookup service, this HIT <em>MUST</em> be
    the same one used to derive the HIT_KEY used as the DHT key.  The
-   Responder HIT (Receiver's HIT, DST HIT) MUST be NULL (all zeroes)
+   Responder HIT (Receiver's HIT, DST HIT) <em>MUST</em> be NULL (all zeroes)
    since the data is intended for any host.
 
    The only other TLV used with the HIT lookup service is an optional
    CERT parameter containing a certificate for validating the name that
    is used as the DHT key.  The CERT parameter is defined in [<a href="./rfc6253.html" title="&quot;Host Identity Protocol Certificates&quot;">RFC6253</a>].
-   The DHT server SHOULD use the certificate to verify that the client
+   The DHT server <em>SHOULD</em> use the certificate to verify that the client
    is authorized to use the name used for the DHT key, using the hash of
    the name found in the certificate.  The Common Name (CN) field from
-   the Distinguished Name (DN) of the X.509.v3 certificate MUST be used.
+   the Distinguished Name (DN) of the X.509.v3 certificate <em>MUST</em> be used.
    Which certificates are considered trusted is a local policy issue.
 
 
@@ -527,12 +527,12 @@ Table of Contents
    lookup service.
 
    The LOCATOR parameter contains the addresses that the host wishes to
-   make available using the lookup service.  A host MAY publish its
+   make available using the lookup service.  A host <em>MAY</em> publish its
    current preferred IPv4 and IPv6 locators, for example.
 
    The SEQ parameter contains an unsigned 32-bit sequence number, the
    Update ID.  This is typically initialized to zero and incremented by
-   one for each new HDRR that is published by the host.  The host SHOULD
+   one for each new HDRR that is published by the host.  The host <em>SHOULD</em>
    retain the last Update ID value it used for each HIT across reboots,
    or perform a self lookup in the DHT.  The Update ID value may be
    retained in the DHT records and will determine the preferred address
@@ -542,32 +542,32 @@ Table of Contents
    with the Sender's HIT.  (The encoding of this parameter is defined in
    <a href="./rfc5201.html#section-5.2.8">Section&nbsp;5.2.8 of [RFC5201]</a>.)
 
-   The HOST_ID parameter and HIP_SIGNATURE parameter MUST be used with
+   The HOST_ID parameter and HIP_SIGNATURE parameter <em>MUST</em> be used with
    the HDRR so that HIP clients receiving the record can validate the
    sender and the included LOCATOR parameter.  The HIT_KEY used for the
    DHT key will also be verified against the Host Identity.
 
-   The client that receives the HDRR from the DHT response MUST perform
+   The client that receives the HDRR from the DHT response <em>MUST</em> perform
    the signature and HIT_KEY verification.  If the signature is invalid
    for the given Host Identity or the HIT_KEY used to retrieve the
    record does not match the Host Identity, the DHT record retrieved
-   MUST be ignored.  Note that for client-only verification, the DHT
+   <em>MUST</em> be ignored.  Note that for client-only verification, the DHT
    server does not need to be modified.
 
-   The Sender's HIT in the HDRR MUST correspond with the key used for
-   the lookup and Host Identity verification.  The Receiver's HIT MUST
+   The Sender's HIT in the HDRR <em>MUST</em> correspond with the key used for
+   the lookup and Host Identity verification.  The Receiver's HIT <em>MUST</em>
    be NULL (all zeroes) in the HDRR header.
 
    When several HDRR records are returned by the server, the client
-   SHOULD pick the most recent record as indicated by the Update ID in
+   <em>SHOULD</em> pick the most recent record as indicated by the Update ID in
    the SEQ TLV of the HDRR and perform verification on that record.  The
    order in which records are returned should not be considered.
 
-   The DHT server MAY also verify the SIGNATURE and HOST_ID, with some
+   The DHT server <em>MAY</em> also verify the SIGNATURE and HOST_ID, with some
    modifications to the Bamboo DHT software and a new return code with
-   the OpenDHT interface.  The signature in the put MUST be verified
+   the OpenDHT interface.  The signature in the put <em>MUST</em> be verified
    using the given Host Identity (public key), and the HIT_KEY provided
-   as the lookup key MUST match this Host Identity according to the
+   as the lookup key <em>MUST</em> match this Host Identity according to the
    Overlay Routable Cryptographic Hash Identifiers (ORCHID) generation
    method defined by [<a href="./rfc4843.html" title="&quot;An IPv6 Prefix for Overlay Routable Cryptographic Hash Identifiers (ORCHID)&quot;">RFC4843</a>].  If either signature or HIT verification
 
@@ -579,7 +579,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6537.html">RFC 6537</a>                    HIP DHT Interface              February 2012</span>
 
 
-   fails, the put MUST not be recorded into the DHT, and the server
+   fails, the put <em>MUST</em> not be recorded into the DHT, and the server
    returns a failure code.  The failure code is an additional return
    code not defined by OpenDHT, with a value of 3.
 
@@ -603,11 +603,11 @@ Table of Contents
          HDRR(LOCATOR, SEQ, HOST_ID, [CERT], HIP_SIG) = get(HIT_KEY)
 
    The HIT lookup service returns the Host Identity Tag of a peer given
-   a name.  The name SHOULD be the FQDN, hostname, or some other alias.
+   a name.  The name <em>SHOULD</em> be the FQDN, hostname, or some other alias.
    This HIT is found in the Sender's HIT field of the HDRR.  The HIT is
    the hash of the public-key-based Host Identity as described in
    [<a href="./rfc5201.html" title="&quot;Host Identity Protocol&quot;">RFC5201</a>].  There are no security properties of the name, unlike the
-   HIT.  An optional certificate MAY be included in the record, for
+   HIT.  An optional certificate <em>MAY</em> be included in the record, for
    validating the name, providing some measure of security.  Which
    certificates are considered trusted is a local policy issue.  This
    service is intended for use when legacy DNS servers do not support
@@ -777,17 +777,17 @@ Table of Contents
    Identifier found in the HI TLV.  OpenDHT limits the keys to 20 bytes
    in length, so the SHA-1 hash is used to allow arbitrary name lengths.
 
-   The value used in the publish and lookup response MUST be the base64-
-   encoded HDRR containing the HIT, and MAY include an optional
-   certificate.  The HIT MUST be stored in the Sender's HIT field in the
+   The value used in the publish and lookup response <em>MUST</em> be the base64-
+   encoded HDRR containing the HIT, and <em>MAY</em> include an optional
+   certificate.  The HIT <em>MUST</em> be stored in the Sender's HIT field in the
    HDRR header and is a 128-bit value that can be identified as a HIT
    both by its length and by the ORCHID prefix [<a href="./rfc4843.html" title="&quot;An IPv6 Prefix for Overlay Routable Cryptographic Hash Identifiers (ORCHID)&quot;">RFC4843</a>] that it starts
    with.
 
    If a certificate is included in this HIT record, the name used for
-   the DHT key MUST be listed in the certificate.  The CERT parameter is
+   the DHT key <em>MUST</em> be listed in the certificate.  The CERT parameter is
    defined in [<a href="./rfc6253.html" title="&quot;Host Identity Protocol Certificates&quot;">RFC6253</a>].  The Common Name (CN) field from the
-   Distinguished Name (DN) of the X.509.v3 certificate MUST be used.
+   Distinguished Name (DN) of the X.509.v3 certificate <em>MUST</em> be used.
    The server can hash this name to verify it matches the DHT key.
 
    The ttl_sec field specifies the number of seconds requested by the
@@ -804,11 +804,11 @@ Table of Contents
 
 
    The secret_hash is an optional field used with HIT publish if the
-   value will later be removed with an rm operation.  It is RECOMMENDED
+   value will later be removed with an rm operation.  It is <em>RECOMMENDED</em>
    that clients support these rm operations for the values they publish.
    The secret_hash contains the base64-encoded SHA-1 hash of some secret
    value known only to the publishing host.  A different secret value
-   SHOULD be used for each put because rm requests are visible on the
+   <em>SHOULD</em> be used for each put because rm requests are visible on the
    network.  The max_vals and placemark fields used with the HIT lookup
    are defined by the get XML-RPC interface.
 
@@ -949,16 +949,16 @@ Table of Contents
 
    The ttl_sec field used with address publish indicates the time-to-
    live (TTL).  This is the number of seconds for which the entry will
-   be stored by the DHT.  The TTL SHOULD be set to the number of seconds
+   be stored by the DHT.  The TTL <em>SHOULD</em> be set to the number of seconds
    remaining in the address lifetime.
 
-   The secret_hash is an optional field that MAY be used with address
+   The secret_hash is an optional field that <em>MAY</em> be used with address
    publish if the value will later be removed with an rm operation.  The
    secret_hash contains the base64-encoded SHA-1 hash of some secret
-   value that MUST be known only to the publishing host.  Clients SHOULD
+   value that <em>MUST</em> be known only to the publishing host.  Clients <em>SHOULD</em>
    include the secret_hash and remove outdated values to reduce the
    amount of data the peer needs to handle.  A different secret value
-   SHOULD be used for each put because rm requests are visible on the
+   <em>SHOULD</em> be used for each put because rm requests are visible on the
    network.
 
 
@@ -979,7 +979,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Use Cases</span>
 
-   Below are some suggestions of when a HIP implementation MAY want to
+   Below are some suggestions of when a HIP implementation <em>MAY</em> want to
    use the HIT and address lookup services.
 
    To learn of a peer's HIT, a host might first consult DNS using the
@@ -987,11 +987,11 @@ Table of Contents
    defined by [<a href="./rfc5205.html" title="&quot;Host Identity Protocol (HIP) Domain Name System (DNS) Extensions&quot;">RFC5205</a>].  Sometimes hosts do not have administrative
    authority over their DNS entries and/or the DNS server is not able to
    support HIP resource records.  Hosts may want to associate other non-
-   DNS names with their HITs.  For these and other reasons, a host MAY
+   DNS names with their HITs.  For these and other reasons, a host <em>MAY</em>
    use the HIT publish service defined in <a href="#section-4.1">Section 4.1</a>.  The peer HIT may
    be learned by performing a DHT lookup of such a name.
 
-   Once a peer HIT is learned or configured, an address lookup MAY be
+   Once a peer HIT is learned or configured, an address lookup <em>MAY</em> be
    performed so that the LOCATORs can be cached and immediately
    available for when an association is requested.  Implementations
    might load a list of peer HITs on startup, resulting in several
@@ -1004,16 +1004,16 @@ Table of Contents
    instead be performed after the I1 retransmission timer fires -- when
    no R1 reply has been received -- to detect any change in address.
 
-   A HIP host SHOULD publish its preferred LOCATORs upon startup, so
-   other hosts may determine where it is reachable.  The host SHOULD
+   A HIP host <em>SHOULD</em> publish its preferred LOCATORs upon startup, so
+   other hosts may determine where it is reachable.  The host <em>SHOULD</em>
    periodically refresh its HDRR entry because each entry carries a TTL
    and will eventually expire.  Also, when there is a change in the
    preferred address, usually associated with sending UPDATE packets
-   with included locator parameters, the host SHOULD update its HDRR
-   with the DHT.  The old HDRR SHOULD be removed using the rm operation,
+   with included locator parameters, the host <em>SHOULD</em> update its HDRR
+   with the DHT.  The old HDRR <em>SHOULD</em> be removed using the rm operation,
    if a secret value was used in the put.
 
-   Addresses from the private address space SHOULD NOT be published to
+   Addresses from the private address space <em>SHOULD NOT</em> be published to
    the DHT.  If the host is located behind a NAT, for example, the host
    could publish the address of its Rendezvous Server (RVS, from
    [<a href="./rfc5204.html" title="&quot;Host Identity Protocol (HIP) Rendezvous Extension&quot;">RFC5204</a>]) to the DHT if that is how it is reachable.  In this case,
@@ -1027,9 +1027,9 @@ Table of Contents
 <span class="grey"><a href="./rfc6537.html">RFC 6537</a>                    HIP DHT Interface              February 2012</span>
 
 
-   A HIP host SHOULD also publish its HIT upon startup or whenever a new
+   A HIP host <em>SHOULD</em> also publish its HIT upon startup or whenever a new
    HIT is configured, for use with the HIT lookup service, if desired.
-   The host SHOULD first check if the name already exists in the DHT by
+   The host <em>SHOULD</em> first check if the name already exists in the DHT by
    performing a lookup, to avoid interfering with an existing name-to-
    HIT mapping.  The name-to-HIT binding needs to be refreshed
    periodically before the TTL expires.
@@ -1037,17 +1037,17 @@ Table of Contents
    When publishing data to the DHT server, care should be taken to check
    the response from the server.  The server may respond with an "over
    capacity" code, indicating that its resources are too burdened to
-   honor the given size and TTL.  The host SHOULD then select another
+   honor the given size and TTL.  The host <em>SHOULD</em> then select another
    server for publishing or reduce the TTL and retry the put operation.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Issues with DHT Support</span>
 
    The DHT put operation does not replace existing values.  If a host
    does not remove its old HDRR before adding another, several entries
-   may be present.  A client performing a lookup SHOULD determine the
+   may be present.  A client performing a lookup <em>SHOULD</em> determine the
    most recent address based on the Update ID from the SEQ TLV of the
    HDRR.  The order of values returned in the server's response may not
-   be guaranteed.  Before performing each put, a host SHOULD remove its
+   be guaranteed.  Before performing each put, a host <em>SHOULD</em> remove its
    old HDRR data using the rm operation.
 
    In the case of the HIT lookup service, there is nothing preventing
@@ -1056,12 +1056,12 @@ Table of Contents
    The server may enforce a policy that requires clients to include a
    certificate when publishing a HIT, and only store HITs with a name
    that has been authorized by some trusted certificate.  Otherwise,
-   this is an unmanaged free-for-all service, and it is RECOMMENDED that
+   this is an unmanaged free-for-all service, and it is <em>RECOMMENDED</em> that
    a host simply pick another name.
 
    Selecting an appropriate DHT server to use is not covered here.  If a
    particular server becomes unavailable, the connect will timeout and
-   some server selection algorithm SHOULD be performed, such as trying
+   some server selection algorithm <em>SHOULD</em> be performed, such as trying
    the next server in a configured list.  OpenDHT formerly provided a
    DNS-based anycast service; when one performed a lookup of
    "opendht.nyuld.net", it returned the two nearest OpenDHT servers.
@@ -1094,20 +1094,20 @@ Table of Contents
 
    For the HIT lookup based on a name (<a href="#section-4.1">Section 4.1</a>), there are no
    guarantees on the validity of the HIT.  Users concerned with the
-   validity of HITs found in the DHT SHOULD simply exchange HITs out-of-
+   validity of HITs found in the DHT <em>SHOULD</em> simply exchange HITs out-of-
    band with peers.  Including a signature will not help here because
    the HIT that identifies the Host Identity for signing is not known
-   ahead of time.  A certificate MAY be included with the HIT, which
+   ahead of time.  A certificate <em>MAY</em> be included with the HIT, which
    guarantees that the name used for the lookup has been authorized by
    some third-party authority.  Which certificates are considered
    trusted is a local policy issue.
 
    For the address lookup based on HIT (<a href="#section-4.2">Section 4.2</a>), the validity of
-   the DHT response MUST be checked with the HOST_ID and SIGNATURE
-   parameters in the HDRR.  A HIP initiating host SHOULD also validate
+   the DHT response <em>MUST</em> be checked with the HOST_ID and SIGNATURE
+   parameters in the HDRR.  A HIP initiating host <em>SHOULD</em> also validate
    the DHT response after the R1 message is received during a HIP
    exchange.  The Host Identity provided in the R1 can be hashed to
-   obtain a HIT that MUST be checked against the original HIT.  However,
+   obtain a HIT that <em>MUST</em> be checked against the original HIT.  However,
    a legacy OpenDHT service without server modifications does not
    prevent an attacker from polluting the DHT records for a known HIT,
    thereby causing a denial-of-service attack, since server validation
@@ -1123,7 +1123,7 @@ Table of Contents
    and HIT verification on each one, which could cause unacceptable
    amounts of delay or computation.
 
-   To protect against this type of attack, the DHT server SHOULD perform
+   To protect against this type of attack, the DHT server <em>SHOULD</em> perform
    signature and HIT verification of each put operation as described in
    <a href="#section-3">Section 3</a>.  Another option would be the server running HIP itself and
    requiring client authentication with a HIP association before

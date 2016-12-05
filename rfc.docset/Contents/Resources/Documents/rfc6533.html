@@ -334,8 +334,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The formal syntax uses the Augmented Backus-Naur Form (ABNF)
@@ -351,7 +351,7 @@ Table of Contents
    status notifications is specified at the end of this section.
 
    An SMTP [<a href="./rfc5321.html" title="&quot;Simple Mail Transfer Protocol&quot;">RFC5321</a>] server that advertises both the SMTPUTF8 extension
-   [<a href="./rfc6531.html" title="&quot;SMTP Extension for Internationalized Email&quot;">RFC6531</a>] and the DSN extension [<a href="./rfc3461.html" title="&quot;Simple Mail Transfer Protocol (SMTP) Service Extension for Delivery Status Notifications (DSNs)&quot;">RFC3461</a>] MUST accept a UTF-8 address
+   [<a href="./rfc6531.html" title="&quot;SMTP Extension for Internationalized Email&quot;">RFC6531</a>] and the DSN extension [<a href="./rfc3461.html" title="&quot;Simple Mail Transfer Protocol (SMTP) Service Extension for Delivery Status Notifications (DSNs)&quot;">RFC3461</a>] <em>MUST</em> accept a UTF-8 address
    type in the ORCPT parameter including 8-bit UTF-8 characters.  This
    address type also includes a 7-bit encoding suitable for use in a
    message/delivery-status body part or an ORCPT parameter sent to an
@@ -370,25 +370,25 @@ Table of Contents
 
    The utf-8-address form is only suitable for use in newly defined
    protocols capable of native representation of 8-bit characters.  That
-   is, the utf-8-address form MUST NOT be used:
+   is, the utf-8-address form <em>MUST NOT</em> be used:
 
    1.  in the ORCPT parameter when the SMTP server doesn't advertise
-       support for SMTPUTF8 (utf-8-addr-xtext MUST be used instead); or
+       support for SMTPUTF8 (utf-8-addr-xtext <em>MUST</em> be used instead); or
 
    2.  if the SMTP server supports SMTPUTF8, but the address contains
        ASCII characters not permitted in the ORCPT parameter (e.g., the
        ORCPT parameter forbids unencoded SP and the '=' character),
-       (either utf-8-addr-unitext or utf-8-addr-xtext MUST be used
+       (either utf-8-addr-unitext or utf-8-addr-xtext <em>MUST</em> be used
        instead); or
 
    3.  in a 7-bit transport environment including a message/
        delivery-status "Original-Recipient:" or "Final-Recipient:"
-       field, (utf-8-addr-xtext MUST be used instead).
+       field, (utf-8-addr-xtext <em>MUST</em> be used instead).
 
-   The utf-8-address form MAY be used in the ORCPT parameter when the
+   The utf-8-address form <em>MAY</em> be used in the ORCPT parameter when the
    SMTP server also advertises support for SMTPUTF8 and the address
    doesn't contain any ASCII characters not permitted in the ORCPT
-   parameter.  It SHOULD be used in a message/global-delivery-status
+   parameter.  It <em>SHOULD</em> be used in a message/global-delivery-status
    "Original-Recipient:" or "Final-Recipient:" DSN field, or in an
    "Original-Recipient:" header field [<a href="./rfc3798.html" title="&quot;Message Disposition Notification&quot;">RFC3798</a>] if the message is a
    SMTPUTF8 message.
@@ -407,9 +407,9 @@ Table of Contents
    encoding described in [<a href="./rfc3461.html" title="&quot;Simple Mail Transfer Protocol (SMTP) Service Extension for Delivery Status Notifications (DSNs)&quot;">RFC3461</a>], as any ASCII characters that need to
    be escaped using xtext encoding never appear in any unitext-encoded
    string.  When sending data to a SMTPUTF8-capable server, native UTF-8
-   characters SHOULD be used instead of the EmbeddedUnicodeChar syntax
+   characters <em>SHOULD</em> be used instead of the EmbeddedUnicodeChar syntax
    described below.  When sending data to an SMTP server that does not
-   advertise SMTPUTF8, then the EmbeddedUnicodeChar syntax MUST be used
+   advertise SMTPUTF8, then the EmbeddedUnicodeChar syntax <em>MUST</em> be used
    instead of UTF-8.
 
 
@@ -422,10 +422,10 @@ Table of Contents
 
    When the ORCPT parameter is placed in a message/
    global-delivery-status "Original-Recipient:" field, the
-   utf-8-addr-xtext form of the UTF-8 address type SHOULD be converted
+   utf-8-addr-xtext form of the UTF-8 address type <em>SHOULD</em> be converted
    to the utf-8-address form (see the ABNF below) by removing the
    unitext encoding.  However, if an address is labeled with the UTF-8
-   address type but does not conform to utf-8 syntax, then it MUST be
+   address type but does not conform to utf-8 syntax, then it <em>MUST</em> be
    copied into the message/global-delivery-status field without
    alteration.
 
@@ -455,7 +455,7 @@ Table of Contents
                          ; extension is not advertised.
 
    utf-8-addr-unitext  = 1*(QUCHAR / EmbeddedUnicodeChar)
-                       ; MUST follow utf-8-address ABNF when
+                       ; <em>MUST</em> follow utf-8-address ABNF when
                        ; dequoted.
                        ; Safe for using in the ORCPT [<a href="./rfc3461.html" title="&quot;Simple Mail Transfer Protocol (SMTP) Service Extension for Delivery Status Notifications (DSNs)&quot;">RFC3461</a>]
                        ; parameter when SMTPUTF8 SMTP extension
@@ -518,12 +518,12 @@ Table of Contents
 
    The first type, message/global-delivery-status, has the syntax of
    message/delivery-status with three modifications.  First, the charset
-   for message/global-delivery-status is UTF-8, and thus any field MAY
+   for message/global-delivery-status is UTF-8, and thus any field <em>MAY</em>
    contain UTF-8 characters when appropriate (see the ABNF below).  In
-   particular, the "Diagnostic-Code:" field MAY contain UTF-8 as
-   described in SMTPUTF8 [<a href="./rfc6531.html" title="&quot;SMTP Extension for Internationalized Email&quot;">RFC6531</a>]; the "Diagnostic-Code:" field SHOULD
+   particular, the "Diagnostic-Code:" field <em>MAY</em> contain UTF-8 as
+   described in SMTPUTF8 [<a href="./rfc6531.html" title="&quot;SMTP Extension for Internationalized Email&quot;">RFC6531</a>]; the "Diagnostic-Code:" field <em>SHOULD</em>
    be in i-default language [<a href="./rfc2277.html" title="&quot;IETF Policy on Character Sets and Languages&quot;">RFC2277</a>].  Second, systems generating a
-   message/global-delivery-status body part SHOULD use the utf-8-address
+   message/global-delivery-status body part <em>SHOULD</em> use the utf-8-address
 
 
 
@@ -533,7 +533,7 @@ Table of Contents
 
 
    form of the UTF-8 address type for all addresses containing
-   characters outside the ASCII repertoire.  These systems SHOULD up-
+   characters outside the ASCII repertoire.  These systems <em>SHOULD</em> up-
    convert the utf-8-addr-xtext or the utf-8-addr-unitext form of a
    UTF-8 address type in the ORCPT parameter to the utf-8-address form
    of a UTF-8 address type in the "Original-Recipient:" field.  Third,
@@ -541,7 +541,7 @@ Table of Contents
    instance includes a language tag [<a href="./rfc5646.html" title="&quot;Tags for Identifying Languages&quot;">RFC5646</a>] and contains text in the
    specified language.  This is equivalent to the text part of the
    "Diagnostic-Code:" field.  All instances of "Localized-Diagnostic:"
-   MUST use different language tags.  The ABNF for message/
+   <em>MUST</em> use different language tags.  The ABNF for message/
    global-delivery-status is specified below.
 
    In the ABNF below, all productions not defined in this document are
@@ -632,7 +632,7 @@ Table of Contents
 
    Note that as far as a multipart/report [<a href="./rfc6522.html" title="&quot;The Multipart/Report Media Type for the Reporting of Mail System Administrative Messages&quot;">RFC6522</a>] container is
    concerned, message/global-delivery-status, message/global, and
-   message/global-headers MUST be treated as equivalent to message/
+   message/global-headers <em>MUST</em> be treated as equivalent to message/
    delivery-status, message/rfc822, and text/rfc822-headers.  That is,
 
 
@@ -644,13 +644,13 @@ Table of Contents
 <span class="grey"><a href="./rfc6533.html">RFC 6533</a>             Internationalized DSN and MDNs        February 2012</span>
 
 
-   implementations processing multipart/report MUST expect any
+   implementations processing multipart/report <em>MUST</em> expect any
    combinations of the 6 media types mentioned above inside a multipart/
    report media type.
 
    All three new types will typically use the "8bit" Content-Transfer-
    Encoding.  (In the event all content is 7-bit, the equivalent
-   traditional types for delivery status notifications MAY be used.  For
+   traditional types for delivery status notifications <em>MAY</em> be used.  For
    example, if information in a message/global-delivery-status part can
    be represented without any loss of information as message/
    delivery-status, then the message/delivery-status body part may be
@@ -670,7 +670,7 @@ Table of Contents
    multipart/report:
 
       If the return-path SMTP server does not support SMTPUTF8, then the
-      undeliverable body part and headers MUST be encoded using a 7-bit
+      undeliverable body part and headers <em>MUST</em> be encoded using a 7-bit
       Content-Transfer-Encoding such as "base64" or "quoted-printable"
       [<a href="./rfc2045.html" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">RFC2045</a>], as detailed in <a href="#section-4">Section 4</a>.
 
@@ -687,9 +687,9 @@ Table of Contents
    global-disposition-notification, which has the syntax of message/
    disposition-notification with two modifications.  First, the charset
    for message/global-disposition-notification is UTF-8, and thus any
-   field MAY contain UTF-8 characters when appropriate (see the ABNF
+   field <em>MAY</em> contain UTF-8 characters when appropriate (see the ABNF
    below).  (In particular, the failure-field, the error-field, and the
-   warning-field MAY contain UTF-8.  These fields SHOULD be in i-default
+   warning-field <em>MAY</em> contain UTF-8.  These fields <em>SHOULD</em> be in i-default
 
 
 
@@ -702,14 +702,14 @@ Table of Contents
 
    language [<a href="./rfc2277.html" title="&quot;IETF Policy on Character Sets and Languages&quot;">RFC2277</a>].)  Second, systems generating a message/
    global-disposition-notification body part (typically a mail user
-   agent) SHOULD use the UTF-8 address type for all addresses containing
+   agent) <em>SHOULD</em> use the UTF-8 address type for all addresses containing
    characters outside the ASCII repertoire.
 
    The MDN specification also defines the "Original-Recipient:" header
    field, which is added with a copy of the contents of ORCPT at
    delivery time.  When generating an "Original-Recipient:" header
    field, a delivery agent writing a UTF-8 header message in native
-   format SHOULD convert the utf-8-addr-xtext or the utf-8-addr-unitext
+   format <em>SHOULD</em> convert the utf-8-addr-xtext or the utf-8-addr-unitext
    form of a UTF-8 address type in the ORCPT parameter to the
    corresponding utf-8-address form.
 
@@ -782,7 +782,7 @@ Table of Contents
    delivery-status body part, it remains as presently defined.  When the
    'smtp' diagnostic type is used in the context of a message/
    global-delivery-status body part, the codes remain the same, but the
-   text portion MAY contain UTF-8 characters.
+   text portion <em>MAY</em> contain UTF-8 characters.
 
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  message/global-headers</span>
 
@@ -796,8 +796,8 @@ Table of Contents
 
    Encoding considerations:  This media type contains Internationalized
       Email Headers [<a href="./rfc6532.html" title="&quot;Internationalized Email Headers&quot;">RFC6532</a>] with no message body.  Whenever possible,
-      the 8-bit content transfer encoding SHOULD be used.  When this
-      media type passes through a 7-bit-only SMTP infrastructure, it MAY
+      the 8-bit content transfer encoding <em>SHOULD</em> be used.  When this
+      media type passes through a 7-bit-only SMTP infrastructure, it <em>MAY</em>
       be encoded with the base64 or quoted-printable content transfer
       encoding.
 
@@ -814,7 +814,7 @@ Table of Contents
 
    Interoperability considerations:  It is important that this media
       type is not converted to a charset other than UTF-8.  As a result,
-      implementations MUST NOT include a charset parameter with this
+      implementations <em>MUST NOT</em> include a charset parameter with this
       media type.  Although it might be possible to down-convert this
       media type to the text/rfc822-header media type, such conversion
       is discouraged as it loses information.
@@ -872,7 +872,7 @@ Table of Contents
 
    Encoding considerations:  This media type contains delivery status
       notification attributes in the UTF-8 charset.  The 8-bit content
-      transfer encoding MUST be used with this content-type, unless it
+      transfer encoding <em>MUST</em> be used with this content-type, unless it
       is sent over a 7-bit transport environment, in which case quoted-
       printable or base64 may be necessary.
 
@@ -936,7 +936,7 @@ Table of Contents
 
    Encoding considerations:  This media type contains disposition
       notification attributes in the UTF-8 charset.  The 8-bit content
-      transfer encoding MUST be used with this content-type, unless it
+      transfer encoding <em>MUST</em> be used with this content-type, unless it
       is sent over a 7-bit transport environment, in which case quoted-
       printable or base64 may be necessary.
 

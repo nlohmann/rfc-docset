@@ -499,8 +499,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Conventions and Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    All numeric values are in network byte order.  Values are unsigned
@@ -615,7 +615,7 @@ Table of Contents
    knowledge about support for HTTP/2 on the next hop uses the HTTP
    Upgrade mechanism (<a href="./rfc7230.html#section-6.7">Section&nbsp;6.7 of [RFC7230]</a>).  The client does so by
    making an HTTP/1.1 request that includes an Upgrade header field with
-   the "h2c" token.  Such an HTTP/1.1 request MUST include exactly one
+   the "h2c" token.  Such an HTTP/1.1 request <em>MUST</em> include exactly one
    HTTP2-Settings (<a href="#section-3.2.1">Section 3.2.1</a>) header field.
 
    For example:
@@ -626,7 +626,7 @@ Table of Contents
      Upgrade: h2c
      HTTP2-Settings: &lt;base64url encoding of HTTP/2 SETTINGS payload&gt;
 
-   Requests that contain a payload body MUST be sent in their entirety
+   Requests that contain a payload body <em>MUST</em> be sent in their entirety
    before the client can send HTTP/2 frames.  This means that a large
    request can block the use of the connection until it is completely
    sent.
@@ -651,14 +651,14 @@ Table of Contents
 
      ...
 
-   A server MUST ignore an "h2" token in an Upgrade header field.
+   A server <em>MUST</em> ignore an "h2" token in an Upgrade header field.
    Presence of a token with "h2" implies HTTP/2 over TLS, which is
    instead negotiated as described in <a href="#section-3.3">Section 3.3</a>.
 
    A server that supports HTTP/2 accepts the upgrade with a 101
    (Switching Protocols) response.  After the empty line that terminates
    the 101 response, the server can begin sending HTTP/2 frames.  These
-   frames MUST include a response to the request that initiated the
+   frames <em>MUST</em> include a response to the request that initiated the
    upgrade.
 
    For example:
@@ -669,9 +669,9 @@ Table of Contents
 
      [ HTTP/2 connection ...
 
-   The first HTTP/2 frame sent by the server MUST be a server connection
+   The first HTTP/2 frame sent by the server <em>MUST</em> be a server connection
    preface (<a href="#section-3.5">Section 3.5</a>) consisting of a SETTINGS frame (<a href="#section-6.5">Section 6.5</a>).
-   Upon receiving the 101 response, the client MUST send a connection
+   Upon receiving the 101 response, the client <em>MUST</em> send a connection
    preface (<a href="#section-3.5">Section 3.5</a>), which includes a SETTINGS frame.
 
    The HTTP/1.1 request that is sent prior to upgrade is assigned a
@@ -683,7 +683,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  HTTP2-Settings Header Field</span>
 
-   A request that upgrades from HTTP/1.1 to HTTP/2 MUST include exactly
+   A request that upgrades from HTTP/1.1 to HTTP/2 <em>MUST</em> include exactly
    one "HTTP2-Settings" header field.  The HTTP2-Settings header field
    is a connection-specific header field that includes parameters that
    govern the HTTP/2 connection, provided in anticipation of the server
@@ -698,8 +698,8 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   A server MUST NOT upgrade the connection to HTTP/2 if this header
-   field is not present or if more than one is present.  A server MUST
+   A server <em>MUST NOT</em> upgrade the connection to HTTP/2 if this header
+   field is not present or if more than one is present.  A server <em>MUST</em>
    NOT send this header field.
 
    The content of the HTTP2-Settings header field is the payload of a
@@ -710,7 +710,7 @@ Table of Contents
    [RFC7235]</a>.
 
    Since the upgrade is only intended to apply to the immediate
-   connection, a client sending the HTTP2-Settings header field MUST
+   connection, a client sending the HTTP2-Settings header field <em>MUST</em>
    also send "HTTP2-Settings" as a connection option in the Connection
    header field to prevent it from being forwarded (see <a href="./rfc7230.html#section-6.1">Section&nbsp;6.1 of
    [RFC7230]</a>).
@@ -729,11 +729,11 @@ Table of Contents
    [<a href="#ref-TLS-ALPN" title="&quot;Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension&quot;">TLS-ALPN</a>].
 
    HTTP/2 over TLS uses the "h2" protocol identifier.  The "h2c"
-   protocol identifier MUST NOT be sent by a client or selected by a
+   protocol identifier <em>MUST NOT</em> be sent by a client or selected by a
    server; the "h2c" protocol identifier describes a protocol that does
    not use TLS.
 
-   Once TLS negotiation is complete, both the client and the server MUST
+   Once TLS negotiation is complete, both the client and the server <em>MUST</em>
    send a connection preface (<a href="#section-3.5">Section 3.5</a>).
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Starting HTTP/2 with Prior Knowledge</span>
@@ -742,7 +742,7 @@ Table of Contents
    means.  For example, [<a href="#ref-ALT-SVC" title="&quot;HTTP Alternative Services&quot;">ALT-SVC</a>] describes a mechanism for advertising
    this capability.
 
-   A client MUST send the connection preface (<a href="#section-3.5">Section 3.5</a>) and then MAY
+   A client <em>MUST</em> send the connection preface (<a href="#section-3.5">Section 3.5</a>) and then <em>MAY</em>
    immediately send HTTP/2 frames to such a server; servers can identify
    these connections by the presence of the connection preface.  This
 
@@ -755,10 +755,10 @@ Table of Contents
 
 
    only affects the establishment of HTTP/2 connections over cleartext
-   TCP; implementations that support HTTP/2 over TLS MUST use protocol
+   TCP; implementations that support HTTP/2 over TLS <em>MUST</em> use protocol
    negotiation in TLS [<a href="#ref-TLS-ALPN" title="&quot;Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension&quot;">TLS-ALPN</a>].
 
-   Likewise, the server MUST send a connection preface (<a href="#section-3.5">Section 3.5</a>).
+   Likewise, the server <em>MUST</em> send a connection preface (<a href="#section-3.5">Section 3.5</a>).
 
    Without additional information, prior support for HTTP/2 is not a
    strong signal that a given server will support HTTP/2 for future
@@ -779,8 +779,8 @@ Table of Contents
      0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
 
    That is, the connection preface starts with the string "PRI *
-   HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence MUST be followed by a
-   SETTINGS frame (<a href="#section-6.5">Section 6.5</a>), which MAY be empty.  The client sends
+   HTTP/2.0\r\n\r\nSM\r\n\r\n").  This sequence <em>MUST</em> be followed by a
+   SETTINGS frame (<a href="#section-6.5">Section 6.5</a>), which <em>MAY</em> be empty.  The client sends
    the client connection preface immediately upon receipt of a 101
    (Switching Protocols) response (indicating a successful upgrade) or
    as the first application data octets of a TLS connection.  If
@@ -794,11 +794,11 @@ Table of Contents
       address the concerns raised in [<a href="#ref-TALKING" title="&quot;Talking to Yourself for Fun and Profit&quot;">TALKING</a>].
 
    The server connection preface consists of a potentially empty
-   SETTINGS frame (<a href="#section-6.5">Section 6.5</a>) that MUST be the first frame the server
+   SETTINGS frame (<a href="#section-6.5">Section 6.5</a>) that <em>MUST</em> be the first frame the server
    sends in the HTTP/2 connection.
 
    The SETTINGS frames received from a peer as part of the connection
-   preface MUST be acknowledged (see <a href="#section-6.5.3">Section 6.5.3</a>) after sending the
+   preface <em>MUST</em> be acknowledged (see <a href="#section-6.5.3">Section 6.5.3</a>) after sending the
    connection preface.
 
 
@@ -821,9 +821,9 @@ Table of Contents
    possible for the server to transmit SETTINGS before the client sends
    additional frames, providing an opportunity to avoid this issue.
 
-   Clients and servers MUST treat an invalid connection preface as a
+   Clients and servers <em>MUST</em> treat an invalid connection preface as a
    connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.  A GOAWAY
-   frame (<a href="#section-6.8">Section 6.8</a>) MAY be omitted in this case, since an invalid
+   frame (<a href="#section-6.8">Section 6.8</a>) <em>MAY</em> be omitted in this case, since an invalid
    preface indicates that the peer is not using HTTP/2.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  HTTP Frames</span>
@@ -851,7 +851,7 @@ Table of Contents
    The fields of the frame header are defined as:
 
    Length:  The length of the frame payload expressed as an unsigned
-      24-bit integer.  Values greater than 2^14 (16,384) MUST NOT be
+      24-bit integer.  Values greater than 2^14 (16,384) <em>MUST NOT</em> be
       sent unless the receiver has set a larger value for
       SETTINGS_MAX_FRAME_SIZE.
 
@@ -867,7 +867,7 @@ Table of Contents
 
 
    Type:  The 8-bit type of the frame.  The frame type determines the
-      format and semantics of the frame.  Implementations MUST ignore
+      format and semantics of the frame.  Implementations <em>MUST</em> ignore
       and discard any frame that has a type that is unknown.
 
    Flags:  An 8-bit field reserved for boolean flags specific to the
@@ -875,10 +875,10 @@ Table of Contents
 
       Flags are assigned semantics specific to the indicated frame type.
       Flags that have no defined semantics for a particular frame type
-      MUST be ignored and MUST be left unset (0x0) when sending.
+      <em>MUST</em> be ignored and <em>MUST</em> be left unset (0x0) when sending.
 
    R: A reserved 1-bit field.  The semantics of this bit are undefined,
-      and the bit MUST remain unset (0x0) when sending and MUST be
+      and the bit <em>MUST</em> remain unset (0x0) when sending and <em>MUST</em> be
       ignored when receiving.
 
    Stream Identifier:  A stream identifier (see <a href="#section-5.1.1">Section 5.1.1</a>) expressed
@@ -896,7 +896,7 @@ Table of Contents
    setting can have any value between 2^14 (16,384) and 2^24-1
    (16,777,215) octets, inclusive.
 
-   All implementations MUST be capable of receiving and minimally
+   All implementations <em>MUST</em> be capable of receiving and minimally
    processing frames up to 2^14 octets in length, plus the 9-octet frame
    header (<a href="#section-4.1">Section 4.1</a>).  The size of the frame header is not included
    when describing frame sizes.
@@ -904,11 +904,11 @@ Table of Contents
       Note: Certain frame types, such as PING (<a href="#section-6.7">Section 6.7</a>), impose
       additional limits on the amount of payload data allowed.
 
-   An endpoint MUST send an error code of FRAME_SIZE_ERROR if a frame
+   An endpoint <em>MUST</em> send an error code of FRAME_SIZE_ERROR if a frame
    exceeds the size defined in SETTINGS_MAX_FRAME_SIZE, exceeds any
    limit defined for the frame type, or is too small to contain
    mandatory frame data.  A frame size error in a frame that could alter
-   the state of the entire connection MUST be treated as a connection
+   the state of the entire connection <em>MUST</em> be treated as a connection
    error (<a href="#section-5.4.1">Section 5.4.1</a>); this includes any frame carrying a header
    block (<a href="#section-4.3">Section 4.3</a>) (that is, HEADERS, PUSH_PROMISE, and
    CONTINUATION), SETTINGS, and any frame with a stream identifier of 0.
@@ -962,11 +962,11 @@ Table of Contents
 
    Header compression is stateful.  One compression context and one
    decompression context are used for the entire connection.  A decoding
-   error in a header block MUST be treated as a connection error
+   error in a header block <em>MUST</em> be treated as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type COMPRESSION_ERROR.
 
    Each header block is processed as a discrete unit.  Header blocks
-   MUST be transmitted as a contiguous sequence of frames, with no
+   <em>MUST</em> be transmitted as a contiguous sequence of frames, with no
    interleaved frames of any other type or from any other stream.  The
    last frame in a sequence of HEADERS or CONTINUATION frames has the
 
@@ -987,7 +987,7 @@ Table of Contents
    that can modify the compression context maintained by a receiver.  An
    endpoint receiving HEADERS, PUSH_PROMISE, or CONTINUATION frames
    needs to reassemble header blocks and perform decompression even if
-   the frames are to be discarded.  A receiver MUST terminate the
+   the frames are to be discarded.  A receiver <em>MUST</em> terminate the
    connection with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    COMPRESSION_ERROR if it does not decompress a header block.
 
@@ -1126,7 +1126,7 @@ Table of Contents
          ID field.
 
       Receiving any frame other than HEADERS or PRIORITY on a stream in
-      this state MUST be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>)
+      this state <em>MUST</em> be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>)
       of type PROTOCOL_ERROR.
 
    reserved (local):
@@ -1155,12 +1155,12 @@ Table of Contents
          to become "closed".  This releases the stream reservation.
 
 
-      An endpoint MUST NOT send any type of frame other than HEADERS,
+      An endpoint <em>MUST NOT</em> send any type of frame other than HEADERS,
       RST_STREAM, or PRIORITY in this state.
 
-      A PRIORITY or WINDOW_UPDATE frame MAY be received in this state.
+      A PRIORITY or WINDOW_UPDATE frame <em>MAY</em> be received in this state.
       Receiving any type of frame other than RST_STREAM, PRIORITY, or
-      WINDOW_UPDATE on a stream in this state MUST be treated as a
+      WINDOW_UPDATE on a stream in this state <em>MUST</em> be treated as a
       connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    reserved (remote):
@@ -1175,13 +1175,13 @@ Table of Contents
       *  Either endpoint can send a RST_STREAM frame to cause the stream
          to become "closed".  This releases the stream reservation.
 
-      An endpoint MAY send a PRIORITY frame in this state to
-      reprioritize the reserved stream.  An endpoint MUST NOT send any
+      An endpoint <em>MAY</em> send a PRIORITY frame in this state to
+      reprioritize the reserved stream.  An endpoint <em>MUST NOT</em> send any
       type of frame other than RST_STREAM, WINDOW_UPDATE, or PRIORITY in
       this state.
 
       Receiving any type of frame other than HEADERS, RST_STREAM, or
-      PRIORITY on a stream in this state MUST be treated as a connection
+      PRIORITY on a stream in this state <em>MUST</em> be treated as a connection
       error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    open:
@@ -1235,7 +1235,7 @@ Table of Contents
 
       If an endpoint receives additional frames, other than
       WINDOW_UPDATE, PRIORITY, or RST_STREAM, for a stream that is in
-      this state, it MUST respond with a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of
+      this state, it <em>MUST</em> respond with a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of
       type STREAM_CLOSED.
 
       A stream that is "half-closed (remote)" can be used by the
@@ -1261,12 +1261,12 @@ Table of Contents
    closed:
       The "closed" state is the terminal state.
 
-      An endpoint MUST NOT send frames other than PRIORITY on a closed
+      An endpoint <em>MUST NOT</em> send frames other than PRIORITY on a closed
       stream.  An endpoint that receives any frame other than PRIORITY
-      after receiving a RST_STREAM MUST treat that as a stream error
+      after receiving a RST_STREAM <em>MUST</em> treat that as a stream error
       (<a href="#section-5.4.2">Section 5.4.2</a>) of type STREAM_CLOSED.  Similarly, an endpoint
       that receives any frames after receiving a frame with the
-      END_STREAM flag set MUST treat that as a connection error
+      END_STREAM flag set <em>MUST</em> treat that as a connection error
       (<a href="#section-5.4.1">Section 5.4.1</a>) of type STREAM_CLOSED, unless the frame is
       permitted as described below.
 
@@ -1274,23 +1274,23 @@ Table of Contents
       for a short period after a DATA or HEADERS frame containing an
       END_STREAM flag is sent.  Until the remote peer receives and
       processes RST_STREAM or the frame bearing the END_STREAM flag, it
-      might send frames of these types.  Endpoints MUST ignore
+      might send frames of these types.  Endpoints <em>MUST</em> ignore
       WINDOW_UPDATE or RST_STREAM frames received in this state, though
-      endpoints MAY choose to treat frames that arrive a significant
+      endpoints <em>MAY</em> choose to treat frames that arrive a significant
       time after sending END_STREAM as a connection error
       (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
       PRIORITY frames can be sent on closed streams to prioritize
-      streams that are dependent on the closed stream.  Endpoints SHOULD
+      streams that are dependent on the closed stream.  Endpoints <em>SHOULD</em>
       process PRIORITY frames, though they can be ignored if the stream
       has been removed from the dependency tree (see <a href="#section-5.3.4">Section 5.3.4</a>).
 
       If this state is reached as a result of sending a RST_STREAM
       frame, the peer that receives the RST_STREAM might have already
       sent -- or enqueued for sending -- frames on the stream that
-      cannot be withdrawn.  An endpoint MUST ignore frames that it
+      cannot be withdrawn.  An endpoint <em>MUST</em> ignore frames that it
       receives on closed streams after it has sent a RST_STREAM frame.
-      An endpoint MAY choose to limit the period over which it ignores
+      An endpoint <em>MAY</em> choose to limit the period over which it ignores
       frames and treat frames that arrive after this time as being in
       error.
 
@@ -1315,7 +1315,7 @@ Table of Contents
 
 
    In the absence of more specific guidance elsewhere in this document,
-   implementations SHOULD treat the receipt of a frame that is not
+   implementations <em>SHOULD</em> treat the receipt of a frame that is not
    expressly permitted in the description of a state as a connection
    error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.  Note that PRIORITY can
    be sent and received in any stream state.  Frames of unknown types
@@ -1328,8 +1328,8 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.1.1" href="#section-5.1.1">5.1.1</a>.  Stream Identifiers</span>
 
    Streams are identified with an unsigned 31-bit integer.  Streams
-   initiated by a client MUST use odd-numbered stream identifiers; those
-   initiated by the server MUST use even-numbered stream identifiers.  A
+   initiated by a client <em>MUST</em> use odd-numbered stream identifiers; those
+   initiated by the server <em>MUST</em> use even-numbered stream identifiers.  A
    stream identifier of zero (0x0) is used for connection control
    messages; the stream identifier of zero cannot be used to establish a
    new stream.
@@ -1340,11 +1340,11 @@ Table of Contents
    Therefore, stream 0x1 cannot be selected as a new stream identifier
    by a client that upgrades from HTTP/1.1.
 
-   The identifier of a newly established stream MUST be numerically
+   The identifier of a newly established stream <em>MUST</em> be numerically
    greater than all streams that the initiating endpoint has opened or
    reserved.  This governs streams that are opened using a HEADERS frame
    and streams that are reserved using PUSH_PROMISE.  An endpoint that
-   receives an unexpected stream identifier MUST respond with a
+   receives an unexpected stream identifier <em>MUST</em> respond with a
    connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    The first use of a new stream identifier implicitly closes all
@@ -1387,9 +1387,9 @@ Table of Contents
    SETTINGS_MAX_CONCURRENT_STREAMS setting.  Streams in either of the
    "reserved" states do not count toward the stream limit.
 
-   Endpoints MUST NOT exceed the limit set by their peer.  An endpoint
+   Endpoints <em>MUST NOT</em> exceed the limit set by their peer.  An endpoint
    that receives a HEADERS frame that causes its advertised concurrent
-   stream limit to be exceeded MUST treat this as a stream error
+   stream limit to be exceeded <em>MUST</em> treat this as a stream error
    (<a href="#section-5.4.2">Section 5.4.2</a>) of type PROTOCOL_ERROR or REFUSED_STREAM.  The choice
    of error code determines whether the endpoint wishes to enable
    automatic retry (see <a href="#section-8.1.4">Section 8.1.4</a>) for details).
@@ -1442,9 +1442,9 @@ Table of Contents
        scheme.
 
    3.  Flow control is directional with overall control provided by the
-       receiver.  A receiver MAY choose to set any window size that it
+       receiver.  A receiver <em>MAY</em> choose to set any window size that it
        desires for each stream and for the entire connection.  A sender
-       MUST respect flow-control limits imposed by a receiver.  Clients,
+       <em>MUST</em> respect flow-control limits imposed by a receiver.  Clients,
        servers, and intermediaries all independently advertise their
        flow-control window as a receiver and abide by the flow-control
        limits set by their peer when sending.
@@ -1506,7 +1506,7 @@ Table of Contents
 
    Even with full awareness of the current bandwidth-delay product,
    implementation of flow control can be difficult.  When using flow
-   control, the receiver MUST read from the TCP receive buffer in a
+   control, the receiver <em>MUST</em> read from the TCP receive buffer in a
    timely fashion.  Failure to do so could lead to a deadlock when
    critical frames, such as WINDOW_UPDATE, are not read and acted upon.
 
@@ -1602,12 +1602,12 @@ Table of Contents
 
             Figure 4: Example of Exclusive Dependency Creation
 
-   Inside the dependency tree, a dependent stream SHOULD only be
+   Inside the dependency tree, a dependent stream <em>SHOULD</em> only be
    allocated resources if either all of the streams that it depends on
    (the chain of parent streams up to 0x0) are closed or it is not
    possible to make progress on them.
 
-   A stream cannot depend on itself.  An endpoint MUST treat this as a
+   A stream cannot depend on itself.  An endpoint <em>MUST</em> treat this as a
    stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type PROTOCOL_ERROR.
 
 <span class="h4"><a class="selflink" name="section-5.3.2" href="#section-5.3.2">5.3.2</a>.  Dependency Weighting</span>
@@ -1615,7 +1615,7 @@ Table of Contents
    All dependent streams are allocated an integer weight between 1 and
    256 (inclusive).
 
-   Streams with the same parent SHOULD be allocated resources
+   Streams with the same parent <em>SHOULD</em> be allocated resources
    proportionally based on their weight.  Thus, if stream B depends on
    stream A with weight 4, stream C depends on stream A with weight 12,
    and no progress can be made on stream A, stream B ideally receives
@@ -1706,7 +1706,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   To avoid these problems, an endpoint SHOULD retain stream
+   To avoid these problems, an endpoint <em>SHOULD</em> retain stream
    prioritization state for a period after streams become closed.  The
    longer state is retained, the lower the chance that streams are
    assigned incorrect or default priority values.
@@ -1720,20 +1720,20 @@ Table of Contents
    The retention of priority information for streams that are not
    counted toward the limit set by SETTINGS_MAX_CONCURRENT_STREAMS could
    create a large state burden for an endpoint.  Therefore, the amount
-   of prioritization state that is retained MAY be limited.
+   of prioritization state that is retained <em>MAY</em> be limited.
 
    The amount of additional state an endpoint maintains for
    prioritization could be dependent on load; under high load,
    prioritization state can be discarded to limit resource commitments.
    In extreme cases, an endpoint could even discard prioritization state
    for active or reserved streams.  If a limit is applied, endpoints
-   SHOULD maintain state for at least as many streams as allowed by
+   <em>SHOULD</em> maintain state for at least as many streams as allowed by
    their setting for SETTINGS_MAX_CONCURRENT_STREAMS.  Implementations
-   SHOULD also attempt to retain state for streams that are in active
+   <em>SHOULD</em> also attempt to retain state for streams that are in active
    use in the priority tree.
 
    If it has retained enough state to do so, an endpoint receiving a
-   PRIORITY frame that changes the priority of a closed stream SHOULD
+   PRIORITY frame that changes the priority of a closed stream <em>SHOULD</em>
    alter the dependencies of the streams that depend on it.
 
 <span class="h4"><a class="selflink" name="section-5.3.5" href="#section-5.3.5">5.3.5</a>.  Default Priorities</span>
@@ -1767,12 +1767,12 @@ Table of Contents
    A connection error is any error that prevents further processing of
    the frame layer or corrupts any connection state.
 
-   An endpoint that encounters a connection error SHOULD first send a
+   An endpoint that encounters a connection error <em>SHOULD</em> first send a
    GOAWAY frame (<a href="#section-6.8">Section 6.8</a>) with the stream identifier of the last
    stream that it successfully received from its peer.  The GOAWAY frame
    includes an error code that indicates why the connection is
    terminating.  After sending the GOAWAY frame for an error condition,
-   the endpoint MUST close the TCP connection.
+   the endpoint <em>MUST</em> close the TCP connection.
 
    It is possible that the GOAWAY will not be reliably received by the
    receiving endpoint (<a href="./rfc7230.html#section-6.6">[RFC7230], Section&nbsp;6.6</a> describes how an immediate
@@ -1782,8 +1782,8 @@ Table of Contents
    terminated.
 
    An endpoint can end a connection at any time.  In particular, an
-   endpoint MAY choose to treat a stream error as a connection error.
-   Endpoints SHOULD send a GOAWAY frame when ending a connection,
+   endpoint <em>MAY</em> choose to treat a stream error as a connection error.
+   Endpoints <em>SHOULD</em> send a GOAWAY frame when ending a connection,
    providing that circumstances permit it.
 
 <span class="h4"><a class="selflink" name="section-5.4.2" href="#section-5.4.2">5.4.2</a>.  Stream Error Handling</span>
@@ -1797,14 +1797,14 @@ Table of Contents
    indicates the type of error.
 
    A RST_STREAM is the last frame that an endpoint can send on a stream.
-   The peer that sends the RST_STREAM frame MUST be prepared to receive
+   The peer that sends the RST_STREAM frame <em>MUST</em> be prepared to receive
    any frames that were sent or enqueued for sending by the remote peer.
    These frames can be ignored, except where they modify connection
    state (such as the state maintained for header compression
    (<a href="#section-4.3">Section 4.3</a>) or flow control).
 
-   Normally, an endpoint SHOULD NOT send more than one RST_STREAM frame
-   for any stream.  However, an endpoint MAY send additional RST_STREAM
+   Normally, an endpoint <em>SHOULD NOT</em> send more than one RST_STREAM frame
+   for any stream.  However, an endpoint <em>MAY</em> send additional RST_STREAM
    frames if it receives frames on a closed stream after more than a
    round-trip time.  This behavior is permitted to deal with misbehaving
    implementations.
@@ -1818,7 +1818,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   To avoid looping, an endpoint MUST NOT send a RST_STREAM in response
+   To avoid looping, an endpoint <em>MUST NOT</em> send a RST_STREAM in response
    to a RST_STREAM frame.
 
 <span class="h4"><a class="selflink" name="section-5.4.3" href="#section-5.4.3">5.4.3</a>.  Connection Termination</span>
@@ -1844,17 +1844,17 @@ Table of Contents
    (<a href="#section-11.2">Section 11.2</a>), settings (<a href="#section-11.3">Section 11.3</a>), and error codes
    (<a href="#section-11.4">Section 11.4</a>).
 
-   Implementations MUST ignore unknown or unsupported values in all
-   extensible protocol elements.  Implementations MUST discard frames
+   Implementations <em>MUST</em> ignore unknown or unsupported values in all
+   extensible protocol elements.  Implementations <em>MUST</em> discard frames
    that have unknown or unsupported types.  This means that any of these
    extension points can be safely used by extensions without prior
    arrangement or negotiation.  However, extension frames that appear in
    the middle of a header block (<a href="#section-4.3">Section 4.3</a>) are not permitted; these
-   MUST be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
+   <em>MUST</em> be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
    Extensions that could change the semantics of existing protocol
-   components MUST be negotiated before being used.  For example, an
+   components <em>MUST</em> be negotiated before being used.  For example, an
    extension that changes the layout of the HEADERS frame cannot be used
    until the peer has given a positive signal that this is acceptable.
    In this case, it could also be necessary to coordinate when the
@@ -1874,7 +1874,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   a setting is used for extension negotiation, the initial value MUST
+   a setting is used for extension negotiation, the initial value <em>MUST</em>
    be defined in such a fashion that the extension is initially
    disabled.
 
@@ -1898,7 +1898,7 @@ Table of Contents
    octets associated with a stream.  One or more DATA frames are used,
    for instance, to carry HTTP request or response payloads.
 
-   DATA frames MAY also contain padding.  Padding can be added to DATA
+   DATA frames <em>MAY</em> also contain padding.  Padding can be added to DATA
    frames to obscure the size of messages.  Padding is a security
    feature; see <a href="#section-10.7">Section 10.7</a>.
 
@@ -1931,8 +1931,8 @@ Table of Contents
 
 
    Padding:  Padding octets that contain no application semantic value.
-      Padding octets MUST be set to zero when sending.  A receiver is
-      not obligated to verify padding but MAY treat non-zero padding as
+      Padding octets <em>MUST</em> be set to zero when sending.  A receiver is
+      not obligated to verify padding but <em>MAY</em> treat non-zero padding as
       a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    The DATA frame defines the following flags:
@@ -1945,8 +1945,8 @@ Table of Contents
    PADDED (0x8):  When set, bit 3 indicates that the Pad Length field
       and any padding that it describes are present.
 
-   DATA frames MUST be associated with a stream.  If a DATA frame is
-   received whose stream identifier field is 0x0, the recipient MUST
+   DATA frames <em>MUST</em> be associated with a stream.  If a DATA frame is
+   received whose stream identifier field is 0x0, the recipient <em>MUST</em>
    respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
@@ -1955,12 +1955,12 @@ Table of Contents
    DATA frame payload is included in flow control, including the Pad
    Length and Padding fields if present.  If a DATA frame is received
    whose stream is not in "open" or "half-closed (local)" state, the
-   recipient MUST respond with a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type
+   recipient <em>MUST</em> respond with a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type
    STREAM_CLOSED.
 
    The total number of padding octets is determined by the value of the
    Pad Length field.  If the length of the padding is the length of the
-   frame payload or greater, the recipient MUST treat this as a
+   frame payload or greater, the recipient <em>MUST</em> treat this as a
    connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
       Note: A frame can be increased in size by one octet by including a
@@ -2046,8 +2046,8 @@ Table of Contents
       contains an entire header block (<a href="#section-4.3">Section 4.3</a>) and is not followed
       by any CONTINUATION frames.
 
-      A HEADERS frame without the END_HEADERS flag set MUST be followed
-      by a CONTINUATION frame for the same stream.  A receiver MUST
+      A HEADERS frame without the END_HEADERS flag set <em>MUST</em> be followed
+      by a CONTINUATION frame for the same stream.  A receiver <em>MUST</em>
       treat the receipt of any other type of frame or a frame on a
       different stream as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
       PROTOCOL_ERROR.
@@ -2063,8 +2063,8 @@ Table of Contents
    (<a href="#section-4.3">Section 4.3</a>).  A header block that does not fit within a HEADERS
    frame is continued in a CONTINUATION frame (<a href="#section-6.10">Section 6.10</a>).
 
-   HEADERS frames MUST be associated with a stream.  If a HEADERS frame
-   is received whose stream identifier field is 0x0, the recipient MUST
+   HEADERS frames <em>MUST</em> be associated with a stream.  If a HEADERS frame
+   is received whose stream identifier field is 0x0, the recipient <em>MUST</em>
    respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
@@ -2073,7 +2073,7 @@ Table of Contents
 
    The HEADERS frame can include padding.  Padding fields and flags are
    identical to those defined for DATA frames (<a href="#section-6.1">Section 6.1</a>).  Padding
-   that exceeds the size remaining for the header block fragment MUST be
+   that exceeds the size remaining for the header block fragment <em>MUST</em> be
    treated as a PROTOCOL_ERROR.
 
    Prioritization information in a HEADERS frame is logically equivalent
@@ -2121,7 +2121,7 @@ Table of Contents
    The PRIORITY frame does not define any flags.
 
    The PRIORITY frame always identifies a stream.  If a PRIORITY frame
-   is received with a stream identifier of 0x0, the recipient MUST
+   is received with a stream identifier of 0x0, the recipient <em>MUST</em>
    respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
@@ -2139,7 +2139,7 @@ Table of Contents
    streams by altering the priority of an unused or closed parent
    stream.
 
-   A PRIORITY frame with a length other than 5 octets MUST be treated as
+   A PRIORITY frame with a length other than 5 octets <em>MUST</em> be treated as
    a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type FRAME_SIZE_ERROR.
 
 
@@ -2174,23 +2174,23 @@ Table of Contents
 
    The RST_STREAM frame fully terminates the referenced stream and
    causes it to enter the "closed" state.  After receiving a RST_STREAM
-   on a stream, the receiver MUST NOT send additional frames for that
+   on a stream, the receiver <em>MUST NOT</em> send additional frames for that
    stream, with the exception of PRIORITY.  However, after sending the
-   RST_STREAM, the sending endpoint MUST be prepared to receive and
+   RST_STREAM, the sending endpoint <em>MUST</em> be prepared to receive and
    process additional frames sent on the stream that might have been
    sent by the peer prior to the arrival of the RST_STREAM.
 
-   RST_STREAM frames MUST be associated with a stream.  If a RST_STREAM
-   frame is received with a stream identifier of 0x0, the recipient MUST
+   RST_STREAM frames <em>MUST</em> be associated with a stream.  If a RST_STREAM
+   frame is received with a stream identifier of 0x0, the recipient <em>MUST</em>
    treat this as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
-   RST_STREAM frames MUST NOT be sent for a stream in the "idle" state.
+   RST_STREAM frames <em>MUST NOT</em> be sent for a stream in the "idle" state.
    If a RST_STREAM frame identifying an idle stream is received, the
-   recipient MUST treat this as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of
+   recipient <em>MUST</em> treat this as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of
    type PROTOCOL_ERROR.
 
-   A RST_STREAM frame with a length other than 4 octets MUST be treated
+   A RST_STREAM frame with a length other than 4 octets <em>MUST</em> be treated
    as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type FRAME_SIZE_ERROR.
 
 <span class="h3"><a class="selflink" name="section-6.5" href="#section-6.5">6.5</a>.  SETTINGS</span>
@@ -2216,9 +2216,9 @@ Table of Contents
    example, a client might set a high initial flow-control window,
    whereas a server might set a lower value to conserve resources.
 
-   A SETTINGS frame MUST be sent by both endpoints at the start of a
-   connection and MAY be sent at any other time by either endpoint over
-   the lifetime of the connection.  Implementations MUST support all of
+   A SETTINGS frame <em>MUST</em> be sent by both endpoints at the start of a
+   connection and <em>MAY</em> be sent at any other time by either endpoint over
+   the lifetime of the connection.  Implementations <em>MUST</em> support all of
    the parameters defined by this specification.
 
    Each parameter in a SETTINGS frame replaces any existing value for
@@ -2233,23 +2233,23 @@ Table of Contents
 
    ACK (0x1):  When set, bit 0 indicates that this frame acknowledges
       receipt and application of the peer's SETTINGS frame.  When this
-      bit is set, the payload of the SETTINGS frame MUST be empty.
+      bit is set, the payload of the SETTINGS frame <em>MUST</em> be empty.
       Receipt of a SETTINGS frame with the ACK flag set and a length
-      field value other than 0 MUST be treated as a connection error
+      field value other than 0 <em>MUST</em> be treated as a connection error
       (<a href="#section-5.4.1">Section 5.4.1</a>) of type FRAME_SIZE_ERROR.  For more information,
       see <a href="#section-6.5.3">Section 6.5.3</a> ("Settings Synchronization").
 
    SETTINGS frames always apply to a connection, never a single stream.
-   The stream identifier for a SETTINGS frame MUST be zero (0x0).  If an
+   The stream identifier for a SETTINGS frame <em>MUST</em> be zero (0x0).  If an
    endpoint receives a SETTINGS frame whose stream identifier field is
-   anything other than 0x0, the endpoint MUST respond with a connection
+   anything other than 0x0, the endpoint <em>MUST</em> respond with a connection
    error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    The SETTINGS frame affects connection state.  A badly formed or
-   incomplete SETTINGS frame MUST be treated as a connection error
+   incomplete SETTINGS frame <em>MUST</em> be treated as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
-   A SETTINGS frame with a length other than a multiple of 6 octets MUST
+   A SETTINGS frame with a length other than a multiple of 6 octets <em>MUST</em>
    be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    FRAME_SIZE_ERROR.
 
@@ -2293,14 +2293,14 @@ Table of Contents
       octets.
 
    SETTINGS_ENABLE_PUSH (0x2):  This setting can be used to disable
-      server push (<a href="#section-8.2">Section 8.2</a>).  An endpoint MUST NOT send a
+      server push (<a href="#section-8.2">Section 8.2</a>).  An endpoint <em>MUST NOT</em> send a
       PUSH_PROMISE frame if it receives this parameter set to a value of
       0.  An endpoint that has both set this parameter to 0 and had it
-      acknowledged MUST treat the receipt of a PUSH_PROMISE frame as a
+      acknowledged <em>MUST</em> treat the receipt of a PUSH_PROMISE frame as a
       connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
       The initial value is 1, which indicates that server push is
-      permitted.  Any value other than 0 or 1 MUST be treated as a
+      permitted.  Any value other than 0 or 1 <em>MUST</em> be treated as a
       connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    SETTINGS_MAX_CONCURRENT_STREAMS (0x3):  Indicates the maximum number
@@ -2310,7 +2310,7 @@ Table of Contents
       this value.  It is recommended that this value be no smaller than
       100, so as to not unnecessarily limit parallelism.
 
-      A value of 0 for SETTINGS_MAX_CONCURRENT_STREAMS SHOULD NOT be
+      A value of 0 for SETTINGS_MAX_CONCURRENT_STREAMS <em>SHOULD NOT</em> be
       treated as special by endpoints.  A zero value does prevent the
       creation of new streams; however, this can also happen for any
 
@@ -2322,7 +2322,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-      limit that is exhausted with active streams.  Servers SHOULD only
+      limit that is exhausted with active streams.  Servers <em>SHOULD</em> only
       set a zero value for short durations; if a server does not wish to
       accept requests, closing the connection is more appropriate.
 
@@ -2333,7 +2333,7 @@ Table of Contents
       This setting affects the window size of all streams (see
       <a href="#section-6.9.2">Section 6.9.2</a>).
 
-      Values above the maximum flow-control window size of 2^31-1 MUST
+      Values above the maximum flow-control window size of 2^31-1 <em>MUST</em>
       be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
       FLOW_CONTROL_ERROR.
 
@@ -2341,9 +2341,9 @@ Table of Contents
       frame payload that the sender is willing to receive, in octets.
 
       The initial value is 2^14 (16,384) octets.  The value advertised
-      by an endpoint MUST be between this initial value and the maximum
+      by an endpoint <em>MUST</em> be between this initial value and the maximum
       allowed frame size (2^24-1 or 16,777,215 octets), inclusive.
-      Values outside this range MUST be treated as a connection error
+      Values outside this range <em>MUST</em> be treated as a connection error
       (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    SETTINGS_MAX_HEADER_LIST_SIZE (0x6):  This advisory setting informs a
@@ -2353,23 +2353,23 @@ Table of Contents
       name and value in octets plus an overhead of 32 octets for each
       header field.
 
-      For any given request, a lower limit than what is advertised MAY
+      For any given request, a lower limit than what is advertised <em>MAY</em>
       be enforced.  The initial value of this setting is unlimited.
 
    An endpoint that receives a SETTINGS frame with any unknown or
-   unsupported identifier MUST ignore that setting.
+   unsupported identifier <em>MUST</em> ignore that setting.
 
 <span class="h4"><a class="selflink" name="section-6.5.3" href="#section-6.5.3">6.5.3</a>.  Settings Synchronization</span>
 
    Most values in SETTINGS benefit from or require an understanding of
    when the peer has received and applied the changed parameter values.
    In order to provide such synchronization timepoints, the recipient of
-   a SETTINGS frame in which the ACK flag is not set MUST apply the
+   a SETTINGS frame in which the ACK flag is not set <em>MUST</em> apply the
    updated parameters as soon as possible upon receipt.
 
-   The values in the SETTINGS frame MUST be processed in the order they
+   The values in the SETTINGS frame <em>MUST</em> be processed in the order they
    appear, with no other frame processing between values.  Unsupported
-   parameters MUST be ignored.  Once all values have been processed, the
+   parameters <em>MUST</em> be ignored.  Once all values have been processed, the
 
 
 
@@ -2378,13 +2378,13 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   recipient MUST immediately emit a SETTINGS frame with the ACK flag
+   recipient <em>MUST</em> immediately emit a SETTINGS frame with the ACK flag
    set.  Upon receiving a SETTINGS frame with the ACK flag set, the
    sender of the altered parameters can rely on the setting having been
    applied.
 
    If the sender of a SETTINGS frame does not receive an acknowledgement
-   within a reasonable amount of time, it MAY issue a connection error
+   within a reasonable amount of time, it <em>MAY</em> issue a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type SETTINGS_TIMEOUT.
 
 <span class="h3"><a class="selflink" name="section-6.6" href="#section-6.6">6.6</a>.  PUSH_PROMISE</span>
@@ -2418,7 +2418,7 @@ Table of Contents
 
    Promised Stream ID:  An unsigned 31-bit integer that identifies the
       stream that is reserved by the PUSH_PROMISE.  The promised stream
-      identifier MUST be a valid choice for the next stream sent by the
+      identifier <em>MUST</em> be a valid choice for the next stream sent by the
       sender (see "new stream identifier" in <a href="#section-5.1.1">Section 5.1.1</a>).
 
    Header Block Fragment:  A header block fragment (<a href="#section-4.3">Section 4.3</a>)
@@ -2440,29 +2440,29 @@ Table of Contents
       contains an entire header block (<a href="#section-4.3">Section 4.3</a>) and is not followed
       by any CONTINUATION frames.
 
-      A PUSH_PROMISE frame without the END_HEADERS flag set MUST be
+      A PUSH_PROMISE frame without the END_HEADERS flag set <em>MUST</em> be
       followed by a CONTINUATION frame for the same stream.  A receiver
-      MUST treat the receipt of any other type of frame or a frame on a
+      <em>MUST</em> treat the receipt of any other type of frame or a frame on a
       different stream as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
       PROTOCOL_ERROR.
 
    PADDED (0x8):  When set, bit 3 indicates that the Pad Length field
       and any padding that it describes are present.
 
-   PUSH_PROMISE frames MUST only be sent on a peer-initiated stream that
+   PUSH_PROMISE frames <em>MUST</em> only be sent on a peer-initiated stream that
    is in either the "open" or "half-closed (remote)" state.  The stream
    identifier of a PUSH_PROMISE frame indicates the stream it is
    associated with.  If the stream identifier field specifies the value
-   0x0, a recipient MUST respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>)
+   0x0, a recipient <em>MUST</em> respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>)
    of type PROTOCOL_ERROR.
 
    Promised streams are not required to be used in the order they are
    promised.  The PUSH_PROMISE only reserves stream identifiers for
    later use.
 
-   PUSH_PROMISE MUST NOT be sent if the SETTINGS_ENABLE_PUSH setting of
+   PUSH_PROMISE <em>MUST NOT</em> be sent if the SETTINGS_ENABLE_PUSH setting of
    the peer endpoint is set to 0.  An endpoint that has set this setting
-   and has received acknowledgement MUST treat the receipt of a
+   and has received acknowledgement <em>MUST</em> treat the receipt of a
    PUSH_PROMISE frame as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
@@ -2474,11 +2474,11 @@ Table of Contents
    First, the inclusion of a header block (<a href="#section-4.3">Section 4.3</a>) potentially
    modifies the state maintained for header compression.  Second,
    PUSH_PROMISE also reserves a stream for later use, causing the
-   promised stream to enter the "reserved" state.  A sender MUST NOT
+   promised stream to enter the "reserved" state.  A sender <em>MUST NOT</em>
    send a PUSH_PROMISE on a stream unless that stream is either "open"
-   or "half-closed (remote)"; the sender MUST ensure that the promised
+   or "half-closed (remote)"; the sender <em>MUST</em> ensure that the promised
    stream is a valid choice for a new stream identifier (<a href="#section-5.1.1">Section 5.1.1</a>)
-   (that is, the promised stream MUST be in the "idle" state).
+   (that is, the promised stream <em>MUST</em> be in the "idle" state).
 
 
 
@@ -2491,15 +2491,15 @@ Table of Contents
 
 
    Since PUSH_PROMISE reserves a stream, ignoring a PUSH_PROMISE frame
-   causes the stream state to become indeterminate.  A receiver MUST
+   causes the stream state to become indeterminate.  A receiver <em>MUST</em>
    treat the receipt of a PUSH_PROMISE on a stream that is neither
    "open" nor "half-closed (local)" as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.  However, an endpoint that
-   has sent RST_STREAM on the associated stream MUST handle PUSH_PROMISE
+   has sent RST_STREAM on the associated stream <em>MUST</em> handle PUSH_PROMISE
    frames that might have been created before the RST_STREAM frame is
    received and processed.
 
-   A receiver MUST treat the receipt of a PUSH_PROMISE that promises an
+   A receiver <em>MUST</em> treat the receipt of a PUSH_PROMISE that promises an
    illegal stream identifier (<a href="#section-5.1.1">Section 5.1.1</a>) as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.  Note that an illegal stream
    identifier is an identifier for a stream that is not currently in the
@@ -2523,20 +2523,20 @@ Table of Contents
 
                       Figure 12: PING Payload Format
 
-   In addition to the frame header, PING frames MUST contain 8 octets of
+   In addition to the frame header, PING frames <em>MUST</em> contain 8 octets of
    opaque data in the payload.  A sender can include any value it
    chooses and use those octets in any fashion.
 
-   Receivers of a PING frame that does not include an ACK flag MUST send
+   Receivers of a PING frame that does not include an ACK flag <em>MUST</em> send
    a PING frame with the ACK flag set in response, with an identical
-   payload.  PING responses SHOULD be given higher priority than any
+   payload.  PING responses <em>SHOULD</em> be given higher priority than any
    other frame.
 
    The PING frame defines the following flags:
 
    ACK (0x1):  When set, bit 0 indicates that this PING frame is a PING
-      response.  An endpoint MUST set this flag in PING responses.  An
-      endpoint MUST NOT respond to PING frames containing this flag.
+      response.  An endpoint <em>MUST</em> set this flag in PING responses.  An
+      endpoint <em>MUST NOT</em> respond to PING frames containing this flag.
 
 
 
@@ -2548,10 +2548,10 @@ Table of Contents
 
    PING frames are not associated with any individual stream.  If a PING
    frame is received with a stream identifier field value other than
-   0x0, the recipient MUST respond with a connection error
+   0x0, the recipient <em>MUST</em> respond with a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
-   Receipt of a PING frame with a length field value other than 8 MUST
+   Receipt of a PING frame with a length field value other than 8 <em>MUST</em>
    be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    FRAME_SIZE_ERROR.
 
@@ -2573,7 +2573,7 @@ Table of Contents
 
    Once sent, the sender will ignore frames sent on streams initiated by
    the receiver if the stream has an identifier higher than the included
-   last stream identifier.  Receivers of a GOAWAY frame MUST NOT open
+   last stream identifier.  Receivers of a GOAWAY frame <em>MUST NOT</em> open
    additional streams on the connection, although a new connection can
    be established for new streams.
 
@@ -2584,7 +2584,7 @@ Table of Contents
    all, thereby allowing those streams to be retried later on a new
    connection.
 
-   Endpoints SHOULD always send a GOAWAY frame before closing a
+   Endpoints <em>SHOULD</em> always send a GOAWAY frame before closing a
    connection so that the remote peer can know whether a stream has been
    partially processed or not.  For example, if an HTTP client sends a
    POST at the same time that a server closes a connection, the client
@@ -2604,7 +2604,7 @@ Table of Contents
 
    A GOAWAY frame might not immediately precede closing of the
    connection; a receiver of a GOAWAY that has no more use for the
-   connection SHOULD still send a GOAWAY frame before terminating the
+   connection <em>SHOULD</em> still send a GOAWAY frame before terminating the
    connection.
 
     +-+-------------------------------------------------------------+
@@ -2620,7 +2620,7 @@ Table of Contents
    The GOAWAY frame does not define any flags.
 
    The GOAWAY frame applies to the connection, not a specific stream.
-   An endpoint MUST treat a GOAWAY frame with a stream identifier other
+   An endpoint <em>MUST</em> treat a GOAWAY frame with a stream identifier other
    than 0x0 as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    PROTOCOL_ERROR.
 
@@ -2658,12 +2658,12 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   An endpoint MAY send multiple GOAWAY frames if circumstances change.
+   An endpoint <em>MAY</em> send multiple GOAWAY frames if circumstances change.
    For instance, an endpoint that sends GOAWAY with NO_ERROR during
    graceful shutdown could subsequently encounter a condition that
    requires immediate termination of the connection.  The last stream
    identifier from the last GOAWAY frame received indicates which
-   streams could have been acted upon.  Endpoints MUST NOT increase the
+   streams could have been acted upon.  Endpoints <em>MUST NOT</em> increase the
    value they send in the last stream identifier, since the peers might
    already have retried unprocessed requests on another connection.
 
@@ -2671,7 +2671,7 @@ Table of Contents
    in flight when the server closes the connection.  This is especially
    true for intermediaries that might not be serving clients using
    HTTP/2.  A server that is attempting to gracefully shut down a
-   connection SHOULD send an initial GOAWAY frame with the last stream
+   connection <em>SHOULD</em> send an initial GOAWAY frame with the last stream
    identifier set to 2^31-1 and a NO_ERROR code.  This signals to the
    client that a shutdown is imminent and that initiating further
    requests is prohibited.  After allowing time for any in-flight stream
@@ -2683,9 +2683,9 @@ Table of Contents
    streams initiated by the receiver with identifiers higher than the
    identified last stream.  However, any frames that alter connection
    state cannot be completely ignored.  For instance, HEADERS,
-   PUSH_PROMISE, and CONTINUATION frames MUST be minimally processed to
+   PUSH_PROMISE, and CONTINUATION frames <em>MUST</em> be minimally processed to
    ensure the state maintained for header compression is consistent (see
-   <a href="#section-4.3">Section 4.3</a>); similarly, DATA frames MUST be counted toward the
+   <a href="#section-4.3">Section 4.3</a>); similarly, DATA frames <em>MUST</em> be counted toward the
    connection flow-control window.  Failure to process these frames can
    cause flow control or header compression state to become
    unsynchronized.
@@ -2693,11 +2693,11 @@ Table of Contents
    The GOAWAY frame also contains a 32-bit error code (<a href="#section-7">Section 7</a>) that
    contains the reason for closing the connection.
 
-   Endpoints MAY append opaque data to the payload of any GOAWAY frame.
+   Endpoints <em>MAY</em> append opaque data to the payload of any GOAWAY frame.
    Additional debug data is intended for diagnostic purposes only and
    carries no semantic value.  Debug information could contain security-
    or privacy-sensitive data.  Logged or otherwise persistently stored
-   debug data MUST have adequate safeguards to prevent unauthorized
+   debug data <em>MUST</em> have adequate safeguards to prevent unauthorized
    access.
 
 
@@ -2731,8 +2731,8 @@ Table of Contents
    Flow control only applies to frames that are identified as being
    subject to flow control.  Of the frame types defined in this
    document, this includes only DATA frames.  Frames that are exempt
-   from flow control MUST be accepted and processed, unless the receiver
-   is unable to assign resources to handling the frame.  A receiver MAY
+   from flow control <em>MUST</em> be accepted and processed, unless the receiver
+   is unable to assign resources to handling the frame.  A receiver <em>MAY</em>
    respond with a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) or connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type FLOW_CONTROL_ERROR if it is unable to accept
    a frame.
@@ -2756,10 +2756,10 @@ Table of Contents
    indicates the affected stream; in the latter, the value "0" indicates
    that the entire connection is the subject of the frame.
 
-   A receiver MUST treat the receipt of a WINDOW_UPDATE frame with an
+   A receiver <em>MUST</em> treat the receipt of a WINDOW_UPDATE frame with an
    flow-control window increment of 0 as a stream error (<a href="#section-5.4.2">Section 5.4.2</a>)
    of type PROTOCOL_ERROR; errors on the connection flow-control window
-   MUST be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>).
+   <em>MUST</em> be treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>).
 
 
 
@@ -2773,9 +2773,9 @@ Table of Contents
    WINDOW_UPDATE can be sent by a peer that has sent a frame bearing the
    END_STREAM flag.  This means that a receiver could receive a
    WINDOW_UPDATE frame on a "half-closed (remote)" or "closed" stream.
-   A receiver MUST NOT treat this as an error (see <a href="#section-5.1">Section 5.1</a>).
+   A receiver <em>MUST NOT</em> treat this as an error (see <a href="#section-5.1">Section 5.1</a>).
 
-   A receiver that receives a flow-controlled frame MUST always account
+   A receiver that receives a flow-controlled frame <em>MUST</em> always account
    for its contribution against the connection flow-control window,
    unless the receiver treats this as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>).  This is necessary even if the frame is in error.
@@ -2783,7 +2783,7 @@ Table of Contents
    the receiver does not, the flow-control window at the sender and
    receiver can become different.
 
-   A WINDOW_UPDATE frame with a length other than 4 octets MUST be
+   A WINDOW_UPDATE frame with a length other than 4 octets <em>MUST</em> be
    treated as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
    FRAME_SIZE_ERROR.
 
@@ -2796,11 +2796,11 @@ Table of Contents
    of the receiver.
 
    Two flow-control windows are applicable: the stream flow-control
-   window and the connection flow-control window.  The sender MUST NOT
+   window and the connection flow-control window.  The sender <em>MUST NOT</em>
    send a flow-controlled frame with a length that exceeds the space
    available in either of the flow-control windows advertised by the
    receiver.  Frames with zero length with the END_STREAM flag set (that
-   is, an empty DATA frame) MAY be sent if there is no available space
+   is, an empty DATA frame) <em>MAY</em> be sent if there is no available space
    in either flow-control window.
 
    For flow-control calculations, the 9-octet frame header is not
@@ -2826,9 +2826,9 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   A sender MUST NOT allow a flow-control window to exceed 2^31-1
+   A sender <em>MUST NOT</em> allow a flow-control window to exceed 2^31-1
    octets.  If a sender receives a WINDOW_UPDATE that causes a flow-
-   control window to exceed this maximum, it MUST terminate either the
+   control window to exceed this maximum, it <em>MUST</em> terminate either the
    stream or the connection, as appropriate.  For streams, the sender
    sends a RST_STREAM with an error code of FLOW_CONTROL_ERROR; for the
    connection, a GOAWAY frame with an error code of FLOW_CONTROL_ERROR
@@ -2859,13 +2859,13 @@ Table of Contents
    not yet active, a SETTINGS frame can alter the initial flow-control
    window size for streams with active flow-control windows (that is,
    streams in the "open" or "half-closed (remote)" state).  When the
-   value of SETTINGS_INITIAL_WINDOW_SIZE changes, a receiver MUST adjust
+   value of SETTINGS_INITIAL_WINDOW_SIZE changes, a receiver <em>MUST</em> adjust
    the size of all stream flow-control windows that it maintains by the
    difference between the new value and the old value.
 
    A change to SETTINGS_INITIAL_WINDOW_SIZE can cause the available
-   space in a flow-control window to become negative.  A sender MUST
-   track the negative flow-control window and MUST NOT send new flow-
+   space in a flow-control window to become negative.  A sender <em>MUST</em>
+   track the negative flow-control window and <em>MUST NOT</em> send new flow-
    controlled frames until it receives WINDOW_UPDATE frames that cause
    the flow-control window to become positive.
 
@@ -2888,7 +2888,7 @@ Table of Contents
 
    A SETTINGS frame cannot alter the connection flow-control window.
 
-   An endpoint MUST treat a change to SETTINGS_INITIAL_WINDOW_SIZE that
+   An endpoint <em>MUST</em> treat a change to SETTINGS_INITIAL_WINDOW_SIZE that
    causes any flow-control window to exceed the maximum size as a
    connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type FLOW_CONTROL_ERROR.
 
@@ -2896,17 +2896,17 @@ Table of Contents
 
    A receiver that wishes to use a smaller flow-control window than the
    current size can send a new SETTINGS frame.  However, the receiver
-   MUST be prepared to receive data that exceeds this window size, since
+   <em>MUST</em> be prepared to receive data that exceeds this window size, since
    the sender might send data that exceeds the lower limit prior to
    processing the SETTINGS frame.
 
    After sending a SETTINGS frame that reduces the initial flow-control
-   window size, a receiver MAY continue to process streams that exceed
+   window size, a receiver <em>MAY</em> continue to process streams that exceed
    flow-control limits.  Allowing streams to continue does not allow the
    receiver to immediately reduce the space it reserves for flow-control
    windows.  Progress on these streams can also stall, since
    WINDOW_UPDATE frames are needed to allow the sender to resume
-   sending.  The receiver MAY instead send a RST_STREAM with an error
+   sending.  The receiver <em>MAY</em> instead send a RST_STREAM with an error
    code of FLOW_CONTROL_ERROR for the affected streams.
 
 <span class="h3"><a class="selflink" name="section-6.10" href="#section-6.10">6.10</a>.  CONTINUATION</span>
@@ -2943,22 +2943,22 @@ Table of Contents
    END_HEADERS (0x4):  When set, bit 2 indicates that this frame ends a
       header block (<a href="#section-4.3">Section 4.3</a>).
 
-      If the END_HEADERS bit is not set, this frame MUST be followed by
-      another CONTINUATION frame.  A receiver MUST treat the receipt of
+      If the END_HEADERS bit is not set, this frame <em>MUST</em> be followed by
+      another CONTINUATION frame.  A receiver <em>MUST</em> treat the receipt of
       any other type of frame or a frame on a different stream as a
       connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
    The CONTINUATION frame changes the connection state as defined in
    <a href="#section-4.3">Section 4.3</a>.
 
-   CONTINUATION frames MUST be associated with a stream.  If a
+   CONTINUATION frames <em>MUST</em> be associated with a stream.  If a
    CONTINUATION frame is received whose stream identifier field is 0x0,
-   the recipient MUST respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of
+   the recipient <em>MUST</em> respond with a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of
    type PROTOCOL_ERROR.
 
-   A CONTINUATION frame MUST be preceded by a HEADERS, PUSH_PROMISE or
+   A CONTINUATION frame <em>MUST</em> be preceded by a HEADERS, PUSH_PROMISE or
    CONTINUATION frame without the END_HEADERS flag set.  A recipient
-   that observes violation of this rule MUST respond with a connection
+   that observes violation of this rule <em>MUST</em> respond with a connection
    error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Error Codes</span>
@@ -3023,11 +3023,11 @@ Table of Contents
    INADEQUATE_SECURITY (0xc):  The underlying transport has properties
       that do not meet minimum security requirements (see <a href="#section-9.2">Section 9.2</a>).
 
-   HTTP_1_1_REQUIRED (0xd):  The endpoint requires that HTTP/1.1 be used
+   HTTP_1_1_<em>REQUIRED</em> (0xd):  The endpoint requires that HTTP/1.1 be used
       instead of HTTP/2.
 
-   Unknown or unsupported error codes MUST NOT trigger any special
-   behavior.  These MAY be treated by an implementation as being
+   Unknown or unsupported error codes <em>MUST NOT</em> trigger any special
+   behavior.  These <em>MAY</em> be treated by an implementation as being
    equivalent to INTERNAL_ERROR.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  HTTP Message Exchanges</span>
@@ -3082,11 +3082,11 @@ Table of Contents
    CONTINUATION frames that carry any remaining portions of the header
    block.
 
-   Other frames (from any stream) MUST NOT occur between the HEADERS
+   Other frames (from any stream) <em>MUST NOT</em> occur between the HEADERS
    frame and any CONTINUATION frames that might follow.
 
    HTTP/2 uses DATA frames to carry message payloads.  The "chunked"
-   transfer encoding defined in <a href="./rfc7230.html#section-4.1">Section&nbsp;4.1 of [RFC7230]</a> MUST NOT be
+   transfer encoding defined in <a href="./rfc7230.html#section-4.1">Section&nbsp;4.1 of [RFC7230]</a> <em>MUST NOT</em> be
    used in HTTP/2.
 
    Trailing header fields are carried in a header block that also
@@ -3109,7 +3109,7 @@ Table of Contents
    A HEADERS frame (and associated CONTINUATION frames) can only appear
    at the start or end of a stream.  An endpoint that receives a HEADERS
    frame without the END_STREAM flag set after receiving a final (non-
-   informational) status code MUST treat the corresponding request or
+   informational) status code <em>MUST</em> treat the corresponding request or
    response as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
 
    An HTTP request/response exchange fully consumes a single stream.  A
@@ -3125,11 +3125,11 @@ Table of Contents
    CONTINUATION frames needed to complete a header block).  A server can
    send a complete response prior to the client sending an entire
    request if the response does not depend on any portion of the request
-   that has not been sent and received.  When this is true, a server MAY
+   that has not been sent and received.  When this is true, a server <em>MAY</em>
    request that the client abort transmission of a request without error
    by sending a RST_STREAM with an error code of NO_ERROR after sending
    a complete response (i.e., a frame with the END_STREAM flag).
-   Clients MUST NOT discard responses as a result of receiving such a
+   Clients <em>MUST NOT</em> discard responses as a result of receiving such a
    RST_STREAM, though clients can always discard responses at their
    discretion for other reasons.
 
@@ -3151,9 +3151,9 @@ Table of Contents
 
    Just as in HTTP/1.x, header field names are strings of ASCII
    characters that are compared in a case-insensitive fashion.  However,
-   header field names MUST be converted to lowercase prior to their
+   header field names <em>MUST</em> be converted to lowercase prior to their
    encoding in HTTP/2.  A request or response containing uppercase
-   header field names MUST be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
+   header field names <em>MUST</em> be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
 
 
 
@@ -3169,40 +3169,40 @@ Table of Contents
    the status code for the response, HTTP/2 uses special pseudo-header
    fields beginning with ':' character (ASCII 0x3a) for this purpose.
 
-   Pseudo-header fields are not HTTP header fields.  Endpoints MUST NOT
+   Pseudo-header fields are not HTTP header fields.  Endpoints <em>MUST NOT</em>
    generate pseudo-header fields other than those defined in this
    document.
 
    Pseudo-header fields are only valid in the context in which they are
-   defined.  Pseudo-header fields defined for requests MUST NOT appear
-   in responses; pseudo-header fields defined for responses MUST NOT
-   appear in requests.  Pseudo-header fields MUST NOT appear in
-   trailers.  Endpoints MUST treat a request or response that contains
+   defined.  Pseudo-header fields defined for requests <em>MUST NOT</em> appear
+   in responses; pseudo-header fields defined for responses <em>MUST NOT</em>
+   appear in requests.  Pseudo-header fields <em>MUST NOT</em> appear in
+   trailers.  Endpoints <em>MUST</em> treat a request or response that contains
    undefined or invalid pseudo-header fields as malformed
    (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
 
-   All pseudo-header fields MUST appear in the header block before
+   All pseudo-header fields <em>MUST</em> appear in the header block before
    regular header fields.  Any request or response that contains a
    pseudo-header field that appears in a header block after a regular
-   header field MUST be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
+   header field <em>MUST</em> be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
 
 <span class="h5"><a class="selflink" name="section-8.1.2.2" href="#section-8.1.2.2">8.1.2.2</a>.  Connection-Specific Header Fields</span>
 
    HTTP/2 does not use the Connection header field to indicate
    connection-specific header fields; in this protocol, connection-
-   specific metadata is conveyed by other means.  An endpoint MUST NOT
+   specific metadata is conveyed by other means.  An endpoint <em>MUST NOT</em>
    generate an HTTP/2 message containing connection-specific header
-   fields; any message containing connection-specific header fields MUST
+   fields; any message containing connection-specific header fields <em>MUST</em>
    be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
 
-   The only exception to this is the TE header field, which MAY be
-   present in an HTTP/2 request; when it is, it MUST NOT contain any
+   The only exception to this is the TE header field, which <em>MAY</em> be
+   present in an HTTP/2 request; when it is, it <em>MUST NOT</em> contain any
    value other than "trailers".
 
    This means that an intermediary transforming an HTTP/1.x message to
    HTTP/2 will need to remove any header fields nominated by the
    Connection header field, along with the Connection header field
-   itself.  Such intermediaries SHOULD also remove other connection-
+   itself.  Such intermediaries <em>SHOULD</em> also remove other connection-
    specific header fields, such as Keep-Alive, Proxy-Connection,
    Transfer-Encoding, and Upgrade, even if they are not nominated by the
    Connection header field.
@@ -3234,16 +3234,16 @@ Table of Contents
 
    o  The ":authority" pseudo-header field includes the authority
       portion of the target URI (<a href="./rfc3986.html#section-3.2">[RFC3986], Section&nbsp;3.2</a>).  The authority
-      MUST NOT include the deprecated "userinfo" subcomponent for "http"
+      <em>MUST NOT</em> include the deprecated "userinfo" subcomponent for "http"
       or "https" schemed URIs.
 
       To ensure that the HTTP/1.1 request line can be reproduced
-      accurately, this pseudo-header field MUST be omitted when
+      accurately, this pseudo-header field <em>MUST</em> be omitted when
       translating from an HTTP/1.1 request that has a request target in
       origin or asterisk form (see <a href="./rfc7230.html#section-5.3">[RFC7230], Section&nbsp;5.3</a>).  Clients
-      that generate HTTP/2 requests directly SHOULD use the ":authority"
+      that generate HTTP/2 requests directly <em>SHOULD</em> use the ":authority"
       pseudo-header field instead of the Host header field.  An
-      intermediary that converts an HTTP/2 request to HTTP/1.1 MUST
+      intermediary that converts an HTTP/2 request to HTTP/1.1 <em>MUST</em>
       create a Host header field if one is not present in a request by
       copying the value of the ":authority" pseudo-header field.
 
@@ -3253,11 +3253,11 @@ Table of Contents
       and 3.4 of [<a href="./rfc3986.html" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">RFC3986</a>]).  A request in asterisk form includes the
       value '*' for the ":path" pseudo-header field.
 
-      This pseudo-header field MUST NOT be empty for "http" or "https"
+      This pseudo-header field <em>MUST NOT</em> be empty for "http" or "https"
       URIs; "http" or "https" URIs that do not contain a path component
-      MUST include a value of '/'.  The exception to this rule is an
+      <em>MUST</em> include a value of '/'.  The exception to this rule is an
       OPTIONS request for an "http" or "https" URI that does not include
-      a path component; these MUST include a ":path" pseudo-header field
+      a path component; these <em>MUST</em> include a ":path" pseudo-header field
       with a value of '*' (see <a href="./rfc7230.html#section-5.3.4">[RFC7230], Section&nbsp;5.3.4</a>).
 
 
@@ -3274,7 +3274,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   All HTTP/2 requests MUST include exactly one valid value for the
+   All HTTP/2 requests <em>MUST</em> include exactly one valid value for the
    ":method", ":scheme", and ":path" pseudo-header fields, unless it is
    a CONNECT request (<a href="#section-8.3">Section 8.3</a>).  An HTTP request that omits
    mandatory pseudo-header fields is malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
@@ -3286,7 +3286,7 @@ Table of Contents
 
    For HTTP/2 responses, a single ":status" pseudo-header field is
    defined that carries the HTTP status code field (see <a href="./rfc7231.html#section-6">[RFC7231],
-   Section&nbsp;6</a>).  This pseudo-header field MUST be included in all
+   Section&nbsp;6</a>).  This pseudo-header field <em>MUST</em> be included in all
    responses; otherwise, the response is malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).
 
    HTTP/2 does not define a way to carry the version or reason phrase
@@ -3302,9 +3302,9 @@ Table of Contents
    individual cookie-pairs are updated.
 
    To allow for better compression efficiency, the Cookie header field
-   MAY be split into separate header fields, each with one or more
+   <em>MAY</em> be split into separate header fields, each with one or more
    cookie-pairs.  If there are multiple Cookie header fields after
-   decompression, these MUST be concatenated into a single octet string
+   decompression, these <em>MUST</em> be concatenated into a single octet string
    using the two-octet delimiter of 0x3B, 0x20 (the ASCII string "; ")
    before being passed into a non-HTTP/2 context, such as an HTTP/1.1
    connection, or a generic HTTP server application.
@@ -3346,13 +3346,13 @@ Table of Contents
    though no content is included in DATA frames.
 
    Intermediaries that process HTTP requests or responses (i.e., any
-   intermediary not acting as a tunnel) MUST NOT forward a malformed
+   intermediary not acting as a tunnel) <em>MUST NOT</em> forward a malformed
    request or response.  Malformed requests or responses that are
-   detected MUST be treated as a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type
+   detected <em>MUST</em> be treated as a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type
    PROTOCOL_ERROR.
 
-   For malformed requests, a server MAY send an HTTP response prior to
-   closing or resetting the stream.  Clients MUST NOT accept a malformed
+   For malformed requests, a server <em>MAY</em> send an HTTP response prior to
+   closing or resetting the stream.  Clients <em>MUST NOT</em> accept a malformed
    response.  Note that these requirements are intended to protect
    against several types of common attacks against HTTP; they are
    deliberately strict because being permissive can expose
@@ -3518,14 +3518,14 @@ Table of Contents
       processing having occurred.  Any request that was sent on the
       reset stream can be safely retried.
 
-   Requests that have not been processed have not failed; clients MAY
+   Requests that have not been processed have not failed; clients <em>MAY</em>
    automatically retry them, even those with non-idempotent methods.
 
-   A server MUST NOT indicate that a stream has not been processed
+   A server <em>MUST NOT</em> indicate that a stream has not been processed
    unless it can guarantee that fact.  If frames that are on a stream
    are passed to the application layer for any stream, then
-   REFUSED_STREAM MUST NOT be used for that stream, and a GOAWAY frame
-   MUST include a stream identifier that is greater than or equal to the
+   REFUSED_STREAM <em>MUST NOT</em> be used for that stream, and a GOAWAY frame
+   <em>MUST</em> include a stream identifier that is greater than or equal to the
    given stream identifier.
 
    In addition to these mechanisms, the PING frame provides a way for a
@@ -3558,11 +3558,11 @@ Table of Contents
    negotiated for each hop independently.  The SETTINGS_ENABLE_PUSH
    setting can be set to 0 to indicate that server push is disabled.
 
-   Promised requests MUST be cacheable (see <a href="./rfc7231.html#section-4.2.3">[RFC7231], Section&nbsp;4.2.3</a>),
-   MUST be safe (see <a href="./rfc7231.html#section-4.2.1">[RFC7231], Section&nbsp;4.2.1</a>), and MUST NOT include a
+   Promised requests <em>MUST</em> be cacheable (see <a href="./rfc7231.html#section-4.2.3">[RFC7231], Section&nbsp;4.2.3</a>),
+   <em>MUST</em> be safe (see <a href="./rfc7231.html#section-4.2.1">[RFC7231], Section&nbsp;4.2.1</a>), and <em>MUST NOT</em> include a
    request body.  Clients that receive a promised request that is not
    cacheable, that is not known to be safe, or that indicates the
-   presence of a request body MUST reset the promised stream with a
+   presence of a request body <em>MUST</em> reset the promised stream with a
    stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type PROTOCOL_ERROR.  Note this could
    result in the promised stream being reset if the client does not
    recognize a newly defined method as being safe.
@@ -3574,13 +3574,13 @@ Table of Contents
    (<a href="./rfc7234.html#section-5.2.2">[RFC7234], Section&nbsp;5.2.2</a>)) while the stream identified by the
    promised stream ID is still open.
 
-   Pushed responses that are not cacheable MUST NOT be stored by any
-   HTTP cache.  They MAY be made available to the application
+   Pushed responses that are not cacheable <em>MUST NOT</em> be stored by any
+   HTTP cache.  They <em>MAY</em> be made available to the application
    separately.
 
-   The server MUST include a value in the ":authority" pseudo-header
+   The server <em>MUST</em> include a value in the ":authority" pseudo-header
    field for which the server is authoritative (see <a href="#section-10.1">Section 10.1</a>).  A
-   client MUST treat a PUSH_PROMISE for which the server is not
+   client <em>MUST</em> treat a PUSH_PROMISE for which the server is not
    authoritative as a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of type
    PROTOCOL_ERROR.
 
@@ -3590,9 +3590,9 @@ Table of Contents
    intermediary might choose to make additional pushes to the client,
    without any action taken by the server.
 
-   A client cannot push.  Thus, servers MUST treat the receipt of a
+   A client cannot push.  Thus, servers <em>MUST</em> treat the receipt of a
    PUSH_PROMISE frame as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type
-   PROTOCOL_ERROR.  Clients MUST reject any attempt to change the
+   PROTOCOL_ERROR.  Clients <em>MUST</em> reject any attempt to change the
    SETTINGS_ENABLE_PUSH setting to a value other than 0 by treating the
    message as a connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.
 
@@ -3622,15 +3622,15 @@ Table of Contents
    available to the server (see <a href="#section-5.1.1">Section 5.1.1</a>).
 
    The header fields in PUSH_PROMISE and any subsequent CONTINUATION
-   frames MUST be a valid and complete set of request header fields
-   (<a href="#section-8.1.2.3">Section 8.1.2.3</a>).  The server MUST include a method in the ":method"
+   frames <em>MUST</em> be a valid and complete set of request header fields
+   (<a href="#section-8.1.2.3">Section 8.1.2.3</a>).  The server <em>MUST</em> include a method in the ":method"
    pseudo-header field that is safe and cacheable.  If a client receives
    a PUSH_PROMISE that does not include a complete and valid set of
    header fields or the ":method" pseudo-header field identifies a
-   method that is not safe, it MUST respond with a stream error
+   method that is not safe, it <em>MUST</em> respond with a stream error
    (<a href="#section-5.4.2">Section 5.4.2</a>) of type PROTOCOL_ERROR.
 
-   The server SHOULD send PUSH_PROMISE (<a href="#section-6.6">Section 6.6</a>) frames prior to
+   The server <em>SHOULD</em> send PUSH_PROMISE (<a href="#section-6.6">Section 6.6</a>) frames prior to
    sending any frames that reference the promised responses.  This
    avoids a race where clients issue requests prior to receiving any
    PUSH_PROMISE frames.
@@ -3645,10 +3645,10 @@ Table of Contents
    Link header fields), sending a PUSH_PROMISE before sending the header
    block ensures that clients do not request those resources.
 
-   PUSH_PROMISE frames MUST NOT be sent by the client.
+   PUSH_PROMISE frames <em>MUST NOT</em> be sent by the client.
 
    PUSH_PROMISE frames can be sent by the server in response to any
-   client-initiated stream, but the stream MUST be in either the "open"
+   client-initiated stream, but the stream <em>MUST</em> be in either the "open"
    or "half-closed (remote)" state with respect to the server.
    PUSH_PROMISE frames are interspersed with the frames that comprise a
    response, though they cannot be interspersed with HEADERS and
@@ -3677,7 +3677,7 @@ Table of Contents
    frame is sent.
 
    Once a client receives a PUSH_PROMISE frame and chooses to accept the
-   pushed response, the client SHOULD NOT issue any requests for the
+   pushed response, the client <em>SHOULD NOT</em> issue any requests for the
    promised response until after the promised stream has closed.
 
    If the client determines, for any reason, that it does not wish to
@@ -3694,7 +3694,7 @@ Table of Contents
    frames; clients need to reset any promised streams that are not
    wanted.
 
-   Clients receiving a pushed response MUST validate that either the
+   Clients receiving a pushed response <em>MUST</em> validate that either the
    server is authoritative (see <a href="#section-10.1">Section 10.1</a>) or the proxy that provided
    the pushed response is configured for the corresponding request.  For
    example, a server that offers a certificate for only the
@@ -3737,7 +3737,7 @@ Table of Contents
 
    o  The ":method" pseudo-header field is set to "CONNECT".
 
-   o  The ":scheme" and ":path" pseudo-header fields MUST be omitted.
+   o  The ":scheme" and ":path" pseudo-header fields <em>MUST</em> be omitted.
 
    o  The ":authority" pseudo-header field contains the host and port to
       connect to (equivalent to the authority-form of the request-target
@@ -3758,7 +3758,7 @@ Table of Contents
    proxy to the TCP server; data received from the TCP server is
    assembled into DATA frames by the proxy.  Frame types other than DATA
    or stream management frames (RST_STREAM, WINDOW_UPDATE, and PRIORITY)
-   MUST NOT be sent on a connected stream and MUST be treated as a
+   <em>MUST NOT</em> be sent on a connected stream and <em>MUST</em> be treated as a
    stream error (<a href="#section-5.4.2">Section 5.4.2</a>) if received.
 
    The TCP connection can be closed by either peer.  The END_STREAM flag
@@ -3781,7 +3781,7 @@ Table of Contents
    A TCP connection error is signaled with RST_STREAM.  A proxy treats
    any error in the TCP connection, which includes receiving a TCP
    segment with the RST bit set, as a stream error (<a href="#section-5.4.2">Section 5.4.2</a>) of
-   type CONNECT_ERROR.  Correspondingly, a proxy MUST send a TCP segment
+   type CONNECT_ERROR.  Correspondingly, a proxy <em>MUST</em> send a TCP segment
    with the RST bit set if it detects an error with the stream or the
    HTTP/2 connection.
 
@@ -3799,7 +3799,7 @@ Table of Contents
    (for example, when a user navigates away from a particular web page)
    or until the server closes the connection.
 
-   Clients SHOULD NOT open more than one HTTP/2 connection to a given
+   Clients <em>SHOULD NOT</em> open more than one HTTP/2 connection to a given
    host and port pair, where the host is derived from a URI, a selected
    alternative service [<a href="#ref-ALT-SVC" title="&quot;HTTP Alternative Services&quot;">ALT-SVC</a>], or a configured proxy.
 
@@ -3809,15 +3809,15 @@ Table of Contents
    a TLS connection, or to replace connections that have encountered
    errors (<a href="#section-5.4.1">Section 5.4.1</a>).
 
-   A client MAY open multiple connections to the same IP address and TCP
+   A client <em>MAY</em> open multiple connections to the same IP address and TCP
    port using different Server Name Indication [<a href="#ref-TLS-EXT" title="&quot;Transport Layer Security (TLS) Extensions: Extension Definitions&quot;">TLS-EXT</a>] values or to
-   provide different TLS client certificates but SHOULD avoid creating
+   provide different TLS client certificates but <em>SHOULD</em> avoid creating
    multiple connections with the same configuration.
 
    Servers are encouraged to maintain open connections for as long as
    possible but are permitted to terminate idle connections if
    necessary.  When either endpoint chooses to close the transport-layer
-   TCP connection, the terminating endpoint SHOULD first send a GOAWAY
+   TCP connection, the terminating endpoint <em>SHOULD</em> first send a GOAWAY
    (<a href="#section-6.8">Section 6.8</a>) frame so that both endpoints can reliably determine
    whether previously sent frames have been processed and gracefully
    complete or terminate any necessary remaining tasks.
@@ -3837,7 +3837,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-9.1.1" href="#section-9.1.1">9.1.1</a>.  Connection Reuse</span>
 
    Connections that are made to an origin server, either directly or
-   through a tunnel created using the CONNECT method (<a href="#section-8.3">Section 8.3</a>), MAY
+   through a tunnel created using the CONNECT method (<a href="#section-8.3">Section 8.3</a>), <em>MAY</em>
    be reused for requests with multiple different URI authority
    components.  A connection can be reused as long as the origin server
    is authoritative (<a href="#section-10.1">Section 10.1</a>).  For TCP connections without TLS,
@@ -3845,7 +3845,7 @@ Table of Contents
 
    For "https" resources, connection reuse additionally depends on
    having a certificate that is valid for the host in the URI.  The
-   certificate presented by the server MUST satisfy any checks that the
+   certificate presented by the server <em>MUST</em> satisfy any checks that the
    client would perform when forming a new TLS connection for the host
    in the URI.
 
@@ -3891,12 +3891,12 @@ Table of Contents
 
 
    Clients receiving a 421 (Misdirected Request) response from a server
-   MAY retry the request -- whether the request method is idempotent or
+   <em>MAY</em> retry the request -- whether the request method is idempotent or
    not -- over a different connection.  This is possible if a connection
    is reused (<a href="#section-9.1.1">Section 9.1.1</a>) or if an alternative service is selected
    [<a href="#ref-ALT-SVC" title="&quot;HTTP Alternative Services&quot;">ALT-SVC</a>].
 
-   This status code MUST NOT be generated by proxies.
+   This status code <em>MUST NOT</em> be generated by proxies.
 
    A 421 response is cacheable by default, i.e., unless otherwise
    indicated by the method definition or explicit cache controls (see
@@ -3904,13 +3904,13 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  Use of TLS Features</span>
 
-   Implementations of HTTP/2 MUST use TLS version 1.2 [<a href="#ref-TLS12" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">TLS12</a>] or higher
+   Implementations of HTTP/2 <em>MUST</em> use TLS version 1.2 [<a href="#ref-TLS12" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">TLS12</a>] or higher
    for HTTP/2 over TLS.  The general TLS usage guidance in [<a href="#ref-TLSBCP" title="&quot;Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)&quot;">TLSBCP</a>]
-   SHOULD be followed, with some additional restrictions that are
+   <em>SHOULD</em> be followed, with some additional restrictions that are
    specific to HTTP/2.
 
-   The TLS implementation MUST support the Server Name Indication (SNI)
-   [<a href="#ref-TLS-EXT" title="&quot;Transport Layer Security (TLS) Extensions: Extension Definitions&quot;">TLS-EXT</a>] extension to TLS.  HTTP/2 clients MUST indicate the target
+   The TLS implementation <em>MUST</em> support the Server Name Indication (SNI)
+   [<a href="#ref-TLS-EXT" title="&quot;Transport Layer Security (TLS) Extensions: Extension Definitions&quot;">TLS-EXT</a>] extension to TLS.  HTTP/2 clients <em>MUST</em> indicate the target
    domain name when negotiating TLS.
 
    Deployments of HTTP/2 that negotiate TLS 1.3 or higher need only
@@ -3924,19 +3924,19 @@ Table of Contents
    This section describes restrictions on the TLS 1.2 feature set that
    can be used with HTTP/2.  Due to deployment limitations, it might not
    be possible to fail TLS negotiation when these restrictions are not
-   met.  An endpoint MAY immediately terminate an HTTP/2 connection that
+   met.  An endpoint <em>MAY</em> immediately terminate an HTTP/2 connection that
    does not meet these TLS requirements with a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type INADEQUATE_SECURITY.
 
-   A deployment of HTTP/2 over TLS 1.2 MUST disable compression.  TLS
+   A deployment of HTTP/2 over TLS 1.2 <em>MUST</em> disable compression.  TLS
    compression can lead to the exposure of information that would not
    otherwise be revealed [<a href="./rfc3749.html" title="&quot;Transport Layer Security Protocol Compression Methods&quot;">RFC3749</a>].  Generic compression is unnecessary
    since HTTP/2 provides compression features that are more aware of
    context and therefore likely to be more appropriate for use for
    performance, security, or other reasons.
 
-   A deployment of HTTP/2 over TLS 1.2 MUST disable renegotiation.  An
-   endpoint MUST treat a TLS renegotiation as a connection error
+   A deployment of HTTP/2 over TLS 1.2 <em>MUST</em> disable renegotiation.  An
+   endpoint <em>MUST</em> treat a TLS renegotiation as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type PROTOCOL_ERROR.  Note that disabling
 
 
@@ -3950,38 +3950,38 @@ Table of Contents
    due to limits on the number of messages the underlying cipher suite
    can encipher.
 
-   An endpoint MAY use renegotiation to provide confidentiality
+   An endpoint <em>MAY</em> use renegotiation to provide confidentiality
    protection for client credentials offered in the handshake, but any
-   renegotiation MUST occur prior to sending the connection preface.  A
-   server SHOULD request a client certificate if it sees a renegotiation
+   renegotiation <em>MUST</em> occur prior to sending the connection preface.  A
+   server <em>SHOULD</em> request a client certificate if it sees a renegotiation
    request immediately after establishing a connection.
 
    This effectively prevents the use of renegotiation in response to a
    request for a specific protected resource.  A future specification
    might provide a way to support this use case.  Alternatively, a
-   server might use an error (<a href="#section-5.4">Section 5.4</a>) of type HTTP_1_1_REQUIRED to
+   server might use an error (<a href="#section-5.4">Section 5.4</a>) of type HTTP_1_1_<em>REQUIRED</em> to
    request the client use a protocol that supports renegotiation.
 
-   Implementations MUST support ephemeral key exchange sizes of at least
+   Implementations <em>MUST</em> support ephemeral key exchange sizes of at least
    2048 bits for cipher suites that use ephemeral finite field Diffie-
    Hellman (DHE) [<a href="#ref-TLS12" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">TLS12</a>] and 224 bits for cipher suites that use
    ephemeral elliptic curve Diffie-Hellman (ECDHE) [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>].  Clients
-   MUST accept DHE sizes of up to 4096 bits.  Endpoints MAY treat
+   <em>MUST</em> accept DHE sizes of up to 4096 bits.  Endpoints <em>MAY</em> treat
    negotiation of key sizes smaller than the lower limits as a
    connection error (<a href="#section-5.4.1">Section 5.4.1</a>) of type INADEQUATE_SECURITY.
 
 <span class="h4"><a class="selflink" name="section-9.2.2" href="#section-9.2.2">9.2.2</a>.  TLS 1.2 Cipher Suites</span>
 
-   A deployment of HTTP/2 over TLS 1.2 SHOULD NOT use any of the cipher
+   A deployment of HTTP/2 over TLS 1.2 <em>SHOULD NOT</em> use any of the cipher
    suites that are listed in the cipher suite black list (Appendix A).
 
-   Endpoints MAY choose to generate a connection error (<a href="#section-5.4.1">Section 5.4.1</a>)
+   Endpoints <em>MAY</em> choose to generate a connection error (<a href="#section-5.4.1">Section 5.4.1</a>)
    of type INADEQUATE_SECURITY if one of the cipher suites from the
    black list is negotiated.  A deployment that chooses to use a black-
    listed cipher suite risks triggering a connection error unless the
    set of potential peers is known to accept that cipher suite.
 
-   Implementations MUST NOT generate this error in reaction to the
+   Implementations <em>MUST NOT</em> generate this error in reaction to the
    negotiation of a cipher suite that is not on the black list.
    Consequently, when clients offer a cipher suite that is not on the
    black list, they have to be prepared to use that cipher suite with
@@ -3991,7 +3991,7 @@ Table of Contents
    mandatory, which means that TLS 1.2 deployments could have non-
    intersecting sets of permitted cipher suites.  To avoid this problem
    causing TLS handshake failures, deployments of HTTP/2 that use TLS
-   1.2 MUST support TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 [<a href="#ref-TLS-ECDHE" title="&quot;TLS Elliptic Curve Cipher Suites with SHA-256/384 and AES Galois Counter Mode (GCM)&quot;">TLS-ECDHE</a>]
+   1.2 <em>MUST</em> support TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 [<a href="#ref-TLS-ECDHE" title="&quot;TLS Elliptic Curve Cipher Suites with SHA-256/384 and AES Galois Counter Mode (GCM)&quot;">TLS-ECDHE</a>]
    with the P-256 elliptic curve [<a href="#ref-FIPS186" title="&quot;Digital Signature Standard (DSS)&quot;">FIPS186</a>].
 
 
@@ -4063,7 +4063,7 @@ Table of Contents
    The HTTP/2 header field encoding allows the expression of names that
    are not valid field names in the Internet Message Syntax used by
    HTTP/1.1.  Requests or responses containing invalid header field
-   names MUST be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).  An
+   names <em>MUST</em> be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).  An
    intermediary therefore cannot translate an HTTP/2 request or response
    containing an invalid field name into an HTTP/1.1 message.
 
@@ -4072,7 +4072,7 @@ Table of Contents
    field parsing, carriage return (CR, ASCII 0xd), line feed (LF, ASCII
    0xa), and the zero character (NUL, ASCII 0x0) might be exploited by
    an attacker if they are translated verbatim.  Any request or response
-   that contains a character not permitted in a header field value MUST
+   that contains a character not permitted in a header field value <em>MUST</em>
    be treated as malformed (<a href="#section-8.1.2.6">Section 8.1.2.6</a>).  Valid characters are
    defined by the "field-content" ABNF rule in <a href="./rfc7230.html#section-3.2">Section&nbsp;3.2 of [RFC7230]</a>.
 
@@ -4088,14 +4088,14 @@ Table of Contents
    small portion of its URI space.
 
    Where multiple tenants share space on the same server, that server
-   MUST ensure that tenants are not able to push representations of
+   <em>MUST</em> ensure that tenants are not able to push representations of
    resources that they do not have authority over.  Failure to enforce
    this would allow a tenant to provide a representation that would be
    served out of cache, overriding the actual representation that the
    authoritative tenant provides.
 
    Pushed responses for which an origin server is not authoritative (see
-   <a href="#section-10.1">Section 10.1</a>) MUST NOT be used or cached.
+   <a href="#section-10.1">Section 10.1</a>) <em>MUST NOT</em> be used or cached.
 
 <span class="h3"><a class="selflink" name="section-10.5" href="#section-10.5">10.5</a>.  Denial-of-Service Considerations</span>
 
@@ -4115,7 +4115,7 @@ Table of Contents
 
 
    The number of PUSH_PROMISE frames is not constrained in the same
-   fashion.  A client that accepts server push SHOULD limit the number
+   fashion.  A client that accepts server push <em>SHOULD</em> limit the number
    of streams it allows to be in the "reserved (remote)" state.  An
    excessive number of server push streams can be treated as a stream
    error (<a href="#section-5.4.2">Section 5.4.2</a>) of type ENHANCE_YOUR_CALM.
@@ -4150,8 +4150,8 @@ Table of Contents
    only when they are used unnecessarily or to excess.
 
    An endpoint that doesn't monitor this behavior exposes itself to a
-   risk of denial-of-service attack.  Implementations SHOULD track the
-   use of these features and set limits on their use.  An endpoint MAY
+   risk of denial-of-service attack.  Implementations <em>SHOULD</em> track the
+   use of these features and set limits on their use.  An endpoint <em>MAY</em>
    treat activity that is suspicious as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type ENHANCE_YOUR_CALM.
 
@@ -4177,7 +4177,7 @@ Table of Contents
 
    An endpoint can use the SETTINGS_MAX_HEADER_LIST_SIZE to advise peers
    of limits that might apply on the size of header blocks.  This
-   setting is only advisory, so endpoints MAY choose to send header
+   setting is only advisory, so endpoints <em>MAY</em> choose to send header
    blocks that exceed this limit and risk having the request or response
    being treated as malformed.  This setting is specific to a
    connection, so any request or response could encounter a hop with a
@@ -4188,7 +4188,7 @@ Table of Contents
    A server that receives a larger header block than it is willing to
    handle can send an HTTP 431 (Request Header Fields Too Large) status
    code [<a href="./rfc6585.html" title="&quot;Additional HTTP Status Codes&quot;">RFC6585</a>].  A client can discard responses that it cannot
-   process.  The header block MUST be processed to ensure a consistent
+   process.  The header block <em>MUST</em> be processed to ensure a consistent
    connection state, unless the connection is closed.
 
 <span class="h4"><a class="selflink" name="section-10.5.2" href="#section-10.5.2">10.5.2</a>.  CONNECT Issues</span>
@@ -4226,12 +4226,12 @@ Table of Contents
 <span class="grey"><a href="./rfc7540.html">RFC 7540</a>                         HTTP/2                         May 2015</span>
 
 
-   Implementations communicating on a secure channel MUST NOT compress
+   Implementations communicating on a secure channel <em>MUST NOT</em> compress
    content that includes both confidential and attacker-controlled data
    unless separate compression dictionaries are used for each source of
-   data.  Compression MUST NOT be used if the source of data cannot be
+   data.  Compression <em>MUST NOT</em> be used if the source of data cannot be
    reliably determined.  Generic stream compression, such as that
-   provided by TLS, MUST NOT be used with HTTP/2 (see <a href="#section-9.2">Section 9.2</a>).
+   provided by TLS, <em>MUST NOT</em> be used with HTTP/2 (see <a href="#section-9.2">Section 9.2</a>).
 
    Further considerations regarding the compression of header fields are
    described in [<a href="#ref-COMPRESSION" title="&quot;HPACK: Header Compression for HTTP/2&quot;">COMPRESSION</a>].
@@ -4261,7 +4261,7 @@ Table of Contents
    information as payload sizes cross the fixed-sized boundary, which
    could be possible if an attacker can control plaintext.
 
-   Intermediaries SHOULD retain padding for DATA frames but MAY drop
+   Intermediaries <em>SHOULD</em> retain padding for DATA frames but <em>MAY</em> drop
    padding for HEADERS and PUSH_PROMISE frames.  A valid reason for an
    intermediary to change the amount of padding of frames is to improve
    the protections that padding provides.
@@ -4480,7 +4480,7 @@ Table of Contents
    | INADEQUATE_SECURITY | 0xc  | Negotiated TLS       | <a href="#section-7">Section 7</a>     |
    |                     |      | parameters not       |               |
    |                     |      | acceptable           |               |
-   | HTTP_1_1_REQUIRED   | 0xd  | Use HTTP/1.1 for the | <a href="#section-7">Section 7</a>     |
+   | HTTP_1_1_<em>REQUIRED</em>   | 0xd  | Use HTTP/1.1 for the | <a href="#section-7">Section 7</a>     |
    |                     |      | request              |               |
    +---------------------+------+----------------------+---------------+
 
@@ -4788,7 +4788,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="appendix-A" href="#appendix-A">Appendix A</a>.  TLS 1.2 Cipher Suite Black List</span>
 
-   An HTTP/2 implementation MAY treat the negotiation of any of the
+   An HTTP/2 implementation <em>MAY</em> treat the negotiation of any of the
    following cipher suites with TLS 1.2 as a connection error
    (<a href="#section-5.4.1">Section 5.4.1</a>) of type INADEQUATE_SECURITY:
 

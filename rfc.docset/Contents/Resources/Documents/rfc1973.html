@@ -327,7 +327,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Physical Layer Requirements</span>
 
    PPP treats Frame Relay framing as a bit-synchronous link.  The link
-   MUST be full-duplex, but MAY be either dedicated (permanent) or
+   <em>MUST</em> be full-duplex, but <em>MAY</em> be either dedicated (permanent) or
    switched.
 
    Interface Format
@@ -355,7 +355,7 @@ Table of Contents
 
 
       Because PPP does not normally require the use of control signals,
-      the failure of such signals MUST NOT affect correct operation of
+      the failure of such signals <em>MUST NOT</em> affect correct operation of
       PPP.  Implications are discussed in [<a href="#ref-2" title="&quot;ISDN Data Link Layer Specification for Frame Mode Bearer Services&quot;">2</a>].
 
    Encoding
@@ -424,7 +424,7 @@ Table of Contents
 
       Because the Address and Control field values are not constant, and
       are modified as the frame is transported by the network switching
-      fabric, Address-and-Control-Field-Compression MUST NOT be
+      fabric, Address-and-Control-Field-Compression <em>MUST NOT</em> be
       negotiated.
 
    Protocol-Field-Compression
@@ -433,7 +433,7 @@ Table of Contents
       does not align the Information field on a 32-bit boundary.
       Alignment to a 32-bit boundary occurs when the NLPID is removed
       and the Protocol field is compressed to a single octet.  When this
-      improves throughput, Protocol-Field-Compression SHOULD be
+      improves throughput, Protocol-Field-Compression <em>SHOULD</em> be
       negotiated.
 
 
@@ -480,27 +480,27 @@ Table of Contents
    For those network-layer protocols which have no PPP Protocol
    assignment, or which have not yet been implemented under the PPP
    encapsulation, or which have not been successfully negotiated by a
-   PPP NCP, another method of encapsulation defined under [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>] SHOULD be
+   PPP NCP, another method of encapsulation defined under [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>] <em>SHOULD</em> be
    used.
 
    Currently, there are no conflicts between NLPID and PPP Protocol
    values.  If a future implementation is configured to send a NLPID
    value which is the same as a compressed Protocol field, that Protocol
-   field MUST NOT be sent compressed.
+   field <em>MUST NOT</em> be sent compressed.
 
    On reception, the first octet following the header is examined.  If
-   the octet is zero, it MUST be assumed that the packet is formatted
+   the octet is zero, it <em>MUST</em> be assumed that the packet is formatted
    according to [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>].
 
    PPP encapsulated packets always have a non-zero octet following the
    header.  If the octet is not the PPP NLPID value (CF hex), and
    Protocol-Field-Compression is enabled, and the associated NCP has
    been negotiated, then it is expected to be a compressed PPP Protocol
-   value.  Otherwise, it MUST be assumed that the packet is formatted
+   value.  Otherwise, it <em>MUST</em> be assumed that the packet is formatted
    according to [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>].
 
    The Protocol field value 0x00cf is not allowed (reserved) to avoid
-   ambiguity when Protocol-Field-Compression is enabled.  The value MAY
+   ambiguity when Protocol-Field-Compression is enabled.  The value <em>MAY</em>
    be treated as a PPP Protocol that indicates that another PPP Protocol
    packet follows.
 
@@ -509,7 +509,7 @@ Table of Contents
    recognized, the PPP link enters Link Establishment phase.
 
    The accidental connection of a link to feed a multipoint network (or
-   multicast group) SHOULD result in a misconfiguration indication.
+   multicast group) <em>SHOULD</em> result in a misconfiguration indication.
    This can be detected by multiple responses to the LCP Configure-
    Request with the same Identifier, coming from different framing
    addresses.  Some implementations might be physically unable to either
@@ -523,21 +523,21 @@ Table of Contents
 
 
    Once PPP has entered the Link Establishment phase, packets with other
-   NLPID values MUST NOT be sent, and on receipt such packets MUST be
+   NLPID values <em>MUST NOT</em> be sent, and on receipt such packets <em>MUST</em> be
    silently discarded, until the PPP link enters the Network-Layer
    Protocol phase.
 
    Once PPP has entered the Network-Layer Protocol phase, and
    successfully negotiated a particular NCP for a PPP Protocol, if a
    frame arrives using another equivalent data encapsulation defined in
-   [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>], the PPP Link MUST re-enter Link Establishment phase and send a
+   [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>], the PPP Link <em>MUST</em> re-enter Link Establishment phase and send a
    new LCP Configure-Request.  This prevents "black-holes" that occur
    when the peer loses state.
 
    An implementation which requires PPP link configuration, and other
-   PPP negotiated features (such as authentication), MAY enter
+   PPP negotiated features (such as authentication), <em>MAY</em> enter
    Termination phase when configuration fails.  Otherwise, when the
-   Configure-Request sender reaches the Max-Configure limit, it MUST
+   Configure-Request sender reaches the Max-Configure limit, it <em>MUST</em>
    fall back to send only frames encapsulated according to [<a href="#ref-4" title="&quot;Multiprotocol Interconnect over Frame Relay&quot;">4</a>].
 
 
@@ -545,7 +545,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Out-of-Band signaling</span>
 
    There is no generally agreed method of out-of-band signalling.  Until
-   such a method is universally available, an implementation MUST use
+   such a method is universally available, an implementation <em>MUST</em> use
    In-Band Protocol Demultiplexing for both Permanent and Switched
    Virtual Circuits.
 
@@ -568,7 +568,7 @@ Table of Contents
 
    The typical network feeding the link is likely to have a MRU of
    either 1500, or 2048 or greater.  To avoid fragmentation, the
-   Maximum-Transmission-Unit (MTU) at the network layer SHOULD NOT
+   Maximum-Transmission-Unit (MTU) at the network layer <em>SHOULD NOT</em>
    exceed 1500, unless a peer MRU of 2048 or greater is specifically
 
 
@@ -583,7 +583,7 @@ Table of Contents
    Some Frame Relay switches are only capable of 262 octet frames.  It
    is not recommended that anyone deploy or use a switch which is
    capable of less than 1600 octet frames.  However, PPP implementations
-   MUST be configurable to limit the size of LCP packets which are sent
+   <em>MUST</em> be configurable to limit the size of LCP packets which are sent
    to 259 octets (which leaves room for the NLPID and Protocol fields),
    until LCP negotiation is complete.
 

@@ -419,12 +419,12 @@ TABLE OF CONTENTS
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    <a href="./rfc1179.html">RFC 1179</a> uses the word "command" in two contexts: for over-the-wire
-   operations and for command file functions. This document SHALL use
+   operations and for command file functions. This document <em>SHALL</em> use
    the word "command" for the former and the phrase "functions" for the
    latter.  The syntax of the LPD commands is given using ABNF
    [<a href="./rfc2234.html" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">RFC2234</a>].
@@ -478,7 +478,7 @@ TABLE OF CONTENTS
    waiting jobs. An IPP printer handles waiting jobs without such a
    nudge.
 
-   If the  mapper receives this LPD command, it SHALL ignore it and send
+   If the  mapper receives this LPD command, it <em>SHALL</em> ignore it and send
    no IPP operation.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> Receive a printer job</span>
@@ -501,18 +501,18 @@ TABLE OF CONTENTS
    If the IPP printer supports both Create-Job and Send-Document, and if
    a job consists of:
 
-      - a single data file, the mapper SHOULD use the Print-Job
-        operation, but MAY use the Create-Job and Send-Document
+      - a single data file, the mapper <em>SHOULD</em> use the Print-Job
+        operation, but <em>MAY</em> use the Create-Job and Send-Document
         operations.
-      - more than one data file, the mapper SHALL use Create-Job
+      - more than one data file, the mapper <em>SHALL</em> use Create-Job
         followed by one Send-Document for each received LPD data file.
 
    If the IPP printer does not support both Create-Job and Send-
    Document, and if a job consists of:
 
-      - a single data file, the mapper SHALL use the PrintJob
+      - a single data file, the mapper <em>SHALL</em> use the PrintJob
         operation.
-      - more than one data file, the mapper SHALL submit each received
+      - more than one data file, the mapper <em>SHALL</em> submit each received
         LPD data file as a separate Print-Job operation (thereby
         converting a single LPD job into multiple IPP jobs).
 
@@ -524,7 +524,7 @@ TABLE OF CONTENTS
 <span class="grey"><a href="./rfc2569.html">RFC 2569</a>         Mapping between LPD and IPP Protocols        April 1999</span>
 
 
-   If the mapper uses Create-Job and Send-Document, it MUST send the
+   If the mapper uses Create-Job and Send-Document, it <em>MUST</em> send the
    Create-Job operation before it sends any Send-Document operations
    whether the LPD control file, which supplies attributes for Create-
    Job, arrives before or after all LPD data files.
@@ -547,7 +547,7 @@ TABLE OF CONTENTS
    This sub-command of receive-a-printer-job is intended to abort any
    job transfer in process.
 
-   If the mapper receives this sub-command, it SHALL cancel the job that
+   If the mapper receives this sub-command, it <em>SHALL</em> cancel the job that
    it is in the process of transmitting.
 
    If the mapper is in the process of sending a Print-Job or Create-Job
@@ -583,7 +583,7 @@ TABLE OF CONTENTS
    This sub-command is roughly equivalent to the IPP Create-Job
    operation.
 
-   The mapper SHALL use the contents of the received LPD control file to
+   The mapper <em>SHALL</em> use the contents of the received LPD control file to
    create IPP operation attribute and job template attribute values to
    transmit with the Print-Job or Create-Job operation.
 
@@ -604,13 +604,13 @@ Sub-command syntax:  %x3 number-of-bytes-in-data-file Name-of-data-file
    This sub-command is roughly equivalent to the IPP Send-Document
    operation.
 
-   The mapper SHALL use the contents of the received LPD data file as
+   The mapper <em>SHALL</em> use the contents of the received LPD data file as
    the data to transmit with the IPP Print-Job or Send-Document
    operation.
 
    Although <a href="./rfc1179.html">RFC 1179</a> alludes to a method for passing an unspecified
    length data file by using an octet-count of zero, no implementations
-   support this feature. The mapper SHALL reject a job that has a value
+   support this feature. The mapper <em>SHALL</em> reject a job that has a value
    of 0 in the number-of-bytes field.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a> Send queue state (short)</span>
@@ -624,7 +624,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    the format of its response. This document requires the mapper to
    follow existing practice as specified in this document.
 
-   The mapper SHALL produce a response in the following format which
+   The mapper <em>SHALL</em> produce a response in the following format which
    consists of a printer-status line optionally followed by a heading
    line, and a list of jobs. This format is defined by examples below.
    <a href="#appendix-A">Appendix A</a> contains the ABNF syntax.
@@ -656,18 +656,18 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
      |      |          |            |                 |
      01     08         19           35                63
 
-   The mapper SHALL produce each field above from the following IPP
+   The mapper <em>SHALL</em> produce each field above from the following IPP
    attribute:
 
    LPD field IPP attribute          special conversion details
 
    printer-  printer-state and      For a printer-state of idle or
-   status    printer-state-reasons  processing, the mapper SHALL use
+   status    printer-state-reasons  processing, the mapper <em>SHALL</em> use
                                     the formats above.  For stopped,
-                                    the mapper SHALL use printer-
+                                    the mapper <em>SHALL</em> use printer-
                                     state-reasons to produce an
                                     unspecified format for the error.
-   rank      number-of-             the mapper SHALL the format above
+   rank      number-of-             the mapper <em>SHALL</em> the format above
              intervening-jobs
    owner     job-originating-user-  unspecified conversion; job-
              name                   originating-user-name may be the
@@ -692,11 +692,11 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 <span class="grey"><a href="./rfc2569.html">RFC 2569</a>         Mapping between LPD and IPP Protocols        April 1999</span>
 
 
-   A mapper SHOULD use the job attribute number-of-intervening-jobs
+   A mapper <em>SHOULD</em> use the job attribute number-of-intervening-jobs
    rather than the job's position in a list of jobs to determine 'rank'
    because a Printer may omit jobs that it wants to keep secret. If a
    printer doesn't support the job attribute number-of-intervening-jobs,
-   a mapper MAY use the job's position.
+   a mapper <em>MAY</em> use the job's position.
 
    Note: a Printer may set the value of job-originating-user-name to the
    authenticated user or to the value of "requesting-user-name",
@@ -706,14 +706,14 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    gateway's client.
 
    In order to obtain the information specified above, The LPD-to-IPP
-   mapper SHALL use the Get-Printer-Attributes operation to get
-   printer-status and SHOULD use the Get-Jobs operation to get
+   mapper <em>SHALL</em> use the Get-Printer-Attributes operation to get
+   printer-status and <em>SHOULD</em> use the Get-Jobs operation to get
    information about all of the jobs. If the LPD command contains job-
-   numbers or user-names, the mapper MAY handle the filtering of the
+   numbers or user-names, the mapper <em>MAY</em> handle the filtering of the
    response. If the LPD command contains job-numbers but no user-names,
-   the mapper MAY use Get-Job-Attributes on each converted job-number
+   the mapper <em>MAY</em> use Get-Job-Attributes on each converted job-number
    rather than Get-Jobs. If the LPD command contains a single user-name
-   but no job-numbers, the mapper MAY use Get-Jobs with the my-jobs
+   but no job-numbers, the mapper <em>MAY</em> use Get-Jobs with the my-jobs
    option if the server supports this option and if the server allows
    the client to be a proxy for the LPD user.
 
@@ -731,7 +731,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    the format of its response. This document requires the mapper to
    follow existing practice as specified in this document.
 
-   The mapper SHALL produce a response in the following format which
+   The mapper <em>SHALL</em> produce a response in the following format which
    consists of a printer-status line optionally followed a list of jobs,
    where each job consists of a blank line, a description line, and one
    line for each file. The description line contains the user-name,
@@ -816,16 +816,16 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    privileged user who can remove jobs whose user-name differs from the
    agent.
 
-   The mapper SHALL issue one Cancel-Job operation for each job
+   The mapper <em>SHALL</em> issue one Cancel-Job operation for each job
    referenced by the remove-jobs command. Each job-number in the
    remove-jobs command references a single job. Each user-name in the
    remove-jobs command implicitly references all jobs owned by the
    specified user. The active job is implicitly referenced when the
    remove-jobs command contains neither job-numbers nor user-names. The
-   mapper MAY use Get-Jobs to determine the job-uri of implicitly
+   mapper <em>MAY</em> use Get-Jobs to determine the job-uri of implicitly
    referenced jobs.
 
-   The mapper SHALL not use the agent name of 'root' when end-users
+   The mapper <em>SHALL</em> not use the agent name of 'root' when end-users
    cancel their own jobs.  Violation of this rule creates a potential
    security violation, and it may cause the printer to issue a
    notification that misleads a user into thinking that some other
@@ -833,7 +833,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
    If the agent of a remove-jobs command for a job J is the same as the
    user name specified with the 'P' function in the control file for job
-   J, then the mapper SHALL ensure that the initiator of the Cancel-Job
+   J, then the mapper <em>SHALL</em> ensure that the initiator of the Cancel-Job
    command for job J is the same as job-originating-user for job J.
 
    Note: This requirement means that a mapper must be consistent in who
@@ -890,11 +890,11 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a> Required Job Functions</span>
 
-   The following LPD functions MUST be in a received LPD job. The mapper
-   SHALL receive each of the following LPD functions and SHALL include
+   The following LPD functions <em>MUST</em> be in a received LPD job. The mapper
+   <em>SHALL</em> receive each of the following LPD functions and <em>SHALL</em> include
    the information as a operation or job template attribute with each
-   IPP job.  The functions SHOULD be in the order 'H', 'P' and they
-   SHOULD be the first two functions in the control file, but they MAY
+   IPP job.  The functions <em>SHOULD</em> be in the order 'H', 'P' and they
+   <em>SHOULD</em> be the first two functions in the control file, but they <em>MAY</em>
    be anywhere in the control file and in any order:
 
    LPD function                     IPP
@@ -916,25 +916,25 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 <span class="grey"><a href="./rfc2569.html">RFC 2569</a>         Mapping between LPD and IPP Protocols        April 1999</span>
 
 
-   A mapper MAY send its own host rather than the client's host, and a
-   mapper MAY send its own user-name as user identification rather than
-   the client user. But in any case, the values sent SHALL be compatible
-   with the Cancel-Job operation. The IPP operation MAY have no way to
+   A mapper <em>MAY</em> send its own host rather than the client's host, and a
+   mapper <em>MAY</em> send its own user-name as user identification rather than
+   the client user. But in any case, the values sent <em>SHALL</em> be compatible
+   with the Cancel-Job operation. The IPP operation <em>MAY</em> have no way to
    specify an originating host-name.
 
-   The mapper SHALL include ipp-attribute-fidelity = true so that it
+   The mapper <em>SHALL</em> include ipp-attribute-fidelity = true so that it
    doesn't have to determine which attributes a printer supports.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a> Optional Job Functions</span>
 
-   The following LPD functions MAY be present in a received job. These
-   functions SHOULD follow the required job functions and precede the
-   document functions, but they MAY be anywhere in the control file.
+   The following LPD functions <em>MAY</em> be present in a received job. These
+   functions <em>SHOULD</em> follow the required job functions and precede the
+   document functions, but they <em>MAY</em> be anywhere in the control file.
 
-   If the mapper receives such an LPD function, the mapper SHALL include
+   If the mapper receives such an LPD function, the mapper <em>SHALL</em> include
    the corresponding IPP attribute with the value converted as specified
    in the table below.  If the mapper does not receive such an LPD
-   attribute, the mapper SHALL NOT include the corresponding IPP
+   attribute, the mapper <em>SHALL NOT</em> include the corresponding IPP
    attribute, except the 'L' LPD function whose absence has a special
    meaning as noted in the table.
 
@@ -955,13 +955,13 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a> Required Document Functions</span>
 
-   The mapper SHALL receive one set of the required document functions
-   with each copy of a document, and SHALL include the converted
+   The mapper <em>SHALL</em> receive one set of the required document functions
+   with each copy of a document, and <em>SHALL</em> include the converted
    information as operation or job template attributes with each IPP
    document.
 
    If the control file contains required and recommended document
-   functions, the required functions SHOULD precede the recommended ones
+   functions, the required functions <em>SHOULD</em> precede the recommended ones
    and if the job contains multiple documents, all the functions for
 
 
@@ -974,7 +974,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
    each document are grouped together as shown in the example of <a href="#section-6.3">section</a>
    <a href="#section-6.3">6.3</a> "Required Document Functions". However, the document functions
-   MAY be in any order.
+   <em>MAY</em> be in any order.
 
    LPD function                   IPP
    name value description         name             value
@@ -1001,7 +1001,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    Note: the value 'fff' of the 'f', 'l' and 'o' functions is the name
    of the data file as transferred, e.g. "dfA123woden".
 
-   If the mapper receives any other lower case letter, the mapper SHALL
+   If the mapper receives any other lower case letter, the mapper <em>SHALL</em>
    reject the job because the document contains a format that the mapper
    does not support.
 
@@ -1030,11 +1030,11 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a> Recommended Document Functions</span>
 
-   The mapper SHOULD receive one set of the recommended document
-   functions with each document, and SHOULD include the converted
+   The mapper <em>SHOULD</em> receive one set of the recommended document
+   functions with each document, and <em>SHOULD</em> include the converted
    information as an operation or job template attribute with each IPP
-   document. The functions SHOULD be received in the order 'U' and 'N',
-   but they MAY arrive in any order.
+   document. The functions <em>SHOULD</em> be received in the order 'U' and 'N',
+   but they <em>MAY</em> arrive in any order.
 
    LPD function                       IPP
    name  value   description          name              value
@@ -1064,14 +1064,14 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a> Print-Job</span>
 
-   The mapper SHALL send the following commands in the order listed
+   The mapper <em>SHALL</em> send the following commands in the order listed
    below:
 
       - receive-a-printer-job command
       - both receive-control-file sub-command and receive-data-file
         sub-command (unspecified order, see Note below)
       - print-any-waiting-jobs command, except that if the mapper is
-        sending a sequence of receive a printer-job commands, it MAY
+        sending a sequence of receive a printer-job commands, it <em>MAY</em>
         omit sending print-any-waiting-jobs after any receive a
         printer-job command that is neither the first nor last command
         in this sequence
@@ -1098,12 +1098,12 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    NOTE: This specification does not define the mapping between the IPP
    printer-uri and the LPD printer-name.
 
-   The mapper SHALL send the IPP operation attributes and job template
+   The mapper <em>SHALL</em> send the IPP operation attributes and job template
    attributes received from the operation to the LPD printer by using
-   the LPD receive-control-file sub-command. The mapper SHALL create the
+   the LPD receive-control-file sub-command. The mapper <em>SHALL</em> create the
    LPD job-number for use in the control file name, but the receiving
-   printer MAY, in some circumstances, assign a different job-number to
-   the job.  The mapper SHALL create the IPP job-id and IPP job-uri
+   printer <em>MAY</em>, in some circumstances, assign a different job-number to
+   the job.  The mapper <em>SHALL</em> create the IPP job-id and IPP job-uri
    returned in the Print-Job response.
 
    NOTE: This specification does not specify how the mapper determines
@@ -1115,15 +1115,15 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    that the IPP Job-uri is the printer's URI with the job-id
    concatenated on the end.
 
-   The mapper SHALL send data received in the IPP operation to the LPD
+   The mapper <em>SHALL</em> send data received in the IPP operation to the LPD
    printer by using the LPD receive-data-file sub-command. The mapper
-   SHALL specify the exact number of bytes being transmitted in the
-   number-of-bytes field of the receive-data-file sub-command. It SHALL
+   <em>SHALL</em> specify the exact number of bytes being transmitted in the
+   number-of-bytes field of the receive-data-file sub-command. It <em>SHALL</em>
    NOT use a value of 0 in this field.
 
    If the mapper, while it is transmitting a receive-a-printer-job
    command or sub-command, either detects that its IPP connection has
-   closed or receives a Cancel-Job operation, the mapper SHALL terminate
+   closed or receives a Cancel-Job operation, the mapper <em>SHALL</em> terminate
    the LPD job either with the abort sub-command or the remove-jobs
    command.
 
@@ -1142,29 +1142,29 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a> Print-URI</span>
 
-   The mapper SHALL handle this operation in the same way as a Print-Job
-   operation except that it SHALL obtain data referenced by the
-   "document-uri" operation attribute and SHALL then treat that data as
+   The mapper <em>SHALL</em> handle this operation in the same way as a Print-Job
+   operation except that it <em>SHALL</em> obtain data referenced by the
+   "document-uri" operation attribute and <em>SHALL</em> then treat that data as
    if it had been received via a Print-Job operation.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a> Validate-Job</span>
 
-   The mapper SHALL perform this operation directly. Because LPD
+   The mapper <em>SHALL</em> perform this operation directly. Because LPD
    supports very few attributes, this operation doesn't have much to
    check.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a> Create-Job</span>
 
-   The mapper SHALL handle this operation like Print-Job, except:
+   The mapper <em>SHALL</em> handle this operation like Print-Job, except:
 
-      - the mapper SHALL send the control file after it has received the
+      - the mapper <em>SHALL</em> send the control file after it has received the
         last Send-Document or Send-URI operation because the control
         file contains all the document-name and document-format values
         specified in the Send-Document and Send-URI operations.
-      - the mapper SHALL perform one receive-data-file sub-command for
+      - the mapper <em>SHALL</em> perform one receive-data-file sub-command for
         each Send-Document or Send-URI operation received and in the
         same order received.
-      - the mapper SHALL send the control file either before all data
+      - the mapper <em>SHALL</em> send the control file either before all data
         files or after all data files. (See the note in the section on
         Print-Job about the dilemma of sending the control file either
         before or after the data files.
@@ -1176,14 +1176,14 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-5.6" href="#section-5.6">5.6</a> Send-URI</span>
 
-   The mapper SHALL obtain the data referenced by the "document-uri"
-   operation attribute, and SHALL then treat that data as if it had been
+   The mapper <em>SHALL</em> obtain the data referenced by the "document-uri"
+   operation attribute, and <em>SHALL</em> then treat that data as if it had been
    received via a Send-Document operation. See the preceding <a href="#section-5.5">section 5.5</a>
    "Send-Document" for the details.
 
 <span class="h3"><a class="selflink" name="section-5.7" href="#section-5.7">5.7</a> Cancel-Job</span>
 
-   The mapper SHALL perform a remove-jobs command with the following
+   The mapper <em>SHALL</em> perform a remove-jobs command with the following
    operation attributes:
 
 
@@ -1207,7 +1207,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 <span class="h3"><a class="selflink" name="section-5.8" href="#section-5.8">5.8</a> Get-Printer-Attributes</span>
 
    LPD severely limits the set of attributes that the mapper is able to
-   return in its response for this operation. The mapper SHALL support,
+   return in its response for this operation. The mapper <em>SHALL</em> support,
    at most, the following printer attributes:
 
       - printer-state
@@ -1216,9 +1216,9 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    The mapper uses either the long or short form of the "send queue
    state" command.
 
-   The mapper SHALL assume that the LPD response that it receives has
+   The mapper <em>SHALL</em> assume that the LPD response that it receives has
    the format and information specified in <a href="#section-3.3">section 3.3</a> "Send queue state
-   (short)" and <a href="#section-3.4">section 3.4</a> "Send queue state (long)".  The mapper SHALL
+   (short)" and <a href="#section-3.4">section 3.4</a> "Send queue state (long)".  The mapper <em>SHALL</em>
    determine the value of each requested attribute by using the inverse
    of the mapping specified in the two aforementioned sections.
 
@@ -1228,7 +1228,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 <span class="h3"><a class="selflink" name="section-5.9" href="#section-5.9">5.9</a> Get-Job-Attributes</span>
 
    LPD severely limits the set of attributes that the mapper is able to
-   return in its response for this operation. The mapper SHALL support,
+   return in its response for this operation. The mapper <em>SHALL</em> support,
    at most, the following job attributes:
 
       - number-of-intervening-jobs
@@ -1240,8 +1240,8 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
    The mapper uses either the long or short form of the "send queue
    state" command. If it receives a request for the "job-k-octets" or
-   "copies" and supports the attribute it SHALL use the long form;
-   otherwise, it SHALL use the short form.
+   "copies" and supports the attribute it <em>SHALL</em> use the long form;
+   otherwise, it <em>SHALL</em> use the short form.
 
 
 
@@ -1257,9 +1257,9 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    value can also be determined by adding the "size" field values for
    each document in the job in the long form.
 
-   The mapper SHALL assume that the LPD response that it receives has
+   The mapper <em>SHALL</em> assume that the LPD response that it receives has
    the format and information specified in <a href="#section-3.3">section 3.3</a> "Send queue state
-   (short)" and <a href="#section-3.4">section 3.4</a> "Send queue state (long)".  The mapper SHALL
+   (short)" and <a href="#section-3.4">section 3.4</a> "Send queue state (long)".  The mapper <em>SHALL</em>
    determine the value of each requested attribute by using the inverse
    of the mapping specified in the two aforementioned sections.
 
@@ -1272,7 +1272,7 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-5.10" href="#section-5.10">5.10</a> Get-Jobs</span>
 
-   The mapper SHALL perform this operation in the same way as Get-Job-
+   The mapper <em>SHALL</em> perform this operation in the same way as Get-Job-
    Attributes except that the mapper converts all the LPD job-lines, and
    the IPP response contains one job object for each job-line in the LPD
    response.
@@ -1319,9 +1319,9 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a> Required Job Functions</span>
 
-   The mapper SHALL include the following LPD functions with each job,
-   and they SHALL have the specified value. They SHALL be the first
-   functions in the control file and they SHALL be in the order "H" and
+   The mapper <em>SHALL</em> include the following LPD functions with each job,
+   and they <em>SHALL</em> have the specified value. They <em>SHALL</em> be the first
+   functions in the control file and they <em>SHALL</em> be in the order "H" and
    then "P".
 
    IPP                           LPD function
@@ -1333,19 +1333,19 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    and in the security
    layer
 
-   A mapper SHALL sends its own host rather than the client's host,
+   A mapper <em>SHALL</em> sends its own host rather than the client's host,
    because some LPD systems require that it be the same as the host from
-   which the remove-jobs command comes.  A mapper MAY send its own user
+   which the remove-jobs command comes.  A mapper <em>MAY</em> send its own user
    name as user identification rather than the client user. But in any
-   case, the values sent SHALL be compatible with the LPD remove-jobs
+   case, the values sent <em>SHALL</em> be compatible with the LPD remove-jobs
    operation.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a> Optional Job Functions</span>
 
-   The mapper MAY include the following LPD functions with each job.
-   They SHALL have the specified value if they are sent. These
-   functions, if present, SHALL follow the require job functions, and
-   they SHALL precede the required document functions.
+   The mapper <em>MAY</em> include the following LPD functions with each job.
+   They <em>SHALL</em> have the specified value if they are sent. These
+   functions, if present, <em>SHALL</em> follow the require job functions, and
+   they <em>SHALL</em> precede the required document functions.
 
    IPP attribute                      LPD function
    name           value               name value  description
@@ -1369,9 +1369,9 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
 
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a> Required Document Functions</span>
 
-   The mapper SHALL include one set of the following LPD functions with
-   each document, and they SHALL have the specified values. For each
-   document, the order of the functions SHALL be 'f', 'U' and then 'N',
+   The mapper <em>SHALL</em> include one set of the following LPD functions with
+   each document, and they <em>SHALL</em> have the specified values. For each
+   document, the order of the functions <em>SHALL</em> be 'f', 'U' and then 'N',
    where 'f' is replicated once for each copy.
 
    IPP attribute                      LPD function
@@ -1390,12 +1390,12 @@ send-queue-short  = %x03 printer-name *(SP(user-name / job-number)) LF
    Note: the value 'fff' of the 'f' and 'U' functions is the name of the
    data file as transferred, e.g. "dfA123woden".
 
-   Note: the mapper SHALL not send the 'o' function
+   Note: the mapper <em>SHALL</em> not send the 'o' function
 
    ISSUE: should we register DVI, troff or ditroff?
 
    If the mapper receives no "ipp-attribute-fidelitybest-effort" or it
-   has a value of false, then the mapper SHALL reject the job if it
+   has a value of false, then the mapper <em>SHALL</em> reject the job if it
    specifies attributes or attribute values that are not among those
    supported in the above tables.
 

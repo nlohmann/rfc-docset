@@ -216,8 +216,8 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
    Conventions for notations are as in Section 1.1 of [<a href="#ref-SIEVE" title="&quot;Sieve: An Email Filtering Language&quot;">SIEVE</a>], including
@@ -249,17 +249,17 @@ Abstract
    The addheader action adds a header field to the existing message
    header.  If the field-name is not a valid 7-bit US-ASCII header field
    name, as described by the [<a href="#ref-IMAIL" title="&quot;Internet Message Format&quot;">IMAIL</a>] "field-name" nonterminal syntax
-   element, the implementation MUST flag an error.  The addheader action
+   element, the implementation <em>MUST</em> flag an error.  The addheader action
    does not affect Sieve's implicit keep.
 
    If the specified field value does not match the [<a href="#ref-IMAIL" title="&quot;Internet Message Format&quot;">IMAIL</a>]
    "unstructured" nonterminal syntax element or exceeds a length limit
-   set by the implementation, the implementation MUST either flag an
+   set by the implementation, the implementation <em>MUST</em> either flag an
    error or encode the field using folding white space and the encodings
    described in [<a href="#ref-MIME3" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part Three: Message Header Extensions for Non-ASCII Text&quot;">MIME3</a>] or [<a href="#ref-MIMEPARAM" title="&quot;MIME Parameter Value and Encoded Word Extensions: Character Sets, Languages, and Continuations&quot;">MIMEPARAM</a>] to be compliant with [<a href="#ref-IMAIL" title="&quot;Internet Message Format&quot;">IMAIL</a>].
 
-   An implementation MAY impose a length limit onto the size of the
-   encoded header field; such a limit MUST NOT be less than 998
+   An implementation <em>MAY</em> impose a length limit onto the size of the
+   encoded header field; such a limit <em>MUST NOT</em> be less than 998
    characters, not including the terminating CRLF supplied by the
    implementation.
 
@@ -301,7 +301,7 @@ Abstract
    The field-name is mandatory and always matched as a case-insensitive
    US-ASCII string.  If the field-name is not a valid 7-bit header field
    name as described by the [<a href="#ref-IMAIL" title="&quot;Internet Message Format&quot;">IMAIL</a>] "field-name" nonterminal syntax
-   element, the implementation MUST flag an error.
+   element, the implementation <em>MUST</em> flag an error.
 
    The value-patterns, if specified, restrict which occurrences of the
    header field are deleted to those whose values match any of the
@@ -329,19 +329,19 @@ Abstract
    deleteheader action or if the :index argument is greater than the
    number of named header fields.
 
-   The implementation MUST flag an error if :last is specified without
+   The implementation <em>MUST</em> flag an error if :last is specified without
    also specifying :index.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Implementation Limitations on Changes</span>
 
-   As a matter of local policy, implementations MAY limit which header
+   As a matter of local policy, implementations <em>MAY</em> limit which header
    fields may be deleted and which header fields may be added.  However,
-   implementations MUST NOT permit attempts to delete "Received" and
-   "Auto-Submitted" header fields and MUST permit both addition and
+   implementations <em>MUST NOT</em> permit attempts to delete "Received" and
+   "Auto-Submitted" header fields and <em>MUST</em> permit both addition and
    deletion of the "Subject" header field.
 
    If a script tries to make a change that isn't permitted, the attempt
-   MUST be silently ignored.
+   <em>MUST</em> be silently ignored.
 
 
 
@@ -357,12 +357,12 @@ Abstract
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Interaction with Other Sieve Extensions</span>
 
    Actions that generate [<a href="#ref-MDN" title="&quot;Message Disposition Notification&quot;">MDN</a>], [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>], or similar disposition messages
-   MUST do so using the original, unmodified message header.  Similarly,
+   <em>MUST</em> do so using the original, unmodified message header.  Similarly,
    if an error terminates processing of the script, the original message
-   header MUST be used when doing the implicit keep required by <a href="#section-2.10.6">Section</a>
+   header <em>MUST</em> be used when doing the implicit keep required by <a href="#section-2.10.6">Section</a>
    <a href="#section-2.10.6">2.10.6</a> of [<a href="#ref-SIEVE" title="&quot;Sieve: An Email Filtering Language&quot;">SIEVE</a>].
 
-   All other actions that store, send, or alter the message MUST do so
+   All other actions that store, send, or alter the message <em>MUST</em> do so
    with the current set of header fields.  This includes the addheader
    and deleteheader actions themselves.  For example, the following
    leaves the message unchanged:
@@ -378,7 +378,7 @@ Abstract
       deleteheader :index 2 "X-Hello";
 
    Tests and actions such as "exists", "header", or "vacation"
-   [<a href="#ref-VACATION" title="&quot;Sieve Email Filtering: Vacation Extension&quot;">VACATION</a>] that examine header fields MUST examine the current state
+   [<a href="#ref-VACATION" title="&quot;Sieve Email Filtering: Vacation Extension&quot;">VACATION</a>] that examine header fields <em>MUST</em> examine the current state
    of a header as modified by any actions that have taken place so far.
 
    As an example, the "header" test in the following fragment will
@@ -393,7 +393,7 @@ Abstract
 
    However, if the presence or value of a header field affects how the
    implementation parses or decodes other parts of the message, then,
-   for the purposes of that parsing or decoding, the implementation MAY
+   for the purposes of that parsing or decoding, the implementation <em>MAY</em>
    ignore some or all changes made to those header fields.  For example,
    in an implementation that supports the [<a href="#ref-BODY" title="&quot;Sieve Email Filtering: Body Extension&quot;">BODY</a>] extension, "body" tests
    may be unaffected by deleting or adding "Content-Type" or "Content-
@@ -411,7 +411,7 @@ Abstract
 
 
    For the purpose of weeding out duplicates, a message modified by
-   addheader or deleteheader MUST be considered the same as the original
+   addheader or deleteheader <em>MUST</em> be considered the same as the original
    message.  For example, in an implementation that obeys the constraint
    in Section 2.10.3 of [<a href="#ref-SIEVE" title="&quot;Sieve: An Email Filtering Language&quot;">SIEVE</a>] and does not deliver the same message to
    a folder more than once, the following code fragment
@@ -420,7 +420,7 @@ Abstract
       addheader "X-Flavor" "vanilla";
       keep;
 
-   MUST only file one message.  It is up to the implementation to pick
+   <em>MUST</em> only file one message.  It is up to the implementation to pick
    which of the redundant "fileinto" or "keep" actions is executed, and
    which ones are ignored.
 
@@ -476,7 +476,7 @@ Abstract
    Any change in message content may interfere with digital signature
    mechanisms that include the header in the signed material.  For
    example, changes to (or deletion/addition of) header fields included
-   in the "SHOULD be included in the signature" list in Section 5.5 of
+   in the "<em>SHOULD</em> be included in the signature" list in Section 5.5 of
    [<a href="#ref-DKIM" title="&quot;DomainKeys Identified Mail (DKIM) Signatures&quot;">DKIM</a>] can invalidate DKIM signatures.  This also includes DKIM
    signatures that guarantee a header field absence.
 

@@ -331,8 +331,8 @@ Table of Contents
    o  A "TLS server" is an application that can receive a Client Hello
       from a client and reply with a Server Hello.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Security Requirements for Syslog</span>
@@ -432,24 +432,24 @@ Table of Contents
    The transport sender should initiate a connection to the transport
    receiver and then send the TLS Client Hello to begin the TLS
    handshake.  When the TLS handshake has finished, the transport sender
-   MAY then send the first syslog message.
+   <em>MAY</em> then send the first syslog message.
 
    TLS typically uses certificates [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>] to authenticate peers.
-   Implementations MUST support TLS 1.2 [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] and are REQUIRED to
+   Implementations <em>MUST</em> support TLS 1.2 [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] and are <em>REQUIRED</em> to
    support the mandatory to implement cipher suite, which is
    TLS_RSA_WITH_AES_128_CBC_SHA.  This document is assumed to apply to
    future versions of TLS, in which case the mandatory to implement
-   cipher suite for the implemented version MUST be supported.
+   cipher suite for the implemented version <em>MUST</em> be supported.
 
 <span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  Certificate-Based Authentication</span>
 
    Both syslog transport sender (TLS client) and syslog transport
-   receiver (TLS server) MUST implement certificate-based
+   receiver (TLS server) <em>MUST</em> implement certificate-based
    authentication.  This consists of validating the certificate and
    verifying that the peer has the corresponding private key.  The
    latter part is performed by TLS.  To ensure interoperability between
    clients and servers, the following methods for certificate validation
-   SHALL be implemented:
+   <em>SHALL</em> be implemented:
 
    o  Certification path validation: The TLS peer is configured with one
       or more trust anchors (typically root CA (certification authority)
@@ -472,24 +472,24 @@ Table of Contents
       is configured with information necessary to identify the valid
       end-entity certificates of its authorized peers.  The end-entity
       certificates can be self-signed, and no certification path
-      validation is needed.  Implementations MUST support certificate
-      fingerprints in <a href="#section-4.2.2">Section 4.2.2</a> and MAY allow other formats for
+      validation is needed.  Implementations <em>MUST</em> support certificate
+      fingerprints in <a href="#section-4.2.2">Section 4.2.2</a> and <em>MAY</em> allow other formats for
       end-entity certificates such as a DER-encoded certificate.  This
       method provides an alternative to a PKI that is simple to deploy
       and still maintains a reasonable level of security.
 
-   Both transport receiver and transport sender implementations MUST
+   Both transport receiver and transport sender implementations <em>MUST</em>
    provide means to generate a key pair and self-signed certificate in
    the case that a key pair and certificate are not available through
    another mechanism.
 
-   The transport receiver and transport sender SHOULD provide mechanisms
+   The transport receiver and transport sender <em>SHOULD</em> provide mechanisms
    to record the end-entity certificate for the purpose of correlating
    it with the sent or received data.
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  Certificate Fingerprints</span>
 
-   Both client and server implementations MUST make the certificate
+   Both client and server implementations <em>MUST</em> make the certificate
    fingerprints for their certificate available through a management
    interface.  The labels for the algorithms are taken from the textual
    names of the hash functions as defined in the IANA registry "Hash
@@ -501,7 +501,7 @@ Table of Contents
    represented by 2 uppercase ASCII characters.  When a fingerprint
    value is displayed or configured, the fingerprint is prepended with
    an ASCII label identifying the hash function followed by a colon.
-   Implementations MUST support SHA-1 as the hash algorithm and use the
+   Implementations <em>MUST</em> support SHA-1 as the hash algorithm and use the
    ASCII label "sha-1" to identify the SHA-1 algorithm.  The length of a
    SHA-1 hash is 20 bytes and the length of the corresponding
    fingerprint string is 65 characters.  An example certificate
@@ -526,7 +526,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  Cryptographic Level</span>
 
-   Syslog applications SHOULD be implemented in a manner that permits
+   Syslog applications <em>SHOULD</em> be implemented in a manner that permits
    administrators, as a matter of local policy, to select the
    cryptographic level and authentication options they desire.
 
@@ -534,13 +534,13 @@ Table of Contents
    another active session when a new session is requested, in order to
    save the expense of another full TLS handshake.  The security
    parameters of the resumed session are reused for the requested
-   session.  The security parameters SHOULD be checked against the
+   session.  The security parameters <em>SHOULD</em> be checked against the
    security requirements of the requested session to make sure that the
    resumed session provides proper security.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Sending Data</span>
 
-   All syslog messages MUST be sent as TLS "application data".  It is
+   All syslog messages <em>MUST</em> be sent as TLS "application data".  It is
    possible for multiple syslog messages to be contained in one TLS
    record or for a single syslog message to be transferred in multiple
    TLS records.  The application data is defined with the following ABNF
@@ -563,12 +563,12 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.3.1" href="#section-4.3.1">4.3.1</a>.  Message Length</span>
 
    The message length is the octet count of the SYSLOG-MSG in the
-   SYSLOG-FRAME.  A transport receiver MUST use the message length to
+   SYSLOG-FRAME.  A transport receiver <em>MUST</em> use the message length to
    delimit a syslog message.  There is no upper limit for a message
    length per se.  However, in order to establish a baseline for
    interoperability, this specification requires that a transport
-   receiver MUST be able to process messages with a length up to and
-   including 2048 octets.  Transport receivers SHOULD be able to process
+   receiver <em>MUST</em> be able to process messages with a length up to and
+   including 2048 octets.  Transport receivers <em>SHOULD</em> be able to process
    messages with lengths up to and including 8192 octets.
 
 
@@ -582,24 +582,24 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Closure</span>
 
-   A transport sender MUST close the associated TLS connection if the
+   A transport sender <em>MUST</em> close the associated TLS connection if the
    connection is not expected to deliver any syslog messages later.  It
-   MUST send a TLS close_notify alert before closing the connection.  A
-   transport sender (TLS client) MAY choose to not wait for the
+   <em>MUST</em> send a TLS close_notify alert before closing the connection.  A
+   transport sender (TLS client) <em>MAY</em> choose to not wait for the
    transport receiver's close_notify alert and simply close the
    connection, thus generating an incomplete close on the transport
    receiver (TLS server) side.  Once the transport receiver gets a
-   close_notify from the transport sender, it MUST reply with a
+   close_notify from the transport sender, it <em>MUST</em> reply with a
    close_notify unless it becomes aware that the connection has already
    been closed by the transport sender (e.g., the closure was indicated
    by TCP).
 
    When no data is received from a connection for a long time (where the
-   application decides what "long" means), a transport receiver MAY
-   close the connection.  The transport receiver (TLS server) MUST
+   application decides what "long" means), a transport receiver <em>MAY</em>
+   close the connection.  The transport receiver (TLS server) <em>MUST</em>
    attempt to initiate an exchange of close_notify alerts with the
    transport sender before closing the connection.  Transport receivers
-   that are unprepared to receive any more data MAY close the connection
+   that are unprepared to receive any more data <em>MAY</em> close the connection
    after sending the close_notify alert, thus generating an incomplete
    close on the transport sender side.
 
@@ -611,10 +611,10 @@ Table of Contents
    syslog transport receivers and syslog transport senders.  The
    security policies describe the requirements for authentication and
    authorization.  The list of policies in this section is not
-   exhaustive and other policies MAY be implemented.
+   exhaustive and other policies <em>MAY</em> be implemented.
 
    If the peer does not meet the requirements of the security policy,
-   the TLS handshake MUST be aborted with an appropriate TLS alert.
+   the TLS handshake <em>MUST</em> be aborted with an appropriate TLS alert.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  End-Entity Certificate Based Authorization</span>
 
@@ -622,7 +622,7 @@ Table of Contents
    configured with information necessary to identity the valid
    end-entity certificates of its authorized peers.
 
-   Implementations MUST support specifying the authorized peers using
+   Implementations <em>MUST</em> support specifying the authorized peers using
    certificate fingerprints, as described in <a href="#section-4.2.1">Section 4.2.1</a> and
    <a href="#section-4.2.2">Section 4.2.2</a>.
 
@@ -638,14 +638,14 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Subject Name Authorization</span>
 
-   Implementations MUST support certification path validation [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>].
-   In addition, they MUST support specifying the authorized peers using
+   Implementations <em>MUST</em> support certification path validation [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>].
+   In addition, they <em>MUST</em> support specifying the authorized peers using
    locally configured host names and matching the name against the
    certificate as follows.
 
-   o  Implementations MUST support matching the locally configured host
+   o  Implementations <em>MUST</em> support matching the locally configured host
       name against a dNSName in the subjectAltName extension field and
-      SHOULD support checking the name against the common name portion
+      <em>SHOULD</em> support checking the name against the common name portion
       of the subject distinguished name.
 
    o  The '*' (ASCII 42) wildcard character is allowed in the dNSName of
@@ -654,12 +654,12 @@ Table of Contents
       label in that value.  This wildcard matches any left-most DNS
       label in the server name.  That is, the subject *.example.com
       matches the server names a.example.com and b.example.com, but does
-      not match example.com or a.b.example.com.  Implementations MUST
-      support wildcards in certificates as specified above, but MAY
+      not match example.com or a.b.example.com.  Implementations <em>MUST</em>
+      support wildcards in certificates as specified above, but <em>MAY</em>
       provide a configuration option to disable them.
 
-   o  Locally configured names MAY contain the wildcard character to
-      match a range of values.  The types of wildcards supported MAY be
+   o  Locally configured names <em>MAY</em> contain the wildcard character to
+      match a range of values.  The types of wildcards supported <em>MAY</em> be
       more flexible than those allowed in subject names, making it
       possible to support various policies for different environments.
       For example, a policy could allow for a trust-root-based
@@ -667,11 +667,11 @@ Table of Contents
       trust root are authorized.
 
    o  If the locally configured name is an internationalized domain
-      name, conforming implementations MUST convert it to the ASCII
+      name, conforming implementations <em>MUST</em> convert it to the ASCII
       Compatible Encoding (ACE) format for performing comparisons, as
       specified in <a href="./rfc5280.html#section-7">Section&nbsp;7 of [RFC5280]</a>.
 
-   o  Implementations MAY support matching a locally configured IP
+   o  Implementations <em>MAY</em> support matching a locally configured IP
       address against an iPAddress stored in the subjectAltName
       extension.  In this case, the locally configured IP address is
       converted to an octet string as specified in [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>], <a href="#section-4.2.1.6">Section</a>
@@ -696,7 +696,7 @@ Table of Contents
    this case, the transport receiver is authenticated and authorized,
    however this policy does not protect against the threat of transport
    sender masquerade described in <a href="#section-2">Section 2</a>.  The use of this policy is
-   generally NOT RECOMMENDED for this reason.
+   generally NOT <em>RECOMMENDED</em> for this reason.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Unauthenticated Transport Receiver</span>
 
@@ -707,7 +707,7 @@ Table of Contents
    does authenticate and authorize the transport sender, it does not
    protect against the threat of transport receiver masquerade described
    in <a href="#section-2">Section 2</a>, leaving the data sent vulnerable to disclosure and
-   modification.  The use of this policy is generally NOT RECOMMENDED
+   modification.  The use of this policy is generally NOT <em>RECOMMENDED</em>
    for this reason.
 
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  Unauthenticated Transport Receiver and Sender</span>
@@ -716,7 +716,7 @@ Table of Contents
    transport receiver and transport sender can skip authentication (as
    described in Sections <a href="#section-5.3">5.3</a> and <a href="#section-5.4">5.4</a>).  This policy does not protect
    against any of the threats described in <a href="#section-2">Section 2</a> and is therefore
-   NOT RECOMMENDED.
+   NOT <em>RECOMMENDED</em>.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Security Considerations</span>
 
@@ -729,7 +729,7 @@ Table of Contents
    The threats in <a href="#section-2">Section 2</a> are mitigated only if both the transport
    sender and transport receiver are properly authenticated and
    authorized, as described in Sections <a href="#section-5.1">5.1</a> and <a href="#section-5.2">5.2</a>.  These are the
-   RECOMMENDED configurations for a default policy.
+   <em>RECOMMENDED</em> configurations for a default policy.
 
    If the transport receiver does not authenticate the transport sender,
    it may accept data from an attacker.  Unless it has another way of
@@ -739,7 +739,7 @@ Table of Contents
    receiver may also increase its vulnerability to denial of service,
    resource consumption, and other attacks if it does not authenticate
    the transport sender.  Because of the increased vulnerability to
-   attack, this type of configuration is NOT RECOMMENDED.
+   attack, this type of configuration is NOT <em>RECOMMENDED</em>.
 
 
 
@@ -752,15 +752,15 @@ Table of Contents
    receiver, then it may send data to an attacker.  This may disclose
    sensitive data within the log information that is useful to an
    attacker, resulting in further compromises within the system.  If a
-   transport sender is operated in this mode, the data sent SHOULD be
+   transport sender is operated in this mode, the data sent <em>SHOULD</em> be
    limited to data that is not valuable to an attacker.  In practice
    this is very difficult to achieve, so this type of configuration is
-   NOT RECOMMENDED.
+   NOT <em>RECOMMENDED</em>.
 
    Forgoing authentication and authorization on both sides allows for
    man-in-the-middle, masquerade, and other types of attacks that can
    completely compromise integrity and confidentiality of the data.
-   This type of configuration is NOT RECOMMENDED.
+   This type of configuration is NOT <em>RECOMMENDED</em>.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Name Validation</span>
 

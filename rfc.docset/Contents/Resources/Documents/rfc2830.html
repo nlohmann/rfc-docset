@@ -218,15 +218,15 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Conventions Used in this Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>",  "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-ReqsKeywords" title="&quot;Key Words for use in RFCs to Indicate Requirement Levels&quot;">ReqsKeywords</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  The Start TLS Request</span>
 
    This section describes the Start TLS extended request and extended
    response themselves: how to form the request, the form of the
-   response, and enumerates the various result codes the client MUST be
+   response, and enumerates the various result codes the client <em>MUST</em> be
    prepared to handle.
 
    The section following this one then describes how to sequence an
@@ -253,27 +253,27 @@ Abstract
 
      ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
              requestName             [0] LDAPOID,
-             requestValue            [1] OCTET STRING OPTIONAL }
+             requestValue            [1] OCTET STRING <em>OPTIONAL</em> }
 
    A Start TLS extended request is formed by setting the requestName
    field to the OID string given above.  The requestValue field is
-   absent.  The client MUST NOT send any PDUs on this connection
+   absent.  The client <em>MUST NOT</em> send any PDUs on this connection
    following this request until it receives a Start TLS extended
    response.
 
-   When a Start TLS extended request is made, the server MUST return an
+   When a Start TLS extended request is made, the server <em>MUST</em> return an
    LDAP PDU containing a Start TLS extended response.  An LDAP
    ExtendedResponse is defined as follows:
 
      ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
              COMPONENTS OF LDAPResult,
-             responseName     [10] LDAPOID OPTIONAL,
-             response         [11] OCTET STRING OPTIONAL }
+             responseName     [10] LDAPOID <em>OPTIONAL</em>,
+             response         [11] OCTET STRING <em>OPTIONAL</em> }
 
-   A Start TLS extended response MUST contain a responseName field which
-   MUST be set to the same string as that in the responseName field
+   A Start TLS extended response <em>MUST</em> contain a responseName field which
+   <em>MUST</em> be set to the same string as that in the responseName field
    present in the Start TLS extended request. The response field is
-   absent. The server MUST set the resultCode field to either success or
+   absent. The server <em>MUST</em> set the resultCode field to either success or
    one of the other values outlined in <a href="#section-2.3">section 2.3</a>.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  "Success" Response</span>
@@ -310,29 +310,29 @@ Abstract
    unavailable      (e.g. some major problem with TLS, or server is
                     shutting down)
 
-   The server MUST return operationsError if the client violates any of
+   The server <em>MUST</em> return operationsError if the client violates any of
    the Start TLS extended operation sequencing requirements described in
    <a href="#section-3">section 3</a>, below.
 
    If the server does not support TLS (whether by design or by current
-   configuration), it MUST set the resultCode to protocolError (see
-   section 4.1.1 of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>]), or to referral. The server MUST include
+   configuration), it <em>MUST</em> set the resultCode to protocolError (see
+   section 4.1.1 of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>]), or to referral. The server <em>MUST</em> include
    an actual referral value in the LDAP Result if it returns a
    resultCode of referral. The client's current session is unaffected if
-   the server does not support TLS. The client MAY proceed with any LDAP
-   operation, or it MAY close the connection.
+   the server does not support TLS. The client <em>MAY</em> proceed with any LDAP
+   operation, or it <em>MAY</em> close the connection.
 
-   The server MUST return unavailable if it supports TLS but cannot
+   The server <em>MUST</em> return unavailable if it supports TLS but cannot
    establish a TLS connection for some reason, e.g. the certificate
    server not responding, it cannot contact its TLS implementation, or
-   if the server is in process of shutting down. The client MAY retry
-   the StartTLS operation, or it MAY proceed with any other LDAP
-   operation, or it MAY close the connection.
+   if the server is in process of shutting down. The client <em>MAY</em> retry
+   the StartTLS operation, or it <em>MAY</em> proceed with any other LDAP
+   operation, or it <em>MAY</em> close the connection.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Sequencing of the Start TLS Operation</span>
 
    This section describes the overall procedures clients and servers
-   MUST follow for TLS establishment. These procedures take into
+   <em>MUST</em> follow for TLS establishment. These procedures take into
    consideration various aspects of the overall security of the LDAP
    association including discovery of resultant security level and
    assertion of the client's authorization identity.
@@ -355,9 +355,9 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Requesting to Start TLS on an LDAP Association</span>
 
-   The client MAY send the Start TLS extended request at any time after
+   The client <em>MAY</em> send the Start TLS extended request at any time after
    establishing an LDAP association, except that in the following cases
-   the client MUST NOT send a Start TLS extended request:
+   the client <em>MUST NOT</em> send a Start TLS extended request:
 
      - if TLS is currently established on the connection, or
      - during a multi-stage SASL negotiation, or
@@ -366,15 +366,15 @@ Abstract
    The result of violating any of these requirements is a resultCode of
    operationsError, as described above in <a href="#section-2.3">section 2.3</a>.
 
-   The client MAY have already performed a Bind operation when it sends
+   The client <em>MAY</em> have already performed a Bind operation when it sends
    a Start TLS request, or the client might have not yet bound.
 
    If the client did not establish a TLS connection before sending any
    other requests, and the server requires the client to establish a TLS
-   connection before performing a particular request, the server MUST
+   connection before performing a particular request, the server <em>MUST</em>
    reject that request with a confidentialityRequired or
-   strongAuthRequired result. The client MAY send a Start TLS extended
-   request, or it MAY choose to close the connection.
+   strongAuthRequired result. The client <em>MAY</em> send a Start TLS extended
+   request, or it <em>MAY</em> choose to close the connection.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Starting TLS</span>
 
@@ -383,7 +383,7 @@ Abstract
    other resultCodes, documented above, if it is unable.
 
    In the successful case, the client, which has ceased to transfer LDAP
-   requests on the connection, MUST either begin a TLS negotiation or
+   requests on the connection, <em>MUST</em> either begin a TLS negotiation or
    close the connection. The client will send PDUs in the TLS Record
    Protocol directly over the underlying transport connection to the
    server to initiate TLS negotiation [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>].
@@ -397,7 +397,7 @@ Abstract
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Discovery of Resultant Security Level</span>
 
    After a TLS connection is established on an LDAP association, both
-   parties MUST individually decide whether or not to continue based on
+   parties <em>MUST</em> individually decide whether or not to continue based on
    the privacy level achieved. Ascertaining the TLS connection's privacy
    level is implementation dependent, and accomplished by communicating
    with one's respective local TLS implementation.
@@ -410,16 +410,16 @@ Abstract
 
 
    If the client or server decides that the level of authentication or
-   privacy is not high enough for it to continue, it SHOULD gracefully
+   privacy is not high enough for it to continue, it <em>SHOULD</em> gracefully
    close the TLS connection immediately after the TLS negotiation has
    completed (see sections <a href="#section-4.1">4.1</a> and <a href="#section-5.2">5.2</a>, below).
 
-   The client MAY attempt to Start TLS again, or MAY send an unbind
+   The client <em>MAY</em> attempt to Start TLS again, or <em>MAY</em> send an unbind
    request, or send any other LDAP request.
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Assertion of Client's Authorization Identity</span>
 
-   The client MAY, upon receipt of a Start TLS extended response
+   The client <em>MAY</em>, upon receipt of a Start TLS extended response
    indicating success, assert that a specific authorization identity be
    utilized in determining the client's authorization status. The client
    accomplishes this via an LDAP Bind request specifying a SASL
@@ -427,19 +427,19 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  Server Identity Check</span>
 
-   The client MUST check its understanding of the server's hostname
+   The client <em>MUST</em> check its understanding of the server's hostname
    against the server's identity as presented in the server's
    Certificate message, in order to prevent man-in-the-middle attacks.
 
    Matching is performed according to these rules:
 
-   - The client MUST use the server hostname it used to open the LDAP
+   - The client <em>MUST</em> use the server hostname it used to open the LDAP
      connection as the value to compare against the server name as
-     expressed in the server's certificate.  The client MUST NOT use the
+     expressed in the server's certificate.  The client <em>MUST NOT</em> use the
      server's canonical DNS name or any other derived form of name.
 
    - If a subjectAltName extension of type dNSName is present in the
-     certificate, it SHOULD be used as the source of the server's
+     certificate, it <em>SHOULD</em> be used as the source of the server's
      identity.
 
    - Matching is case-insensitive.
@@ -453,8 +453,8 @@ Abstract
    the set is considered acceptable.
 
    If the hostname does not match the dNSName-based identity in the
-   certificate per the above check, user-oriented clients SHOULD either
-   notify the user (clients MAY give the user the opportunity to
+   certificate per the above check, user-oriented clients <em>SHOULD</em> either
+   notify the user (clients <em>MAY</em> give the user the opportunity to
 
 
 
@@ -467,49 +467,49 @@ Abstract
 
    continue with the connection in any case) or terminate the connection
    and indicate that the server's identity is suspect. Automated clients
-   SHOULD close the connection, returning and/or logging an error
+   <em>SHOULD</em> close the connection, returning and/or logging an error
    indicating that the server's identity is suspect.
 
    Beyond the server identity checks described in this section, clients
-   SHOULD be prepared to do further checking to ensure that the server
+   <em>SHOULD</em> be prepared to do further checking to ensure that the server
    is authorized to provide the service it is observed to provide. The
-   client MAY need to make use of local policy information.
+   client <em>MAY</em> need to make use of local policy information.
 
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  Refresh of Server Capabilities Information</span>
 
-   The client MUST refresh any cached server capabilities information
+   The client <em>MUST</em> refresh any cached server capabilities information
    (e.g. from the server's root DSE; see section 3.4 of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>]) upon
    TLS session establishment. This is necessary to protect against
    active-intermediary attacks which may have altered any server
    capabilities information retrieved prior to TLS establishment. The
-   server MAY advertise different capabilities after TLS establishment.
+   server <em>MAY</em> advertise different capabilities after TLS establishment.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Closing a TLS Connection</span>
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Graceful Closure</span>
 
-   Either the client or server MAY terminate the TLS connection on an
+   Either the client or server <em>MAY</em> terminate the TLS connection on an
    LDAP association by sending a TLS closure alert. This will leave the
    LDAP association intact.
 
-   Before closing a TLS connection, the client MUST either wait for any
+   Before closing a TLS connection, the client <em>MUST</em> either wait for any
    outstanding LDAP operations to complete, or explicitly abandon them
    [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>].
 
-   After the initiator of a close has sent a closure alert, it MUST
+   After the initiator of a close has sent a closure alert, it <em>MUST</em>
    discard any TLS messages until it has received an alert from the
    other party.  It will cease to send TLS Record Protocol PDUs, and
-   following the receipt of the alert, MAY send and receive LDAP PDUs.
+   following the receipt of the alert, <em>MAY</em> send and receive LDAP PDUs.
 
-   The other party, if it receives a closure alert, MUST immediately
+   The other party, if it receives a closure alert, <em>MUST</em> immediately
    transmit a TLS closure alert.  It will subsequently cease to send TLS
-   Record Protocol PDUs, and MAY send and receive LDAP PDUs.
+   Record Protocol PDUs, and <em>MAY</em> send and receive LDAP PDUs.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Abrupt Closure</span>
 
-   Either the client or server MAY abruptly close the entire LDAP
+   Either the client or server <em>MAY</em> abruptly close the entire LDAP
    association and any TLS connection established on it by dropping the
-   underlying TCP connection. A server MAY beforehand send the client a
+   underlying TCP connection. A server <em>MAY</em> beforehand send the client a
    Notice of Disconnection [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>] in this case.
 
 
@@ -539,15 +539,15 @@ Abstract
 
    Upon establishment of the TLS connection onto the LDAP association,
    any previously established authentication and authorization
-   identities MUST remain in force, including anonymous state. This
+   identities <em>MUST</em> remain in force, including anonymous state. This
    holds even in the case where the server requests client
    authentication via TLS -- e.g. requests the client to supply its
    certificate during TLS negotiation (see [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>]).
 
 <span class="h4"><a class="selflink" name="section-5.1.2" href="#section-5.1.2">5.1.2</a>.  Client Assertion of Authorization Identity</span>
 
-   A client MAY either implicitly request that its LDAP authorization
-   identity be derived from its authenticated TLS credentials or it MAY
+   A client <em>MAY</em> either implicitly request that its LDAP authorization
+   identity be derived from its authenticated TLS credentials or it <em>MAY</em>
    explicitly provide an authorization identity and assert that it be
    used in combination with its authenticated TLS credentials. The
    former is known as an implicit assertion, and the latter as an
@@ -557,7 +557,7 @@ Abstract
 
    An implicit authorization identity assertion is accomplished after
    TLS establishment by invoking a Bind request of the SASL form using
-   the "EXTERNAL" mechanism name [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>, <a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>] that SHALL NOT include
+   the "EXTERNAL" mechanism name [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>, <a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>] that <em>SHALL NOT</em> include
    the optional credentials octet string (found within the
    SaslCredentials sequence in the Bind Request). The server will derive
    the client's authorization identity from the authentication identity
@@ -581,16 +581,16 @@ Abstract
 
    An explicit authorization identity assertion is accomplished after
    TLS establishment by invoking a Bind request of the SASL form using
-   the "EXTERNAL" mechanism name [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>, <a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>] that SHALL include the
-   credentials octet string. This string MUST be constructed as
+   the "EXTERNAL" mechanism name [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>, <a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>] that <em>SHALL</em> include the
+   credentials octet string. This string <em>MUST</em> be constructed as
    documented in section 9 of [<a href="#ref-AuthMeth" title="&quot;Authentication Methods for LDAP&quot;">AuthMeth</a>].
 
 <span class="h5"><a class="selflink" name="section-5.1.2.3" href="#section-5.1.2.3">5.1.2.3</a>.  Error Conditions</span>
 
-   For either form of assertion, the server MUST verify that the
+   For either form of assertion, the server <em>MUST</em> verify that the
    client's authentication identity as supplied in its TLS credentials
    is permitted to be mapped to the asserted authorization identity. The
-   server MUST reject the Bind operation with an invalidCredentials
+   server <em>MUST</em> reject the Bind operation with an invalidCredentials
    resultCode in the Bind response if the client is not so authorized.
 
    Additionally, with either form of assertion, if a TLS session has not
@@ -599,19 +599,19 @@ Abstract
    authentication credentials (e.g.  IP-level security [<a href="#ref-IPSEC" title="&quot;Security Architecture for the Internet Protocol&quot;">IPSEC</a>]), or if,
    during the process of establishing the TLS session, the server did
    not request the client's authentication credentials, the SASL
-   EXTERNAL bind MUST fail with a result code of
+   EXTERNAL bind <em>MUST</em> fail with a result code of
    inappropriateAuthentication.
 
    After the above Bind operation failures, any client authentication
    and authorization state of the LDAP association is lost, so the LDAP
    association is in an anonymous state after the failure.  TLS
-   connection state is unaffected, though a server MAY end the TLS
+   connection state is unaffected, though a server <em>MAY</em> end the TLS
    connection, via a TLS close_notify message, based on the Bind failure
-   (as it MAY at any time).
+   (as it <em>MAY</em> at any time).
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  TLS Connection Closure Effects</span>
 
-   Closure of the TLS connection MUST cause the LDAP association to move
+   Closure of the TLS connection <em>MUST</em> cause the LDAP association to move
    to an anonymous authentication and authorization state regardless of
    the state established over TLS and regardless of the authentication
    and authorization state prior to TLS connection establishment.
@@ -650,21 +650,21 @@ Abstract
    usage of that implementation. Additionally, an active-intermediary
    attacker can remove the Start TLS extended operation from the
    supportedExtension attribute of the root DSE. Therefore, both parties
-   SHOULD independently ascertain and consent to the security level
+   <em>SHOULD</em> independently ascertain and consent to the security level
    achieved once TLS is established and before beginning use of the TLS
    connection. For example, the security level of the TLS connection
    might have been negotiated down to plaintext.
 
-   Clients SHOULD either warn the user when the security level achieved
+   Clients <em>SHOULD</em> either warn the user when the security level achieved
    does not provide confidentiality and/or integrity protection, or be
    configurable to refuse to proceed without an acceptable level of
    security.
 
-   Client and server implementors SHOULD take measures to ensure proper
+   Client and server implementors <em>SHOULD</em> take measures to ensure proper
    protection of credentials and other confidential data where such
    measures are not otherwise provided by the TLS implementation.
 
-   Server implementors SHOULD allow for server administrators to elect
+   Server implementors <em>SHOULD</em> allow for server administrators to elect
    whether and when connection confidentiality and/or integrity is
    required, as well as elect whether and when client authentication via
    TLS is required.

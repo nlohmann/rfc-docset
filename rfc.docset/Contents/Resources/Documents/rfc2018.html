@@ -311,7 +311,7 @@ Acknowledgements
 
    This two-byte option may be sent in a SYN by a TCP that has been
    extended to receive (and presumably process) the SACK option once the
-   connection has opened.  It MUST NOT be sent on non-SYN segments.
+   connection has opened.  It <em>MUST NOT</em> be sent on non-SYN segments.
 
        TCP Sack-Permitted Option:
 
@@ -415,40 +415,40 @@ Acknowledgements
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Generating Sack Options: Data Receiver Behavior</span>
 
    If the data receiver has received a SACK-Permitted option on the SYN
-   for this connection, the data receiver MAY elect to generate SACK
+   for this connection, the data receiver <em>MAY</em> elect to generate SACK
    options as described below.  If the data receiver generates SACK
-   options under any circumstance, it SHOULD generate them under all
+   options under any circumstance, it <em>SHOULD</em> generate them under all
    permitted circumstances.  If the data receiver has not received a
-   SACK-Permitted option for a given connection, it MUST NOT send SACK
+   SACK-Permitted option for a given connection, it <em>MUST NOT</em> send SACK
    options on that connection.
 
-   If sent at all, SACK options SHOULD be included in all ACKs which do
+   If sent at all, SACK options <em>SHOULD</em> be included in all ACKs which do
    not ACK the highest sequence number in the data receiver's queue.  In
    this situation the network has lost or mis-ordered data, such that
    the receiver holds non-contiguous data in its queue.  <a href="./rfc1122.html#section-4.2.2.21">RFC 1122,
    Section&nbsp;4.2.2.21</a>, discusses the reasons for the receiver to send ACKs
    in response to additional segments received in this state.  The
-   receiver SHOULD send an ACK for every valid segment that arrives
-   containing new data, and each of these "duplicate" ACKs SHOULD bear a
+   receiver <em>SHOULD</em> send an ACK for every valid segment that arrives
+   containing new data, and each of these "duplicate" ACKs <em>SHOULD</em> bear a
    SACK option.
 
    If the data receiver chooses to send a SACK option, the following
    rules apply:
 
       * The first SACK block (i.e., the one immediately following the
-      kind and length fields in the option) MUST specify the contiguous
+      kind and length fields in the option) <em>MUST</em> specify the contiguous
       block of data containing the segment which triggered this ACK,
       unless that segment advanced the Acknowledgment Number field in
       the header.  This assures that the ACK with the SACK option
       reflects the most recent change in the data receiver's buffer
       queue.
 
-      * The data receiver SHOULD include as many distinct SACK blocks as
+      * The data receiver <em>SHOULD</em> include as many distinct SACK blocks as
       possible in the SACK option.  Note that the maximum available
       option space may not be sufficient to report all blocks present in
       the receiver's queue.
 
-      * The SACK option SHOULD be filled out by repeating the most
+      * The SACK option <em>SHOULD</em> be filled out by repeating the most
       recently reported SACK blocks (based on first SACK blocks in
       previous SACK options) that are not subsets of a SACK block
       already included in the SACK option being constructed.  This
@@ -477,7 +477,7 @@ Acknowledgements
 <span class="h2">   Sender Behavior</span>
 
    When receiving an ACK containing a SACK option, the data sender
-   SHOULD record the selective acknowledgment for future reference.  The
+   <em>SHOULD</em> record the selective acknowledgment for future reference.  The
    data sender is assumed to have a retransmission queue that contains
    the segments that have been transmitted but not yet acknowledged, in
    sequence-number order.  If the data sender performs re-packetization
@@ -505,9 +505,9 @@ Acknowledgements
    off and is less than the highest SACKed segment is available for
    retransmission.
 
-   After a retransmit timeout the data sender SHOULD turn off all of the
+   After a retransmit timeout the data sender <em>SHOULD</em> turn off all of the
    SACKed bits, since the timeout might indicate that the data receiver
-   has reneged.  The data sender MUST retransmit the segment at the left
+   has reneged.  The data sender <em>MUST</em> retransmit the segment at the left
    edge of the window after a retransmit timeout, whether or not the
    SACKed bit is on for that segment.  A segment will not be dequeued
    and its buffer freed until the left window edge is advanced over it.
@@ -529,7 +529,7 @@ Acknowledgements
    This document does not attempt to specify in detail the congestion
    control algorithms for implementations of TCP with SACK.  However,
    the congestion control algorithms present in the de facto standard
-   TCP implementations MUST be preserved [<a href="#ref-Stevens94" title=" Addison-Wesley">Stevens94</a>].  In particular, to
+   TCP implementations <em>MUST</em> be preserved [<a href="#ref-Stevens94" title=" Addison-Wesley">Stevens94</a>].  In particular, to
    preserve robustness in the presence of packets reordered by the
    network, recovery is not triggered by a single ACK reporting out-of-
    order packets at the receiver.  Further, during recovery the data
@@ -543,7 +543,7 @@ Acknowledgements
    The use of time-outs as a fall-back mechanism for detecting dropped
    packets is unchanged by the SACK option.  Because the data receiver
    is allowed to discard SACKed data, when a retransmit timeout occurs
-   the data sender MUST ignore prior SACK information in determining
+   the data sender <em>MUST</em> ignore prior SACK information in determining
    which data to retransmit.
 
    Future research into congestion control algorithms may take advantage
@@ -722,21 +722,21 @@ Acknowledgements
    SACKed packets is discouraged, but may be used if the receiver runs
    out of buffer space.
 
-   The data receiver MAY elect not to keep data which it has reported in
+   The data receiver <em>MAY</em> elect not to keep data which it has reported in
    a SACK option.  In this case, the receiver SACK generation is
    additionally qualified:
 
-      * The first SACK block MUST reflect the newest segment.  Even if
+      * The first SACK block <em>MUST</em> reflect the newest segment.  Even if
       the newest segment is going to be discarded and the receiver has
-      already discarded adjacent segments, the first SACK block MUST
+      already discarded adjacent segments, the first SACK block <em>MUST</em>
       report, at a minimum, the left and right edges of the newest
       segment.
 
-      * Except for the newest segment, all SACK blocks MUST NOT report
+      * Except for the newest segment, all SACK blocks <em>MUST NOT</em> report
       any old data which is no longer actually held by the receiver.
 
    Since the data receiver may later discard data reported in a SACK
-   option, the sender MUST NOT discard data before it is acknowledged by
+   option, the sender <em>MUST NOT</em> discard data before it is acknowledged by
    the Acknowledgment Number field in the TCP header.
 
 

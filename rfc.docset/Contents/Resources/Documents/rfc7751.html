@@ -274,8 +274,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Motivations</span>
@@ -379,10 +379,10 @@ Table of Contents
 
       AD-CAMMAC                   ::= SEQUENCE {
             elements              [0] AuthorizationData,
-            kdc-verifier          [1] Verifier-MAC OPTIONAL,
-            svc-verifier          [2] Verifier-MAC OPTIONAL,
+            kdc-verifier          [1] Verifier-MAC <em>OPTIONAL</em>,
+            svc-verifier          [2] Verifier-MAC <em>OPTIONAL</em>,
             other-verifiers       [3] SEQUENCE (SIZE (1..MAX))
-                                      OF Verifier OPTIONAL
+                                      OF Verifier <em>OPTIONAL</em>
       }
 
       Verifier             ::= CHOICE {
@@ -391,9 +391,9 @@ Table of Contents
       }
 
       Verifier-MAC         ::= SEQUENCE {
-            identifier     [0] PrincipalName OPTIONAL,
-            kvno           [1] UInt32 OPTIONAL,
-            enctype        [2] Int32 OPTIONAL,
+            identifier     [0] PrincipalName <em>OPTIONAL</em>,
+            kvno           [1] UInt32 <em>OPTIONAL</em>,
+            enctype        [2] Int32 <em>OPTIONAL</em>,
             mac            [3] Checksum
       }
 
@@ -423,7 +423,7 @@ Table of Contents
       field of the AD-CAMMAC.  The identifier, kvno, and enctype fields
       help the recipient locate the key required for verifying the MAC.
       For the kdc-verifier and the svc-verifier, the identifier, kvno,
-      and enctype fields are often obvious from context and MAY be
+      and enctype fields are often obvious from context and <em>MAY</em> be
       omitted.  For the kdc-verifier, the MAC is computed differently
       than for the svc-verifier and the other-verifiers, as described
       later.  The key usage number for computing the MAC (checksum) is
@@ -452,7 +452,7 @@ Table of Contents
       A Verifier-MAC where the key is the same long-term service key
       that the KDC uses to encrypt the surrounding ticket.  The checksum
       type is the required checksum type for the enctype of the service
-      key used to encrypt the ticket.  This field MUST be present if the
+      key used to encrypt the ticket.  This field <em>MUST</em> be present if the
       service principal of the ticket is not the local TGS, including
       when the ticket is a cross-realm Ticket-Granting Ticket (TGT).
 
@@ -471,23 +471,23 @@ Table of Contents
    other-verifiers:
       A sequence of additional verifiers.  In each additional Verifier-
       MAC, the key is a long-term key of the principal name specified in
-      the identifier field.  The PrincipalName MUST be present and be a
-      valid principal in the realm.  KDCs MAY add one or more "trusted
+      the identifier field.  The PrincipalName <em>MUST</em> be present and be a
+      valid principal in the realm.  KDCs <em>MAY</em> add one or more "trusted
       service" verifiers.  Unless otherwise administratively configured,
-      the KDC SHOULD determine the "trusted service" principal name by
+      the KDC <em>SHOULD</em> determine the "trusted service" principal name by
       replacing the service identifier component of the sname element of
       the surrounding ticket with "host".  The checksum is computed
       using a long-term key of the identified principal, and the
       checksum type is the required checksum type for the enctype of
-      that long-term key.  The kvno and enctype SHOULD be specified to
+      that long-term key.  The kvno and enctype <em>SHOULD</em> be specified to
       disambiguate which of the long-term keys of the trusted service is
       used.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Usage</span>
 
-   Application servers and KDCs MAY ignore the AD-CAMMAC container and
+   Application servers and KDCs <em>MAY</em> ignore the AD-CAMMAC container and
    the authorization data elements it contains.  For compatibility with
-   older Kerberos implementations, a KDC issuing an AD-CAMMAC SHOULD
+   older Kerberos implementations, a KDC issuing an AD-CAMMAC <em>SHOULD</em>
    enclose it in an AD-IF-RELEVANT container [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>] unless the KDC
    knows that the application server is likely to recognize it.
 
@@ -568,7 +568,7 @@ Table of Contents
    contents of a CAMMAC originating from a local-realm KDC if the policy
    of the local realm materially changes during the life of the CAMMAC.
 
-   A KDC MAY omit the kdc-verifier from the CAMMAC when it is not needed
+   A KDC <em>MAY</em> omit the kdc-verifier from the CAMMAC when it is not needed
    according to how realm policies will subsequently treat the
    containing ticket.  An implementation might choose to do this
 
@@ -593,7 +593,7 @@ Table of Contents
        authorization data from the service to the KDC, the application
        service could modify the CAMMAC contents, but such modifications
        would have no effect on other services.  Because of the lack of
-       security impact to other application services, the KDC MAY omit
+       security impact to other application services, the KDC <em>MAY</em> omit
        the kdc-verifier from a CAMMAC contained in a ticket for that
        service.
 
@@ -626,7 +626,7 @@ Table of Contents
    impact of this manipulation is minor if the CAMMAC contents only
    communicate attributes related to the client.  If an application
    requires an authenticated binding between the service principal name
-   and the CAMMAC or ticket contents, the KDC MUST include in the CAMMAC
+   and the CAMMAC or ticket contents, the KDC <em>MUST</em> include in the CAMMAC
    some authorization data element that names the service principal.
 
 

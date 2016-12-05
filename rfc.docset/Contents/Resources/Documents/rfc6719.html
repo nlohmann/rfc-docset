@@ -327,9 +327,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
    <a href="./rfc2119.html">2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The terminologies used in this document are consistent with the
@@ -380,8 +380,8 @@ Table of Contents
 
    MRHOF may be used with any additive metric listed in [<a href="./rfc6551.html" title="&quot;Routing Metrics Used for Path Calculation in Low-Power and Lossy Networks&quot;">RFC6551</a>] as
    long as the routing objective is to minimize the given routing
-   metric.  Nodes MUST support at least one of these metrics: hop count,
-   latency, or ETX.  Nodes SHOULD support the ETX metric.  MRHOF does
+   metric.  Nodes <em>MUST</em> support at least one of these metrics: hop count,
+   latency, or ETX.  Nodes <em>SHOULD</em> support the ETX metric.  MRHOF does
    not support non-additive metrics.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Computing the Path Cost</span>
@@ -390,7 +390,7 @@ Table of Contents
    to the metric value that computes to a Rank of MinHopRankIncrease.
 
    If a non-root node does not have metrics to compute the path cost
-   through any of the candidate neighbors, it MUST join one of the
+   through any of the candidate neighbors, it <em>MUST</em> join one of the
    candidate neighbors as a RPL Leaf.
 
    Otherwise, nodes compute the path cost for each candidate neighbor
@@ -422,24 +422,24 @@ Table of Contents
        that neighbor as the second component.  See <a href="#section-3.5">Section 3.5</a> for
        details on how an ETX metric is used in MRHOF.
 
-   A node SHOULD compute the path cost for the path through each
+   A node <em>SHOULD</em> compute the path cost for the path through each
    candidate neighbor reachable through an interface.  If a node cannot
    compute the path cost for the path through a candidate neighbor, the
-   node MUST NOT select the candidate neighbor as its preferred parent.
+   node <em>MUST NOT</em> select the candidate neighbor as its preferred parent.
    However, if the node cannot compute the path cost through any
    neighbor, it may join the candidate neighbor as a Leaf, as described
    above.
 
    If the selected metric is a link metric and the metric of the link to
    a neighbor is not available, the path cost for the path through that
-   neighbor SHOULD be set to MAX_PATH_COST.  This cost value will
+   neighbor <em>SHOULD</em> be set to MAX_PATH_COST.  This cost value will
    prevent this path from being considered for path selection.
 
    If the selected metric is a node metric, and the metric is not
-   available, the path cost through all the neighbors SHOULD be set to
+   available, the path cost through all the neighbors <em>SHOULD</em> be set to
    MAX_PATH_COST.
 
-   The path cost corresponding to a neighbor SHOULD be recomputed each
+   The path cost corresponding to a neighbor <em>SHOULD</em> be recomputed each
    time any of the following conditions are met:
 
    1.  The selected metric of the link to the candidate neighbor is
@@ -450,7 +450,7 @@ Table of Contents
    3.  A node receives a new metric advertisement from the candidate
        neighbor.
 
-   This computation SHOULD also be performed periodically.  While it is
+   This computation <em>SHOULD</em> also be performed periodically.  While it is
    harmless to delay this computation up to a minimum Trickle interval
    [<a href="./rfc6550.html" title="&quot;RPL: IPv6 Routing Protocol for Low-Power and Lossy Networks&quot;">RFC6550</a>], longer delays in updating the path cost after the metric
    is updated or a new metric advertisement is received can lead to
@@ -474,7 +474,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  When Parent Selection Runs</span>
 
-   A MRHOF implementation SHOULD perform Parent Selection each time:
+   A MRHOF implementation <em>SHOULD</em> perform Parent Selection each time:
 
    1.  The path cost for an existing candidate neighbor, including the
        preferred parent, changes.  This condition can be checked
@@ -490,32 +490,32 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.2.2" href="#section-3.2.2">3.2.2</a>.  Parent Selection Algorithm</span>
 
    If the selected metric for a link is greater than MAX_LINK_METRIC,
-   the node SHOULD exclude that link from consideration during parent
+   the node <em>SHOULD</em> exclude that link from consideration during parent
    selection.
 
-   A node MUST select the candidate neighbor with the lowest path cost
+   A node <em>MUST</em> select the candidate neighbor with the lowest path cost
    as its preferred parent, except as indicated below:
 
-   1.  A node MAY declare itself as a Floating root, and hence have no
+   1.  A node <em>MAY</em> declare itself as a Floating root, and hence have no
        preferred parent, depending on system configuration.
 
-   2.  If cur_min_path_cost is greater than MAX_PATH_COST, the node MAY
+   2.  If cur_min_path_cost is greater than MAX_PATH_COST, the node <em>MAY</em>
        declare itself as a Floating root.
 
    3.  If the smallest path cost for paths through the candidate
        neighbors is smaller than cur_min_path_cost by less than
-       PARENT_SWITCH_THRESHOLD, the node MAY continue to use the current
+       PARENT_SWITCH_THRESHOLD, the node <em>MAY</em> continue to use the current
        preferred parent.  This is the hysteresis component of MRHOF.
 
    4.  If ALLOW_FLOATING_ROOT is 0 and no neighbors are discovered, the
-       node does not have a preferred parent and MUST set
+       node does not have a preferred parent and <em>MUST</em> set
        cur_min_path_cost to MAX_PATH_COST.
 
    If there are multiple neighbors that share the smallest path cost, a
-   node MAY use a different selection criteria to select which of these
+   node <em>MAY</em> use a different selection criteria to select which of these
    neighbors should be considered to have the lowest cost.
 
-   A node MAY include up to PARENT_SET_SIZE-1 additional candidate
+   A node <em>MAY</em> include up to PARENT_SET_SIZE-1 additional candidate
    neighbors in its parent set.  The cost of the path through the nodes
    in the parent set is smaller than or equal to the cost of the paths
    through any of the nodes that are not in the parent set.  If the cost
@@ -529,7 +529,7 @@ Table of Contents
 
 
    of the path through the preferred parent and the worst parent is too
-   large, a node MAY keep a smaller parent set than PARENT_SET_SIZE.
+   large, a node <em>MAY</em> keep a smaller parent set than PARENT_SET_SIZE.
 
    Once the preferred parent is selected, the node sets its
    cur_min_path_cost variable to the path cost corresponding to the
@@ -612,11 +612,11 @@ Table of Contents
    carried in the metric container corresponding to the selected metric
    when DIO messages are sent.
 
-   If ETX is the selected metric, a node MUST NOT advertise it in a
-   metric container.  Instead, a node MUST advertise an approximation of
+   If ETX is the selected metric, a node <em>MUST NOT</em> advertise it in a
+   metric container.  Instead, a node <em>MUST</em> advertise an approximation of
    its ETX in its advertised Rank value, following the rules described
    in <a href="#section-3.3">Section 3.3</a>.  If a node receives a DIO with a Metric Container
-   holding an ETX metric, MRHOF MUST ignore the ETX metric value in its
+   holding an ETX metric, MRHOF <em>MUST</em> ignore the ETX metric value in its
    Rank calculations.
 
    DODAG Roots advertise a metric value that computes to a Rank value of
@@ -628,7 +628,7 @@ Table of Contents
    It locally computes the ETX of links to its neighbors and adds this
    value to their advertised Rank to compute the associated Rank of
    routes.  Once parent selection and rank computation is performed
-   using the ETX metric, the node advertises the Rank and MUST NOT
+   using the ETX metric, the node advertises the Rank and <em>MUST NOT</em>
    include a metric container in its DIO messages.  While assigning Rank
    in this case, use the representation of ETX described in [<a href="./rfc6551.html" title="&quot;Routing Metrics Used for Path Calculation in Low-Power and Lossy Networks&quot;">RFC6551</a>],
    i.e., assign Rank equal to ETX * 128.
@@ -706,7 +706,7 @@ Table of Contents
 
    The working group has extensive experience routing with the ETX
    metric [<a href="#ref-Hui08b" title="&quot;IP is dead, long live IP for wireless sensor networks&quot;">Hui08b</a>].  Based on those experiences, the following values
-   are RECOMMENDED when ETX is the selected metric:
+   are <em>RECOMMENDED</em> when ETX is the selected metric:
 
       MAX_LINK_METRIC: 512.  Disallow links with greater than 4 expected
       transmission counts on the selected path.
@@ -734,13 +734,13 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Device Configuration</span>
 
-   An implementation SHOULD allow the following parameters to be
+   An implementation <em>SHOULD</em> allow the following parameters to be
    configured at installation time: MAX_LINK_METRIC, MAX_PATH_COST,
    PARENT_SWITCH_THRESHOLD, PARENT_SET_SIZE, and ALLOW_FLOATING_ROOT.
-   An implementation MAY allow these parameters to be configured
+   An implementation <em>MAY</em> allow these parameters to be configured
    dynamically at run time once a network has been deployed.
 
-   A MRHOF implementation MUST support the DODAG Configuration option as
+   A MRHOF implementation <em>MUST</em> support the DODAG Configuration option as
    described in [<a href="./rfc6550.html" title="&quot;RPL: IPv6 Routing Protocol for Low-Power and Lossy Networks&quot;">RFC6550</a>] and apply the parameters it specifies.  Care
    should be taken in the relationship between the MRHOF
    PARENT_SWITCH_THRESHOLD parameter and the RPL MaxRankIncrease
@@ -760,7 +760,7 @@ Table of Contents
    topology even though there may be other members of the parent set
    that would allow the node's Rank to remain within MaxRankIncrease.
 
-   Unless configured otherwise, a MRHOF implementation SHOULD use the
+   Unless configured otherwise, a MRHOF implementation <em>SHOULD</em> use the
    default parameters as specified in <a href="#section-5">Section 5</a>.
 
    Because of the partially coupled relationship between Rank and metric
@@ -834,7 +834,7 @@ Table of Contents
    MRHOF depends on information exchanged in a number of RPL protocol
    elements.  If those elements were compromised, then an implementation
    of MRHOF might generate the wrong path for a packet, resulting in it
-   being misrouted.  Therefore, deployments are RECOMMENDED to use RPL
+   being misrouted.  Therefore, deployments are <em>RECOMMENDED</em> to use RPL
    security mechanisms if there is a risk that routing information might
    be modified or spoofed.
 

@@ -365,7 +365,7 @@ Table of Contents
 
 
    transport when appropriate.  In addition, SCTP implementations to
-   transport GIST MUST support the optional feature of fragmentation of
+   transport GIST <em>MUST</em> support the optional feature of fragmentation of
    SCTP user messages.
 
    Additionally, this document also specifies how to establish GIST
@@ -373,8 +373,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology and Abbreviations</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-5" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">5</a>].  Other
    terminologies and abbreviations used in this document are taken from
    related specifications ([<a href="#ref-1" title="&quot;GIST: General Internet Signalling Transport&quot;">1</a>], [<a href="#ref-2" title="&quot;Datagram Transport Layer Security&quot;">2</a>], [<a href="#ref-3" title="&quot;Stream Control Transmission Protocol (SCTP) Partial Reliability Extension&quot;">3</a>], [<a href="#ref-6" title="&quot;Stream Control Transmission Protocol&quot;">6</a>]):
@@ -402,7 +402,7 @@ Table of Contents
       composed of the two SCTP endpoints and protocol state information.
       An association can be uniquely identified by the transport
       addresses used by the endpoints in the association.  Two SCTP
-      endpoints MUST NOT have more than one SCTP association between
+      endpoints <em>MUST NOT</em> have more than one SCTP association between
       them at any given time.
 
    o  Stream - A unidirectional logical channel established from one to
@@ -441,8 +441,8 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.1.2" href="#section-3.1.2">3.1.2</a>.  Protocol-Definition: Forwards-SCTP</span>
 
    The MA-Protocol-ID "Forwards-SCTP" denotes a basic use of SCTP
-   between peers.  Support for this protocol is OPTIONAL.  If this
-   protocol is offered, MA-protocol-options data MUST also be carried in
+   between peers.  Support for this protocol is <em>OPTIONAL</em>.  If this
+   protocol is offered, MA-protocol-options data <em>MUST</em> also be carried in
    the SCD object.  The MA-protocol-options field formats are:
 
    o  in a Query: no information apart from the field header.
@@ -451,9 +451,9 @@ Table of Contents
       accepted, followed by 2 pad bytes.
 
    The connection is opened in the forwards direction, from the querying
-   node towards the responder.  The querying node MAY use any source
+   node towards the responder.  The querying node <em>MAY</em> use any source
    address and source port.  The destination for establishing the
-   message association MUST be derived from information in the Response:
+   message association <em>MUST</em> be derived from information in the Response:
    the address from the interface-address in the Network-Layer-
    Information object and the port from the SCD object as described
    above.
@@ -461,7 +461,7 @@ Table of Contents
    Associations using Forwards-SCTP can carry messages with the transfer
    attribute Reliable=True.  If an error occurs on the SCTP connection
    such as a reset, as can be reported by an SCTP socket API
-   notification [<a href="#ref-11" title="&quot;Sockets API Extensions for Stream Control Transmission Protocol (SCTP)&quot;">11</a>], GIST MUST report this to NSLPs as discussed in
+   notification [<a href="#ref-11" title="&quot;Sockets API Extensions for Stream Control Transmission Protocol (SCTP)&quot;">11</a>], GIST <em>MUST</em> report this to NSLPs as discussed in
    Section 4.1.2 of [<a href="#ref-1" title="&quot;GIST: General Internet Signalling Transport&quot;">1</a>].  For the multihoming scenario, when a
    destination address of a GIST-over-SCTP peer encounters a change, the
    SCTP API will notify GIST about the availability of different SCTP
@@ -484,7 +484,7 @@ Table of Contents
 
    While SCTP defines unidirectional streams, for the purpose of this
    document, the concept of a bidirectional stream is used.
-   Implementations MUST establish both downstream and upstream
+   Implementations <em>MUST</em> establish both downstream and upstream
    (unidirectional) SCTP streams and use the same stream identifier in
    both directions.  Thus, the two unidirectional streams (in opposite
    directions) form a bidirectional stream.
@@ -496,9 +496,9 @@ Table of Contents
    (which imposes strict (re)ordering and reliability per transport
    level).  However, there are limitations to the use of multi-
    streaming.  When an SCTP implementation is used for GIST transport,
-   all GIST messages for a particular session MUST be sent over the same
+   all GIST messages for a particular session <em>MUST</em> be sent over the same
    SCTP stream to assure the NSLP assumption of in-order delivery.
-   Multiple sessions MAY share the same SCTP stream based on local
+   Multiple sessions <em>MAY</em> share the same SCTP stream based on local
    policy.
 
    The GIST concept of Messaging Association re-use is not affected by
@@ -515,14 +515,14 @@ Table of Contents
    Because of the chunk bundling function of SCTP, reliable and
    partially reliable messages can be multiplexed over a single PR-SCTP
    association.  Therefore, an SCTP implementation for GIST transport
-   SHOULD attempt to establish a PR-SCTP association using "timed
+   <em>SHOULD</em> attempt to establish a PR-SCTP association using "timed
    reliability" service instead of a standard SCTP association, if
    available, to support more flexible transport features for potential
    needs of different NSLPs.
 
    When using a normally reliable session (as opposed to a partially
    reliable session), if a node has sent the first transmission before
-   the lifetime expires, then the message MUST be sent as a normal
+   the lifetime expires, then the message <em>MUST</em> be sent as a normal
    reliable message.  During episodes of congestion, this is
 
 
@@ -535,7 +535,7 @@ Table of Contents
    particularly unfortunate, as retransmission wastes bandwidth that
    could have been used for other (non-lifetime expired) messages.  The
    "timed reliability" service in PR-SCTP eliminates this issue and is
-   hence RECOMMENDED to be used for GIST over PR-SCTP.
+   hence <em>RECOMMENDED</em> to be used for GIST over PR-SCTP.
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  API between GIST and NSLP</span>
 
@@ -556,7 +556,7 @@ Table of Contents
       from GIST to a signalling application.  It indicates that a
       network event of possible interest to the signalling application
       occurred".  Here, if SCTP detects a failure of the primary path,
-      GIST SHOULD also indicate this event to the NSLP by calling this
+      GIST <em>SHOULD</em> also indicate this event to the NSLP by calling this
       primitive with Network-Notification-Type "Routing Status Change".
       This notification should be done even if SCTP was able to retain
       an open connection to the peer due to its multihoming
@@ -659,22 +659,22 @@ Table of Contents
    MA-Protocol-IDs for SCTP and DTLS during the GIST handshake phase.
 
    The usage of DTLS [<a href="#ref-2" title="&quot;Datagram Transport Layer Security&quot;">2</a>] for securing GIST over datagram transport
-   protocols MUST be implemented and SHOULD be used.
+   protocols <em>MUST</em> be implemented and <em>SHOULD</em> be used.
 
    GIST message associations using DTLS may carry messages with transfer
    attributes requesting confidentiality or integrity protection.  The
    specific DTLS version will be negotiated within the DTLS layer
-   itself, but implementations MUST NOT negotiate to protocol versions
-   prior to DTLS v1.0 and MUST use the highest protocol version
+   itself, but implementations <em>MUST NOT</em> negotiate to protocol versions
+   prior to DTLS v1.0 and <em>MUST</em> use the highest protocol version
    supported by both peers.  NULL authentication and integrity ciphers
-   MUST NOT be negotiated for GIST nodes supporting DTLS.  For
+   <em>MUST NOT</em> be negotiated for GIST nodes supporting DTLS.  For
    confidentiality ciphers, nodes can negotiate the NULL ciphersuites.
    The same rules for negotiating TLS ciphersuites as specified in
    Section 5.7.3 of [<a href="#ref-1" title="&quot;GIST: General Internet Signalling Transport&quot;">1</a>] apply.
 
    DTLS renegotiation [<a href="#ref-7" title="&quot;Transport Layer Security (TLS) Renegotiation Indication Extension&quot;">7</a>] may cause problems for applications such that
    connection security parameters can change without the application
-   knowing it.  Hence, it is RECOMMENDED that renegotiation be disabled
+   knowing it.  Hence, it is <em>RECOMMENDED</em> that renegotiation be disabled
    for GIST over DTLS.
 
    No MA-protocol-options field is required for DTLS.  The configuration

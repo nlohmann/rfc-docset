@@ -321,8 +321,8 @@ Table of Contents
    This document describes the use of the SRP authentication method for
    TLS.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-REQ" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">REQ</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  SRP Authentication in TLS</span>
@@ -382,7 +382,7 @@ Table of Contents
    Conversion between integers and byte-strings assumes the most
    significant bytes are stored first, as per [<a href="#ref-TLS" title="&quot;The TLS Protocol version 1.1&quot;">TLS</a>] and [<a href="#ref-SRP-RFC" title="&quot;The SRP Authentication and Key Exchange System&quot;">SRP-RFC</a>].  In
    the following text, if a conversion from integer to byte-string is
-   implicit, the most significant byte in the resultant byte-string MUST
+   implicit, the most significant byte in the resultant byte-string <em>MUST</em>
    be non-zero.  If a conversion is explicitly specified with the
    operator PAD(), the integer will first be implicitly converted, then
    the resultant byte-string will be left-padded with zeros (if
@@ -434,7 +434,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Text Preparation</span>
 
-   The user name and password strings SHALL be UTF-8 encoded Unicode,
+   The user name and password strings <em>SHALL</em> be UTF-8 encoded Unicode,
    prepared using the [<a href="#ref-SASLPREP" title="&quot;SASLprep: Stringprep profile for user names and passwords&quot;">SASLPREP</a>] profile of [<a href="#ref-STRINGPREP" title="&quot;Preparation of Internationalized Strings (&quot;">STRINGPREP</a>].
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a>.  SRP Verifier Creation</span>
@@ -479,12 +479,12 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-2.5.1.1" href="#section-2.5.1.1">2.5.1.1</a>.  Session Resumption</span>
 
    When a client attempts to resume a session that uses SRP
-   authentication, the client MUST include the SRP extension in the
+   authentication, the client <em>MUST</em> include the SRP extension in the
    client hello message, in case the server cannot or will not allow
    session resumption, meaning a full handshake is required.
 
    If the server does agree to resume an existing session, the server
-   MUST ignore the information in the SRP extension of the client hello
+   <em>MUST</em> ignore the information in the SRP extension of the client hello
    message, except for its inclusion in the finished message hashes.
    This is to ensure that attackers cannot replace the authenticated
    identity without supplying the proper authentication information.
@@ -493,11 +493,11 @@ Table of Contents
 
    The client may offer SRP cipher suites in the hello message but omit
    the SRP extension.  If the server would like to select an SRP cipher
-   suite in this case, the server SHOULD return a fatal
+   suite in this case, the server <em>SHOULD</em> return a fatal
    "unknown_psk_identity" alert (see <a href="#section-2.9">Section 2.9</a>) immediately after
    processing the client hello message.
 
-   A client receiving this alert MAY choose to reconnect and resend the
+   A client receiving this alert <em>MAY</em> choose to reconnect and resend the
    hello message, this time with the SRP extension.  This allows the
    client to advertise that it supports SRP, but not have to prompt the
    user for his user name and password, nor expose the user name in the
@@ -506,10 +506,10 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-2.5.1.3" href="#section-2.5.1.3">2.5.1.3</a>.  Unknown SRP  </span>       User Name
 
    If the server doesn't have a verifier for the user name in the SRP
-   extension, the server MAY abort the handshake with an
+   extension, the server <em>MAY</em> abort the handshake with an
    "unknown_psk_identity" alert (see <a href="#section-2.9">Section 2.9</a>).  Alternatively, if
    the server wishes to hide the fact that this user name doesn't have a
-   verifier, the server MAY simulate the protocol as if a verifier
+   verifier, the server <em>MAY</em> simulate the protocol as if a verifier
    existed, but then reject the client's finished message with a
    "bad_record_mac" alert, as if the password was incorrect.
 
@@ -533,7 +533,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.5.2" href="#section-2.5.2">2.5.2</a>.  Server Certificate</span>
 
-   The server MUST send a certificate if it agrees to an SRP cipher
+   The server <em>MUST</em> send a certificate if it agrees to an SRP cipher
    suite that requires the server to provide additional authentication
    in the form of a digital signature.  See <a href="#section-2.7">Section 2.7</a> for details of
    which cipher suites defined in this document require a server
@@ -547,25 +547,25 @@ Table of Contents
 
    The server key exchange message also contains the server's public
    value (B).  The server calculates this value as B = k*v + g^b % N,
-   where b is a random number that SHOULD be at least 256 bits in length
+   where b is a random number that <em>SHOULD</em> be at least 256 bits in length
    and k = SHA1(N | PAD(g)).
 
    If the server has sent a certificate message, the server key exchange
-   message MUST be signed.
+   message <em>MUST</em> be signed.
 
-   The group parameters (N, g) sent in this message MUST have N as a
+   The group parameters (N, g) sent in this message <em>MUST</em> have N as a
    safe prime (a prime of the form N=2q+1, where q is also prime).  The
    integers from 1 to N-1 will form a group under multiplication % N,
-   and g MUST be a generator of this group.  In addition, the group
-   parameters MUST NOT be specially chosen to allow efficient
+   and g <em>MUST</em> be a generator of this group.  In addition, the group
+   parameters <em>MUST NOT</em> be specially chosen to allow efficient
    computation of discrete logarithms.
 
    The SRP group parameters in <a href="#appendix-A">Appendix A</a> satisfy the above
-   requirements, so the client SHOULD accept any parameters from this
+   requirements, so the client <em>SHOULD</em> accept any parameters from this
    appendix that have large enough N values to meet her security
    requirements.
 
-   The client MAY accept other group parameters from the server, if the
+   The client <em>MAY</em> accept other group parameters from the server, if the
    client has reason to believe that these parameters satisfy the above
    requirements, and the parameters have large enough N values.  For
    example, if the parameters transmitted by the server match parameters
@@ -582,19 +582,19 @@ Table of Contents
 
 
    Group parameters that are not accepted via one of the above methods
-   MUST be rejected with an "insufficient_security" alert (see
+   <em>MUST</em> be rejected with an "insufficient_security" alert (see
    <a href="#section-2.9">Section 2.9</a>).
 
-   The client MUST abort the handshake with an "illegal_parameter" alert
+   The client <em>MUST</em> abort the handshake with an "illegal_parameter" alert
    if B % N = 0.
 
 <span class="h4"><a class="selflink" name="section-2.5.4" href="#section-2.5.4">2.5.4</a>.  Client Key Exchange</span>
 
    The client key exchange message carries the client's public value
    (A).  The client calculates this value as A = g^a % N, where a is a
-   random number that SHOULD be at least 256 bits in length.
+   random number that <em>SHOULD</em> be at least 256 bits in length.
 
-   The server MUST abort the handshake with an "illegal_parameter" alert
+   The server <em>MUST</em> abort the handshake with an "illegal_parameter" alert
    if A % N = 0.
 
 <span class="h3"><a class="selflink" name="section-2.6" href="#section-2.6">2.6</a>.  Calculating the Premaster Secret</span>
@@ -670,10 +670,10 @@ Table of Contents
    identifier assume that the server is authenticated by its possession
    of the SRP verifier.
 
-   Implementations conforming to this specification MUST implement the
-   TLS_SRP_SHA_WITH_3DES_EDE_CBC_SHA cipher suite, SHOULD implement the
+   Implementations conforming to this specification <em>MUST</em> implement the
+   TLS_SRP_SHA_WITH_3DES_EDE_CBC_SHA cipher suite, <em>SHOULD</em> implement the
    TLS_SRP_SHA_WITH_AES_128_CBC_SHA and TLS_SRP_SHA_WITH_AES_256_CBC_SHA
-   cipher suites, and MAY implement the remaining cipher suites.
+   cipher suites, and <em>MAY</em> implement the remaining cipher suites.
 
 <span class="h3"><a class="selflink" name="section-2.8" href="#section-2.8">2.8</a>.  New Message Structures</span>
 
@@ -696,10 +696,10 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-2.8.1" href="#section-2.8.1">2.8.1</a>.  Client Hello</span>
 
    A new extension "srp", with value 12, has been added to the
-   enumerated ExtensionType defined in [<a href="#ref-TLSEXT" title="&quot;Transport Layer Security (TLS) Extensions&quot;">TLSEXT</a>].  This value MUST be
+   enumerated ExtensionType defined in [<a href="#ref-TLSEXT" title="&quot;Transport Layer Security (TLS) Extensions&quot;">TLSEXT</a>].  This value <em>MUST</em> be
    used as the extension number for the SRP extension.
 
-   The "extension_data" field of the SRP extension SHALL contain:
+   The "extension_data" field of the SRP extension <em>SHALL</em> contain:
 
         opaque srp_I&lt;1..2^8-1&gt;;
 
@@ -771,20 +771,20 @@ Table of Contents
 
    This document introduces four new uses of alerts:
 
-   o  "unknown_psk_identity" (115) - this alert MAY be sent by a server
+   o  "unknown_psk_identity" (115) - this alert <em>MAY</em> be sent by a server
       that would like to select an offered SRP cipher suite, if the SRP
       extension is absent from the client's hello message.  This alert
       is always fatal.  See <a href="#section-2.5.1.2">Section 2.5.1.2</a> for details.
 
-   o  "unknown_psk_identity" (115) - this alert MAY be sent by a server
+   o  "unknown_psk_identity" (115) - this alert <em>MAY</em> be sent by a server
       that receives an unknown user name.  This alert is always fatal.
       See <a href="#section-2.5.1.3">Section 2.5.1.3</a> for details.
 
-   o  "insufficient_security" (71) - this alert MUST be sent by a client
+   o  "insufficient_security" (71) - this alert <em>MUST</em> be sent by a client
       that receives unknown or untrusted (N, g) values.  This alert is
       always fatal.  See <a href="#section-2.5.3">Section 2.5.3</a> for details.
 
-   o  "illegal_parameter" (47) - this alert MUST be sent by a client or
+   o  "illegal_parameter" (47) - this alert <em>MUST</em> be sent by a client or
       server that receives a key exchange message with A % N = 0 or B %
       N = 0.  This alert is always fatal.  See <a href="#section-2.5.3">Section 2.5.3</a> and
       <a href="#section-2.5.4">Section 2.5.4</a> and for details.
@@ -810,10 +810,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  General Considerations for Implementors</span>
 
    The checks described in <a href="#section-2.5.3">Section 2.5.3</a> and <a href="#section-2.5.4">Section 2.5.4</a> on the
-   received values for A and B are CRUCIAL for security and MUST be
+   received values for A and B are CRUCIAL for security and <em>MUST</em> be
    performed.
 
-   The private values a and b SHOULD be at least 256-bit random numbers,
+   The private values a and b <em>SHOULD</em> be at least 256-bit random numbers,
    to give approximately 128 bits of security against certain methods of
    calculating discrete logarithms.  See [<a href="#ref-TLS" title="&quot;The TLS Protocol version 1.1&quot;">TLS</a>], Section D.1, for advice
    on choosing cryptographically secure random numbers.
@@ -822,7 +822,7 @@ Table of Contents
 
    An attacker who could calculate discrete logarithms % N could
    compromise user passwords, and could also compromise the
-   confidentiality and integrity of TLS sessions.  Clients MUST ensure
+   confidentiality and integrity of TLS sessions.  Clients <em>MUST</em> ensure
    that the received parameter N is large enough to make calculating
    discrete logarithms computationally infeasible.
 
@@ -832,7 +832,7 @@ Table of Contents
    discussed in [<a href="#ref-TRAPDOOR" title="&quot;Designing and Detecting Trapdoors for Discrete Log Cryptosystems&quot;">TRAPDOOR</a>]).  If the client executes the protocol using
    such a prime, the client's password could be compromised.  Because of
    the difficulty of checking for such primes in real time, clients
-   SHOULD only accept group parameters that come from a trusted source,
+   <em>SHOULD</em> only accept group parameters that come from a trusted source,
    such as those listed in <a href="#appendix-A">Appendix A</a>, or parameters configured locally
    by a trusted administrator.
 
@@ -844,7 +844,7 @@ Table of Contents
    recover that user's password.
 
    An attacker could repeatedly contact an SRP server and try to guess a
-   legitimate user's password.  Servers SHOULD take steps to prevent
+   legitimate user's password.  Servers <em>SHOULD</em> take steps to prevent
    this, such as limiting the rate of authentication attempts from a
    particular IP address or against a particular user name.
 
@@ -1037,7 +1037,7 @@ Table of Contents
    are taken from [<a href="#ref-MODP" title="&quot;More Modular Exponentiation (MODP) Diffie-Hellman groups for Internet Key Exchange (IKE)&quot;">MODP</a>], but generators have been calculated that are
    primitive roots of N, unlike the generators in [<a href="#ref-MODP" title="&quot;More Modular Exponentiation (MODP) Diffie-Hellman groups for Internet Key Exchange (IKE)&quot;">MODP</a>].
 
-   The 1024-bit and 1536-bit groups MUST be supported.
+   The 1024-bit and 1536-bit groups <em>MUST</em> be supported.
 
    1.  1024-bit Group
 

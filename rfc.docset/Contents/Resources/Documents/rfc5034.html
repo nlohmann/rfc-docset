@@ -274,8 +274,8 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    In examples, "C:" and "S:" indicate lines sent by the client and
@@ -324,14 +324,14 @@ Abstract
       a space-separated list of SASL mechanisms that are supported.
 
       If a server either does not support the CAPA command or does not
-      advertise the SASL capability, clients SHOULD NOT attempt the AUTH
+      advertise the SASL capability, clients <em>SHOULD NOT</em> attempt the AUTH
       command.  If a client does attempt the AUTH command in such a
-      situation, it MUST NOT supply the client initial response
+      situation, it <em>MUST NOT</em> supply the client initial response
       parameter (for backwards compatibility with [<a href="./rfc1734.html" title="&quot;POP3 AUTHentication command&quot;">RFC1734</a>]).
 
-      Note that the list of available mechanisms MAY change after a
+      Note that the list of available mechanisms <em>MAY</em> change after a
       successful STLS command (see [<a href="./rfc2595.html" title="&quot;Using TLS with IMAP, POP3 and ACAP&quot;">RFC2595</a>]).  However, as required by
-      [<a href="./rfc2449.html" title="&quot;POP3 Extension Mechanism&quot;">RFC2449</a>], implementations MUST continue to include the SASL
+      [<a href="./rfc2449.html" title="&quot;POP3 Extension Mechanism&quot;">RFC2449</a>], implementations <em>MUST</em> continue to include the SASL
       capability even after a successful AUTH command has been completed
       (even though no further AUTH commands may be issued).
 
@@ -363,7 +363,7 @@ Abstract
 
          initial-response: An optional initial client response, as
          defined in <a href="./rfc4422.html#section-3">Section&nbsp;3 of [RFC4422]</a>.  If present, this response
-         MUST be encoded as Base64 (specified in <a href="./rfc4648.html#section-4">Section&nbsp;4 of
+         <em>MUST</em> be encoded as Base64 (specified in <a href="./rfc4648.html#section-4">Section&nbsp;4 of
          [RFC4648]</a>), or consist only of the single character "=", which
          represents an empty initial response.
 
@@ -371,7 +371,7 @@ Abstract
 
          After an AUTH command has been successfully completed, no more
          AUTH commands may be issued in the same session.  After a
-         successful AUTH command completes, a server MUST reject any
+         successful AUTH command completes, a server <em>MUST</em> reject any
          further AUTH commands with an -ERR reply.
 
          The AUTH command may only be given during the AUTHORIZATION
@@ -396,13 +396,13 @@ Abstract
          A server challenge is sent as a line consisting of a "+"
          character, followed by a single space and a string encoded
          using Base64, as specified in <a href="./rfc4648.html#section-4">Section&nbsp;4 of [RFC4648]</a>.  This
-         line MUST NOT contain any text other than the BASE64-encoded
+         line <em>MUST NOT</em> contain any text other than the BASE64-encoded
          challenge.
 
          A client response consists of a line containing a string
          encoded as Base64.  If the client wishes to cancel the
          authentication exchange, it issues a line with a single "*".
-         If the server receives such a response, it MUST reject the AUTH
+         If the server receives such a response, it <em>MUST</em> reject the AUTH
          command by sending an -ERR reply.
 
          The optional initial-response argument to the AUTH command is
@@ -417,48 +417,48 @@ Abstract
 <span class="grey"><a href="./rfc5034.html">RFC 5034</a>           POP3 SASL Authentication Mechanism          July 2007</span>
 
 
-         an initial client response, the server MUST proceed by issuing
+         an initial client response, the server <em>MUST</em> proceed by issuing
          an empty challenge, as defined in <a href="./rfc4422.html#section-3">Section&nbsp;3 of [RFC4422]</a>.  In
          POP3, an empty server challenge is defined as a line with only
-         a "+", followed by a single space.  It MUST NOT contain any
+         a "+", followed by a single space.  It <em>MUST NOT</em> contain any
          other data.
 
          For the purposes of the initial client response, the 255-octet
          limit on the length of a single command, defined in <a href="./rfc2449.html#section-4">Section&nbsp;4
          of [RFC2449]</a>, still applies.  If specifying an initial response
          would cause the AUTH command to exceed this length, the client
-         MUST NOT use the initial-response parameter (and must proceed
+         <em>MUST NOT</em> use the initial-response parameter (and must proceed
          instead by sending its initial response after an empty
          challenge from the server, as in <a href="./rfc4422.html#section-3">Section&nbsp;3 of [RFC4422]</a>).
 
          If the client needs to send a zero-length initial response, it
-         MUST transmit the response as a single equals sign ("=").  This
+         <em>MUST</em> transmit the response as a single equals sign ("=").  This
          indicates that the response is present, but contains no data.
 
          If the client uses an initial-response argument to the AUTH
          command with a SASL mechanism that does not support an initial
-         client send, the server MUST reject the AUTH command with an
+         client send, the server <em>MUST</em> reject the AUTH command with an
          -ERR reply.
 
-         If the server cannot Base64 decode a client response, it MUST
+         If the server cannot Base64 decode a client response, it <em>MUST</em>
          reject the AUTH command with an -ERR reply.  If the client
-         cannot Base64 decode any of the server's challenges, it MUST
+         cannot Base64 decode any of the server's challenges, it <em>MUST</em>
          cancel the authentication using the "*" response.  In
-         particular, servers and clients MUST reject (and not ignore)
+         particular, servers and clients <em>MUST</em> reject (and not ignore)
          any character not explicitly allowed by the Base64 alphabet,
-         and MUST reject any sequence of Base64 characters that contains
+         and <em>MUST</em> reject any sequence of Base64 characters that contains
          the pad character ('=') anywhere other than the end of the
          string (e.g., "=AAA" and "AAA=BBB" are not allowed).
 
          Excepting the initial client response, these BASE64 strings may
          be of arbitrary length, depending on the authentication
-         mechanism in use.  Clients and servers MUST be able to handle
+         mechanism in use.  Clients and servers <em>MUST</em> be able to handle
          the largest encoded challenges and responses generated by the
          authentication mechanisms they support.  This requirement is
          independent of any line-length limitations the client or server
          may have in other parts of its protocol implementation.
 
-         If the server is unable to authenticate the client, it MUST
+         If the server is unable to authenticate the client, it <em>MUST</em>
          reject the AUTH command with an -ERR reply.  Should the client
          successfully complete the exchange, the server issues a +OK
          reply.  Additionally, upon success, the POP3 session enters the
@@ -474,12 +474,12 @@ Abstract
 
 
          The authorization identity generated by the SASL exchange is a
-         simple username, and SHOULD use the SASLprep profile (see
+         simple username, and <em>SHOULD</em> use the SASLprep profile (see
          [<a href="./rfc4013.html" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">RFC4013</a>]) of the StringPrep algorithm (see [<a href="./rfc3454.html" title="&quot;Preparation of Internationalized Strings (&quot;">RFC3454</a>]) to
          prepare these names for matching.  If preparation of the
          authorization identity fails or results in an empty string
          (unless it was transmitted as the empty string), the server
-         MUST fail the authentication.
+         <em>MUST</em> fail the authentication.
 
          If a security layer is negotiated during the SASL exchange, it
          takes effect for the client on the octet immediately following
@@ -487,14 +487,14 @@ Abstract
          client.  For the server, it takes effect immediately following
          the CRLF of its success reply.
 
-         When a security layer takes effect, the server MUST discard any
+         When a security layer takes effect, the server <em>MUST</em> discard any
          knowledge previously obtained from the client, which was not
          obtained from the SASL negotiation itself.  Likewise, the
-         client MUST discard any knowledge obtained from the server,
+         client <em>MUST</em> discard any knowledge obtained from the server,
          such as the list of available POP3 service extensions.
 
          When both Transport Layer Security (TLS) (see [<a href="./rfc4346.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">RFC4346</a>]) and
-         SASL security layers are in effect, the TLS encoding MUST be
+         SASL security layers are in effect, the TLS encoding <em>MUST</em> be
          applied after the SASL encoding when sending data.  (According
          to [<a href="./rfc2595.html" title="&quot;Using TLS with IMAP, POP3 and ACAP&quot;">RFC2595</a>], STLS can only be issued before AUTH in any case.)
 
@@ -508,18 +508,18 @@ Abstract
          If an AUTH command fails, the client may try another
          authentication mechanism or present different credentials by
          issuing another AUTH command (or by using one of the other POP3
-         authentication mechanisms).  Likewise, the server MUST behave
+         authentication mechanisms).  Likewise, the server <em>MUST</em> behave
          as if the client had not issued the AUTH command.
 
          To ensure interoperability, client and server implementations
-         of this extension MUST implement the PLAIN SASL mechanism
+         of this extension <em>MUST</em> implement the PLAIN SASL mechanism
          [<a href="./rfc4616.html" title="&quot;The PLAIN Simple Authentication and Security Layer (SASL) Mechanism&quot;">RFC4616</a>] running over TLS [<a href="./rfc2595.html" title="&quot;Using TLS with IMAP, POP3 and ACAP&quot;">RFC2595</a>].
 
-         A server implementation MUST implement a configuration in which
+         A server implementation <em>MUST</em> implement a configuration in which
          it does NOT advertise or permit any plaintext password
          mechanisms, unless the STLS command has been used to negotiate
          a TLS session (see [<a href="./rfc2595.html" title="&quot;Using TLS with IMAP, POP3 and ACAP&quot;">RFC2595</a>]).  As described by <a href="./rfc4616.html">RFC 4616</a>, this
-         configuration SHOULD be the default configuration.  Before
+         configuration <em>SHOULD</em> be the default configuration.  Before
          using a plaintext password mechanism over a TLS session, client
 
 
@@ -529,9 +529,9 @@ Abstract
 <span class="grey"><a href="./rfc5034.html">RFC 5034</a>           POP3 SASL Authentication Mechanism          July 2007</span>
 
 
-         implementations MUST verify the TLS server certificate as
+         implementations <em>MUST</em> verify the TLS server certificate as
          required by <a href="./rfc2595.html#section-2.4">RFC 2595, Section&nbsp;2.4</a>.  Client and server
-         implementations SHOULD implement additional SASL mechanisms
+         implementations <em>SHOULD</em> implement additional SASL mechanisms
          that do not send plaintext passwords, such as the GSSAPI
          [<a href="./rfc4752.html" title="&quot;The Kerberos V5 (&quot;">RFC4752</a>] mechanism.
 
@@ -544,7 +544,7 @@ Abstract
 
    Except as noted otherwise, all alphabetic characters are case-
    insensitive.  The use of upper- or lower-case characters to define
-   token strings is for editorial clarity only.  Implementations MUST
+   token strings is for editorial clarity only.  Implementations <em>MUST</em>
    accept these strings in a case-insensitive fashion.
 
       auth-command     = "AUTH" SP sasl-mech [SP initial-response]
@@ -710,7 +710,7 @@ Abstract
 
    4. New minimum requirement of support for TLS+PLAIN.
 
-   5. The SASLprep profile SHOULD be used to prepare authorization
+   5. The SASLprep profile <em>SHOULD</em> be used to prepare authorization
        identities.
 
    6. Clarify that the TLS encoding should be applied after any encoding

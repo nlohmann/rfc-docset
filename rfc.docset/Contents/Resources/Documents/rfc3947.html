@@ -307,9 +307,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Specification of Requirements</span>
 
-   This document shall use the keywords "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED, "MAY",
-   and "OPTIONAL" to describe requirements.  They are to be interpreted
+   This document shall use the keywords "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>, "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" to describe requirements.  They are to be interpreted
    as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Phase 1</span>
@@ -317,7 +317,7 @@ Table of Contents
    The detection of support for NAT-Traversal and detection of NAT along
    the path between the two IKE peers occurs in IKE [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] Phase 1.
 
-   The NAT may change the IKE UDP source port, and recipients MUST be
+   The NAT may change the IKE UDP source port, and recipients <em>MUST</em> be
    able to process IKE packets whose source port is different from 500.
    The NAT does not have to change the source port if:
 
@@ -326,10 +326,10 @@ Table of Contents
    o  for the first IPsec host, the NAT can keep the port 500, and the
       NAT will only change the port number for later connections.
 
-   Recipients MUST reply back to the source address from the packet (see
+   Recipients <em>MUST</em> reply back to the source address from the packet (see
    <a href="./rfc3715.html#section-2.1">[RFC3715], section&nbsp;2.1</a>, case d).  This means that when the original
    responder is doing rekeying or sending notifications to the original
-   initiator, it MUST send the packets using the same set of port and IP
+   initiator, it <em>MUST</em> send the packets using the same set of port and IP
    numbers used when the IKE SA was last used.
 
    For example, when the initiator sends a packet with source and
@@ -358,8 +358,8 @@ Table of Contents
 
    The NAT-Traversal capability of the remote host is determined by an
    exchange of vendor ID payloads.  In the first two messages of Phase
-   1, the vendor id payload for this specification MUST be sent if
-   supported (and it MUST be received by both sides) for the NAT-
+   1, the vendor id payload for this specification <em>MUST</em> be sent if
+   supported (and it <em>MUST</em> be received by both sides) for the NAT-
    Traversal probe to continue. The content of the payload is the MD5
    hash of
 
@@ -497,11 +497,11 @@ Table of Contents
    must quickly change to port 4500 once the NAT has been detected to
    minimize the window of IPsec-aware NAT problems.
 
-   In Main Mode, the initiator MUST change ports when sending the ID
-   payload if there is NAT between the hosts.  The initiator MUST set
+   In Main Mode, the initiator <em>MUST</em> change ports when sending the ID
+   payload if there is NAT between the hosts.  The initiator <em>MUST</em> set
    both UDP source and destination ports to 4500.  All subsequent
    packets sent to this peer (including informational notifications)
-   MUST be sent on port 4500.  In addition, the IKE data MUST be
+   <em>MUST</em> be sent on port 4500.  In addition, the IKE data <em>MUST</em> be
    prepended with a non-ESP marker allowing for demultiplexing of
    traffic, as defined in [<a href="./rfc3948.html" title="&quot;UDP Encapsulation of IPsec Packets&quot;">RFC3948</a>].
 
@@ -524,26 +524,26 @@ Table of Contents
 
    When the responder gets this packet, the usual decryption and
    processing of the various payloads is performed.  If these are
-   successful, the responder MUST update local state so that all
+   successful, the responder <em>MUST</em> update local state so that all
    subsequent packets (including informational notifications) to the
    peer use the new port, and possibly the new IP address obtained from
    the incoming valid packet.  The port will generally be different, as
    the NAT will map UDP(500,500) to UDP(X,500), and UDP(4500,4500) to
    UDP(Y,4500).  The IP address will seldom be different from the pre-
-   changed IP address.  The responder MUST respond with all subsequent
+   changed IP address.  The responder <em>MUST</em> respond with all subsequent
    IKE packets to this peer by using UDP(4500,Y).
 
    Similarly, if the responder has to rekey the Phase 1 SA, then the
-   rekey negotiation MUST be started by using UDP(4500,Y).  Any
-   implementation that supports NAT traversal MUST support negotiations
+   rekey negotiation <em>MUST</em> be started by using UDP(4500,Y).  Any
+   implementation that supports NAT traversal <em>MUST</em> support negotiations
    that begin on port 4500.  If a negotiation starts on port 4500, then
    it doesn't need to change anywhere else in the exchange.
 
    Once port change has occurred, if a packet is received on port 500,
-   that packet is old.  If the packet is an informational packet, it MAY
+   that packet is old.  If the packet is an informational packet, it <em>MAY</em>
    be processed if local policy allows this.  If the packet is a Main
    Mode or an Aggressive Mode packet (with the same cookies as previous
-   packets), it SHOULD be discarded.  If the packet is a new Main Mode
+   packets), it <em>SHOULD</em> be discarded.  If the packet is a new Main Mode
    or Aggressive exchange, then it is processed normally (the other end
    might have rebooted, and this is starting new exchange).
 
@@ -567,7 +567,7 @@ Table of Contents
    been detected, the initiator sends IP UDP(4500,4500) &lt;4 bytes of
    non-ESP marker&gt; HDR*, [CERT, ], NAT-D, NAT-D, and SIG_I.  The
    responder does similar processing to the above, and if successful,
-   MUST update it's internal IKE ports.  The responder MUST respond with
+   <em>MUST</em> update it's internal IKE ports.  The responder <em>MUST</em> respond with
    all subsequent IKE packets to this peer by using UDP(4500,Y).
 
 
@@ -592,7 +592,7 @@ Table of Contents
                                        &lt;-- UDP(4500, Y) HDR*#, ...
 
    If the support of the NAT-Traversal is enabled, the port in the ID
-   payload in Main Mode/Aggressive Mode MUST be set to 0.
+   payload in Main Mode/Aggressive Mode <em>MUST</em> be set to 0.
 
    The most common case for the responder behind the NAT is if the NAT
    is simply doing 1:1 address translation.  In this case, the initiator
@@ -648,14 +648,14 @@ Table of Contents
    <a href="./rfc3715.html#section-2.2">[RFC3715], section&nbsp;2.2</a>, case i).
 
    If there is a NAT box between hosts, normal tunnel or transport
-   encapsulations may not work.  In this case, UDP-Encapsulation SHOULD
+   encapsulations may not work.  In this case, UDP-Encapsulation <em>SHOULD</em>
    be used.
 
    If there is no NAT box between, there is no point in wasting
    bandwidth by adding UDP encapsulation of packets.  Thus, UDP-
-   Encapsulation SHOULD NOT be used.
+   Encapsulation <em>SHOULD NOT</em> be used.
 
-   Also, the initiator SHOULD NOT include both normal tunnel or
+   Also, the initiator <em>SHOULD NOT</em> include both normal tunnel or
    transport mode and UDP-Encapsulated-Tunnel or UDP-Encapsulated-
    Transport in its proposals.
 
@@ -720,13 +720,13 @@ Table of Contents
                      NAT-OAi = Nat1Pub
                      NAT-OAr = Raddr
 
-   In the case of transport mode, both ends MUST send both original
+   In the case of transport mode, both ends <em>MUST</em> send both original
    Initiator and Responder addresses to the other end.  For tunnel mode,
-   both ends SHOULD NOT send original addresses to the other end.
+   both ends <em>SHOULD NOT</em> send original addresses to the other end.
 
    The NAT-OA payloads are sent inside the first and second packets of
-   Quick Mode.  The initiator MUST send the payloads if it proposes any
-   UDP-Encapsulated-Transport mode, and the responder MUST send the
+   Quick Mode.  The initiator <em>MUST</em> send the payloads if it proposes any
+   UDP-Encapsulated-Transport mode, and the responder <em>MUST</em> send the
    payload only if it selected UDP-Encapsulated-Transport mode.  It is
    possible that the initiator sends the NAT-OA payload but proposes
    both UDP-Encapsulated transport and tunnel mode.  Then the responder
@@ -779,11 +779,11 @@ Table of Contents
 
    The source IP and port address of the INITIAL-CONTACT notification
    for the host behind NAT are not meaningful (as NAT can change them),
-   so the IP and port numbers MUST NOT be used to determine which
+   so the IP and port numbers <em>MUST NOT</em> be used to determine which
    IKE/IPsec SAs to remove (see <a href="./rfc3715.html#section-2.1">[RFC3715], section&nbsp;2.1</a>, case c).  The ID
-   payload sent from the other end SHOULD be used instead; i.e., when an
+   payload sent from the other end <em>SHOULD</em> be used instead; i.e., when an
    INITIAL-CONTACT notification is received from the other end, the
-   receiving end SHOULD remove all the SAs associated with the same ID
+   receiving end <em>SHOULD</em> remove all the SAs associated with the same ID
    payload.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Recovering from the Expiring NAT Mappings</span>
@@ -791,9 +791,9 @@ Table of Contents
    There are cases where NAT box decides to remove mappings that are
    still alive (for example, when the keepalive interval is too long, or
    when the NAT box is rebooted).  To recover from this, ends that are
-   NOT behind NAT SHOULD use the last valid UDP encapsulated IKE or
+   NOT behind NAT <em>SHOULD</em> use the last valid UDP encapsulated IKE or
    IPsec packet from the other end to determine which IP and port
-   addresses should be used.  The host behind dynamic NAT MUST NOT do
+   addresses should be used.  The host behind dynamic NAT <em>MUST NOT</em> do
 
 
 
@@ -831,7 +831,7 @@ Table of Contents
       to authenticate to any other party and claim to be anybody in the
       group; e.g., a normal user could impersonate a vpn-gateway and act
       as a man in the middle, and read/modify all traffic to/from others
-      in the group.  Use of group-shared keys is NOT RECOMMENDED.
+      in the group.  Use of group-shared keys is NOT <em>RECOMMENDED</em>.
 
    o  As the internal address space is only 32 bits and is usually very
       sparse, it might be possible for the attacker to find out the
@@ -874,7 +874,7 @@ Table of Contents
       will update its IP address and port mapping and send further
       traffic to the wrong host or port.  This situation is fixed
       immediately when the attacker stops modifying the packets, as the
-      first real packet will fix the situation.  Implementations SHOULD
+      first real packet will fix the situation.  Implementations <em>SHOULD</em>
       AUDIT the event every time the mapping is changed, as it should
       not happen that often.
 

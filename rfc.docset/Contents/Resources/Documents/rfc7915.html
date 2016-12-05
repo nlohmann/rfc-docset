@@ -296,7 +296,7 @@ Table of Contents
 
    Readers of this document are expected to have read and understood the
    framework described in [<a href="./rfc6144.html" title="&quot;Framework for IPv4/IPv6 Translation&quot;">RFC6144</a>].  Implementations of this IPv4/IPv6
-   translation specification MUST support one or more address mapping
+   translation specification <em>MUST</em> support one or more address mapping
    algorithms, which are defined in <a href="#section-6">Section 6</a>.
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  IPv4-IPv6 Translation Model</span>
@@ -415,7 +415,7 @@ Table of Contents
    three mechanisms to handle this issue: path MTU discovery (PMTUD),
    fragmentation, and transport-layer negotiation such as the TCP
    Maximum Segment Size (MSS) option [<a href="./rfc6691.html" title="&quot;TCP Options and Maximum Segment Size (MSS)&quot;">RFC6691</a>].  Note that the
-   translator MUST behave as a router, i.e., the translator MUST send a
+   translator <em>MUST</em> behave as a router, i.e., the translator <em>MUST</em> send a
    Packet Too Big error message or fragment the packet when the packet
    size exceeds the MTU of the next-hop interface.
 
@@ -443,8 +443,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -503,7 +503,7 @@ Table of Contents
    the IPv4 packet is already fragmented.
 
    However, when the IPv4 sender does not set the DF bit, the translator
-   MUST ensure that the packet does not exceed the path MTU on the IPv6
+   <em>MUST</em> ensure that the packet does not exceed the path MTU on the IPv6
    side.  This is done by fragmenting the IPv4 packet (with Fragment
    Headers) so that it fits in 1280-byte IPv6 packets, since that is the
 
@@ -518,13 +518,13 @@ Table of Contents
    operational difficulties in practice due to limited firewall
    fragmentation support, etc.  In an environment where the network
    owned/operated by the same entity that owns/operates the translator,
-   the translator MUST provide a configuration function for the network
+   the translator <em>MUST</em> provide a configuration function for the network
    administrator to adjust the threshold of the minimum IPv6 MTU to a
    value that reflects the real value of the minimum IPv6 MTU in the
    network (greater than 1280 bytes).  This will help reduce the chance
    of including the Fragment Header in the packets.
 
-   When the IPv4 sender does not set the DF bit, the translator MUST NOT
+   When the IPv4 sender does not set the DF bit, the translator <em>MUST NOT</em>
    include the Fragment Header for the non-fragmented IPv6 packets.
 
    The rules in <a href="#section-4.1">Section 4.1</a> ensure that when packets are fragmented,
@@ -538,7 +538,7 @@ Table of Contents
    require special handling in order to translate the content of ICMPv4
    error messages and also to add the ICMPv6 pseudo-header checksum.
 
-   The translator SHOULD make sure that the packets belonging to the
+   The translator <em>SHOULD</em> make sure that the packets belonging to the
    same flow leave the translator in the same order in which they
    arrived.
 
@@ -547,13 +547,13 @@ Table of Contents
    If the DF flag is not set and the IPv4 packet will result in an IPv6
    packet larger than a user-defined length (hereinafter referred to as
    "lowest-ipv6-mtu", and which defaults to 1280 bytes), the packet
-   SHOULD be fragmented so that the resulting IPv6 packet (with Fragment
+   <em>SHOULD</em> be fragmented so that the resulting IPv6 packet (with Fragment
    Header added to each fragment) will be less than or equal to lowest-
    ipv6-mtu, For example, if the packet is fragmented prior to the
    translation, the IPv4 packets should be fragmented so that their
    length, excluding the IPv4 header, is at most 1232 bytes (1280 minus
    40 for the IPv6 header and 8 for the Fragment Header).  The
-   translator MUST provide a configuration function for the network
+   translator <em>MUST</em> provide a configuration function for the network
    administrator to adjust the threshold of the minimum IPv6 MTU to a
    value greater than 1280 bytes if the real value of the minimum IPv6
    MTU in the network is known to the administrator.  The resulting
@@ -572,7 +572,7 @@ Table of Contents
 
    If the DF bit is set and the MTU of the next-hop interface is less
    than the total length value of the IPv4 packet plus 20, the
-   translator MUST send an ICMPv4 "Fragmentation Needed" error message
+   translator <em>MUST</em> send an ICMPv4 "Fragmentation Needed" error message
    to the IPv4 source address.
 
    The IPv6 header fields are set as follows:
@@ -583,7 +583,7 @@ Table of Contents
       octet.  According to [<a href="./rfc2474.html" title="&quot;Definition of the Differentiated Services Field (DS Field) in the IPv4 and IPv6 Headers&quot;">RFC2474</a>], the semantics of the bits are
       identical in IPv4 and IPv6.  However, in some IPv4 environments
       these fields might be used with the old semantics of "Type Of
-      Service and Precedence".  An implementation of a translator SHOULD
+      Service and Precedence".  An implementation of a translator <em>SHOULD</em>
       support an administratively configurable option to ignore the IPv4
       TOS and always set the IPv6 traffic class (TC) to zero.  In
       addition, if the translator is at an administrative boundary, the
@@ -596,21 +596,21 @@ Table of Contents
       size of the IPv4 header and IPv4 options, if present.
 
    Next Header:  For ICMPv4 (1), it is changed to ICMPv6 (58);
-      otherwise, the protocol field MUST be copied from the IPv4 header.
+      otherwise, the protocol field <em>MUST</em> be copied from the IPv4 header.
 
    Hop Limit:  The hop limit is derived from the TTL value in the IPv4
       header.  Since the translator is a router, as part of forwarding
       the packet it needs to decrement either the IPv4 TTL (before the
       translation) or the IPv6 Hop Limit (after the translation).  As
       part of decrementing the TTL or Hop Limit, the translator (as any
-      router) MUST check for zero and send the ICMPv4 "TTL Exceeded" or
+      router) <em>MUST</em> check for zero and send the ICMPv4 "TTL Exceeded" or
       ICMPv6 "Hop Limit Exceeded" error.
 
    Source Address:  Mapped to an IPv6 address based on the algorithms
       presented in <a href="#section-6">Section 6</a>.
 
       If the translator gets an illegal source address (e.g., 0.0.0.0,
-      127.0.0.1, etc.), the translator SHOULD silently discard the
+      127.0.0.1, etc.), the translator <em>SHOULD</em> silently discard the
       packet (as discussed in <a href="./rfc1812.html#section-5.3.7">Section&nbsp;5.3.7 of [RFC1812]</a>).  Note when
       translating ICMPv4 Error Messages into ICMPv6, the "illegal"
       source address will be translated for the purpose of trouble
@@ -626,12 +626,12 @@ Table of Contents
 <span class="grey"><a href="./rfc7915.html">RFC 7915</a>                  IPv4/IPv6 Translation                June 2016</span>
 
 
-   If any IPv4 options are present in the IPv4 packet, they MUST be
+   If any IPv4 options are present in the IPv4 packet, they <em>MUST</em> be
    ignored and the packet translated normally; there is no attempt to
    translate the options.  However, if an unexpired source route option
-   is present, then the packet MUST instead be discarded, and an ICMPv4
+   is present, then the packet <em>MUST</em> instead be discarded, and an ICMPv4
    "Destination Unreachable, Source Route Failed" (Type 3, Code 5) error
-   message SHOULD be returned to the sender.
+   message <em>SHOULD</em> be returned to the sender.
 
    If there is a need to add a Fragment Header (the packet is a fragment
    or the DF bit is not set and the packet size is greater than the
@@ -650,7 +650,7 @@ Table of Contents
    Fragment Header fields:
 
       Next Header:  For ICMPv4 (1), it is changed to ICMPv6 (58);
-         otherwise, the protocol field MUST be copied from the IPv4
+         otherwise, the protocol field <em>MUST</em> be copied from the IPv4
          header.
 
       Fragment Offset:  Fragment Offset copied from the IPv4 header.
@@ -667,8 +667,8 @@ Table of Contents
    checksum field be calculated as part of the translation since ICMPv6,
    unlike ICMPv4, has a pseudo-header checksum just like UDP and TCP.
 
-   In addition, all ICMPv4 packets MUST have the Type translated and,
-   for ICMPv4 error messages, the included IP header also MUST be
+   In addition, all ICMPv4 packets <em>MUST</em> have the Type translated and,
+   for ICMPv4 error messages, the included IP header also <em>MUST</em> be
    translated.
 
 
@@ -712,11 +712,11 @@ Table of Contents
       IGMP messages:  While the Multicast Listener Discovery (MLD)
          messages specified in [<a href="./rfc2710.html" title="&quot;Multicast Listener Discovery (MLD) for IPv6&quot;">RFC2710</a>], [<a href="./rfc3590.html" title="&quot;Source Address Selection for the Multicast Listener Discovery (MLD) Protocol&quot;">RFC3590</a>], and [<a href="./rfc3810.html" title="&quot;Multicast Listener Discovery Version 2 (MLDv2) for IPv6&quot;">RFC3810</a>] are
          the logical IPv6 counterparts for the IPv4 IGMP messages, all
-         the "normal" IGMP messages are single-hop messages and SHOULD
+         the "normal" IGMP messages are single-hop messages and <em>SHOULD</em>
          be silently dropped by the translator.  Other IGMP messages
          might be used by multicast routing protocols and, since it
          would be a configuration error to try to have router
-         adjacencies across IP/ICMP translators, those packets SHOULD
+         adjacencies across IP/ICMP translators, those packets <em>SHOULD</em>
          also be silently dropped.
 
       ICMPv4 error messages:
@@ -747,8 +747,8 @@ Table of Contents
 
             Code 4 (Fragmentation Needed and DF was Set):  Translate to
                an ICMPv6 Packet Too Big message (Type 2) with Code set
-               to 0.  The MTU field MUST be adjusted for the difference
-               between the IPv4 and IPv6 header sizes, but MUST NOT be
+               to 0.  The MTU field <em>MUST</em> be adjusted for the difference
+               between the IPv4 and IPv6 header sizes, but <em>MUST NOT</em> be
                set to a value smaller than the minimum IPv6 MTU (1280
                bytes).  That is, it should be set to
 
@@ -759,7 +759,7 @@ Table of Contents
 
                Note that if the IPv4 router set the MTU field to zero,
                i.e., the router does not implement [<a href="./rfc1191.html" title="&quot;Path MTU discovery&quot;">RFC1191</a>], then the
-               translator MUST use the plateau values specified in
+               translator <em>MUST</em> use the plateau values specified in
                [<a href="./rfc1191.html" title="&quot;Path MTU discovery&quot;">RFC1191</a>] to determine a likely path MTU and include that
                path MTU in the ICMPv6 packet.  (Use the greatest plateau
                value that is less than the returned Total Length field,
@@ -871,11 +871,11 @@ Table of Contents
          ICMP Error Payload:  If the received ICMPv4 packet contains an
             ICMPv4 Extension [<a href="./rfc4884.html" title="&quot;Extended ICMP to Support Multi-Part Messages&quot;">RFC4884</a>], the translation of the ICMPv4
             packet will cause the ICMPv6 packet to change length.  When
-            this occurs, the ICMPv6 Extension length attribute MUST be
+            this occurs, the ICMPv6 Extension length attribute <em>MUST</em> be
             adjusted accordingly (e.g., longer due to the translation
             from IPv4 to IPv6).  If the ICMPv4 Extension exceeds the
             maximum size of an ICMPv6 message on the outgoing interface,
-            the ICMPv4 extension SHOULD be simply truncated.  For
+            the ICMPv4 extension <em>SHOULD</em> be simply truncated.  For
             extensions not defined in [<a href="./rfc4884.html" title="&quot;Extended ICMP to Support Multi-Part Messages&quot;">RFC4884</a>], the translator passes
             the extensions as opaque bit strings, and those containing
             IPv4 address literals will not have their included addresses
@@ -886,10 +886,10 @@ Table of Contents
 
    There are some differences between the ICMPv4 and the ICMPv6 error
    message formats as detailed above.  The ICMP error messages
-   containing the packet in error MUST be translated just like a normal
+   containing the packet in error <em>MUST</em> be translated just like a normal
    IP packet (except the TTL value of the inner IPv4/IPv6 packet).  If
    the translation of this "packet in error" changes the length of the
-   datagram, the Total Length field in the outer IPv6 header MUST be
+   datagram, the Total Length field in the outer IPv6 header <em>MUST</em> be
    updated.
 
 
@@ -925,19 +925,19 @@ Table of Contents
                Figure 4: IPv4-to-IPv6 ICMP Error Translation
 
    The translation of the inner IP header can be done by invoking the
-   function that translated the outer IP headers.  This process MUST
+   function that translated the outer IP headers.  This process <em>MUST</em>
    stop at the first embedded header and drop the packet if it contains
    more embedded headers.
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Generation of ICMPv4 Error Message</span>
 
-   If the IPv4 packet is discarded, then the translator SHOULD be able
+   If the IPv4 packet is discarded, then the translator <em>SHOULD</em> be able
    to send back an ICMPv4 error message to the original sender of the
    packet, unless the discarded packet is itself an ICMPv4 error
    message.  The ICMPv4 message, if sent, has a Type of 3 (Destination
    Unreachable) and a Code of 13 (Communication Administratively
    Prohibited), unless otherwise specified in this document or in
-   [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>].  The translator SHOULD allow an administrator to configure
+   [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>].  The translator <em>SHOULD</em> allow an administrator to configure
    whether the ICMPv4 error messages are sent, rate-limited, or not
    sent.
 
@@ -946,12 +946,12 @@ Table of Contents
    If the address translation algorithm is not checksum neutral (see
    <a href="./rfc6052.html#section-4.1">Section&nbsp;4.1 of [RFC6052]</a>), the recalculation and updating of the
    transport-layer headers that contain pseudo-headers need to be
-   performed.  Translators MUST do this for TCP and ICMP packets and for
+   performed.  Translators <em>MUST</em> do this for TCP and ICMP packets and for
    UDP packets that contain a UDP checksum (i.e., the UDP checksum field
    is not zero).
 
    For UDP packets that do not contain a UDP checksum (i.e., the UDP
-   checksum field is zero), the translator SHOULD provide a
+   checksum field is zero), the translator <em>SHOULD</em> provide a
    configuration function to allow:
 
 
@@ -972,7 +972,7 @@ Table of Contents
        A stateless translator cannot compute the UDP checksum of
        fragmented packets, so when a stateless translator receives the
        first fragment of a fragmented UDP IPv4 packet and the checksum
-       field is zero, the translator SHOULD drop the packet and generate
+       field is zero, the translator <em>SHOULD</em> drop the packet and generate
        a system management event that specifies at least the IP
        addresses and port numbers in the packet.
 
@@ -981,18 +981,18 @@ Table of Contents
        Section&nbsp;3.4</a>.
 
    Other transport protocols (e.g., the Datagram Congestion Control
-   Protocol (DCCP)) are OPTIONAL to support.  In order to ease debugging
-   and troubleshooting, translators MUST forward all transport protocols
+   Protocol (DCCP)) are <em>OPTIONAL</em> to support.  In order to ease debugging
+   and troubleshooting, translators <em>MUST</em> forward all transport protocols
    as described in the "Next Header" step of <a href="#section-4.1">Section 4.1</a>.
 
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>.  Knowing When to Translate</span>
 
    If the IP/ICMP translator also provides a normal forwarding function,
    and the destination IPv4 address is reachable by a more specific
-   route without translation, the translator MUST forward it without
+   route without translation, the translator <em>MUST</em> forward it without
    translating it.  Otherwise, when an IP/ICMP translator receives an
    IPv4 datagram addressed to an IPv4 destination representing a host in
-   the IPv6 domain, the packet MUST be translated to IPv6.
+   the IPv6 domain, the packet <em>MUST</em> be translated to IPv6.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Translating from IPv6 to IPv4</span>
 
@@ -1002,9 +1002,9 @@ Table of Contents
    header on the packet is removed and replaced by an IPv4 header.
    Since the ICMPv6 [<a href="./rfc4443.html" title="&quot;Internet Control Message Protocol (ICMPv6) for the Internet Protocol Version 6 (IPv6) Specification&quot;">RFC4443</a>], TCP [<a href="./rfc793.html" title="&quot;Transmission Control Protocol&quot;">RFC793</a>], UDP [<a href="./rfc768.html" title="&quot;User Datagram Protocol&quot;">RFC768</a>], and DCCP
    [<a href="./rfc4340.html" title="&quot;Datagram Congestion Control Protocol (DCCP)&quot;">RFC4340</a>] headers contain checksums that cover the IP header, if the
-   address mapping algorithm is not checksum neutral, the checksum MUST
+   address mapping algorithm is not checksum neutral, the checksum <em>MUST</em>
    be evaluated before translation and the ICMP and transport-layer
-   headers MUST be updated.  The data portion of the packet is left
+   headers <em>MUST</em> be updated.  The data portion of the packet is left
    unchanged.  The IP/ICMP translator then forwards the packet based on
    the IPv4 destination address.
 
@@ -1054,8 +1054,8 @@ Table of Contents
       than the minimum IPv6 link MTU of 1280.  See <a href="#section-4.2">Section 4.2</a>.
 
    o  When the resulting IPv4 packet is smaller than or equal to 1260
-      bytes, the translator MUST send the packet with a cleared Don't
-      Fragment bit.  Otherwise, the packet MUST be sent with the Don't
+      bytes, the translator <em>MUST</em> send the packet with a cleared Don't
+      Fragment bit.  Otherwise, the packet <em>MUST</em> be sent with the Don't
       Fragment bit set.  See <a href="#section-5.1">Section 5.1</a>.
 
    This approach allows Path MTU Discovery to operate end-to-end for
@@ -1080,7 +1080,7 @@ Table of Contents
    require special handling in order to translate the contents of ICMPv6
    error messages and also to remove the ICMPv6 pseudo-header checksum.
 
-   The translator SHOULD make sure that the packets belonging to the
+   The translator <em>SHOULD</em> make sure that the packets belonging to the
    same flow leave the translator in the same order in which they
    arrived.
 
@@ -1098,7 +1098,7 @@ Table of Contents
       of the bits are identical in IPv4 and IPv6.  However, in some IPv4
       environments, these bits might be used with the old semantics of
       "Type Of Service and Precedence".  An implementation of a
-      translator SHOULD provide the ability to ignore the IPv6 traffic
+      translator <em>SHOULD</em> provide the ability to ignore the IPv6 traffic
       class and always set the IPv4 TOS Octet to a specified value.  In
       addition, if the translator is at an administrative boundary, the
       filtering and update considerations of [<a href="./rfc2475.html" title="&quot;An Architecture for Differentiated Services&quot;">RFC2475</a>] may be
@@ -1131,7 +1131,7 @@ Table of Contents
 
 
       translation).  As part of decrementing the TTL or Hop Limit, the
-      translator (as any router) MUST check for zero and send the ICMPv4
+      translator (as any router) <em>MUST</em> check for zero and send the ICMPv4
       "TTL Exceeded" or ICMPv6 "Hop Limit Exceeded" error.
 
    Protocol:  The IPv6-Frag (44) header is handled as discussed in
@@ -1159,24 +1159,24 @@ Table of Contents
       presented in <a href="#section-6">Section 6</a>.
 
       If the translator gets an illegal source address (e.g., ::1,
-      etc.), the translator SHOULD silently drop the packet.
+      etc.), the translator <em>SHOULD</em> silently drop the packet.
 
    Destination Address:  Mapped to an IPv4 address based on the
       algorithms presented in <a href="#section-6">Section 6</a>.
 
    If any of an IPv6 Hop-by-Hop Options header, Destination Options
    header, or Routing header with the Segments Left field equal to zero
-   are present in the IPv6 packet, those IPv6 extension headers MUST be
+   are present in the IPv6 packet, those IPv6 extension headers <em>MUST</em> be
    ignored (i.e., there is no attempt to translate the extension
    headers) and the packet translated normally.  However, the Total
    Length field and the Protocol field are adjusted to "skip" these
    extension headers.
 
    If a Routing header with a non-zero Segments Left field is present,
-   then the packet MUST NOT be translated, and an ICMPv6 "parameter
+   then the packet <em>MUST NOT</em> be translated, and an ICMPv6 "parameter
    problem/erroneous header field encountered" (Type 4, Code 0) error
    message, with the Pointer field indicating the first byte of the
-   Segments Left field, SHOULD be returned to the sender.
+   Segments Left field, <em>SHOULD</em> be returned to the sender.
 
 
 
@@ -1193,8 +1193,8 @@ Table of Contents
 
    Total Length:  If the Next Header field of the Fragment Header is an
       extension header (except ESP, but including the Authentication
-      Header (AH)), then the packet SHOULD be dropped and logged.  For
-      other cases, the Total Length MUST be set to Payload Length value
+      Header (AH)), then the packet <em>SHOULD</em> be dropped and logged.  For
+      other cases, the Total Length <em>MUST</em> be set to Payload Length value
       from IPv6 header, minus the length of the extension headers up to
       the Fragmentation Header, minus 8 for the Fragment Header, plus
       the size of the IPv4 header.
@@ -1208,10 +1208,10 @@ Table of Contents
       fragmented by IPv4 routers.
 
    Fragment Offset:  If the Next Header field of the Fragment Header is
-      not an extension header (except ESP), then Fragment Offset MUST be
+      not an extension header (except ESP), then Fragment Offset <em>MUST</em> be
       copied from the Fragment Offset field of the IPv6 Fragment Header.
       If the Next Header field of the Fragment Header is an extension
-      header (except ESP), then the packet SHOULD be dropped and logged.
+      header (except ESP), then the packet <em>SHOULD</em> be dropped and logged.
 
    Protocol:  For ICMPv6 (58), it is changed to ICMPv4 (1); otherwise,
       extension headers are skipped, and the Next Header field is copied
@@ -1219,19 +1219,19 @@ Table of Contents
 
    If an IPv6 packet that is smaller than or equal to 1280 bytes results
    (after translation) in an IPv4 packet that is larger than the MTU of
-   the next-hop interface, then the translator MUST perform IPv4
+   the next-hop interface, then the translator <em>MUST</em> perform IPv4
    fragmentation on that packet such that it can be transferred over the
    constricting link.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Translating ICMPv6 Headers into ICMPv4 Headers</span>
 
    If a non-checksum-neutral translation address is being used, ICMPv6
-   messages MUST have their ICMPv4 checksum field be updated as part of
+   messages <em>MUST</em> have their ICMPv4 checksum field be updated as part of
    the translation since ICMPv6 (unlike ICMPv4) includes a pseudo-header
    in the checksum just like UDP and TCP.
 
-   In addition, all ICMP packets MUST have the Type translated and, for
-   ICMP error messages, the included IP header MUST also be translated.
+   In addition, all ICMP packets <em>MUST</em> have the Type translated and, for
+   ICMP error messages, the included IP header <em>MUST</em> also be translated.
 
 
 
@@ -1301,7 +1301,7 @@ Table of Contents
       Packet Too Big (Type 2):  Translate to an ICMPv4 Destination
          Unreachable (Type 3) with Code 4, and adjust the ICMPv4
          checksum both to take the type change into account and to
-         exclude the ICMPv6 pseudo-header.  The MTU field MUST be
+         exclude the ICMPv6 pseudo-header.  The MTU field <em>MUST</em> be
          adjusted for the difference between the IPv4 and IPv6 header
          sizes, taking into account whether or not the packet in error
          includes a Fragment Header, i.e., minimum((MTU value in the
@@ -1372,7 +1372,7 @@ Table of Contents
       ICMP Error Payload:  If the received ICMPv6 packet contains an
          ICMPv6 Extension [<a href="./rfc4884.html" title="&quot;Extended ICMP to Support Multi-Part Messages&quot;">RFC4884</a>], the translation of the ICMPv6
          packet will cause the ICMPv4 packet to change length.  When
-         this occurs, the ICMPv6 Extension length attribute MUST be
+         this occurs, the ICMPv6 Extension length attribute <em>MUST</em> be
          adjusted accordingly (e.g., shorter due to the translation from
          IPv6 to IPv4).  For extensions not defined in [<a href="./rfc4884.html" title="&quot;Extended ICMP to Support Multi-Part Messages&quot;">RFC4884</a>], the
          translator passes the extensions as opaque bit strings and any
@@ -1384,11 +1384,11 @@ Table of Contents
 
    There are some differences between the ICMPv4 and the ICMPv6 error
    message formats as detailed above.  The ICMP error messages
-   containing the packet in error MUST be translated just like a normal
+   containing the packet in error <em>MUST</em> be translated just like a normal
    IP packet (except that the TTL/Hop Limit value of the inner IPv4/IPv6
    packet are not decremented).  The translation of this "packet in
    error" is likely to change the length of the datagram; thus, the
-   Total Length field in the outer IPv4 header MUST be updated.
+   Total Length field in the outer IPv4 header <em>MUST</em> be updated.
 
 
 
@@ -1429,20 +1429,20 @@ Table of Contents
                Figure 7: IPv6-to-IPv4 ICMP Error Translation
 
    The translation of the inner IP header can be done by invoking the
-   function that translated the outer IP headers.  This process MUST
+   function that translated the outer IP headers.  This process <em>MUST</em>
    stop at the first embedded header and drop the packet if it contains
    more embedded headers.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Generation of ICMPv6 Error Messages</span>
 
-   If the IPv6 packet is discarded, then the translator SHOULD send back
+   If the IPv6 packet is discarded, then the translator <em>SHOULD</em> send back
    an ICMPv6 error message to the original sender of the packet, unless
    the discarded packet is itself an ICMPv6 message.
 
-   The ICMPv6 message MUST have Type 1 (Destination Unreachable) and
+   The ICMPv6 message <em>MUST</em> have Type 1 (Destination Unreachable) and
    Code 1 (Communication with destination administratively prohibited),
    unless otherwise specified in this document or [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>].  The
-   translator SHOULD allow an administrator to configure whether the
+   translator <em>SHOULD</em> allow an administrator to configure whether the
    ICMPv6 error messages are sent, rate-limited, or not sent.
 
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  Transport-Layer Header Translation</span>
@@ -1450,10 +1450,10 @@ Table of Contents
    If the address translation algorithm is not checksum neutral (see
    <a href="./rfc6052.html#section-4.1">Section&nbsp;4.1 of [RFC6052]</a>), the recalculation and updating of the
    transport-layer headers that contain pseudo-headers need to be
-   performed.  Translators MUST do this for TCP, UDP, and ICMP.
+   performed.  Translators <em>MUST</em> do this for TCP, UDP, and ICMP.
 
-   Other transport protocols (e.g., DCCP) are OPTIONAL to support.  In
-   order to ease debugging and troubleshooting, translators MUST forward
+   Other transport protocols (e.g., DCCP) are <em>OPTIONAL</em> to support.  In
+   order to ease debugging and troubleshooting, translators <em>MUST</em> forward
    all transport protocols as described in the "Protocol" step of
    <a href="#section-5.1">Section 5.1</a>.
 
@@ -1470,14 +1470,14 @@ Table of Contents
 
    If the IP/ICMP translator also provides a normal forwarding function,
    and the destination address is reachable by a more specific route
-   without translation, the router MUST forward it without translating
+   without translation, the router <em>MUST</em> forward it without translating
    it.  When an IP/ICMP translator receives an IPv6 datagram addressed
    to an IPv6 address representing a host in the IPv4 domain, the IPv6
-   packet MUST be translated to IPv4.
+   packet <em>MUST</em> be translated to IPv4.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Mapping of IP Addresses</span>
 
-   The translator MUST support the stateless address mapping algorithm
+   The translator <em>MUST</em> support the stateless address mapping algorithm
    defined in [<a href="./rfc6052.html" title="&quot;IPv6 Addressing of IPv4/IPv6 Translators&quot;">RFC6052</a>], which is the default behavior.  A workflow
    example is shown in <a href="#appendix-A">Appendix A</a> of this document.  Note that [<a href="./rfc7136.html" title="&quot;Significance of IPv6 Interface Identifiers&quot;">RFC7136</a>]
    updates [<a href="./rfc4291.html" title="&quot;IP Version 6 Addressing Architecture&quot;">RFC4291</a>], which allows the use of unicast addresses without
@@ -1485,10 +1485,10 @@ Table of Contents
    Therefore, the address mapping algorithm defined in [<a href="./rfc6219.html" title="&quot;The China Education and Research Network (CERNET) IVI Translation Design and Deployment for the IPv4/IPv6 Coexistence and Transition&quot;">RFC6219</a>] also
    complies with the IPv6 address architecture.
 
-   The stateless translator SHOULD support the explicit address mapping
+   The stateless translator <em>SHOULD</em> support the explicit address mapping
    algorithm defined in [<a href="./rfc7757.html" title="&quot;Explicit Address Mappings for Stateless IP/ICMP Translation&quot;">RFC7757</a>].
 
-   The stateless translator SHOULD support [<a href="./rfc6791.html" title="&quot;Stateless Source Address Mapping for ICMPv6 Packets&quot;">RFC6791</a>] for handling ICMP/
+   The stateless translator <em>SHOULD</em> support [<a href="./rfc6791.html" title="&quot;Stateless Source Address Mapping for ICMPv6 Packets&quot;">RFC6791</a>] for handling ICMP/
    ICMPv6 packets.
 
    Implementations may support both stateless and stateful translation

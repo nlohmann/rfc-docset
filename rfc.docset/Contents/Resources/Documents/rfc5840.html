@@ -395,8 +395,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Applicability Statement</span>
@@ -443,7 +443,7 @@ Table of Contents
 
    Wrapped ESP (WESP) encapsulation uses protocol number 141.
    Accordingly, the (outer) protocol header (IPv4, IPv6, or Extension)
-   that immediately precedes the WESP header SHALL contain the value
+   that immediately precedes the WESP header <em>SHALL</em> contain the value
    (141) in its Protocol (IPv4) or Next Header (IPv6, Extension) field.
    WESP provides additional attributes in each packet to assist in
    differentiating between encrypted and non-encrypted data, and to aid
@@ -499,29 +499,29 @@ Table of Contents
 
    Where:
 
-   Next Header, 8 bits: This field MUST be the same as the Next Header
+   Next Header, 8 bits: This field <em>MUST</em> be the same as the Next Header
    field in the ESP trailer when using ESP in the Integrity-only mode.
    When using ESP with encryption, the "Next Header" field looses this
-   name and semantics and becomes an empty field that MUST be
-   initialized to all zeros.  The receiver MUST do some sanity checks
-   before the WESP packet is accepted.  The receiver MUST ensure that
+   name and semantics and becomes an empty field that <em>MUST</em> be
+   initialized to all zeros.  The receiver <em>MUST</em> do some sanity checks
+   before the WESP packet is accepted.  The receiver <em>MUST</em> ensure that
    the Next Header field in the WESP header and the Next Header field in
    the ESP trailer match when using ESP in the Integrity-only mode.  The
-   packet MUST be dropped if the two do not match.  Similarly, the
-   receiver MUST ensure that the Next Header field in the WESP header is
+   packet <em>MUST</em> be dropped if the two do not match.  Similarly, the
+   receiver <em>MUST</em> ensure that the Next Header field in the WESP header is
    an empty field initialized to zero if using WESP with encryption.
    The WESP flags dictate if the packet is encrypted.
 
    HdrLen, 8 bits: Offset from the beginning of the WESP header to the
    beginning of the Rest of Payload Data (i.e., past the IV, if present
    and any other WESP options defined in the future) within the
-   encapsulated ESP header, in octets.  HdrLen MUST be set to zero when
+   encapsulated ESP header, in octets.  HdrLen <em>MUST</em> be set to zero when
    using ESP with encryption.  When using integrity-only ESP, the
    following HdrLen values are invalid: any value less than 12; any
    value that is not a multiple of 4; any value that is not a multiple
-   of 8 when using IPv6.  The receiver MUST ensure that this field
+   of 8 when using IPv6.  The receiver <em>MUST</em> ensure that this field
    matches with the header offset computed from using the negotiated
-   Security Association (SA) and MUST drop the packet in case it does
+   Security Association (SA) and <em>MUST</em> drop the packet in case it does
    not match.
 
 
@@ -536,8 +536,8 @@ Table of Contents
 
    TrailerLen, 8 bits: TrailerLen contains the size of the Integrity
    Check Value (ICV) being used by the negotiated algorithms within the
-   IPsec SA, in octets.  TrailerLen MUST be set to zero when using ESP
-   with encryption.  The receiver MUST only accept the packet if this
+   IPsec SA, in octets.  TrailerLen <em>MUST</em> be set to zero when using ESP
+   with encryption.  The receiver <em>MUST</em> only accept the packet if this
    field matches with the value computed from using the negotiated SA.
    This ensures that sender is not deliberately setting this value to
    obfuscate a part of the payload from examination by a trusted
@@ -553,9 +553,9 @@ Table of Contents
 
       Figure 3: Flags Format
 
-   Version (V), 2 bits: MUST be sent as 0 and checked by the receiver.
+   Version (V), 2 bits: <em>MUST</em> be sent as 0 and checked by the receiver.
    If the version is different than an expected version number (e.g.,
-   negotiated via the control channel), then the packet MUST be dropped
+   negotiated via the control channel), then the packet <em>MUST</em> be dropped
    by the receiver.  Future modifications to the WESP header require a
    new version number.  In particular, the version of WESP defined in
    this document does not allow for any extensions.  However, old
@@ -571,16 +571,16 @@ Table of Contents
    encryption.  If this bit is set to 0, then the payload is using
    integrity-only ESP.  Setting or clearing this bit also impacts the
    value in the WESP Next Header field, as described above.  The
-   recipient MUST ensure consistency of this flag with the negotiated
-   policy and MUST drop the incoming packet otherwise.
+   recipient <em>MUST</em> ensure consistency of this flag with the negotiated
+   policy and <em>MUST</em> drop the incoming packet otherwise.
 
    Padding header (P), 1 bit: If set (value 1), the 4-octet padding is
    present.  If not set (value 0), the 4-octet padding is absent.  This
-   padding MUST be used with IPv6 in order to preserve IPv6 8-octet
+   padding <em>MUST</em> be used with IPv6 in order to preserve IPv6 8-octet
    alignment.  If WESP is being used with UDP encapsulation (see <a href="#section-2.1">Section</a>
    <a href="#section-2.1">2.1</a> below) and IPv6, the Protocol Identifier (0x00000002) occupies 4
    octets so the IPv6 padding is not needed, as the header is already on
-   an 8-octet boundary.  This padding MUST NOT be used with IPv4, as it
+   an 8-octet boundary.  This padding <em>MUST NOT</em> be used with IPv4, as it
    is not needed to guarantee 4-octet IPv4 alignment.
 
 
@@ -590,9 +590,9 @@ Table of Contents
 <span class="grey"><a href="./rfc5840.html">RFC 5840</a>               WESP for Traffic Visibility            April 2010</span>
 
 
-   Rsvd, 4 bits: Reserved for future use.  The reserved bits MUST be
+   Rsvd, 4 bits: Reserved for future use.  The reserved bits <em>MUST</em> be
    sent as 0, and ignored by the receiver.  Future documents defining
-   any of these bits MUST NOT affect the distinction between encrypted
+   any of these bits <em>MUST NOT</em> affect the distinction between encrypted
    and unencrypted packets or the semantics of HdrLen.  In other words,
    even if new bits are defined, old implementations will be able to
    find the encapsulated packet correctly.  Intermediate nodes dealing
@@ -814,15 +814,15 @@ Table of Contents
 <span class="grey"><a href="./rfc5840.html">RFC 5840</a>               WESP for Traffic Visibility            April 2010</span>
 
 
-   The notification, USE_WESP_MODE (value 16415) MUST be included in a
+   The notification, USE_WESP_MODE (value 16415) <em>MUST</em> be included in a
    request message that also includes an SA payload requesting a
    CHILD_SA using ESP.  It signals that the sender supports the WESP
    version defined in the current document and requests that the
    CHILD_SA use WESP mode rather than ESP for the SA created.  If the
-   request is accepted, the response MUST also include a notification of
+   request is accepted, the response <em>MUST</em> also include a notification of
    type USE_WESP_MODE.  If the responder declines the request, the
    CHILD_SA will be established using ESP, as per <a href="./rfc4303.html">RFC 4303</a>.  If this is
-   unacceptable to the initiator, the initiator MUST delete the SA.
+   unacceptable to the initiator, the initiator <em>MUST</em> delete the SA.
 
    Note: Except when using this option to negotiate WESP mode, all
    CHILD_SAs will use standard ESP.
@@ -835,7 +835,7 @@ Table of Contents
 
    WESP version negotiation is not introduced as part of this
    specification.  If the WESP version is updated in a future
-   specification, then that document MUST specify how the WESP version
+   specification, then that document <em>MUST</em> specify how the WESP version
    is negotiated.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Security Considerations</span>

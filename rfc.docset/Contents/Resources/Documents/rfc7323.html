@@ -570,8 +570,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    In this document, these words will appear with that interpretation
@@ -613,11 +613,11 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Window Scale Option</span>
 
-   The three-byte Window Scale option MAY be sent in a &lt;SYN&gt; segment by
+   The three-byte Window Scale option <em>MAY</em> be sent in a &lt;SYN&gt; segment by
    a TCP.  It has two purposes: (1) indicate that the TCP is prepared to
    both send and receive window scaling, and (2) communicate the
    exponent of a scale factor to be applied to its receive window.
-   Thus, a TCP that is prepared to scale windows SHOULD send the option,
+   Thus, a TCP that is prepared to scale windows <em>SHOULD</em> send the option,
    even if its own scale factor is 1 and the exponent 0.  The scale
    factor is limited to a power of two and encoded logarithmically, so
    it may be implemented by binary shift operations.  The maximum scale
@@ -635,7 +635,7 @@ Table of Contents
           +---------+---------+---------+
                1         1         1
 
-   This option is an offer, not a promise; both sides MUST send Window
+   This option is an offer, not a promise; both sides <em>MUST</em> send Window
    Scale options in their &lt;SYN&gt; segments to enable window scaling in
    either direction.  If window scaling is enabled, then the TCP that
    sent this option will right-shift its true receive-window values by
@@ -648,17 +648,17 @@ Table of Contents
 <span class="grey"><a href="./rfc7323.html">RFC 7323</a>           TCP Extensions for High Performance    September 2014</span>
 
 
-   MAY be zero (offering to scale, while applying a scale factor of 1 to
+   <em>MAY</em> be zero (offering to scale, while applying a scale factor of 1 to
    the receive window).
 
-   This option MAY be sent in an initial &lt;SYN&gt; segment (i.e., a segment
+   This option <em>MAY</em> be sent in an initial &lt;SYN&gt; segment (i.e., a segment
    with the SYN bit on and the ACK bit off).  If a Window Scale option
-   was received in the initial &lt;SYN&gt; segment, then this option MAY be
+   was received in the initial &lt;SYN&gt; segment, then this option <em>MAY</em> be
    sent in the &lt;SYN,ACK&gt; segment.  A Window Scale option in a segment
-   without a SYN bit MUST be ignored.
+   without a SYN bit <em>MUST</em> be ignored.
 
    The window field in a segment where the SYN bit is set (i.e., a &lt;SYN&gt;
-   or &lt;SYN,ACK&gt;) MUST NOT be scaled.
+   or &lt;SYN,ACK&gt;) <em>MUST NOT</em> be scaled.
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Using the Window Scale Option</span>
 
@@ -670,20 +670,20 @@ Table of Contents
       and outgoing window fields, respectively.
 
    o  If a TCP receives a &lt;SYN&gt; segment containing a Window Scale
-      option, it SHOULD send its own Window Scale option in the
+      option, it <em>SHOULD</em> send its own Window Scale option in the
       &lt;SYN,ACK&gt; segment.
 
-   o  The Window Scale option MUST be sent with shift.cnt = R, where R
+   o  The Window Scale option <em>MUST</em> be sent with shift.cnt = R, where R
       is the value that the TCP would like to use for its receive
       window.
 
    o  Upon receiving a &lt;SYN&gt; segment with a Window Scale option
-      containing shift.cnt = S, a TCP MUST set Snd.Wind.Shift to S and
-      MUST set Rcv.Wind.Shift to R; otherwise, it MUST set both
+      containing shift.cnt = S, a TCP <em>MUST</em> set Snd.Wind.Shift to S and
+      <em>MUST</em> set Rcv.Wind.Shift to R; otherwise, it <em>MUST</em> set both
       Snd.Wind.Shift and Rcv.Wind.Shift to zero.
 
    o  The window field (SEG.WND) in the header of every incoming
-      segment, with the exception of &lt;SYN&gt; segments, MUST be left-
+      segment, with the exception of &lt;SYN&gt; segments, <em>MUST</em> be left-
       shifted by Snd.Wind.Shift bits before updating SND.WND:
 
                     SND.WND = SEG.WND &lt;&lt; Snd.Wind.Shift
@@ -692,7 +692,7 @@ Table of Contents
       "C" notation "&lt;&lt;" for left-shift).
 
    o  The window field (SEG.WND) of every outgoing segment, with the
-      exception of &lt;SYN&gt; segments, MUST be right-shifted by
+      exception of &lt;SYN&gt; segments, <em>MUST</em> be right-shifted by
       Rcv.Wind.Shift bits:
 
                     SEG.WND = RCV.WND &gt;&gt; Rcv.Wind.Shift
@@ -721,9 +721,9 @@ Table of Contents
    Since the max window is 2^S (where S is the scaling shift count)
    times at most 2^16 - 1 (the maximum unscaled window), the maximum
    window is guaranteed to be &lt; 2^30 if S &lt;= 14.  Thus, the shift count
-   MUST be limited to 14 (which allows windows of 2^30 = 1 GiB).  If a
+   <em>MUST</em> be limited to 14 (which allows windows of 2^30 = 1 GiB).  If a
    Window Scale option is received with a shift.cnt value larger than
-   14, the TCP SHOULD log the error but MUST use 14 instead of the
+   14, the TCP <em>SHOULD</em> log the error but <em>MUST</em> use 14 instead of the
    specified value.  This is safe as a sender can always choose to only
    partially use any signaled receive window.  If the receiver is
    scaling by a factor larger than 14 and the sender is only scaling by
@@ -747,7 +747,7 @@ Table of Contents
    the TCP will have to either advertise a new window that is beyond
    what it previously advertised (and perhaps beyond the buffer) or will
    have to advertise a smaller window, which will cause the TCP window
-   to shrink.  Implementations MUST ensure that they handle a shrinking
+   to shrink.  Implementations <em>MUST</em> ensure that they handle a shrinking
    window, as specified in <a href="./rfc1122.html#section-4.2.2.16">Section&nbsp;4.2.2.16 of [RFC1122]</a>.
 
 
@@ -762,10 +762,10 @@ Table of Contents
 
    For the receiver, this implies that:
 
-   1)  The receiver MUST honor, as in window, any segment that would
+   1)  The receiver <em>MUST</em> honor, as in window, any segment that would
        have been in window for any &lt;ACK&gt; sent by the receiver.
 
-   2)  When window scaling is in effect, the receiver SHOULD track the
+   2)  When window scaling is in effect, the receiver <em>SHOULD</em> track the
        actual maximum window sequence number (which is likely to be
        greater than the window announced by the most recent &lt;ACK&gt;, if
        more than one segment has arrived since the application consumed
@@ -773,7 +773,7 @@ Table of Contents
 
    On the sender side:
 
-   3)  The initial transmission MUST be within the window announced by
+   3)  The initial transmission <em>MUST</em> be within the window announced by
        the most recent &lt;ACK&gt;.
 
    4)  On first retransmission, or if the sequence number is out of
@@ -781,7 +781,7 @@ Table of Contents
        retransmission(s) without regard to the receiver window as long
        as the original segment was in window when it was sent.
 
-   5)  Subsequent retransmissions MAY only be sent if they are within
+   5)  Subsequent retransmissions <em>MAY</em> only be sent if they are within
        the window announced by the most recent &lt;ACK&gt;.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  TCP Timestamps Option</span>
@@ -847,22 +847,22 @@ Table of Contents
 
    The TSecr field is valid if the ACK bit is set in the TCP header.  If
    the ACK bit is not set in the outgoing TCP header, the sender of that
-   segment SHOULD set the TSecr field to zero.  When the ACK bit is set
-   in an outgoing segment, the sender MUST echo a recently received
+   segment <em>SHOULD</em> set the TSecr field to zero.  When the ACK bit is set
+   in an outgoing segment, the sender <em>MUST</em> echo a recently received
    TSval sent by the remote TCP in the TSval field of a Timestamps
-   option.  The exact rules on which TSval MUST be echoed are given in
-   <a href="#section-4.3">Section 4.3</a>.  When the ACK bit is not set, the receiver MUST ignore
+   option.  The exact rules on which TSval <em>MUST</em> be echoed are given in
+   <a href="#section-4.3">Section 4.3</a>.  When the ACK bit is not set, the receiver <em>MUST</em> ignore
    the value of the TSecr field.
 
-   A TCP MAY send the TSopt in an initial &lt;SYN&gt; segment (i.e., segment
-   containing a SYN bit and no ACK bit), and MAY send a TSopt in
+   A TCP <em>MAY</em> send the TSopt in an initial &lt;SYN&gt; segment (i.e., segment
+   containing a SYN bit and no ACK bit), and <em>MAY</em> send a TSopt in
    &lt;SYN,ACK&gt; only if it received a TSopt in the initial &lt;SYN&gt; segment
    for the connection.
 
    Once TSopt has been successfully negotiated, that is both &lt;SYN&gt; and
-   &lt;SYN,ACK&gt; contain TSopt, the TSopt MUST be sent in every non-&lt;RST&gt;
-   segment for the duration of the connection, and SHOULD be sent in an
-   &lt;RST&gt; segment (see <a href="#section-5.2">Section 5.2</a> for details).  The TCP SHOULD remember
+   &lt;SYN,ACK&gt; contain TSopt, the TSopt <em>MUST</em> be sent in every non-&lt;RST&gt;
+   segment for the duration of the connection, and <em>SHOULD</em> be sent in an
+   &lt;RST&gt; segment (see <a href="#section-5.2">Section 5.2</a> for details).  The TCP <em>SHOULD</em> remember
    this state by setting a flag, referred to as Snd.TS.OK, to one.  If a
 
 
@@ -872,8 +872,8 @@ Table of Contents
 <span class="grey"><a href="./rfc7323.html">RFC 7323</a>           TCP Extensions for High Performance    September 2014</span>
 
 
-   non-&lt;RST&gt; segment is received without a TSopt, a TCP SHOULD silently
-   drop the segment.  A TCP MUST NOT abort a TCP connection because any
+   non-&lt;RST&gt; segment is received without a TSopt, a TCP <em>SHOULD</em> silently
+   drop the segment.  A TCP <em>MUST NOT</em> abort a TCP connection because any
    segment lacks an expected TSopt.
 
    Implementations are strongly encouraged to follow the above rules for
@@ -899,11 +899,11 @@ Table of Contents
    workaround and allow TCP to run across such paths [<a href="#ref-RE-1323BIS">RE-1323BIS</a>].
 
    If a TSopt is received on a connection where TSopt was not negotiated
-   in the initial three-way handshake, the TSopt MUST be ignored and the
+   in the initial three-way handshake, the TSopt <em>MUST</em> be ignored and the
    packet processed normally.
 
    In the case of crossing &lt;SYN&gt; segments where one &lt;SYN&gt; contains a
-   TSopt and the other doesn't, both sides MAY send a TSopt in the
+   TSopt and the other doesn't, both sides <em>MAY</em> send a TSopt in the
    &lt;SYN,ACK&gt; segment.
 
    TSopt is required for the two mechanisms described in Sections <a href="#section-4">4</a> and
@@ -936,7 +936,7 @@ Table of Contents
    (RTT) of virtually every packet acknowledged.  The RTTM mechanism
    requires a Timestamps option in every measured segment, with a TSval
    that is obtained from a (virtual) "timestamp clock".  Values of this
-   clock MUST be at least approximately proportional to real time, in
+   clock <em>MUST</em> be at least approximately proportional to real time, in
    order to measure actual RTT.
 
    TCP measures the RTT, primarily for the purpose of arriving at a
@@ -1009,7 +1009,7 @@ Table of Contents
    that is inflated by gaps in sending data.  However, the following
    rule prevents a resulting inflation of the measured RTT:
 
-   RTTM Rule: A TSecr value received in a segment MAY be used to update
+   RTTM Rule: A TSecr value received in a segment <em>MAY</em> be used to update
               the averaged RTT measurement only if the segment advances
               the left edge of the send window, i.e., SND.UNA is
               increased.
@@ -1040,7 +1040,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7323.html">RFC 7323</a>           TCP Extensions for High Performance    September 2014</span>
 
 
-   to update the RTT estimator, an implementation SHOULD try to adhere
+   to update the RTT estimator, an implementation <em>SHOULD</em> try to adhere
    to the spirit of the history specified in [<a href="./rfc6298.html" title="&quot;Computing TCP's Retransmission Timer&quot;">RFC6298</a>].  An
    implementation suggestion is detailed in <a href="#appendix-G">Appendix G</a>.
 
@@ -1068,7 +1068,7 @@ Table of Contents
         is known generally as "delayed ACKs".  The data-sender TCP must
         measure the effective RTT, including the additional time due to
         delayed ACKs, or else it will retransmit unnecessarily.  Thus,
-        when delayed ACKs are in use, the receiver SHOULD reply with the
+        when delayed ACKs are in use, the receiver <em>SHOULD</em> reply with the
         TSval field from the earliest unacknowledged segment.
 
    (B)  A hole in the sequence space (segment(s) has been lost).
@@ -1081,7 +1081,7 @@ Table of Contents
         situation the sender should be conservative about
         retransmission.  Furthermore, it is better to overestimate than
         underestimate the RTT.  An &lt;ACK&gt; for an out-of-order segment
-        SHOULD, therefore, contain the timestamp from the most recent
+        <em>SHOULD</em>, therefore, contain the timestamp from the most recent
         segment that advanced RCV.NXT.
 
         The same situation occurs if segments are reordered by the
@@ -1103,7 +1103,7 @@ Table of Contents
         characteristics.  An RTT computed from an earlier segment would
         probably include the sender's retransmit timeout, badly biasing
         the sender's average RTT estimate.  Thus, the timestamp from the
-        latest segment (which filled the hole) MUST be echoed.
+        latest segment (which filled the hole) <em>MUST</em> be echoed.
 
    An algorithm that covers all three cases is described in the
    following rules for Timestamps option processing on a synchronized
@@ -1240,7 +1240,7 @@ Table of Contents
    computed in unsigned 32-bit arithmetic.
 
    The choice of incoming timestamps to be saved for this comparison
-   MUST guarantee a value that is monotonically non-decreasing.  For
+   <em>MUST</em> guarantee a value that is monotonically non-decreasing.  For
    example, an implementation might save the timestamp from the segment
    that last advanced the left edge of the receive window, i.e., the
    most recent in-sequence segment.  For simplicity, the value TS.Recent
@@ -1285,23 +1285,23 @@ Table of Contents
    stricter acceptance tests for &lt;RST&gt; segments.
 
    While still under discussion, to enable research into this area it is
-   now RECOMMENDED that when generating an &lt;RST&gt;, if the segment causing
+   now <em>RECOMMENDED</em> that when generating an &lt;RST&gt;, if the segment causing
    the &lt;RST&gt; to be generated contains a Timestamps option, the &lt;RST&gt;
    should also contain a Timestamps option.  In the &lt;RST&gt; segment,
-   SEG.TSecr SHOULD be set to SEG.TSval from the incoming segment and
-   SEG.TSval SHOULD be set to zero.  If an &lt;RST&gt; is being generated
+   SEG.TSecr <em>SHOULD</em> be set to SEG.TSval from the incoming segment and
+   SEG.TSval <em>SHOULD</em> be set to zero.  If an &lt;RST&gt; is being generated
    because of a user abort, and Snd.TS.OK is set, then a Timestamps
-   option SHOULD be included in the &lt;RST&gt;.  When an &lt;RST&gt; segment is
-   received, it MUST NOT be subjected to the PAWS check by verifying an
+   option <em>SHOULD</em> be included in the &lt;RST&gt;.  When an &lt;RST&gt; segment is
+   received, it <em>MUST NOT</em> be subjected to the PAWS check by verifying an
    acceptable value in SEG.TSval, and information from the Timestamps
-   option MUST NOT be used to update connection state information.
-   SEG.TSecr MAY be used to provide stricter &lt;RST&gt; acceptance checks.
+   option <em>MUST NOT</em> be used to update connection state information.
+   SEG.TSecr <em>MAY</em> be used to provide stricter &lt;RST&gt; acceptance checks.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Basic PAWS Algorithm</span>
 
-   If the PAWS algorithm is used, the following processing MUST be
+   If the PAWS algorithm is used, the following processing <em>MUST</em> be
    performed on all incoming segments for a synchronized connection.
-   Also, PAWS processing MUST take precedence over the regular TCP
+   Also, PAWS processing <em>MUST</em> take precedence over the regular TCP
    acceptability check (<a href="./rfc0793.html#section-3.3">Section&nbsp;3.3 in [RFC0793]</a>), which is performed
    after verification of the received Timestamps option:
 
@@ -1342,7 +1342,7 @@ Table of Contents
    Steps R2, R4, and R5 are the normal TCP processing steps specified by
    [<a href="./rfc0793.html">RFC0793</a>].
 
-   It is important to note that the timestamp MUST be checked only when
+   It is important to note that the timestamp <em>MUST</em> be checked only when
    a segment first arrives at the receiver, regardless of whether it is
    in sequence or it must be queued for later delivery.
 
@@ -1434,9 +1434,9 @@ Table of Contents
 
    (a)  The timestamp clock must not be "too slow".
 
-        It MUST tick at least once for each 2^31 bytes sent.  In fact,
+        It <em>MUST</em> tick at least once for each 2^31 bytes sent.  In fact,
         in order to be useful to the sender for round-trip timing, the
-        clock SHOULD tick at least once per window's worth of data, and
+        clock <em>SHOULD</em> tick at least once per window's worth of data, and
         even with the window extension defined in <a href="#section-2.2">Section 2.2</a>, 2^31
         bytes must be at least two windows.
 
@@ -1447,7 +1447,7 @@ Table of Contents
 
    (b)  The timestamp clock must not be "too fast".
 
-        The recycling time of the timestamp clock MUST be greater than
+        The recycling time of the timestamp clock <em>MUST</em> be greater than
         MSL seconds.  Since the clock (timestamp) is 32 bits and the
         worst-case MSL is 255 seconds, the maximum acceptable clock
         frequency is one tick every 59 ns.
@@ -1532,7 +1532,7 @@ Table of Contents
    regardless of the failure of the timestamp check, and rule R3 updates
    TS.Recent with the TSval from the new segment.
 
-   To detect how long the connection has been idle, the TCP MAY update a
+   To detect how long the connection has been idle, the TCP <em>MAY</em> update a
    clock or timestamp value associated with the connection whenever
    TS.Recent is updated, for example.  The details will be
    implementation dependent.
@@ -1628,7 +1628,7 @@ Table of Contents
 
    Setting the DF bit implies the use of Path MTU Discovery as described
    in [<a href="./rfc1191.html" title="&quot;Path MTU discovery&quot;">RFC1191</a>], [<a href="./rfc1981.html" title="&quot;Path MTU Discovery for IP version 6&quot;">RFC1981</a>], and [<a href="./rfc4821.html" title="&quot;Packetization Layer Path MTU Discovery&quot;">RFC4821</a>]; thus, any TCP implementation
-   that implements PAWS MUST also implement Path MTU Discovery.
+   that implements PAWS <em>MUST</em> also implement Path MTU Discovery.
 
 <span class="h3"><a class="selflink" name="section-5.8" href="#section-5.8">5.8</a>.  Duplicates from Earlier Incarnations of Connection</span>
 
@@ -1719,7 +1719,7 @@ Table of Contents
    information to an attacker.  This does not directly compromise any of
    the mechanisms described in this document.  However, this may be
    valuable information to a potential attacker.  It is therefore
-   RECOMMENDED to generate a random, per-connection offset to be used
+   <em>RECOMMENDED</em> to generate a random, per-connection offset to be used
    with the clock source when generating the Timestamps option value
    (see <a href="#section-5.4">Section 5.4</a>).  By carefully choosing this random offset, further
    improvements as described in [<a href="./rfc6191.html" title="&quot;Reducing the TIME-WAIT State Using TCP Timestamps&quot;">RFC6191</a>] are possible.
@@ -1797,7 +1797,7 @@ Table of Contents
    user's data.  However, a naive implementation simply using the system
    clock as a source for the Timestamps option will reveal
    characteristics of the TCP, potentially allowing more targeted
-   attacks.  It is therefore RECOMMENDED to generate a random, per-
+   attacks.  It is therefore <em>RECOMMENDED</em> to generate a random, per-
    connection offset to be used with the clock source when generating
    the Timestamps option value (see <a href="#section-5.4">Section 5.4</a>).
 

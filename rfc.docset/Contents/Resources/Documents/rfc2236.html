@@ -222,8 +222,8 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Definitions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>",  "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html">RFC 2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Introduction</span>
@@ -323,8 +323,8 @@ Abstract
    The checksum is the 16-bit one's complement of the one's complement
    sum of the whole IGMP message (the entire IP payload).  For computing
    the checksum, the checksum field is set to zero.  When transmitting
-   packets, the checksum MUST be computed and inserted into this field.
-   When receiving packets, the checksum MUST be verified before
+   packets, the checksum <em>MUST</em> be computed and inserted into this field.
+   When receiving packets, the checksum <em>MUST</em> be verified before
    processing a packet.
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a>.  Group Address</span>
@@ -341,7 +341,7 @@ Abstract
 
    Note that IGMP messages may be longer than 8 octets, especially
    future backwards-compatible versions of IGMP.  As long as the Type is
-   one that is recognized, an IGMPv2 implementation MUST ignore anything
+   one that is recognized, an IGMPv2 implementation <em>MUST</em> ignore anything
    past the first 8 octets while processing the packet.  However, the
    IGMP checksum is always computed over the whole IP payload, not just
    over the first 8 octets.
@@ -374,13 +374,13 @@ Abstract
    two roles: Querier or Non-Querier.  There is normally only one
    Querier per physical network.  All multicast routers start up as a
    Querier on each attached network.  If a multicast router hears a
-   Query message from a router with a lower IP address, it MUST become a
+   Query message from a router with a lower IP address, it <em>MUST</em> become a
    Non-Querier on that network.  If a router has not heard a Query
    message from another router for [Other Querier Present Interval], it
    resumes the role of Querier.  Routers periodically [Query Interval]
    send a General Query on each attached network for which this router
    is the Querier, to solicit membership information.  On startup, a
-   router SHOULD send [Startup Query Count] General Queries spaced
+   router <em>SHOULD</em> send [Startup Query Count] General Queries spaced
    closely together [Startup Query Interval] in order to quickly and
    reliably determine membership information.  A General Query is
    addressed to the all-systems multicast group (224.0.0.1), has a Group
@@ -433,13 +433,13 @@ Abstract
    timer appropriately).
 
    When a host leaves a multicast group, if it was the last host to
-   reply to a Query with a Membership Report for that group, it SHOULD
+   reply to a Query with a Membership Report for that group, it <em>SHOULD</em>
    send a Leave Group message to the all-routers multicast group
-   (224.0.0.2). If it was not the last host to reply to a Query, it MAY
+   (224.0.0.2). If it was not the last host to reply to a Query, it <em>MAY</em>
    send nothing as there must be another member on the subnet.  This is
    an optimization to reduce traffic; a host without sufficient storage
-   to remember whether or not it was the last host to reply MAY always
-   send a Leave Group message when it leaves a group.  Routers SHOULD
+   to remember whether or not it was the last host to reply <em>MAY</em> always
+   send a Leave Group message when it leaves a group.  Routers <em>SHOULD</em>
    accept a Leave Group message addressed to the group being left, in
    order to accommodate implementations of an earlier version of this
    standard.  Leave Group messages are addressed to the all-routers
@@ -465,7 +465,7 @@ Abstract
 <span class="grey"><a href="./rfc2236.html">RFC 2236</a>           Internet Group Management Protocol      November 1997</span>
 
 
-   Non-Queriers MUST ignore Leave Group messages, and Queriers SHOULD
+   Non-Queriers <em>MUST</em> ignore Leave Group messages, and Queriers <em>SHOULD</em>
    ignore Leave Group messages for which there are no group members on
    the reception interface.
 
@@ -480,38 +480,38 @@ Abstract
    not yet been upgraded to IGMPv2.  The following requirements apply:
 
         The IGMPv1 router will send General Queries with the Max
-        Response Time set to 0.  This MUST be interpreted as a value of
+        Response Time set to 0.  This <em>MUST</em> be interpreted as a value of
         100 (10 seconds).
 
         The IGMPv1 router expects Version 1 Membership Reports in
         response to its Queries, and will not pay attention to Version 2
-        Membership Reports.  Therefore, a state variable MUST be kept
+        Membership Reports.  Therefore, a state variable <em>MUST</em> be kept
         for each interface, describing whether the multicast Querier on
-        that interface is running IGMPv1 or IGMPv2.  This variable MUST
+        that interface is running IGMPv1 or IGMPv2.  This variable <em>MUST</em>
         be based upon whether or not an IGMPv1 query was heard in the
-        last [Version 1 Router Present Timeout] seconds, and MUST NOT be
+        last [Version 1 Router Present Timeout] seconds, and <em>MUST NOT</em> be
         based upon the type of the last Query heard.  This state
-        variable MUST be used to decide what type of Membership Reports
+        variable <em>MUST</em> be used to decide what type of Membership Reports
         to send for unsolicited Membership Reports as well as Membership
         Reports in response to Queries.
 
-        An IGMPv2 host MAY suppress Leave Group messages on a network
+        An IGMPv2 host <em>MAY</em> suppress Leave Group messages on a network
         where the Querier is using IGMPv1.
 
    An IGMPv2 router may be placed on a subnet where at least one router
    on the subnet has not yet been upgraded to IGMPv2.  The following
    requirements apply:
 
-        If any IGMPv1 routers are present, the querier MUST use IGMPv1.
+        If any IGMPv1 routers are present, the querier <em>MUST</em> use IGMPv1.
         The use of IGMPv1 must be administratively configured, as there
         is no reliable way of dynamically determining whether IGMPv1
-        routers are present on a network.  Implementations MAY provide a
+        routers are present on a network.  Implementations <em>MAY</em> provide a
         way for system administrators to enable the use of IGMPv1 on
         their routers; in the absence of explicit configuration, the
-        configuration MUST default to IGMPv2.  When in IGMPv1 mode,
-        routers MUST send Periodic Queries with a Max Response Time of
-        0, and MUST ignore Leave Group messages.  They SHOULD also warn
-        about receiving an IGMPv2 query, although such warnings MUST be
+        configuration <em>MUST</em> default to IGMPv2.  When in IGMPv1 mode,
+        routers <em>MUST</em> send Periodic Queries with a Max Response Time of
+        0, and <em>MUST</em> ignore Leave Group messages.  They <em>SHOULD</em> also warn
+        about receiving an IGMPv2 query, although such warnings <em>MUST</em> be
         rate-limited.
 
 
@@ -522,7 +522,7 @@ Abstract
 
 
         If a router is not explicitly configured to use IGMPv1 and hears
-        an IGMPv1 Query, it SHOULD log a warning.  These warnings MUST
+        an IGMPv1 Query, it <em>SHOULD</em> log a warning.  These warnings <em>MUST</em>
         be rate-limited.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Compatibility with IGMPv1 Hosts</span>
@@ -531,7 +531,7 @@ Abstract
    have not yet been upgraded to IGMPv2.  The following requirement
    applies:
 
-        The host MUST allow its Membership Report to be suppressed by
+        The host <em>MUST</em> allow its Membership Report to be suppressed by
         either a Version 1 Membership Report or a Version 2 Membership
         Report.
 
@@ -539,13 +539,13 @@ Abstract
    have not yet been upgraded to IGMPv2.  The following requirements
    apply:
 
-        If a router receives a Version 1 Membership Report, it MUST set
+        If a router receives a Version 1 Membership Report, it <em>MUST</em> set
         a timer to note that there are version 1 hosts present which are
         members of the group for which it heard the report.  This timer
         should be the same as the [Group Membership Interval].
 
         If there are version 1 hosts present for a particular group, a
-        router MUST ignore any Leave Group messages that it receives for
+        router <em>MUST</em> ignore any Leave Group messages that it receives for
         that group.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Host State Diagram</span>
@@ -634,9 +634,9 @@ Abstract
 
 
    - "send leave" for the group on the interface.  If the interface
-     state says the Querier is running IGMPv1, this action SHOULD be
+     state says the Querier is running IGMPv1, this action <em>SHOULD</em> be
      skipped.  If the flag saying we were the last host to report is
-     cleared, this action MAY be skipped.  The Leave Message is sent to
+     cleared, this action <em>MAY</em> be skipped.  The Leave Message is sent to
      the ALL-ROUTERS group (224.0.0.2).
 
    - "set flag" that we were the last host to send a report for this
@@ -1116,7 +1116,7 @@ Abstract
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  List of timers and default values</span>
 
    Most of these timers are  configurable.   If  non-default  settings
-   are used,  they MUST be consistent among all routers on a single
+   are used,  they <em>MUST</em> be consistent among all routers on a single
    link.  Note that parentheses are used to  group  expressions  to
    make  the  algebra clear.
 
@@ -1125,7 +1125,7 @@ Abstract
    The Robustness Variable allows tuning for the expected packet loss on
    a subnet.  If a subnet is expected to be lossy, the Robustness
    Variable may be increased.  IGMP is robust to (Robustness Variable-1)
-   packet losses.  The Robustness Variable MUST NOT be zero, and SHOULD
+   packet losses.  The Robustness Variable <em>MUST NOT</em> be zero, and <em>SHOULD</em>
    NOT be one.  Default: 2
 
 
@@ -1161,7 +1161,7 @@ Abstract
 
    The Group Membership Interval is the amount of time that must pass
    before a multicast router decides there are no more members of a
-   group on a network.  This value MUST be ((the Robustness Variable)
+   group on a network.  This value <em>MUST</em> be ((the Robustness Variable)
    times (the Query Interval)) plus (one Query Response Interval).
 
 <span class="h3"><a class="selflink" name="section-8.5" href="#section-8.5">8.5</a>.  Other Querier Present Interval</span>
@@ -1169,7 +1169,7 @@ Abstract
    The Other Querier Present Interval is the length of time that must
    pass before a multicast router decides that there is no longer
    another multicast router which should be the querier.  This value
-   MUST be ((the Robustness Variable) times (the Query Interval)) plus
+   <em>MUST</em> be ((the Robustness Variable) times (the Query Interval)) plus
    (one half of one Query Response Interval).
 
 <span class="h3"><a class="selflink" name="section-8.6" href="#section-8.6">8.6</a>.  Startup Query Interval</span>
@@ -1236,9 +1236,9 @@ Abstract
 
      Note: in older (i.e., non-standard and now obsolete) versions of
      IGMPv2, hosts send Leave Messages to the group being left.  A
-     router SHOULD accept Leave Messages addressed to the group being
+     router <em>SHOULD</em> accept Leave Messages addressed to the group being
      left in the interests of backwards compatibility with such hosts.
-     In all cases, however, hosts MUST send to the ALL-ROUTERS address
+     In all cases, however, hosts <em>MUST</em> send to the ALL-ROUTERS address
      to be compliant with this specification.
 
 

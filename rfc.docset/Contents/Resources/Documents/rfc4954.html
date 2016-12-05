@@ -289,8 +289,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  How to Read This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
    In examples, "C:" and "S:" indicate lines sent by the client and
@@ -311,7 +311,7 @@ Table of Contents
 
    3.  The AUTH EHLO keyword contains as a parameter a space-separated
        list of the names of available [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] mechanisms.  The list of
-       available mechanisms MAY change after a successful STARTTLS
+       available mechanisms <em>MAY</em> change after a successful STARTTLS
        command [<a href="#ref-SMTP-TLS" title="&quot;SMTP Service Extension for Secure SMTP over Transport Layer Security&quot;">SMTP-TLS</a>].
 
    4.  A new [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>] verb "AUTH" is defined.
@@ -332,17 +332,17 @@ Table of Contents
           mechanism.
 
           initial-response: An optional initial client response.  If
-          present, this response MUST be encoded as described in <a href="#section-4">Section</a>
+          present, this response <em>MUST</em> be encoded as described in <a href="#section-4">Section</a>
           <a href="#section-4">4</a> of [<a href="#ref-BASE64" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">BASE64</a>] or contain a single character "=".
 
       Restrictions:
           After an AUTH command has been successfully completed, no more
           AUTH commands may be issued in the same session.  After a
-          successful AUTH command completes, a server MUST reject any
+          successful AUTH command completes, a server <em>MUST</em> reject any
           further AUTH commands with a 503 reply.
 
           The AUTH command is not permitted during a mail transaction.
-          An AUTH command issued during a mail transaction MUST be
+          An AUTH command issued during a mail transaction <em>MUST</em> be
           rejected with a 503 reply.
 
       Discussion:
@@ -364,7 +364,7 @@ Table of Contents
           requested authentication mechanism is invalid (e.g., is not
           supported or requires an encryption layer), the server rejects
           the AUTH command with a 504 reply.  If the server supports the
-          [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] extension, it SHOULD return a 5.5.4 enhanced
+          [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] extension, it <em>SHOULD</em> return a 5.5.4 enhanced
           response code.
 
           The SASL authentication exchange consists of a series of
@@ -373,20 +373,20 @@ Table of Contents
 
           A server challenge is sent as a 334 reply with the text part
           containing the [<a href="#ref-BASE64" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">BASE64</a>] encoded string supplied by the SASL
-          mechanism.  This challenge MUST NOT contain any text other
+          mechanism.  This challenge <em>MUST NOT</em> contain any text other
           than the BASE64 encoded challenge.
 
           A client response consists of a line containing a [<a href="#ref-BASE64" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">BASE64</a>]
           encoded string.  If the client wishes to cancel the
           authentication exchange, it issues a line with a single "*".
-          If the server receives such a response, it MUST reject the
+          If the server receives such a response, it <em>MUST</em> reject the
           AUTH command by sending a 501 reply.
 
           The optional initial response argument to the AUTH command is
           used to save a round-trip when using authentication mechanisms
           that support an initial client response.  If the initial
           response argument is omitted and the chosen mechanism requires
-          an initial client response, the server MUST proceed as defined
+          an initial client response, the server <em>MUST</em> proceed as defined
           in Section 5.1 of [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>].  In SMTP, a server challenge that
           contains no data is defined as a 334 reply with no text part.
           Note that there is still a space following the reply code, so
@@ -395,17 +395,17 @@ Table of Contents
           Note that the AUTH command is still subject to the line length
           limitations defined in [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>].  If use of the initial response
           argument would cause the AUTH command to exceed this length,
-          the client MUST NOT use the initial response parameter (and
+          the client <em>MUST NOT</em> use the initial response parameter (and
           instead proceed as defined in Section 5.1 of [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>]).
 
           If the client is transmitting an initial response of zero
-          length, it MUST instead transmit the response as a single
+          length, it <em>MUST</em> instead transmit the response as a single
           equals sign ("=").  This indicates that the response is
           present, but contains no data.
 
           If the client uses an initial-response argument to the AUTH
           command with a SASL mechanism in which the client does not
-          begin the authentication exchange, the server MUST reject the
+          begin the authentication exchange, the server <em>MUST</em> reject the
 
 
 
@@ -416,22 +416,22 @@ Table of Contents
 
 
           AUTH command with a 501 reply.  Servers using the enhanced
-          status codes extension [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] SHOULD return an enhanced
+          status codes extension [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] <em>SHOULD</em> return an enhanced
           status code of 5.7.0 in this case.
 
           If the server cannot [<a href="#ref-BASE64" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">BASE64</a>] decode any client response, it
-          MUST reject the AUTH command with a 501 reply (and an enhanced
+          <em>MUST</em> reject the AUTH command with a 501 reply (and an enhanced
           status code of 5.5.2).  If the client cannot BASE64 decode any
-          of the server's challenges, it MUST cancel the authentication
+          of the server's challenges, it <em>MUST</em> cancel the authentication
           using the "*" response.  In particular, servers and clients
-          MUST reject (and not ignore) any character not explicitly
-          allowed by the BASE64 alphabet, and MUST reject any sequence
+          <em>MUST</em> reject (and not ignore) any character not explicitly
+          allowed by the BASE64 alphabet, and <em>MUST</em> reject any sequence
           of BASE64 characters that contains the pad character ('=')
           anywhere other than the end of the string (e.g., "=AAA" and
           "AAA=BBB" are not allowed).
 
           Note that these [<a href="#ref-BASE64" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">BASE64</a>] strings can be much longer than
-          normal SMTP commands.  Clients and servers MUST be able to
+          normal SMTP commands.  Clients and servers <em>MUST</em> be able to
           handle the maximum encoded size of challenges and responses
           generated by their supported authentication mechanisms.  This
           requirement is independent of any line length limitations the
@@ -442,23 +442,23 @@ Table of Contents
           If, during an authentication exchange, the server receives a
           line that is longer than the server's authentication buffer,
           the server fails the AUTH command with the 500 reply.  Servers
-          using the enhanced status codes extension [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] SHOULD
+          using the enhanced status codes extension [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] <em>SHOULD</em>
           return an enhanced status code of 5.5.6 in this case.
 
           The authorization identity generated by this [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] exchange
           is a "simple username" (in the sense defined in [<a href="#ref-SASLprep" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLprep</a>]),
-          and both client and server SHOULD (*) use the [<a href="#ref-SASLprep" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLprep</a>]
+          and both client and server <em>SHOULD</em> (*) use the [<a href="#ref-SASLprep" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLprep</a>]
           profile of the [<a href="#ref-StringPrep" title="&quot;Preparation of Internationalized Strings (&quot;">StringPrep</a>] algorithm to prepare these names
           for transmission or comparison.  If preparation of the
           authorization identity fails or results in an empty string
           (unless it was transmitted as the empty string), the server
-          MUST fail the authentication.
+          <em>MUST</em> fail the authentication.
 
       (*) Note: Future revision of this specification may change this
-      requirement to MUST.  Currently, the SHOULD is used in order to
+      requirement to <em>MUST</em>.  Currently, the <em>SHOULD</em> is used in order to
       avoid breaking the majority of existing implementations.
 
-   If the server is unable to authenticate the client, it SHOULD reject
+   If the server is unable to authenticate the client, it <em>SHOULD</em> reject
    the AUTH command with a 535 reply unless a more specific error code
    is appropriate.  Should the client successfully complete the
    exchange, the SMTP server issues a 235 reply.  (Note that the SMTP
@@ -483,38 +483,38 @@ Table of Contents
 
    When a security layer takes effect, the SMTP protocol is reset to the
    initial state (the state in SMTP after a server issues a 220 service
-   ready greeting).  The server MUST discard any knowledge obtained from
+   ready greeting).  The server <em>MUST</em> discard any knowledge obtained from
    the client, such as the EHLO argument, which was not obtained from
-   the SASL negotiation itself.  Likewise, the client MUST discard any
+   the SASL negotiation itself.  Likewise, the client <em>MUST</em> discard any
    knowledge obtained from the server, such as the list of SMTP service
    extensions, which was not obtained from the SASL negotiation itself.
-   (Note that a client MAY compare the advertised SASL mechanisms before
+   (Note that a client <em>MAY</em> compare the advertised SASL mechanisms before
    and after authentication in order to detect an active down-
    negotiation attack).
 
-   The client SHOULD send an EHLO command as the first command after a
+   The client <em>SHOULD</em> send an EHLO command as the first command after a
    successful SASL negotiation that results in the enabling of a
    security layer.
 
    When an entity (whether it is the client or the server end) is
    sending data, and both [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] and SASL security layers are in effect,
-   the TLS encoding MUST be applied after the SASL encoding, regardless
+   the TLS encoding <em>MUST</em> be applied after the SASL encoding, regardless
    of the order in which the layers were negotiated.
 
    The service name specified by this protocol's profile of SASL is
    "smtp".  This service name is also to be used for the [<a href="#ref-SUBMIT" title="&quot;Message Submission for Mail&quot;">SUBMIT</a>]
    protocol.
 
-   If an AUTH command fails, the client MAY proceed without
-   authentication.  Alternatively, the client MAY try another
+   If an AUTH command fails, the client <em>MAY</em> proceed without
+   authentication.  Alternatively, the client <em>MAY</em> try another
    authentication mechanism or present different credentials by issuing
    another AUTH
 
-   Note: A server implementation MUST implement a configuration in which
+   Note: A server implementation <em>MUST</em> implement a configuration in which
    it does NOT permit any plaintext password mechanisms, unless either
    the STARTTLS [<a href="#ref-SMTP-TLS" title="&quot;SMTP Service Extension for Secure SMTP over Transport Layer Security&quot;">SMTP-TLS</a>] command has been negotiated or some other
    mechanism that protects the session from password snooping has been
-   provided.  Server sites SHOULD NOT use any configuration which
+   provided.  Server sites <em>SHOULD NOT</em> use any configuration which
    permits a plaintext password mechanism without such a protection
    mechanism against password snooping.
 
@@ -528,13 +528,13 @@ Table of Contents
 
 
    To ensure interoperability, client and server implementations of this
-   extension MUST implement the [<a href="#ref-PLAIN" title="&quot;The PLAIN Simple Authentication and Security Layer (SASL) Mechanism&quot;">PLAIN</a>] SASL mechanism running over TLS
+   extension <em>MUST</em> implement the [<a href="#ref-PLAIN" title="&quot;The PLAIN Simple Authentication and Security Layer (SASL) Mechanism&quot;">PLAIN</a>] SASL mechanism running over TLS
    [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] [<a href="#ref-SMTP-TLS" title="&quot;SMTP Service Extension for Secure SMTP over Transport Layer Security&quot;">SMTP-TLS</a>].  See also <a href="#section-15">Section 15</a> for additional requirements on
    implementations of [<a href="#ref-PLAIN" title="&quot;The PLAIN Simple Authentication and Security Layer (SASL) Mechanism&quot;">PLAIN</a>] over [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>].
 
    Note that many existing client and server implementations implement
    CRAM-MD5 [<a href="#ref-CRAM-MD5" title="&quot;IMAP/POP AUTHorize Extension for Simple Challenge/Response&quot;">CRAM-MD5</a>] SASL mechanism.  In order to ensure
-   interoperability with deployed software, new implementations MAY
+   interoperability with deployed software, new implementations <em>MAY</em>
    implement it; however, implementations should be aware that this SASL
    mechanism doesn't provide any server authentication.  Note that at
    the time of writing of this document the SASL Working Group is
@@ -542,7 +542,7 @@ Table of Contents
    authentication and other features.
 
    When the AUTH command is used together with the [<a href="#ref-PIPELINING" title="&quot;SMTP Service Extension for Command Pipelining&quot;">PIPELINING</a>]
-   extension, it MUST be the last command in a pipelined group of
+   extension, it <em>MUST</em> be the last command in a pipelined group of
    commands.  The only exception to this rule is when the AUTH command
    contains an initial response for a SASL mechanism that allows the
    client to send data first, the SASL mechanism is known to complete in
@@ -671,17 +671,17 @@ Table of Contents
 
         If the server trusts the authenticated identity of the client to
         assert that the message was originally submitted by the supplied
-        &lt;mailbox&gt;, then the server SHOULD supply the same &lt;mailbox&gt; in
+        &lt;mailbox&gt;, then the server <em>SHOULD</em> supply the same &lt;mailbox&gt; in
         an AUTH parameter when relaying the message to any other server
         which supports the AUTH extension.
 
         For this reason, servers that advertise support for this
-        extension MUST support the AUTH parameter to the MAIL FROM
+        extension <em>MUST</em> support the AUTH parameter to the MAIL FROM
         command even when the client has not authenticated itself to the
         server.
 
         A MAIL FROM parameter of AUTH=&lt;&gt; indicates that the original
-        submitter of the message is not known.  The server MUST NOT
+        submitter of the message is not known.  The server <em>MUST NOT</em>
         treat the message as having been originally submitted by the
         authenticated identity that resulted from the AUTH command.
 
@@ -697,27 +697,27 @@ Table of Contents
 
         If the AUTH parameter to the MAIL FROM command is not supplied,
         the client has authenticated, and the server believes the
-        message is an original submission, the server MAY generate a
+        message is an original submission, the server <em>MAY</em> generate a
         &lt;mailbox&gt; from the user's authenticated identity for use in an
         AUTH parameter when relaying the message to any server which
         supports the AUTH extension.  The generated &lt;mailbox&gt; is
-        implementation specific, but it MUST conform to the syntax of
+        implementation specific, but it <em>MUST</em> conform to the syntax of
         [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>].  If the implementation cannot generate a valid
-        &lt;mailbox&gt;, it MUST transmit AUTH=&lt;&gt; when relaying this message.
+        &lt;mailbox&gt;, it <em>MUST</em> transmit AUTH=&lt;&gt; when relaying this message.
 
         If the server does not sufficiently trust the authenticated
         identity of the client, or if the client is not authenticated,
-        then the server MUST behave as if the AUTH=&lt;&gt; parameter was
-        supplied.  The server MAY, however, write the value of any
+        then the server <em>MUST</em> behave as if the AUTH=&lt;&gt; parameter was
+        supplied.  The server <em>MAY</em>, however, write the value of any
         supplied AUTH parameter to a log file.
 
         If an AUTH=&lt;&gt; parameter was supplied, either explicitly or due
         to the requirement in the previous paragraph, then the server
-        MUST supply the AUTH=&lt;&gt; parameter when relaying the message to
+        <em>MUST</em> supply the AUTH=&lt;&gt; parameter when relaying the message to
         any server which it has authenticated to using the AUTH
         extension.
 
-        A server MAY treat expansion of a mailing list as a new
+        A server <em>MAY</em> treat expansion of a mailing list as a new
         submission, setting the AUTH parameter to the mailing list
         address or mailing list administration address when relaying the
         message to list subscribers.
@@ -755,7 +755,7 @@ Table of Contents
 
    The following error codes may be used to indicate various success or
    failure conditions.  Servers that return enhanced status codes
-   [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] SHOULD use the enhanced codes suggested here.
+   [<a href="#ref-ESMTP-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ESMTP-CODES</a>] <em>SHOULD</em> use the enhanced codes suggested here.
 
    235 2.7.0  Authentication Succeeded
 
@@ -767,13 +767,13 @@ Table of Contents
    This response to the AUTH command indicates that the user needs to
    transition to the selected authentication mechanism.  This is
    typically done by authenticating once using the [<a href="#ref-PLAIN" title="&quot;The PLAIN Simple Authentication and Security Layer (SASL) Mechanism&quot;">PLAIN</a>]
-   authentication mechanism.  The selected mechanism SHOULD then work
+   authentication mechanism.  The selected mechanism <em>SHOULD</em> then work
    for authentications in subsequent sessions.
 
    454 4.7.0  Temporary authentication failure
 
    This response to the AUTH command indicates that the authentication
-   failed due to a temporary server failure.  The client SHOULD NOT
+   failed due to a temporary server failure.  The client <em>SHOULD NOT</em>
    prompt the user for another password in this case, and should instead
    notify the user of server failure.
 
@@ -781,14 +781,14 @@ Table of Contents
 
    This response to the AUTH command indicates that the selected
    authentication mechanism is weaker than server policy permits for
-   that user.  The client SHOULD retry with a new authentication
+   that user.  The client <em>SHOULD</em> retry with a new authentication
    mechanism.
 
    535 5.7.8  Authentication credentials invalid
 
    This response to the AUTH command indicates that the authentication
    failed due to invalid or insufficient authentication credentials.  In
-   this case, the client SHOULD ask the user to supply new credentials
+   this case, the client <em>SHOULD</em> ask the user to supply new credentials
    (such as by presenting a password dialog box).
 
    500 5.5.6  Authentication Exchange line is too long
@@ -809,7 +809,7 @@ Table of Contents
 
    530 5.7.0  Authentication required
 
-   This response SHOULD be returned by any command other than AUTH,
+   This response <em>SHOULD</em> be returned by any command other than AUTH,
    EHLO, HELO, NOOP, RSET, or QUIT when server policy requires
    authentication in order to perform the requested action and
    authentication is not currently in force.
@@ -820,7 +820,7 @@ Table of Contents
    This response to the AUTH command indicates that the selected
    authentication mechanism may only be used when the underlying SMTP
    connection is encrypted.  Note that this response code is documented
-   here for historical purposes only.  Modern implementations SHOULD NOT
+   here for historical purposes only.  Modern implementations <em>SHOULD NOT</em>
    advertise mechanisms that are not permitted due to lack of
    encryption, unless an encryption layer of sufficient strength is
    currently being employed.
@@ -836,7 +836,7 @@ Table of Contents
 
    X.5.6     Authentication Exchange line is too long
 
-   This enhanced status code SHOULD be returned when the server fails
+   This enhanced status code <em>SHOULD</em> be returned when the server fails
    the AUTH command due to the client sending a [<a href="#ref-BASE64" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">BASE64</a>] response which
    is longer than the maximum buffer size available for the currently
    selected SASL mechanism.  This is useful for both permanent and
@@ -845,11 +845,11 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Additional Requirements on Servers</span>
 
    As described in Section 4.4 of [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>], an SMTP server that receives a
-   message for delivery or further processing MUST insert the
+   message for delivery or further processing <em>MUST</em> insert the
    "Received:" header field at the beginning of the message content.
    This document places additional requirements on the content of a
    generated "Received:" header field.  Upon successful authentication,
-   a server SHOULD use the "ESMTPA" or the "ESMTPSA" [<a href="#ref-SMTP-TT" title="&quot;ESMTP and LMTP Transmission Types Registration&quot;">SMTP-TT</a>] (when
+   a server <em>SHOULD</em> use the "ESMTPA" or the "ESMTPSA" [<a href="#ref-SMTP-TT" title="&quot;ESMTP and LMTP Transmission Types Registration&quot;">SMTP-TT</a>] (when
    appropriate) keyword in the "with" clause of the Received header
    field.
 
@@ -872,7 +872,7 @@ Table of Contents
 
    Except as noted otherwise, all alphabetic characters are case-
    insensitive.  The use of upper or lower case characters to define
-   token strings is for editorial clarity only.  Implementations MUST
+   token strings is for editorial clarity only.  Implementations <em>MUST</em>
    accept these strings in a case-insensitive fashion.
 
       hexchar         = "+" HEXDIG HEXDIG
@@ -893,7 +893,7 @@ Table of Contents
                         ;; This non-terminal complies with
                         ;; syntax defined by esmtp-param [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>].
                         ;;
-                        ;; The decoded form of the xtext MUST be
+                        ;; The decoded form of the xtext <em>MUST</em> be
                         ;; either a &lt;mailbox&gt; or the two
                         ;; characters "&lt;&gt;"
 
@@ -937,7 +937,7 @@ Table of Contents
 
    Before the [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] negotiation has begun, any protocol interactions
    are performed in the clear and may be modified by an active attacker.
-   For this reason, clients and servers MUST discard any knowledge
+   For this reason, clients and servers <em>MUST</em> discard any knowledge
    obtained prior to the start of the SASL negotiation upon the
    establishment of a security layer.
 
@@ -954,14 +954,14 @@ Table of Contents
    SASL mechanism when use of that mechanism grants the clients no
    benefits over anonymous submission.
 
-   Servers MAY implement a policy whereby the connection is dropped
+   Servers <em>MAY</em> implement a policy whereby the connection is dropped
    after a number of failed authentication attempts.  If they do so,
-   they SHOULD NOT drop the connection until at least 3 attempts to
+   they <em>SHOULD NOT</em> drop the connection until at least 3 attempts to
    authenticate have failed.
 
    If an implementation supports SASL mechanisms that are vulnerable to
    passive eavesdropping attacks (such as [<a href="#ref-PLAIN" title="&quot;The PLAIN Simple Authentication and Security Layer (SASL) Mechanism&quot;">PLAIN</a>]), then the
-   implementation MUST support at least one configuration where these
+   implementation <em>MUST</em> support at least one configuration where these
    SASL mechanisms are not advertised or used without the presence of an
    external security layer such as [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>].
 
@@ -1120,19 +1120,19 @@ Table of Contents
    authenticate to the SMTP server, the client verifies the server
    certificate according to the rules of [<a href="#ref-X509" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">X509</a>].  If the server has not
    provided any certificate, or if the certificate verification fails,
-   the client MUST NOT attempt to authenticate using the SASL PLAIN
+   the client <em>MUST NOT</em> attempt to authenticate using the SASL PLAIN
    mechanism.
 
-   After a successful [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] negotiation, the client MUST check its
+   After a successful [<a href="#ref-TLS" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">TLS</a>] negotiation, the client <em>MUST</em> check its
    understanding of the server hostname against the server's identity as
    presented in the server Certificate message, in order to prevent
-   man-in-the-middle attacks.  If the match fails, the client MUST NOT
+   man-in-the-middle attacks.  If the match fails, the client <em>MUST NOT</em>
    attempt to authenticate using the SASL PLAIN mechanism.  Matching is
    performed according to the following rules:
 
-        The client MUST use the server hostname it used to open the
+        The client <em>MUST</em> use the server hostname it used to open the
         connection as the value to compare against the server name as
-        expressed in the server certificate.  The client MUST NOT use
+        expressed in the server certificate.  The client <em>MUST NOT</em> use
 
 
 
@@ -1148,12 +1148,12 @@ Table of Contents
         not done.
 
         If a subjectAltName extension of type dNSName is present in the
-        certificate, it SHOULD be used as the source of the server's
+        certificate, it <em>SHOULD</em> be used as the source of the server's
         identity.
 
         Matching is case-insensitive.
 
-        A "*" wildcard character MAY be used as the leftmost name
+        A "*" wildcard character <em>MAY</em> be used as the leftmost name
         component in the certificate.  For example, *.example.com would
         match a.example.com, foo.example.com, etc., but would not match
         example.com.
@@ -1164,7 +1164,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-15" href="#section-15">15</a>.  Changes since <a href="./rfc2554.html">RFC 2554</a></span>
 
-   1.  Clarified that servers MUST support the use of the AUTH=mailbox
+   1.  Clarified that servers <em>MUST</em> support the use of the AUTH=mailbox
        parameter to MAIL FROM, even when the client is not
        authenticated.
 

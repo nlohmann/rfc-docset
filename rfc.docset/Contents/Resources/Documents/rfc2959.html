@@ -314,8 +314,8 @@ Table of Contents
    RTP monitors may collect RTCP information on senders and receivers to
    and from an RTP host or intermediate-system.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a> Components</span>
@@ -385,7 +385,7 @@ Table of Contents
    maintain the rtpSenderTable, but it may want to maintain a
    rtpRcvrTable for endpoints that are receiving its stream.  To do this
    the RTP agent will collect RTCP data from the receivers of its stream
-   to build the rtpRcvrTable.  A host monitor system MUST set the
+   to build the rtpRcvrTable.  A host monitor system <em>MUST</em> set the
    rtpSessionMonitor object to 'true(1)', but it does not have to accept
    management operations that create and destroy rows in its
    rtpSessionTable.
@@ -414,7 +414,7 @@ Table of Contents
    The reverse lookup tables (rtpSessionInverseTable,
    rtpSenderInverseTable, and rtpRcvrInverseTable) are optional tables
    to help management applications efficiently access conceptual rows in
-   other tables.  Implementors of this MIB SHOULD implement these tables
+   other tables.  Implementors of this MIB <em>SHOULD</em> implement these tables
    for multicast RTP sessions when table indexes (rtpSessionIndex of
    rtpSessionTable, rtpSenderSSRC of rtpSenderTable, and the SSRC pair
    in the rtpRcvrTable) are not available from other MIBs.  Otherwise,
@@ -424,7 +424,7 @@ Table of Contents
    For any particular RTP session, the rtpSessionMonitor object
    indicates whether remote senders or receivers to the RTP session are
    to be monitored.  If rtpSessionMonitor is true(1) then senders and
-   receivers to the session MUST be monitored with entries in the
+   receivers to the session <em>MUST</em> be monitored with entries in the
    rtpSenderTable and rtpRcvrTable.  RTP sessions are monitored by the
    RTP agent that updates rtpSenderTable and rtpRcvrTable objects with
    information from RTCP reports from remote senders or remote receivers
@@ -433,7 +433,7 @@ Table of Contents
    rtpSessionNewIndex is a global object that permits a network-
    management application to obtain a unique index for conceptual row
    creation in the rtpSessionTable.  In this way the SNMP Set operation
-   MAY be used to configure a monitor.
+   <em>MAY</em> be used to configure a monitor.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Definitions</span>
 
@@ -611,22 +611,22 @@ rtpSessionEntry OBJECT-TYPE
     STATUS          current
     DESCRIPTION
       "Data in rtpSessionTable uniquely identify an RTP session.  A
-       host RTP agent MUST create a read-only row for each session to
-       which packets are being sent or received.  Rows MUST be created
+       host RTP agent <em>MUST</em> create a read-only row for each session to
+       which packets are being sent or received.  Rows <em>MUST</em> be created
        by the RTP Agent at the start of a session when one or more
        senders or receivers are observed.  Rows created by an RTP agent
-       MUST be deleted when the session is over and there are no
+       <em>MUST</em> be deleted when the session is over and there are no
        rtpRcvrEntry and no rtpSenderEntry for this session.  An RTP
-       session SHOULD be monitored to create management information on
+       session <em>SHOULD</em> be monitored to create management information on
        all RTP streams being sent or received when the
        rtpSessionMonitor has the TruthValue of 'true(1)'.  An RTP
-       monitor SHOULD permit row creation with the side effect of
+       monitor <em>SHOULD</em> permit row creation with the side effect of
        causing the RTP System to join the multicast session for the
        purposes of gathering management information  (additional
        conceptual rows are created in the rtpRcvrTable and
-       rtpSenderTable).  Thus, rtpSessionTable rows SHOULD be created
+       rtpSenderTable).  Thus, rtpSessionTable rows <em>SHOULD</em> be created
        for RTP session monitoring purposes.  Rows created by a
-       management application SHOULD be deleted via SNMP operations by
+       management application <em>SHOULD</em> be deleted via SNMP operations by
 
 
 
@@ -805,10 +805,10 @@ rtpSessionMonitor OBJECT-TYPE
 
       "Boolean, Set to 'true(1)' if remote senders or receivers in
        addition to the local RTP System are to be monitored using RTCP.
-       RTP Monitors MUST initialize to 'true(1)' and RTP Hosts SHOULD
+       RTP Monitors <em>MUST</em> initialize to 'true(1)' and RTP Hosts <em>SHOULD</em>
        initialize this 'false(2)'.  Note that because 'host monitor'
        systems are receiving RTCP from their remote participants they
-       MUST set this value to 'true(1)'."
+       <em>MUST</em> set this value to 'true(1)'."
     ::= { rtpSessionEntry 10 }
 
 rtpSessionRowStatus OBJECT-TYPE
@@ -821,7 +821,7 @@ rtpSessionRowStatus OBJECT-TYPE
        conceptual row must have the all read-create objects
        initialized before becoming 'active'.
        A conceptual row that is in the 'notReady' or 'notInService'
-       state MAY be removed after 5  minutes."
+       state <em>MAY</em> be removed after 5  minutes."
     ::= { rtpSessionEntry 11 }
 
 --
@@ -884,10 +884,10 @@ rtpSenderTable OBJECT-TYPE
     STATUS          current
     DESCRIPTION
       "Table of information about a sender or senders to an RTP
-       Session. RTP sending hosts MUST have an entry in this table
-       for each stream being sent.  RTP receiving hosts MAY have an
+       Session. RTP sending hosts <em>MUST</em> have an entry in this table
+       for each stream being sent.  RTP receiving hosts <em>MAY</em> have an
        entry in this table for each sending stream being received by
-       this host.  RTP monitors MUST create an entry for each observed
+       this host.  RTP monitors <em>MUST</em> create an entry for each observed
        sender to a multicast RTP Session as a side-effect when a
        conceptual row in the rtpSessionTable is made 'active' by a
        manager."
@@ -1100,8 +1100,8 @@ rtpRcvrTable OBJECT-TYPE
     DESCRIPTION
       "Table of information about a receiver or receivers of RTP
        session data. RTP hosts that receive RTP session packets
-       MUST create an entry in this table for that receiver/sender
-       pair.  RTP hosts that send RTP session packets MAY create
+       <em>MUST</em> create an entry in this table for that receiver/sender
+       pair.  RTP hosts that send RTP session packets <em>MAY</em> create
        an entry in this table for each receiver to their stream
        using RTCP feedback from the RTP group.  RTP monitors
        create an entry for each observed RTP session receiver as
@@ -1324,7 +1324,7 @@ rtpRcvrStartTime OBJECT-TYPE
 -- Thus there are three kinds of objects: 1) Objects common to both
 -- kinds of systems, 2) Objects unique to RTP Hosts and 3) Objects
 -- unique to RTP Monitors.  There is a fourth group, 4) Objects that
--- SHOULD be implemented by Multicast hosts and RTP Monitors
+-- <em>SHOULD</em> be implemented by Multicast hosts and RTP Monitors
 
 rtpGroups OBJECT IDENTIFIER ::= { rtpConformance 1 }
 rtpSystemGroup      OBJECT-GROUP
@@ -1420,7 +1420,7 @@ rtpHostCompliance MODULE-COMPLIANCE
 
 
     DESCRIPTION
-            "Host implementations MUST comply."
+            "Host implementations <em>MUST</em> comply."
     MODULE           RTP-MIB
     MANDATORY-GROUPS {
                      rtpSystemGroup,
@@ -1432,40 +1432,40 @@ rtpHostCompliance MODULE-COMPLIANCE
          This would allow an RTP Host system to act as an RTP Monitor."
     GROUP            rtpInverseGroup
     DESCRIPTION
-        "Multicast RTP Systems SHOULD implement the optional
+        "Multicast RTP Systems <em>SHOULD</em> implement the optional
          tables."
         OBJECT  rtpSessionNewIndex
             MIN-ACCESS not-accessible
                 DESCRIPTION
                  "RTP system implementations support of
-                  row creation and deletion is OPTIONAL so
-                  implementation of this object is OPTIONAL."
+                  row creation and deletion is <em>OPTIONAL</em> so
+                  implementation of this object is <em>OPTIONAL</em>."
         OBJECT  rtpSessionDomain
            MIN-ACCESS read-only
                 DESCRIPTION
                  "RTP system implementation support of
-                  row creation and deletion is OPTIONAL.  When
+                  row creation and deletion is <em>OPTIONAL</em>.  When
                   it is not supported so write access is
-                  OPTIONAL."
+                  <em>OPTIONAL</em>."
         OBJECT  rtpSessionRemAddr
             MIN-ACCESS read-only
               DESCRIPTION
-               "Row creation and deletion is OPTIONAL so
-                read-create access to this object is OPTIONAL."
+               "Row creation and deletion is <em>OPTIONAL</em> so
+                read-create access to this object is <em>OPTIONAL</em>."
         OBJECT  rtpSessionIfIndex
             MIN-ACCESS read-only
               DESCRIPTION
-               "Row creation and deletion is OPTIONAL so
-                read-create access to this object is OPTIONAL."
+               "Row creation and deletion is <em>OPTIONAL</em> so
+                read-create access to this object is <em>OPTIONAL</em>."
         OBJECT  rtpSessionRowStatus
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Row creation and deletion is OPTIONAL so
-                read-create access to this object is OPTIONAL."
+               "Row creation and deletion is <em>OPTIONAL</em> so
+                read-create access to this object is <em>OPTIONAL</em>."
         OBJECT  rtpSessionInverseStartTime
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Multicast RTP Systems SHOULD implement the optional
+               "Multicast RTP Systems <em>SHOULD</em> implement the optional
                 tables."
 
 
@@ -1478,12 +1478,12 @@ rtpHostCompliance MODULE-COMPLIANCE
         OBJECT  rtpSenderInverseStartTime
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Multicast RTP Systems SHOULD implement the optional
+               "Multicast RTP Systems <em>SHOULD</em> implement the optional
                 tables."
         OBJECT  rtpRcvrInverseStartTime
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Multicast RTP Systems SHOULD implement the optional
+               "Multicast RTP Systems <em>SHOULD</em> implement the optional
                 tables."
     ::= { rtpCompliances 1 }
 
@@ -1503,14 +1503,14 @@ rtpMonitorCompliance MODULE-COMPLIANCE
          rtpHostGroup."
     GROUP                rtpInverseGroup
     DESCRIPTION
-        "Multicast RTP Systems SHOULD implement the optional
+        "Multicast RTP Systems <em>SHOULD</em> implement the optional
          tables."
         OBJECT  rtpSessionLocAddr
             MIN-ACCESS not-accessible
               DESCRIPTION
                "RTP monitor sourcing of RTP or RTCP data packets
-                is OPTIONAL and implementation of this object is
-                OPTIONAL."
+                is <em>OPTIONAL</em> and implementation of this object is
+                <em>OPTIONAL</em>."
         OBJECT  rtpRcvrPT
             MIN-ACCESS not-accessible
               DESCRIPTION
@@ -1539,33 +1539,33 @@ rtpMonitorCompliance MODULE-COMPLIANCE
                "RTP monitor systems may receive only the RTCP messages
                 and not the RTP messages that contain the octet count
                 of the RTP message.  Thus implementation of this
-                object is OPTIONAL"
+                object is <em>OPTIONAL</em>"
         OBJECT  rtpRcvrPackets
             MIN-ACCESS not-accessible
               DESCRIPTION
                "RTP monitor systems may receive only the RTCP messages
                 and not the RTP messages that contain the octet count
                 of the RTP message.  Thus implementation of this
-                object is OPTIONAL."
+                object is <em>OPTIONAL</em>."
         OBJECT  rtpSessionIfIndex
             MIN-ACCESS read-only
               DESCRIPTION
-               "Row creation and deletion is OPTIONAL so
-                read-create access to this object is OPTIONAL."
+               "Row creation and deletion is <em>OPTIONAL</em> so
+                read-create access to this object is <em>OPTIONAL</em>."
         OBJECT  rtpSessionInverseStartTime
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Multicast RTP Systems SHOULD implement the optional
+               "Multicast RTP Systems <em>SHOULD</em> implement the optional
                 tables."
         OBJECT  rtpSenderInverseStartTime
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Multicast RTP Systems SHOULD implement the optional
+               "Multicast RTP Systems <em>SHOULD</em> implement the optional
                 tables."
         OBJECT  rtpRcvrInverseStartTime
             MIN-ACCESS not-accessible
               DESCRIPTION
-               "Multicast RTP Systems SHOULD implement the optional
+               "Multicast RTP Systems <em>SHOULD</em> implement the optional
                 tables."
     ::= { rtpCompliances 2 }
 END

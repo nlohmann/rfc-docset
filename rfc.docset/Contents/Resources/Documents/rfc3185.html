@@ -258,7 +258,7 @@ Table Of Contents
    message 1, and that same value as the KEKIdentifier for message 2.
    The CEK from message 1 is called the "referenced CEK".
 
-   The key words "MUST", "REQUIRED", "SHOULD", "RECOMMENDED", and "MAY"
+   The key words "<em>MUST</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>RECOMMENDED</em>", and "<em>MAY</em>"
    in this document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Applicability</span>
@@ -281,7 +281,7 @@ Table Of Contents
       define a protocol but merely a trick that can be used in a larger
       context and additional specification will be needed for each such
       case.  In particular, in order to use this specification, it is
-      REQUIRED to define the originators' and recipients' behavior where
+      <em>REQUIRED</em> to define the originators' and recipients' behavior where
       a referenced CEK has been "lost".
 
    -  This specification is not suitable for general group key
@@ -308,7 +308,7 @@ Table Of Contents
    -  The algorithms for content and key encryption have compatible key
       values and strengths, that is, if MSG1.contentEncryptionAlgorithm
       is a 40bit cipher and MSG2.keyEncryptionAlgorithm requires 168
-      bits of keying material, then this specification SHOULD NOT be
+      bits of keying material, then this specification <em>SHOULD NOT</em> be
       used.
 
    There are other ways that could be envisaged to establish the
@@ -329,7 +329,7 @@ Table Of Contents
    unprotectedAttrs field of MSG1.  This key can then be used to derive
    the key-encryption key (KEK) for other instances of EnvelopedData or
    for other purposes.  If the CEK from MSG1 is to be used to derive the
-   KEK for MSG2 then MSG1 MUST contain an unprotectedAttrs Attribute of
+   KEK for MSG2 then MSG1 <em>MUST</em> contain an unprotectedAttrs Attribute of
    type id-aa-CEKReference with a single value using the CEKReference
    syntax.
 
@@ -338,7 +338,7 @@ Table Of Contents
    plaintext and the related ciphertext (encrypted with MSG1.CEK) that
    (otherwise) could be directly used as a MSG2.KEK.
 
-   The application MUST ensure that the relevant algorithms are
+   The application <em>MUST</em> ensure that the relevant algorithms are
    compatible.  That is, a CEKReference attribute alone can only be used
    where the content-encryption algorithm from MSG1 employs the same
    type of symmetric key as the key-encryption algorithm from MSG2.
@@ -362,7 +362,7 @@ Table Of Contents
       the referenced CEK with every message.
 
    2) The CEKReference attribute can occur with any of the choices for
-      RecipientInfo: ktri, kari or kekri.  Implementors MUST NOT assume
+      RecipientInfo: ktri, kari or kekri.  Implementors <em>MUST NOT</em> assume
       that CEKReference can only occur where ktri or kari is used.
 
    id-aa-CEKReference OBJECT IDENTIFIER ::= { id-aa 30 }
@@ -371,19 +371,19 @@ Table Of Contents
    id-aa is an object identifier defined in [<a href="#ref-CMS-MSG" title="&quot;S/MIME Version 3 Message Specification&quot;">CMS-MSG</a>].
 
    In order to allow the originator of MSG1 to indicate the "lifetime"
-   of the CEK, the originator MAY include a CEKMaxDecrypts attribute,
+   of the CEK, the originator <em>MAY</em> include a CEKMaxDecrypts attribute,
    also in the unprotectedAttrs field of EnvelopedData.  This attribute
-   has an INTEGER syntax (the value MUST be &gt;=1 and maximally 2^31), and
+   has an INTEGER syntax (the value <em>MUST</em> be &gt;=1 and maximally 2^31), and
    indicates to the recipient the maximum number of messages (excluding
-   MSG1) that will use the referenced CEK.  This Attribute MUST only be
+   MSG1) that will use the referenced CEK.  This Attribute <em>MUST</em> only be
    sent when a CEKReference attribute is also included.
 
-   The recipient SHOULD maintain the CEKReference information (minimally
+   The recipient <em>SHOULD</em> maintain the CEKReference information (minimally
    the key identifier and the CEK value) while less than maxDecrypt
-   messages have been successfully received.  Recipients SHOULD delete
+   messages have been successfully received.  Recipients <em>SHOULD</em> delete
    the CEKReference information after some locally configured period.
 
-   When this attribute is not present, originators and recipients SHOULD
+   When this attribute is not present, originators and recipients <em>SHOULD</em>
    behave as if a value of one had been sent.
 
    id-aa-CEKMaxDecrypts OBJECT IDENTIFIER ::= { id-aa 31 }
@@ -400,7 +400,7 @@ Table Of Contents
 
    Where MSG1.content-encryption algorithm and MSG2.key-encryption
    algorithm are the same then the MSG2.KEK is the byte-reverse of
-   MSG1.CEK.  However, in general, these algorithms MAY differ, e.g.,
+   MSG1.CEK.  However, in general, these algorithms <em>MAY</em> differ, e.g.,
    requiring different key lengths.  This section specifies a generic
    way to derive MSG2.KEK for such cases.
 
@@ -419,7 +419,7 @@ Table Of Contents
    terms of the resulting cryptographic "strength."  In that sense the
    two algorithms in the example above are the "same."
 
-   Implementations MAY include this functionality.
+   Implementations <em>MAY</em> include this functionality.
 
    The basic approach is to use the PBKDF2 key derivation function
    defined in PKCS#5 [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">RFC2898</a>], but using MSG1.CEK as input instead of a
@@ -440,21 +440,21 @@ Table Of Contents
 
    The PBKDF2 algorithm parameters are to be handled as follows:
 
-   -  The salt MUST use the "specified" element of the CHOICE.
+   -  The salt <em>MUST</em> use the "specified" element of the CHOICE.
    -  The message originator selects the iterationCount.
-   -  The value of keyLength is determined by the kekAlg and MUST be
+   -  The value of keyLength is determined by the kekAlg and <em>MUST</em> be
       present.
-   -  The prf field MUST use the default algorithm specified in
-      [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">RFC2898</a>] which is algid-hmacWithSHA1 (and so the prf field MUST
+   -  The prf field <em>MUST</em> use the default algorithm specified in
+      [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">RFC2898</a>] which is algid-hmacWithSHA1 (and so the prf field <em>MUST</em>
       be omitted).
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>. Conformance</span>
 
    This specification only applies to messages where the CEKReference
-   attribute is present.  All attributes specified here SHOULD be
+   attribute is present.  All attributes specified here <em>SHOULD</em> be
    ignored unless they are present in a message containing a valid, new
    or recognized, existing value of CEKReference.  The CEKMaxDecrypts
-   attribute is to be treated by the recipient as a hint, but MUST be
+   attribute is to be treated by the recipient as a hint, but <em>MUST</em> be
    honored by the originator.
 
 
@@ -467,36 +467,36 @@ Table Of Contents
 <span class="grey"><a href="./rfc3185.html">RFC 3185</a>          Reuse of CMS Content Encryption Keys      October 2001</span>
 
 
-   The optional to implement KEKDerivationAlgorithm attribute MUST only
+   The optional to implement KEKDerivationAlgorithm attribute <em>MUST</em> only
    be present when MSG1.content-encryption algorithm differs from
-   MSG2.key-encryption algorithm, in which case it MUST be present.
+   MSG2.key-encryption algorithm, in which case it <em>MUST</em> be present.
    Implementations that recognize this attribute, but do not support the
-   functionality SHOULD ignore the attribute.
+   functionality <em>SHOULD</em> ignore the attribute.
 
    Ignoring attributes as discussed above, will lead to decryption
-   failures.  CMS implementations SHOULD be able to signal the
+   failures.  CMS implementations <em>SHOULD</em> be able to signal the
    particular reason for this failure to the calling application.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>. Security Considerations</span>
 
    Encryption does not provide authentication, for example, if the
-   encryptedContent is essentially random then recipients MUST NOT
+   encryptedContent is essentially random then recipients <em>MUST NOT</em>
    assume that "knowing" a CEKReference value proves anything - anyone
    could have created the EnvelopedData.  This is relevant both for
    security (the recovered plaintext should not be entirely random) and
-   for avoiding denial of service (the recipient MUST NOT assume that
+   for avoiding denial of service (the recipient <em>MUST NOT</em> assume that
    using the right CEKReference means that message originator is
    genuine).
 
    Similarly, using the correct CEKReference does not mean that a
-   message has not been replayed or inserted, and recipients MUST NOT
+   message has not been replayed or inserted, and recipients <em>MUST NOT</em>
    assume that replay has been avoided.
 
    The maxDecrypts field presents a potential denial-of-service attack
    if a very large value is included by an originator in an attempt to
    get a recipient to consume memory by storing the referenced CEKs for
    a long period or if the originator never sends the indicated number
-   of ciphertexts.  Recipients SHOULD therefore drop referenced CEKs
+   of ciphertexts.  Recipients <em>SHOULD</em> therefore drop referenced CEKs
    where the maxDecrypts value is too large (according to local
    configuration) or the referenced CEK has been held for too long a
    period.
@@ -604,7 +604,7 @@ Appendix A: ASN.1 Module
        -- this specification only uses 1988 ASN.1, the definition is
        -- repeated here for completeness.
 
-       -- The DEFAULT prf field value, MUST be used for this
+       -- The DEFAULT prf field value, <em>MUST</em> be used for this
        -- specification
        digestAlgorithm OBJECT IDENTIFIER ::=
             { iso(1) member-body(2) us(840) rsadsi(113549) 2}
@@ -616,11 +616,11 @@ Appendix A: ASN.1 Module
 
        PBKDF2-params ::= SEQUENCE {
          salt CHOICE {
-             specified OCTET STRING, -- MUST BE USED
+             specified OCTET STRING, -- <em>MUST</em> BE USED
              otherSource AlgorithmIdentifier -- DO NOT USE THIS FIELD
          },
          iterationCount INTEGER (1..MAX),
-         keyLength INTEGER (1..MAX) OPTIONAL
+         keyLength INTEGER (1..MAX) <em>OPTIONAL</em>
        }
 
         -- id-aa is the arc with all new authenticated and

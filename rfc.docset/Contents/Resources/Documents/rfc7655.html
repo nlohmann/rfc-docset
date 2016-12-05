@@ -370,8 +370,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  G.711.0 Codec Background</span>
@@ -599,7 +599,7 @@ Table of Contents
     |--------------------------|  A   |------------------------------|
     |    G.711 Input Frame     |-----&gt;|     G.711.0 Output Frame     |
     |       of X Octets        |      |  containing 1 to X+1 Octets  |
-    | (where X MUST be 40, 80, |      | (precise value dependent on  |
+    | (where X <em>MUST</em> be 40, 80, |      | (precise value dependent on  |
     | 160, 240, or 320 octets) |&lt;-----| G.711.0 ability to compress) |
     |__________________________|  B   |______________________________|
 
@@ -718,7 +718,7 @@ Table of Contents
    frames that are contained within it, will decode the G.711.0 RTP
    payload into the source G.711 symbols.  Although examples of single
    or multiple G.711 frame cases are illustrated in <a href="#section-4.2">Section 4.2</a>, the
-   multiple G.711.0 frame cases MUST be supported and there is no need
+   multiple G.711.0 frame cases <em>MUST</em> be supported and there is no need
    for negotiation (SDP or otherwise) required for it.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  RTP Header and Payload</span>
@@ -732,13 +732,13 @@ Table of Contents
    Relative to G.711 RTP headers, the utilization of G.711.0 does not
    create any special requirements with respect to the contents of the
    RTP packet header.  The only significant difference is that the
-   payload type (PT) RTP header field MUST have a value corresponding to
+   payload type (PT) RTP header field <em>MUST</em> have a value corresponding to
    the dynamic payload type assigned to the flow.  This is in contrast
    to most current uses of G.711 that typically use the static payload
    assignment of PT = 0 (PCMU) or PT = 8 (PCMA) [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>] even though
    the negotiation and use of dynamic payload types is allowed for
    G.711.  With the exception of rare PT exhaustion cases, the existing
-   G.711 PT values of 0 and 8 MUST NOT be used for G.711.0 (helping to
+   G.711 PT values of 0 and 8 <em>MUST NOT</em> be used for G.711.0 (helping to
    avoid possible payload confusion with G.711 payloads).
 
 
@@ -751,11 +751,11 @@ Table of Contents
 <span class="grey"><a href="./rfc7655.html">RFC 7655</a>                 G.711.0 Payload Format            November 2015</span>
 
 
-   Voice Activity Detection (VAD) SHOULD NOT be used when G.711.0 is
+   Voice Activity Detection (VAD) <em>SHOULD NOT</em> be used when G.711.0 is
    negotiated because G.711.0 obtains high compression during "VAD
    silence intervals" and one of the advantages of G.711.0 over G.711
    with VAD is the lack of any VAD-inducing artifacts in the received
-   signal.  However, if VAD is employed, the Marker bit (M) MUST be set
+   signal.  However, if VAD is employed, the Marker bit (M) <em>MUST</em> be set
    in the first packet of a talkspurt (the first packet after a silence
    period in which packets have not been transmitted contiguously as per
    rules specified in [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>] for G.711 payloads).  This definition,
@@ -843,9 +843,9 @@ Table of Contents
 
    Encoding Process: A single G.711.0 frame is inserted into the RTP
    payload.  The amount of time represented by the G.711 symbols
-   compressed in the G.711.0 frame MUST correspond to the ptime signaled
+   compressed in the G.711.0 frame <em>MUST</em> correspond to the ptime signaled
    for applications using SDP.  Although generally not desired, padding
-   desired in the RTP payload after the G.711.0 frame MAY be created by
+   desired in the RTP payload after the G.711.0 frame <em>MAY</em> be created by
    placing one or more 0x00 octets after the G.711.0 frame.  Such
    padding may be desired based on the Security Considerations (see
    <a href="#section-8">Section 8</a>).
@@ -870,14 +870,14 @@ Table of Contents
 
    This section defines the G.711.0 RTP payload and illustrates the case
    in which one or more G.711.0 frames are to be placed in the payload.
-   All G.711.0 RTP decoders MUST support the general case described in
+   All G.711.0 RTP decoders <em>MUST</em> support the general case described in
    this section (rationale presented previously in <a href="#section-3.3.1">Section 3.3.1</a>).
 
    Note that since each G.711.0 frame is self-describing (see Attribute
    A4 in <a href="#section-3.2">Section 3.2</a>), the individual G.711.0 frames in the RTP payload
    need not represent the same duration of time (i.e., a 5 ms G.711.0
    frame could be followed by a 20 ms G.711.0 frame).  Owing to this,
-   the amount of time represented in the RTP payload MAY be any integer
+   the amount of time represented in the RTP payload <em>MAY</em> be any integer
    multiple of 5 ms (as 5 ms is the smallest interval of time that can
    be represented in a G.711.0 frame).
 
@@ -902,10 +902,10 @@ Table of Contents
    Encoding Process: One or more G.711.0 frames are placed in the RTP
    payload simply by concatenating the G.711.0 frames together.  The
    amount of time represented by the G.711 symbols compressed in all the
-   G.711.0 frames in the RTP payload MUST correspond to the ptime
+   G.711.0 frames in the RTP payload <em>MUST</em> correspond to the ptime
    signaled for applications using SDP.  Although not generally desired,
-   padding in the RTP payload SHOULD be placed after the last G.711.0
-   frame in the payload and MAY be created by placing one or more 0x00
+   padding in the RTP payload <em>SHOULD</em> be placed after the last G.711.0
+   frame in the payload and <em>MAY</em> be created by placing one or more 0x00
    octets after the last G.711.0 frame.  Such padding may be desired
    based on security considerations (see <a href="#section-8">Section 8</a>).  Additional details
    about the encoding process and considerations are specified later in
@@ -1064,7 +1064,7 @@ Table of Contents
    source symbols that should correspond to the ptime signaled if SDP
    was used and the encoding process was without error.  If ptime was
    signaled via SDP and the number of G.711 symbols in the output buffer
-   is something other than what corresponds to ptime, the packet MUST be
+   is something other than what corresponds to ptime, the packet <em>MUST</em> be
    discarded unless other system design knowledge allows for otherwise
    (e.g., occasional 5 ms clock slips causing one more or one less
    G.711.0 frame than nominal to be in the payload).  Lastly, due to the
@@ -1095,7 +1095,7 @@ Table of Contents
    clarity.
 
    If the decoder is at a playout endpoint location, this G.711 buffer
-   SHOULD be used in the same manner as a received G.711 RTP payload
+   <em>SHOULD</em> be used in the same manner as a received G.711 RTP payload
    would have been used (passed to a playout buffer, to a PLC
    implementation, etc.).
 
@@ -1107,7 +1107,7 @@ Table of Contents
    already noted, the output returned by the G.711.0 decoder will be
    bounded (to less than 321 octets per G.711.0 decode request) and if
    the number of the (presumed) G.711 symbols produced is known to be in
-   error, the decoded output MUST be discarded.
+   error, the decoded output <em>MUST</em> be discarded.
 
 <span class="h4"><a class="selflink" name="section-4.2.4" href="#section-4.2.4">4.2.4</a>.  G.711.0 RTP Payload for Multiple Channels</span>
 
@@ -1123,13 +1123,13 @@ Table of Contents
    <a href="./rfc3551.html#section-4">Section&nbsp;4 of RFC 3551</a> [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>] provides guidelines for encoding
    audio channels and <a href="./rfc3551.html#section-4.1">Section&nbsp;4.1 of RFC 3551</a> [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>] for the ordering
    of the channels within the RTP payload.  The ordering guidelines in
-   <a href="./rfc3551.html#section-4.1">Section&nbsp;4.1 of RFC 3551</a> SHOULD be used unless an application-specific
+   <a href="./rfc3551.html#section-4.1">Section&nbsp;4.1 of RFC 3551</a> <em>SHOULD</em> be used unless an application-specific
    channel ordering is more appropriate.
 
    An implicit assumption in <a href="./rfc3551.html">RFC 3551</a> is that all the channel data
-   multiplexed into an RTP payload MUST represent the same physical time
+   multiplexed into an RTP payload <em>MUST</em> represent the same physical time
    span.  The case for G.711.0 is no different; the underlying G.711
-   data for all channels in a G.711.0 RTP payload MUST span the same
+   data for all channels in a G.711.0 RTP payload <em>MUST</em> span the same
    interval in time (e.g., the same "ptime" for a SDP-specified codec
    negotiation).
 
@@ -1145,7 +1145,7 @@ Table of Contents
 
    <a href="./rfc3551.html#section-4.2">Section&nbsp;4.2 of RFC 3551</a> provides guidelines for sample-based
    encodings such as G.711.  This guidance is tantamount to interleaving
-   the individual samples in that they SHOULD be packed in consecutive
+   the individual samples in that they <em>SHOULD</em> be packed in consecutive
    octets.
 
    <a href="./rfc3551.html">RFC 3551</a> provides guidelines for frame-based encodings in which the
@@ -1171,7 +1171,7 @@ Table of Contents
    individual G.711.0 frames within it.  Then each G.711.0 channel
    superframe is concatenated -- in channel order -- into a G.711.0 RTP
    payload.  Then, if optional G.711.0 padding octets (0x00) are
-   desired, it is RECOMMENDED that these octets are placed after the
+   desired, it is <em>RECOMMENDED</em> that these octets are placed after the
    last G.711.0 channel superframe.  As per above, such padding may be
    desired based on Security Considerations (see <a href="#section-8">Section 8</a>).  This is
    depicted in Figure 4.
@@ -1209,24 +1209,24 @@ Table of Contents
    infer (knowing the sampling rate) how many G.711 symbols each channel
    contained; then, with this knowledge, the number of channels of data
    contained in the payload could be determined.  When SDP is used, the
-   number of channels is known because the optional parameter is a MUST
+   number of channels is known because the optional parameter is a <em>MUST</em>
    when there is more than one channel negotiated (see <a href="#section-5.1">Section 5.1</a>).
-   Additionally, when SDP is used, the parameter ptime is a RECOMMENDED
+   Additionally, when SDP is used, the parameter ptime is a <em>RECOMMENDED</em>
    optional parameter.  We note that if both parameters channels and
    ptime are known, one could provide a check for the other and the
    converse.  Whichever algorithm is used to determine the number of
    channels, if the length of the source G.711 symbols in the payload
    (M) is not an integer multiple of the number of channels (N), then
-   the packet SHOULD be discarded.
+   the packet <em>SHOULD</em> be discarded.
 
    Lastly, we note that although any padding for the multiple channel
-   G.711.0 payload is RECOMMENDED to be placed at the end of the
+   G.711.0 payload is <em>RECOMMENDED</em> to be placed at the end of the
    payload, the G.711.0 decoding algorithm described in <a href="#section-4.2.3">Section 4.2.3</a>
    will successfully decode the payload in Figure 4 if the 0x00 padding
    octet is placed anywhere before or after any individual G.711.0 frame
    in the RTP payload.  The number of padding octets introduced at any
    G.711.0 frame boundary therefore does not affect the number M of the
-   source G.711 symbols produced.  Thus, the decision for padding MAY be
+   source G.711 symbols produced.  Thus, the decision for padding <em>MAY</em> be
    made on a per-superframe basis.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Payload Format Parameters</span>
@@ -1277,7 +1277,7 @@ Table of Contents
    Optional parameters:
 
       channels: See <a href="./rfc4566.html">RFC 4566</a> [<a href="./rfc4566.html" title="&quot;SDP: Session Description Protocol&quot;">RFC4566</a>] for definition.  Specifies how
-      many audio streams are represented in the G.711.0 payload and MUST
+      many audio streams are represented in the G.711.0 payload and <em>MUST</em>
       be present if the number of channels is greater than one.  This
       parameter defaults to 1 if not present (as per <a href="./rfc4566.html">RFC 4566</a>) and is
       typically a non-zero, small-valued positive integer.  It is
@@ -1286,13 +1286,13 @@ Table of Contents
       their system design; otherwise, the channel order specified in
       <a href="./rfc3551.html#section-4.1">Section&nbsp;4.1 of RFC 3551</a> [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>] will be assumed (e.g., left,
       right, center).  Similar to the usual interpretation in <a href="./rfc3551.html">RFC 3551</a>
-      [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>], the number of channels SHALL be a non-zero, positive
+      [<a href="./rfc3551.html" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">RFC3551</a>], the number of channels <em>SHALL</em> be a non-zero, positive
       integer.
 
       maxptime: See <a href="./rfc4566.html">RFC 4566</a> [<a href="./rfc4566.html" title="&quot;SDP: Session Description Protocol&quot;">RFC4566</a>] for definition.
 
       ptime: See <a href="./rfc4566.html">RFC 4566</a> [<a href="./rfc4566.html" title="&quot;SDP: Session Description Protocol&quot;">RFC4566</a>] for definition.  The inclusion of
-      "ptime" is RECOMMENDED and SHOULD be in the SDP unless there is an
+      "ptime" is <em>RECOMMENDED</em> and <em>SHOULD</em> be in the SDP unless there is an
       application-specific reason not to include it (e.g., an
       application that has a variable ptime on a packet-by-packet
       basis).  For constant ptime applications, it is considered good
@@ -1401,17 +1401,17 @@ Table of Contents
    o  If the offering endpoint specifies a value for the optional
       channels parameter that is greater than one, and the answering
       endpoint both understands the parameter and cannot support that
-      value requested, the answer MUST contain the optional channels
+      value requested, the answer <em>MUST</em> contain the optional channels
       parameter with the highest value it can support.
 
    o  If the offering endpoint specifies a value for the optional
-      channels parameter, the answer MUST contain the optional channels
+      channels parameter, the answer <em>MUST</em> contain the optional channels
       parameter unless the only value the answering endpoint can support
-      is one, in which case the answer MAY contain the optional channels
+      is one, in which case the answer <em>MAY</em> contain the optional channels
       parameter with a value of 1.
 
    o  If the offering endpoint specifies a value for the ptime parameter
-      that the answering endpoint cannot support, the answer MUST
+      that the answering endpoint cannot support, the answer <em>MUST</em>
       contain the optional ptime parameter.
 
 
@@ -1425,7 +1425,7 @@ Table of Contents
 
    o  If the offering endpoint specifies a value for the maxptime
       parameter that the answering endpoint cannot support, the answer
-      MUST contain the optional maxptime parameter.
+      <em>MUST</em> contain the optional maxptime parameter.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  SDP Examples</span>
 
@@ -1626,7 +1626,7 @@ Table of Contents
    for multiple channels, metadata, and the like.  For these reasons, it
    was determined that a versioning strategy was desirable for the
    G.711.0 storage mode definition specified by this RFC.  This RFC only
-   specifies Version 0 and thus the value of "0x00" MUST be used for the
+   specifies Version 0 and thus the value of "0x00" <em>MUST</em> be used for the
    storage mode defined by this RFC.
 
    The G.711.0 codec data frames, including any necessary erasure or PLC
@@ -1647,7 +1647,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7655.html">RFC 7655</a>                 G.711.0 Payload Format            November 2015</span>
 
 
-   the payload MUST NOT be passed to the G.711.0 decoder, as the ITU-T
+   the payload <em>MUST NOT</em> be passed to the G.711.0 decoder, as the ITU-T
    G.711.0 reference decoder can only decode concatenated G.711.0 frames
    and has not been designed to decode elements in yet to be specified
    future storage mode formats.
@@ -1671,7 +1671,7 @@ Table of Contents
    RTP in general.  This responsibility lays on anyone using RTP in an
    application.  They can find guidance on available security mechanisms
    and important considerations in "Options for Securing RTP Sessions"
-   [<a href="./rfc7201.html" title="&quot;Options for Securing RTP Sessions&quot;">RFC7201</a>].  Applications SHOULD use one or more appropriate strong
+   [<a href="./rfc7201.html" title="&quot;Options for Securing RTP Sessions&quot;">RFC7201</a>].  Applications <em>SHOULD</em> use one or more appropriate strong
    security mechanisms.  The rest of this Security Considerations
    section discusses the security impacting properties of the playload
    format itself.

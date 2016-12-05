@@ -400,7 +400,7 @@ Table of Contents
    (i.e., port level).
 
    To ensure interworking between data links with different multiplexing
-   capabilities, LMP-capable devices SHOULD allow sub-channels of a
+   capabilities, LMP-capable devices <em>SHOULD</em> allow sub-channels of a
    component link to be locally configured as (logical) data links.  For
    example, if a Router with 4 OC-48 interfaces is connected through a
    4:1 MUX to a cross-connect with OC-192 interfaces, the cross-connect
@@ -426,8 +426,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The reader is assumed to be familiar with the terminology in
@@ -536,10 +536,10 @@ Table of Contents
    An "LMP adjacency" is formed between two nodes when at least one bi-
    directional control channel is established between them.  Multiple
    control channels may be active simultaneously for each adjacency;
-   control channel parameters, however, MUST be individually negotiated
+   control channel parameters, however, <em>MUST</em> be individually negotiated
    for each control channel.  If the LMP fast keep-alive is used over a
-   control channel, LMP Hello messages MUST be exchanged over the
-   control channel.  Other LMP messages MAY be transmitted over any of
+   control channel, LMP Hello messages <em>MUST</em> be exchanged over the
+   control channel.  Other LMP messages <em>MAY</em> be transmitted over any of
    the active control channels between a pair of adjacent nodes.  One or
    more active control channels may be grouped into a logical control
    channel for signaling, routing, and link property correlation
@@ -552,7 +552,7 @@ Table of Contents
    exchange is defined.  The LinkSummary message includes the local and
    remote Link_Ids, a list of all data links that comprise the TE link,
    and various link properties.  A LinkSummaryAck or LinkSummaryNack
-   message MUST be sent in response to the receipt of a LinkSummary
+   message <em>MUST</em> be sent in response to the receipt of a LinkSummary
    message indicating agreement or disagreement on the link properties.
 
    LMP messages are transmitted reliably using Message_Ids and
@@ -596,7 +596,7 @@ Table of Contents
    transparency simultaneously; but, at a minimum, it must be possible
    to terminate them one at a time.  There is also no requirement that
    the control channel and TE link use the same physical medium;
-   however, the control channel MUST be terminated by the same two
+   however, the control channel <em>MUST</em> be terminated by the same two
    control elements that control the TE link.  Since the BeginVerify
    message exchange coordinates the Test procedure, it also naturally
    coordinates the transition of the data links in and out of the
@@ -617,7 +617,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Control Channel Management</span>
 
    To initiate an LMP adjacency between two nodes, one or more bi-
-   directional control channels MUST be activated.  The control channels
+   directional control channels <em>MUST</em> be activated.  The control channels
    can be used to exchange control-plane information such as link
    provisioning and fault management information (implemented using a
    messaging protocol such as LMP, proposed in this document), path
@@ -653,7 +653,7 @@ Table of Contents
    be used to dynamically learn the IP address on the far end of the
    control channel.  This is done by sending the Config message with the
    unicast IP source address and the multicast IP destination address
-   (224.0.0.1 or ff02::1).  The ConfigAck and ConfigNack messages MUST
+   (224.0.0.1 or ff02::1).  The ConfigAck and ConfigNack messages <em>MUST</em>
    be sent to the source IP address found in the IP header of the
    received Config message.
 
@@ -661,8 +661,8 @@ Table of Contents
    channels may be active simultaneously between a pair of nodes.
    Individual control channels can be realized in different ways; one
    might be implemented in-fiber while another one may be implemented
-   out-of-fiber.  As such, control channel parameters MUST be negotiated
-   over each individual control channel, and LMP Hello packets MUST be
+   out-of-fiber.  As such, control channel parameters <em>MUST</em> be negotiated
+   over each individual control channel, and LMP Hello packets <em>MUST</em> be
    exchanged over each control channel to maintain LMP connectivity if
    other mechanisms are not available.  Since control channels are
    electrically terminated at each node, it may be possible to detect
@@ -670,7 +670,7 @@ Table of Contents
 
    There are four LMP messages that are used to manage individual
    control channels.  They are the Config, ConfigAck, ConfigNack, and
-   Hello messages.  These messages MUST be transmitted on the channel to
+   Hello messages.  These messages <em>MUST</em> be transmitted on the channel to
    which they refer.  All other LMP messages may be transmitted over any
    of the active control channels between a pair of LMP adjacent nodes.
 
@@ -701,17 +701,17 @@ Table of Contents
    announcement of specific values that do not need, or do not allow,
    negotiation.
 
-   To activate a control channel, a Config message MUST be transmitted
-   to the remote node, and in response, a ConfigAck message MUST be
+   To activate a control channel, a Config message <em>MUST</em> be transmitted
+   to the remote node, and in response, a ConfigAck message <em>MUST</em> be
    received at the local node.  The Config message contains the Local
    Control Channel Id (CC_Id), the sender's Node_Id, a Message_Id for
    reliable messaging, and a CONFIG object.  It is possible that both
    the local and remote nodes initiate the configuration procedure at
    the same time.  To avoid ambiguities, the node with the higher
-   Node_Id wins the contention; the node with the lower Node_Id MUST
+   Node_Id wins the contention; the node with the lower Node_Id <em>MUST</em>
    stop transmitting the Config message and respond to the Config
    message it received.  If the Node_Ids are equal, then one (or both)
-   nodes have been misconfigured.  The nodes MAY continue to retransmit
+   nodes have been misconfigured.  The nodes <em>MAY</em> continue to retransmit
    Config messages in hopes that the misconfiguration is corrected.
    Note that the problem may be solved by an operator changing the
    Node_Ids on one or both nodes.
@@ -726,11 +726,11 @@ Table of Contents
    parameters.
 
    If a node receives a ConfigNack message with acceptable alternate
-   values for negotiable parameters, the node SHOULD transmit a Config
+   values for negotiable parameters, the node <em>SHOULD</em> transmit a Config
    message using these values for those parameters.
 
    If a node receives a ConfigNack message with unacceptable alternate
-   values, the node MAY continue to retransmit Config messages in hopes
+   values, the node <em>MAY</em> continue to retransmit Config messages in hopes
    that the misconfiguration is corrected.  Note that the problem may be
    solved by an operator changing parameters on one or both nodes.
 
@@ -761,7 +761,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  Hello Parameter Negotiation</span>
 
    Before sending Hello messages, the HelloInterval and
-   HelloDeadInterval parameters MUST be agreed upon by the local and
+   HelloDeadInterval parameters <em>MUST</em> be agreed upon by the local and
    remote nodes.  These parameters are exchanged in the Config message.
    The HelloInterval indicates how frequently LMP Hello messages will be
    sent, and is measured in milliseconds (ms).  For example, if the
@@ -770,10 +770,10 @@ Table of Contents
    long a device should wait to receive a Hello message before declaring
    a control channel dead, and is measured in milliseconds (ms).
 
-   The HelloDeadInterval MUST be greater than the HelloInterval, and
-   SHOULD be at least 3 times the value of HelloInterval.  If the fast
+   The HelloDeadInterval <em>MUST</em> be greater than the HelloInterval, and
+   <em>SHOULD</em> be at least 3 times the value of HelloInterval.  If the fast
    keep-alive mechanism of LMP is not used, the HelloInterval and
-   HelloDeadInterval parameters MUST be set to zero.
+   HelloDeadInterval parameters <em>MUST</em> be set to zero.
 
    The values for the HelloInterval and HelloDeadInterval should be
    selected carefully to provide rapid response time to control channel
@@ -792,7 +792,7 @@ Table of Contents
    connectivity.  For example, indication of bi-directional connectivity
    may be learned from the transport layer.)  If, however, a node
    receives a ConfigNack message instead of a ConfigAck message, the
-   node MUST not send Hello messages and the control channel SHOULD NOT
+   node <em>MUST</em> not send Hello messages and the control channel <em>SHOULD NOT</em>
    move to the up state.  See <a href="#section-11.1">Section 11.1</a> for the complete control
    channel FSM.
 
@@ -817,7 +817,7 @@ Table of Contents
    number of the last Hello message received from the adjacent node over
    this control channel.
 
-   There are two special sequence numbers.  TxSeqNum MUST NOT ever be 0.
+   There are two special sequence numbers.  TxSeqNum <em>MUST NOT</em> ever be 0.
    TxSeqNum = 1 is used to indicate that the sender has just started or
    has restarted and has no recollection of the last TxSeqNum that was
    sent.  Thus, the first Hello sent has a TxSeqNum of 1 and an RxSeqNum
@@ -870,11 +870,11 @@ Table of Contents
    To allow bringing a control channel down gracefully for
    administration purposes, a ControlChannelDown flag is available in
    the Common Header of LMP packets.  When data links are still in use
-   between a pair of nodes, a control channel SHOULD only be taken down
+   between a pair of nodes, a control channel <em>SHOULD</em> only be taken down
    administratively when there are other active control channels that
    can be used to manage the data links.
 
-   When bringing a control channel down administratively, a node MUST
+   When bringing a control channel down administratively, a node <em>MUST</em>
    set the ControlChannelDown flag in all LMP messages sent over the
    control channel.  The node that initiated the control channel down
    procedure may stop sending Hello messages after HelloDeadInterval
@@ -882,7 +882,7 @@ Table of Contents
    control channel with the ControlChannelDown flag set.
 
    When a node receives an LMP packet with the ControlChannelDown flag
-   set, it SHOULD send a Hello message with the ControlChannelDown flag
+   set, it <em>SHOULD</em> send a Hello message with the ControlChannelDown flag
    set and move the control channel to the down state.
 
 <span class="h4"><a class="selflink" name="section-3.2.4" href="#section-3.2.4">3.2.4</a>.  Degraded State</span>
@@ -896,7 +896,7 @@ Table of Contents
    links may no longer be guaranteed the same level of service.  Hence,
    the TE link is in a Degraded state.
 
-   When a TE link is in the Degraded state, routing and signaling SHOULD
+   When a TE link is in the Degraded state, routing and signaling <em>SHOULD</em>
    be notified so that new connections are not accepted and the TE link
    is advertised with no unreserved resources.
 
@@ -922,18 +922,18 @@ Table of Contents
 
 
    Each TE link has an identifier (Link_Id) that is assigned at each end
-   of the link.  These identifiers MUST be the same type (i.e, IPv4,
+   of the link.  These identifiers <em>MUST</em> be the same type (i.e, IPv4,
    IPv6, unnumbered) at both ends.  If a LinkSummary message is received
    with different local and remote TE link types, then a LinkSummaryNack
-   message MUST be sent with Error Code "Bad TE Link Object".
+   message <em>MUST</em> be sent with Error Code "Bad TE Link Object".
    Similarly, each data link is assigned an identifier (Interface_Id) at
-   each end.  These identifiers MUST also be the same type at both ends.
+   each end.  These identifiers <em>MUST</em> also be the same type at both ends.
    If a LinkSummary message is received with different local and remote
-   Interface_Id types, then a LinkSummaryNack message MUST be sent with
+   Interface_Id types, then a LinkSummaryNack message <em>MUST</em> be sent with
    Error Code "Bad Data Link Object".
 
-   Link property correlation SHOULD be done before the link is brought
-   up and MAY be done any time a link is up and not in the Verification
+   Link property correlation <em>SHOULD</em> be done before the link is brought
+   up and <em>MAY</em> be done any time a link is up and not in the Verification
    process.
 
    The LinkSummary message is used to verify for consistency the TE and
@@ -962,13 +962,13 @@ Table of Contents
 
    The LinkSummaryAck message is used to signal agreement on the
    Interface_Id mappings and link property definitions.  Otherwise, a
-   LinkSummaryNack message MUST be transmitted, indicating which
+   LinkSummaryNack message <em>MUST</em> be transmitted, indicating which
    Interface mappings are not correct and/or which link properties are
    not accepted.  If a LinkSummaryNack message indicates that the
    Interface_Id mappings are not correct and the link verification
-   procedure is enabled, the link verification process SHOULD be
+   procedure is enabled, the link verification process <em>SHOULD</em> be
    repeated for all mismatched, free data links; if an allocated data
-   link has a mapping mismatch, it SHOULD be flagged and verified when
+   link has a mapping mismatch, it <em>SHOULD</em> be flagged and verified when
 
 
 
@@ -978,17 +978,17 @@ Table of Contents
 
 
    it becomes free.  If a LinkSummaryNack message includes negotiable
-   parameters, then acceptable values for those parameters MUST be
+   parameters, then acceptable values for those parameters <em>MUST</em> be
    included.  If a LinkSummaryNack message is received and includes
    negotiable parameters, then the initiator of the LinkSummary message
-   SHOULD send a new LinkSummary message.  The new LinkSummary message
-   SHOULD include new values for the negotiable parameters.  These
-   values SHOULD take into account the acceptable values received in the
+   <em>SHOULD</em> send a new LinkSummary message.  The new LinkSummary message
+   <em>SHOULD</em> include new values for the negotiable parameters.  These
+   values <em>SHOULD</em> take into account the acceptable values received in the
    LinkSummaryNack message.
 
    It is possible that the LinkSummary message could grow quite large
-   due to the number of DATA LINK objects.  An LMP implementation SHOULD
-   be able to fragment when transmitting LMP messages, and MUST be able
+   due to the number of DATA LINK objects.  An LMP implementation <em>SHOULD</em>
+   be able to fragment when transmitting LMP messages, and <em>MUST</em> be able
    to re-assemble IP fragments when receiving LMP messages.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Verifying Link Connectivity</span>
@@ -996,7 +996,7 @@ Table of Contents
    In this section, an optional procedure is described that may be used
    to verify the physical connectivity of the data links and dynamically
    learn (i.e., discover) the TE link and Interface_Id associations.
-   The procedure SHOULD be done when establishing a TE link, and
+   The procedure <em>SHOULD</em> be done when establishing a TE link, and
    subsequently, on a periodic basis for all unallocated (free) data
    links of the TE link.
 
@@ -1005,7 +1005,7 @@ Table of Contents
    message.
 
    If a BeginVerify message is received and link verification is not
-   supported for the TE link, then a BeginVerifyNack message MUST be
+   supported for the TE link, then a BeginVerifyNack message <em>MUST</em> be
    transmitted with Error Code indicating, "Link Verification Procedure
    not supported for this TE Link."
 
@@ -1022,7 +1022,7 @@ Table of Contents
    the BeginVerify and BeginVerifyAck messages.
 
    There is no requirement that all data links be terminated
-   simultaneously; but, at a minimum, the data links MUST be able to be
+   simultaneously; but, at a minimum, the data links <em>MUST</em> be able to be
    terminated one at a time.  Furthermore, for the link verification
    procedure it is assumed that the nodal architecture is designed so
 
@@ -1040,8 +1040,8 @@ Table of Contents
    additional requirement.
 
    To interconnect two nodes, a TE link is defined between them, and at
-   a minimum, there MUST be at least one active control channel between
-   the nodes.  For link verification, a TE link MUST include at least
+   a minimum, there <em>MUST</em> be at least one active control channel between
+   the nodes.  For link verification, a TE link <em>MUST</em> include at least
    one data link.
 
    Once a control channel has been established between the two nodes,
@@ -1055,9 +1055,9 @@ Table of Contents
    they are unidirectional; therefore, it may be possible for both nodes
    to (independently) exchange the Test messages simultaneously.
 
-   To initiate the link verification procedure, the local node MUST send
+   To initiate the link verification procedure, the local node <em>MUST</em> send
    a BeginVerify message over a control channel.  To limit the scope of
-   Link Verification to a particular TE Link, the local Link_Id MUST be
+   Link Verification to a particular TE Link, the local Link_Id <em>MUST</em> be
    non-zero.  If this field is zero, the data links can span multiple TE
    links and/or they may comprise a TE link that is yet to be
    configured.  For the case where the local Link_Id field is zero, the
@@ -1078,7 +1078,7 @@ Table of Contents
    over which the Test messages will be transmitted.
 
    If the remote node receives a BeginVerify message and it is ready to
-   process Test messages, it MUST send a BeginVerifyAck message back to
+   process Test messages, it <em>MUST</em> send a BeginVerifyAck message back to
    the local node specifying the desired transport mechanism for the
    TEST messages.  The remote node includes a 32-bit, node-unique
 
@@ -1089,8 +1089,8 @@ Table of Contents
 <span class="grey"><a href="./rfc4204.html">RFC 4204</a>             Link Management Protocol (LMP)         October 2005</span>
 
 
-   Verify_Id in the BeginVerifyAck message.  The Verify_Id MAY be
-   randomly selected; however, it MUST NOT overlap any other Verify_Id
+   Verify_Id in the BeginVerifyAck message.  The Verify_Id <em>MAY</em> be
+   randomly selected; however, it <em>MUST NOT</em> overlap any other Verify_Id
    currently being used by the node selecting it.  The Verify_Id is then
    used in all corresponding verification messages to differentiate them
    from different LMP peers and/or parallel Test procedures.  When the
@@ -1098,17 +1098,17 @@ Table of Contents
    may begin testing the data links by transmitting periodic Test
    messages over each data link.  The Test message includes the
    Verify_Id and the local Interface_Id for the associated data link.
-   The remote node MUST send either a TestStatusSuccess or a
+   The remote node <em>MUST</em> send either a TestStatusSuccess or a
    TestStatusFailure message in response for each data link.  A
-   TestStatusAck message MUST be sent to confirm receipt of the
+   TestStatusAck message <em>MUST</em> be sent to confirm receipt of the
    TestStatusSuccess and TestStatusFailure messages.  Unacknowledged
-   TestStatusSuccess and TestStatusFailure messages SHOULD be
+   TestStatusSuccess and TestStatusFailure messages <em>SHOULD</em> be
    retransmitted until the message is acknowledged or until a retry
    limit is reached (see also <a href="#section-10">Section 10</a>).
 
    It is also permissible for the sender to terminate the Test procedure
    anytime after sending the BeginVerify message.  An EndVerify message
-   SHOULD be sent for this purpose.
+   <em>SHOULD</em> be sent for this purpose.
 
    Message correlation is done using message identifiers and the
    Verify_Id; this enables verification of data links, belonging to
@@ -1117,23 +1117,23 @@ Table of Contents
    When the Test message is received, the received Interface_Id (used in
    GMPLS as either a Port label or component link identifier, depending
    on the configuration) is recorded and mapped to the local
-   Interface_Id for that data link, and a TestStatusSuccess message MUST
+   Interface_Id for that data link, and a TestStatusSuccess message <em>MUST</em>
    be sent.  The TestStatusSuccess message includes the local
    Interface_Id along with the Interface_Id and Verify_Id received in
    the Test message.  The receipt of a TestStatusSuccess message
    indicates that the Test message was detected at the remote node and
    the physical connectivity of the data link has been verified.  When
-   the TestStatusSuccess message is received, the local node SHOULD mark
+   the TestStatusSuccess message is received, the local node <em>SHOULD</em> mark
    the data link as up and send a TestStatusAck message to the remote
    node.  If, however, the Test message is not detected at the remote
    node within an observation period (specified by the
-   VerifyDeadInterval), the remote node MUST send a TestStatusFailure
+   VerifyDeadInterval), the remote node <em>MUST</em> send a TestStatusFailure
    message over the control channel, which indicates that the
    verification of the physical connectivity of the data link has
    failed.  When the local node receives a TestStatusFailure message, it
-   SHOULD mark the data link as FAILED and send a TestStatusAck message
+   <em>SHOULD</em> mark the data link as FAILED and send a TestStatusAck message
    to the remote node.  When all the data links on the list have been
-   tested, the local node SHOULD send an EndVerify message to indicate
+   tested, the local node <em>SHOULD</em> send an EndVerify message to indicate
    that testing is complete on this link.
 
 
@@ -1150,7 +1150,7 @@ Table of Contents
    a defined order known to both nodes.  The suggested criterion for
    this ordering is by increasing the value of the remote Interface_Id.
 
-   Both the local and remote nodes SHOULD maintain the complete list of
+   Both the local and remote nodes <em>SHOULD</em> maintain the complete list of
    Interface_Id mappings for correlation purposes.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Example of Link Connectivity Verification</span>
@@ -1299,7 +1299,7 @@ Table of Contents
    link failures will send a ChannelStatus message to its upstream
    neighbor indicating that a failure has been detected (bundling
    together the notification of all the failed data links).  An upstream
-   node that receives the ChannelStatus message MUST send a
+   node that receives the ChannelStatus message <em>MUST</em> send a
    ChannelStatusAck message to the downstream node indicating it has
    received the ChannelStatus message.  The upstream node should
    correlate the failure to see if the failure is also detected locally
@@ -1314,16 +1314,16 @@ Table of Contents
 
 
    node will have localized the failure.  Once the failure is
-   correlated, the upstream node SHOULD send a ChannelStatus message to
+   correlated, the upstream node <em>SHOULD</em> send a ChannelStatus message to
    the downstream node indicating that the channel is failed or is OK.
    If a ChannelStatus message is not received by the downstream node, it
-   SHOULD send a ChannelStatusRequest message for the channel in
+   <em>SHOULD</em> send a ChannelStatusRequest message for the channel in
    question.  Once the failure has been localized, the signaling
    protocols may be used to initiate span or path protection and
    restoration procedures.
 
    If all of the data links of a TE link have failed, then the upstream
-   node MAY be notified of the TE link failure without specifying each
+   node <em>MAY</em> be notified of the TE link failure without specifying each
    data link of the failed TE link.  This is done by sending failure
    notification in a ChannelStatus message identifying the TE Link
    without including the Interface_Ids in the CHANNEL_STATUS object.
@@ -1406,11 +1406,11 @@ Table of Contents
    not be detectable.
 
    The ChannelStatus message is used to indicate that a channel or group
-   of channels are now active.  The ChannelStatusAck message MUST be
+   of channels are now active.  The ChannelStatusAck message <em>MUST</em> be
    transmitted upon receipt of a ChannelStatus message.  When a
    ChannelStatus message is received, the corresponding data link(s)
-   MUST be put into the Active state.  If upon putting them into the
-   Active state, a failure is detected, the ChannelStatus message SHOULD
+   <em>MUST</em> be put into the Active state.  If upon putting them into the
+   Active state, a failure is detected, the ChannelStatus message <em>SHOULD</em>
    be transmitted as described in <a href="#section-6.2">Section 6.2</a>.
 
 
@@ -1432,7 +1432,7 @@ Table of Contents
    the counterpart to the Channel Active Indication.
 
    When a ChannelStatus message is received with Channel Deactive
-   Indication, the corresponding data link(s) MUST be taken out of the
+   Indication, the corresponding data link(s) <em>MUST</em> be taken out of the
    Active state.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>. Message_Id Usage</span>
@@ -1450,14 +1450,14 @@ Table of Contents
    Message_Id field is within the scope of the LMP adjacency.
 
    The Message_Id field of the MESSAGE_ID object contains a generator-
-   selected value.  This value MUST be monotonically increasing.  A
+   selected value.  This value <em>MUST</em> be monotonically increasing.  A
    value is considered to be previously used when it has been sent in an
    LMP message with the same CC_Id (for control channel specific
    messages) or LMP adjacency (for TE Link specific messages).  The
    Message_Id field of the MESSAGE_ID_ACK object contains the Message_Id
    field of the message being acknowledged.
 
-   Unacknowledged messages sent with the MESSAGE_ID object SHOULD be
+   Unacknowledged messages sent with the MESSAGE_ID object <em>SHOULD</em> be
    retransmitted until the message is acknowledged or until a retry
    limit is reached (see also <a href="#section-10">Section 10</a>).
 
@@ -1481,7 +1481,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4204.html">RFC 4204</a>             Link Management Protocol (LMP)         October 2005</span>
 
 
-   Nodes processing incoming messages SHOULD check to see if a newly
+   Nodes processing incoming messages <em>SHOULD</em> check to see if a newly
    received message is out of order and can be ignored.  Out-of-order
    messages can be identified by examining the value in the Message_Id
    field.  If a message is determined to be out-of-order, that message
@@ -1489,28 +1489,28 @@ Table of Contents
 
    If the message is a Config message, and the Message_Id value is less
    than the largest Message_Id value previously received from the sender
-   for the CC_Id, then the message SHOULD be treated as being out-of-
+   for the CC_Id, then the message <em>SHOULD</em> be treated as being out-of-
    order.
 
    If the message is a LinkSummary message and the Message_Id value is
    less than the largest Message_Id value previously received from the
-   sender for the TE Link, then the message SHOULD be treated as being
+   sender for the TE Link, then the message <em>SHOULD</em> be treated as being
    out-of-order.
 
    If the message is a ChannelStatus message and the Message_Id value is
    less than the largest Message_Id value previously received from the
-   sender for the specified TE link, then the receiver SHOULD check the
+   sender for the specified TE link, then the receiver <em>SHOULD</em> check the
    Message_Id value previously received for the state of each data
    channel included in the ChannelStatus message.  If the Message_Id
    value is greater than the most recently received Message_Id value
    associated with at least one of the data channels included in the
-   message, the message MUST NOT be treated as out of order; otherwise,
-   the message SHOULD be treated as being out of order.  However, the
-   state of any data channel MUST NOT be updated if the Message_Id value
+   message, the message <em>MUST NOT</em> be treated as out of order; otherwise,
+   the message <em>SHOULD</em> be treated as being out of order.  However, the
+   state of any data channel <em>MUST NOT</em> be updated if the Message_Id value
    is less than the most recently received Message_Id value associated
    with the data channel.
 
-   All other messages MUST NOT be treated as out-of-order.
+   All other messages <em>MUST NOT</em> be treated as out-of-order.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>. Graceful Restart</span>
 
@@ -1525,7 +1525,7 @@ Table of Contents
    the control channel, the LMP link information should be retained.  It
    is possible that a node may be capable of retaining the LMP link
    information across a nodal failure.  However, in both cases the
-   status of the data channels MUST be synchronized.
+   status of the data channels <em>MUST</em> be synchronized.
 
 
 
@@ -1542,11 +1542,11 @@ Table of Contents
 
    After the control plane of a node restarts, the control channel(s)
    must be re-established using the procedures of <a href="#section-3.1">Section 3.1</a>.  When
-   re-establishing control channels, the Config message SHOULD be sent
+   re-establishing control channels, the Config message <em>SHOULD</em> be sent
    using the unicast IP source and destination addresses.
 
    If the control plane failure was the result of a nodal failure where
-   the LMP control state is lost, then the "LMP Restart" flag MUST be
+   the LMP control state is lost, then the "LMP Restart" flag <em>MUST</em> be
    set in LMP messages until a Hello message is received with the
    RcvSeqNum equal to the local TxSeqNum.  This indicates that the
    control channel is up and the LMP neighbor has detected the restart.
@@ -1556,9 +1556,9 @@ Table of Contents
    both ends of the TE Link, the normal procedures for LinkSummary
    should be used, as described in <a href="#section-4">Section 4</a>.
 
-   Once a control channel is up, the LMP neighbor MUST send a
+   Once a control channel is up, the LMP neighbor <em>MUST</em> send a
    LinkSummary message for each TE Link across the adjacency.  All the
-   objects of the LinkSummary message MUST have the N-bit set to 0,
+   objects of the LinkSummary message <em>MUST</em> have the N-bit set to 0,
    indicating that the parameters are non-negotiable.  This provides the
    local/remote Link_Id and Interface_Id mappings, the associated data
    link parameters, and indication of which data links are currently
@@ -1567,15 +1567,15 @@ Table of Contents
    of retaining the LMP link information across a restart, it must
    process the LinkSummary message as described in <a href="#section-4">Section 4</a> with the
    exception that the allocated/de-allocated flag of the DATA_LINK
-   object received in the LinkSummary message MUST take precedence over
+   object received in the LinkSummary message <em>MUST</em> take precedence over
    any local value.  If, however, the node was not capable of retaining
-   the LMP link information across a restart, the node MUST accept the
+   the LMP link information across a restart, the node <em>MUST</em> accept the
    data link parameters of the received LinkSummary message and respond
    with a LinkSummaryAck message.
 
    Upon completion of the LinkSummary exchange, the node that has
-   restarted the control plane SHOULD send a ChannelStatusRequest
-   message for that TE link.  The node SHOULD also verify the
+   restarted the control plane <em>SHOULD</em> send a ChannelStatusRequest
+   message for that TE link.  The node <em>SHOULD</em> also verify the
    connectivity of all unallocated data channels.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>. Addressing</span>
@@ -1583,7 +1583,7 @@ Table of Contents
    All LMP messages are run over UDP with an LMP port number (except, in
    some cases, the Test messages, which may be limited by the transport
    mechanism for in-band messaging).  The destination address of the IP
-   packet MAY be either the address learned in the Configuration
+   packet <em>MAY</em> be either the address learned in the Configuration
    procedure (i.e., the Source IP address found in the IP header of the
 
 
@@ -1599,8 +1599,8 @@ Table of Contents
 
    The manner in which a Config message is addressed may depend on the
    signaling transport mechanism.  When the transport mechanism is a
-   point-to-point link, Config messages SHOULD be sent to the Multicast
-   address (224.0.0.1 or ff02::1).  Otherwise, Config messages MUST be
+   point-to-point link, Config messages <em>SHOULD</em> be sent to the Multicast
+   address (224.0.0.1 or ff02::1).  Otherwise, Config messages <em>MUST</em> be
    sent to an IP address on the neighboring node.  This may be
    configured at both ends of the control channel or may be
    automatically discovered.
@@ -1608,7 +1608,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Exponential Back-off Procedures</span>
 
    This section is based on [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>] and provides exponential back-off
-   procedures for message retransmission.  Implementations MUST use the
+   procedures for message retransmission.  Implementations <em>MUST</em> use the
    described procedures or their equivalent.
 
 <span class="h3"><a class="selflink" name="section-10.1" href="#section-10.1">10.1</a>. Operation</span>
@@ -1664,7 +1664,7 @@ Table of Contents
    After a node transmits a message requiring acknowledgement, it should
    immediately schedule a retransmission after Ri seconds.  If a
    corresponding acknowledgement message is received before Ri seconds,
-   then message retransmission SHOULD be canceled.  Otherwise, it will
+   then message retransmission <em>SHOULD</em> be canceled.  Otherwise, it will
    retransmit the message after (1+Delta)*Ri seconds.  The
    retransmission will continue until either an appropriate
    acknowledgement message is received or the rapid retry limit, Rl, has
@@ -2500,11 +2500,11 @@ Table of Contents
    &lt;Config Message&gt; ::= &lt;Common Header&gt; &lt;LOCAL_CCID&gt; &lt;MESSAGE_ID&gt;
                         &lt;LOCAL_NODE_ID&gt; &lt;CONFIG&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    The MESSAGE_ID object is within the scope of the LOCAL_CCID object.
 
-   The Config message MUST be periodically transmitted until (1) it
+   The Config message <em>MUST</em> be periodically transmitted until (1) it
    receives a ConfigAck or ConfigNack message, (2) a retry limit has
    been reached and no ConfigAck or ConfigNack message has been
    received, or (3) it receives a Config message from the remote node
@@ -2521,17 +2521,17 @@ Table of Contents
                            &lt;REMOTE_CCID&gt; &lt;MESSAGE_ID_ACK&gt;
                            &lt;REMOTE_NODE_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    The contents of the REMOTE_CCID, MESSAGE_ID_ACK, and REMOTE_NODE_ID
-   objects MUST be obtained from the Config message being acknowledged.
+   objects <em>MUST</em> be obtained from the Config message being acknowledged.
 
 <span class="h4"><a class="selflink" name="section-12.3.3" href="#section-12.3.3">12.3.3</a>.  ConfigNack Message (Msg Type = 3)</span>
 
    The ConfigNack message is used to acknowledge receipt of the Config
    message and indicate disagreement on non-negotiable parameters or
    propose other values for negotiable parameters.  Parameters where
-   agreement was reached MUST NOT be included in the ConfigNack Message.
+   agreement was reached <em>MUST NOT</em> be included in the ConfigNack Message.
    The format of the ConfigNack message is as follows:
 
    &lt;ConfigNack Message&gt; ::= &lt;Common Header&gt; &lt;LOCAL_CCID&gt;
@@ -2545,31 +2545,31 @@ Table of Contents
 <span class="grey"><a href="./rfc4204.html">RFC 4204</a>             Link Management Protocol (LMP)         October 2005</span>
 
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    The contents of the REMOTE_CCID, MESSAGE_ID_ACK, and REMOTE_NODE_ID
-   objects MUST be obtained from the Config message being negatively
+   objects <em>MUST</em> be obtained from the Config message being negatively
    acknowledged.
 
    It is possible that multiple parameters may be invalid in the Config
    message.
 
    If a negotiable CONFIG object is included in the ConfigNack message,
-   it MUST include acceptable values for the parameters.
+   it <em>MUST</em> include acceptable values for the parameters.
 
    If the ConfigNack message includes CONFIG objects for non-negotiable
-   parameters, they MUST be copied from the CONFIG objects received in
+   parameters, they <em>MUST</em> be copied from the CONFIG objects received in
    the Config message.
 
    If the ConfigNack message is received and only includes CONFIG
-   objects that are negotiable, then a new Config message SHOULD be
+   objects that are negotiable, then a new Config message <em>SHOULD</em> be
    sent.  The values in the CONFIG object of the new Config message
-   SHOULD take into account the acceptable values included in the
+   <em>SHOULD</em> take into account the acceptable values included in the
    ConfigNack message.
 
    If a node receives a Config message and recognizes the CONFIG object,
    but does not recognize the C-Type, a ConfigNack message including the
-   unknown CONFIG object MUST be sent.
+   unknown CONFIG object <em>MUST</em> be sent.
 
 <span class="h3"><a class="selflink" name="section-12.4" href="#section-12.4">12.4</a>.  Hello Message (Msg Type = 4)</span>
 
@@ -2577,9 +2577,9 @@ Table of Contents
 
    &lt;Hello Message&gt; ::= &lt;Common Header&gt; &lt;LOCAL_CCID&gt; &lt;HELLO&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The Hello message MUST be periodically transmitted at least once
+   The Hello message <em>MUST</em> be periodically transmitted at least once
    every HelloInterval msec.  If no Hello message is received within the
    HelloDeadInterval, the control channel is assumed to have failed.
 
@@ -2601,10 +2601,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4204.html">RFC 4204</a>             Link Management Protocol (LMP)         October 2005</span>
 
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    To limit the scope of Link Verification to a particular TE Link, the
-   Link_Id field of the LOCAL_LINK_ID object MUST be non-zero.  If this
+   Link_Id field of the LOCAL_LINK_ID object <em>MUST</em> be non-zero.  If this
    field is zero, the data links can span multiple TE links and/or they
    may comprise a TE link that is yet to be configured.  In the special
    case where the local Link_Id field is zero, the "Verify all Links"
@@ -2615,10 +2615,10 @@ Table of Contents
    The REMOTE_LINK_ID object may be included if the local/remote Link_Id
    mapping is known.
 
-   The Link_Id field of the REMOTE_LINK_ID object MUST be non-zero if
+   The Link_Id field of the REMOTE_LINK_ID object <em>MUST</em> be non-zero if
    included.
 
-   The BeginVerify message MUST be periodically transmitted until (1)
+   The BeginVerify message <em>MUST</em> be periodically transmitted until (1)
    the node receives either a BeginVerifyAck or BeginVerifyNack message
    to accept or reject the verify process or (2) a retry limit has been
    reached and no BeginVerifyAck or BeginVerifyNack message has been
@@ -2628,20 +2628,20 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-12.5.2" href="#section-12.5.2">12.5.2</a>.  BeginVerifyAck Message (Msg Type = 6)</span>
 
    When a BeginVerify message is received and Test messages are ready to
-   be processed, a BeginVerifyAck message MUST be transmitted.
+   be processed, a BeginVerifyAck message <em>MUST</em> be transmitted.
 
    &lt;BeginVerifyAck Message&gt; ::= &lt;Common Header&gt; [&lt;LOCAL_LINK_ID&gt;]
                                 &lt;MESSAGE_ID_ACK&gt; &lt;BEGIN_VERIFY_ACK&gt;
                                 &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    The LOCAL_LINK_ID object may be included if the local/remote Link_Id
    mapping is known or learned through the BeginVerify message.
 
-   The Link_Id field of the LOCAL_LINK_ID MUST be non-zero if included.
+   The Link_Id field of the LOCAL_LINK_ID <em>MUST</em> be non-zero if included.
 
-   The contents of the MESSAGE_ID_ACK object MUST be obtained from the
+   The contents of the MESSAGE_ID_ACK object <em>MUST</em> be obtained from the
    BeginVerify message being acknowledged.
 
    The VERIFY_ID object contains a node-unique value that is assigned by
@@ -2661,38 +2661,38 @@ Table of Contents
 
    If a BeginVerify message is received and a node is unwilling or
    unable to begin the Verification procedure, a BeginVerifyNack message
-   MUST be transmitted.
+   <em>MUST</em> be transmitted.
 
    &lt;BeginVerifyNack Message&gt; ::= &lt;Common Header&gt; [&lt;LOCAL_LINK_ID&gt;]
                                  &lt;MESSAGE_ID_ACK&gt; &lt;ERROR_CODE&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The contents of the MESSAGE_ID_ACK object MUST be obtained from the
+   The contents of the MESSAGE_ID_ACK object <em>MUST</em> be obtained from the
    BeginVerify message being negatively acknowledged.
 
-   If the Verification process is not supported, the ERROR_CODE MUST
+   If the Verification process is not supported, the ERROR_CODE <em>MUST</em>
    indicate "Link Verification Procedure not supported".
 
    If Verification is supported, but the node is unable to begin the
-   procedure, the ERROR_CODE MUST indicate "Unwilling to verify".  If a
+   procedure, the ERROR_CODE <em>MUST</em> indicate "Unwilling to verify".  If a
    BeginVerifyNack message is received with such an ERROR_CODE, the node
-   that originated the BeginVerify SHOULD schedule a BeginVerify
+   that originated the BeginVerify <em>SHOULD</em> schedule a BeginVerify
    retransmission after Rf seconds, where Rf is a locally defined
    parameter.
 
    If the Verification Transport mechanism is not supported, the
-   ERROR_CODE MUST indicate "Unsupported verification transport
+   ERROR_CODE <em>MUST</em> indicate "Unsupported verification transport
    mechanism".
 
    If remote configuration of the Link_Id is not supported and the
    content of the REMOTE_LINK_ID object (included in the BeginVerify
-   message) does not match any configured values, the ERROR_CODE MUST
+   message) does not match any configured values, the ERROR_CODE <em>MUST</em>
    indicate "Link_Id configuration error".
 
    If a node receives a BeginVerify message and recognizes the
    BEGIN_VERIFY object but does not recognize the C-Type, the ERROR_CODE
-   MUST indicate "Unknown object C-Type".
+   <em>MUST</em> indicate "Unknown object C-Type".
 
 <span class="h4"><a class="selflink" name="section-12.5.4" href="#section-12.5.4">12.5.4</a>.  EndVerify Message (Msg Type = 8)</span>
 
@@ -2703,7 +2703,7 @@ Table of Contents
 
    &lt;EndVerify Message&gt; ::=&lt;Common Header&gt; &lt;MESSAGE_ID&gt; &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
 
 
@@ -2728,21 +2728,21 @@ Table of Contents
    &lt;EndVerifyAck Message&gt; ::= &lt;Common Header&gt; &lt;MESSAGE_ID_ACK&gt;
                               &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The contents of the MESSAGE_ID_ACK object MUST be obtained from the
+   The contents of the MESSAGE_ID_ACK object <em>MUST</em> be obtained from the
    EndVerify message being acknowledged.
 
 <span class="h4"><a class="selflink" name="section-12.5.6" href="#section-12.5.6">12.5.6</a>.  Test Message (Msg Type = 10)</span>
 
    The Test message is transmitted over the data link and is used to
    verify its physical connectivity.  Unless explicitly stated, these
-   messages MUST be transmitted over UDP like all other LMP messages.
+   messages <em>MUST</em> be transmitted over UDP like all other LMP messages.
    The format of the Test messages is as follows:
 
    &lt;Test Message&gt; ::= &lt;Common Header&gt; &lt;LOCAL_INTERFACE_ID&gt; &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    Note that this message is sent over a data link and NOT over the
    control channel.  The transport mechanism for the Test message is
@@ -2779,9 +2779,9 @@ Table of Contents
                                    &lt;MESSAGE_ID&gt; &lt;LOCAL_INTERFACE_ID&gt;
                                    &lt;REMOTE_INTERFACE_ID&gt; &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The contents of the REMOTE_INTERFACE_ID object MUST be obtained from
+   The contents of the REMOTE_INTERFACE_ID object <em>MUST</em> be obtained from
    the corresponding Test message being positively acknowledged.
 
 <span class="h4"><a class="selflink" name="section-12.5.8" href="#section-12.5.8">12.5.8</a>.  TestStatusFailure Message (Msg Type = 12)</span>
@@ -2792,7 +2792,7 @@ Table of Contents
    &lt;TestStatusFailure Message&gt; ::= &lt;Common Header&gt; &lt;MESSAGE_ID&gt;
                                    &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
 <span class="h4"><a class="selflink" name="section-12.5.9" href="#section-12.5.9">12.5.9</a>.  TestStatusAck Message (Msg Type = 13)</span>
 
@@ -2802,9 +2802,9 @@ Table of Contents
    &lt;TestStatusAck Message&gt; ::= &lt;Common Header&gt; &lt;MESSAGE_ID_ACK&gt;
                                &lt;VERIFY_ID&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The contents of the MESSAGE_ID_ACK object MUST be obtained from the
+   The contents of the MESSAGE_ID_ACK object <em>MUST</em> be obtained from the
    TestStatusSuccess or TestStatusFailure message being acknowledged.
 
 <span class="h3"><a class="selflink" name="section-12.6" href="#section-12.6">12.6</a>.  Link Summary Messages</span>
@@ -2825,10 +2825,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4204.html">RFC 4204</a>             Link Management Protocol (LMP)         October 2005</span>
 
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    The LinkSummary message can be exchanged any time a link is not in
-   the Verification process.  The LinkSummary message MUST be
+   the Verification process.  The LinkSummary message <em>MUST</em> be
    periodically transmitted until (1) the node receives a LinkSummaryAck
    or LinkSummaryNack message or (2) a retry limit has been reached and
    no LinkSummaryAck or LinkSummaryNack message has been received.  Both
@@ -2844,33 +2844,33 @@ Table of Contents
 
    &lt;LinkSummaryAck Message&gt; ::=  &lt;Common Header&gt; &lt;MESSAGE_ID_ACK&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
 <span class="h4"><a class="selflink" name="section-12.6.3" href="#section-12.6.3">12.6.3</a>.  LinkSummaryNack Message (Msg Type = 16)</span>
 
    The LinkSummaryNack message is used to indicate disagreement on non-
    negotiated parameters or propose other values for negotiable
-   parameters.  Parameters on which agreement was reached MUST NOT be
+   parameters.  Parameters on which agreement was reached <em>MUST NOT</em> be
    included in the LinkSummaryNack message.
 
    &lt;LinkSummaryNack Message&gt; ::= &lt;Common Header&gt; &lt;MESSAGE_ID_ACK&gt;
                                  &lt;ERROR_CODE&gt; [&lt;DATA_LINK&gt;...]
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The DATA_LINK objects MUST include acceptable values for all
+   The DATA_LINK objects <em>MUST</em> include acceptable values for all
    negotiable parameters.  If the LinkSummaryNack includes DATA_LINK
-   objects for non-negotiable parameters, they MUST be copied from the
+   objects for non-negotiable parameters, they <em>MUST</em> be copied from the
    DATA_LINK objects received in the LinkSummary message.
 
    If the LinkSummaryNack message is received and only includes
-   negotiable parameters, then a new LinkSummary message SHOULD be sent.
-   The values received in the new LinkSummary message SHOULD take into
+   negotiable parameters, then a new LinkSummary message <em>SHOULD</em> be sent.
+   The values received in the new LinkSummary message <em>SHOULD</em> take into
    account the acceptable parameters included in the LinkSummaryNack
    message.
 
    If the LinkSummary message is received with unacceptable, non-
-   negotiable parameters, the ERROR_CODE MUST indicate "Unacceptable
+   negotiable parameters, the ERROR_CODE <em>MUST</em> indicate "Unacceptable
    non-negotiable LINK_SUMMARY parameters."
 
 
@@ -2882,21 +2882,21 @@ Table of Contents
 
 
    If the LinkSummary message is received with unacceptable negotiable
-   parameters, the ERROR_CODE MUST indicate "Renegotiate LINK_SUMMARY
+   parameters, the ERROR_CODE <em>MUST</em> indicate "Renegotiate LINK_SUMMARY
    parameters."
 
    If the LinkSummary message is received with an invalid TE_LINK
-   object, the ERROR_CODE MUST indicate "Invalid TE_LINK object."
+   object, the ERROR_CODE <em>MUST</em> indicate "Invalid TE_LINK object."
 
    If the LinkSummary message is received with an invalid DATA_LINK
-   object, the ERROR_CODE MUST indicate "Invalid DATA_LINK object."
+   object, the ERROR_CODE <em>MUST</em> indicate "Invalid DATA_LINK object."
 
    If the LinkSummary message is received with a TE_LINK object but the
-   C-Type is unknown, the ERROR_CODE MUST indicate, "Unknown TE_LINK
+   C-Type is unknown, the ERROR_CODE <em>MUST</em> indicate, "Unknown TE_LINK
    object C-Type."
 
    If the LinkSummary message is received with a DATA_LINK object but
-   the C-Type is unknown, the ERROR_CODE MUST indicate, "Unknown
+   the C-Type is unknown, the ERROR_CODE <em>MUST</em> indicate, "Unknown
    DATA_LINK object C-Type."
 
 <span class="h3"><a class="selflink" name="section-12.7" href="#section-12.7">12.7</a>.  Fault Management Messages</span>
@@ -2905,13 +2905,13 @@ Table of Contents
 
    The ChannelStatus message is sent over the control channel and is
    used to notify an LMP neighbor of the status of a data link.  A node
-   that receives a ChannelStatus message MUST respond with a
+   that receives a ChannelStatus message <em>MUST</em> respond with a
    ChannelStatusAck message.  The format is as follows:
 
    &lt;ChannelStatus Message&gt; ::= &lt;Common Header&gt; &lt;LOCAL_LINK_ID&gt;
                                &lt;MESSAGE_ID&gt; &lt;CHANNEL_STATUS&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    If the CHANNEL_STATUS object does not include any Interface_Ids, then
    this indicates the entire TE Link has failed.
@@ -2923,9 +2923,9 @@ Table of Contents
 
    &lt;ChannelStatusAck Message&gt; ::= &lt;Common Header&gt; &lt;MESSAGE_ID_ACK&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The contents of the MESSAGE_ID_ACK object MUST be obtained from the
+   The contents of the MESSAGE_ID_ACK object <em>MUST</em> be obtained from the
    ChannelStatus message being acknowledged.
 
 
@@ -2941,14 +2941,14 @@ Table of Contents
 
    The ChannelStatusRequest message is sent over the control channel and
    is used to request the status of one or more data link(s).  A node
-   that receives a ChannelStatusRequest message MUST respond with a
+   that receives a ChannelStatusRequest message <em>MUST</em> respond with a
    ChannelStatusResponse message.  The format is as follows:
 
    &lt;ChannelStatusRequest Message&gt; ::= &lt;Common Header&gt; &lt;LOCAL_LINK_ID&gt;
                                       &lt;MESSAGE_ID&gt;
                                       [&lt;CHANNEL_STATUS_REQUEST&gt;]
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
    If the CHANNEL_STATUS_REQUEST object is not included, then the
    ChannelStatusRequest is being used to request the status of ALL of
@@ -2963,9 +2963,9 @@ Table of Contents
    &lt;ChannelStatusResponse Message&gt; ::= &lt;Common Header&gt; &lt;MESSAGE_ID_ACK&gt;
                                        &lt;CHANNEL_STATUS&gt;
 
-   The above transmission order SHOULD be followed.
+   The above transmission order <em>SHOULD</em> be followed.
 
-   The contents of the MESSAGE_ID_ACK objects MUST be obtained from the
+   The contents of the MESSAGE_ID_ACK objects <em>MUST</em> be obtained from the
    ChannelStatusRequest message being acknowledged.
 
 <span class="h2"><a class="selflink" name="section-13" href="#section-13">13</a>.  LMP Object Definitions</span>
@@ -2995,7 +2995,7 @@ Table of Contents
 
    CC_Id:  32 bits
 
-      This MUST be node-wide unique and non-zero.  The CC_Id identifies
+      This <em>MUST</em> be node-wide unique and non-zero.  The CC_Id identifies
       the control channel of the sender associated with the message.
 
    This object is non-negotiable.
@@ -3010,7 +3010,7 @@ Table of Contents
 
    CC_Id:  32 bits
 
-      This identifies the remote node's CC_Id and MUST be non-zero.
+      This identifies the remote node's CC_Id and <em>MUST</em> be non-zero.
 
    This object is non-negotiable.
 
@@ -3108,10 +3108,10 @@ Table of Contents
    Link_Id:
 
       For LOCAL_LINK_ID, this identifies the sender's Link associated
-      with the message.  This value MUST be non-zero.
+      with the message.  This value <em>MUST</em> be non-zero.
 
       For REMOTE_LINK_ID, this identifies the remote node's Link_Id and
-      MUST be non-zero.
+      <em>MUST</em> be non-zero.
 
    This object is non-negotiable.
 
@@ -3170,10 +3170,10 @@ Table of Contents
    Interface_Id:
 
       For the LOCAL_INTERFACE_ID, this identifies the data link.  This
-      value MUST be node-wide unique and non-zero.
+      value <em>MUST</em> be node-wide unique and non-zero.
 
       For the REMOTE_INTERFACE_ID, this identifies the remote node's
-      data link.  The Interface_Id MUST be non-zero.
+      data link.  The Interface_Id <em>MUST</em> be non-zero.
 
    This object is non-negotiable.
 
@@ -3246,12 +3246,12 @@ Table of Contents
 
       If no Hello packets are received within the HelloDeadInterval, the
       control channel is assumed to have failed.  The HelloDeadInterval
-      is measured in milliseconds (ms).  The HelloDeadInterval MUST be
-      greater than the HelloInterval, and SHOULD be at least 3 times the
+      is measured in milliseconds (ms).  The HelloDeadInterval <em>MUST</em> be
+      greater than the HelloInterval, and <em>SHOULD</em> be at least 3 times the
       value of HelloInterval.
 
    If the fast keep-alive mechanism of LMP is not used, the
-   HelloInterval and HelloDeadInterval MUST be set to zero.
+   HelloInterval and HelloDeadInterval <em>MUST</em> be set to zero.
 
 
 
@@ -3418,7 +3418,7 @@ Table of Contents
       corresponds to the wavelength at which the Test messages will be
       transmitted over and has local significance.  If there is no
       ambiguity as to the wavelength over which the message will be
-      sent, then this value SHOULD be set to 0.
+      sent, then this value <em>SHOULD</em> be set to 0.
 
 <span class="h3"><a class="selflink" name="section-13.9" href="#section-13.9">13.9</a>.  BEGIN_VERIFY_ACK Class</span>
 
@@ -3452,7 +3452,7 @@ Table of Contents
       The recipient of the BeginVerify message (and the future
       recipient of the TEST messages) chooses the transport mechanism
       from the various types that are offered by the transmitter of
-      the Test messages.  One and only one bit MUST be set in the
+      the Test messages.  One and only one bit <em>MUST</em> be set in the
       verification transport response.
 
    This object is non-negotiable.
@@ -3564,11 +3564,11 @@ Table of Contents
 
    Local_Link_Id:
 
-      This identifies the node's local Link_Id and MUST be non-zero.
+      This identifies the node's local Link_Id and <em>MUST</em> be non-zero.
 
    Remote_Link_Id:
 
-      This identifies the remote node's Link_Id and MUST be non-zero.
+      This identifies the remote node's Link_Id and <em>MUST</em> be non-zero.
 
 <span class="h3"><a class="selflink" name="section-13.12" href="#section-13.12">13.12</a>.  DATA_LINK Class</span>
 
@@ -3686,12 +3686,12 @@ Table of Contents
 
    Local_Interface_Id:
 
-      This is the local identifier of the data link.  This MUST be
+      This is the local identifier of the data link.  This <em>MUST</em> be
       node-wide unique and non-zero.
 
    Remote_Interface_Id:
 
-      This is the remote identifier of the data link.  This MUST be
+      This is the remote identifier of the data link.  This <em>MUST</em> be
       non-zero.
 
    Subobjects
@@ -3744,8 +3744,8 @@ Table of Contents
    Length: 8 bits
 
       The Length contains the total length of the subobject in bytes,
-      including the Type and Length fields.  The Length MUST be at
-      least 4, and MUST be a multiple of 4.
+      including the Type and Length fields.  The Length <em>MUST</em> be at
+      least 4, and <em>MUST</em> be a multiple of 4.
 
 <span class="h5"><a class="selflink" name="section-13.12.1.1" href="#section-13.12.1.1">13.12.1.1</a>.  Subobject Type 1: Interface Switching Type</span>
 
@@ -3935,8 +3935,8 @@ Table of Contents
    This object contains one or more Interface_Ids followed by a
    Channel_Status field.
 
-   To indicate the status of the entire TE Link, there MUST be only one
-   Interface_Id, and it MUST be zero.
+   To indicate the status of the entire TE Link, there <em>MUST</em> be only one
+   Interface_Id, and it <em>MUST</em> be zero.
 
 
 
@@ -4093,7 +4093,7 @@ Table of Contents
       This object is non-negotiable.
 
    If a BeginVerifyNack message is received with Error Code 2, the node
-   that originated the BeginVerify SHOULD schedule a BeginVerify
+   that originated the BeginVerify <em>SHOULD</em> schedule a BeginVerify
    retransmission after Rf seconds, where Rf is a locally defined
    parameter.
 
@@ -4249,7 +4249,7 @@ Table of Contents
    The following requirements are applied to the mechanism described in
    this section.
 
-      o  LMP security MUST be able to provide authentication, integrity,
+      o  LMP security <em>MUST</em> be able to provide authentication, integrity,
          and replay protection.
 
       o  For LMP traffic, confidentiality is not needed.  Only
@@ -4268,8 +4268,8 @@ Table of Contents
          schemes should be scalable.  In addition, the key management
          system should be automatic.
 
-      o  The algorithms used for authentication MUST be
-         cryptographically sound.  Also, the security protocol MUST
+      o  The algorithms used for authentication <em>MUST</em> be
+         cryptographically sound.  Also, the security protocol <em>MUST</em>
          allow for negotiating and using different authentication
          algorithms.
 
@@ -4294,7 +4294,7 @@ Table of Contents
    recommended that, where security is needed for LMP, implementations
    use IPsec as described below:
 
-   1. Implementations of LMP over IPsec protocol SHOULD support manual
+   1. Implementations of LMP over IPsec protocol <em>SHOULD</em> support manual
       keying mode.
 
       Manual keying mode provides an easy way to set up and diagnose
@@ -4308,14 +4308,14 @@ Table of Contents
       diagnostic purposes and use dynamic keying protocol to make use of
       features such as replay protection and automatic re-keying.
 
-   2. IPsec ESP with trailer authentication in tunnel mode MUST be
+   2. IPsec ESP with trailer authentication in tunnel mode <em>MUST</em> be
       supported.
 
-   3. Implementations MUST support authenticated key exchange protocols.
-      IKE [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] MUST be used as the key exchange protocol if keys
+   3. Implementations <em>MUST</em> support authenticated key exchange protocols.
+      IKE [<a href="./rfc2409.html" title="&quot;The Internet Key Exchange (IKE)&quot;">RFC2409</a>] <em>MUST</em> be used as the key exchange protocol if keys
       are dynamically negotiated between peers.
 
-   4. Implementation MUST use the IPsec DOI [<a href="./rfc2407.html" title="&quot;The Internet IP Security Domain of Interpretation for ISAKMP&quot;">RFC2407</a>].
+   4. Implementation <em>MUST</em> use the IPsec DOI [<a href="./rfc2407.html" title="&quot;The Internet IP Security Domain of Interpretation for ISAKMP&quot;">RFC2407</a>].
 
    5. For IKE protocol, the identities of the SAs negotiated in Quick
       Mode represent the traffic that the peers agree to protect and are
@@ -4324,8 +4324,8 @@ Table of Contents
       For LMP over IPsec, it is recommended that the identity payload
       for Quick mode contain the following information:
 
-      The identities MUST be of type IP addresses and the value of the
-      identities SHOULD be the IP addresses of the communicating peers.
+      The identities <em>MUST</em> be of type IP addresses and the value of the
+      identities <em>SHOULD</em> be the IP addresses of the communicating peers.
 
 
 
@@ -4337,16 +4337,16 @@ Table of Contents
 <span class="grey"><a href="./rfc4204.html">RFC 4204</a>             Link Management Protocol (LMP)         October 2005</span>
 
 
-      The protocol field MUST be UDP.  The port field SHOULD be set to
+      The protocol field <em>MUST</em> be UDP.  The port field <em>SHOULD</em> be set to
       zero to indicate port fields should be ignored.  This implies all
       UDP traffic between the peers must be sent through the IPsec
       tunnel.  If an implementation supports port-based selectors, it
       can opt for a more finely grained selector by specifying the port
       field to the LMP port.  If, however, the peer does not use port-
-      based selectors, the implementation MUST fall back to using a port
+      based selectors, the implementation <em>MUST</em> fall back to using a port
       selector value of 0.
 
-   6. Aggressive mode of IKE negotiation MUST be supported.
+   6. Aggressive mode of IKE negotiation <em>MUST</em> be supported.
 
       When IPsec is configured to be used with a peer, all LMP messages
       are expected to be sent over the IPsec tunnel (crypto channel).
@@ -4417,12 +4417,12 @@ Table of Contents
          this opens up the solution to man-in-the-middle attacks.
 
          Digital-signature-based authentication is not prone to such
-         problems.  It is RECOMMENDED that a digital-signature-based
+         problems.  It is <em>RECOMMENDED</em> that a digital-signature-based
          authentication mechanism be used where possible.
 
          If pre-shared-key-based authentication is required, then
-         aggressive mode SHOULD be used.  IKE pre-shared authentication
-         key values SHOULD be protected in a manner similar to the
+         aggressive mode <em>SHOULD</em> be used.  IKE pre-shared authentication
+         key values <em>SHOULD</em> be protected in a manner similar to the
          user's account password.
 
 <span class="h2"><a class="selflink" name="section-16" href="#section-16">16</a>.  IANA Considerations</span>
@@ -4452,14 +4452,14 @@ Table of Contents
    Assignments made from LMP number spaces to be assigned by Expert
    Review are to be reviewed by an Expert designated by the IESG.  The
    intent in this document is that code points from these ranges are
-   used for Experimental extensions; as such, assignments MUST be
+   used for Experimental extensions; as such, assignments <em>MUST</em> be
    accompanied by Experimental RFCs.  If deployment suggests that these
    extensions are useful, then they should be described in Standards
-   Track RFCs, and new code points from the Standards Action ranges MUST
+   Track RFCs, and new code points from the Standards Action ranges <em>MUST</em>
    be assigned.
 
    Assignments from LMP number spaces to be assigned by Standards Action
-   MUST be documented by a Standards Track RFC, typically submitted to
+   <em>MUST</em> be documented by a Standards Track RFC, typically submitted to
    an IETF Working Group, but in any case following the usual IETF
    procedures for Proposed Standards.
 

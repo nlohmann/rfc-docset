@@ -314,8 +314,8 @@ Table of Contents
    The primary goal of the MUPDATE protocol is to be simple to implement
    yet allow for database consistency between participants.
 
-   The key words "MUST, "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT",
-   "RECOMMENDED", and "MAY" in this document are to be interpreted as
+   The key words "<em>MUST</em>, "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>",
+   "<em>RECOMMENDED</em>", and "<em>MAY</em>" in this document are to be interpreted as
    defined in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
    In examples, "C:" and "S:" indicate lines sent by the client and
@@ -340,13 +340,13 @@ Table of Contents
    client.
 
    After connection, all commands from a client to server must have an
-   associated unique tag which is an alphanumeric string.  Commands MAY
+   associated unique tag which is an alphanumeric string.  Commands <em>MAY</em>
    be pipelined from the client to the server (that is, the client need
    not wait for the response before sending the next command).  The
-   server MUST execute the commands in the order they were received,
+   server <em>MUST</em> execute the commands in the order they were received,
    however.
 
-   If the server supports an inactivity login timeout, it MUST be at
+   If the server supports an inactivity login timeout, it <em>MUST</em> be at
    least 15 minutes.
 
 
@@ -365,14 +365,14 @@ Table of Contents
    transmitted as atoms.  All other data is considered to a string, and
    must be quoted or transmitted as a literal.
 
-   Outside of a literal, both clients and servers MUST support line
+   Outside of a literal, both clients and servers <em>MUST</em> support line
    lengths of at least 1024 octets (including the trailing CR and LF
    characters).  If a line of a longer length must be transmitted,
-   implementations MUST make use of literals to do so.
+   implementations <em>MUST</em> make use of literals to do so.
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Atoms</span>
 
-   An atom consists of one or more alphanumeric characters.  Atoms MUST
+   An atom consists of one or more alphanumeric characters.  Atoms <em>MUST</em>
    be less than 15 octets in length.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Strings</span>
@@ -383,11 +383,11 @@ Table of Contents
    the number of octets, an optional plus sign to indicate that the data
    follows immediately (a non-synchronized literal), a close brace
    ("}"), and a CRLF sequence.  If the plus sign is omitted (a
-   synchronized literal), then the receiving side MUST send a "+ go
-   ahead" response, and the sending side MUST wait for this response.
-   Servers MUST support literals of atleast 4096 octets.
+   synchronized literal), then the receiving side <em>MUST</em> send a "+ go
+   ahead" response, and the sending side <em>MUST</em> wait for this response.
+   Servers <em>MUST</em> support literals of atleast 4096 octets.
 
-   Strings that are sent from server to client SHOULD NOT be in the
+   Strings that are sent from server to client <em>SHOULD NOT</em> be in the
    synchronized literal format.
 
    A quoted string is a sequence of zero or more 7-bit characters,
@@ -433,7 +433,7 @@ S: N01 OK "NOOP Complete"
 
    A tagged NO response indicates that the operation was explicitly
    denied by the server or otherwise failed.  There is a mandatory
-   implementation-defined string after the NO response that SHOULD
+   implementation-defined string after the NO response that <em>SHOULD</em>
    explain the reason for denial.
 
    Example:
@@ -476,8 +476,8 @@ S: * BAD "Need Command"
 
    A tagged BYE response indicates that the server has decided to close
    the connection.  There is a mandatory implementation-defined string
-   after the BYE response that SHOULD explain the reason for closing the
-   connection.  The server MUST close the connection immediately after
+   after the BYE response that <em>SHOULD</em> explain the reason for closing the
+   connection.  The server <em>MUST</em> close the connection immediately after
    transmitting the BYE response.
 
    Example:
@@ -491,7 +491,7 @@ S: L01 BYE "User Logged Out"
    LIST, or UPDATE command.  It includes two parameters: the name of the
    mailbox that is being reserved (in mUTF-7 encoding, as specified in
    [<a href="#ref-IMAP" title="&quot;Internet Message Access Protocol - Version 4&quot;">IMAP</a>]) and a location string whose contents is defined by the
-   clients that are using the database, though it is RECOMMENDED that
+   clients that are using the database, though it is <em>RECOMMENDED</em> that
    the format of this string be the hostname of the server which is
    storing the mailbox.
 
@@ -531,12 +531,12 @@ S: U01 MAILBOX "internet.bugtraq" "mail2.example.org" "anyone rls"
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  Response: DELETE</span>
 
    A tagged DELETE response may only be given in response to an UPDATE
-   command, and MUST NOT be given before the OK response to the UPDATE
+   command, and <em>MUST NOT</em> be given before the OK response to the UPDATE
    command is given.  It contains a single parameter, that of the
    mailbox that should be deleted from the slave's database.  This
    response indicates that the given mailbox no longer exists in the
    namespace of the database, and may be given for any mailbox name,
-   active, reserved, or nonexistent.  (Though implementations SHOULD NOT
+   active, reserved, or nonexistent.  (Though implementations <em>SHOULD NOT</em>
    issue DELETE responses for nonexistent mailboxes).
 
    Example:
@@ -546,32 +546,32 @@ S: U01 DELETE "user.rjs3.sent-mail-jan-2002"
 <span class="h3"><a class="selflink" name="section-3.8" href="#section-3.8">3.8</a>.  Server Capability Response</span>
 
    Upon connection of the client to the server, and directly following a
-   successful STARTTLS command, the server MUST issue a capabilities
+   successful STARTTLS command, the server <em>MUST</em> issue a capabilities
    banner, of the following format:
 
-   The banner MUST contain a line that begins with "* AUTH" and contain
+   The banner <em>MUST</em> contain a line that begins with "* AUTH" and contain
    a space-separated list of SASL mechanisms that the server will accept
    for authentication.  The mechanism names are transmitted as atoms.
-   Servers MAY advertise no available mechanisms (to indicate that
+   Servers <em>MAY</em> advertise no available mechanisms (to indicate that
    STARTTLS must be completed before authentication may occur).  If
-   STARTTLS is not supported by the server, then the line MUST contain
+   STARTTLS is not supported by the server, then the line <em>MUST</em> contain
    at least one mechanism.
 
    If the banner is being issued without a TLS layer, and the server
-   supports the STARTTLS command, the banner MUST contain the line "*
+   supports the STARTTLS command, the banner <em>MUST</em> contain the line "*
    STARTTLS".  If the banner is being issued under a TLS layer (or the
-   server does not support STARTTLS), the banner MUST NOT contain this
+   server does not support STARTTLS), the banner <em>MUST NOT</em> contain this
    line.
 
-   The last line of the banner MUST start with "* OK MUPDATE" and be
+   The last line of the banner <em>MUST</em> start with "* OK MUPDATE" and be
    followed by four strings: the server's hostname, an implementation-
    defined string giving the name of the implementation, an
    implementation-defined string giving the version of the
    implementation, and a string that indicates if the server is a master
-   or a slave.  The master/slave indication MUST be either "(master)" or
+   or a slave.  The master/slave indication <em>MUST</em> be either "(master)" or
    an MUPDATE URL that defines where the master can be contacted.
 
-   Any unrecognized responses before the "* OK MUPDATE" response MUST be
+   Any unrecognized responses before the "* OK MUPDATE" response <em>MUST</em> be
    ignored by the client.
 
 
@@ -597,19 +597,19 @@ S: * OK MUPDATE "mupdate.example.org" "Cyrus" "v2.1.2" "(master)"
    LIST, LOGOUT, NOOP, RESERVE, STARTTLS, and UPDATE.
 
    Before a successful AUTHENTICATE command has occurred, the server
-   MUST NOT accept any commands except for AUTHENTICATE, STARTTLS, and
-   LOGOUT (and SHOULD reply with a NO response for all other commands).
+   <em>MUST NOT</em> accept any commands except for AUTHENTICATE, STARTTLS, and
+   LOGOUT (and <em>SHOULD</em> reply with a NO response for all other commands).
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Command: ACTIVATE</span>
 
    The ACTIVATE command has 3 parameters: the mailbox name, its
-   location, and its ACL.  This command MUST NOT not be issued to a
+   location, and its ACL.  This command <em>MUST NOT</em> not be issued to a
    slave server.
 
    This command can also be used to update the ACL or location
    information of a mailbox.  Note that it is not a requirement for a
    mailbox to be reserved (or even exist in the database) for an
-   ACTIVATE command to succeed, implementations MUST allow this behavior
+   ACTIVATE command to succeed, implementations <em>MUST</em> allow this behavior
    as it facilitates synchronization of the database with the current
    state of the mailboxes.
 
@@ -621,16 +621,16 @@ S: * OK MUPDATE "mupdate.example.org" "Cyrus" "v2.1.2" "(master)"
    mechanism.  The second is a string containing an optional BASE64
    encoded (as defined in section 6.8 of [<a href="#ref-MIME" title="&quot;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies&quot;">MIME</a>]) client first send.
 
-   All of the remaining SASL blobs that are sent MUST be sent across the
+   All of the remaining SASL blobs that are sent <em>MUST</em> be sent across the
    wire must be in BASE64 encoded format, and followed by a CR and LF
-   combination.  They MUST NOT be encoded as strings.
+   combination.  They <em>MUST NOT</em> be encoded as strings.
 
    Clients may cancel authentication by sending a * followed by a CR and
    LF.
 
    The [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] service name for the MUPDATE protocol is "mupdate".
-   Implementations are REQUIRED to implement the GSSAPI [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>]
-   mechanism, though they SHOULD implement as many mechanisms as
+   Implementations are <em>REQUIRED</em> to implement the GSSAPI [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>]
+   mechanism, though they <em>SHOULD</em> implement as many mechanisms as
    possible.
 
 
@@ -648,12 +648,12 @@ S: * OK MUPDATE "mupdate.example.org" "Cyrus" "v2.1.2" "(master)"
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Command: DEACTIVATE</span>
 
    The DEACTIVATE command takes two parameters, the mailbox name and
-   location data.  The mailbox MUST already exist and be activated on
+   location data.  The mailbox <em>MUST</em> already exist and be activated on
    the MUPDATE server.  If the server responds OK, then the mailbox name
    has been moved to the RESERVE state.  If the server responds NO, then
    the mailbox name has not been moved (for example, the mailbox was not
    already active).  Any ACL information that is known about the mailbox
-   MAY be lost when a DEACTIVATE succeeds.  This command MUST NOT be
+   <em>MAY</em> be lost when a DEACTIVATE succeeds.  This command <em>MUST NOT</em> be
    issued to a slave.
 
    Example:
@@ -664,8 +664,8 @@ S: A01 OK "Mailbox Reserved."
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Command: DELETE</span>
 
    The DELETE command takes only a single parameter, the mailbox name to
-   be removed from the database's namespace.  The server SHOULD give a
-   NO response if the mailbox does not exist.  This command MUST NOT be
+   be removed from the database's namespace.  The server <em>SHOULD</em> give a
+   NO response if the mailbox does not exist.  This command <em>MUST NOT</em> be
    issued to a slave server.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  Command: FIND</span>
@@ -728,14 +728,14 @@ S: L02 OK "List Complete"
 
    The NOOP command takes no parameters.  Provided the client is
    authenticated, its only acceptable response is an OK.  Any idle
-   timeouts that the server may have on the connection SHOULD be reset
+   timeouts that the server may have on the connection <em>SHOULD</em> be reset
    upon receipt of this command.
 
    If this command is issued after an UPDATE command has been issued,
    then the OK response also indicates that all pending database updates
    have been sent to the client.  That is, the slave can guarantee that
    its local database is up to date as of a certain time by issuing a
-   NOOP and waiting for the OK.  The OK MUST NOT return until all
+   NOOP and waiting for the OK.  The OK <em>MUST NOT</em> return until all
    updates that were pending at the time of the NOOP have been sent.
 
 <span class="h3"><a class="selflink" name="section-4.9" href="#section-4.9">4.9</a>.  Command: RESERVE</span>
@@ -752,7 +752,7 @@ S: L02 OK "List Complete"
 <span class="grey"><a href="./rfc3656.html">RFC 3656</a>     MUPDATE Distributed Mailbox Database Protocol December 2003</span>
 
 
-   example, another server has reserved it already).  This command MUST
+   example, another server has reserved it already).  This command <em>MUST</em>
    NOT be issued to a slave.
 
    The typical sequence for mailbox creation is:
@@ -767,30 +767,30 @@ S: A01 OK "Mailbox Activated."
 
    The STARTTLS command requests the commencement of a [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>]
    negotiation.  The negotiation begins immediately after the CRLF in
-   the OK response.  After a client issues a STARTTLS command, it MUST
+   the OK response.  After a client issues a STARTTLS command, it <em>MUST</em>
    NOT issue further commands until a server response is seen and the
    [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>] negotiation is complete.
 
    The STARTTLS command is only valid in non-authenticated state.  The
    server remains in non-authenticated state, even if client credentials
    are supplied during the [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>] negotiation.  The [<a href="#ref-SASL" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">SASL</a>] EXTERNAL
-   mechanism MAY be used to authenticate once [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>] client credentials
+   mechanism <em>MAY</em> be used to authenticate once [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>] client credentials
    are successfully exchanged.  Note that servers are not required to
    support the EXTERNAL mechanism.
 
-   After the [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>] layer is established, the server MUST re-issue the
+   After the [<a href="#ref-TLS" title="&quot;The TLS Protocol Version 1.0&quot;">TLS</a>] layer is established, the server <em>MUST</em> re-issue the
    initial response banner (see <a href="#section-3.8">Section 3.8</a>).  This is necessary to
    protect against man-in-the-middle attacks which alter the
    capabilities list prior to STARTTLS, as well as to advertise any new
    SASL mechanisms (or other capabilities) that may be available under
-   the layer.  The client MUST discard cached capability information and
+   the layer.  The client <em>MUST</em> discard cached capability information and
    replace it with the new information.
 
-   After the a successful STARTTLS command, the server SHOULD return a
+   After the a successful STARTTLS command, the server <em>SHOULD</em> return a
    NO response to additional STARTTLS commands.
 
-   Servers MAY choose to not implement STARTTLS.  In this case, they
-   MUST NOT advertise STARTTLS in their capabilities banner, and SHOULD
+   Servers <em>MAY</em> choose to not implement STARTTLS.  In this case, they
+   <em>MUST NOT</em> advertise STARTTLS in their capabilities banner, and <em>SHOULD</em>
    return a BAD response to the STARTTLS command, if it is issued.
 
    Example:
@@ -815,7 +815,7 @@ S: * OK MUPDATE "mupdate.example.org" "Cyrus" "v2.1.2" "(master)"
    slave).  In response to the command, the server returns a list of all
    mailboxes in its database (the same results as a parameterless LIST
    command) followed by an OK response.  From this point forward,
-   whenever an update occurs to the master database, it MUST stream the
+   whenever an update occurs to the master database, it <em>MUST</em> stream the
    update to the slave within 30 seconds.  That is, it will send
    RESERVE, MAILBOX, or DELETE responses as they are applicable.
 
@@ -847,7 +847,7 @@ S: N01 OK "NOOP Complete"
 
    Except as noted otherwise, all alphabetic characters are case-
    insensitive.  The use of upper or lower case characters to define
-   token strings is for editorial clarity only.  Implementations MUST
+   token strings is for editorial clarity only.  Implementations <em>MUST</em>
    accept these strings in a case-insensitive fashion.
 
    Note that this specification also uses some terminals from section 8
@@ -1033,7 +1033,7 @@ S: N01 OK "NOOP Complete"
 
 
    The protocol assumes that all authenticated users are cooperating to
-   maintain atomic operations.  Therefore, all new mailboxes SHOULD be
+   maintain atomic operations.  Therefore, all new mailboxes <em>SHOULD</em> be
    RESERVEd before they are ACTIVATEd, despite the fact that the
    protocol does not require this, and it is therefore possible for a
    set of participants which do not obey the provided locking to create

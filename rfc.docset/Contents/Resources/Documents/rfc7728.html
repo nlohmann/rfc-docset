@@ -565,9 +565,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
    <a href="./rfc2119.html">2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -1123,7 +1123,7 @@ Table of Contents
    except that the PAUSE sender (B) did not receive the RESUME (from A)
    and may instead think that the PAUSE was lost.  In both cases, a
    PAUSE request can be retransmitted using the same current PauseID.
-   If using TMMBR 0, the request MAY be retransmitted when the requester
+   If using TMMBR 0, the request <em>MAY</em> be retransmitted when the requester
    fails to receive a TMMBN 0 confirmation.
 
    If the pending stream pause is aborted due to a disapproving RESUME,
@@ -1212,7 +1212,7 @@ Table of Contents
    PauseID while the stream is already paused, those requests are
    ignored.
 
-   As long as the stream is being paused, the PAUSED indication MAY be
+   As long as the stream is being paused, the PAUSED indication <em>MAY</em> be
    sent together with any regular RTCP Sender Report (SR) or Receiver
    Report (RR).  Including PAUSED in this way allows RTP stream
    receivers to join while the stream is paused and to quickly know that
@@ -1247,7 +1247,7 @@ Table of Contents
    identical to the one in the sent RESUME, RTP stream receivers should
    avoid sending further RESUME requests for some reasonable amount of
    time to allow the condition to clear.  An RTP stream sender having
-   sent a REFUSED SHOULD resume the stream through local considerations
+   sent a REFUSED <em>SHOULD</em> resume the stream through local considerations
    (see below) when the condition that caused the REFUSED is no longer
    true.
 
@@ -1376,7 +1376,7 @@ Table of Contents
    This document introduces three new states for a stream in an RTP
    sender, according to the figure and subsections below.  Any
    references to PAUSE, PAUSED, RESUME, and REFUSED in this section
-   SHALL be taken to apply to the extent possible also when TMMBR/TMMBN
+   <em>SHALL</em> be taken to apply to the extent possible also when TMMBR/TMMBN
    are used (<a href="#section-5.6">Section 5.6</a>) for this functionality.
 
          +------------------------------------------------------+
@@ -1398,22 +1398,22 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Playing State</span>
 
    This state is not new but is the normal media sending state from
-   [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>].  When entering the state, the current PauseID MUST be
+   [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>].  When entering the state, the current PauseID <em>MUST</em> be
    incremented by one in modulo arithmetic.  The RTP sequence number for
-   the first packet sent after a pause SHALL be incremented by one
+   the first packet sent after a pause <em>SHALL</em> be incremented by one
    compared to the highest RTP sequence number sent before the pause.
    The first RTP timestamp for the first packet sent after a pause
-   SHOULD be set according to capture times at the source, meaning the
+   <em>SHOULD</em> be set according to capture times at the source, meaning the
    RTP timestamp difference compared to before the pause reflects the
    time the RTP stream was paused.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Pausing State</span>
 
    In this state, the RTP stream sender has received at least one PAUSE
-   message for the stream in question.  The RTP stream sender SHALL wait
+   message for the stream in question.  The RTP stream sender <em>SHALL</em> wait
    during a hold-off period for the possible reception of RESUME
    messages for the RTP stream being paused before actually pausing RTP
-   stream transmission.  The hold-off period to wait SHALL be long
+   stream transmission.  The hold-off period to wait <em>SHALL</em> be long
    enough to allow another RTP stream receiver to respond to the PAUSE
    with a RESUME, if it determines that it would not like to see the
    stream paused.  This hold-off period is determined by the formula:
@@ -1429,16 +1429,16 @@ Table of Contents
 
    where RTT is the longest round trip known to the RTP stream sender
    and T_dither_max is defined in <a href="./rfc4585.html#section-3.4">Section&nbsp;3.4 of [RFC4585]</a>.  The hold-
-   off period MAY be set to 0 by some signaling (<a href="#section-9">Section 9</a>) means when
+   off period <em>MAY</em> be set to 0 by some signaling (<a href="#section-9">Section 9</a>) means when
    it can be determined that there is only a single receiver, for
    example, in point to point or some unicast situations.
 
    If the RTP stream sender has set the hold-off period to 0 and
    receives information that it was an incorrect decision and that there
-   are in fact several receivers of the stream, it MUST change the hold-
+   are in fact several receivers of the stream, it <em>MUST</em> change the hold-
    off period to be based on the above formula instead.
 
-   An RTP stream sender SHOULD use the following criteria to determine
+   An RTP stream sender <em>SHOULD</em> use the following criteria to determine
    if there is only a single receiver, unless it has explicit and more
    reliable information:
 
@@ -1453,16 +1453,16 @@ Table of Contents
    An RTP stream is in paused state when the sender pauses its
    transmission after receiving at least one PAUSE message and the hold-
    off period has passed without receiving any RESUME message for that
-   stream.  Pausing transmission SHOULD only be done when reaching an
+   stream.  Pausing transmission <em>SHOULD</em> only be done when reaching an
    appropriate place to pause in the stream, like a media boundary that
    avoids a media receiver to trigger repair or concealment actions.
 
-   When entering the state, the RTP stream sender SHALL send a PAUSED
-   indication to all known RTP stream receivers, and SHALL also repeat
+   When entering the state, the RTP stream sender <em>SHALL</em> send a PAUSED
+   indication to all known RTP stream receivers, and <em>SHALL</em> also repeat
    PAUSED in the next two regular RTCP reports, as long as it is then
    still in paused state.
 
-   Pausing an RTP stream MUST NOT affect the sending of RTP keepalive
+   Pausing an RTP stream <em>MUST NOT</em> affect the sending of RTP keepalive
    [<a href="./rfc6263.html" title="&quot;Application Mechanism for Keeping Alive the NAT Mappings Associated with RTP / RTP Control Protocol (RTCP) Flows&quot;">RFC6263</a>][RFC5245] applicable to that RTP stream.
 
    The following subsections discuss some potential issues when an RTP
@@ -1470,7 +1470,7 @@ Table of Contents
    RTP Translator is used in the communication.  When an RTP Mixer
    implementing this specification is involved between the participants
    (which forwards the stream by marking the RTP data with its own
-   SSRC), it SHALL be a responsibility of the Mixer to control sending
+   SSRC), it <em>SHALL</em> be a responsibility of the Mixer to control sending
    PAUSE and RESUME requests to the sender.  The below conditions also
    apply to the sender and receiver parts of the RTP Mixer,
    respectively.
@@ -1487,17 +1487,17 @@ Table of Contents
 
    When a participant leaves the RTP session, it sends an RTCP BYE
    message.  In addition to the semantics described in Sections <a href="#section-6.3.4">6.3.4</a>
-   and 6.3.7 of RTP [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>], the following two conditions MUST also be
+   and 6.3.7 of RTP [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>], the following two conditions <em>MUST</em> also be
    considered when an RTP participant sends an RTCP BYE message:
 
    o  If a paused sender sends an RTCP BYE message, receivers observing
-      this SHALL NOT send further PAUSE or RESUME requests to it.
+      this <em>SHALL NOT</em> send further PAUSE or RESUME requests to it.
 
    o  Since a sender pauses its transmission on receiving the PAUSE
-      requests from any receiver in a session, the sender MUST keep
+      requests from any receiver in a session, the sender <em>MUST</em> keep
       record of which receiver caused the RTP stream to pause.  If that
       receiver sends an RTCP BYE message observed by the sender, the
-      sender SHALL resume the RTP stream.  No receivers that were in the
+      sender <em>SHALL</em> resume the RTP stream.  No receivers that were in the
       RTP session when the stream was paused objected that the stream
       was paused, but if there were so far undetected receivers added to
       the session during pause, those may not have learned about the
@@ -1514,21 +1514,21 @@ Table of Contents
    list in a session.  If a participant does not get any RTP or RTCP
    packets from some other participant for the last five RTCP reporting
    intervals, it removes that participant from the receiver list.  Any
-   streams that were paused by that removed participant SSRC SHALL be
+   streams that were paused by that removed participant SSRC <em>SHALL</em> be
    resumed.
 
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a>.  Local Paused State</span>
 
    This state can be entered at any time, based on local decision from
-   the RTP stream sender.  Pausing transmission SHOULD only be done when
+   the RTP stream sender.  Pausing transmission <em>SHOULD</em> only be done when
    reaching an appropriate place to pause in the stream, like a media
    boundary that avoids a media receiver to trigger repair or
    concealment actions.
 
-   As with paused state (<a href="#section-6.3">Section 6.3</a>), the RTP stream sender SHALL send
+   As with paused state (<a href="#section-6.3">Section 6.3</a>), the RTP stream sender <em>SHALL</em> send
    a PAUSED indication to all known RTP stream receivers, when entering
    the state, unless the stream was already in paused state
-   (<a href="#section-6.3">Section 6.3</a>).  Such PAUSED indication SHALL be repeated a sufficient
+   (<a href="#section-6.3">Section 6.3</a>).  Such PAUSED indication <em>SHALL</em> be repeated a sufficient
 
 
 
@@ -1549,11 +1549,11 @@ Table of Contents
    paused state and the bounding set overhead value used in (the RTP
    stream sender's own) TMMBN 0:
 
-   TMMBN 0 overhead &lt;= TMMBR 0 overhead:  The RTP stream sender SHALL
+   TMMBN 0 overhead &lt;= TMMBR 0 overhead:  The RTP stream sender <em>SHALL</em>
       NOT send any new TMMBN 0 replacing that active (more restrictive)
       bounding set, even if entering local paused state.
 
-   TMMBN 0 overhead &gt; TMMBR 0 overhead:  The RTP stream sender SHALL
+   TMMBN 0 overhead &gt; TMMBR 0 overhead:  The RTP stream sender <em>SHALL</em>
       send TMMBN 0 with itself in the TMMBN bounding set when entering
       local paused state.
 
@@ -1573,15 +1573,15 @@ Table of Contents
    If the RTP stream sender is in restricted local paused state, it
    cannot leave that state until the TMMBR 0 limit causing the state is
    removed by a TMMBR &gt; 0 (RESUME).  If the RTP stream sender then needs
-   to stay in local paused state due to local considerations, it MAY
+   to stay in local paused state due to local considerations, it <em>MAY</em>
    continue pausing the RTP stream by entering local paused state and
-   MUST then act accordingly, including sending a TMMBN 0 with itself in
+   <em>MUST</em> then act accordingly, including sending a TMMBN 0 with itself in
    the bounding set.
 
-   Pausing an RTP stream MUST NOT affect the sending of RTP keepalive
+   Pausing an RTP stream <em>MUST NOT</em> affect the sending of RTP keepalive
    [<a href="./rfc6263.html" title="&quot;Application Mechanism for Keeping Alive the NAT Mappings Associated with RTP / RTP Control Protocol (RTCP) Flows&quot;">RFC6263</a>][RFC5245] applicable to that RTP stream.
 
-   When leaving the local paused state, the stream state SHALL become
+   When leaving the local paused state, the stream state <em>SHALL</em> become
    Playing, regardless of whether or not there were any RTP stream
    receivers that sent PAUSE for that stream during the local paused
    state, effectively clearing the RTP stream sender's memory for that
@@ -1653,10 +1653,10 @@ Table of Contents
 
    SSRC of packet sender:  The SSRC of the RTP session participant
       sending the messages in the FCI.  Note, for endpoints that have
-      multiple SSRCs in an RTP session, any of its SSRCs MAY be used to
+      multiple SSRCs in an RTP session, any of its SSRCs <em>MAY</em> be used to
       send any of the pause message types.
 
-   SSRC of media source:  Not used; SHALL be set to 0.  The FCI
+   SSRC of media source:  Not used; <em>SHALL</em> be set to 0.  The FCI
       identifies the SSRC the message is targeted for.
 
    The FCI field consists of one or more PAUSE, RESUME, PAUSED, or
@@ -1678,11 +1678,11 @@ Table of Contents
    The FCI fields have the following definitions:
 
    Target SSRC (32 bits):  For a PAUSE-RESUME message, this value is the
-      SSRC that the request is intended for.  For PAUSED, it MUST be the
+      SSRC that the request is intended for.  For PAUSED, it <em>MUST</em> be the
       SSRC being paused.  If pausing is the result of a PAUSE request,
       the value in PAUSED is effectively the same as Target SSRC in a
-      related PAUSE request.  For REFUSED, it MUST be the Target SSRC of
-      the PAUSE or RESUME request that cannot change state.  A CSRC MUST
+      related PAUSE request.  For REFUSED, it <em>MUST</em> be the Target SSRC of
+      the PAUSE or RESUME request that cannot change state.  A CSRC <em>MUST</em>
       NOT be used as a target as the interpretation of such a request is
       unclear.
 
@@ -1708,25 +1708,25 @@ Table of Contents
 
 
       4-15:  Reserved for future use.  FCI fields with these Type values
-         SHALL be ignored on reception by receivers and MUST NOT be used
+         <em>SHALL</em> be ignored on reception by receivers and <em>MUST NOT</em> be used
          by senders implementing this specification.
 
-   Res: (4 bits):  Type Specific reserved.  It SHALL be ignored by
-      receivers implementing this specification and MUST be set to 0 by
+   Res: (4 bits):  Type Specific reserved.  It <em>SHALL</em> be ignored by
+      receivers implementing this specification and <em>MUST</em> be set to 0 by
       senders implementing this specification.
 
    Parameter Len (8 bits):  Length of the Type Specific field in 32-bit
-      words.  MAY be 0.
+      words.  <em>MAY</em> be 0.
 
    PauseID (16 bits):  Message sequence identification, as described in
-      <a href="#section-5.2">Section 5.2</a>.  SHALL be incremented by one modulo 2^16 for each new
+      <a href="#section-5.2">Section 5.2</a>.  <em>SHALL</em> be incremented by one modulo 2^16 for each new
       PAUSE message, unless the message is retransmitted.  The initial
-      value SHOULD be 0.  The PauseID is scoped by the Target SSRC,
+      value <em>SHOULD</em> be 0.  The PauseID is scoped by the Target SSRC,
       meaning that PAUSE, RESUME, and PAUSED messages therefore share
       the same PauseID space for a specific Target SSRC.
 
-   Type Specific (variable):  Defined per pause feedback type.  MAY be
-      empty.  A receiver implementing this specification MUST be able to
+   Type Specific (variable):  Defined per pause feedback type.  <em>MAY</em> be
+      empty.  A receiver implementing this specification <em>MUST</em> be able to
       skip and ignore any unknown Type Specific data, even for Type
       values defined in this specification.
 
@@ -1737,20 +1737,20 @@ Table of Contents
    are governed by the transmission rules as defined by <a href="#section-8.5">Section 8.5</a>.
 
    Any references to PAUSE, PAUSED, RESUME, and REFUSED in this section
-   SHALL be taken to apply to the extent possible and also when TMMBR/
-   TMMBN are used (<a href="#section-5.6">Section 5.6</a>) for this functionality.  TMMBR/TMMBN MAY
+   <em>SHALL</em> be taken to apply to the extent possible and also when TMMBR/
+   TMMBN are used (<a href="#section-5.6">Section 5.6</a>) for this functionality.  TMMBR/TMMBN <em>MAY</em>
    be used instead of the messages defined in this specification when
    the effective topology is point to point.  This use is expected to be
    mainly for interworking with implementations that don't support the
    messages defined in this specification but make use of TMMBR/TMMBN to
    achieve a similar effect.  If either sender or receiver learns that
-   the topology is not point to point, TMMBR/TMMBN MUST NOT be used for
+   the topology is not point to point, TMMBR/TMMBN <em>MUST NOT</em> be used for
    pause/resume functionality.  If the messages defined in this
    specification are supported in addition to TMMBR/TMMBN by all
-   involved parties, pause/resume signaling MUST use messages from this
+   involved parties, pause/resume signaling <em>MUST</em> use messages from this
    specification.  If the topology is not point to point and the
    messages defined in this specification are not supported, pause/
-   resume functionality with TMMBR/TMMBN MUST NOT be used.
+   resume functionality with TMMBR/TMMBN <em>MUST NOT</em> be used.
 
    For the scope of this specification, a past PauseID (<a href="#section-5.2">Section 5.2</a>) is
    defined as having a value between and including (PauseID - 2^15) MOD
@@ -1771,15 +1771,15 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>.  PAUSE</span>
 
-   An RTP stream receiver MAY schedule PAUSE for transmission at any
+   An RTP stream receiver <em>MAY</em> schedule PAUSE for transmission at any
    time.
 
    PAUSE has no defined Type Specific parameters.
 
-   PauseID SHOULD be the current PauseID, as indicated by PAUSED
+   PauseID <em>SHOULD</em> be the current PauseID, as indicated by PAUSED
    (<a href="#section-8.2">Section 8.2</a>), REFUSED (<a href="#section-8.4">Section 8.4</a>), or implicitly determined by
    previously received PAUSE or RESUME (<a href="#section-8.3">Section 8.3</a>) requests.  A
-   randomly chosen PauseID MAY be used if it was not possible to
+   randomly chosen PauseID <em>MAY</em> be used if it was not possible to
    retrieve current PauseID information, in which case the PAUSE will
    either succeed or the current PauseID can be found in the returned
    REFUSED (<a href="#section-8.4">Section 8.4</a>).
@@ -1793,7 +1793,7 @@ Table of Contents
 
    If an RTP stream receiver that sent a PAUSE with a certain PauseID
    for a Target SSRC receives a RESUME or a REFUSED with the same
-   PauseID for the same Target SSRC, it is RECOMMENDED that it refrains
+   PauseID for the same Target SSRC, it is <em>RECOMMENDED</em> that it refrains
    from scheduling further PAUSE requests for some appropriate time.
    This is because the RESUME indicates that there are other receivers
    that still wish to receive the stream, and the REFUSED indicates that
@@ -1805,7 +1805,7 @@ Table of Contents
    If the targeted RTP stream does not pause, if no PAUSED indication
    with a future PauseID compared to the one used in PAUSE is received,
    and if no REFUSED with the current or a future PauseID is received
-   within 2 * RTT + T_dither_max, the PAUSE MAY be scheduled for
+   within 2 * RTT + T_dither_max, the PAUSE <em>MAY</em> be scheduled for
    retransmission, using the same current PauseID.  RTT is the observed
    round trip to the RTP stream sender, and T_dither_max is defined in
    <a href="./rfc4585.html#section-3.4">Section&nbsp;3.4 of [RFC4585]</a>.  An RTP stream receiver in a bi-directional
@@ -1823,39 +1823,39 @@ Table of Contents
    streams will lack an RTT estimate unless they use additional
    mechanisms, such as the "Receiver Reference Time Report Block" part
    of RTCP XR [<a href="./rfc3611.html" title="&quot;RTP Control Protocol Extended Reports (RTCP XR)&quot;">RFC3611</a>].  RTP stream receivers that lack an RTT estimate
-   to the sender SHOULD use 500 ms as the default value.
+   to the sender <em>SHOULD</em> use 500 ms as the default value.
 
    When an RTP stream sender in playing state (<a href="#section-6.1">Section 6.1</a>) receives a
    PAUSE with the current PauseID, and unless local considerations
-   currently make it impossible to pause the stream, it SHALL enter
+   currently make it impossible to pause the stream, it <em>SHALL</em> enter
    pausing state (<a href="#section-6.2">Section 6.2</a>) and act accordingly.
 
    If an RTP stream sender receives a PAUSE with the current PauseID
    while in pausing, paused (<a href="#section-6.3">Section 6.3</a>), or local paused (<a href="#section-6.4">Section 6.4</a>)
-   states, the received PAUSE SHALL be ignored.
+   states, the received PAUSE <em>SHALL</em> be ignored.
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  PAUSED</span>
 
-   The PAUSED indication, if supported, MUST be sent whenever entering
+   The PAUSED indication, if supported, <em>MUST</em> be sent whenever entering
    paused state (<a href="#section-6.3">Section 6.3</a>) or local paused state (<a href="#section-6.4">Section 6.4</a>).
 
-   PauseID in the PAUSED message MUST contain the current PauseID that
+   PauseID in the PAUSED message <em>MUST</em> contain the current PauseID that
    can be included in a subsequent RESUME (<a href="#section-8.3">Section 8.3</a>).  For local
    paused state, this means that PauseID in the message is the current
    PauseID, just as if the RTP stream sender had sent a PAUSE to itself.
 
-   PAUSED SHALL contain a fixed-length 32-bit parameter at the start of
+   PAUSED <em>SHALL</em> contain a fixed-length 32-bit parameter at the start of
    the Type Specific field with the extended RTP sequence number of the
    last RTP packet sent before the RTP stream was paused, in the same
    format as the extended highest sequence number received
    (<a href="./rfc3550.html#section-6.4.1">Section&nbsp;6.4.1 of [RFC3550]</a>).
 
    After having entered paused or local paused state and thus having
-   sent PAUSED once, PAUSED MUST also be included in (at least) the next
+   sent PAUSED once, PAUSED <em>MUST</em> also be included in (at least) the next
    two regular RTCP reports, given that the pause condition is then
    still effective.
 
-   PAUSED indications MAY be retransmitted, subject to transmission
+   PAUSED indications <em>MAY</em> be retransmitted, subject to transmission
    rules (<a href="#section-8.5">Section 8.5</a>), to increase the probability that the message
    reaches the receiver in a timely fashion.  This can be especially
    important when entering local paused state.  The number of
@@ -1863,7 +1863,7 @@ Table of Contents
    loss probability, for example, based on RTCP reports received from
    the intended message target.
 
-   While remaining in paused or local paused states, PAUSED MAY be
+   While remaining in paused or local paused states, PAUSED <em>MAY</em> be
    included in all compound RTCP reports, as long as the negotiated RTCP
    bandwidth is not exceeded.
 
@@ -1878,26 +1878,26 @@ Table of Contents
    When in paused or local paused states, whenever the RTP stream sender
    learns that there are endpoints that did not previously receive the
    stream, for example, by RTCP reports with an SSRC and a CNAME that
-   were not previously seen in the RTP session, it is RECOMMENDED to
+   were not previously seen in the RTP session, it is <em>RECOMMENDED</em> to
    send PAUSED at the earliest opportunity and also to include it in (at
    least) the next two regular RTCP reports, given that the pause
    condition is then still effective.
 
 <span class="h3"><a class="selflink" name="section-8.3" href="#section-8.3">8.3</a>.  RESUME</span>
 
-   An RTP stream receiver MAY schedule RESUME for transmission whenever
+   An RTP stream receiver <em>MAY</em> schedule RESUME for transmission whenever
    it wishes to resume a paused stream or disapprove a stream from being
    paused.
 
-   PauseID SHOULD be the current PauseID, as indicated by PAUSED
+   PauseID <em>SHOULD</em> be the current PauseID, as indicated by PAUSED
    (<a href="#section-8.2">Section 8.2</a>) or implicitly determined by previously received PAUSE
-   (<a href="#section-8.1">Section 8.1</a>) or RESUME requests.  A randomly chosen PauseID MAY be
+   (<a href="#section-8.1">Section 8.1</a>) or RESUME requests.  A randomly chosen PauseID <em>MAY</em> be
    used if it was not possible to retrieve current PauseID information,
    in which case the RESUME will either succeed or the current PauseID
    can be found in a returned REFUSED (<a href="#section-8.4">Section 8.4</a>).
 
    If an RTP stream receiver that sent a RESUME with a certain PauseID
-   receives a REFUSED with the same PauseID, it is RECOMMENDED that it
+   receives a REFUSED with the same PauseID, it is <em>RECOMMENDED</em> that it
    refrains from scheduling further RESUME requests for some appropriate
    time since the REFUSE indicates that it is currently not possible to
    resume the stream.  What is an appropriate time can vary from
@@ -1905,12 +1905,12 @@ Table of Contents
    resuming the stream, but 1-2 regular RTCP intervals is expected to be
    appropriate.
 
-   RESUME requests MAY be retransmitted, subject to transmission rules
+   RESUME requests <em>MAY</em> be retransmitted, subject to transmission rules
    (<a href="#section-8.5">Section 8.5</a>), to increase the probability that the message reaches
    the receiver in a timely fashion.  The number of repetitions to use
    could be tuned to observed loss rate and desired loss probability,
    for example, based on RTCP reports received from the intended message
-   target.  Such retransmission SHOULD stop as soon as RTP packets from
+   target.  Such retransmission <em>SHOULD</em> stop as soon as RTP packets from
    the targeted stream are received or when a REFUSED with the current
    PauseID for the targeted RTP stream is received.
 
@@ -1919,7 +1919,7 @@ Table of Contents
    When an RTP stream sender in pausing (<a href="#section-6.2">Section 6.2</a>), paused
    (<a href="#section-6.3">Section 6.3</a>), or local paused state (<a href="#section-6.4">Section 6.4</a>) receives a RESUME
    with the current PauseID, and unless local considerations currently
-   make it impossible to resume the stream, it SHALL enter playing state
+   make it impossible to resume the stream, it <em>SHALL</em> enter playing state
    (<a href="#section-6.1">Section 6.1</a>) and act accordingly.  If the RTP stream sender is
    incapable of honoring a RESUME request with the current PauseID, or
    if it receives a RESUME request with a PauseID that is not the
@@ -1932,52 +1932,52 @@ Table of Contents
 
 
    current PauseID while in paused or pausing state, the RTP stream
-   sender SHALL schedule a REFUSED message for transmission as specified
+   sender <em>SHALL</em> schedule a REFUSED message for transmission as specified
    below.
 
    If an RTP stream sender in playing state receives a RESUME containing
    either the current PauseID or a past PauseID, the received RESUME
-   SHALL be ignored.
+   <em>SHALL</em> be ignored.
 
 <span class="h3"><a class="selflink" name="section-8.4" href="#section-8.4">8.4</a>.  REFUSED</span>
 
    If an RTP stream sender receives a PAUSE (<a href="#section-8.1">Section 8.1</a>) or RESUME
    (<a href="#section-8.3">Section 8.3</a>) request containing the current PauseID, where the
    requested action cannot be fulfilled by the RTP stream sender due to
-   some local consideration, it SHALL schedule transmission of a REFUSED
+   some local consideration, it <em>SHALL</em> schedule transmission of a REFUSED
    notification containing the current PauseID from the rejected
    request.
 
    REFUSED has no defined Type Specific parameters.
 
    If an RTP stream sender receives a PAUSE or RESUME request with a
-   PauseID that is not the current PauseID, it SHALL schedule a REFUSED
+   PauseID that is not the current PauseID, it <em>SHALL</em> schedule a REFUSED
    notification containing the current PauseID, except if the RTP stream
    sender is in playing state and receives a RESUME with a past PauseID,
-   in which case the RESUME SHALL be ignored.
+   in which case the RESUME <em>SHALL</em> be ignored.
 
    If several PAUSE or RESUME requests that would render identical
    REFUSED notifications are received before the scheduled REFUSED is
-   sent, duplicate REFUSED notifications MUST NOT be scheduled for
+   sent, duplicate REFUSED notifications <em>MUST NOT</em> be scheduled for
    transmission.  This effectively lets a single REFUSED respond to
    several ineffective PAUSE or RESUME requests.
 
    An RTP stream receiver that sent a PAUSE or RESUME request and
    receives a REFUSED containing the same PauseID as in the request
-   SHOULD refrain from sending an identical request for some appropriate
+   <em>SHOULD</em> refrain from sending an identical request for some appropriate
    time to allow the condition that caused REFUSED to clear.  For PAUSE,
    an appropriate time is suggested in <a href="#section-8.1">Section 8.1</a>.  For RESUME, an
    appropriate time is suggested in <a href="#section-8.3">Section 8.3</a>.
 
    An RTP stream receiver that sent a PAUSE or RESUME request and
    receives a REFUSED containing a PauseID different from the request
-   MAY schedule another request using the PauseID from the REFUSED
+   <em>MAY</em> schedule another request using the PauseID from the REFUSED
    notification.
 
 <span class="h3"><a class="selflink" name="section-8.5" href="#section-8.5">8.5</a>.  Transmission Rules</span>
 
    The transmission of any RTCP feedback messages defined in this
-   specification MUST follow the normal AVPF-defined timing rules and
+   specification <em>MUST</em> follow the normal AVPF-defined timing rules and
    depend on the session's mode of operation.
 
 
@@ -2025,7 +2025,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Signaling</span>
 
-   The capability of handling messages defined in this specification MAY
+   The capability of handling messages defined in this specification <em>MAY</em>
    be exchanged at a higher layer such as SDP.  This document extends
    the "rtcp-fb" attribute defined in <a href="#section-4">Section 4</a> of AVPF [<a href="./rfc4585.html" title="&quot;Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF)&quot;">RFC4585</a>] to
    include the request for pause and resume.  This specification follows
@@ -2075,7 +2075,7 @@ Table of Contents
       implemented:
 
       1  Full implementation of this specification.  This is the default
-         configuration.  A missing "config" pause attribute MUST be
+         configuration.  A missing "config" pause attribute <em>MUST</em> be
          treated equivalent to providing a "config" value of 1.
 
       2  The implementation intends to send PAUSE and RESUME requests
@@ -2134,10 +2134,10 @@ Table of Contents
    implementation interoperability, achieving at least a level of
    functionality corresponding to what is desired by the least-capable
    party when used as specified here.  Implementing any functionality
-   subsets other than those defined above is NOT RECOMMENDED.
+   subsets other than those defined above is NOT <em>RECOMMENDED</em>.
 
-   When signaling a "config" value other than 1, an implementation MUST
-   ignore non-supported messages on reception and SHOULD omit sending
+   When signaling a "config" value other than 1, an implementation <em>MUST</em>
+   ignore non-supported messages on reception and <em>SHOULD</em> omit sending
    messages not supported by the remote peer.  One example where it can
    be motivated to send messages that some receivers do not support is
    when there are multiple message receivers with different message
@@ -2225,12 +2225,12 @@ Table of Contents
                               Figure 8: ABNF
 
    An endpoint implementing this specification and using SDP to signal
-   capability SHOULD indicate the new "pause" parameter with "ccm"
-   signaling but MAY instead use existing "ccm tmmbr" signaling
+   capability <em>SHOULD</em> indicate the new "pause" parameter with "ccm"
+   signaling but <em>MAY</em> instead use existing "ccm tmmbr" signaling
    [<a href="./rfc5104.html" title="&quot;Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)&quot;">RFC5104</a>] if the limitations in functionality when using TMMBR/TMMBN
    as described in this specification (<a href="#section-5.6">Section 5.6</a>) are considered
    acceptable.  In that case, no partial message support is possible.
-   The messages from this specification (<a href="#section-8">Section 8</a>) SHOULD NOT be used
+   The messages from this specification (<a href="#section-8">Section 8</a>) <em>SHOULD NOT</em> be used
    towards receivers that did not declare capability to receive those
    messages.
 
@@ -2244,13 +2244,13 @@ Table of Contents
    choice than to attempt to repair or discard the media received just
    prior to or at the point of resuming.
 
-   There MUST NOT be more than one "a=rtcp-fb" line with "pause"
+   There <em>MUST NOT</em> be more than one "a=rtcp-fb" line with "pause"
    applicable to a single payload type in the SDP, unless the additional
-   line uses "*" as the payload type, in which case "*" SHALL be
+   line uses "*" as the payload type, in which case "*" <em>SHALL</em> be
    interpreted as applicable to all listed payload types that do not
    have an explicit "pause" specification.  The "config" pause attribute
-   MUST NOT appear more than once for each "pause" CCM parameter.  The
-   "nowait" pause attribute MUST NOT appear more than once for each
+   <em>MUST NOT</em> appear more than once for each "pause" CCM parameter.  The
+   "nowait" pause attribute <em>MUST NOT</em> appear more than once for each
    "pause" CCM parameter.
 
 <span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  Offer/Answer Use</span>
@@ -2274,7 +2274,7 @@ Table of Contents
 
    An answerer receiving an offer with a "pause" CCM line and a "config"
    pause attribute with a certain value, describing a certain capability
-   to send and receive messages, MAY change the "config" pause attribute
+   to send and receive messages, <em>MAY</em> change the "config" pause attribute
    value in the answer to another configuration.  The permitted answers
    are listed in the below table.
 
@@ -2291,29 +2291,29 @@ Table of Contents
 
                  Figure 9: "config" Values in Offer/Answer
 
-   An offer or answer omitting the "config" pause attribute MUST be
+   An offer or answer omitting the "config" pause attribute <em>MUST</em> be
    interpreted as equivalent to "config=1".  Implementations of this
-   specification MUST NOT use any "config" values other than those
-   defined above in an offer or answer and MUST remove the "pause" CCM
+   specification <em>MUST NOT</em> use any "config" values other than those
+   defined above in an offer or answer and <em>MUST</em> remove the "pause" CCM
    line in the answer when receiving an offer with a "config" value it
-   does not understand.  In all cases, the answerer MAY also completely
+   does not understand.  In all cases, the answerer <em>MAY</em> also completely
    remove any "pause" CCM line to indicate that it does not understand
    or desire to use any pause functionality for the affected payload
    types.
 
    If the offerer believes that itself and the intended answerer are
-   likely the only endpoints in the RTP session, it MAY include the
+   likely the only endpoints in the RTP session, it <em>MAY</em> include the
    "nowait" pause attribute on the "pause" line in the offer.  If an
    answerer receives the "nowait" pause attribute on the "pause" line in
    the SDP, and if it has information that the offerer and itself are
-   not the only endpoints in the RTP session, it MUST NOT include any
+   not the only endpoints in the RTP session, it <em>MUST NOT</em> include any
    "nowait" pause attribute on its "pause" line in the SDP answer.  The
-   answerer MUST NOT add "nowait" on the "pause" line in the answer
+   answerer <em>MUST NOT</em> add "nowait" on the "pause" line in the answer
    unless it is present on the "pause" line in the offer.  If both offer
    and answer contain a "nowait" pause attribute, then the hold-off
    period is configured to 0 at both the offerer and answerer.
 
-   Unknown pause attributes MUST be ignored in the offer and MUST then
+   Unknown pause attributes <em>MUST</em> be ignored in the offer and <em>MUST</em> then
    be omitted from the answer.
 
 
@@ -2323,8 +2323,8 @@ Table of Contents
 <span class="grey"><a href="./rfc7728.html">RFC 7728</a>                    RTP Stream Pause               February 2016</span>
 
 
-   If both "pause" and "tmmbr" are present in the offer, both MAY be
-   included also in the answer, in which case TMMBR/TMMBN MUST NOT be
+   If both "pause" and "tmmbr" are present in the offer, both <em>MAY</em> be
+   included also in the answer, in which case TMMBR/TMMBN <em>MUST NOT</em> be
    used for pause/resume purposes (with a bitrate value of 0), to avoid
    signaling ambiguity.
 
@@ -2336,7 +2336,7 @@ Table of Contents
 
    First, the "config" pause attribute and its message directions are
    interpreted based on the node receiving the SDP, and it describes the
-   RECOMMENDED level of operation.  If the joining client does not
+   <em>RECOMMENDED</em> level of operation.  If the joining client does not
    support the indicated "config" value, some RTP session stream
    optimizations may not be possible in that some RTP streams will not
    be paused by the joining client, and/or the joining client may not be
@@ -2355,9 +2355,9 @@ Table of Contents
    support this specification, considering the inherent PAUSE support in
    RTSP.
 
-   Unknown pause attributes MUST be ignored.
+   Unknown pause attributes <em>MUST</em> be ignored.
 
-   If both "pause" and "tmmbr" are present in the SDP, TMMBR/TMMBN MUST
+   If both "pause" and "tmmbr" are present in the SDP, TMMBR/TMMBN <em>MUST</em>
    NOT be used for pause/resume purposes (with a bitrate value of 0) to
    avoid signaling ambiguity.
 
@@ -3016,7 +3016,7 @@ Table of Contents
    using a solution that provides true source authentication of all
    participants' RTCP packets.  However, that has other implications.
    For multiparty sessions including a middlebox, that middlebox is
-   RECOMMENDED to perform checks on all forwarded RTCP packets so that
+   <em>RECOMMENDED</em> to perform checks on all forwarded RTCP packets so that
    each participant only uses its set of SSRCs to prevent the attacker
    from utilizing another participant's SSRCs.  An attacker that can
    send a PAUSE request that does not reach any participants other than

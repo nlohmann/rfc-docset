@@ -402,7 +402,7 @@ Table of Contents
    from the first byte of the length field of this command packet to the
    start of the length field of the next.  The minimum value is 8.
    There is no specific limit to the length of a command packet;
-   implementations MUST be able to at least count and skip over a packet
+   implementations <em>MUST</em> be able to at least count and skip over a packet
 
 
 
@@ -411,22 +411,22 @@ Table of Contents
 <span class="grey"><a href="./rfc1476.html">RFC 1476</a>                          RAP                          June 1993</span>
 
 
-   that is too large and then MAY send an error indication.
+   that is too large and then <em>MAY</em> send an error indication.
 
    Each version of the protocol will profile what size should be
    considered the limit for senders, and what (larger) size should be
    considered by receivers to mean that the connection is insane:
    either unsynchronized or worse.
 
-   For version 1 of the protocol, senders MUST NOT send command packets
-   greater than 16384 bytes.  Receivers SHOULD consider packets that
+   For version 1 of the protocol, senders <em>MUST NOT</em> send command packets
+   greater than 16384 bytes.  Receivers <em>SHOULD</em> consider packets that
    appear to be greater than 162144 bytes in length to be an indication
    of an unrecoverable error.
 
    Note that these limits probably will not be approached in normal
    operation of version 1 of the protocol; receivers may reasonably
    decline to use routes described by 16K bytes of metrics and policy.
-   But even the most memory-restricted implementation MUST be able to
+   But even the most memory-restricted implementation <em>MUST</em> be able to
    skip such a command packet.
 
 <span class="h4"><a class="selflink" name="section-2.1.2" href="#section-2.1.2">2.1.2</a>  RAP version</span>
@@ -485,7 +485,7 @@ Table of Contents
 
    A poll command packet requests that the other side transmit either a
    no-operation packet, or some other packet if sent without delay.
-   (i.e., receivers MUST NOT delay a response to a poll by waiting for
+   (i.e., receivers <em>MUST NOT</em> delay a response to a poll by waiting for
    some other packet expected to be queued soon.)
 
    The poll command code is always 1, regardless of version, and the
@@ -497,7 +497,7 @@ Table of Contents
    independent; each system is responsible for sending polls in time to
    reset its own timer.
 
-   The timer MUST be reset (restarted) on the receipt of any RAP packet,
+   The timer <em>MUST</em> be reset (restarted) on the receipt of any RAP packet,
    regardless of whether the version or command code is known.
 
    In normal operation, if route updates are being sent in both
@@ -505,11 +505,11 @@ Table of Contents
    the timers are continually reset.  When the connection is quiescent,
    both timers will typically get reset as a result of the side with the
    shorter timer doing a poll, and then getting a no-operation in
-   response.  RAP implementations MUST NOT be dependent in any way on
+   response.  RAP implementations <em>MUST NOT</em> be dependent in any way on
    the size or existence of the remote timer.
 
    An implementation that has access to information from the TCP layer,
-   such as the results of TCP layer keepalives, MAY use this instead of
+   such as the results of TCP layer keepalives, <em>MAY</em> use this instead of
    or in addition to a timer.  However, the use of TCP keepalives is
    discouraged, and this procedure does not ensure that the remote RAP
    process is alive, only that its TCP is accepting data.  Thus a
@@ -523,8 +523,8 @@ Table of Contents
 <span class="grey"><a href="./rfc1476.html">RFC 1476</a>                          RAP                          June 1993</span>
 
 
-   The timer MUST be implemented, SHOULD be configurable in at least the
-   range 1 to 10 minutes on a per-peer basis, and MAY be infinite
+   The timer <em>MUST</em> be implemented, <em>SHOULD</em> be configurable in at least the
+   range 1 to 10 minutes on a per-peer basis, and <em>MAY</em> be infinite
    (disabled) by explicit configuration.
 
    On UDP, a system (router or non-routing host) may send RAP polls to
@@ -539,7 +539,7 @@ Table of Contents
    The error packet is used to report an error, whether fatal, serious
    or informational.  It includes a null terminated text description in
    ISO-10646-UTF-1 of the condition, which may be useful to a human
-   administrator, and SHOULD be written to a log file.  (The machine is
+   administrator, and <em>SHOULD</em> be written to a log file.  (The machine is
    not expected to understand the text.)
 
    Errors are actual failures (in the interpretation of the receiver) to
@@ -562,7 +562,7 @@ Table of Contents
     |                       ...                                     |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   The RAP system receiving an Error packet MUST NOT regard it as fatal,
+   The RAP system receiving an Error packet <em>MUST NOT</em> regard it as fatal,
    and close the connection or discard routes.  If the sending system
    desires the condition to be fatal (unrecoverable), its proper action
    is to close the connection.  This requirement is to prevent the kind
@@ -579,14 +579,14 @@ Table of Contents
 <span class="grey"><a href="./rfc1476.html">RFC 1476</a>                          RAP                          June 1993</span>
 
 
-   An error packet MUST NOT be sent in response to something that is (or
+   An error packet <em>MUST NOT</em> be sent in response to something that is (or
    might be) an error packet itself.  Subsequent versions of RAP should
    keep the command code point (2) of the error packet.
 
 <span class="h4"><a class="selflink" name="section-2.2.4" href="#section-2.2.4">2.2.4</a>  Add Route</span>
 
    The add route command offers a route to the receiving peer.  As noted
-   later, it MUST be a route actually loaded into the forwarding
+   later, it <em>MUST</em> be a route actually loaded into the forwarding
    database of the offering peer at the time the add route is sent.
 
      0                   1                   2                   3
@@ -809,7 +809,7 @@ A description of each field:
    included in the RAP route command header.
 
    The initial distance at insertion into the RAP domain by the origin
-   of the route MUST be less than or equal to 2z, where z is the number
+   of the route <em>MUST</em> be less than or equal to 2z, where z is the number
    of zero bits in the route mask.
 
    If the origin derives the route from RIP or OSPF, and the distance
@@ -892,7 +892,7 @@ A description of each field:
 
    If a route already has a packet cost in a different currency
    associated with it, another instance of this option should be added.
-   RAP implementations MUST NOT attempt to convert the currency units
+   RAP implementations <em>MUST NOT</em> attempt to convert the currency units
    except when actually making a route selection decision.  That is, the
    effects of a currency conversion should never be propagated, except
    for the proper effect of such a selection decision.
@@ -952,7 +952,7 @@ A description of each field:
    and is not an update, it is discarded.  If it is an update, the route
    is purged.
 
-   Trace SHOULD NOT be simply added to every route traversing a system.
+   Trace <em>SHOULD NOT</em> be simply added to every route traversing a system.
    Rather, it should be added (if being used for loop detection) when
    there is a suspicion that a loop has formed.
 
@@ -1168,7 +1168,7 @@ A description of each field:
 
    In RAP, infinity is defined as 2z + i, where z is the number of zero
    bits in the mask (as described previously) and i is a small number
-   which MUST be configurable.
+   which <em>MUST</em> be configurable.
 
    Note that RAP depends on the last resort algorithm, "counting to
    infinity," much less than predecessors such as RIP.  Routes in the

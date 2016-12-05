@@ -392,9 +392,9 @@ Table of Contents
    a block-independent linear-predictive coding (LPC) algorithm and has
    support for two basic frame lengths: 20 ms at 15.2 kbit/s and 30 ms
    at 13.33 kbit/s.  When the codec operates at block lengths of 20 ms,
-   it produces 304 bits per block, which SHOULD be packetized as in [<a href="#ref-1" title="&quot;Real-time Transport Protocol (RTP) Payload Format for internet Low Bit Rate Codec (iLBC) Speech&quot;">1</a>].
+   it produces 304 bits per block, which <em>SHOULD</em> be packetized as in [<a href="#ref-1" title="&quot;Real-time Transport Protocol (RTP) Payload Format for internet Low Bit Rate Codec (iLBC) Speech&quot;">1</a>].
    Similarly, for block lengths of 30 ms it produces 400 bits per block,
-   which SHOULD be packetized as in [<a href="#ref-1" title="&quot;Real-time Transport Protocol (RTP) Payload Format for internet Low Bit Rate Codec (iLBC) Speech&quot;">1</a>].  The two modes for the
+   which <em>SHOULD</em> be packetized as in [<a href="#ref-1" title="&quot;Real-time Transport Protocol (RTP) Payload Format for internet Low Bit Rate Codec (iLBC) Speech&quot;">1</a>].  The two modes for the
    different frame sizes operate in a very similar way.  When they
    differ it is explicitly stated in the text, usually with the notation
    x/y, where x refers to the 20 ms mode and y refers to the 30 ms mode.
@@ -429,8 +429,8 @@ Table of Contents
    are explained in sections <a href="#section-3">3</a> and <a href="#section-4">4</a>, respectively.  <a href="#appendix-A">Appendix A</a> provides
    a c-code reference implementation.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Outline of the Codec</span>
@@ -455,8 +455,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Encoder</span>
 
-   The input to the encoder SHOULD be 16 bit uniform PCM sampled at 8
-   kHz.  It SHOULD be partitioned into blocks of BLOCKL=160/240 samples
+   The input to the encoder <em>SHOULD</em> be 16 bit uniform PCM sampled at 8
+   kHz.  It <em>SHOULD</em> be partitioned into blocks of BLOCKL=160/240 samples
    for the 20/30 ms frame size.  Each block is divided into NSUB=4/6
    consecutive sub-blocks of SUBL=40 samples each.  For 30 ms frame
    size, the encoder performs two LPC_FILTERORDER=10 linear-predictive
@@ -622,8 +622,8 @@ Table of Contents
 
    7. Packetize the bits into the payload specified in Table 3.2.
 
-   The input to the encoder SHOULD be 16-bit uniform PCM sampled at 8
-   kHz.  Also it SHOULD be partitioned into blocks of BLOCKL=160/240
+   The input to the encoder <em>SHOULD</em> be 16-bit uniform PCM sampled at 8
+   kHz.  Also it <em>SHOULD</em> be partitioned into blocks of BLOCKL=160/240
    samples.  Each block input to the encoder is divided into NSUB=4/6
    consecutive sub-blocks of SUBL=40 samples each.
 
@@ -795,7 +795,7 @@ Table of Contents
       lp1_bw[i] = lp1[i] * chirp^i; i=0,...,LPC_FILTERORDER
       lp2_bw[i] = lp2[i] * chirp^i; i=0,...,LPC_FILTERORDER
 
-   where "chirp" is a real number between 0 and 1.  It is RECOMMENDED to
+   where "chirp" is a real number between 0 and 1.  It is <em>RECOMMENDED</em> to
    use a value of 0.9.
 
 <span class="h4"><a class="selflink" name="section-3.2.3" href="#section-3.2.3">3.2.3</a>.  Computation of LSF Coefficients from LPC Coefficients</span>
@@ -803,7 +803,7 @@ Table of Contents
    Thus far, two sets of LPC coefficients that represent the short-term
    spectral characteristics of the speech signal for two different time
    locations within the current block have been determined.  These
-   coefficients SHOULD be quantized and interpolated.  Before this is
+   coefficients <em>SHOULD</em> be quantized and interpolated.  Before this is
 
 
 
@@ -1005,7 +1005,7 @@ Table of Contents
 
    In principle any good design of a perceptual weighting filter can be
    applied in the encoder without compromising this codec definition.
-   However, it is RECOMMENDED to use the perceptual weighting filter Wk
+   However, it is <em>RECOMMENDED</em> to use the perceptual weighting filter Wk
    for sub-block k specified below:
 
       Wk(z)=1/Ak(z/LPC_CHIRP_WEIGHTDENUM), where
@@ -1055,17 +1055,17 @@ Table of Contents
                ssqn[nsub] += sampEn_win[(nsub+1)*SUBL-i-1]*
                                  residual[i]*residual[i];
 
-   where sampEn_win[5]={1/6, 2/6, 3/6, 4/6, 5/6}; MAY be used.  The
+   where sampEn_win[5]={1/6, 2/6, 3/6, 4/6, 5/6}; <em>MAY</em> be used.  The
    sub-frame number corresponding to the maximum value of
    ssqEn_win[nsub-1]*ssqn[nsub] is selected as the start state
    indicator.  A weighting of ssqEn_win[]={0.8,0.9,1.0,0.9,0.8} for 30
-   ms frames and ssqEn_win[]={0.9,1.0,0.9} for 20 ms frames; MAY
+   ms frames and ssqEn_win[]={0.9,1.0,0.9} for 20 ms frames; <em>MAY</em>
    advantageously be used to bias the start state towards the middle of
    the frame.
 
    For 20 ms frames there are three possible positions for the two-sub-
    block length maximum power segment; the start state position is
-   encoded with 2 bits.  The start state position, start, MUST be
+   encoded with 2 bits.  The start state position, start, <em>MUST</em> be
    encoded as
 
       start=1: start state in sub-frame 0 and 1
@@ -1074,7 +1074,7 @@ Table of Contents
 
    For 30 ms frames there are five possible positions of the two-sub-
    block length maximum power segment, the start state position is
-   encoded with 3 bits.  The start state position, start, MUST be
+   encoded with 3 bits.  The start state position, start, <em>MUST</em> be
    encoded as
 
       start=1: start state in sub-frame 0 and 1
@@ -1101,7 +1101,7 @@ Table of Contents
    23/22-sample segment with the lowest power is excluded from the start
    state.  One bit is transmitted to indicate which of the two possible
    57/58 sample segments is used.  The start state position within the
-   two sub-frames determined above, state_first, MUST be encoded as
+   two sub-frames determined above, state_first, <em>MUST</em> be encoded as
 
       state_first=1: start state is first STATE_SHORT_LEN samples
       state_first=0: start state is last STATE_SHORT_LEN samples
@@ -1915,12 +1915,12 @@ Table of Contents
    Table 3.2.  The bitstream definition for iLBC for both the 20 ms
    frame size mode and the 30 ms frame size mode.
 
-   When packetized into the payload, the bits MUST be sorted as follows:
+   When packetized into the payload, the bits <em>MUST</em> be sorted as follows:
    All the class 1 bits in the order (from top to bottom) as specified
    in the table, all the class 2 bits (from top to bottom), and all the
    class 3 bits in the same sequential order.  The last bit, the empty
-   frame indicator, SHOULD be set to zero by the encoder.  If this bit
-   is set to 1 the decoder SHOULD treat the data as a lost frame.  For
+   frame indicator, <em>SHOULD</em> be set to zero by the encoder.  If this bit
+   is set to 1 the decoder <em>SHOULD</em> treat the data as a lost frame.  For
    example, this bit can be set to 1 to indicate lost frame for file
    storage format, as in [<a href="#ref-1" title="&quot;Real-time Transport Protocol (RTP) Payload Format for internet Low Bit Rate Codec (iLBC) Speech&quot;">1</a>].
 
@@ -1956,7 +1956,7 @@ Table of Contents
               +-----------------+
 
    Figure 4.1.  Flow chart of the iLBC decoder.  If a frame was lost,
-   steps 1 to 5 SHOULD be replaced by a PLC algorithm.
+   steps 1 to 5 <em>SHOULD</em> be replaced by a PLC algorithm.
 
    1. Extract the parameters from the bitstream.
 
@@ -2127,12 +2127,12 @@ Table of Contents
 
    If packet loss occurs, the decoder receives a signal saying that
    information regarding a block is lost.  For such blocks it is
-   RECOMMENDED to use a Packet Loss Concealment (PLC) unit to create a
+   <em>RECOMMENDED</em> to use a Packet Loss Concealment (PLC) unit to create a
    decoded signal that masks the effect of that packet loss.  In the
    following we will describe an example of a PLC unit that can be used
    with the iLBC codec.  As the PLC unit is used only at the decoder,
    the PLC unit does not affect interoperability between
-   implementations.  Other PLC implementations MAY therefore be used.
+   implementations.  Other PLC implementations <em>MAY</em> therefore be used.
 
    The PLC described operates on the LP filters and the excitation
    signals and is based on the following principles:
@@ -2554,9 +2554,9 @@ Table of Contents
    block is obtained by running the decoded LP synthesis filter,
    1/A~k(z), over the block.  The synthesis filters have to be shifted
    to compensate for the delay in the enhancer.  For 20 ms frame size
-   mode, they SHOULD be shifted one 40-sample sub-block, and for 30 ms
-   frame size mode, they SHOULD be shifted two 40-sample sub-blocks.
-   The LP coefficients SHOULD be changed at the first sample of every
+   mode, they <em>SHOULD</em> be shifted one 40-sample sub-block, and for 30 ms
+   frame size mode, they <em>SHOULD</em> be shifted two 40-sample sub-blocks.
+   The LP coefficients <em>SHOULD</em> be changed at the first sample of every
    sub-block while keeping the filter state.  For PLC blocks, one
    solution is to apply the last LP coefficients of the last decoded
    speech block for all sub-blocks.
@@ -2577,7 +2577,7 @@ Table of Contents
    known security consideration; however, its RTP payload format [<a href="#ref-1" title="&quot;Real-time Transport Protocol (RTP) Payload Format for internet Low Bit Rate Codec (iLBC) Speech&quot;">1</a>] is
    subject to several considerations, which are addressed there.
    Confidentiality of the media streams is achieved by encryption;
-   therefore external mechanisms, such as SRTP [<a href="#ref-5" title="&quot;The Secure Real Time Transport Protocol (SRTP)&quot;">5</a>], MAY be used for that
+   therefore external mechanisms, such as SRTP [<a href="#ref-5" title="&quot;The Secure Real Time Transport Protocol (SRTP)&quot;">5</a>], <em>MAY</em> be used for that
    purpose.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Evaluation of the iLBC Implementations</span>

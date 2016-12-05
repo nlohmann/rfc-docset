@@ -355,8 +355,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
 
@@ -386,9 +386,9 @@ Table of Contents
    of a message.  The "reason" string is a UTF-8 [<a href="#ref-UTF-8" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">UTF-8</a>] string
    specifying the reason for refusal.  How a message is refused depends
    on the capabilities of the mail component (MDA or MTA) executing the
-   Sieve script.  The Sieve interpreter MUST carry out one of the
+   Sieve script.  The Sieve interpreter <em>MUST</em> carry out one of the
    following actions (listed in order from most to least preferred),
-   MUST carry out the most preferable action possible, and MUST fall
+   <em>MUST</em> carry out the most preferable action possible, and <em>MUST</em> fall
    back to lesser actions if a preferred action fails.
 
    1.  Refuse message delivery by sending a 5XX response code over SMTP
@@ -402,13 +402,13 @@ Table of Contents
    Note that the determination of whether or not an envelope sender is a
    forgery may be performed by site-specific and implementation-specific
    heuristic techniques, such as "return-path verification", details of
-   which are outside the scope of this document.  Implementations SHOULD
+   which are outside the scope of this document.  Implementations <em>SHOULD</em>
    log instances when a non-delivery report is not sent and the reason
    for not sending the report (e.g., content was spam, return-path
    invalid, etc.).
 
-   The "ereject" action MUST NOT be available in environments that do
-   not support protocol-level rejection, e.g., an MUA, and MUST be
+   The "ereject" action <em>MUST NOT</em> be available in environments that do
+   not support protocol-level rejection, e.g., an MUA, and <em>MUST</em> be
    available in all other environments that support the "reject" action.
 
 
@@ -432,7 +432,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-2.1.1" href="#section-2.1.1">2.1.1</a>.  Rejecting a Message at the SMTP/LMTP Protocol Level</span>
 
    Sieve implementations that are able to reject messages at the SMTP/
-   LMTP level MUST do so and SHOULD use the 550 response code.  Note
+   LMTP level <em>MUST</em> do so and <em>SHOULD</em> use the 550 response code.  Note
    that if a message is arriving over SMTP and has multiple recipients,
    some of whom have accepted the message, <a href="#section-2.1.2">Section 2.1.2</a> defines how to
    reject such a message.
@@ -448,7 +448,7 @@ Table of Contents
    if the client and the server use an SMTP extension that allows for
    transmission of non-US-ACSII reply text.  (One example of such an
    SMTP extension is described in [<a href="#ref-UTF8-RESP" title="&quot;SMTP Language Extension&quot;">UTF8-RESP</a>].)  In the absence of such
-   an SMTP extension, the Sieve engine MUST replace any "reason" string
+   an SMTP extension, the Sieve engine <em>MUST</em> replace any "reason" string
    being sent at the protocol level and containing non-US-ACSII
    characters with an implementation-defined US-ACSII-only string.
 
@@ -464,7 +464,7 @@ Table of Contents
    one RCPT TO that has been accepted by the server, and at least one
    but not all of them are refusing delivery (whether the refusal is
    caused by a Sieve "ereject" action or for some other reason).  In
-   this case, the server MUST accept the message and generate DSNs for
+   this case, the server <em>MUST</em> accept the message and generate DSNs for
    all recipients that are refusing it.  Note that this exception does
    not apply to LMTP, as LMTP is able to reject messages on a per-
    recipient basis.  (However, the LMTP client may then have no choice
@@ -478,14 +478,14 @@ Table of Contents
 <span class="grey"><a href="./rfc5429.html">RFC 5429</a>                Sieve Extension: Reject               March 2009</span>
 
 
-   Note that according to [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>], Delivery Status Notifications MUST NOT
+   Note that according to [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>], Delivery Status Notifications <em>MUST NOT</em>
    be generated if the MAIL FROM (or Return-Path) is empty.
 
-   The DSN message MUST follow the requirements of [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>] and [<a href="#ref-REPORT" title="&quot;The Multipart/Report Content Type for the Reporting of Mail System Administrative Messages&quot;">REPORT</a>].
-   The action-value field defined in [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>], Section 2.3.3, MUST contain
+   The DSN message <em>MUST</em> follow the requirements of [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>] and [<a href="#ref-REPORT" title="&quot;The Multipart/Report Content Type for the Reporting of Mail System Administrative Messages&quot;">REPORT</a>].
+   The action-value field defined in [<a href="#ref-DSN" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">DSN</a>], Section 2.3.3, <em>MUST</em> contain
    the value "failed".  The human-readable portion of the non-delivery
-   report MUST contain the "reason" string from the "ereject" action and
-   SHOULD contain additional text alerting the apparent original sender
+   report <em>MUST</em> contain the "reason" string from the "ereject" action and
+   <em>SHOULD</em> contain additional text alerting the apparent original sender
    that the message was refused by an email filter.  This part of the
    report might appear as follows:
 
@@ -513,7 +513,7 @@ Table of Contents
    this action would always favor preserving the exact text of the
    refusal reason.  Typically, the "reject" action refuses delivery of a
    message by sending back an MDN to the sender (see <a href="#section-2.2.1">Section 2.2.1</a>).
-   However, implementations MAY refuse delivery over SMTP/LMTP protocol
+   However, implementations <em>MAY</em> refuse delivery over SMTP/LMTP protocol
    (as detailed in <a href="#section-2.5">Section 2.5</a>), if and only if all of the following
    conditions are true:
 
@@ -559,7 +559,7 @@ Table of Contents
 
    Implementations may use techniques as described in <a href="#section-2.1">Section 2.1</a> to
    determine if a non-delivery report should not be sent to a forged
-   sender.  Implementations SHOULD log instances when a non-delivery
+   sender.  Implementations <em>SHOULD</em> log instances when a non-delivery
    report is not sent and the reason for not sending the report.
 
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a>.  Rejecting a Message by Sending an MDN</span>
@@ -569,17 +569,17 @@ Table of Contents
    it in a "reject" form, explaining that it was rejected by the
    recipient.
 
-   Note that according to [<a href="#ref-MDN" title="&quot;Message Disposition Notification&quot;">MDN</a>], Message Disposition Notifications MUST
+   Note that according to [<a href="#ref-MDN" title="&quot;Message Disposition Notification&quot;">MDN</a>], Message Disposition Notifications <em>MUST</em>
    NOT be generated if the MAIL FROM (or Return-Path) is empty.
 
-   A reject message MUST take the form of a failure MDN as specified by
+   A reject message <em>MUST</em> take the form of a failure MDN as specified by
    [<a href="#ref-MDN" title="&quot;Message Disposition Notification&quot;">MDN</a>].  The human-readable portion of the message, the first
    component of the MDN, contains the human-readable message describing
-   the error, and it SHOULD contain additional text alerting the
+   the error, and it <em>SHOULD</em> contain additional text alerting the
    apparent original sender that mail was refused by an email filter.
 
-   The MDN disposition-field as defined in the MDN specification MUST be
-   "deleted" and MUST have the "MDN-sent-automatically" and "automatic-
+   The MDN disposition-field as defined in the MDN specification <em>MUST</em> be
+   "deleted" and <em>MUST</em> have the "MDN-sent-automatically" and "automatic-
    action" modes set (see Section 3.2.6 of [<a href="#ref-MDN" title="&quot;Message Disposition Notification&quot;">MDN</a>]).
 
 
@@ -616,23 +616,23 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Silent Upgrade from "reject" to "ereject"</span>
 
-   Implementations MUST NOT silently upgrade "reject" actions to
+   Implementations <em>MUST NOT</em> silently upgrade "reject" actions to
    "ereject" actions in a Sieve script because this might lead to
    unpleasant changes of behavior not expected by the script owner.
 
    User interfaces that present a generic rejection option, and generate
-   Sieve script output, MAY switch from generating "reject" to "ereject"
+   Sieve script output, <em>MAY</em> switch from generating "reject" to "ereject"
    actions, so long as doing so does not create a confusing change for
    the script owner.
 
-   Script generators SHOULD ensure that a rejection action being
+   Script generators <em>SHOULD</em> ensure that a rejection action being
    executed as a result of an anti-spam/anti-virus positive test be done
    using the "ereject" action, as it is more suitable for such
    rejections.
 
-   Script generators MAY automatically upgrade scripts that previously
+   Script generators <em>MAY</em> automatically upgrade scripts that previously
    used the "reject" action for anti-spam/anti-virus related rejections.
-   Note that such generators MUST make sure that the target environment
+   Note that such generators <em>MUST</em> make sure that the target environment
    can support the "ereject" action.
 
 
@@ -654,11 +654,11 @@ Table of Contents
 
    A "reject" action cancels the implicit keep.
 
-   Implementations MUST prohibit the execution of more than one "reject"
+   Implementations <em>MUST</em> prohibit the execution of more than one "reject"
    in a Sieve script.
 
-   "reject" MUST be incompatible with the "vacation" [<a href="#ref-VACATION" title="&quot;Sieve Email Filtering: Vacation Extension&quot;">VACATION</a>] action.
-   It is NOT RECOMMENDED that implementations permit the use of "reject"
+   "reject" <em>MUST</em> be incompatible with the "vacation" [<a href="#ref-VACATION" title="&quot;Sieve Email Filtering: Vacation Extension&quot;">VACATION</a>] action.
+   It is NOT <em>RECOMMENDED</em> that implementations permit the use of "reject"
    with actions that cause mail delivery, such as "keep", "fileinto",
    and "redirect".
 
@@ -675,16 +675,16 @@ Table of Contents
 
    Any action that would modify the message body will not have an effect
    on the body of any message refused by "reject" using an SMTP response
-   code and MUST NOT have any effect on the content of generated DSN/
+   code and <em>MUST NOT</em> have any effect on the content of generated DSN/
    MDNs.
 
 <span class="h3"><a class="selflink" name="section-2.5" href="#section-2.5">2.5</a>.  Details of Protocol-Level Refusal</span>
 
    If the "reason" string consists of multiple CRLF separated lines,
-   then the reason text MUST be returned as a multiline SMTP/LMTP
-   response, per Section 4.2.1 of [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>].  Any line MUST NOT exceed the
+   then the reason text <em>MUST</em> be returned as a multiline SMTP/LMTP
+   response, per Section 4.2.1 of [<a href="#ref-SMTP" title="&quot;Simple Mail Transfer Protocol&quot;">SMTP</a>].  Any line <em>MUST NOT</em> exceed the
    SMTP limit on the maximal line length.  To make the "reason" string
-   conform to any such limits, the server MAY insert CRLFs and turn the
+   conform to any such limits, the server <em>MAY</em> insert CRLFs and turn the
    response into a multiline response.
 
    In the following script (which assumes support for the "spamtest"
@@ -730,9 +730,9 @@ Table of Contents
          S: 550-It is therefore being refused.
          S: 550 Please call 1-900-PAY-US if you want to reach us.
 
-   If the SMTP/LMTP server supports <a href="./rfc2034.html">RFC 2034</a> [<a href="#ref-ENHANCED-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ENHANCED-CODES</a>], it MUST
+   If the SMTP/LMTP server supports <a href="./rfc2034.html">RFC 2034</a> [<a href="#ref-ENHANCED-CODES" title="&quot;SMTP Service Extension for Returning Enhanced Error Codes&quot;">ENHANCED-CODES</a>], it <em>MUST</em>
    prepend an appropriate Enhanced Error Code to the "reason" text.
-   Enhanced Error code 5.7.1 or a more generic 5.7.0 are RECOMMENDED.
+   Enhanced Error code 5.7.1 or a more generic 5.7.0 are <em>RECOMMENDED</em>.
    With an Enhanced Error Code, the response to a DATA command in the
    SMTP example below will look like:
 

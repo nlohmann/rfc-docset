@@ -449,8 +449,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
@@ -596,7 +596,7 @@ Table of Contents
    PCE may have PCEP sessions with multiple PCCs.
 
    Each PCEP message is regarded as a single transmission unit and parts
-   of messages MUST NOT be interleaved.  So, for example, a PCC sending
+   of messages <em>MUST NOT</em> be interleaved.  So, for example, a PCC sending
    a PCReq and wishing to close the session, must complete sending the
    request message before starting to send a Close message.
 
@@ -993,7 +993,7 @@ Table of Contents
 
    PCEP operates over TCP using a registered TCP port (4189).  This
    allows the requirements of reliable messaging and flow control to be
-   met without further protocol work.  All PCEP messages MUST be sent
+   met without further protocol work.  All PCEP messages <em>MUST</em> be sent
    using the registered TCP port for the source and destination TCP
    port.
 
@@ -1002,26 +1002,26 @@ Table of Contents
    A PCEP message consists of a common header followed by a variable-
    length body made of a set of objects that can either be mandatory or
    optional.  In the context of this document, an object is said to be
-   mandatory in a PCEP message when the object MUST be included for the
+   mandatory in a PCEP message when the object <em>MUST</em> be included for the
    message to be considered valid.  A PCEP message with a missing
-   mandatory object MUST trigger an Error message (see <a href="#section-7.15">Section 7.15</a>).
+   mandatory object <em>MUST</em> trigger an Error message (see <a href="#section-7.15">Section 7.15</a>).
    Conversely, if an object is optional, the object may or may not be
    present.
 
    A flag referred to as the P flag is defined in the common header of
    each PCEP object (see <a href="#section-7.2">Section 7.2</a>).  When this flag is set in an
-   object in a PCReq, the PCE MUST take the information carried in the
+   object in a PCReq, the PCE <em>MUST</em> take the information carried in the
    object into account during the path computation.  For example, the
    METRIC object defined in <a href="#section-7.8">Section 7.8</a> allows a PCC to specify a
    bounded acceptable path cost.  The METRIC object is optional, but a
    PCC may set a flag to ensure that the constraint is taken into
    account.  In this case, if the constraint cannot be taken into
-   account by the PCE, the PCE MUST trigger an Error message.
+   account by the PCE, the PCE <em>MUST</em> trigger an Error message.
 
    For each PCEP message type, rules are defined that specify the set of
    objects that the message can carry.  We use the Backus-Naur Form
    (BNF) (see [<a href="#ref-RBNF" title="&quot;Reduced Backus-Naur Form (RBNF) A Syntax Used in Various Protocol Specifications&quot;">RBNF</a>]) to specify such rules.  Square brackets refer to
-   optional sub-sequences.  An implementation MUST form the PCEP
+   optional sub-sequences.  An implementation <em>MUST</em> form the PCEP
    messages using the object ordering specified in this document.
 
 
@@ -1047,8 +1047,8 @@ Table of Contents
       version 1.
 
    Flags (5 bits):  No flags are currently defined.  Unassigned bits are
-      considered as reserved.  They MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+      considered as reserved.  They <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    Message-Type (8 bits):  The following message types are currently
       defined:
@@ -1072,14 +1072,14 @@ Table of Contents
    field of the PCEP common header for the Open message is set to 1.
 
    Once the TCP connection has been successfully established, the first
-   message sent by the PCC to the PCE or by the PCE to the PCC MUST be
+   message sent by the PCC to the PCE or by the PCE to the PCC <em>MUST</em> be
    an Open message as specified in <a href="#appendix-A">Appendix A</a>.
 
-   Any message received prior to an Open message MUST trigger a protocol
+   Any message received prior to an Open message <em>MUST</em> trigger a protocol
    error condition causing a PCErr message to be sent with Error-Type
    "PCEP session establishment failure" and Error-value "reception of an
    invalid Open message or a non Open message" and the PCEP session
-   establishment attempt MUST be terminated by closing the TCP
+   establishment attempt <em>MUST</em> be terminated by closing the TCP
    connection.
 
 
@@ -1099,43 +1099,43 @@ Table of Contents
    &lt;Open Message&gt;::= &lt;Common Header&gt;
                      &lt;OPEN&gt;
 
-   The Open message MUST contain exactly one OPEN object (see
+   The Open message <em>MUST</em> contain exactly one OPEN object (see
    <a href="#section-7.3">Section 7.3</a>).
 
    Various session characteristics are specified within the OPEN object.
    Once the TCP connection has been successfully established, the sender
-   MUST start an initialization timer called OpenWait after the
+   <em>MUST</em> start an initialization timer called OpenWait after the
    expiration of which, if no Open message has been received, it sends a
    PCErr message and releases the TCP connection (see <a href="#appendix-A">Appendix A</a> for
    details).
 
-   Once an Open message has been sent to a PCEP peer, the sender MUST
+   Once an Open message has been sent to a PCEP peer, the sender <em>MUST</em>
    start an initialization timer called KeepWait after the expiration of
    which, if neither a Keepalive message has been received nor a PCErr
    message in case of disagreement of the session characteristics, a
-   PCErr message MUST be sent and the TCP connection MUST be released
+   PCErr message <em>MUST</em> be sent and the TCP connection <em>MUST</em> be released
    (see <a href="#appendix-A">Appendix A</a> for details).
 
    The OpenWait and KeepWait timers have a fixed value of 1 minute.
 
-   Upon the receipt of an Open message, the receiving PCEP peer MUST
+   Upon the receipt of an Open message, the receiving PCEP peer <em>MUST</em>
    determine whether the suggested PCEP session characteristics are
    acceptable.  If at least one of the characteristics is not acceptable
-   to the receiving peer, it MUST send an Error message.  The Error
-   message SHOULD also contain the related OPEN object and, for each
-   unacceptable session parameter, an acceptable parameter value SHOULD
+   to the receiving peer, it <em>MUST</em> send an Error message.  The Error
+   message <em>SHOULD</em> also contain the related OPEN object and, for each
+   unacceptable session parameter, an acceptable parameter value <em>SHOULD</em>
    be proposed in the appropriate field of the OPEN object in place of
-   the originally proposed value.  The PCEP peer MAY decide to resend an
+   the originally proposed value.  The PCEP peer <em>MAY</em> decide to resend an
    Open message with different session characteristics.  If a second
    Open message is received with the same set of parameters or with
-   parameters that are still unacceptable, the receiving peer MUST send
-   an Error message and it MUST immediately close the TCP connection.
+   parameters that are still unacceptable, the receiving peer <em>MUST</em> send
+   an Error message and it <em>MUST</em> immediately close the TCP connection.
    Details about error messages can be found in <a href="#section-7.15">Section 7.15</a>.
-   Successive retries are permitted, but an implementation SHOULD make
+   Successive retries are permitted, but an implementation <em>SHOULD</em> make
    use of an exponential back-off session establishment retry procedure.
 
    If the PCEP session characteristics are acceptable, the receiving
-   PCEP peer MUST send a Keepalive message (defined in <a href="#section-6.3">Section 6.3</a>) that
+   PCEP peer <em>MUST</em> send a Keepalive message (defined in <a href="#section-6.3">Section 6.3</a>) that
    serves as an acknowledgment.
 
 
@@ -1168,7 +1168,7 @@ Table of Contents
    (Keepalive or any other PCEP message); thus, any PCEP message acts as
    a Keepalive message.  Similarly, there are no constraints mandating
    the use of identical DeadTimers by both PCEP peers.  The minimum
-   Keepalive timer value is 1 second.  Deployments SHOULD consider
+   Keepalive timer value is 1 second.  Deployments <em>SHOULD</em> consider
    carefully the impact of using low values for the Keepalive timer as
    these might not give rise to the expected results in periods of
    temporary network instability.
@@ -1187,7 +1187,7 @@ Table of Contents
    optional, and PCEP peers may decide not to send Keepalive messages
    once the PCEP session is established; in which case, the peer that
    does not receive Keepalive messages does not expect to receive them
-   and MUST NOT declare the session as inactive.
+   and <em>MUST NOT</em> declare the session as inactive.
 
    The format of a Keepalive message is as follows:
 
@@ -1209,9 +1209,9 @@ Table of Contents
    computation request.  The Message-Type field of the PCEP common
    header for the PCReq message is set to 3.
 
-   There are two mandatory objects that MUST be included within a PCReq
+   There are two mandatory objects that <em>MUST</em> be included within a PCReq
    message: the RP and the END-POINTS objects (see <a href="#section-7">Section 7</a>).  If one
-   or both of these objects is missing, the receiving PCE MUST send an
+   or both of these objects is missing, the receiving PCE <em>MUST</em> send an
    error message to the requesting PCC.  Other objects are optional.
 
    The format of a PCReq message is as follows:
@@ -1267,12 +1267,12 @@ Table of Contents
    The bundling of multiple replies to a set of path computation
    requests within a single PCRep message is supported by PCEP.  If a
    PCE receives non-synchronized path computation requests by means of
-   one or more PCReq messages from a requesting PCC, it MAY decide to
+   one or more PCReq messages from a requesting PCC, it <em>MAY</em> decide to
    bundle the computed paths within a single PCRep message so as to
    reduce the control plane load.  Note that the counter side of such an
    approach is the introduction of additional delays for some path
    computation requests of the set.  Conversely, a PCE that receives
-   multiple requests within the same PCReq message MAY decide to provide
+   multiple requests within the same PCReq message <em>MAY</em> decide to provide
    each computed path in separate PCRep messages or within the same
    PCRep message.  A PCRep message may contain positive and negative
    replies.
@@ -1283,8 +1283,8 @@ Table of Contents
    requesting PCC.  The PCRep message may also contain multiple
    acceptable paths corresponding to the same request.
 
-   The PCRep message MUST contain at least one RP object.  For each
-   reply that is bundled into a single PCReq message, an RP object MUST
+   The PCRep message <em>MUST</em> contain at least one RP object.  For each
+   reply that is bundled into a single PCReq message, an RP object <em>MUST</em>
    be included that contains a Request-ID-number identical to the one
    specified in the RP object carried in the corresponding PCReq message
    (see <a href="#section-7.4">Section 7.4</a> for the definition of the RP object).
@@ -1301,7 +1301,7 @@ Table of Contents
    object as discussed in section <a href="#section-7.16">Section 7.16</a>.
 
    If the path computation request cannot be satisfied, the PCRep
-   message MUST include a NO-PATH object.  The NO-PATH object (described
+   message <em>MUST</em> include a NO-PATH object.  The NO-PATH object (described
    in <a href="#section-7.5">Section 7.5</a>) may also contain other information (e.g, reasons for
    the path computation failure).
 
@@ -1348,10 +1348,10 @@ Table of Contents
    of a specific event.  The Message-Type field of the PCEP common
    header for the PCNtf message is set to 5.
 
-   The PCNtf message MUST carry at least one NOTIFICATION object and MAY
+   The PCNtf message <em>MUST</em> carry at least one NOTIFICATION object and <em>MAY</em>
    contain several NOTIFICATION objects should the PCE or the PCC intend
    to notify of multiple events.  The NOTIFICATION object is defined in
-   <a href="#section-7.14">Section 7.14</a>.  The PCNtf message MAY also contain RP objects (see
+   <a href="#section-7.14">Section 7.14</a>.  The PCNtf message <em>MAY</em> also contain RP objects (see
    <a href="#section-7.4">Section 7.4</a>) when the notification refers to particular path
    computation requests.
 
@@ -1395,12 +1395,12 @@ Table of Contents
 
    The PCErr message is sent by a PCC or a PCE in response to a request
    or in an unsolicited manner.  If the PCErr message is sent in
-   response to a request, the PCErr message MUST include the set of RP
+   response to a request, the PCErr message <em>MUST</em> include the set of RP
    objects related to the pending path computation requests that
    triggered the error condition.  In the latter case (unsolicited), no
    RP object is inserted in the PCErr message.  For example, no RP
    object is inserted in a PCErr when the error condition occurred
-   during the initialization phase.  A PCErr message MUST contain a
+   during the initialization phase.  A PCErr message <em>MUST</em> contain a
    PCEP-ERROR object specifying the PCEP error condition.  The PCEP-
    ERROR object is defined in <a href="#section-7.15">Section 7.15</a>.
 
@@ -1442,25 +1442,25 @@ Table of Contents
    &lt;Close Message&gt;::= &lt;Common Header&gt;
                       &lt;CLOSE&gt;
 
-   The Close message MUST contain exactly one CLOSE object (see
+   The Close message <em>MUST</em> contain exactly one CLOSE object (see
    <a href="#section-6.8">Section 6.8</a>).  If more than one CLOSE object is present, the first
-   MUST be processed and subsequent objects ignored.
+   <em>MUST</em> be processed and subsequent objects ignored.
 
    Upon the receipt of a valid Close message, the receiving PCEP peer
-   MUST cancel all pending requests, it MUST close the TCP connection
-   and MUST NOT send any further PCEP messages on the PCEP session.
+   <em>MUST</em> cancel all pending requests, it <em>MUST</em> close the TCP connection
+   and <em>MUST NOT</em> send any further PCEP messages on the PCEP session.
 
 <span class="h3"><a class="selflink" name="section-6.9" href="#section-6.9">6.9</a>.  Reception of Unknown Messages</span>
 
-   A PCEP implementation that receives an unrecognized PCEP message MUST
+   A PCEP implementation that receives an unrecognized PCEP message <em>MUST</em>
    send a PCErr message with Error-value=2 (capability not supported).
 
    If a PCC/PCE receives unrecognized messages at a rate equal or
    greater than MAX-UNKNOWN-MESSAGES unknown message requests per
-   minute, the PCC/PCE MUST send a PCEP CLOSE message with close
+   minute, the PCC/PCE <em>MUST</em> send a PCEP CLOSE message with close
    value="Reception of an unacceptable number of unknown PCEP message".
-   A RECOMMENDED value for MAX-UNKNOWN-MESSAGES is 5.  The PCC/PCE MUST
-   close the TCP session and MUST NOT send any further PCEP messages on
+   A <em>RECOMMENDED</em> value for MAX-UNKNOWN-MESSAGES is 5.  The PCC/PCE <em>MUST</em>
+   close the TCP session and <em>MUST NOT</em> send any further PCEP messages on
    the PCEP session.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Object Formats</span>
@@ -1499,7 +1499,7 @@ Table of Contents
    the Length field (so a 3-byte value would have a length of 3, but the
    total size of the TLV would be 8 bytes).
 
-   Unrecognized TLVs MUST be ignored.
+   Unrecognized TLVs <em>MUST</em> be ignored.
 
    IANA management of the PCEP Object TLV type identifier codespace is
    described in <a href="#section-9">Section 9</a>.
@@ -1537,19 +1537,19 @@ Table of Contents
 <span class="grey"><a href="./rfc5440.html">RFC 5440</a>                          PCEP                        March 2009</span>
 
 
-   Res flags (2 bits):  Reserved field.  This field MUST be set to zero
-      on transmission and MUST be ignored on receipt.
+   Res flags (2 bits):  Reserved field.  This field <em>MUST</em> be set to zero
+      on transmission and <em>MUST</em> be ignored on receipt.
 
    P flag (Processing-Rule - 1-bit):  the P flag allows a PCC to specify
       in a PCReq message sent to a PCE whether the object must be taken
       into account by the PCE during path computation or is just
-      optional.  When the P flag is set, the object MUST be taken into
+      optional.  When the P flag is set, the object <em>MUST</em> be taken into
       account by the PCE.  Conversely, when the P flag is cleared, the
       object is optional and the PCE is free to ignore it.
 
    I flag (Ignore - 1 bit):  the I flag is used by a PCE in a PCRep
       message to indicate to a PCC whether or not an optional object was
-      processed.  The PCE MAY include the ignored optional object in its
+      processed.  The PCE <em>MAY</em> include the ignored optional object in its
       reply and set the I flag to indicate that the optional object was
       ignored during path computation.  When the I flag is cleared, the
       PCE indicates that the optional object was processed during the
@@ -1560,21 +1560,21 @@ Table of Contents
 
    If the PCE does not understand an object with the P flag set or
    understands the object but decides to ignore the object, the entire
-   PCEP message MUST be rejected and the PCE MUST send a PCErr message
+   PCEP message <em>MUST</em> be rejected and the PCE <em>MUST</em> send a PCErr message
    with Error-Type="Unknown Object" or "Not supported Object" along with
    the corresponding RP object.  Note that if a PCReq includes multiple
    requests, only requests for which an object with the P flag set is
-   unknown/unrecognized MUST be rejected.
+   unknown/unrecognized <em>MUST</em> be rejected.
 
    Object Length (16 bits):  Specifies the total object length including
-      the header, in bytes.  The Object Length field MUST always be a
+      the header, in bytes.  The Object Length field <em>MUST</em> always be a
       multiple of 4, and at least 4.  The maximum object content length
       is 65528 bytes.
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  OPEN Object</span>
 
-   The OPEN object MUST be present in each Open message and MAY be
-   present in a PCErr message.  There MUST be only one OPEN object per
+   The OPEN object <em>MUST</em> be present in each Open message and <em>MAY</em> be
+   present in a PCErr message.  There <em>MUST</em> be only one OPEN object per
    Open or PCErr message.
 
    The OPEN object contains a set of fields used to specify the PCEP
@@ -1614,21 +1614,21 @@ Table of Contents
    Ver (3 bits):  PCEP version.  Current version is 1.
 
    Flags (5 bits):  No flags are currently defined.  Unassigned bits are
-      considered as reserved.  They MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+      considered as reserved.  They <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    Keepalive (8 bits):  maximum period of time (in seconds) between two
       consecutive PCEP messages sent by the sender of this message.  The
       minimum value for the Keepalive is 1 second.  When set to 0, once
       the session is established, no further Keepalive messages are sent
-      to the remote peer.  A RECOMMENDED value for the keepalive
+      to the remote peer.  A <em>RECOMMENDED</em> value for the keepalive
       frequency is 30 seconds.
 
    DeadTimer (8 bits):  specifies the amount of time after the
       expiration of which the PCEP peer can declare the session with the
       sender of the Open message to be down if no PCEP message has been
-      received.  The DeadTimer SHOULD be set to 0 and MUST be ignored if
-      the Keepalive is set to 0.  A RECOMMENDED value for the DeadTimer
+      received.  The DeadTimer <em>SHOULD</em> be set to 0 and <em>MUST</em> be ignored if
+      the Keepalive is set to 0.  A <em>RECOMMENDED</em> value for the DeadTimer
       is 4 times the value of the Keepalive.
 
    Example:
@@ -1650,9 +1650,9 @@ Table of Contents
 
 
    SID (PCEP session ID - 8 bits):  unsigned PCEP session number that
-      identifies the current session.  The SID MUST be incremented each
+      identifies the current session.  The SID <em>MUST</em> be incremented each
       time a new PCEP session is established.  It is used for logging
-      and troubleshooting purposes.  Each increment SHOULD have a value
+      and troubleshooting purposes.  Each increment <em>SHOULD</em> have a value
       of 1 and may cause a wrap back to zero.
 
       The SID is used to disambiguate instances of sessions to the same
@@ -1669,23 +1669,23 @@ Table of Contents
    When present in an Open message, the OPEN object specifies the
    proposed PCEP session characteristics.  Upon receiving unacceptable
    PCEP session characteristics during the PCEP session initialization
-   phase, the receiving PCEP peer (PCE) MAY include an OPEN object
+   phase, the receiving PCEP peer (PCE) <em>MAY</em> include an OPEN object
    within the PCErr message so as to propose alternative acceptable
    session characteristic values.
 
 <span class="h3"><a class="selflink" name="section-7.4" href="#section-7.4">7.4</a>.  RP Object</span>
 
-   The RP (Request Parameters) object MUST be carried within each PCReq
-   and PCRep messages and MAY be carried within PCNtf and PCErr
+   The RP (Request Parameters) object <em>MUST</em> be carried within each PCReq
+   and PCRep messages and <em>MAY</em> be carried within PCNtf and PCErr
    messages.  The RP object is used to specify various characteristics
    of the path computation request.
 
-   The P flag of the RP object MUST be set in PCReq and PCRep messages
-   and MUST be cleared in PCNtf and PCErr messages.  If the RP object is
+   The P flag of the RP object <em>MUST</em> be set in PCReq and PCRep messages
+   and <em>MUST</em> be cleared in PCNtf and PCErr messages.  If the RP object is
    received with the P flag set incorrectly according to the rules
-   stated above, the receiving peer MUST send a PCErr message with
+   stated above, the receiving peer <em>MUST</em> send a PCErr message with
    Error-Type=10 and Error-value=1.  The corresponding path computation
-   request MUST be cancelled by the PCE without further notification.
+   request <em>MUST</em> be cancelled by the PCE without further notification.
 
 <span class="h4"><a class="selflink" name="section-7.4.1" href="#section-7.4.1">7.4.1</a>.  Object Definition</span>
 
@@ -1731,21 +1731,21 @@ Table of Contents
    o  Pri (Priority - 3 bits): the Priority field may be used by the
       requesting PCC to specify to the PCE the request's priority from 1
       to 7.  The decision of which priority should be used for a
-      specific request is a local matter; it MUST be set to 0 when
+      specific request is a local matter; it <em>MUST</em> be set to 0 when
       unused.  Furthermore, the use of the path computation request
       priority by the PCE's scheduler is implementation specific and out
       of the scope of this document.  Note that it is not required for a
-      PCE to support the priority field: in this case, it is RECOMMENDED
+      PCE to support the priority field: in this case, it is <em>RECOMMENDED</em>
       that the PCC set the priority field to 0 in the RP object.  If the
       PCE does not take into account the request priority, it is
-      RECOMMENDED to set the priority field to 0 in the RP object
+      <em>RECOMMENDED</em> to set the priority field to 0 in the RP object
       carried within the corresponding PCRep message, regardless of the
       priority value contained in the RP object carried within the
       corresponding PCReq message.  A higher numerical value of the
       priority field reflects a higher priority.  Note that it is the
       responsibility of the network administrator to make use of the
       priority values in a consistent manner across the various PCCs.
-      The ability of a PCE to support request prioritization MAY be
+      The ability of a PCE to support request prioritization <em>MAY</em> be
       dynamically discovered by the PCCs by means of PCE capability
       discovery.  If not advertised by the PCE, a PCC may decide to set
       the request priority and will learn the ability of the PCE to
@@ -1768,10 +1768,10 @@ Table of Contents
    o  R (Reoptimization - 1 bit): when set, the requesting PCC specifies
       that the PCReq message relates to the reoptimization of an
       existing TE LSP.  For all TE LSPs except zero-bandwidth LSPs, when
-      the R bit is set, an RRO (see <a href="#section-7.10">Section 7.10</a>) MUST be included in
+      the R bit is set, an RRO (see <a href="#section-7.10">Section 7.10</a>) <em>MUST</em> be included in
       the PCReq message to show the path of the existing TE LSP.  Also,
       for all TE LSPs except zero-bandwidth LSPs, when the R bit is set,
-      the existing bandwidth of the TE LSP to be reoptimized MUST be
+      the existing bandwidth of the TE LSP to be reoptimized <em>MUST</em> be
       supplied in a BANDWIDTH object (see <a href="#section-7.7">Section 7.7</a>).  This BANDWIDTH
       object is in addition to the instance of that object used to
       describe the desired bandwidth of the reoptimized LSP.  For zero-
@@ -1793,21 +1793,21 @@ Table of Contents
       otherwise (when the O bit is cleared), the returned path is made
       of strict hops.
 
-   Unassigned bits are considered reserved.  They MUST be set to zero on
-   transmission and MUST be ignored on receipt.
+   Unassigned bits are considered reserved.  They <em>MUST</em> be set to zero on
+   transmission and <em>MUST</em> be ignored on receipt.
 
    Request-ID-number (32 bits):  The Request-ID-number value combined
       with the source IP address of the PCC and the PCE address uniquely
       identify the path computation request context.  The Request-ID-
       number is used for disambiguation between pending requests, and
-      thus it MUST be changed (such as by incrementing it) each time a
+      thus it <em>MUST</em> be changed (such as by incrementing it) each time a
       new request is sent to the PCE, and may wrap.
 
       The value 0x00000000 is considered invalid.
 
       If no path computation reply is received from the PCE (e.g., the
       request is dropped by the PCE because of memory overflow), and the
-      PCC wishes to resend its request, the same Request-ID-number MUST
+      PCC wishes to resend its request, the same Request-ID-number <em>MUST</em>
       be used.  Upon receiving a path computation request from a PCC
 
 
@@ -1817,19 +1817,19 @@ Table of Contents
 <span class="grey"><a href="./rfc5440.html">RFC 5440</a>                          PCEP                        March 2009</span>
 
 
-      with the same Request-ID-number, the PCE SHOULD treat the request
-      as a new request.  An implementation MAY choose to cache path
+      with the same Request-ID-number, the PCE <em>SHOULD</em> treat the request
+      as a new request.  An implementation <em>MAY</em> choose to cache path
       computation replies in order to quickly handle retransmission
       without having to process a path computation request twice (in the
       case that the first request was dropped or lost).  Upon receiving
       a path computation reply from a PCE with the same Request-ID-
-      number, the PCC SHOULD silently discard the path computation
+      number, the PCC <em>SHOULD</em> silently discard the path computation
       reply.
 
-      Conversely, different Request-ID-numbers MUST be used for
+      Conversely, different Request-ID-numbers <em>MUST</em> be used for
       different requests sent to a PCE.
 
-      The same Request-ID-number MAY be used for path computation
+      The same Request-ID-number <em>MAY</em> be used for path computation
       requests sent to different PCEs.  The path computation reply is
       unambiguously identified by the IP source address of the replying
       PCE.
@@ -1837,19 +1837,19 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-7.4.2" href="#section-7.4.2">7.4.2</a>.  Handling of the RP Object</span>
 
    If a PCReq message is received that does not contain an RP object,
-   the PCE MUST send a PCErr message to the requesting PCC with Error-
+   the PCE <em>MUST</em> send a PCErr message to the requesting PCC with Error-
    Type="Required Object missing" and Error-value="RP Object missing".
 
    If the O bit of the RP message carried within a PCReq message is
    cleared and local policy has been configured on the PCE to not
    provide explicit paths (for instance, for confidentiality reasons), a
-   PCErr message MUST be sent by the PCE to the requesting PCC and the
-   pending path computation request MUST be discarded.  The Error-Type
+   PCErr message <em>MUST</em> be sent by the PCE to the requesting PCC and the
+   pending path computation request <em>MUST</em> be discarded.  The Error-Type
    is "Policy Violation" and Error-value is "O bit cleared".
 
    When the R bit of the RP object is set in a PCReq message, this
    indicates that the path computation request relates to the
-   reoptimization of an existing TE LSP.  In this case, the PCC MUST
+   reoptimization of an existing TE LSP.  In this case, the PCC <em>MUST</em>
    also provide the strict/loose path by including an RRO object in the
    PCReq message so as to avoid/limit double-bandwidth counting if and
    only if the TE LSP is a non-zero-bandwidth TE LSP.  If the PCC has
@@ -1857,10 +1857,10 @@ Table of Contents
    be requested by the PCC, but this requires that the PCE either be
    stateful (keep track of the previously computed path with the
    associated list of strict hops), or have the ability to retrieve the
-   complete required path segment.  Alternatively, the PCC MUST inform
+   complete required path segment.  Alternatively, the PCC <em>MUST</em> inform
    the PCE about the working path and the associated list of strict hops
    in PCReq.  The absence of an RRO in the PCReq message for a non-zero-
-   bandwidth TE LSP (when the R bit of the RP object is set) MUST
+   bandwidth TE LSP (when the R bit of the RP object is set) <em>MUST</em>
    trigger the sending of a PCErr message with Error-Type="Required
    Object Missing" and Error-value="RRO Object missing for
    reoptimization".
@@ -1874,19 +1874,19 @@ Table of Contents
 
 
    If a PCC/PCE receives a PCRep/PCReq message that contains an RP
-   object referring to an unknown Request-ID-number, the PCC/PCE MUST
+   object referring to an unknown Request-ID-number, the PCC/PCE <em>MUST</em>
    send a PCErr message with Error-Type="Unknown request reference".
    This is used for debugging purposes.  If a PCC/PCE receives PCRep/
    PCReq messages with unknown requests at a rate equal or greater than
-   MAX-UNKNOWN-REQUESTS unknown requests per minute, the PCC/PCE MUST
+   MAX-UNKNOWN-REQUESTS unknown requests per minute, the PCC/PCE <em>MUST</em>
    send a PCEP CLOSE message with close value="Reception of an
-   unacceptable number of unknown requests/replies".  A RECOMMENDED
-   value for MAX-UNKNOWN-REQUESTS is 5.  The PCC/PCE MUST close the TCP
-   session and MUST NOT send any further PCEP messages on the PCEP
+   unacceptable number of unknown requests/replies".  A <em>RECOMMENDED</em>
+   value for MAX-UNKNOWN-REQUESTS is 5.  The PCC/PCE <em>MUST</em> close the TCP
+   session and <em>MUST NOT</em> send any further PCEP messages on the PCEP
    session.
 
    The reception of a PCEP message that contains an RP object referring
-   to a Request-ID-number=0x00000000 MUST be treated in similar manner
+   to a Request-ID-number=0x00000000 <em>MUST</em> be treated in similar manner
    as an unknown request.
 
 <span class="h3"><a class="selflink" name="section-7.5" href="#section-7.5">7.5</a>.  NO-PATH Object</span>
@@ -1894,7 +1894,7 @@ Table of Contents
    The NO-PATH object is used in PCRep messages in response to an
    unsuccessful path computation request (the PCE could not find a path
    satisfying the set of constraints).  When a PCE cannot find a path
-   satisfying a set of constraints, it MUST include a NO-PATH object in
+   satisfying a set of constraints, it <em>MUST</em> include a NO-PATH object in
    the PCRep message.
 
    There are several categories of issue that can lead to a negative
@@ -1905,12 +1905,12 @@ Table of Contents
    category.
 
    Optionally, if the PCE supports such capability, the NO-PATH object
-   MAY contain an optional NO-PATH-VECTOR TLV defined below and used to
+   <em>MAY</em> contain an optional NO-PATH-VECTOR TLV defined below and used to
    provide more information on the reasons that led to a negative reply.
-   The PCRep message MAY also contain a list of objects that specify the
-   set of constraints that could not be satisfied.  The PCE MAY just
+   The PCRep message <em>MAY</em> also contain a list of objects that specify the
+   set of constraints that could not be satisfied.  The PCE <em>MAY</em> just
    replicate the set of objects that was received that was the cause of
-   the unsuccessful computation or MAY optionally report a suggested
+   the unsuccessful computation or <em>MAY</em> optionally report a suggested
    value for which a path could have been found (in which case, the
    value differs from the value in the original request).
 
@@ -1975,8 +1975,8 @@ Table of Contents
       failing constraints are specified.  The C flag has no meaning and
       is ignored unless the NI field is set to 0x00.
 
-   Unassigned bits are considered as reserved.  They MUST be set to zero
-   on transmission and MUST be ignored on receipt.
+   Unassigned bits are considered as reserved.  They <em>MUST</em> be set to zero
+   on transmission and <em>MUST</em> be ignored on receipt.
 
 
 
@@ -1985,8 +1985,8 @@ Table of Contents
 <span class="grey"><a href="./rfc5440.html">RFC 5440</a>                          PCEP                        March 2009</span>
 
 
-   Reserved (8 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (8 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    The NO-PATH object body has a variable length and may contain
    additional TLVs.  The only TLV currently defined is the NO-PATH-
@@ -2010,7 +2010,7 @@ Table of Contents
    computation request has been fully satisfied and the corresponding
    paths are provided in the PCRep message.
 
-   An optional TLV named NO-PATH-VECTOR MAY be included in the NO-PATH
+   An optional TLV named NO-PATH-VECTOR <em>MAY</em> be included in the NO-PATH
    object in order to provide more information on the reasons that led
    to a negative reply.
 
@@ -2046,10 +2046,10 @@ Table of Contents
    The END-POINTS object is used in a PCReq message to specify the
    source IP address and the destination IP address of the path for
    which a path computation is requested.  The P flag of the END-POINTS
-   object MUST be set.  If the END-POINTS object is received with the P
-   flag cleared, the receiving peer MUST send a PCErr message with
+   object <em>MUST</em> be set.  If the END-POINTS object is received with the P
+   flag cleared, the receiving peer <em>MUST</em> send a PCErr message with
    Error-Type=10 and Error-value=1.  The corresponding path computation
-   request MUST be cancelled by the PCE without further notification.
+   request <em>MUST</em> be cancelled by the PCE without further notification.
 
    Note that the source and destination addresses specified in the END-
    POINTS object may correspond to the source and destination IP address
@@ -2119,7 +2119,7 @@ Table of Contents
    The END-POINTS object body has a fixed length of 8 bytes for IPv4 and
    32 bytes for IPv6.
 
-   If more than one END-POINTS object is present, the first MUST be
+   If more than one END-POINTS object is present, the first <em>MUST</em> be
    processed and subsequent objects ignored.
 
 <span class="h3"><a class="selflink" name="section-7.7" href="#section-7.7">7.7</a>.  BANDWIDTH Object</span>
@@ -2130,10 +2130,10 @@ Table of Contents
 
    If the requested bandwidth is equal to 0, the BANDWIDTH object is
    optional.  Conversely, if the requested bandwidth is not equal to 0,
-   the PCReq message MUST contain a BANDWIDTH object.
+   the PCReq message <em>MUST</em> contain a BANDWIDTH object.
 
    In the case of the reoptimization of a TE LSP, the bandwidth of the
-   existing TE LSP MUST also be included in addition to the requested
+   existing TE LSP <em>MUST</em> also be included in addition to the requested
    bandwidth if and only if the two values differ.  Consequently, two
    Object-Type values are defined that refer to the requested bandwidth
    and the bandwidth of the TE LSP for which a reoptimization is being
@@ -2181,18 +2181,18 @@ Table of Contents
 
    The METRIC object is optional and can be used for several purposes.
 
-   In a PCReq message, a PCC MAY insert one or more METRIC objects:
+   In a PCReq message, a PCC <em>MAY</em> insert one or more METRIC objects:
 
-   o  To indicate the metric that MUST be optimized by the path
+   o  To indicate the metric that <em>MUST</em> be optimized by the path
       computation algorithm (IGP metric, TE metric, hop counts).
       Currently, three metrics are defined: the IGP cost, the TE metric
       (see [<a href="./rfc3785.html" title="&quot;Use of Interior Gateway Protocol (IGP) Metric as a second MPLS Traffic Engineering (TE) Metric&quot;">RFC3785</a>]), and the number of hops traversed by a TE LSP.
 
-   o  To indicate a bound on the path cost that MUST NOT be exceeded for
+   o  To indicate a bound on the path cost that <em>MUST NOT</em> be exceeded for
       the path to be considered as acceptable by the PCC.
 
-   In a PCRep message, the METRIC object MAY be inserted so as to
-   provide the cost for the computed path.  It MAY also be inserted
+   In a PCRep message, the METRIC object <em>MAY</em> be inserted so as to
+   provide the cost for the computed path.  It <em>MAY</em> also be inserted
    within a PCRep with the NO-PATH object to indicate that the metric
    constraint could not be satisfied.
 
@@ -2214,7 +2214,7 @@ Table of Contents
    segment is exchanged between two PCEs residing in different domains,
    consistent ways of defining the delay must be used.
 
-   The absence of the METRIC object MUST be interpreted by the PCE as a
+   The absence of the METRIC object <em>MUST</em> be interpreted by the PCE as a
    path computation request for which no constraints need be applied to
    any of the metrics.
 
@@ -2236,8 +2236,8 @@ Table of Contents
 
    The METRIC object body has a fixed length of 8 bytes.
 
-   Reserved (16 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (16 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    T (Type - 8 bits):  Specifies the metric type.
 
@@ -2266,23 +2266,23 @@ Table of Contents
 
 
       *  C (Computed Metric - 1 bit): When set in a PCReq message, this
-         indicates that the PCE MUST provide the computed path metric
+         indicates that the PCE <em>MUST</em> provide the computed path metric
          value (should a path satisfying the constraints be found) in
          the PCRep message for the corresponding metric.
 
-      Unassigned flags MUST be set to zero on transmission and MUST be
+      Unassigned flags <em>MUST</em> be set to zero on transmission and <em>MUST</em> be
       ignored on receipt.
 
    Metric-value (32 bits):  metric value encoded in 32 bits in IEEE
       floating point format (see [<a href="#ref-IEEE.754.1985" title="&quot;Standard for Binary Floating- Point Arithmetic&quot;">IEEE.754.1985</a>]).
 
-   Multiple METRIC objects MAY be inserted in a PCRep or a PCReq message
+   Multiple METRIC objects <em>MAY</em> be inserted in a PCRep or a PCReq message
    for a given request (i.e., for a given RP).  For a given request,
-   there MUST be at most one instance of the METRIC object for each
+   there <em>MUST</em> be at most one instance of the METRIC object for each
    metric type with the same B flag value.  If, for a given request, two
    or more instances of a METRIC object with the same B flag value are
-   present for a metric type, only the first instance MUST be considered
-   and other instances MUST be ignored.
+   present for a metric type, only the first instance <em>MUST</em> be considered
+   and other instances <em>MUST</em> be ignored.
 
    For a given request, the presence of two METRIC objects of the same
    type with a different value of the B flag is allowed.  Furthermore,
@@ -2292,26 +2292,26 @@ Table of Contents
    parameter optimization problem.
 
    A METRIC object used to indicate the metric to optimize during the
-   path computation MUST have the B flag cleared and the C flag set to
+   path computation <em>MUST</em> have the B flag cleared and the C flag set to
    the appropriate value.  When the path computation relates to the
    reoptimization of an exiting TE LSP (in which case, the R flag of the
-   RP object is set), an implementation MAY decide to set the metric-
+   RP object is set), an implementation <em>MAY</em> decide to set the metric-
    value field to the computed value of the metric of the TE LSP to be
    reoptimized with regards to a specific metric type.
 
-   A METRIC object used to reflect a bound MUST have the B flag set, and
+   A METRIC object used to reflect a bound <em>MUST</em> have the B flag set, and
    the C flag and metric-value field set to the appropriate values.
 
    In a PCRep message, unless not allowed by PCE policy, at least one
-   METRIC object MUST be present that reports the computed path metric
+   METRIC object <em>MUST</em> be present that reports the computed path metric
    if the C flag of the METRIC object was set in the corresponding path
-   computation request (the B flag MUST be cleared).  The C flag has no
-   meaning in a PCRep message.  Optionally, the PCRep message MAY
+   computation request (the B flag <em>MUST</em> be cleared).  The C flag has no
+   meaning in a PCRep message.  Optionally, the PCRep message <em>MAY</em>
    contain additional METRIC objects that correspond to bound
-   constraints; in which case, the metric-value MUST be equal to the
-   corresponding computed path metric (the B flag MUST be set).  If no
+   constraints; in which case, the metric-value <em>MUST</em> be equal to the
+   corresponding computed path metric (the B flag <em>MUST</em> be set).  If no
    path satisfying the constraints could be found by the PCE, the METRIC
-   objects MAY also be present in the PCRep message with the NO-PATH
+   objects <em>MAY</em> also be present in the PCRep message with the NO-PATH
    object to indicate the constraint metric that could be satisfied.
 
 
@@ -2470,11 +2470,11 @@ Table of Contents
          means that the computed path must include links protected with
          Fast Reroute as defined in [<a href="./rfc4090.html" title="&quot;Fast Reroute Extensions to RSVP-TE for LSP Tunnels&quot;">RFC4090</a>].
 
-      Unassigned flags MUST be set to zero on transmission and MUST be
+      Unassigned flags <em>MUST</em> be set to zero on transmission and <em>MUST</em> be
       ignored on receipt.
 
-   Reserved (8 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (8 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    Note that optional TLVs may be defined in the future to carry
    additional TE LSP attributes such as those defined in [<a href="./rfc5420.html" title="&quot;Encoding of Attributes for MPLS LSP Establishment Using Resource Reservation Protocol Traffic Engineering (RSVP-TE)&quot;">RFC5420</a>].
@@ -2492,8 +2492,8 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.12" href="#section-7.12">7.12</a>.  Include Route Object</span>
 
    The IRO (Include Route Object) is optional and can be used to specify
-   that the computed path MUST traverse a set of specified network
-   elements.  The IRO MAY be carried within PCReq and PCRep messages.
+   that the computed path <em>MUST</em> traverse a set of specified network
+   elements.  The IRO <em>MAY</em> be carried within PCReq and PCRep messages.
    When carried within a PCRep message with the NO-PATH object, the IRO
    indicates the set of elements that cause the PCE to fail to find a
    path.
@@ -2671,29 +2671,29 @@ Table of Contents
 
                   Figure 18: SVEC Body Object Format
 
-   Reserved (8 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (8 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    Flags (24 bits):  Defines the potential dependency between the set of
       path computation requests.
 
       *  L (Link diverse) bit: when set, this indicates that the
          computed paths corresponding to the requests specified by the
-         following RP objects MUST NOT have any link in common.
+         following RP objects <em>MUST NOT</em> have any link in common.
 
       *  N (Node diverse) bit: when set, this indicates that the
          computed paths corresponding to the requests specified by the
-         following RP objects MUST NOT have any node in common.
+         following RP objects <em>MUST NOT</em> have any node in common.
 
       *  S (SRLG diverse) bit: when set, this indicates that the
          computed paths corresponding to the requests specified by the
-         following RP objects MUST NOT share any SRLG (Shared Risk Link
+         following RP objects <em>MUST NOT</em> share any SRLG (Shared Risk Link
          Group).
 
       In case of a set of M synchronized independent path computation
       requests, the bits L, N, and S are cleared.
 
-   Unassigned flags MUST be set to zero on transmission and MUST be
+   Unassigned flags <em>MUST</em> be set to zero on transmission and <em>MUST</em> be
    ignored on receipt.
 
    The flags defined above are not exclusive.
@@ -2701,10 +2701,10 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-7.13.3" href="#section-7.13.3">7.13.3</a>.  Handling of the SVEC Object</span>
 
    The SVEC object allows a PCC to specify a list of M path computation
-   requests that MUST be synchronized along with a potential dependency.
+   requests that <em>MUST</em> be synchronized along with a potential dependency.
    The set of M path computation requests may be sent within a single
    PCReq message or multiple PCReq messages.  In the latter case, it is
-   RECOMMENDED for the PCE to implement a local timer (called the
+   <em>RECOMMENDED</em> for the PCE to implement a local timer (called the
 
 
 
@@ -2719,8 +2719,8 @@ Table of Contents
    triggered.  When a PCE receives a path computation request that
    cannot be satisfied (for example, because the PCReq message contains
    an object with the P bit set that is not supported), the PCE sends a
-   PCErr message for this request (see <a href="#section-7.2">Section 7.2</a>), the PCE MUST cancel
-   the whole set of related path computation requests and MUST send a
+   PCErr message for this request (see <a href="#section-7.2">Section 7.2</a>), the PCE <em>MUST</em> cancel
+   the whole set of related path computation requests and <em>MUST</em> send a
    PCErr message with Error-Type="Synchronized path computation request
    missing".
 
@@ -2754,11 +2754,11 @@ Table of Contents
 
                Figure 19: NOTIFICATION Body Object Format
 
-   Reserved (8 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (8 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
    Flags (8 bits):  No flags are currently defined.  Unassigned flags
-      MUST be set to zero on transmission and MUST be ignored on
+      <em>MUST</em> be set to zero on transmission and <em>MUST</em> be ignored on
       receipt.
 
 
@@ -2794,11 +2794,11 @@ Table of Contents
          or any other events local to the PCC.  A NOTIFICATION object
          with Notification-type=1, Notification-value=1 is carried
          within a PCNtf message sent by the PCC to the PCE.  The RP
-         object corresponding to the cancelled request MUST also be
+         object corresponding to the cancelled request <em>MUST</em> also be
          present in the PCNtf message.  Multiple RP objects may be
          carried within the PCNtf message; in which case, the
          notification applies to all of them.  If such a notification is
-         received by a PCC from a PCE, the PCC MUST silently ignore the
+         received by a PCC from a PCE, the PCC <em>MUST</em> silently ignore the
          notification and no errors should be generated.
 
       *  Notification-value=2: PCE cancels a set of pending requests.  A
@@ -2807,10 +2807,10 @@ Table of Contents
          pending requests.  A NOTIFICATION object with Notification-
          type=1, Notification-value=2 is carried within a PCNtf message
          sent by a PCE to a PCC.  The RP object corresponding to the
-         cancelled request MUST also be present in the PCNtf message.
+         cancelled request <em>MUST</em> also be present in the PCNtf message.
          Multiple RP objects may be carried within the PCNtf message; in
          which case, the notification applies to all of them.  If such
-         notification is received by a PCE from a PCC, the PCE MUST
+         notification is received by a PCE from a PCC, the PCE <em>MUST</em>
          silently ignore the notification and no errors should be
          generated.
 
@@ -2827,21 +2827,21 @@ Table of Contents
 
          value=1 indicates to the PCC that the PCE is currently in an
          overloaded state.  If no RP objects are included in the PCNtf
-         message, this indicates that no other requests SHOULD be sent
+         message, this indicates that no other requests <em>SHOULD</em> be sent
          to that PCE until the overloaded state is cleared: the pending
          requests are not affected and will be served.  If some pending
          requests cannot be served due to the overloaded state, the PCE
-         MUST also include a set of RP objects that identifies the set
+         <em>MUST</em> also include a set of RP objects that identifies the set
          of pending requests that are cancelled by the PCE and will not
          be honored.  In this case, the PCE does not have to send an
          additional PCNtf message with Notification-type=1 and
          Notification-value=2 since the list of cancelled requests is
          specified by including the corresponding set of RP objects.  If
-         such notification is received by a PCE from a PCC, the PCE MUST
+         such notification is received by a PCE from a PCC, the PCE <em>MUST</em>
          silently ignore the notification and no errors should be
          generated.
 
-      *  A PCE implementation SHOULD use a dual-threshold mechanism used
+      *  A PCE implementation <em>SHOULD</em> use a dual-threshold mechanism used
          to determine whether it is in a congestion state with regards
          to specific resource monitoring (e.g.  CPU, memory).  The use
          of such thresholds is to avoid oscillations between overloaded/
@@ -2868,7 +2868,7 @@ Table of Contents
       *  Notification-value=2: A Notification-type=2, Notification-
          value=2 indicates that the PCE is no longer in an overloaded
          state and is available to process new path computation
-         requests.  An implementation SHOULD make sure that a PCE sends
+         requests.  An implementation <em>SHOULD</em> make sure that a PCE sends
          such notification to every PCC to which a Notification message
          (with Notification-type=2, Notification-value=1) has been sent
          unless an OVERLOADED-DURATION TLV has been included in the
@@ -2883,15 +2883,15 @@ Table of Contents
 
          expiration of that period of time before receiving new
          requests.  If such notification is received by a PCE from a
-         PCC, the PCE MUST silently ignore the notification and no
-         errors should be generated.  It is RECOMMENDED to support some
+         PCC, the PCE <em>MUST</em> silently ignore the notification and no
+         errors should be generated.  It is <em>RECOMMENDED</em> to support some
          dampening notification procedure on the PCE so as to avoid too
          frequent congestion state and congestion state release
          notifications.  For example, an implementation could make use
          of an hysteresis approach using a dual-threshold mechanism that
          triggers the sending of congestion state notifications.
          Furthermore, in case of high instabilities of the PCE
-         resources, an additional dampening mechanism SHOULD be used
+         resources, an additional dampening mechanism <em>SHOULD</em> be used
          (linear or exponential) to pace the notification frequency and
          avoid oscillation of path computation requests.
 
@@ -2943,11 +2943,11 @@ Table of Contents
    type.  Both the Error-Type and the Error-value are managed by IANA
    (see the IANA section).
 
-   Reserved (8 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (8 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
-   Flags (8 bits):  no flag is currently defined.  This flag MUST be set
-      to zero on transmission and MUST be ignored on receipt.
+   Flags (8 bits):  no flag is currently defined.  This flag <em>MUST</em> be set
+      to zero on transmission and <em>MUST</em> be ignored on receipt.
 
    Error-Type (8 bits):  defines the class of error.
 
@@ -3053,49 +3053,49 @@ Table of Contents
 
    Error-Type=1: PCEP session establishment failure.
 
-      If a malformed message is received, the receiving PCEP peer MUST
+      If a malformed message is received, the receiving PCEP peer <em>MUST</em>
       send a PCErr message with Error-Type=1, Error-value=1.
 
       If no Open message is received before the expiration of the
-      OpenWait timer, the receiving PCEP peer MUST send a PCErr message
+      OpenWait timer, the receiving PCEP peer <em>MUST</em> send a PCErr message
       with Error-Type=1, Error-value=2 (see <a href="#appendix-A">Appendix A</a> for details).
 
       If one or more PCEP session characteristics are unacceptable by
-      the receiving peer and are not negotiable, it MUST send a PCErr
+      the receiving peer and are not negotiable, it <em>MUST</em> send a PCErr
       message with Error-Type=1, Error-value=3.
 
       If an Open message is received with unacceptable session
       characteristics but these characteristics are negotiable, the
-      receiving PCEP peer MUST send a PCErr message with Error-Type-1,
+      receiving PCEP peer <em>MUST</em> send a PCErr message with Error-Type-1,
       Error-value=4 (see <a href="#section-6.2">Section 6.2</a> for details).
 
       If a second Open message is received during the PCEP session
       establishment phase and the session characteristics are still
-      unacceptable, the receiving PCEP peer MUST send a PCErr message
+      unacceptable, the receiving PCEP peer <em>MUST</em> send a PCErr message
       with Error-Type-1, Error-value=5 (see <a href="#section-6.2">Section 6.2</a> for details).
 
       If a PCErr message is received during the PCEP session
       establishment phase that contains an Open message proposing
-      unacceptable session characteristics, the receiving PCEP peer MUST
+      unacceptable session characteristics, the receiving PCEP peer <em>MUST</em>
       send a PCErr message with Error-Type=1, Error-value=6.
 
       If neither a Keepalive message nor a PCErr message is received
       before the expiration of the KeepWait timer during the PCEP
-      session establishment phase, the receiving PCEP peer MUST send a
+      session establishment phase, the receiving PCEP peer <em>MUST</em> send a
       PCErr message with Error-Type=1, Error-value=7.
 
    Error-Type=2:  the PCE indicates that the path computation request
       cannot be honored because it does not support one or more required
-      capability.  The corresponding path computation request MUST be
+      capability.  The corresponding path computation request <em>MUST</em> be
       cancelled.
 
    Error-Type=3 or Error-Type=4:  if a PCEP message is received that
       carries a PCEP object (with the P flag set) not recognized by the
-      PCE or recognized but not supported, then the PCE MUST send a
+      PCE or recognized but not supported, then the PCE <em>MUST</em> send a
       PCErr message with a PCEP-ERROR object (Error-Type=3 and 4,
-      respectively).  In addition, the PCE MAY include in the PCErr
+      respectively).  In addition, the PCE <em>MAY</em> include in the PCErr
       message the unknown or not supported object.  The corresponding
-      path computation request MUST be cancelled by the PCE without
+      path computation request <em>MUST</em> be cancelled by the PCE without
       further notification.
 
 
@@ -3107,26 +3107,26 @@ Table of Contents
 
    Error-Type=5:  if a path computation request is received that is not
       compliant with an agreed policy between the PCC and the PCE, the
-      PCE MUST send a PCErr message with a PCEP-ERROR object (Error-
-      Type=5).  The corresponding path computation MUST be cancelled.
+      PCE <em>MUST</em> send a PCErr message with a PCEP-ERROR object (Error-
+      Type=5).  The corresponding path computation <em>MUST</em> be cancelled.
       Policy-specific TLVs carried within the PCEP-ERROR object may be
       defined in other documents to specify the nature of the policy
       violation.
 
    Error-Type=6:  if a path computation request is received that does
-      not contain a mandatory object, the PCE MUST send a PCErr message
+      not contain a mandatory object, the PCE <em>MUST</em> send a PCErr message
       with a PCEP-ERROR object (Error-Type=6).  If there are multiple
-      mandatory objects missing, the PCErr message MUST contain one
+      mandatory objects missing, the PCErr message <em>MUST</em> contain one
       PCEP-ERROR object per missing object.  The corresponding path
-      computation MUST be cancelled.
+      computation <em>MUST</em> be cancelled.
 
    Error-Type=7:  if a PCC sends a synchronized path computation request
       to a PCE and the PCE does not receive all the synchronized path
       computation requests listed within the corresponding SVEC object
       after the expiration of the timer SyncTimer defined in
-      <a href="#section-7.13.3">Section 7.13.3</a>, the PCE MUST send a PCErr message with a PCEP-
+      <a href="#section-7.13.3">Section 7.13.3</a>, the PCE <em>MUST</em> send a PCErr message with a PCEP-
       ERROR object (Error-Type=7).  The corresponding synchronized path
-      computation MUST be cancelled.  It is RECOMMENDED for the PCE to
+      computation <em>MUST</em> be cancelled.  It is <em>RECOMMENDED</em> for the PCE to
       include the REQ-MISSING TLVs (defined below) that identify the
       missing requests.
 
@@ -3141,15 +3141,15 @@ Table of Contents
                  corresponds to the missing request.
 
    Error-Type=8:  if a PCC receives a PCRep message related to an
-      unknown path computation request, the PCC MUST send a PCErr
+      unknown path computation request, the PCC <em>MUST</em> send a PCErr
       message with a PCEP-ERROR object (Error-Type=8).  In addition, the
-      PCC MUST include in the PCErr message the unknown RP object.
+      PCC <em>MUST</em> include in the PCErr message the unknown RP object.
 
    Error-Type=9:  if a PCEP peer detects an attempt from another PCEP
-      peer to establish a second PCEP session, it MUST send a PCErr
+      peer to establish a second PCEP session, it <em>MUST</em> send a PCErr
       message with Error-Type=9, Error-value=1.  The existing PCEP
-      session MUST be preserved and all subsequent messages related to
-      the tentative establishment of the second PCEP session MUST be
+      session <em>MUST</em> be preserved and all subsequent messages related to
+      the tentative establishment of the second PCEP session <em>MUST</em> be
       silently ignored.
 
 
@@ -3163,7 +3163,7 @@ Table of Contents
 
    Error-Type=10:  if a PCEP peers receives an object with the P flag
       not set although the P flag must be set according to this
-      specification, it MUST send a PCErr message with Error-Type=10,
+      specification, it <em>MUST</em> send a PCErr message with Error-Type=10,
       Error-value=1.
 
 <span class="h3"><a class="selflink" name="section-7.16" href="#section-7.16">7.16</a>.  LOAD-BALANCING Object</span>
@@ -3196,11 +3196,11 @@ Table of Contents
 
                 Figure 21: LOAD-BALANCING Object Body Format
 
-   Reserved (16 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (16 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
-   Flags (8 bits):  No flag is currently defined.  The Flags field MUST
-      be set to zero on transmission and MUST be ignored on receipt.
+   Flags (8 bits):  No flag is currently defined.  The Flags field <em>MUST</em>
+      be set to zero on transmission and <em>MUST</em> be ignored on receipt.
 
    Max-LSP (8 bits):  maximum number of TE LSPs in the set.
 
@@ -3228,10 +3228,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.17" href="#section-7.17">7.17</a>.  CLOSE Object</span>
 
-   The CLOSE object MUST be present in each Close message.  There MUST
+   The CLOSE object <em>MUST</em> be present in each Close message.  There <em>MUST</em>
    be only one CLOSE object per Close message.  If a Close message is
    received that contains more than one CLOSE object, the first CLOSE
-   object is the one that must be processed.  Other CLOSE objects MUST
+   object is the one that must be processed.  Other CLOSE objects <em>MUST</em>
    be silently ignored.
 
    CLOSE Object-Class is 15.
@@ -3252,11 +3252,11 @@ Table of Contents
 
                     Figure 22: CLOSE Object Format
 
-   Reserved (16 bits):  This field MUST be set to zero on transmission
-      and MUST be ignored on receipt.
+   Reserved (16 bits):  This field <em>MUST</em> be set to zero on transmission
+      and <em>MUST</em> be ignored on receipt.
 
-   Flags (8 bits):  No flags are currently defined.  The Flag field MUST
-      be set to zero on transmission and MUST be ignored on receipt.
+   Flags (8 bits):  No flags are currently defined.  The Flag field <em>MUST</em>
+      be set to zero on transmission and <em>MUST</em> be ignored on receipt.
 
    Reason (8 bits):  specifies the reason for closing the PCEP session.
       The setting of this field is optional.  IANA manages the codespace
@@ -3292,7 +3292,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>.  Control of Function and Policy</span>
 
-   A PCEP implementation SHOULD allow configuring the following PCEP
+   A PCEP implementation <em>SHOULD</em> allow configuring the following PCEP
    session parameters on the implementation:
 
    o  The local Keepalive and DeadTimer (i.e., parameters sent by the
@@ -3329,10 +3329,10 @@ Table of Contents
 <span class="grey"><a href="./rfc5440.html">RFC 5440</a>                          PCEP                        March 2009</span>
 
 
-   with a specific group of PCEP peers.  A PCEP implementation SHOULD
+   with a specific group of PCEP peers.  A PCEP implementation <em>SHOULD</em>
    allow configuring the initiation of a PCEP session with a selected
    subset of discovered PCEs.  Note that PCE selection is a local
-   implementation issue.  A PCEP implementation SHOULD allow configuring
+   implementation issue.  A PCEP implementation <em>SHOULD</em> allow configuring
    a specific PCEP session with a given PCEP peer.  This includes the
    configuration of the following parameters:
 
@@ -3350,7 +3350,7 @@ Table of Contents
       for the PCEP peer (e.g., diverse path computation,
       synchronization, etc.).
 
-   A PCEP implementation MUST allow restricting the set of PCEP peers
+   A PCEP implementation <em>MUST</em> allow restricting the set of PCEP peers
    that can initiate a PCEP session with the PCEP speaker (e.g., list of
    authorized PCEP peers, all PCEP peers in the area, all PCEP peers in
    the AS).
@@ -3389,7 +3389,7 @@ Table of Contents
 
    Verifying the correct operation of a PCEP communication can be
    performed by monitoring various parameters.  A PCEP implementation
-   SHOULD provide the following parameters:
+   <em>SHOULD</em> provide the following parameters:
 
    o  Response time (minimum, average, and maximum), on a per-PCE-peer
       basis,
@@ -3406,7 +3406,7 @@ Table of Contents
       expiration of a configurable timer and by verifying that at least
       one path exists that satisfies the set of constraints.
 
-   A PCEP implementation SHOULD log error events (e.g., corrupted
+   A PCEP implementation <em>SHOULD</em> log error events (e.g., corrupted
    messages, unrecognized objects).
 
 <span class="h3"><a class="selflink" name="section-8.5" href="#section-8.5">8.5</a>.  Requirements on Other Protocols and Functional Components</span>
@@ -3418,16 +3418,16 @@ Table of Contents
    The PCE Discovery mechanisms ([<a href="./rfc5088.html" title="&quot;OSPF Protocol Extensions for Path Computation Element (PCE) Discovery&quot;">RFC5088</a>], [<a href="./rfc5089.html" title="&quot;IS-IS Protocol Extensions for Path Computation Element (PCE) Discovery&quot;">RFC5089</a>]) may have an
    impact on PCEP.  To avoid that a high frequency of PCE Discoveries/
    Disappearances triggers a high frequency of PCEP session setups/
-   deletions, it is RECOMMENDED to introduce some dampening for
+   deletions, it is <em>RECOMMENDED</em> to introduce some dampening for
    establishment of PCEP sessions.
 
 <span class="h3"><a class="selflink" name="section-8.6" href="#section-8.6">8.6</a>.  Impact on Network Operation</span>
 
    In order to avoid any unacceptable impact on network operations, an
-   implementation SHOULD allow a limit to be placed on the number of
-   sessions that can be set up on a PCEP speaker, and MAY allow a limit
+   implementation <em>SHOULD</em> allow a limit to be placed on the number of
+   sessions that can be set up on a PCEP speaker, and <em>MAY</em> allow a limit
    to be placed on the rate of messages sent by a PCEP speaker and
-   received from a peer.  It MAY also allow sending a notification when
+   received from a peer.  It <em>MAY</em> also allow sending a notification when
    a rate threshold is reached.
 
 
@@ -3919,7 +3919,7 @@ Type
 
 <span class="h3"><a class="selflink" name="section-9.14" href="#section-9.14">9.14</a>.  CLOSE Object</span>
 
-   The CLOSE object MUST be present in each Close message in order to
+   The CLOSE object <em>MUST</em> be present in each Close message in order to
    close a PCEP session.  The reason field of the CLOSE object specifies
    the reason for closing the PCEP session.  The reason field of the
    CLOSE object is managed by IANA.
@@ -4065,7 +4065,7 @@ Type
 
    As explained in [<a href="./rfc2385.html" title="&quot;Protection of BGP Sessions via the TCP MD5 Signature Option&quot;">RFC2385</a>], the use of MD5 faces some limitations and
    does not provide as high a level of security as was once believed.  A
-   PCEP implementation supporting TCP-MD5 SHOULD be designed so that
+   PCEP implementation supporting TCP-MD5 <em>SHOULD</em> be designed so that
    stronger security keying techniques or algorithms that may be
    specified for TCP can be easily integrated in future releases.
 
@@ -4076,7 +4076,7 @@ Type
    their implementation as soon as the TCP Authentication Option is
    published as an RFC.
 
-   Implementations MUST support TCP-MD5 and should make the security
+   Implementations <em>MUST</em> support TCP-MD5 and should make the security
    function available as a configuration option.
 
    Operators will need to observe that some deployed PCEP
@@ -4126,7 +4126,7 @@ Type
    could obtain sensitive information related to computed paths and
    resources.
 
-   PCEP privacy can be ensured by encryption.  TCP MAY be run over IPsec
+   PCEP privacy can be ensured by encryption.  TCP <em>MAY</em> be run over IPsec
    [<a href="./rfc4303.html" title="&quot;IP Encapsulating Security Payload (ESP)&quot;">RFC4303</a>] tunnels to provide the required encryption.  Note that
    IPsec can also ensure authentication and integrity; in which case,
    TCP-MD5 or TCP-AO would not be required.  However, there is some
@@ -4143,7 +4143,7 @@ Type
    particularly onerous to operators (in the same way as for the Border
    Gateway Protocol (BGP) as discussed in [<a href="#ref-BGP-SEC" title="&quot;BGP Security Requirements&quot;">BGP-SEC</a>]).  If there is a
    relatively small number of PCCs and PCEs in the network, manual key
-   configuration MAY be considered a valid choice by the operator,
+   configuration <em>MAY</em> be considered a valid choice by the operator,
    although it is important to be aware of the vulnerabilities
    introduced by such mechanisms (i.e., configuration errors, social
    engineering, and carelessness could all give rise to security
@@ -4156,7 +4156,7 @@ Type
    An alternative to individual keys is the use of a group key.  A group
    key is common knowledge among all members of a trust domain.  Thus,
    since the routers in an IGP area or an AS are part of a common trust
-   domain [<a href="#ref-MPLS-SEC" title="&quot;Security Framework for MPLS and GMPLS Networks&quot;">MPLS-SEC</a>], a PCEP group key MAY be shared among all PCCs and
+   domain [<a href="#ref-MPLS-SEC" title="&quot;Security Framework for MPLS and GMPLS Networks&quot;">MPLS-SEC</a>], a PCEP group key <em>MAY</em> be shared among all PCCs and
    PCEs in an IGP area or AS.  The use of a group key will considerably
    simplify the operator's configuration task while continuing to secure
 
@@ -4209,7 +4209,7 @@ Type
    sessions are repeatedly closed and re-established.  Where protocol
    relationships persist for a large number of protocol interactions or
    over a long period of time, changes in the keys used by the protocol
-   peers is RECOMMENDED [<a href="./rfc4107.html" title="&quot;Guidelines for Cryptographic Key Management&quot;">RFC4107</a>].  Note that TCP-MD5 does not allow the
+   peers is <em>RECOMMENDED</em> [<a href="./rfc4107.html" title="&quot;Guidelines for Cryptographic Key Management&quot;">RFC4107</a>].  Note that TCP-MD5 does not allow the
    key to be changed without closing and reopening the TCP connection
    which would result in the PCEP session being terminated and needing
    to be restarted.  That might not be a significant issue for PCEP.
@@ -4246,17 +4246,17 @@ Type
    where traffic will be placed in the network when real requests are
    made, allowing the attacker to target specific network resources.
 
-   PCEs SHOULD be configurable for access policy.  Where authentication
+   PCEs <em>SHOULD</em> be configurable for access policy.  Where authentication
    is used, access policy can be achieved through the exchange or
    configuration of keys as described in <a href="#section-10.5">Section 10.5</a>.  More simple
-   policies MAY be configured on PCEs in the form of access lists where
-   the IP addresses of the legitimate PCCs are listed.  Policies SHOULD
+   policies <em>MAY</em> be configured on PCEs in the form of access lists where
+   the IP addresses of the legitimate PCCs are listed.  Policies <em>SHOULD</em>
    also be configurable to limit the type of computation requests that
    are supported from different PCCs.
 
-   It is RECOMMENDED that access policy violations are logged by the PCE
+   It is <em>RECOMMENDED</em> that access policy violations are logged by the PCE
    and are available for inspection by the operator to determine whether
-   attempts have been made to attack the PCE.  Such mechanisms MUST be
+   attempts have been made to attack the PCE.  Such mechanisms <em>MUST</em> be
    lightweight to prevent them from being used to support denial-of-
    service attacks (see <a href="#section-10.7">Section 10.7</a>).
 
@@ -4286,18 +4286,18 @@ Type
    support the following techniques.
 
    o  PCEP uses a single registered port for all communications.  The
-      PCE SHOULD listen for TCP connections only on ports where
+      PCE <em>SHOULD</em> listen for TCP connections only on ports where
       communication is expected.
 
-   o  The PCE MAY implement an access list to immediately reject (or
+   o  The PCE <em>MAY</em> implement an access list to immediately reject (or
       discard) TCP connection attempts from unauthorized PCCs.
 
-   o  The PCE SHOULD NOT allow parallel TCP connections from the same
+   o  The PCE <em>SHOULD NOT</em> allow parallel TCP connections from the same
       PCC on the PCEP-registered port.
 
-   o  The PCE MAY require the use of the MD5 option on all TCP
-      connections, and MAY reject (or discard) any connection setup
-      attempt that does not use MD5.  A PCE MUST NOT accept any SYN
+   o  The PCE <em>MAY</em> require the use of the MD5 option on all TCP
+      connections, and <em>MAY</em> reject (or discard) any connection setup
+      attempt that does not use MD5.  A PCE <em>MUST NOT</em> accept any SYN
       packet for which the MD5 segment checksum is invalid.  Note,
       however, that the use of MD5 requires that the receiver use CPU
       resources to compute the checksum before it can decide to discard
@@ -4314,12 +4314,12 @@ Type
    prioritize received requests does not provide any protection since
    the attacker could set all requests to be of the highest priority.
 
-   Therefore, it is RECOMMENDED that PCE implementations include input
+   Therefore, it is <em>RECOMMENDED</em> that PCE implementations include input
    shaping/policing mechanisms that either throttle the requests
    received from any one PCC, or apply queuing or priority-degradation
    techniques to over-communicative PCCs.
 
-   Such mechanisms MAY be set by default, but SHOULD be available for
+   Such mechanisms <em>MAY</em> be set by default, but <em>SHOULD</em> be available for
    configuration.  Such techniques may be considered particularly
    important in multi-service-provider environments to protect the
    resources of one service provider from unwarranted, over-zealous, or
@@ -4941,7 +4941,7 @@ Type
       the SVEC object referring to M synchronized path computation
       requests.  If after the expiration of the SyncTimer all the M path
       computation requests have not been received, a protocol error is
-      triggered and the PCE MUST cancel the whole set of path
+      triggered and the PCE <em>MUST</em> cancel the whole set of path
       computation requests.  The aim of the SyncTimer is to avoid the
       storage of unused synchronized requests should one of them get
       lost for some reason (e.g., a misbehaving PCC).  Thus, the value
@@ -4954,12 +4954,12 @@ Type
 
 
       of the SyncTimer must be large enough to avoid the expiration of
-      the timer under normal circumstances.  A RECOMMENDED value for the
+      the timer under normal circumstances.  A <em>RECOMMENDED</em> value for the
       SyncTimer is 60 seconds.
 
-   MAX-UNKNOWN-REQUESTS:  A RECOMMENDED value is 5.
+   MAX-UNKNOWN-REQUESTS:  A <em>RECOMMENDED</em> value is 5.
 
-   MAX-UNKNOWN-MESSAGES:  A RECOMMENDED value is 5.
+   MAX-UNKNOWN-MESSAGES:  A <em>RECOMMENDED</em> value is 5.
 
 <span class="h2"><a class="selflink" name="appendix-C" href="#appendix-C">Appendix C</a>.  Contributors</span>
 

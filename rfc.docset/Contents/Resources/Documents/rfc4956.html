@@ -371,8 +371,8 @@ Table of Contents
       only a delegation NS RRset.  The covering NSEC record uses the
       Opt-In methodology described in this document.
 
-   The key words "MUST, "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY, and "OPTIONAL" in this
+   The key words "<em>MUST</em>, "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>, and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Experimental Status</span>
@@ -388,16 +388,16 @@ Table of Contents
    "5.optin.verisignlabs.com":  is an alias for DNSSEC algorithm 5,
       RSASHA1.
 
-   Servers wishing to sign and serve zones that utilize Opt-In MUST sign
-   the zone with only one or more of these private algorithms and MUST
+   Servers wishing to sign and serve zones that utilize Opt-In <em>MUST</em> sign
+   the zone with only one or more of these private algorithms and <em>MUST</em>
    NOT use any other algorithms.
 
-   Resolvers MUST NOT apply the Opt-In validation rules described in
+   Resolvers <em>MUST NOT</em> apply the Opt-In validation rules described in
    this document unless a zone is signed using one or more of these
    private algorithms.
 
    This experimental protocol relaxes the restriction that validators
-   MUST ignore the setting of the NSEC bit in the type map as specified
+   <em>MUST</em> ignore the setting of the NSEC bit in the type map as specified
    in <a href="./rfc4035.html">RFC 4035</a> [<a href="#ref-6" title="&quot;Protocol Modifications for the DNS Security Extensions&quot;">6</a>] <a href="#section-5.4">Section 5.4</a>.
 
    The remainder of this document assumes that the servers and resolvers
@@ -443,16 +443,16 @@ Table of Contents
    However, Opt-In tagged NSEC records do assert the (non)existence of
    other RRsets.
 
-   An Opt-In NSEC record MAY have the same name as an insecure
+   An Opt-In NSEC record <em>MAY</em> have the same name as an insecure
    delegation.  In this case, the delegation is proven insecure by the
    lack of a DS bit in the type map, and the signed NSEC record does
    assert the existence of the delegation.
 
-   Zones using Opt-In MAY contain a mixture of Opt-In tagged NSEC
+   Zones using Opt-In <em>MAY</em> contain a mixture of Opt-In tagged NSEC
    records and standard DNSSEC NSEC records.  If an NSEC record is not
-   Opt-In, there MUST NOT be any insecure delegations (or any other
+   Opt-In, there <em>MUST NOT</em> be any insecure delegations (or any other
    records) between it and the RRsets indicated by the 'next domain
-   name' in the NSEC RDATA.  If it is Opt-In, there MUST only be
+   name' in the NSEC RDATA.  If it is Opt-In, there <em>MUST</em> only be
    insecure delegations between it and the next node indicated by the
    'next domain name' in the NSEC RDATA.
 
@@ -478,7 +478,7 @@ Table of Contents
 
    o  An Opt-In NSEC record does not assert the non-existence of a name
       between its owner name and "next" name, although it does assert
-      that any name in this span MUST be an insecure delegation.
+      that any name in this span <em>MUST</em> be an insecure delegation.
 
    o  An Opt-In NSEC record does assert the (non)existence of RRsets
       with the same owner name.
@@ -491,14 +491,14 @@ Table of Contents
 
    This specification dictates that only insecure delegations may exist
    between the owner and "next" names of an Opt-In tagged NSEC record.
-   Signing tools MUST NOT generate signed zones that violate this
-   restriction.  Servers MUST refuse to load and/or serve zones that
-   violate this restriction.  Servers also MUST reject AXFR or IXFR
+   Signing tools <em>MUST NOT</em> generate signed zones that violate this
+   restriction.  Servers <em>MUST</em> refuse to load and/or serve zones that
+   violate this restriction.  Servers also <em>MUST</em> reject AXFR or IXFR
    responses that violate this restriction.
 
 <span class="h4"><a class="selflink" name="section-4.1.2" href="#section-4.1.2">4.1.2</a>.  Insecure Delegation Responses</span>
 
-   When returning an Opt-In insecure delegation, the server MUST return
+   When returning an Opt-In insecure delegation, the server <em>MUST</em> return
    the covering NSEC RRset in the Authority section.
 
    In standard DNSSEC, NSEC records already must be returned along with
@@ -513,8 +513,8 @@ Table of Contents
    particular, it introduces the need for rules that describe when to
    add or remove a delegation name from the NSEC chain.  This document
    does not attempt to define these rules.  Until these rules are
-   defined, servers MUST NOT process DNS Dynamic Update requests against
-   zones that use Opt-In NSEC records.  Servers SHOULD return responses
+   defined, servers <em>MUST NOT</em> process DNS Dynamic Update requests against
+   zones that use Opt-In NSEC records.  Servers <em>SHOULD</em> return responses
    to update requests with RCODE=REFUSED.
 
 
@@ -547,7 +547,7 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-4.2.2.1" href="#section-4.2.2.1">4.2.2.1</a>.  Referrals</span>
 
-   Resolvers MUST be able to use Opt-In tagged NSEC records to
+   Resolvers <em>MUST</em> be able to use Opt-In tagged NSEC records to
    cryptographically prove the validity and security status (as
    insecure) of a referral.  Resolvers determine the security status of
    the referred-to zone as follows:
@@ -557,7 +557,7 @@ Table of Contents
       existence of the DS RRset indicates that the referred-to zone is
       signed.  The absence of the DS RRset is proven using a verified
       NSEC record of the same name that does not have the DS bit set in
-      the type map.  This NSEC record MAY also be tagged as Opt-In.
+      the type map.  This NSEC record <em>MAY</em> also be tagged as Opt-In.
 
    o  Using Opt-In, the security status is proven by the existence of a
       DS record (for signed) or the presence of a verified Opt-In tagged
@@ -583,7 +583,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4956.html">RFC 4956</a>              DNS Security (DNSSEC) Opt-In             July 2007</span>
 
 
-   Resolvers MUST be able to use Opt-In tagged NSEC records to
+   Resolvers <em>MUST</em> be able to use Opt-In tagged NSEC records to
    cryptographically prove the validity and security status of negative
    responses to queries for DS records.  In particular, a NOERROR/NODATA
    (i.e., RCODE=3, but the answer section is empty) response to a DS
@@ -592,7 +592,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  NSEC Record Caching</span>
 
-   Caching resolvers MUST be able to retrieve the appropriate covering
+   Caching resolvers <em>MUST</em> be able to retrieve the appropriate covering
    Opt-In NSEC record when returning referrals that need them.  This
    requirement differs from standard DNSSEC in that the covering NSEC
    will not have the same owner name as the delegation.  Some
@@ -601,7 +601,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.4" href="#section-4.2.4">4.2.4</a>.  Use of the AD bit</span>
 
-   The AD bit, as defined by [<a href="#ref-3" title="&quot;Redefinition of DNS Authenticated Data (AD) bit&quot;">3</a>] and [<a href="#ref-6" title="&quot;Protocol Modifications for the DNS Security Extensions&quot;">6</a>], MUST NOT be set when:
+   The AD bit, as defined by [<a href="#ref-3" title="&quot;Redefinition of DNS Authenticated Data (AD) bit&quot;">3</a>] and [<a href="#ref-6" title="&quot;Protocol Modifications for the DNS Security Extensions&quot;">6</a>], <em>MUST NOT</em> be set when:
 
    o  sending a Name Error (RCODE=3) response where the covering NSEC is
       tagged as Opt-In.
@@ -726,7 +726,7 @@ Table of Contents
 
                                 Example A.1
 
-   In the Example A.1 zone, the EXAMPLE. node MAY use either style of
+   In the Example A.1 zone, the EXAMPLE. node <em>MAY</em> use either style of
    NSEC record, because there are no insecure delegations that occur
    between it and the next node, FIRST-SECURE.EXAMPLE.  In other words,
    Example A would still be a valid zone if the NSEC record for EXAMPLE.
@@ -736,7 +736,7 @@ Table of Contents
                                        RRSIG DNSKEY NSEC )
 
    However, the other NSEC records (FIRST-SECURE.EXAMPLE. and SECOND-
-   SECURE.EXAMPLE.)  MUST be tagged as Opt-In because there are insecure
+   SECURE.EXAMPLE.)  <em>MUST</em> be tagged as Opt-In because there are insecure
    delegations in the range they define.  (NOT-SECURE.EXAMPLE. and
    UNSIGNED.EXAMPLE., respectively).
 
@@ -847,9 +847,9 @@ Table of Contents
 
    While in particular cases, this issue may not present a significant
    security problem, in general it should not be lightly dismissed.
-   Therefore, it is strongly RECOMMENDED that Opt-In be used sparingly.
-   In particular, zone signing tools SHOULD NOT default to Opt-In, and
-   MAY choose not to support Opt-In at all.
+   Therefore, it is strongly <em>RECOMMENDED</em> that Opt-In be used sparingly.
+   In particular, zone signing tools <em>SHOULD NOT</em> default to Opt-In, and
+   <em>MAY</em> choose not to support Opt-In at all.
 
 
 
@@ -991,7 +991,7 @@ Table of Contents
 
    In addition, the only RRsets that may solely exist in the insecure
    view are non-zone-apex NS RRsets.  That is, all non-NS RRsets (and
-   the zone apex NS RRset) MUST be signed and in the secure view.
+   the zone apex NS RRset) <em>MUST</em> be signed and in the secure view.
 
    These two views may be combined at request time to provide a virtual,
    single Opt-In zone.  The following algorithm is used when responding

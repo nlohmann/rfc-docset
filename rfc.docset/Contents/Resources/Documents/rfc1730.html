@@ -535,9 +535,9 @@ IMAP4 Protocol Specification
    first token of the response, which may be a tag, a "*", or a "+".  As
    described above.
 
-   A client MUST be prepared to accept any server response at all times.
+   A client <em>MUST</em> be prepared to accept any server response at all times.
    This includes server data that it may not have requested.  Server
-   data SHOULD be recorded, so that the client can reference its
+   data <em>SHOULD</em> be recorded, so that the client can reference its
    recorded copy rather than sending a command to the server to request
    the data.  In the case of certain server data, recording the data is
    mandatory.
@@ -751,13 +751,13 @@ IMAP4 Protocol Specification
 <span class="h4"><a class="selflink" name="section-4.3.1" href="#section-4.3.1">4.3.1</a>.  8-bit and Binary Strings</span>
 
    8-bit textual and binary mail is supported through the use of
-   [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] encoding.  IMAP4 implementations MAY transmit 8-bit or
+   [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] encoding.  IMAP4 implementations <em>MAY</em> transmit 8-bit or
    multi-octet characters in literals, but should do so only when the
    character set is identified.
 
    Although a BINARY body encoding is defined, unencoded binary strings
    are not permitted.  A "binary string" is any string with NUL
-   characters.  Implementations MUST encode binary data into a textual
+   characters.  Implementations <em>MUST</em> encode binary data into a textual
    form such as BASE64 before transmitting the data.  A string with an
    excessive amount of CTL characters may also be considered to be
    binary, although this is not required.
@@ -823,17 +823,17 @@ IMAP4 Protocol Specification
    the server may add messages to the mailbox (e.g. new mail delivery),
    change the flags of message in the mailbox (e.g. simultaneous access
    to the same mailbox by multiple agents), or even remove messages from
-   the mailbox.  A server MUST send mailbox size updates automatically
+   the mailbox.  A server <em>MUST</em> send mailbox size updates automatically
    if a mailbox size change is observed during the processing of a
-   command.  A server SHOULD send message flag updates automatically,
+   command.  A server <em>SHOULD</em> send message flag updates automatically,
    without requiring the client to request such updates explicitly.
    Special rules exist for server notification of a client about the
    removal of messages to prevent synchronization errors; see the
    description of the EXPUNGE response for more details.
 
    Regardless of what implementation decisions a client may take on
-   remembering data from the server, a client implementation MUST record
-   mailbox size updates.  It MUST NOT assume that any command after
+   remembering data from the server, a client implementation <em>MUST</em> record
+   mailbox size updates.  It <em>MUST NOT</em> assume that any command after
    initial mailbox selection will return the size of the mailbox.
 
 
@@ -841,7 +841,7 @@ IMAP4 Protocol Specification
 
    Server implementations are permitted to send an untagged response
    (except for EXPUNGE) while there is no command in progress.  Server
-   implementations that send such responses MUST deal with flow control
+   implementations that send such responses <em>MUST</em> deal with flow control
    considerations.  Specifically, they must either (1) verify that the
    size of the data does not exceed the underlying transport's available
    window size, or (2) use non-blocking writes.
@@ -862,7 +862,7 @@ IMAP4 Protocol Specification
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.    Autologout Timer</span>
 
-   If a server has an inactivity autologout timer, that timer MUST be of
+   If a server has an inactivity autologout timer, that timer <em>MUST</em> be of
    at least 30 minutes' duration.  The receipt of ANY command from the
    client during that interval should suffice to reset the autologout
    timer.
@@ -958,7 +958,7 @@ IMAP4 Protocol Specification
                BAD - command unknown or arguments invalid
 
       The CAPABILITY command requests a listing of capabilities that the
-      server supports.  The server MUST send a single untagged
+      server supports.  The server <em>MUST</em> send a single untagged
       CAPABILITY response with "IMAP4" as the first listed capability
       before the (tagged) OK response.  This listing of capabilities is
       not dependent upon connection state or user.  It is therefore not
@@ -1215,7 +1215,7 @@ IMAP4 Protocol Specification
 
       The SELECT command selects a  mailbox  so  that  messages  in  the
       mailbox  can  be  accessed.  Before returning an OK to the client,
-      the server MUST send the following untagged data to the client:
+      the server <em>MUST</em> send the following untagged data to the client:
 
          FLAGS       Defined flags in the mailbox
 
@@ -1230,15 +1230,15 @@ IMAP4 Protocol Specification
 
       to define the initial state of the mailbox at the client.  If it
       is not possible to determine the messages that were added since
-      the previous time a mailbox was read, then all messages SHOULD be
+      the previous time a mailbox was read, then all messages <em>SHOULD</em> be
       considered recent.
 
-      The server SHOULD also send an UNSEEN response code in an OK
+      The server <em>SHOULD</em> also send an UNSEEN response code in an OK
       untagged response, indicating the message sequence number of the
       first unseen message in the mailbox.
 
       If the client can not change the permanent state of one or more of
-      the flags listed in the FLAGS untagged response, the server SHOULD
+      the flags listed in the FLAGS untagged response, the server <em>SHOULD</em>
       send a PERMANENTFLAGS response code in an OK untagged response,
       listing the flags that the client may change permanently.
 
@@ -1257,13 +1257,13 @@ IMAP4 Protocol Specification
       Consequently, if a mailbox is selected and a SELECT command that
       fails is attempted, no mailbox is selected.
 
-      If the user is permitted to modify the mailbox, the server SHOULD
+      If the user is permitted to modify the mailbox, the server <em>SHOULD</em>
       prefix the text of the tagged OK response with the "[READ-WRITE]"
       response code.
 
       If the user is not permitted to modify the mailbox but is
       permitted read access, the mailbox is selected as read-only, and
-      the server MUST prefix the text of the tagged OK response to
+      the server <em>MUST</em> prefix the text of the tagged OK response to
       SELECT with the "[READ-ONLY]" response code.  Read-only access
       through SELECT differs from the EXAMINE command in that certain
       read-only mailboxes may permit the change of permanent state on a
@@ -1308,7 +1308,7 @@ IMAP4 Protocol Specification
 <span class="grey"><a href="./rfc1730.html">RFC 1730</a>                         IMAP4                     December 1994</span>
 
 
-      The text of the tagged OK response to the EXAMINE command MUST
+      The text of the tagged OK response to the EXAMINE command <em>MUST</em>
       begin with the "[READ-ONLY]" response code.
 
    Example:    C: A932 EXAMINE blurdybloop
@@ -1341,11 +1341,11 @@ IMAP4 Protocol Specification
       separator character (as returned from the server by a LIST
       command), this is a declaration that the client may, in the
       future, create mailbox names under this name in the hierarchy.
-      Server implementations that do not require this declaration MUST
+      Server implementations that do not require this declaration <em>MUST</em>
       ignore it.
 
       If a new mailbox is created with the same name as a mailbox which
-      was deleted, its unique identifiers MUST be greater than any
+      was deleted, its unique identifiers <em>MUST</em> be greater than any
       unique identifiers used in the previous incarnation of the mailbox
       UNLESS the new incarnation has a different unique identifier
       validity value.  See the description of the UID command for more
@@ -1389,7 +1389,7 @@ IMAP4 Protocol Specification
       return a tagged NO response.
 
       The value of the highest-used unique indentifier of the deleted
-      mailbox MUST be preserved so that a new mailbox created with the
+      mailbox <em>MUST</em> be preserved so that a new mailbox created with the
       same name will not reuse the identifiers of the former
       incarnation, UNLESS the new incarnation has a different unique
       identifier validity value.  See the description of the UID command
@@ -1499,7 +1499,7 @@ IMAP4 Protocol Specification
 
       An empty ("" string) reference name argument indicates that the
       mailbox name is interpreted as by SELECT. The returned mailbox
-      names MUST match the supplied mailbox name pattern.  A non-empty
+      names <em>MUST</em> match the supplied mailbox name pattern.  A non-empty
       reference name argument is the name of a mailbox or a level of
       mailbox hierarchy, and indicates a context in which the mailbox
       name is interpreted in an implementation-defined manner.
@@ -1510,7 +1510,7 @@ IMAP4 Protocol Specification
       mailbox names will be in the interpreted form.
 
       Any part of the reference argument that is included in the
-      interpreted form SHOULD prefix the interpreted form.  It should
+      interpreted form <em>SHOULD</em> prefix the interpreted form.  It should
       also be in the same form as the reference name argument.  This
       rule permits the client to determine if the returned mailbox name
       is in the context of the reference argument, or if something about
@@ -1628,11 +1628,11 @@ IMAP4 Protocol Specification
       in the specified destination mailbox.  This argument is in the
       format of an [<a href="./rfc822.html" title="&quot;Standard for the Format of ARPA Internet Text Messages&quot;">RFC-822</a>] message.  8-bit characters are permitted in
       the message.  A server implementation that is unable to preserve
-      8-bit data properly MUST be able to reversibly convert 8-bit
+      8-bit data properly <em>MUST</em> be able to reversibly convert 8-bit
       APPEND data to 7-bit using [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] encoding.
 
       If a flag parenthesized list or date_time are specified, that data
-      SHOULD be set in the resulting message; otherwise, the defaults of
+      <em>SHOULD</em> be set in the resulting message; otherwise, the defaults of
       empty flags and the current date/time are used.
 
 
@@ -1644,15 +1644,15 @@ IMAP4 Protocol Specification
 <span class="grey"><a href="./rfc1730.html">RFC 1730</a>                         IMAP4                     December 1994</span>
 
 
-      If the append is unsuccessful for any reason, the mailbox MUST be
+      If the append is unsuccessful for any reason, the mailbox <em>MUST</em> be
       restored to its state before the APPEND attempt; no partial
       appending is permitted.  If the mailbox is currently selected, the
       normal new mail actions should occur.
 
-      If the destination mailbox does not exist, a server MUST return an
-      error, and MUST NOT automatically create the mailbox.  Unless it
+      If the destination mailbox does not exist, a server <em>MUST</em> return an
+      error, and <em>MUST NOT</em> automatically create the mailbox.  Unless it
       is certain that the destination mailbox can not be created, the
-      server MUST send the response code "[TRYCREATE]" as the prefix of
+      server <em>MUST</em> send the response code "[TRYCREATE]" as the prefix of
       the text of the tagged NO response.  This gives a hint to the
       client that it can attempt a CREATE command and retry the APPEND
       if the CREATE is successful.
@@ -1838,7 +1838,7 @@ IMAP4 Protocol Specification
       list of one or more search keys (e.g. for use with the OR and NOT
       keys).
 
-      Server implementations MAY exclude [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] body parts with
+      Server implementations <em>MAY</em> exclude [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] body parts with
       terminal content types other than TEXT and MESSAGE from
       consideration in SEARCH matching.
 
@@ -1846,10 +1846,10 @@ IMAP4 Protocol Specification
       "CHARSET" followed by a registered MIME character set.  It
       indicates the character set of the strings that appear in the
       search criteria.  [<a href="#ref-MIME-2" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part Two: Message Header Extensions for Non-ASCII Text&quot;">MIME-2</a>] strings that appear in <a href="./rfc822.html">RFC 822</a>/MIME
-      message headers, and [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] content transfer encodings, MUST be
+      message headers, and [<a href="#ref-MIME-1" title="&quot;MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies&quot;">MIME-1</a>] content transfer encodings, <em>MUST</em> be
       decoded before matching.  Except for US-ASCII, it is not required
       that any particular character set be supported.  If the server
-      does not support the specified character set, it MUST return a
+      does not support the specified character set, it <em>MUST</em> return a
       tagged NO response (not a BAD).
 
       In all search keys that use strings, a message matches the key if
@@ -2330,18 +2330,18 @@ IMAP4 Protocol Specification
 
       The COPY command copies the specified message(s) to the specified
       destination mailbox.  The flags and internal date of the
-      message(s) SHOULD be preserved in the copy.
+      message(s) <em>SHOULD</em> be preserved in the copy.
 
-      If the destination mailbox does not exist, a server SHOULD return
-      an error.  It SHOULD NOT automatically create the mailbox.  Unless
+      If the destination mailbox does not exist, a server <em>SHOULD</em> return
+      an error.  It <em>SHOULD NOT</em> automatically create the mailbox.  Unless
       it is certain that the destination mailbox can not be created, the
-      server MUST send the response code "[TRYCREATE]" as the prefix of
+      server <em>MUST</em> send the response code "[TRYCREATE]" as the prefix of
       the text of the tagged NO response.  This gives a hint to the
       client that it can attempt a CREATE command and retry the COPY if
       the CREATE is successful.
 
       If the COPY command is unsuccessful for any reason, server
-      implementations MUST restore the destination mailbox to its state
+      implementations <em>MUST</em> restore the destination mailbox to its state
       before the COPY attempt.
 
    Example:    C: A003 COPY 2:4 MEETING
@@ -2394,7 +2394,7 @@ IMAP4 Protocol Specification
       value, which is sent in an UIDVALIDITY response code in an OK
       untagged response at message selection time.  If unique
       identifiers from an earlier session fail to persist to this
-      session, the unique identifier validity value MUST be greater than
+      session, the unique identifier validity value <em>MUST</em> be greater than
       in the earlier session.
 
            Note: An example of a good value to use for the unique
@@ -2414,7 +2414,7 @@ IMAP4 Protocol Specification
 
       The number after the "*" in an untagged FETCH response is always a
       message sequence number, not a unique identifier, even for a UID
-      command response.  However, server implementations MUST implicitly
+      command response.  However, server implementations <em>MUST</em> implicitly
       include the UID message data item as part of any FETCH response
       caused by a UID command, regardless of whether UID was specified
       as a message data item to the FETCH.
@@ -2451,11 +2451,11 @@ IMAP4 Protocol Specification
 
       Any command prefixed with an X is an experimental command.
       Commands which are not part of this specification, or a standard
-      or standards-track revision of this specification, MUST use the X
+      or standards-track revision of this specification, <em>MUST</em> use the X
       prefix.
 
       Any added untagged responses issued by an experimental command
-      MUST also be prefixed with an X.  Server implementations MUST NOT
+      <em>MUST</em> also be prefixed with an X.  Server implementations <em>MUST NOT</em>
       send any such untagged responses, unless the client requested it
       by issuing the associated experimental command.
 
@@ -2494,7 +2494,7 @@ IMAP4 Protocol Specification
    precise syntax of server response data is described in the Formal
    Syntax section.
 
-   The client MUST be prepared to accept any response at all times.
+   The client <em>MUST</em> be prepared to accept any response at all times.
 
    Status responses that are tagged indicate the completion result of a
    client command, and have a tag matching the command.
@@ -2507,16 +2507,16 @@ IMAP4 Protocol Specification
    data", although strictly speaking only unilateral server data is
    truly "unsolicited".
 
-   Certain server data MUST be recorded by the client when it is
+   Certain server data <em>MUST</em> be recorded by the client when it is
    received; this is noted in the description of that data.  Such data
    conveys critical information which affects the interpretation of all
    subsequent commands and responses (e.g. updates reflecting the
    creation or destruction of messags).
 
-   Other server data SHOULD be recorded for later reference; if the
+   Other server data <em>SHOULD</em> be recorded for later reference; if the
    client does not need to record the data, or if recording the data has
    no obvious purpose (e.g. a SEARCH response when no SEARCH command is
-   in progress), the data SHOULD be ignored.
+   in progress), the data <em>SHOULD</em> be ignored.
 
    An example of unilateral untagged responses occurs when the IMAP
    connection is in selected state.  In selected state, the server
@@ -2553,7 +2553,7 @@ IMAP4 Protocol Specification
    The currently defined response codes are:
 
       ALERT          The human-readable text contains a special alert
-                     that MUST be presented to the user in a fashion
+                     that <em>MUST</em> be presented to the user in a fashion
                      that calls the user's attention to the message.
 
       PARSE          The human-readable text represents an error in
@@ -2742,16 +2742,16 @@ IMAP4 Protocol Specification
       The CAPABILITY response occurs as a result of a CAPABILITY
       command.  The capability listing contains a space-separated
       listing of capability names that the server supports.  The first
-      name in the capability listing MUST be the atom "IMAP4".
+      name in the capability listing <em>MUST</em> be the atom "IMAP4".
 
       A capability name other than IMAP4 indicates that the server
       supports an extension, revision, or amendment to the IMAP4
-      protocol.  Server responses MUST conform to this document until
+      protocol.  Server responses <em>MUST</em> conform to this document until
       the client issues a command that uses the associated capability.
 
-      Capability names MUST either begin with "X" or be standard or
+      Capability names <em>MUST</em> either begin with "X" or be standard or
       standards-track IMAP4 extensions, revisions, or amendments
-      registered with IANA.  A server MUST NOT offer unregistered or
+      registered with IANA.  A server <em>MUST NOT</em> offer unregistered or
       non-standard capability names, unless such names are prefixed with
       an "X".
 
@@ -2764,8 +2764,8 @@ IMAP4 Protocol Specification
 <span class="grey"><a href="./rfc1730.html">RFC 1730</a>                         IMAP4                     December 1994</span>
 
 
-      Client implementations SHOULD NOT require any capability name
-      other than "IMAP4", and MUST ignore any unknown capability names.
+      Client implementations <em>SHOULD NOT</em> require any capability name
+      other than "IMAP4", and <em>MUST</em> ignore any unknown capability names.
 
    Example:    S: * CAPABILITY IMAP4 XPIG-LATIN
 
@@ -2821,7 +2821,7 @@ IMAP4 Protocol Specification
 
 
       The name represents an unambiguous left-to-right hierarchy, and
-      MUST be valid for use as a reference in LIST and LSUB commands.
+      <em>MUST</em> be valid for use as a reference in LIST and LSUB commands.
       Unless \Noselect is indicated, the name must also be valid as an
       argument for commands, such as SELECT, that accept mailbox names.
 
@@ -2865,7 +2865,7 @@ IMAP4 Protocol Specification
       mailbox.  Flags other than the system flags may also exist,
       depending on server implementation.
 
-      The update from the FLAGS response MUST be recorded by the client.
+      The update from the FLAGS response <em>MUST</em> be recorded by the client.
 
    Example:    S: * FLAGS (\Answered \Flagged \Deleted \Seen \Draft)
 
@@ -2892,7 +2892,7 @@ IMAP4 Protocol Specification
       This response occurs as a result of a SELECT or EXAMINE command,
       and if the size of the mailbox changes (e.g. new mail).
 
-      The update from the EXISTS response MUST be recorded by the
+      The update from the EXISTS response <em>MUST</em> be recorded by the
       client.
 
    Example:    S: * 23 EXISTS
@@ -2907,7 +2907,7 @@ IMAP4 Protocol Specification
       mailbox.  This response occurs as a result of a SELECT or EXAMINE
       command, and if the size of the mailbox changes (e.g. new mail).
 
-      The update from the RECENT response MUST be recorded by the
+      The update from the RECENT response <em>MUST</em> be recorded by the
       client.
 
    Example:    S: * 5 RECENT
@@ -2942,13 +2942,13 @@ IMAP4 Protocol Specification
       a "higher to lower server" will send successive untagged EXPUNGE
       responses for message sequence numbers 9, 8, 7, 6, and 5.
 
-      An EXPUNGE response MUST NOT be sent when no command is in
+      An EXPUNGE response <em>MUST NOT</em> be sent when no command is in
       progress; nor while responding to a FETCH, STORE, or SEARCH
       command.  This rule is necessary to prevent a loss of
       synchronization of message sequence numbers between client and
       server.
 
-      The update from the EXPUNGE response MUST be recorded by the
+      The update from the EXPUNGE response <em>MUST</em> be recorded by the
       client.
 
    Example:    S: * 44 EXPUNGE
@@ -3024,8 +3024,8 @@ IMAP4 Protocol Specification
                      may consist of zero or more NILs, strings, numbers,
                      or potentially nested parenthesized lists of such
                      data.  Client implementations that do a
-                     BODYSTRUCTURE fetch MUST be prepared to accept such
-                     extension data.  Server implementations MUST NOT
+                     BODYSTRUCTURE fetch <em>MUST</em> be prepared to accept such
+                     extension data.  Server implementations <em>MUST NOT</em>
                      send such extension data until it has been defined
                      by a revision of this protocol.
 
@@ -3228,7 +3228,7 @@ IMAP4 Protocol Specification
 <span class="h4"><a class="selflink" name="section-7.3.5" href="#section-7.3.5">7.3.5</a>.  Obsolete Responses</span>
 
    In addition to the responses listed in here, client implementations
-   MUST accept and implement the obsolete responses described in
+   <em>MUST</em> accept and implement the obsolete responses described in
    <a href="#appendix-B">Appendix B</a>.
 
 
@@ -3334,11 +3334,11 @@ IMAP4 Protocol Specification
    Except as noted otherwise, all alphabetic characters are
    case-insensitive.  The use of upper or lower case characters to
    define token strings is for editorial clarity only.  Implementations
-   MUST accept these strings in a case-insensitive fashion.
+   <em>MUST</em> accept these strings in a case-insensitive fashion.
 
    Syntax marked as obsolete may be encountered with implementations
    written for an earlier version of this protocol (e.g. IMAP2).  New
-   implementations SHOULD accept obsolete syntax as input, but MUST NOT
+   implementations <em>SHOULD</em> accept obsolete syntax as input, but <em>MUST NOT</em>
    otherwise use such syntax.
 
    address         ::= "(" addr_name SPACE addr_adl SPACE addr_mailbox
@@ -3401,18 +3401,18 @@ IMAP4 Protocol Specification
 
    body_extension  ::= nstring / number / "(" 1#body_extension ")"
                        ;; Future expansion.  Client implementations
-                       ;; MUST accept body_extension fields.  Server
-                       ;; implementations MUST NOT generate
+                       ;; <em>MUST</em> accept body_extension fields.  Server
+                       ;; implementations <em>MUST NOT</em> generate
                        ;; body_extension fields except as defined by
                        ;; future standard or standards-track
                        ;; revisions of this specification.
 
    body_ext_1part  ::= body_fld_md5 [SPACE 1#body_extension]
-                       ;; MUST NOT be returned on non-extensible
+                       ;; <em>MUST NOT</em> be returned on non-extensible
                        ;; "BODY" fetch
 
    body_ext_mpart  ::= body_fld_param [SPACE 1#body_extension]]
-                       ;; MUST NOT be returned on non-extensible
+                       ;; <em>MUST NOT</em> be returned on non-extensible
                        ;; "BODY" fetch
 
    body_fields     ::= body_fld_param SPACE body_fld_id SPACE
@@ -3450,7 +3450,7 @@ IMAP4 Protocol Specification
    body_type_basic ::= (&lt;"&gt; ("APPLICATION" / "AUDIO" / "IMAGE" /
                        "MESSAGE" / "VIDEO") &lt;"&gt;) / string) SPACE
                        body_fld_subtyp SPACE body_fields
-                       ;; MESSAGE subtype MUST NOT be "<a href="./rfc822.html">RFC822</a>"
+                       ;; MESSAGE subtype <em>MUST NOT</em> be "<a href="./rfc822.html">RFC822</a>"
 
    body_type_mpart ::= 1*body SPACE body_fld_subtyp
                        [SPACE body_ext_mpart]
@@ -3610,8 +3610,8 @@ IMAP4 Protocol Specification
 
    flag_extension  ::= "\" atom
                        ;; Future expansion.  Client implementations
-                       ;; MUST accept flag_extension flags.  Server
-                       ;; implementations MUST NOT generate
+                       ;; <em>MUST</em> accept flag_extension flags.  Server
+                       ;; implementations <em>MUST NOT</em> generate
                        ;; flag_extension flags except as defined by
                        ;; future standard or standards-track
                        ;; revisions of this specification.
@@ -4167,7 +4167,7 @@ A.6.3.OBS.4.    UNSUBSCRIBE MAILBOX Command
 <span class="h2"><a class="selflink" name="appendix-B" href="#appendix-B">B</a>.      Obsolete Responses</span>
 
    The following responses are OBSOLETE.  Except as noted below, these
-   responses MUST NOT be transmitted by new server implementations.
+   responses <em>MUST NOT</em> be transmitted by new server implementations.
 
    The section headings of these responses are intended to correspond
    with where they would be located in the main document if they were
@@ -4178,10 +4178,10 @@ B.7.2.OBS.1.    MAILBOX Response
 
    Data:       name
 
-      The MAILBOX response MUST NOT be transmitted by server
+      The MAILBOX response <em>MUST NOT</em> be transmitted by server
       implementations except in response to the obsolete FIND MAILBOXES
       and FIND ALL.MAILBOXES commands.  Client implementations that do
-      not use these commands MAY ignore this response.  It is documented
+      not use these commands <em>MAY</em> ignore this response.  It is documented
       here for the benefit of implementors who may wish to support it
       for compatibility with old client implementations.
 
@@ -4197,8 +4197,8 @@ B.7.3.OBS.1.    COPY Response
 
    Data:       none
 
-      The COPY response MUST NOT be transmitted by new server
-      implementations.  Client implementations MUST ignore the COPY
+      The COPY response <em>MUST NOT</em> be transmitted by new server
+      implementations.  Client implementations <em>MUST</em> ignore the COPY
       response.  It is documented here for the benefit of client
       implementors who may encounter this response from old server
       implementations.
@@ -4224,8 +4224,8 @@ B.7.3.OBS.2.    STORE Response
 
    Data:       message data
 
-      The STORE response MUST NOT be transmitted by new server
-      implementations.  Client implementations MUST treat the STORE
+      The STORE response <em>MUST NOT</em> be transmitted by new server
+      implementations.  Client implementations <em>MUST</em> treat the STORE
       response as equivalent to the FETCH response.  It is documented
       here for the benefit of client implementors who may encounter this
       response from old server implementations.

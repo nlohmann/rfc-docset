@@ -33,7 +33,18 @@ def copy_rfcs():
         rfc_original = open(rfc_file)
         rfc_output = open('rfc.docset/Contents/Resources/Documents/%s' % os.path.basename(rfc_file), 'w')
         for l in rfc_original.readlines():
-            rfc_output.write(re.sub(r'href="./([^"#]+)', r'href="./\1.html', l))
+            l = re.sub(r'href="./([^"#]+)', r'href="./\1.html', l)
+            l = re.sub(r'MUST', '<em>MUST</em>', l)
+            l = re.sub(r'<em>MUST</em> NOT', '<em>MUST NOT</em>', l)
+            l = re.sub(r'SHALL', '<em>SHALL</em>', l)
+            l = re.sub(r'<em>SHALL</em> NOT', '<em>SHALL NOT</em>', l)
+            l = re.sub(r'SHOULD', '<em>SHOULD</em>', l)
+            l = re.sub(r'<em>SHOULD</em> NOT', '<em>SHOULD NOT</em>', l)
+            l = re.sub(r'RECOMMENDED', '<em>RECOMMENDED</em>', l)
+            l = re.sub(r'MAY', '<em>MAY</em>', l)
+            l = re.sub(r'OPTIONAL', '<em>OPTIONAL</em>', l)
+            l = re.sub(r'REQUIRED', '<em>REQUIRED</em>', l)
+            rfc_output.write(l)
 
 def create_index():
     conn = sqlite3.connect('rfc.docset/Contents/Resources/docSet.dsidx')

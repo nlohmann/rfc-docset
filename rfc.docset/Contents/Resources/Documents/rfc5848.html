@@ -403,7 +403,7 @@ Table of Contents
 
    Because the mechanism that is described in this specification uses
    the concept of STRUCTURED-DATA elements defined in [<a href="./rfc5424.html" title="&quot;The syslog Protocol&quot;">RFC5424</a>],
-   compliant implementations of this specification MUST also implement
+   compliant implementations of this specification <em>MUST</em> also implement
    [<a href="./rfc5424.html" title="&quot;The syslog Protocol&quot;">RFC5424</a>].  It is conceivable that the concepts underlying this
 
 
@@ -420,28 +420,28 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Syslog Message Format</span>
 
    This specification is intended to be used in conjunction with the
    syslog protocol as defined in [<a href="./rfc5424.html" title="&quot;The syslog Protocol&quot;">RFC5424</a>].  The syslog protocol
-   therefore MUST be supported by implementations of this specification.
+   therefore <em>MUST</em> be supported by implementations of this specification.
 
    Because the originator generating the Signature Block message, also
    simply referred to as "signer", signs each message in its entirety,
-   the messages MUST NOT be changed in transit.  By the same token, the
-   syslog-sign messages MUST NOT be changed in transit.  One of the
+   the messages <em>MUST NOT</em> be changed in transit.  By the same token, the
+   syslog-sign messages <em>MUST NOT</em> be changed in transit.  One of the
    effects of such behavior, including message alteration by relays,
    would be to render any signing invalid and hence make the mechanism
    useless.  Likewise, any truncation of messages that occurs between
    sending and receiving renders the mechanism useless.  For this
    reason, syslog signer and collector implementations implementing this
-   specification MUST support messages of up to and including 2048
+   specification <em>MUST</em> support messages of up to and including 2048
    octets in length, in order to minimize the chance of truncation.
-   While syslog signer and collector implementations MAY support
+   While syslog signer and collector implementations <em>MAY</em> support
    messages with a length longer than 2048 octets, implementers need to
    be aware that any message truncations that occur render the mechanism
    useless.  In such cases, it is up to the operator to ensure that the
@@ -449,7 +449,7 @@ Table of Contents
 
    [<a name="ref-RFC5426" id="ref-RFC5426">RFC5426</a>] recommends using the Transport Layer Security (TLS)
    transport and deliberately constrains the use of UDP.  UDP is NOT
-   RECOMMENDED for use with signed syslog because its recommended
+   <em>RECOMMENDED</em> for use with signed syslog because its recommended
    payload size of 480 octets is too restrictive for the purposes of
    syslog-sign.  A 480-octet Signature Block could sign only 9 normal
    messages, meaning that at a significant proportion of messages would
@@ -486,7 +486,7 @@ Table of Contents
    Data.  For this purpose, the special syslog messages defined in this
    document include definitions of SDEs to convey parameters that relate
    to the signing of syslog messages.  The MSG part of the syslog
-   messages defined in this document SHOULD simply be empty -- the
+   messages defined in this document <em>SHOULD</em> simply be empty -- the
    content of the messages is not intended for interpretation by humans
    but by applications that use those messages to build an authenticated
    log.
@@ -498,15 +498,15 @@ Table of Contents
    additional parameter to identify the machine that originates the
    message.
 
-   In addition, several signers MAY sign messages on a single host
+   In addition, several signers <em>MAY</em> sign messages on a single host
    independently of each other, each using their own Signature Groups.
    In that case, each unique signer is distinguished by the combination
    of APP-NAME and PROCID.  (By the same token, the same message might
-   be signed by multiple signers.)  Each unique signer MUST have a
+   be signed by multiple signers.)  Each unique signer <em>MUST</em> have a
    unique APP-NAME and PROCID on each host.  (This implies that the
    combination of HOSTNAME, APP-NAME and PROCID uniquely distinguishes
    the originator of syslog-sign messages, provided that the signers use
-   a unique HOSTNAME.)  A Signature Block message MUST use the same
+   a unique HOSTNAME.)  A Signature Block message <em>MUST</em> use the same
    combination of HOSTNAME, APP-NAME, and PROC-ID that was used to send
    the corresponding Certificate Block messages containing the Payload
    Block.
@@ -529,35 +529,35 @@ Table of Contents
 
    There is a need to distinguish the Signature Block itself from the
    syslog message that is used to carry a Signature Block.  Signature
-   Blocks MUST be encompassed within completely formed syslog messages.
+   Blocks <em>MUST</em> be encompassed within completely formed syslog messages.
    Syslog messages that contain a Signature Block are also referred to
    as Signature Block messages.
 
    A Signature Block message is identified by the presence of an SD
    ELEMENT with an SD-ID with the value "ssign".  In addition, a
-   Signature Block message MUST contain valid APP-NAME, PROCID, and
+   Signature Block message <em>MUST</em> contain valid APP-NAME, PROCID, and
    MSGID fields to be compliant with [<a href="./rfc5424.html" title="&quot;The syslog Protocol&quot;">RFC5424</a>].  This specification does
    not mandate particular values for these fields; however, for
-   consistency, a signer MUST use the same values for APP-NAME, PROCID,
+   consistency, a signer <em>MUST</em> use the same values for APP-NAME, PROCID,
    and MSGID fields for every Signature Block message that is sent,
-   whichever values are chosen.  It MUST also use the same value for its
+   whichever values are chosen.  It <em>MUST</em> also use the same value for its
    HOSTNAME field.  To allow for the possibility of multiple signers per
-   host, the combination of APP-NAME and PROCID MUST be unique for each
+   host, the combination of APP-NAME and PROCID <em>MUST</em> be unique for each
    such signer on any given host.  If a signer daemon is restarted, it
-   MAY use a new PROCID for what is otherwise the same signer but MUST
-   continue to use the same APP-NAME.  If it uses a new PROCID, it MUST
+   <em>MAY</em> use a new PROCID for what is otherwise the same signer but <em>MUST</em>
+   continue to use the same APP-NAME.  If it uses a new PROCID, it <em>MUST</em>
    send a new Payload Block using Certificate Block messages that use
-   the same new PROCID (and the same APP-NAME).  It is RECOMMENDED (but
+   the same new PROCID (and the same APP-NAME).  It is <em>RECOMMENDED</em> (but
    not required) to use 110 as value for the PRI field, corresponding to
    facility 13 (log audit) and severity 6 (informational).  The
    Signature Block is carried as Structured Data within the Signature
    Block message, per the definitions that follow in the next section.
-   A Signature Block message MAY carry other Structured Data besides the
+   A Signature Block message <em>MAY</em> carry other Structured Data besides the
    Structured Data of the Signature Block itself.  The MSG part of a
-   Signature Block message SHOULD be empty.
+   Signature Block message <em>SHOULD</em> be empty.
 
    The syslog messages defined as part of syslog-sign themselves
-   (Signature Block messages and Certificate Block messages) MUST NOT be
+   (Signature Block messages and Certificate Block messages) <em>MUST NOT</em> be
    signed by a Signature Block.  Collectors that implement syslog-sign
    know to distinguish syslog messages that are associated with syslog-
    sign from those that are subjected to signing and process them
@@ -567,10 +567,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Signature Block Format and Fields</span>
 
    The content of a Signature Block message is the Signature Block
-   itself.  The Signature Block MUST be encoded as an SD ELEMENT, as
+   itself.  The Signature Block <em>MUST</em> be encoded as an SD ELEMENT, as
    defined in [<a href="./rfc5424.html" title="&quot;The syslog Protocol&quot;">RFC5424</a>].
 
-   The SD-ID MUST have the value of "ssign".
+   The SD-ID <em>MUST</em> have the value of "ssign".
 
 
 
@@ -583,8 +583,8 @@ Table of Contents
 
    The SDE contains the fields of the Signature Block encoded as SD
    Parameters, as specified in the following.  The Signature Block is
-   composed of the following fields.  The value of each field MUST be
-   printable ASCII, and any binary values MUST be base64 encoded, as
+   composed of the following fields.  The value of each field <em>MUST</em> be
+   printable ASCII, and any binary values <em>MUST</em> be base64 encoded, as
    defined in [<a href="./rfc4648.html" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">RFC4648</a>].
 
       Field                     SD-PARAM-NAME        Size in octets
@@ -611,9 +611,9 @@ Table of Contents
       Signature                       SIGN             variable
                                                (base64 encoded binary)
 
-   The fields MUST be provided in the order listed.  Each SD parameter
-   MUST occur once and only once in the Signature Block.  New SD
-   parameters MUST NOT be added unless a new Version of the protocol is
+   The fields <em>MUST</em> be provided in the order listed.  Each SD parameter
+   <em>MUST</em> occur once and only once in the Signature Block.  New SD
+   parameters <em>MUST NOT</em> be added unless a new Version of the protocol is
    defined.  (Implementations that wish to add proprietary extensions
    will need to define a separate SD ELEMENT.)  A Signature Block is
    accordingly encoded as follows, where xxx denotes a placeholder for
@@ -680,7 +680,7 @@ Table of Contents
    the prerequisites are in place so that signed messages can be
    received by the receiver and validated with a Signature Block.  To
    ensure immediate validation of received messages, all implementations
-   MUST support SHA1, and SHA256 SHOULD be supported.
+   <em>MUST</em> support SHA1, and SHA256 <em>SHOULD</em> be supported.
 
 
 
@@ -697,7 +697,7 @@ Table of Contents
 
    The Reboot Session ID is a decimal value that has a length between 1
    and 10 octets.  The acceptable values for this are between 0 and
-   9999999999.  Leading zeroes MUST be omitted.
+   9999999999.  Leading zeroes <em>MUST</em> be omitted.
 
    A Reboot Session ID is expected to strictly monotonically increase
    (i.e., to never repeat or decrease) whenever a signer reboots in
@@ -719,17 +719,17 @@ Table of Contents
 
    In cases where a signer is not able to guarantee that the Reboot
    Session ID is always increased after a reboot, the Reboot Session ID
-   MUST always be set to a value of 0.  If the value can no longer be
-   increased (e.g., because it reaches 9999999999), it SHOULD be reset
-   to a value of 1.  Implementations SHOULD ensure that such a reset
+   <em>MUST</em> always be set to a value of 0.  If the value can no longer be
+   increased (e.g., because it reaches 9999999999), it <em>SHOULD</em> be reset
+   to a value of 1.  Implementations <em>SHOULD</em> ensure that such a reset
    does not go undetected, for example, by requesting operator
    acknowledgment when a reset is performed upon reboot.  (Operator
    acknowledgment may not be possible in all situations, e.g., in the
    case of embedded devices.)
 
-   If a reboot of a signer takes place, Signature Block messages MAY use
+   If a reboot of a signer takes place, Signature Block messages <em>MAY</em> use
    a new PROCID.  However, Signature Block messages of the same signer
-   MUST continue to use the same HOSTNAME, APP-NAME, and MSGID.
+   <em>MUST</em> continue to use the same HOSTNAME, APP-NAME, and MSGID.
 
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  Signature Group and Signature Priority</span>
 
@@ -779,8 +779,8 @@ Table of Contents
        also be going to that same destination.  Signature Blocks contain
        signatures for all messages regardless of their PRI value.  This
        means that, in effect, the Signature Block's SPRI value can be
-       ignored.  However, it is RECOMMENDED that a single SPRI value be
-       used for all Signature Blocks.  Furthermore, it is RECOMMENDED to
+       ignored.  However, it is <em>RECOMMENDED</em> that a single SPRI value be
+       used for all Signature Blocks.  Furthermore, it is <em>RECOMMENDED</em> to
        set that value to the same value as the PRI field of the
        Signature Block message.  This way, the PRI of the Signature
        Block message matches the SPRI of the Signature Block that it
@@ -834,7 +834,7 @@ Table of Contents
        collector could misinterpret the intended meaning of the
        Signature Group.  A collector that receives Signature Block
        messages of a Signature Group of whose scheme it is not aware
-       SHOULD bring this fact to the attention of the system
+       <em>SHOULD</em> bring this fact to the attention of the system
        administrator.  The particular mechanism used for that is
        implementation-specific and outside the scope of this
        specification.
@@ -872,14 +872,14 @@ Table of Contents
    this reboot session.  This takes at least 1 octet and at most 10
    octets displayed as a decimal counter.  The acceptable values for
    this are between 0 and 9999999999, starting with 0.  Leading zeroes
-   MUST be omitted.  If the value of the Global Block Counter has
+   <em>MUST</em> be omitted.  If the value of the Global Block Counter has
    reached 9999999999 and the Reboot Session ID has a value other than 0
    (indicating the fact that persistence of the Reboot Session ID is
-   supported), then the Reboot Session ID MUST be incremented by 1 and
+   supported), then the Reboot Session ID <em>MUST</em> be incremented by 1 and
    the Global Block Counter resumes at 0.  When the Reboot Session ID is
    0 (i.e., persistent Reboot Session IDs are not supported) and the
    Global Block Counter reaches its maximum value, then the Global Block
-   Counter is reset to 0 and the Reboot Session ID MUST remain at 0.
+   Counter is reset to 0 and the Reboot Session ID <em>MUST</em> remain at 0.
 
    Note that the Global Block Counter crosses Signature Groups; it
    allows one to roughly synchronize when two messages were sent, even
@@ -887,7 +887,7 @@ Table of Contents
    Signature Groups.
 
    Because a reboot results in the start of a new reboot session, the
-   signer MUST reset the Global Block Counter to 0 after a reboot
+   signer <em>MUST</em> reset the Global Block Counter to 0 after a reboot
    occurs.  Applications need to take into account the possibility that
    a reboot occurred when authenticating a log, and situations in which
    reboots occur frequently may result in losing the ability to verify
@@ -927,7 +927,7 @@ Table of Contents
    The count is a 1- or 2-octet field that indicates the number of
    message hashes to follow.  The valid values for this field are 1
    through 99.  The number of hashes included in the Signature Block
-   MUST be chosen such that the length of the resulting syslog message
+   <em>MUST</em> be chosen such that the length of the resulting syslog message
    does not exceed the maximum permissible syslog message length.
 
 <span class="h4"><a class="selflink" name="section-4.2.7" href="#section-4.2.7">4.2.7</a>.  Hash Block</span>
@@ -938,8 +938,8 @@ Table of Contents
    transport.  Hashes are ordered from left to right in the order of
    occurrence of the syslog messages that they represent.  The space
    character is used to separate the hashes.  Note, the hash block
-   constitutes a single SD-PARAM; a Signature Block message MUST include
-   all its hashes in a single hash block and MUST NOT spread its hashes
+   constitutes a single SD-PARAM; a Signature Block message <em>MUST</em> include
+   all its hashes in a single hash block and <em>MUST NOT</em> spread its hashes
    across several hash blocks.
 
    The "entire syslog message" refers to what is described as the syslog
@@ -949,10 +949,10 @@ Table of Contents
    algorithm run across the syslog message, starting with the "&lt;" of the
    PRI portion of the header part of the message.  The hash algorithm
    used and indicated by the Version field determines the size of each
-   hash, but the size MUST NOT be shorter than 160 bits without the use
+   hash, but the size <em>MUST NOT</em> be shorter than 160 bits without the use
    of padding.  It is base64 encoded as per [<a href="./rfc4648.html" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">RFC4648</a>].
 
-   The number of hashes in a hash block SHOULD be chosen such that the
+   The number of hashes in a hash block <em>SHOULD</em> be chosen such that the
    resulting Signature Block message does not exceed a length of 2048
    octets in order to avoid the possibility that truncation occurs.
    When more hashes need to be sent than fit inside a Signature Block
@@ -1057,7 +1057,7 @@ Table of Contents
        signer and collector (or offline log viewer) both have some key
        material (such as a root public key or pre-distributed public
        key) and an acceptable value for the Key Blob Type in the Payload
-       Block, below.  The collector or offline log viewer MUST NOT
+       Block, below.  The collector or offline log viewer <em>MUST NOT</em>
        accept a Payload Block of the wrong type.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Payload Block</span>
@@ -1069,7 +1069,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-5.2.1" href="#section-5.2.1">5.2.1</a>.  Block Format and Fields</span>
 
-   A Payload Block MUST have the following fields:
+   A Payload Block <em>MUST</em> have the following fields:
 
    a.  Full local timestamp for the signer at the time the reboot
        session started.  This must be in the timestamp format specified
@@ -1120,12 +1120,12 @@ Table of Contents
 
    To ensure that the sender and receiver have at least one common Key
    Blob Type, for immediate validation of received messages, all
-   implementations MUST support Key Blob Type "C" (PKIX certificate).
+   implementations <em>MUST</em> support Key Blob Type "C" (PKIX certificate).
    When a PKIX certificate is used ("C" Key Blob Type), it is the
    certificate specified in [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>].  Per [<a href="./rfc5425.html" title="&quot;TLS Transport Mapping for syslog&quot;">RFC5425</a>], syslog messages
    may be transported over the TLS protocol, even where there is no PKI.
    If that transport is used, then the device will already have a PKIX
-   certificate, and it MAY use the private key associated with that
+   certificate, and it <em>MAY</em> use the private key associated with that
    certificate to sign messages.  In the case where there is no PKI, the
    chain of trust of a PKIX certificate must still be established to
    meet conventional security requirements.  The methods for doing this
@@ -1158,7 +1158,7 @@ Table of Contents
        described in <a href="./rfc5425.html#section-5.2">[RFC5425], Section&nbsp;5.2</a>.  Comparing other forms of
        HOSTNAMEs is beyond the scope of this specification.
 
-       Collectors SHOULD support this method.  Note that due to message
+       Collectors <em>SHOULD</em> support this method.  Note that due to message
        size restrictions, syslog-sign sends only the end-entity
        certificate in the Payload Block.  Depending on the PKI
        deployment, the collector may need to obtain intermediate
@@ -1169,25 +1169,25 @@ Table of Contents
        entity certificates of its valid peers, and for each peer, the
        HOSTNAME(s) it is authorized to use.
 
-       To ensure interoperability, collectors MUST support fingerprints
-       of X.509 certificates as described below.  Other methods MAY be
+       To ensure interoperability, collectors <em>MUST</em> support fingerprints
+       of X.509 certificates as described below.  Other methods <em>MAY</em> be
        supported.
 
-       Collectors MUST support Key Blob Type 'C', and configuring the
+       Collectors <em>MUST</em> support Key Blob Type 'C', and configuring the
        list of valid peers using certificate fingerprints.  The
        fingerprint is calculated and formatted as specified in
        <a href="./rfc5425.html#section-4.2.2">[RFC5425], Section&nbsp;4.2.2</a>.
 
-       For each peer, the collector MUST support configuring a list of
+       For each peer, the collector <em>MUST</em> support configuring a list of
        HOSTNAMEs that this peer is allowed to use either as FQDNs or IP
        addresses.  Other forms of HOSTNAMEs are beyond the scope of this
        specification.
 
        If the locally configured FQDN is an internationalized domain
-       name, conforming implementations MUST convert it to the ASCII
+       name, conforming implementations <em>MUST</em> convert it to the ASCII
        Compatible Encoding (ACE) format for performing comparisons as
        specified in <a href="./rfc5280.html#section-7">Section&nbsp;7 of [RFC5280]</a>.  An exact case-insensitive
-       string match MUST be supported, but the implementation MAY also
+       string match <em>MUST</em> be supported, but the implementation <em>MAY</em> also
 
 
 
@@ -1200,9 +1200,9 @@ Table of Contents
        support wildcards of any type ("*", regular expressions, etc.) in
        locally configured names.
 
-       Signer implementations MUST provide a means to generate a key
+       Signer implementations <em>MUST</em> provide a means to generate a key
        pair and self-signed certificate in the case that a key pair and
-       certificate are not available through another mechanism, and MUST
+       certificate are not available through another mechanism, and <em>MUST</em>
        make the certificate fingerprint available through a management
        interface.
 
@@ -1214,7 +1214,7 @@ Table of Contents
        every second byte.  For example: "0830 2A52 2CD1 D712 6E76 6EEC
        32A5 CAE1 03C8 4F6E".
 
-       Signers and collectors MAY support this method.
+       Signers and collectors <em>MAY</em> support this method.
 
    Other methods, such as "web of trust", are beyond the scope of this
    document.
@@ -1237,13 +1237,13 @@ Table of Contents
    Because certificates can legitimately be much longer than 2048
    octets, the Payload Block can be split up into several pieces, with
    each Certificate Block carrying a piece of the Payload Block.  Note
-   that the signer MAY make the Certificate Blocks of any legal length
+   that the signer <em>MAY</em> make the Certificate Blocks of any legal length
    (that is, any length that keeps the entire Certificate Block message
    within 2048 octets) that holds all the required fields.  Software
-   that processes Certificate Blocks MUST deal correctly with blocks of
+   that processes Certificate Blocks <em>MUST</em> deal correctly with blocks of
    any legal length.  The length of the fragment of the Payload Block
-   that a Certificate Block carries MUST be at least one octet.  The
-   length SHOULD be chosen such that the length of the Certificate Block
+   that a Certificate Block carries <em>MUST</em> be at least one octet.  The
+   length <em>SHOULD</em> be chosen such that the length of the Certificate Block
    message does not exceed 2048 octets.
 
 
@@ -1255,25 +1255,25 @@ Table of Contents
 
    A Certificate Block message is identified by the presence of an SD
    ELEMENT with an SD-ID with the value "ssign-cert".  In addition, a
-   Certificate Block message MUST contain valid APP-NAME, PROCID, and
+   Certificate Block message <em>MUST</em> contain valid APP-NAME, PROCID, and
    MSGID fields to be compliant with syslog protocol.  Syslog-sign does
    not mandate particular values for these fields; however, for
-   consistency, a signer MUST use the same value for APP-NAME, PROCID,
+   consistency, a signer <em>MUST</em> use the same value for APP-NAME, PROCID,
    and MSGID fields for every Certificate Block message, whichever
-   values are chosen.  It MUST also use the same value for its HOSTNAME
+   values are chosen.  It <em>MUST</em> also use the same value for its HOSTNAME
    field.  To allow for the possibility of multiple signers per host,
-   the combination of APP-NAME and PROCID MUST be unique for each such
-   originator.  If a signer daemon is restarted, it MAY use a new PROCID
+   the combination of APP-NAME and PROCID <em>MUST</em> be unique for each such
+   originator.  If a signer daemon is restarted, it <em>MAY</em> use a new PROCID
    for what is otherwise the same signer.  The combination of APP-NAME
-   and PROCID MUST be the same that is used for Signature Block messages
-   of the same signer; however, a different MSGID MAY be used for
-   Signature Block and Certificate Block messages.  It is RECOMMENDED to
+   and PROCID <em>MUST</em> be the same that is used for Signature Block messages
+   of the same signer; however, a different MSGID <em>MAY</em> be used for
+   Signature Block and Certificate Block messages.  It is <em>RECOMMENDED</em> to
    use 110 as the value for the PRI field, corresponding to facility 13
    (log audit) and severity 6 (informational).  The Certificate Block is
    carried as Structured Data within the Certificate Block message.  A
-   Certificate Block message MAY carry other Structured Data besides the
+   Certificate Block message <em>MAY</em> carry other Structured Data besides the
    Structured Data of the Certificate Block itself.  The MSG part of a
-   Certificate Block message SHOULD be empty.
+   Certificate Block message <em>SHOULD</em> be empty.
 
 <span class="h4"><a class="selflink" name="section-5.3.2" href="#section-5.3.2">5.3.2</a>.  Certificate Block Format and Fields</span>
 
@@ -1332,8 +1332,8 @@ Table of Contents
        Signature                       SIGN             variable
                                                 (base64 encoded binary)
 
-   The fields MUST be provided in the order listed.  New SD parameters
-   MUST NOT be added unless a new Version of the protocol is defined.
+   The fields <em>MUST</em> be provided in the order listed.  New SD parameters
+   <em>MUST NOT</em> be added unless a new Version of the protocol is defined.
    (Implementations that wish to add proprietary extensions will need to
    define a separate SD ELEMENT.)  A Certificate Block is accordingly
    encoded as follows, where xxx denotes a placeholder for the
@@ -1344,7 +1344,7 @@ Table of Contents
 
    Values of the fields constitute SD parameter values and are hence
    enclosed in quotes, per [<a href="./rfc5424.html" title="&quot;The syslog Protocol&quot;">RFC5424</a>].  The fields are separated by
-   single spaces and are described below.  Each SD parameter MUST occur
+   single spaces and are described below.  Each SD parameter <em>MUST</em> occur
    once and only once.
 
 <span class="h5"><a class="selflink" name="section-5.3.2.1" href="#section-5.3.2.1">5.3.2.1</a>.  Version</span>
@@ -1371,7 +1371,7 @@ Table of Contents
    described in <a href="#section-4.2.3">Section 4.2.3</a>.  The SPRI field is identical in format
    and meaning to the SPRI field described there.
 
-   A signer SHOULD send separate Certificate Block messages for each
+   A signer <em>SHOULD</em> send separate Certificate Block messages for each
    Signature Group.  This ensures that each collector that is associated
    with a Signature Group will receive the necessary key material in the
    case that messages of different Signature Groups are sent to
@@ -1490,17 +1490,17 @@ Table of Contents
    Signature Blocks and in particular the Payload Block at some point in
    time.  In the meantime, any online review of logs as described in
    <a href="#section-7.2">Section 7.2</a> is delayed until the needed blocks are received.  The
-   collector MUST ignore duplicates of Signature Blocks and Certificate
+   collector <em>MUST</em> ignore duplicates of Signature Blocks and Certificate
    Blocks that it has already received and authenticated.  In principle,
    the signer can change its redundancy level for any reason, without
    communicating this fact to the collector.
 
    A signer that is also the originator of messages that it signs does
    not need to queue up other messages while sending redundant
-   Certificate Block and Signature Block messages.  It MAY send
+   Certificate Block and Signature Block messages.  It <em>MAY</em> send
    redundant Certificate Block messages even after Signature Block
    messages and regular syslog messages have been sent.  By the same
-   token, it MAY send redundant Signature Block messages even after
+   token, it <em>MAY</em> send redundant Signature Block messages even after
    newer syslog messages that are signed by a subsequent Signature Block
    have been sent, or even after a subsequent Signature Block message.
 
@@ -1552,28 +1552,28 @@ Table of Contents
    expressed by setting both certResendDelay and certResendCount to "0".
    However, configuring the transport sender to send redundant
    Certificate Blocks even after the first message, in particular when
-   the UDP transport [<a href="./rfc5426.html" title="&quot;Transmission of syslog Messages over UDP&quot;">RFC5426</a>] is used, is RECOMMENDED.
+   the UDP transport [<a href="./rfc5426.html" title="&quot;Transmission of syslog Messages over UDP&quot;">RFC5426</a>] is used, is <em>RECOMMENDED</em>.
 
    In one set of circumstances, the receiver may receive a Certificate
    Block, some group of syslog messages, and some corresponding
    Signature Blocks.  If the receiver reboots after that, then the
    conditions of recovery will vary depending upon the transport.  For
-   UDP [<a href="./rfc5426.html" title="&quot;Transmission of syslog Messages over UDP&quot;">RFC5426</a>], the receiver SHOULD continue to use the cached
-   Certificate Block, but MUST validate the RSID value to make sure that
+   UDP [<a href="./rfc5426.html" title="&quot;Transmission of syslog Messages over UDP&quot;">RFC5426</a>], the receiver <em>SHOULD</em> continue to use the cached
+   Certificate Block, but <em>MUST</em> validate the RSID value to make sure that
    it has the most current one.  If the receiver cannot validate that it
-   has the most current Certificate Block, then it MUST wait for a
+   has the most current Certificate Block, then it <em>MUST</em> wait for a
    retransmission of the Certificate Block, which may be controlled by
    the certResendDelay and certResendCount parameters.  It is up to the
    operators to ensure that Certificate Blocks are sent frequently
    enough to meet this set of circumstances.
 
-   For TLS transport [<a href="./rfc5425.html" title="&quot;TLS Transport Mapping for syslog&quot;">RFC5425</a>], the sender MUST send a fresh Certificate
+   For TLS transport [<a href="./rfc5425.html" title="&quot;TLS Transport Mapping for syslog&quot;">RFC5425</a>], the sender <em>MUST</em> send a fresh Certificate
    Block when a session is established.  This will keep the sender and
    receiver synchronized with the most current Certificate Block.
 
    Implementations that support sending syslog messages of different
    Signature Groups to different collectors and which wish to offer very
-   granular controls MAY allow the above parameters to be configured on
+   granular controls <em>MAY</em> allow the above parameters to be configured on
    a per Signature Group basis.
 
    The choice of reasonable values in a given deployment depends on
@@ -1662,12 +1662,12 @@ Table of Contents
 
    Notwithstanding the fact that the signer is not constrained in
    whether it decides to send redundant Signature Block messages,
-   Signature Blocks SHOULD NOT overlap.  This facilitates their
+   Signature Blocks <em>SHOULD NOT</em> overlap.  This facilitates their
    processing by the receiving collector.  This means that an originator
    of Signature Block messages, after having sent a first message with
-   some First Message Number and a Count, SHOULD NOT send a second
+   some First Message Number and a Count, <em>SHOULD NOT</em> send a second
    message with the same First Message Number but a different Count.  It
-   also means that an originator of Signature Block messages SHOULD NOT
+   also means that an originator of Signature Block messages <em>SHOULD NOT</em>
    send a second message whose First Message Number is greater than the
    First Message Number, but smaller than the First Message Number plus
    the Count indicated in the first message.
@@ -1675,9 +1675,9 @@ Table of Contents
    That said, the possibility of Signature Blocks that overlap does
    provide additional flexibility with regard to redundancy; it provides
    an additional option that may be desirable in some deployments.
-   Therefore, collectors MUST be designed in a way that they can cope
+   Therefore, collectors <em>MUST</em> be designed in a way that they can cope
    with overlapping Signature Blocks when confronted with them.  The
-   collector MUST ignore hashes of messages that it has already received
+   collector <em>MUST</em> ignore hashes of messages that it has already received
    and validated.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Efficient Verification of Logs</span>
@@ -1686,8 +1686,8 @@ Table of Contents
    offline.  Online review is somewhat more complicated and
    computationally expensive, but not prohibitively so.  This section
    outlines a method for online and a method for offline verification of
-   logs that implementations MAY choose to implement to verify logs
-   efficiently.  Implementations MAY also choose to implement a
+   logs that implementations <em>MAY</em> choose to implement to verify logs
+   efficiently.  Implementations <em>MAY</em> also choose to implement a
    different method; it is ultimately up to each implementation how to
    process the messages that it receives.
 
@@ -1982,14 +1982,14 @@ Table of Contents
 
 
    Certain operations in this specification involve the use of random
-   numbers.  An appropriate entropy source SHOULD be used to generate
+   numbers.  An appropriate entropy source <em>SHOULD</em> be used to generate
    these numbers.  See [<a href="./rfc4086.html" title="&quot;Randomness Recommendations for Security&quot;">RFC4086</a>] and [<a href="#ref-NIST800.90" title="&quot;NIST Special Publication 800-90: Recommendation for Random Number Generation using Deterministic Random Bit Generators&quot;">NIST800.90</a>].
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Packet Parameters</span>
 
    As a signer, it is advisable to avoid message lengths exceeding 2048
    octets.  Various problems might result if a signer were to send
-   messages with a length greater than 2048 octets, because relays MAY
+   messages with a length greater than 2048 octets, because relays <em>MAY</em>
    truncate messages with lengths greater than 2048 octets, which would
    make it impossible for collectors to validate a hash of the packet.
    To increase the chance of interoperability, it tends to be best to be

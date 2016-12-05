@@ -319,8 +319,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Key Words</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Email Architecture Terminology</span>
@@ -385,12 +385,12 @@ Table of Contents
    of the overall length limit on a DNS query.
 
    If selected, the encoding mechanism requires constructing a digest of
-   the third party's DNS domain name.  The Author ADMD MUST select a
+   the third party's DNS domain name.  The Author ADMD <em>MUST</em> select a
    digest ("hash") method currently supported by DKIM (see Section 7.7
    of [<a href="#ref-DKIM" title="&quot;DomainKeys Identified Mail (DKIM) Signatures&quot;">DKIM</a>]), and this selection needs to be communicated to the ATPS
    Signer, as it is used in generation of the third-party signatures.
 
-   Where the encoding mechanism is not used, the ATPS Signer MUST use a
+   Where the encoding mechanism is not used, the ATPS Signer <em>MUST</em> use a
    hash name of "none".
 
    The full DNS mechanism is specified in <a href="#section-4.3">Section 4.3</a>.
@@ -417,12 +417,12 @@ Table of Contents
    add additional tags called "atps" and "atpsh".
 
    When the ATPS Signer generates a DKIM signature for another ADMD, it
-   MUST put its own domain in the signature's "d" tag, and include an
+   <em>MUST</em> put its own domain in the signature's "d" tag, and include an
    "atps" tag that has as its value the domain name of the ADMD on whose
    behalf it is signing.
 
    The tag name that carries the name of the selected hash algorithm is
-   "atpsh".  This tag MUST also be included, as it is required as part
+   "atpsh".  This tag <em>MUST</em> also be included, as it is required as part
    of the algorithm that will be enacted by the Verifier.
 
    The formal syntax definition, per [<a href="#ref-ABNF" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">ABNF</a>], is as follows:
@@ -445,19 +445,19 @@ Table of Contents
    any local policy requirements (which are not discussed here or in
    [<a href="#ref-DKIM" title="&quot;DomainKeys Identified Mail (DKIM) Signatures&quot;">DKIM</a>]), the Verifier compares the domain name in the value of that
    tag with the one found in the <a href="./rfc5322.html">RFC5322</a>.From field of the message.  The
-   match MUST be done in a case-insensitive manner.
+   match <em>MUST</em> be done in a case-insensitive manner.
 
-   If they do not match, the "atps" tag MUST be ignored.
+   If they do not match, the "atps" tag <em>MUST</em> be ignored.
 
    If they do match, the Verifier issues a DNS TXT query, as specified
    below, looking for confirmation by the Author ADMD that the ATPS
    Signer is authorized by that ADMD to sign mail on its behalf.  Where
    multiple DKIM signatures including valid "atps" tags are present,
-   these queries MAY be done in any order or MAY be done in parallel.
+   these queries <em>MAY</em> be done in any order or <em>MAY</em> be done in parallel.
 
    Where the <a href="./rfc5322.html">RFC5322</a>.From field contains multiple addresses, this
-   process SHOULD be applied if the "atps" tag's value matches any of
-   the domains found in that field.  These MAY be done in any order.
+   process <em>SHOULD</em> be applied if the "atps" tag's value matches any of
+   the domains found in that field.  These <em>MAY</em> be done in any order.
 
 
 
@@ -536,19 +536,19 @@ Table of Contents
       least one answer) containing a valid ATPS reply.  In this case,
       the protocol has been satisfied and the Verifier can conclude that
       the signing domain is authorized by the ADMD to sign its mail.
-      Further queries SHOULD NOT be initiated.
+      Further queries <em>SHOULD NOT</em> be initiated.
 
    o  No answer is returned (i.e., [<a href="#ref-DNS" title="&quot;Domain names - implementation and specification&quot;">DNS</a>] reply code NXDOMAIN, or NOERROR
       with no answers), or one or more answers have been returned as
       described above but none contain a valid ATPS reply.  In this
       case, the Signer has not been authorized to act as a third-party
-      Signer for this ADMD, and thus the Verifier MUST continue to the
+      Signer for this ADMD, and thus the Verifier <em>MUST</em> continue to the
       next query, if any.
 
    o  An error is returned (i.e., any other [<a href="#ref-DNS" title="&quot;Domain names - implementation and specification&quot;">DNS</a>] reply code).  It is no
       longer possible to determine whether or not this message satisfies
       the ADMD's list of authorized third-party Signers.  The Verifier
-      SHOULD stop processing and defer the message for later processing,
+      <em>SHOULD</em> stop processing and defer the message for later processing,
       such as requesting a temporary failure code from the Mail Transfer
       Agent (MTA).
 
@@ -559,7 +559,7 @@ Table of Contents
    described in Section 3.2 of [<a href="#ref-DKIM" title="&quot;DomainKeys Identified Mail (DKIM) Signatures&quot;">DKIM</a>].  The following tags and values
    are currently supported in ATPS records:
 
-   d: Domain (plain-text; RECOMMENDED).  This tag includes a plain-text
+   d: Domain (plain-text; <em>RECOMMENDED</em>).  This tag includes a plain-text
       copy of the DNS domain being authorized as an ATPS Signer.  This
       is included to assist with collision detections; for example, if
       the base32 encoding of this name is not the same as the base32
@@ -579,9 +579,9 @@ Table of Contents
 <span class="grey"><a href="./rfc6541.html">RFC 6541</a>                  DKIM ATPS Experiment             February 2012</span>
 
 
-   v: Version (plain-text; REQUIRED).  This tag indicates the version of
+   v: Version (plain-text; <em>REQUIRED</em>).  This tag indicates the version of
       the ATPS specification to which the record complies.  The record
-      MUST be ignored if the value is not "ATPS1".  The ABNF is as
+      <em>MUST</em> be ignored if the value is not "ATPS1".  The ABNF is as
       follows:
 
       atps-v-tag = %x76 [FWS] "=" [FWS] %x41.54.50.53.31
@@ -591,14 +591,14 @@ Table of Contents
 
    For each DKIM signature that verifies (see Section 6 of [<a href="#ref-DKIM" title="&quot;DomainKeys Identified Mail (DKIM) Signatures&quot;">DKIM</a>]), if a
    Verifier succeeds in confirming that the Author's ADMD authorized the
-   ATPS Signer using this protocol, then the Verifier SHOULD evaluate
+   ATPS Signer using this protocol, then the Verifier <em>SHOULD</em> evaluate
    the message as though it contained a valid signature from the
-   Author's ADMD.  It MAY also independently evaluate the ATPS Signer
+   Author's ADMD.  It <em>MAY</em> also independently evaluate the ATPS Signer
    when determining message disposition.
 
    This assertion is based on the fact that the ADMD explicitly endorsed
    the ATPS Signer.  Therefore, a module assessing reputation that is
-   based on DKIM signature verification SHOULD apply the reputation of
+   based on DKIM signature verification <em>SHOULD</em> apply the reputation of
    the Author's ADMD domain instead of, or in addition to, that of the
    ATPS Signer domain.
 
@@ -609,8 +609,8 @@ Table of Contents
    valid author signature be treated with suspicion or even discarded.
 
    A Verifier implementing both Author Domain Signing Practices (ADSP)
-   and ATPS MUST test ATPS first.  If ATPS indicates a valid delegation,
-   the Verifier MUST act, with respect to ADSP, as though the message
+   and ATPS <em>MUST</em> test ATPS first.  If ATPS indicates a valid delegation,
+   the Verifier <em>MUST</em> act, with respect to ADSP, as though the message
    has a valid Author Domain Signature (because that's what the
    delegation means), and no ADSP test is required.
 
@@ -661,9 +661,9 @@ Table of Contents
    Registry, under the DomainKeys Identified Mail (DKIM) Parameters
    group, to enumerate the tags that are valid for use in ATPS records.
 
-   New registrations or updates MUST be made in accordance with the
+   New registrations or updates <em>MUST</em> be made in accordance with the
    "Specification Required" guidelines described in [<a href="#ref-IANA" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">IANA</a>].  Such
-   registry changes MUST contain the following information:
+   registry changes <em>MUST</em> contain the following information:
 
    1.  Name of the tag being registered or updated
 

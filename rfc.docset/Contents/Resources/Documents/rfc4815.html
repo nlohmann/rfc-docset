@@ -349,8 +349,8 @@ Table of Contents
    Assisted Profile) [<a href="#ref-7" title="&quot;RObust Header Compression (ROHC): A Link-Layer Assisted Profile for IP/UDP/RTP&quot;">7</a>] is implicitly updated by this document, since
    <a href="./rfc4362.html">RFC 4362</a> is also based on <a href="./rfc3095.html">RFC 3095</a>.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-6" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">6</a>].
 
 
@@ -459,7 +459,7 @@ Table of Contents
 
    To reduce transmission overhead and computational complexity
    (including CRC calculation) associated with feedback packets sent for
-   each decompressed packet during mode transition, a decompressor MAY
+   each decompressed packet during mode transition, a decompressor <em>MAY</em>
    be implemented with slightly modified mode transition procedures
    compared to those defined in [<a href="#ref-1" title="&quot;RObust Header Compression (ROHC): Framework and four profiles: RTP, UDP, ESP, and uncompressed&quot;">1</a>], as described in this section.
 
@@ -497,7 +497,7 @@ Table of Contents
    O-mode, there is also a small risk for reduced compression
    efficiency.
 
-   To avoid this, the decompressor MUST continue to send feedback at
+   To avoid this, the decompressor <em>MUST</em> continue to send feedback at
    least periodically, as well as when in a Pending transition state.
    This is equivalent to enhancing the definition of the D_TRANS
    parameter in <a href="./rfc3095.html">RFC 3095</a>-<a href="#section-5.6.1">Section 5.6.1</a>, to include the definition of a
@@ -505,13 +505,13 @@ Table of Contents
 
    -  D_TRANS:
       Possible values for the D_TRANS parameter are (I)NITIATED,
-      (P)ENDING, and (D)ONE.  D_TRANS MUST be initialized to D, and a
+      (P)ENDING, and (D)ONE.  D_TRANS <em>MUST</em> be initialized to D, and a
       mode transition can be initiated only when D_TRANS is D.  While
       D_TRANS is I, the decompressor sends a NACK or ACK carrying a CRC
       option for each packet received.  When D_TRANS is set to P, the
       decompressor does not have to send a NACK or ACK for each packet
-      received, but it MUST continue to send feedback with some
-      periodicity, and all feedback packets sent MUST include the CRC
+      received, but it <em>MUST</em> continue to send feedback with some
+      periodicity, and all feedback packets sent <em>MUST</em> include the CRC
       option.  This ensures that all mode transitions will be completed
       also in case of feedback losses.
 
@@ -626,14 +626,14 @@ Table of Contents
    INCOMPLETE <a href="./rfc3095.html">RFC 3095</a> TEXT (<a href="./rfc3095.html">RFC 3095</a>-<a href="#section-5.6.1">Section 5.6.1</a>):
 
       "As a safeguard against residual errors, all feedback sent during
-       a mode transition MUST be protected by a CRC, i.e., the CRC
-       option MUST be used."
+       a mode transition <em>MUST</em> be protected by a CRC, i.e., the CRC
+       option <em>MUST</em> be used."
 
    CORRECTED TEXT:
 
        "As a safeguard against residual errors, all feedback sent by the
-       decompressor during a mode transition MUST be protected by a CRC,
-       i.e., the CRC option MUST be used.  The compressor MUST ignore
+       decompressor during a mode transition <em>MUST</em> be protected by a CRC,
+       i.e., the CRC option <em>MUST</em> be used.  The compressor <em>MUST</em> ignore
 
 
 
@@ -657,8 +657,8 @@ Table of Contents
 
    This means that when D_TRANS=I during mode transition, a decompressor
    operating in R-mode sends an acknowledgement for each packet it
-   receives and MUST use the sequence number that corresponds to the
-   packet that last updated the context, i.e., the decompressor MUST NOT
+   receives and <em>MUST</em> use the sequence number that corresponds to the
+   packet that last updated the context, i.e., the decompressor <em>MUST NOT</em>
    use the sequence number of the R-0 or the R-1* packet.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Packet Decoding During Mode Transition</span>
@@ -742,7 +742,7 @@ Table of Contents
 
        If value(Tsc) = 0, the Timestamp value is compressed as-is, and
        default-slope(TS) = value(TS_STRIDE).  If a packet with no TS
-       bits is received with Tsc = 0, the decompressor MUST discard the
+       bits is received with Tsc = 0, the decompressor <em>MUST</em> discard the
        packet."
 
 
@@ -885,7 +885,7 @@ Table of Contents
          160 * 2 = 320), the new TS_OFFSET should be 0x00000130 modulo
          0xA0 = 0x90 = 144.  The compressor is not required to re-
          initialize TS_OFFSET at wraparound.  Instead, the decompressor
-         MUST detect wraparound of the unscaled TS (which is trivial)
+         <em>MUST</em> detect wraparound of the unscaled TS (which is trivial)
          and update TS_OFFSET to TS_OFFSET = (Wrapped around unscaled
          TS) modulo TS_STRIDE"
 
@@ -911,7 +911,7 @@ Table of Contents
       4. Offset at wraparound: If the value of TS_STRIDE is not equal to
          a power of two, wraparound of the unscaled 32-bit TS will
          change the value of TS_OFFSET.  When this happens, the
-         compressor SHOULD reinitialize TS_OFFSET by sending unscaled
+         compressor <em>SHOULD</em> reinitialize TS_OFFSET by sending unscaled
          TS, as in 1 above."
 
 
@@ -935,7 +935,7 @@ Table of Contents
    TS can be sent unscaled if the TS value change does not match the
    established TS_STRIDE, but the TS_STRIDE might still stay unchanged.
    To ensure correct decompression of subsequent packets, the
-   decompressor MUST therefore always recalculate TS_OFFSET (RTP TS
+   decompressor <em>MUST</em> therefore always recalculate TS_OFFSET (RTP TS
    modulo TS_STRIDE) when a packet with an unscaled TS value is
    received.
 
@@ -949,8 +949,8 @@ Table of Contents
    is used for scaled TS.
 
    If TS_STRIDE is present in Extension 3, as indicated by the Tss flag
-   being set, the compressed header SHOULD carry unscaled TS bits; i.e.,
-   the Tsc flag SHOULD NOT be set when Tss is set since an unscaled TS
+   being set, the compressed header <em>SHOULD</em> carry unscaled TS bits; i.e.,
+   the Tsc flag <em>SHOULD NOT</em> be set when Tss is set since an unscaled TS
    is needed together with TS_STRIDE to recalculate the TS_OFFSET.  If
    TS_STRIDE is included in a compressed header with scaled TS, the
    decompressor must ignore and discard field(TS_STRIDE).
@@ -982,7 +982,7 @@ Table of Contents
             compressor will establish TS_STRIDE = 1.
 
             If field(Tsc) = 1, and if TSS = 1 (meaning that TS_STRIDE is
-            present in the extension), field(TS_STRIDE) MUST be ignored
+            present in the extension), field(TS_STRIDE) <em>MUST</em> be ignored
             and discarded."
 
    When the compressor re-establishes a new value for TS_STRIDE using
@@ -1048,11 +1048,11 @@ Table of Contents
        part of the RTP header, where Encoding Type 0 is used according
        to the format defined in <a href="./rfc3095.html">RFC 3095</a>-5.8.6.1.
 
-       The compressor MUST set both occurrences of the CC field to the
+       The compressor <em>MUST</em> set both occurrences of the CC field to the
        same value.
 
-       The decompressor MUST use the value of the CC field from the
-       Encoding Type 0 within the Generic CRSC list, and it MUST thus
+       The decompressor <em>MUST</em> use the value of the CC field from the
+       Encoding Type 0 within the Generic CRSC list, and it <em>MUST</em> thus
        ignore the first occurrence of the CC field."
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Bit Masks in List Compression</span>
@@ -1062,11 +1062,11 @@ Table of Contents
    positions within the reference list.  The size of the bit mask can be
    7 bits or 15 bits.
 
-   The compressor MAY use a 7-bit mask, even if the reference list has
+   The compressor <em>MAY</em> use a 7-bit mask, even if the reference list has
    more than seven items, provided that changes to the list are only
    applied to items within the first seven items of the reference list,
    leaving items with an index not covered by the 7-bit mask unchanged.
-   The decompressor MUST NOT modify items with an index not covered by
+   The decompressor <em>MUST NOT</em> modify items with an index not covered by
    the 7-bit mask, when a 7-bit mask is received for a reference list
    that contains more than seven items.
 
@@ -1093,7 +1093,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  ESP NULL Header List Compression</span>
 
    Due to the offset of the fields in the trailer part of the ESP
-   header, a compressor MUST NOT compress packets containing more than
+   header, a compressor <em>MUST NOT</em> compress packets containing more than
    one NULL ESP [<a href="#ref-13" title="&quot;The NULL Encryption Algorithm and Its Use With IPsec&quot;">13</a>] header, unless the second-outermost header is
    treated as a regular ESP [<a href="#ref-12" title="&quot;IP Encapsulating Security Payload (ESP)&quot;">12</a>] header and the packets are compressed
    using profile 0x0003.
@@ -1109,13 +1109,13 @@ Table of Contents
    In IP extension header list compression, an index is associated with
    each individual extension header of an extension header chain.  When
    there are multiple non-identical occurrences of the same extension
-   type (Protocol Number) within a header chain, each MUST be given its
+   type (Protocol Number) within a header chain, each <em>MUST</em> be given its
    own index.
 
    In the case where there are multiple identical occurrences of the
    same extension type, the compressor can associate them to the same
    index.  When the value of an item whose index occurs more than once
-   in the list is updated, the compressor MUST send the value for each
+   in the list is updated, the compressor <em>MUST</em> send the value for each
    occurrence of that index in the list.
 
    When content of extension headers changes, an implementation can
@@ -1162,7 +1162,7 @@ Table of Contents
    FORMAL ADDITION TO <a href="./rfc3095.html">RFC 3095</a>:
 
       "Regardless of the operating mode, for list encoding of type 1,
-       type 2, and type 3 lists, ref_id MUST refer to a non-empty list."
+       type 2, and type 3 lists, ref_id <em>MUST</em> refer to a non-empty list."
 
 <span class="h3"><a class="selflink" name="section-5.8" href="#section-5.8">5.8</a>.  Compression of AH and GRE Sequence Numbers</span>
 
@@ -1283,7 +1283,7 @@ Table of Contents
        of IP extension headers.  Other values provided in extensions do
        not update the context.
 
-       The decompressor MUST update its translation table whenever an
+       The decompressor <em>MUST</em> update its translation table whenever an
        (Index, item) pair is received, as per <a href="./rfc3095.html">RFC 3095</a>-<a href="#section-5.8.1">Section 5.8.1</a>,
        and this rule applies also to UO-1-ID packets."
 
@@ -1295,7 +1295,7 @@ Table of Contents
    context is left unchanged.
 
    A consequence of this is that fields that are not updated by the IR
-   packet, e.g., the translation tables for list compression, MUST NOT
+   packet, e.g., the translation tables for list compression, <em>MUST NOT</em>
    be invalidated by the decompressor when it assumes context damage.
 
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a>.  RTP Padding Field (R-P) in Extension 3</span>
@@ -1350,7 +1350,7 @@ Table of Contents
    highest context identification (CID) number to be used.  By agreeing
    on MAX_CID, the decompressor also agrees to provide memory resources
    to host at least MAX_CID+1 contexts, and an established context with
-   a CID within this negotiated space MUST be kept by the decompressor
+   a CID within this negotiated space <em>MUST</em> be kept by the decompressor
    until either the CID gets reused, or the channel is taken down or
    renegotiated.
 
@@ -1402,8 +1402,8 @@ Table of Contents
    transitions are performed using a decompressor-initiated handshake
    procedure, as defined in <a href="./rfc3095.html">RFC 3095</a>-<a href="#section-5.6">Section 5.6</a>.  When a CID/context is
    reused for a new context based on the same profile as the old
-   context, the current mode of operation SHOULD be inherited from the
-   old to the new context.  Specifically, the compressor SHOULD continue
+   context, the current mode of operation <em>SHOULD</em> be inherited from the
+   old to the new context.  Specifically, the compressor <em>SHOULD</em> continue
    to operate using the mode of operation of the old context also with
    the new context.  The reason for this is that there is no reliable
    way for the compressor to inform the decompressor that a CID/context
@@ -1429,7 +1429,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-7.2.2" href="#section-7.2.2">7.2.2</a>.  Reusing a CID/Context with a Different Profile</span>
 
    When a CID is reused for a new context based on a different profile
-   than the old context, both the compressor and the decompressor MUST
+   than the old context, both the compressor and the decompressor <em>MUST</em>
    start operation with that context in the initial mode of the profile
    (if it is a multi-mode profile).  This applies both to IR-initiated
    new contexts and profile downgrades with IR-DYN (e.g., the profile
@@ -1441,7 +1441,7 @@ Table of Contents
    misinterpret compressed packets if the initiating IR packets are
    lost.
 
-   A CID for a context currently operating in R-mode SHOULD therefore
+   A CID for a context currently operating in R-mode <em>SHOULD</em> therefore
    not be reused for a new context based on a different profile than the
    old context.  A compressor doing otherwise should minimize the risk
    for misinterpretation of R-0/R-1 by, e.g., not using packets of types
@@ -1497,7 +1497,7 @@ Table of Contents
 
    Some flags of the IP header in the extension (e.g., NBO or RND) may
    change the interpretation of fields in UOR-2* packets.  In such
-   cases, when a flag changes in Extension 3, a decompressor MUST re-
+   cases, when a flag changes in Extension 3, a decompressor <em>MUST</em> re-
    parse the UOR-2* packet.
 
 <span class="h3"><a class="selflink" name="section-8.4" href="#section-8.4">8.4</a>.  Multiple Occurrences of the M Bit</span>
@@ -1513,11 +1513,11 @@ Table of Contents
 
       "When there are two occurrences of the M field in a compressed
        header (both in the compressed base header and in the RTP part of
-       Extension 3), the compressor MUST set both these occurrences of
+       Extension 3), the compressor <em>MUST</em> set both these occurrences of
        the M field to the same value.
 
        At the decompressor, if the two M field values of such a packet
-       are not identical, the packet MUST be discarded."
+       are not identical, the packet <em>MUST</em> be discarded."
 
 <span class="h3"><a class="selflink" name="section-8.5" href="#section-8.5">8.5</a>.  Multiple SN options in one feedback packet</span>
 
@@ -1549,17 +1549,17 @@ Table of Contents
 
    Although it is not useful to have more than one single CRC option in
    a feedback packet, having multiple CRC options is still allowed.  If
-   multiple CRC options are included, all such CRC options MUST be
+   multiple CRC options are included, all such CRC options <em>MUST</em> be
    identical, as they will be calculated over the same header; the
-   compressor MUST otherwise discard the feedback packet.
+   compressor <em>MUST</em> otherwise discard the feedback packet.
 
 <span class="h3"><a class="selflink" name="section-8.7" href="#section-8.7">8.7</a>.  Responding to Lost Feedback Links</span>
 
    Although this is neither desirable or expected, it may happen that a
    link used to carry feedback between two associated instances becomes
    unavailable.  If the compressor can be notified of such an event, the
-   compressor SHOULD restart compression for each flow that is operating
-   in R-mode.  When restarting compression, the compressor SHOULD use a
+   compressor <em>SHOULD</em> restart compression for each flow that is operating
+   in R-mode.  When restarting compression, the compressor <em>SHOULD</em> use a
    different CID for each flow being restarted; this is useful to avoid
    the possibility of misinterpreting the type of the compressed header
    for the packet type identifiers that are common to both U/O-mode and
@@ -1603,7 +1603,7 @@ Table of Contents
    implementation can ignore UOR-2s ACKs for the purpose of adapting the
    optimistic approach strategies.
 
-   It is thus NOT RECOMMENDED to use the optional ACK mechanism in O-
+   It is thus NOT <em>RECOMMENDED</em> to use the optional ACK mechanism in O-
    mode, either in compressor or in decompressor implementations.
 
    Using an incorrect expectation on UOR-2 ACKs as a basis for
@@ -1639,7 +1639,7 @@ Table of Contents
    FORMAL ADDITION TO <a href="./rfc3095.html">RFC 3095</a>:
 
       "When the compressor receives a NACK and uses the UOR-2 header
-       type to repair the decompressor context, it SHOULD include fields
+       type to repair the decompressor context, it <em>SHOULD</em> include fields
        that update the value of both the TS_STRIDE and the TIME_STRIDE
        whose value it has updated at least once since the establishment
 
@@ -1653,7 +1653,7 @@ Table of Contents
        of that context, i.e., since the CID was first associated with
        its current profile.
 
-       When the compressor receives a static-NACK, it MUST include in
+       When the compressor receives a static-NACK, it <em>MUST</em> include in
        the IR header fields for both the TS_STRIDE and the TIME_STRIDE
        whose value it has updated at least once since the establishment
        of that context, i.e., since the CID was first associated with
@@ -1679,7 +1679,7 @@ Table of Contents
    multiple variants of the same profile are available, the negotiation
    protocol must provide the means for the decompressor to know which
    variant will be used by the compressor.  This basically means that
-   the PROFILES set after negotiation MUST NOT include more than one
+   the PROFILES set after negotiation <em>MUST NOT</em> include more than one
    variant of a profile.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  PROFILES Sub-option in ROHC-over-PPP</span>
@@ -1688,7 +1688,7 @@ Table of Contents
    specified by ROHC over PPP [<a href="#ref-2" title="&quot;Robust Header Compression (ROHC) over PPP&quot;">2</a>], cannot be used for the PROFILES
    suboption, as the whole union would then have to be considered within
    each of the two IPCP negotiations to avoid getting an ambiguous
-   profile set.  An implementation of <a href="./rfc3241.html">RFC 3241</a> MUST therefore ensure
+   profile set.  An implementation of <a href="./rfc3241.html">RFC 3241</a> <em>MUST</em> therefore ensure
    that the same profile set is negotiated for both IPv4 and IPv6
    (IPCP/IPV6CP).
 

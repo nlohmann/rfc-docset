@@ -311,7 +311,7 @@ Table of Contents
    In order to allow PIM to work properly in an environment where the
    core routers do not maintain external routes, a PIM extension is
    needed.  When an edge router sends a PIM Join message into the core,
-   it MUST include in that message a "Vector" that specifies the IP
+   it <em>MUST</em> include in that message a "Vector" that specifies the IP
    address of the next edge router along the path to the root of the
    multicast distribution tree.  The core routers can then process the
    Join message by sending it towards the specified edge router (i.e.,
@@ -324,8 +324,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Use of the RPF Vector TLV</span>
@@ -421,13 +421,13 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.3.2" href="#section-3.3.2">3.3.2</a>.  Processing a Received Vector Attribute</span>
 
    When processing a received PIM Join that contains a Vector Attribute,
-   a router MUST first check to see if the Vector IP address is one of
+   a router <em>MUST</em> first check to see if the Vector IP address is one of
    its own IP addresses.  If so, the Vector Attribute is discarded, and
    not passed further upstream.  Otherwise, the Vector Attribute is used
    to find the route to the source, and is passed along when a PIM Join
    is sent upstream.  Note that a router that receives a Vector
-   Attribute MUST use it, even if that router happens to have a route to
-   the source.  A router that discards a Vector Attribute MAY of course
+   Attribute <em>MUST</em> use it, even if that router happens to have a route to
+   the source.  A router that discards a Vector Attribute <em>MAY</em> of course
    insert a new Vector Attribute.  This would typically happen if a PIM
    Join needed to pass through a sequence of Edge routers, each pair of
    which is separated by a core that does not have external routes.  In
@@ -439,14 +439,14 @@ Table of Contents
    A PIM Assert message includes the routing protocol's "metric" to the
    source of the tree.  This information is used in the selection of the
    Assert winner.  If a PIM Join is being sent towards a Vector, rather
-   than towards the source, the Assert message MUST have the metric to
+   than towards the source, the Assert message <em>MUST</em> have the metric to
    the Vector instead of the metric to the source.  The Assert message
    however does not have an attribute field and does not mention the
    Vector.
 
    A router may change its upstream neighbor on a particular multicast
    tree as the result of receiving Assert messages.  However, a Vector
-   Attribute MUST NOT be sent in a PIM Join to an upstream neighbor that
+   Attribute <em>MUST NOT</em> be sent in a PIM Join to an upstream neighbor that
    is chosen as the result of Assert processing, if that neighbor is
    different than the original upstream neighbor.  Reachability of the
    Vector is only guaranteed by the router that advertises reachability
@@ -456,10 +456,10 @@ Table of Contents
    has a route to the Vector that is on the same interface where the
    Assert was won.  That will point the RPF interface to that interface
    and will result in the O-list being NULL.  The Vector Attribute
-   therefore MUST NOT be inserted if the RPF neighbor was chosen via an
+   therefore <em>MUST NOT</em> be inserted if the RPF neighbor was chosen via an
    Assert process and the RPF neighbor is different from the RPF
    neighbor that would have been selected via the local routing table.
-   In all other cases, the Vector MUST be included in the Join message.
+   In all other cases, the Vector <em>MUST</em> be included in the Join message.
 
 
 
@@ -474,12 +474,12 @@ Table of Contents
    particular multicast state, Join suppression may be applied if that
    PIM Join is targeted to the same upstream neighbor.  Which router(s)
    will suppress their PIM Join is dependent on timing and is
-   unpredictable.  Downstream routers on a LAN MAY include different RPF
+   unpredictable.  Downstream routers on a LAN <em>MAY</em> include different RPF
    Vectors in the PIM Joins.  Therefore, an upstream router on that LAN
    may receive and use different RPF Vectors over time to reach the
    destination (depending on which downstream router(s) suppressed their
    Join).  To make the upstream router behavior more predictable, the
-   RPF Vector address MUST be used as additional condition to the Join
+   RPF Vector address <em>MUST</em> be used as additional condition to the Join
    suppression logic.  Only if the RPF Vector in the PIM Join matches
    the RPF Vector in the multicast state, the suppression logic is
    applied.  It is also possible to disable Join suppression on that

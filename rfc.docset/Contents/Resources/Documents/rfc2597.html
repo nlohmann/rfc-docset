@@ -289,8 +289,8 @@ Abstract
    implement an AF PHB group, it must conform to the specification in
    this document.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-Bradner" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Bradner</a>].
 
 
@@ -310,43 +310,43 @@ Abstract
    with the AF codepoint AFij, where 1 &lt;= i &lt;= N and 1 &lt;= j &lt;= M.
    Currently, four classes (N=4) with three levels of drop precedence in
    each class (M=3) are defined for general use.  More AF classes or
-   levels of drop precedence MAY be defined for local use.
+   levels of drop precedence <em>MAY</em> be defined for local use.
 
-   A DS node SHOULD implement all four general use AF classes.  Packets
-   in one AF class MUST be forwarded independently from packets in
-   another AF class, i.e., a DS node MUST NOT aggregate two or more AF
+   A DS node <em>SHOULD</em> implement all four general use AF classes.  Packets
+   in one AF class <em>MUST</em> be forwarded independently from packets in
+   another AF class, i.e., a DS node <em>MUST NOT</em> aggregate two or more AF
    classes together.
 
-   A DS node MUST allocate a configurable, minimum amount of forwarding
+   A DS node <em>MUST</em> allocate a configurable, minimum amount of forwarding
    resources (buffer space and bandwidth) to each implemented AF class.
-   Each class SHOULD be serviced in a manner to achieve the configured
+   Each class <em>SHOULD</em> be serviced in a manner to achieve the configured
    service rate (bandwidth) over both small and large time scales.
 
-   An AF class MAY also be configurable to receive more forwarding
+   An AF class <em>MAY</em> also be configurable to receive more forwarding
    resources than the minimum when excess resources are available either
    from other AF classes or from other PHB groups.  This memo does not
    specify how the excess resources should be allocated, but
-   implementations MUST specify what algorithms are actually supported
+   implementations <em>MUST</em> specify what algorithms are actually supported
    and how they can be parameterized.
 
-   Within an AF class, a DS node MUST NOT forward an IP packet with
+   Within an AF class, a DS node <em>MUST NOT</em> forward an IP packet with
    smaller probability if it contains a drop precedence value p than if
    it contains a drop precedence value q when p &lt; q.  Note that this
    requirement can be fulfilled without needing to dequeue and discard
    already-queued packets.
 
-   Within each AF class, a DS node MUST accept all three drop precedence
-   codepoints and they MUST yield at least two different levels of loss
+   Within each AF class, a DS node <em>MUST</em> accept all three drop precedence
+   codepoints and they <em>MUST</em> yield at least two different levels of loss
    probability.  In some networks, particularly in enterprise networks,
    where transient congestion is a rare and brief occurrence, it may be
    reasonable for a DS node to implement only two different levels of
    loss probability per AF class.  While this may suffice for some
-   networks, three different levels of loss probability SHOULD be
+   networks, three different levels of loss probability <em>SHOULD</em> be
    supported in DS domains where congestion is a common occurrence.
 
    If a DS node only implements two different levels of loss probability
-   for an AF class x, the codepoint AFx1 MUST yield the lower loss
-   probability and the codepoints AFx2 and AFx3 MUST yield the higher
+   for an AF class x, the codepoint AFx1 <em>MUST</em> yield the lower loss
+   probability and the codepoints AFx2 and AFx3 <em>MUST</em> yield the higher
    loss probability.
 
 
@@ -357,7 +357,7 @@ Abstract
 <span class="grey"><a href="./rfc2597.html">RFC 2597</a>              Assured Forwarding PHB Group             June 1999</span>
 
 
-   A DS node MUST NOT reorder AF packets of the same microflow when they
+   A DS node <em>MUST NOT</em> reorder AF packets of the same microflow when they
    belong to the same AF class regardless of their drop precedence.
    There are no quantifiable timing requirements (delay or delay
    variation) associated with the forwarding of AF packets.
@@ -365,17 +365,17 @@ Abstract
    The relationship between AF classes and other PHBs is described in
    <a href="#section-7">Section 7</a> of this memo.
 
-   The AF PHB group MAY be used to implement both end-to-end and domain
+   The AF PHB group <em>MAY</em> be used to implement both end-to-end and domain
    edge-to-domain edge services.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Traffic Conditioning Actions</span>
 
-   A DS domain MAY at the edge of a domain control the amount of AF
+   A DS domain <em>MAY</em> at the edge of a domain control the amount of AF
    traffic that enters or exits the domain at various levels of drop
-   precedence.  Such traffic conditioning actions MAY include traffic
+   precedence.  Such traffic conditioning actions <em>MAY</em> include traffic
    shaping, discarding of packets, increasing or decreasing the drop
    precedence of packets, and reassigning of packets to other AF
-   classes.  However, the traffic conditioning actions MUST NOT cause
+   classes.  However, the traffic conditioning actions <em>MUST NOT</em> cause
    reordering of packets of the same microflow.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>. Queueing and Discard Behavior</span>
@@ -384,14 +384,14 @@ Abstract
    group.  Other aspects of the PHB group's behavior are defined in
    <a href="#section-2">Section 2</a>.
 
-   An AF implementation MUST attempt to minimize long-term congestion
+   An AF implementation <em>MUST</em> attempt to minimize long-term congestion
    within each class, while allowing short-term congestion resulting
    from bursts. This requires an active queue management algorithm.  An
    example of such an algorithm is Random Early Drop (RED) [<a href="#ref-Floyd" title="V.">Floyd</a>].
    This memo does not specify the use of a particular algorithm, but
    does require that several properties hold.
 
-   An AF implementation MUST detect and respond to long-term congestion
+   An AF implementation <em>MUST</em> detect and respond to long-term congestion
    within each class by dropping packets, while handling short-term
    congestion (packet bursts) by queueing packets.  This implies the
    presence of a smoothing or filtering function that monitors the
@@ -399,7 +399,7 @@ Abstract
    level.  The dropping algorithm uses this smoothed congestion level to
    determine when packets should be discarded.
 
-   The dropping algorithm MUST be insensitive to the short-term traffic
+   The dropping algorithm <em>MUST</em> be insensitive to the short-term traffic
    characteristics of the microflows using an AF class.  That is, flows
    with different short-term burst shapes but identical longer-term
    packet rates should have packets discarded with essentially equal
@@ -413,7 +413,7 @@ Abstract
 <span class="grey"><a href="./rfc2597.html">RFC 2597</a>              Assured Forwarding PHB Group             June 1999</span>
 
 
-   The dropping algorithm MUST treat all packets within a single class
+   The dropping algorithm <em>MUST</em> treat all packets within a single class
    and precedence level identically.  This implies that for any given
    smoothed congestion level, the discard rate of a particular
    microflow's packets within a single precedence level will be
@@ -422,7 +422,7 @@ Abstract
 
    The congestion indication feedback to the end nodes, and thus the
    level of packet discard at each drop precedence in relation to
-   congestion, MUST be gradual rather than abrupt, to allow the overall
+   congestion, <em>MUST</em> be gradual rather than abrupt, to allow the overall
    system to reach a stable operating point.  One way to do this (RED)
    uses two (configurable) smoothed congestion level thresholds.  When
    the smoothed congestion level is below the first threshold, no
@@ -435,7 +435,7 @@ Abstract
    probability.
 
    To allow the AF PHB to be used in many different operating
-   environments, the dropping algorithm control parameters MUST be
+   environments, the dropping algorithm control parameters <em>MUST</em> be
    independently configurable for each packet drop precedence and for
    each AF class.
 
@@ -448,7 +448,7 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>. Tunneling</span>
 
-   When AF packets are tunneled, the PHB of the tunneling packet MUST
+   When AF packets are tunneled, the PHB of the tunneling packet <em>MUST</em>
    NOT reduce the forwarding assurance of the tunneled AF packet nor
    cause reordering of AF packets belonging to the same microflow.
 
@@ -475,7 +475,7 @@ Abstract
    below. These codepoints do not overlap with any other general use PHB
    groups.
 
-   The RECOMMENDED values of the AF codepoints are as follows: AF11 = '
+   The <em>RECOMMENDED</em> values of the AF codepoints are as follows: AF11 = '
    001010', AF12 = '001100', AF13 = '001110', AF21 = '010010', AF22 = '
    010100', AF23 = '010110', AF31 = '011010', AF32 = '011100', AF33 = '
    011110', AF41 = '100010', AF42 = '100100', and AF43 = '100110'.  The
@@ -513,7 +513,7 @@ Abstract
 
    (a) Which, if any, other PHB groups may preempt the forwarding
    resources specifically allocated to each AF PHB class.  This
-   preemption MUST NOT happen in normal network operation, but may be
+   preemption <em>MUST NOT</em> happen in normal network operation, but may be
    appropriate in certain unusual situations - for example, the '11x000'
    codepoint may preempt AF forwarding resources, to give precedence to
    unexpectedly high levels of network control traffic when required.
@@ -536,17 +536,17 @@ Abstract
    This memo does not specify that any particular relationship hold
    between AF PHB groups and other implemented PHB groups; it requires
    only that whatever relationship is chosen be documented.
-   Implementations MAY allow either or both of these relationships to be
+   Implementations <em>MAY</em> allow either or both of these relationships to be
    configurable.  It is expected that this level of configuration
    flexibility will prove valuable to many network administrators.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>. Security Implications</span>
 
    In order to protect itself against denial of service attacks, a
-   provider DS domain SHOULD limit the traffic entering the domain to
+   provider DS domain <em>SHOULD</em> limit the traffic entering the domain to
    the subscribed profiles.  Also, in order to protect a link to a
    customer DS domain from denial of service attacks, the provider DS
-   domain SHOULD allow the customer DS domain to specify how the
+   domain <em>SHOULD</em> allow the customer DS domain to specify how the
    resources of the link are allocated to AF packets.  If a service
    offering requires that traffic marked with an AF codepoint be limited
    by such attributes as source or destination address, it is the

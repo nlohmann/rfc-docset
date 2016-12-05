@@ -456,7 +456,7 @@ Table of Contents
                      (see <a href="#section-5.2.1">section 5.2.1</a>).
 
        S -&gt; C: An update stream consisting of zero or more
-               LBURPUpdateRequest messages.  The requests MAY be sent
+               LBURPUpdateRequest messages.  The requests <em>MAY</em> be sent
                asynchronously.  The parameters are:
 
                   1) A sequence number specifying the order of
@@ -513,7 +513,7 @@ Table of Contents
 
         ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
             requestName    [0] LDAPOID,
-            requestValue   [1] OCTET STRING OPTIONAL
+            requestValue   [1] OCTET STRING <em>OPTIONAL</em>
         }
 
    LBURP response messages are defined in terms of the LDAP
@@ -521,8 +521,8 @@ Table of Contents
 
        ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
            COMPONENTS of LDAPResult,
-           responseName  [10] LDAPOID OPTIONAL,
-           response      [11] OCTET STRING OPTIONAL
+           responseName  [10] LDAPOID <em>OPTIONAL</em>,
+           response      [11] OCTET STRING <em>OPTIONAL</em>
         }
 
 
@@ -593,10 +593,10 @@ Table of Contents
    When present, the value of maxOperations instructs the supplier to
    send no more than that number of update operations per
    LBURPUpdateRequest.updateOperationList (see <a href="#section-5.3.2">section 5.3.2</a>).  If the
-   consumer does not send a maxOperations value, it MUST be prepared to
+   consumer does not send a maxOperations value, it <em>MUST</em> be prepared to
    accept any number of update operations per
-   LBURPUpdateRequest.updateOperationList.  The supplier MAY send fewer
-   but MUST NOT send more than maxOperations update operations in a
+   LBURPUpdateRequest.updateOperationList.  The supplier <em>MAY</em> send fewer
+   but <em>MUST NOT</em> send more than maxOperations update operations in a
    single LBURPUpdateRequest.updateOperationList.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  LBURPUpdateRequest</span>
@@ -621,8 +621,8 @@ Table of Contents
 
    The sequenceNumber orders associated LBURPOperation requests.  This
    enables the consumer to process LBURPOperation requests in the order
-   specified by the supplier.  The supplier MUST set the value of
-   sequenceNumber of the first LBURPUpdateRequest to 1, and MUST
+   specified by the supplier.  The supplier <em>MUST</em> set the value of
+   sequenceNumber of the first LBURPUpdateRequest to 1, and <em>MUST</em>
    increment the value of sequenceNumber by 1 for each succeeding
    LBURPUpdateRequest.  In the unlikely event that the number of
    LBURPUpdateRequest messages exceeds maxInt, a sequenceNumber value of
@@ -656,13 +656,13 @@ Table of Contents
               delRequest       DelRequest,
               modDNRequest     ModifyDNRequest
            },
-           controls       [0] Controls OPTIONAL
+           controls       [0] Controls <em>OPTIONAL</em>
        }
 
    AddRequest, ModifyRequest, DelRequest, and ModifyDNRequest are
    defined in [<a href="./rfc2251.html" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">RFC2251</a>], sections <a href="#section-4.6">4.6</a>, <a href="#section-4.7">4.7</a>, <a href="#section-4.8">4.8</a>, and <a href="#section-4.9">4.9</a>.
 
-   The LDAP update requests in the UpdateOperationList MUST be applied
+   The LDAP update requests in the UpdateOperationList <em>MUST</em> be applied
    to the DIT in the order in which they are listed.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  LBURPUpdateResponse</span>
@@ -679,7 +679,7 @@ Table of Contents
    LBURPUpdateRequest in its entirety, the resultCode for the
    corresponding LBURPUpdateResponse is set to protocolError and the
    response element is omitted.  Updates from the LBURPUpdateRequest
-   SHALL NOT be committed to the DIT in this circumstance.
+   <em>SHALL NOT</em> be committed to the DIT in this circumstance.
 
    If the status of all of the update operations being reported by an
    LBURPUpdateResponse message is success, the resultCode of the
@@ -781,19 +781,19 @@ Table of Contents
    the update stream had been applied to the DIT using normal LDAP
    update operations.
 
-   The LBURPUpdateRequest messages that form the update stream MAY be
+   The LBURPUpdateRequest messages that form the update stream <em>MAY</em> be
    sent asynchronously by the supplier to the consumer.  This means that
    the supplier need not wait for an LBURPUpdateResponse message for one
    LBURPUpdateRequest message before sending the next LBURPUpdateRequest
    message.
 
    When the LBURP update stream contains a request that affects multiple
-   Directory System Agents (DSAs), the consumer MAY choose to perform
+   Directory System Agents (DSAs), the consumer <em>MAY</em> choose to perform
    the request or return a resultCode value of affectsMultipleDSAs.  As
-   with any LDAP operation, a consumer MAY send a resultCode value of
+   with any LDAP operation, a consumer <em>MAY</em> send a resultCode value of
    referral as part of the OperationResult element for any operation on
    an entry that it does not contain.  If the consumer is configured to
-   do so, it MAY chain on behalf of the supplier to complete the update
+   do so, it <em>MAY</em> chain on behalf of the supplier to complete the update
    operation instead.
 
    While a consumer server is processing an LBURP update stream, it may
@@ -813,14 +813,14 @@ Table of Contents
 
 
    If a consumer chooses to refuse LDAP operation requests from other
-   suppliers during LBURP update, it is RECOMMENDED that the consumer
+   suppliers during LBURP update, it is <em>RECOMMENDED</em> that the consumer
    refer those requests to another server that has the appropriate data
    to complete the operation.
 
    Unless attribute values specifying timestamps are included as part of
    the update stream, updates made using LBURP are treated the same as
    other LDAP operations wherein they are deemed to occur at the
-   present.  Consumers MAY store timestamp values sent by suppliers but
+   present.  Consumers <em>MAY</em> store timestamp values sent by suppliers but
    are not required to do so.
 
    Implementations may choose to perform the operations in the update

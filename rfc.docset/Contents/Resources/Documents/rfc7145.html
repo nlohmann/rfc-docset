@@ -672,17 +672,17 @@ Table of Figures
    the RCaP layer on the initiator node -- i.e., this is completely
    transparent to the iSER layer at the initiator.
 
-   The iSER layer at the initiator SHOULD invalidate the Advertised STag
+   The iSER layer at the initiator <em>SHOULD</em> invalidate the Advertised STag
    upon a normal completion of the associated task.  The Send with
    Invalidate Message, if supported by the RCaP layer (e.g., iWARP), can
    be used for automatic invalidation when it is used to carry the SCSI
    Response PDU.  There are two exceptions to this automatic
    invalidation -- bidirectional commands and abnormal completion of a
-   command.  The iSER layer at the initiator SHOULD explicitly
-   invalidate the STag in these two cases.  That iSER layer MUST check
+   command.  The iSER layer at the initiator <em>SHOULD</em> explicitly
+   invalidate the STag in these two cases.  That iSER layer <em>MUST</em> check
    that STag invalidation has occurred whenever receipt of a Send with
    Invalidate message is the expected means of causing an STag to be
-   invalidated, and it MUST perform the STag invalidation if the STag
+   invalidated, and it <em>MUST</em> perform the STag invalidation if the STag
    has not already been invalidated (e.g., because a Send Message was
    used instead of Send with Invalidate).
 
@@ -722,22 +722,22 @@ Table of Figures
    uses Send Operations to transfer iSER Messages containing SCSI
    Response PDUs to the iSER layer at the initiator.
 
-   For interoperability, iSER implementations SHOULD accept and
+   For interoperability, iSER implementations <em>SHOULD</em> accept and
    correctly process SendSE and SendInvSE messages.  However, SendSE and
    SendInvSE messages are to be regarded as optimizations or
    enhancements to the basic Send Message, and their support may vary by
    RCaP protocol and specific implementation.  In general, these
-   messages SHOULD NOT be used, unless the RCaP requires support for
+   messages <em>SHOULD NOT</em> be used, unless the RCaP requires support for
    them in all implementations.  If these messages are used, the
-   implementation SHOULD be capable of reverting to use of Send in order
+   implementation <em>SHOULD</em> be capable of reverting to use of Send in order
    to work with a receiver that does not support these messages.
    Attempted use of these messages with a peer that does not support
    them may result in a fatal error that closes the RCaP connection.
-   For example, these messages SHOULD NOT be used with the InfiniBand
+   For example, these messages <em>SHOULD NOT</em> be used with the InfiniBand
    RCaP because InfiniBand does not require support for them in all
-   cases.  New iSER implementations SHOULD use Send (and not SendSE or
+   cases.  New iSER implementations <em>SHOULD</em> use Send (and not SendSE or
    SendInvSE) unless there are compelling reasons for doing otherwise.
-   Similarly, iSER implementations SHOULD NOT rely on events triggered
+   Similarly, iSER implementations <em>SHOULD NOT</em> rely on events triggered
    by SendSE and SendInvSE, as these messages may not be used.
 
 
@@ -1276,8 +1276,8 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Upper-Layer Interface Requirements</span>
@@ -1329,7 +1329,7 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Operational Primitives offered by iSER</span>
 
-   The iSER protocol layer MUST support the following Operational
+   The iSER protocol layer <em>MUST</em> support the following Operational
    Primitives to be used by the iSCSI protocol layer.
 
 <span class="h4"><a class="selflink" name="section-3.1.1" href="#section-3.1.1">3.1.1</a>.  Send_Control</span>
@@ -1516,7 +1516,7 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Operational Primitives Used by iSER</span>
 
-   The iSER layer MUST use the following Operational Primitives offered
+   The iSER layer <em>MUST</em> use the following Operational Primitives offered
    by the iSCSI protocol layer when the connection is in iSER-assisted
    mode.
 
@@ -1600,7 +1600,7 @@ Table of Figures
 
    This is used by the iSER layers at the initiator and the target to
    notify the iSCSI layer of the unsolicited termination or failure of
-   an iSCSI/iSER connection.  The iSER layer MUST deallocate the
+   an iSCSI/iSER connection.  The iSER layer <em>MUST</em> deallocate the
    connection and task resources associated with the terminated
    connection before the invocation of this Operational Primitive.  Note
    that the Connection_Terminate_Notify Operational Primitive is not
@@ -1610,35 +1610,35 @@ Table of Figures
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  iSCSI Protocol Usage Requirements</span>
 
    To operate in iSER-assisted mode, the iSCSI layers at both the
-   initiator and the target MUST negotiate the RDMAExtensions key (see
+   initiator and the target <em>MUST</em> negotiate the RDMAExtensions key (see
    <a href="#section-6.3">Section 6.3</a>) to "Yes" on the leading connection.  If the
    RDMAExtensions key is not negotiated to "Yes", then iSER-assisted
-   mode MUST NOT be used.  If the RDMAExtensons key is negotiated to
+   mode <em>MUST NOT</em> be used.  If the RDMAExtensons key is negotiated to
    "Yes", but the invocation of the Allocate_Connection_Resources
-   Operational Primitive to the iSER layer fails, the iSCSI layer MUST
+   Operational Primitive to the iSER layer fails, the iSCSI layer <em>MUST</em>
    fail the iSCSI Login process or terminate the connection as
    appropriate.  See <a href="#section-10.1.3.1">Section 10.1.3.1</a> for details.
 
    If the RDMAExtensions key is negotiated to "Yes", the iSCSI layer
-   MUST satisfy the following protocol usage requirements from the iSER
+   <em>MUST</em> satisfy the following protocol usage requirements from the iSER
    protocol:
 
-   1.  The iSCSI layer at the initiator MUST set ExpDataSN to zero in
+   1.  The iSCSI layer at the initiator <em>MUST</em> set ExpDataSN to zero in
        Task Management Function Requests for Task Allegiance
        Reassignment for read/bidirectional commands, so as to cause the
        target to send all unacknowledged read data.
 
-   2.  The iSCSI layer at the target MUST always return the SCSI status
+   2.  The iSCSI layer at the target <em>MUST</em> always return the SCSI status
        in a separate SCSI Response PDU for read commands, i.e., there
-       MUST NOT be a "phase collapse" in concluding a SCSI Read Command.
+       <em>MUST NOT</em> be a "phase collapse" in concluding a SCSI Read Command.
 
-   3.  The iSCSI layers at both the initiator and the target MUST
+   3.  The iSCSI layers at both the initiator and the target <em>MUST</em>
        support the keys as defined in <a href="#section-6">Section 6</a> on Login/Text
-       Operational Keys.  If used as specified, these keys MUST NOT be
-       answered with NotUnderstood, and the semantics as defined MUST be
+       Operational Keys.  If used as specified, these keys <em>MUST NOT</em> be
+       answered with NotUnderstood, and the semantics as defined <em>MUST</em> be
        followed for each iSER-assisted connection.
 
-   4.  The iSCSI layer at the initiator MUST NOT issue SNACKs for PDUs.
+   4.  The iSCSI layer at the initiator <em>MUST NOT</em> issue SNACKs for PDUs.
 
 
 
@@ -1741,7 +1741,7 @@ Table of Figures
    between the initiator and the target in which iSER-assisted mode is
    negotiated and the connection resources necessary to support RCaP
    have been allocated at both the initiator and the target.  The same
-   connection MUST be used for both the iSCSI Login Phase and the
+   connection <em>MUST</em> be used for both the iSCSI Login Phase and the
    subsequent iSER-assisted Full Feature Phase.
 
    For a transport layer that operates in byte stream mode such as TCP,
@@ -1760,14 +1760,14 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   iSER-assisted mode MUST NOT be enabled unless it is negotiated on the
+   iSER-assisted mode <em>MUST NOT</em> be enabled unless it is negotiated on the
    leading connection during the LoginOperationalNegotiation stage of
    the iSCSI Login Phase.  iSER-assisted mode is negotiated using the
    RDMAExtensions=&lt;boolean-value&gt; key.  Both the initiator and the
-   target MUST exchange the RDMAExtensions key with the value set to
+   target <em>MUST</em> exchange the RDMAExtensions key with the value set to
    "Yes" to enable iSER-assisted mode.  If both the initiator and the
    target fail to negotiate the RDMAExtensions key set to "Yes", then
-   the connection MUST continue with the login semantics as defined in
+   the connection <em>MUST</em> continue with the login semantics as defined in
    [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>].  If the RDMAExtensions key is not negotiated to Yes, then
    for some RCaP implementation (such as [<a href="#ref-IB">IB</a>]), the existing connection
    may need to be torn down and a new connection may need to be
@@ -1775,13 +1775,13 @@ Table of Figures
    a connection like [<a href="#ref-IPoIB" title="&quot;Transmission of IP over InfiniBand (IPoIB)&quot;">IPoIB</a>].)
 
    iSER-assisted mode is defined for a Normal session only, and the
-   RDMAExtensions key MUST NOT be negotiated for a Discovery session.
+   RDMAExtensions key <em>MUST NOT</em> be negotiated for a Discovery session.
    Discovery sessions are always conducted using the transport layer as
    described in [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>].
 
    An iSER-enabled node is not required to initiate the RDMAExtensions
    key exchange if its preference is for the Traditional iSCSI mode.
-   The RDMAExtensions key, if offered, MUST be sent in the first
+   The RDMAExtensions key, if offered, <em>MUST</em> be sent in the first
    available Login Response or Login Request PDU in the
    LoginOperationalNegotiation stage.  This is due to the fact that the
    value of some Login parameters might depend on whether or not iSER-
@@ -1790,15 +1790,15 @@ Table of Figures
    iSER-assisted mode is a session-wide attribute.  If both the
    initiator and the target negotiated RDMAExtensions="Yes" on the
    leading connection of a session, then all subsequent connections of
-   the same session MUST enable iSER-assisted mode without having to
+   the same session <em>MUST</em> enable iSER-assisted mode without having to
    exchange RDMAExtensions keys during the iSCSI Login Phase.
    Conversely, if both the initiator and the target failed to negotiate
    RDMAExtensions to "Yes" on the leading connection of a session, then
-   the RDMAExtensions key MUST NOT be negotiated further on any
+   the RDMAExtensions key <em>MUST NOT</em> be negotiated further on any
    additional subsequent connection of the session.
 
    When the RDMAExtensions key is negotiated to "Yes", the HeaderDigest
-   and the DataDigest keys MUST be negotiated to "None" on all
+   and the DataDigest keys <em>MUST</em> be negotiated to "None" on all
    iSCSI/iSER connections participating in that iSCSI session.  This is
    because, for an iSCSI/iSER connection, RCaP is responsible for
    providing error detection that is at least as good as a 32-bit CRC
@@ -1821,7 +1821,7 @@ Table of Figures
    If the outcome of the iSCSI negotiation is to enable iSER-assisted
    mode, then on the initiator side, prior to sending the Login Request
    with the T (Transit) bit set to one and the NSG (Next Stage) field
-   set to FullFeaturePhase, the iSCSI layer SHOULD request the iSER
+   set to FullFeaturePhase, the iSCSI layer <em>SHOULD</em> request the iSER
    layer to allocate the connection resources necessary to support RCaP
    by invoking the Allocate_Connection_Resources Operational Primitive.
    The connection resources required are defined by the implementation
@@ -1839,15 +1839,15 @@ Table of Figures
    limits the maximum number of simultaneously incoming outstanding RDMA
    Read Requests per an RCaP Stream from the target to the initiator.
    The required value of IRD is outside the scope of the iSER
-   specification.  The iSER layer at the initiator MUST set IRD to 1 or
+   specification.  The iSER layer at the initiator <em>MUST</em> set IRD to 1 or
    higher if R2Ts are to be used in the connection.  However, the iSER
-   layer at the initiator MAY set IRD to zero based on implementation
+   layer at the initiator <em>MAY</em> set IRD to zero based on implementation
    configuration; setting IRD to zero indicates that no R2Ts will be
    used on that connection.  Initially, the iSER-IRD value at the
-   initiator SHOULD be set to the IRD value at the initiator and MUST
+   initiator <em>SHOULD</em> be set to the IRD value at the initiator and <em>MUST</em>
    NOT be more than the IRD value.
 
-   On the other hand, the Outbound RDMA Read Queue Depth (ORD) MAY be
+   On the other hand, the Outbound RDMA Read Queue Depth (ORD) <em>MAY</em> be
    set to zero since the iSER layer at the initiator does not issue RDMA
    Read Requests to the target.
 
@@ -1855,7 +1855,7 @@ Table of Figures
    results in a login failure, and its handling is described in <a href="#section-10.1.3.1">Section</a>
    <a href="#section-10.1.3.1">10.1.3.1</a>.
 
-   The iSER layer MUST return a success status to the iSCSI layer in
+   The iSER layer <em>MUST</em> return a success status to the iSCSI layer in
    response to the Allocate_Connection_Resources Operational Primitive.
 
 
@@ -1874,7 +1874,7 @@ Table of Figures
 
    After the target returns the Login Response with the T bit set to one
    and the NSG field set to FullFeaturePhase, and a Status-Class of 0x00
-   (Success), the iSCSI layer MUST invoke the Enable_Datamover
+   (Success), the iSCSI layer <em>MUST</em> invoke the Enable_Datamover
    Operational Primitive with the following qualifiers.  (See <a href="#section-10.1.4.6">Section</a>
    <a href="#section-10.1.4.6">10.1.4.6</a> for the case when the Status-Class is not Success.)
 
@@ -1883,7 +1883,7 @@ Table of Figures
       b. Transport_Connection_Descriptor that identifies the specific
          transport connection associated with the Connection_Handle.
 
-   The iSER layer MUST send the iSER Hello Message as the first iSER
+   The iSER layer <em>MUST</em> send the iSER Hello Message as the first iSER
    Message only if iSERHelloRequired is negotiated to "Yes".  See
    <a href="#section-5.1.3">Section 5.1.3</a> on iSER Hello Exchange.
 
@@ -1893,7 +1893,7 @@ Table of Figures
    number of unexpected iSCSI control-type PDUs (as declared by the
    MaxOutstandingUnexpectedPDUs key from the initiator) that can be sent
    by the target before the buffer resources are allocated at the
-   initiator side.  In this case, the iSERHelloRequired key SHOULD be
+   initiator side.  In this case, the iSERHelloRequired key <em>SHOULD</em> be
    negotiated to "Yes" so that the initiator can allocate the connection
    resources before sending the iSER Hello Message.  See <a href="#section-5.1.3">Section 5.1.3</a>
    for more details.
@@ -1903,7 +1903,7 @@ Table of Figures
    If the outcome of the iSCSI negotiation is to enable iSER-assisted
    mode, then on the target side, prior to sending the Login Response
    with the T (Transit) bit set to one and the NSG (Next Stage) field
-   set to FullFeaturePhase, the iSCSI layer MUST request the iSER layer
+   set to FullFeaturePhase, the iSCSI layer <em>MUST</em> request the iSER layer
    to allocate the resources necessary to support RCaP by invoking the
    Allocate_Connection_Resources Operational Primitive.  The connection
    resources required are defined by implementation and are outside the
@@ -1928,12 +1928,12 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   layer MUST NOT request the iSER layer to allocate the connection
+   layer <em>MUST NOT</em> request the iSER layer to allocate the connection
    resources necessary to support RCaP until the iSCSI layer is
    sufficiently far along in the iSCSI Login Phase that it is reasonably
    certain that the peer side is not an attacker.  In particular, if the
    Login Phase includes a SecurityNegotiation stage, the iSCSI layer
-   MUST defer the connection resource allocation (i.e., invoking the
+   <em>MUST</em> defer the connection resource allocation (i.e., invoking the
    Allocate_Connection_Resources Operational Primitive) to the
    LoginOperationalNegotiation stage ([<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>]) so that the resource
    allocation occurs after the authentication phase is completed.
@@ -1943,10 +1943,10 @@ Table of Figures
    R2Ts are transformed by the target into RDMA Read operations.  The
    ORD limits the maximum number of simultaneously outstanding RDMA Read
    Requests per RCaP Stream from the target to the initiator.
-   Initially, the iSER-ORD value at the target SHOULD be set to the ORD
+   Initially, the iSER-ORD value at the target <em>SHOULD</em> be set to the ORD
    value at the target.
 
-   On the other hand, the IRD at the target MAY be set to zero since the
+   On the other hand, the IRD at the target <em>MAY</em> be set to zero since the
    iSER layer at the target does not expect RDMA Read Requests to be
    issued by the initiator.
 
@@ -1956,13 +1956,13 @@ Table of Figures
 
    If the iSER layer at the target is successful in allocating the
    connection resources necessary to support RCaP, the following events
-   MUST occur in the specified sequence:
+   <em>MUST</em> occur in the specified sequence:
 
-   1. The iSER layer MUST return a success status to the iSCSI layer in
+   1. The iSER layer <em>MUST</em> return a success status to the iSCSI layer in
       response to the Allocate_Connection_Resources Operational
       Primitive.
 
-   2. The iSCSI layer MUST invoke the Enable_Datamover Operational
+   2. The iSCSI layer <em>MUST</em> invoke the Enable_Datamover Operational
       Primitive with the following qualifiers:
 
       a. Connection_Handle that identifies the iSCSI connection.
@@ -1984,51 +1984,51 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   3. The iSER layer MUST send the final Login Response PDU in the
+   3. The iSER layer <em>MUST</em> send the final Login Response PDU in the
       native transport mode to conclude the iSCSI Login Phase.  If the
-      underlying transport is TCP, then the iSER layer MUST send the
+      underlying transport is TCP, then the iSER layer <em>MUST</em> send the
       final Login Response PDU in byte stream mode.
 
    4. After receiving the iSER Hello Message from the initiator, the
-      iSER layer MUST respond with the iSER HelloReply Message to be
+      iSER layer <em>MUST</em> respond with the iSER HelloReply Message to be
       sent as the first iSER Message if iSERHelloRequired is negotiated
       to "Yes".  If the iSER layer receives an iSER Hello Message when
-      iSERHelloRequired is negotiated to "No", then this MUST be treated
+      iSERHelloRequired is negotiated to "No", then this <em>MUST</em> be treated
       as an iSER protocol error.  See <a href="#section-5.1.3">Section 5.1.3</a> on iSER Hello
       Exchange for more details.
 
    Note: In the above sequence, the operations as described in items 3
-   and 4 MUST be performed atomically for iWARP connections.  Failure to
+   and 4 <em>MUST</em> be performed atomically for iWARP connections.  Failure to
    do this may result in race conditions.
 
 <span class="h4"><a class="selflink" name="section-5.1.3" href="#section-5.1.3">5.1.3</a>.  iSER Hello Exchange</span>
 
    If iSERHelloRequired is negotiated to "Yes", the first iSER Message
-   sent by the iSER layer at the initiator to the target MUST be the
+   sent by the iSER layer at the initiator to the target <em>MUST</em> be the
    iSER Hello Message.  The iSER Hello Message is used by the iSER layer
    at the initiator to declare iSER parameters to the target.  See
    <a href="#section-9.3">Section 9.3</a> on iSER Header Format for iSER Hello Message.
    Conversely, if iSERHelloRequired is negotiated to "No", then the iSER
-   layer at the initiator MUST NOT send an iSER Hello Message.
+   layer at the initiator <em>MUST NOT</em> send an iSER Hello Message.
 
    In response to the iSER Hello Message, the iSER layer at the target
-   MUST return the iSER HelloReply Message as the first iSER Message
+   <em>MUST</em> return the iSER HelloReply Message as the first iSER Message
    sent by the target if iSERHelloRequired is negotiated to "Yes".  The
    iSER HelloReply Message is used by the iSER layer at the target to
    declare iSER parameters to the initiator.  See <a href="#section-9.4">Section 9.4</a> on iSER
    Header Format for iSER HelloReply Message.  If the iSER layer
    receives an iSER Hello Message when iSERHelloRequired is negotiated
-   to "No", then this MUST be treated as an iSER protocol error.  See
+   to "No", then this <em>MUST</em> be treated as an iSER protocol error.  See
    <a href="#section-10.1.3.4">Section 10.1.3.4</a> on iSER Protocol Errors on for more details.
 
    In the iSER Hello Message, the iSER layer at the initiator declares
    the iSER-IRD value to the target.
 
    Upon receiving the iSER Hello Message, the iSER layer at the target
-   MUST set the iSER-ORD value to the minimum of the iSER-ORD value at
+   <em>MUST</em> set the iSER-ORD value to the minimum of the iSER-ORD value at
    the target and the iSER-IRD value declared by the initiator.  In
    order to free up the unused resources, the iSER layer at the target
-   MAY adjust (lower) its ORD value to match the iSER-ORD value if the
+   <em>MAY</em> adjust (lower) its ORD value to match the iSER-ORD value if the
    iSER-ORD value is smaller than the ORD value at the target.
 
 
@@ -2044,7 +2044,7 @@ Table of Figures
    the iSER-ORD value to the initiator.
 
    Upon receiving the iSER HelloReply Message, the iSER layer at the
-   initiator MAY adjust (lower) its IRD value to match the iSER-ORD
+   initiator <em>MAY</em> adjust (lower) its IRD value to match the iSER-ORD
    value in order to free up the unused resources, if the iSER-ORD value
    declared by the target is smaller than the iSER-IRD value declared by
    the initiator.
@@ -2121,8 +2121,8 @@ Table of Figures
    initiator to handle the number of unexpected iSCSI control-type PDUs
    that are sent by the target before the buffer resources are allocated
    at the initiator can result in the failure of the iSER session caused
-   by closure of the underlying RCaP connection.  A "new" initiator MAY
-   choose to terminate the connection; otherwise, it SHOULD do one of
+   by closure of the underlying RCaP connection.  A "new" initiator <em>MAY</em>
+   choose to terminate the connection; otherwise, it <em>SHOULD</em> do one of
    the following:
 
    1. Allocate the connection resources before sending the final Login
@@ -2153,11 +2153,11 @@ Table of Figures
 
 
    For an "old" initiator and a "new" target, if the iSERHelloRequired
-   key is not negotiated, a "new" target MUST still respond with the
+   key is not negotiated, a "new" target <em>MUST</em> still respond with the
    iSER HelloReply Message when it receives the iSER Hello Message.  If
    the iSERHelloRequired key is negotiated to "No" or "NotUnderstood", a
-   "new" target MAY choose to terminate the connection; otherwise, it
-   SHOULD delay sending any unexpected control-type PDUs until one of
+   "new" target <em>MAY</em> choose to terminate the connection; otherwise, it
+   <em>SHOULD</em> delay sending any unexpected control-type PDUs until one of
    the following events has occurred:
 
    1. A PDU is received from the initiator after it sends the final
@@ -2172,11 +2172,11 @@ Table of Figures
 
    The iSCSI layer at the initiator terminates an iSCSI/iSER connection
    normally by invoking the Send_Control Operational Primitive qualified
-   with the Logout Request PDU.  The iSER layer at the initiator MUST
+   with the Logout Request PDU.  The iSER layer at the initiator <em>MUST</em>
    use a Send Message to send the Logout Request PDU to the target.  The
    SendSE Message should be used if supported by the RCaP layer (e.g.,
    iWARP).  After the iSER layer at the initiator receives the Send
-   Message containing the Logout Response PDU from the target, it MUST
+   Message containing the Logout Response PDU from the target, it <em>MUST</em>
    notify the iSCSI layer by invoking the Control_Notify Operational
    Primitive qualified with the Logout Response PDU.
 
@@ -2184,7 +2184,7 @@ Table of Figures
    target is responsible for closing the iSCSI/iSER connection as
    described in <a href="#section-5.2.2">Section 5.2.2</a>.  After the RCaP layer at the initiator
    reports that the connection has been closed, the iSER layer at the
-   initiator MUST deallocate all connection and task resources (if any)
+   initiator <em>MUST</em> deallocate all connection and task resources (if any)
    associated with the connection, and invalidate the Local Mappings (if
    any) before notifying the iSCSI layer by invoking the
    Connection_Terminate_Notify Operational Primitive.
@@ -2192,11 +2192,11 @@ Table of Figures
 <span class="h4"><a class="selflink" name="section-5.2.2" href="#section-5.2.2">5.2.2</a>.  Normal Connection Termination at the Target</span>
 
    Upon receiving the Send Message containing the Logout Request PDU,
-   the iSER layer at the target MUST notify the iSCSI layer at the
+   the iSER layer at the target <em>MUST</em> notify the iSCSI layer at the
    target by invoking the Control_Notify Operational Primitive qualified
    with the Logout Request PDU.  The iSCSI layer completes the logout
    process by invoking the Send_Control Operational Primitive qualified
-   with the Logout Response PDU.  The iSER layer at the target MUST use
+   with the Logout Response PDU.  The iSER layer at the target <em>MUST</em> use
    a Send Message to send the Logout Response PDU to the initiator.  The
    SendSE Message should be used if supported by the RCaP layer (e.g.,
    iWARP).  After the iSCSI logout process is complete, the iSCSI layer
@@ -2208,14 +2208,14 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   at the target MUST request the iSER layer at the target to terminate
+   at the target <em>MUST</em> request the iSER layer at the target to terminate
    the RCaP Stream by invoking the Connection_Terminate Operational
    Primitive.
 
-   As part of the termination process, the RCaP layer MUST close the
+   As part of the termination process, the RCaP layer <em>MUST</em> close the
    connection.  When the RCaP layer notifies the iSER layer after the
    RCaP Stream and the associated connection are terminated, the iSER
-   layer MUST deallocate all connection and task resources (if any)
+   layer <em>MUST</em> deallocate all connection and task resources (if any)
    associated with the connection, and invalidate the Local and Remote
    Mappings (if any).
 
@@ -2223,35 +2223,35 @@ Table of Figures
 
 <span class="h5"><a class="selflink" name="section-5.2.3.1" href="#section-5.2.3.1">5.2.3.1</a>.  Connection Termination Initiated by the iSCSI layer</span>
 
-   The Connection_Terminate Operational Primitive MAY be invoked by the
+   The Connection_Terminate Operational Primitive <em>MAY</em> be invoked by the
    iSCSI layer to request the iSER layer to terminate the RCaP Stream
    without having previously exchanged the Logout Request and Logout
    Response PDUs between the two iSCSI/iSER nodes.  As part of the
    termination process, the RCaP layer will close the connection.  When
    the RCaP layer notifies the iSER layer after the RCaP Stream and the
-   associated connection are terminated, the iSER layer MUST perform the
+   associated connection are terminated, the iSER layer <em>MUST</em> perform the
    following actions.
 
    If the Connection_Terminate Operational Primitive is invoked by the
-   iSCSI layer at the target, then the iSER layer at the target MUST
+   iSCSI layer at the target, then the iSER layer at the target <em>MUST</em>
    deallocate all connection and task resources (if any) associated with
    the connection, and invalidate the Local and Remote Mappings (if
    any).
 
    If the Connection_Terminate Operational Primitive is invoked by the
    iSCSI layer at the initiator, then the iSER layer at the initiator
-   MUST deallocate all connection and task resources (if any) associated
+   <em>MUST</em> deallocate all connection and task resources (if any) associated
    with the connection, and invalidate the Local Mappings (if any).
 
 <span class="h5"><a class="selflink" name="section-5.2.3.2" href="#section-5.2.3.2">5.2.3.2</a>.  Connection Termination Notification to the iSCSI layer</span>
 
    If the iSCSI/iSER connection is terminated without the invocation of
-   Connection_Terminate from the iSCSI layer, the iSER layer MUST notify
+   Connection_Terminate from the iSCSI layer, the iSER layer <em>MUST</em> notify
    the iSCSI layer that the iSCSI/iSER connection has been terminated by
    invoking the Connection_Terminate_Notify Operational Primitive.
 
    Prior to invoking Connection_Terminate_Notify, the iSER layer at the
-   target MUST deallocate all connection and task resources (if any)
+   target <em>MUST</em> deallocate all connection and task resources (if any)
    associated with the connection, and invalidate the Local and Remote
    Mappings (if any).
 
@@ -2265,12 +2265,12 @@ Table of Figures
 
 
    Prior to invoking Connection_Terminate_Notify, the iSER layer at the
-   initiator MUST deallocate all connection and task resources (if any)
+   initiator <em>MUST</em> deallocate all connection and task resources (if any)
    associated with the connection, and invalidate the Local Mappings (if
    any).
 
    If the remote iSCSI/iSER node initiated the closing of the connection
-   (e.g., by sending a TCP FIN or TCP RST), the iSER layer MUST notify
+   (e.g., by sending a TCP FIN or TCP RST), the iSER layer <em>MUST</em> notify
    the iSCSI layer after the RCaP layer reports that the connection is
    closed by invoking the Connection_Terminate_Notify Operational
    Primitive.
@@ -2300,14 +2300,14 @@ Table of Figures
    For an iSCSI connection belonging to a session in which
    RDMAExtensions=Yes was negotiated on the leading connection of the
    session, MaxRecvDataSegmentLength need not be declared in the Login
-   Phase, and MUST be ignored if it is declared.  Instead,
+   Phase, and <em>MUST</em> be ignored if it is declared.  Instead,
    InitiatorRecvDataSegmentLength (as described in <a href="#section-6.5">Section 6.5</a>) and
    TargetRecvDataSegmentLength (as described in <a href="#section-6.4">Section 6.4</a>) keys are
    negotiated.  The values of the local and remote
    MaxRecvDataSegmentLength are derived from the
    InitiatorRecvDataSegmentLength and TargetRecvDataSegmentLength keys.
 
-   In the Full Feature Phase, the initiator MUST consider the value of
+   In the Full Feature Phase, the initiator <em>MUST</em> consider the value of
    its local MaxRecvDataSegmentLength (that it would have declared to
    the target) as having the value of InitiatorRecvDataSegmentLength,
    and the value of the remote MaxRecvDataSegmentLength (that would have
@@ -2320,7 +2320,7 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   TargetRecvDataSegmentLength.  Similarly, the target MUST consider the
+   TargetRecvDataSegmentLength.  Similarly, the target <em>MUST</em> consider the
    value of its local MaxRecvDataSegmentLength (that it would have
    declared to the initiator) as having the value of
    TargetRecvDataSegmentLength, and the value of the remote
@@ -2333,7 +2333,7 @@ Table of Figures
    request.  Furthermore, it returns the first MaxRecvDataSegmentLength
    bytes of the initiator-provided Ping Data.  Since there is no
    MaxRecvDataSegmentLength common to the initiator and the target in
-   iSER, the length of the data sent with the NOP-Out request MUST NOT
+   iSER, the length of the data sent with the NOP-Out request <em>MUST NOT</em>
    exceed InitiatorMaxRecvDataSegmentLength.
 
    The MaxRecvDataSegmentLength key is applicable only for iSCSI
@@ -2357,16 +2357,16 @@ Table of Figures
 
    This key is used by the initiator and the target to negotiate the
    support for iSER-assisted mode.  To enable the use of iSER-assisted
-   mode, both the initiator and the target MUST exchange
-   RDMAExtensions=Yes.  iSER-assisted mode MUST NOT be used if either
+   mode, both the initiator and the target <em>MUST</em> exchange
+   RDMAExtensions=Yes.  iSER-assisted mode <em>MUST NOT</em> be used if either
    the initiator or the target offers RDMAExtensions=No.
 
    An iSER-enabled node is not required to initiate the RDMAExtensions
    key exchange if it prefers to operate in the Traditional iSCSI mode.
    However, if the RDMAExtensions key is to be negotiated, an initiator
-   MUST offer the key in the first Login Request PDU in the
+   <em>MUST</em> offer the key in the first Login Request PDU in the
    LoginOperationalNegotiation stage of the leading connection, and a
-   target MUST offer the key in the first Login Response PDU with which
+   target <em>MUST</em> offer the key in the first Login Response PDU with which
    it is allowed to do so (i.e., the first Login Response PDU issued
 
 
@@ -2379,8 +2379,8 @@ Table of Figures
    after the first Login Request PDU with the C bit set to zero) in the
    LoginOperationalNegotiation stage of the leading connection.  In
    response to the offered key=value pair of RDMAExtensions=yes, an
-   initiator MUST respond in the next Login Request PDU with which it is
-   allowed to do so, and a target MUST respond in the next Login
+   initiator <em>MUST</em> respond in the next Login Request PDU with which it is
+   allowed to do so, and a target <em>MUST</em> respond in the next Login
    Response PDU with which it is allowed to do so.
 
    Negotiating the RDMAExtensions key first enables a node to negotiate
@@ -2413,7 +2413,7 @@ Table of Figures
    initiator may send to the target in an iSCSI control-type PDU in the
    Full Feature Phase.  For SCSI Command PDUs and SCSI Data-Out PDUs
    containing non-immediate unsolicited data to be sent by the
-   initiator, the initiator MUST send all non-Final PDUs with a data
+   initiator, the initiator <em>MUST</em> send all non-Final PDUs with a data
    segment size of exactly TargetRecvDataSegmentLength whenever the PDUs
    constitute a data sequence whose size is larger than
    TargetRecvDataSegmentLength.
@@ -2503,7 +2503,7 @@ Table of Figures
    not affected by this key.
 
    For interoperability with implementations based on [<a href="./rfc5046.html" title="&quot;Internet Small Computer System Interface (iSCSI) Extensions for Remote Direct Memory Access (RDMA)&quot;">RFC5046</a>], this
-   key SHOULD be negotiated because the default value of 0 in [<a href="./rfc5046.html" title="&quot;Internet Small Computer System Interface (iSCSI) Extensions for Remote Direct Memory Access (RDMA)&quot;">RFC5046</a>]
+   key <em>SHOULD</em> be negotiated because the default value of 0 in [<a href="./rfc5046.html" title="&quot;Internet Small Computer System Interface (iSCSI) Extensions for Remote Direct Memory Access (RDMA)&quot;">RFC5046</a>]
    is problematic for most implementations as it does not impose a bound
    on resources consumable by unexpected PDUs.
 
@@ -2532,7 +2532,7 @@ Table of Figures
    type PDUs that it can receive.
 
    For interoperability with implementations based on [<a href="./rfc5046.html" title="&quot;Internet Small Computer System Interface (iSCSI) Extensions for Remote Direct Memory Access (RDMA)&quot;">RFC5046</a>], an
-   initiator or target MAY terminate the connection if it anticipates
+   initiator or target <em>MAY</em> terminate the connection if it anticipates
    MaxAHSLength to be greater than 256 and the key is not understood by
    its peer.
 
@@ -2583,8 +2583,8 @@ Table of Figures
    session if RDMAExtensions=Yes was negotiated on the leading
    connection of the session.  It is used by the initiator to declare to
    the target whether the iSER Hello Exchange is required.  When set to
-   Yes, the iSER layers MUST perform the iSER Hello Exchange as
-   described in <a href="#section-5.1.3">Section 5.1.3</a>.  When set to No, the iSER layers MUST NOT
+   Yes, the iSER layers <em>MUST</em> perform the iSER Hello Exchange as
+   described in <a href="#section-5.1.3">Section 5.1.3</a>.  When set to No, the iSER layers <em>MUST NOT</em>
    perform the iSER Hello Exchange.
 
 
@@ -2626,7 +2626,7 @@ Table of Figures
    If the invocation of the Operational Primitive by the iSCSI layer to
    request the iSER layer to process an iSCSI data-type PDU is qualified
    with Notify_Enable set, then upon completing the RDMA operation, the
-   iSER layer at the target MUST notify the iSCSI layer at the target by
+   iSER layer at the target <em>MUST</em> notify the iSCSI layer at the target by
    invoking the Data_Completion_Notify Operational Primitive qualified
    with the ITT and SN.  There is no data completion notification at the
    initiator since the RDMA operations are completely handled by the
@@ -2637,8 +2637,8 @@ Table of Figures
    If the invocation of the Operational Primitive by the iSCSI layer to
    request the iSER layer to process an iSCSI data-type PDU is qualified
    with Notify_Enable cleared, then upon completing the RDMA operation,
-   the iSER layer at the target MUST NOT notify the iSCSI layer at the
-   target and MUST NOT invoke the Data_Completion_Notify Operational
+   the iSER layer at the target <em>MUST NOT</em> notify the iSCSI layer at the
+   target and <em>MUST NOT</em> invoke the Data_Completion_Notify Operational
    Primitive.
 
    If an operation associated with an iSCSI data-type PDU fails for any
@@ -2667,7 +2667,7 @@ Table of Figures
    carrying unsolicited data are defined as iSCSI control-type PDUs.
    See <a href="#section-7.3.4">Section 7.3.4</a> on the treatment of SCSI Data-Out PDUs.
 
-   When the iSER layer receives an iSCSI control-type PDU, it MUST
+   When the iSER layer receives an iSCSI control-type PDU, it <em>MUST</em>
    notify the iSCSI layer by invoking the Control_Notify Operational
    Primitive qualified with the iSCSI control-type PDU.
 
@@ -2676,9 +2676,9 @@ Table of Figures
    This section describes the handling of each of the iSCSI PDU types by
    the iSER layer.  The iSCSI layer requests the iSER layer to process
    the iSCSI PDU by invoking the appropriate Operational Primitive.  A
-   Connection_Handle MUST qualify each of these invocations.  In
+   Connection_Handle <em>MUST</em> qualify each of these invocations.  In
    addition, the BHS and the optional AHS of the iSCSI PDU as defined in
-   [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>] MUST qualify each of the invocations.  The qualifying
+   [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>] <em>MUST</em> qualify each of the invocations.  The qualifying
    Connection_Handle, the BHS, and the AHS are not explicitly listed in
    the subsequent sections.
 
@@ -2692,7 +2692,7 @@ Table of Figures
       PDU-specific qualifiers (for SCSI Read or bidirectional command):
       DataDescriptorIn
 
-   The iSER layer at the initiator MUST send the SCSI command in a Send
+   The iSER layer at the initiator <em>MUST</em> send the SCSI command in a Send
    Message to the target.  The SendSE Message should be used if
    supported by the RCaP layer (e.g., iWARP).
 
@@ -2713,18 +2713,18 @@ Table of Figures
 
 
    For a SCSI Write or bidirectional command, the iSCSI layer at the
-   initiator MUST invoke the Send_Control Operational Primitive as
+   initiator <em>MUST</em> invoke the Send_Control Operational Primitive as
    follows:
 
    *  If there is immediate data to be transferred for the SCSI write or
-      bidirectional command, the qualifier ImmediateDataSize MUST be
+      bidirectional command, the qualifier ImmediateDataSize <em>MUST</em> be
       used to define the number of bytes of immediate unsolicited data
       to be sent with the write or bidirectional command, and the
-      qualifier DataDescriptorOut MUST be used to define the initiator's
+      qualifier DataDescriptorOut <em>MUST</em> be used to define the initiator's
       I/O Buffer containing the SCSI Write data.
 
    *  If there is unsolicited data to be transferred for the SCSI Write
-      or bidirectional command, the qualifier UnsolicitedDataSize MUST
+      or bidirectional command, the qualifier UnsolicitedDataSize <em>MUST</em>
       be used to define the number of bytes of immediate and non-
       immediate unsolicited data for the command.  The iSCSI layer will
       issue one or more SCSI Data-Out PDUs for the non-immediate
@@ -2733,10 +2733,10 @@ Table of Figures
    *  If there is solicited data to be transferred for the SCSI Write or
       bidirectional command, as indicated when the Expected Data
       Transfer Length in the SCSI Command PDU exceeds the value of
-      UnsolicitedDataSize, the iSER layer at the initiator MUST do the
+      UnsolicitedDataSize, the iSER layer at the initiator <em>MUST</em> do the
       following:
 
-      a. It MUST allocate a Write STag for the I/O Buffer defined by the
+      a. It <em>MUST</em> allocate a Write STag for the I/O Buffer defined by the
          qualifier DataDescriptorOut.  DataDescriptorOut describes the
          I/O buffer starting with the immediate unsolicited data (if
          any), followed by the non-immediate unsolicited data (if any)
@@ -2746,10 +2746,10 @@ Table of Figures
          Yes, the Base Offset is associated with an I/O Buffer that
          contains only solicited data.
 
-      b. It MUST establish a Local Mapping that associates the Initiator
+      b. It <em>MUST</em> establish a Local Mapping that associates the Initiator
          Task Tag (ITT) to the Write STag.
 
-      c. It MUST Advertise the Write STag and the Base Offset to the
+      c. It <em>MUST</em> Advertise the Write STag and the Base Offset to the
          target by sending them in the iSER header of the iSER Message
          (the payload of the Send Message of RCaP) containing the SCSI
          Write or bidirectional command PDU.  The SendSE Message should
@@ -2769,18 +2769,18 @@ Table of Figures
 
 
    For a SCSI Read or bidirectional command, the iSCSI layer at the
-   initiator MUST invoke the Send_Control Operational Primitive
+   initiator <em>MUST</em> invoke the Send_Control Operational Primitive
    qualified with DataDescriptorIn, which defines the initiator's I/O
    Buffer for receiving the SCSI Read data.  The iSER layer at the
-   initiator MUST do the following:
+   initiator <em>MUST</em> do the following:
 
-      a. It MUST allocate a Read STag for the I/O Buffer and note the
+      a. It <em>MUST</em> allocate a Read STag for the I/O Buffer and note the
          Base Offset for this I/O Buffer.
 
-      b. It MUST establish a Local Mapping that associates the Initiator
+      b. It <em>MUST</em> establish a Local Mapping that associates the Initiator
          Task Tag (ITT) to the Read STag.
 
-      c. It MUST Advertise the Read STag and the Base Offset to the
+      c. It <em>MUST</em> Advertise the Read STag and the Base Offset to the
          target by sending them in the iSER header of the iSER Message
          (the payload of the Send Message of RCaP) containing the SCSI
          Read or bidirectional command PDU.  The SendSE Message should
@@ -2789,13 +2789,13 @@ Table of Figures
 
    If the amount of unsolicited data to be transferred in a SCSI Command
    exceeds TargetRecvDataSegmentLength, then the iSCSI layer at the
-   initiator MUST segment the data into multiple iSCSI control-type
+   initiator <em>MUST</em> segment the data into multiple iSCSI control-type
    PDUs, with the data segment length in all generated PDUs (except the
    last one) having exactly the size TargetRecvDataSegmentLength.  The
    data segment length of the last iSCSI control-type PDU carrying the
    unsolicited data can be up to TargetRecvDataSegmentLength.
 
-   When the iSER layer at the target receives the SCSI Command, it MUST
+   When the iSER layer at the target receives the SCSI Command, it <em>MUST</em>
    establish a Remote Mapping that associates the ITT to the Base
    Offset(s) and the Advertised STag(s) in the iSER header.  The Write
    STag is used by the iSER layer at the target in handling the data
@@ -2809,10 +2809,10 @@ Table of Figures
 
       PDU-specific qualifiers:  DataDescriptorStatus
 
-   The iSCSI layer at the target MUST invoke the Send_Control
+   The iSCSI layer at the target <em>MUST</em> invoke the Send_Control
    Operational Primitive qualified with DataDescriptorStatus, which
    defines the buffer containing the sense and response information.
-   The iSCSI layer at the target MUST always return the SCSI status for
+   The iSCSI layer at the target <em>MUST</em> always return the SCSI status for
    a SCSI command in a separate SCSI Response PDU.  "Phase collapse" for
 
 
@@ -2824,51 +2824,51 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   transferring SCSI status in a SCSI Data-In PDU MUST NOT be used. The
+   transferring SCSI status in a SCSI Data-In PDU <em>MUST NOT</em> be used. The
    iSER layer at the target sends the SCSI Response PDU according to the
    following rules:
 
    *  If no STags were Advertised by the initiator in the iSER Message
       containing the SCSI command PDU, then the iSER layer at the target
-      MUST send a Send Message containing the SCSI Response PDU.  The
+      <em>MUST</em> send a Send Message containing the SCSI Response PDU.  The
       SendSE Message should be used if supported by the RCaP layer
       (e.g., iWARP).
 
    *  If the initiator Advertised a Read STag in the iSER Message
       containing the SCSI Command PDU, then the iSER layer at the target
-      MUST send a Send Message containing the SCSI Response PDU.  The
-      header of the Send Message MUST carry the Read STag to be
+      <em>MUST</em> send a Send Message containing the SCSI Response PDU.  The
+      header of the Send Message <em>MUST</em> carry the Read STag to be
       invalidated at the initiator.  The Send with Invalidate Message,
       if supported by the RCaP layer (e.g., iWARP), can be used for the
       automatic invalidation of the STag.
 
    *  If the initiator Advertised only the Write STag in the iSER
       Message containing the SCSI command PDU, then the iSER layer at
-      the target MUST send a Send Message containing the SCSI Response
-      PDU.  The header of the Send Message MUST carry the Write STag to
+      the target <em>MUST</em> send a Send Message containing the SCSI Response
+      PDU.  The header of the Send Message <em>MUST</em> carry the Write STag to
       be invalidated at the initiator.  The Send with Invalidate
       Message, if supported by the RCaP layer (e.g., iWARP), can be used
       for the automatic invalidation of the STag.
 
    When the iSCSI layer at the target invokes the Send_Control
    Operational Primitive to send the SCSI Response PDU, the iSER layer
-   at the target MUST invalidate the Remote Mapping before transferring
+   at the target <em>MUST</em> invalidate the Remote Mapping before transferring
    the SCSI Response PDU to the initiator.
 
    Upon receiving a Send Message containing the SCSI Response PDU from
-   the target, the iSER layer at the initiator MUST invalidate the
+   the target, the iSER layer at the initiator <em>MUST</em> invalidate the
    STag(s) specified in the header.  (If a Send with Invalidate Message
    is supported by the RCaP layer (e.g., iWARP) and is used to carry the
    SCSI Response PDU, the RCaP layer at the initiator will invalidate
-   the STag.  The iSER layer at the initiator MUST ensure that the
+   the STag.  The iSER layer at the initiator <em>MUST</em> ensure that the
    correct STag is invalidated.  If both the Read and the Write STags
    were Advertised earlier by the initiator, then the iSER layer at the
-   initiator MUST explicitly invalidate the Write STag upon receiving
+   initiator <em>MUST</em> explicitly invalidate the Write STag upon receiving
    the Send with Invalidate Message because the header of the Send with
    Invalidate Message can only carry one STag (in this case, the Read
    STag) to be invalidated.)
 
-   The iSER layer at the initiator MUST ensure the invalidation of the
+   The iSER layer at the initiator <em>MUST</em> ensure the invalidation of the
    STag(s) used in a command before notifying the iSCSI layer at the
    initiator by invoking the Control_Notify Operational Primitive
    qualified with the SCSI Response.  This precludes the possibility of
@@ -2884,8 +2884,8 @@ Table of Figures
    cause data corruption.
 
    When the iSER layer at the initiator receives a Send Message
-   containing the SCSI Response PDU, it SHOULD invalidate the Local
-   Mapping.  The iSER layer MUST ensure that all local STag(s)
+   containing the SCSI Response PDU, it <em>SHOULD</em> invalidate the Local
+   Mapping.  The iSER layer <em>MUST</em> ensure that all local STag(s)
    associated with the ITT are invalidated before notifying the iSCSI
    layer of the SCSI Response PDU by invoking the Control_Notify
    Operational Primitive qualified with the SCSI Response PDU.
@@ -2897,34 +2897,34 @@ Table of Figures
       PDU-specific qualifiers (for TMF Request):  DataDescriptorOut,
       DataDescriptorIn
 
-   The iSER layer MUST use a Send Message to send the Task Management
+   The iSER layer <em>MUST</em> use a Send Message to send the Task Management
    Function Request/Response PDU.  The SendSE Message should be used if
    supported by the RCaP layer (e.g., iWARP).
 
    For the Task Management Function Request with the TASK REASSIGN
-   function, the iSER layer at the initiator MUST do the following:
+   function, the iSER layer at the initiator <em>MUST</em> do the following:
 
-   *  It MUST use the ITT as specified in the Referenced Task Tag from
+   *  It <em>MUST</em> use the ITT as specified in the Referenced Task Tag from
       the Task Management Function Request PDU to locate the existing
       STags (if any) in the Local Mappings.
 
-   *  It MUST invalidate the existing STags (if any) and the Local
+   *  It <em>MUST</em> invalidate the existing STags (if any) and the Local
       Mappings.
 
-   *  It MUST allocate a Read STag for the I/O Buffer and note the Base
+   *  It <em>MUST</em> allocate a Read STag for the I/O Buffer and note the Base
       Offset associated with the I/O Buffer as defined by the qualifier
       DataDescriptorIn if the Send_Control Operational Primitive
       invocation is qualified with DataDescriptorIn.
 
-   *  It MUST allocate a Write STag for the I/O Buffer and note the Base
+   *  It <em>MUST</em> allocate a Write STag for the I/O Buffer and note the Base
       Offset associated with the I/O Buffer as defined by the qualifier
       DataDescriptorOut if the Send_Control Operational Primitive
       invocation is qualified with DataDescriptorOut.
 
-   *  If STags are allocated, it MUST establish new Local Mapping(s)
+   *  If STags are allocated, it <em>MUST</em> establish new Local Mapping(s)
       that associate the ITT to the allocated STag(s).
 
-   *  It MUST Advertise the STags and the Base Offsets, if allocated, to
+   *  It <em>MUST</em> Advertise the STags and the Base Offsets, if allocated, to
       the target in the iSER header of the Send Message carrying the
       iSCSI PDU, as described in <a href="#section-9.2">Section 9.2</a>.  The SendSE Message should
       be used if supported by the RCaP layer (e.g., iWARP).
@@ -2938,24 +2938,24 @@ Table of Figures
 
    For the Task Management Function Request with the TASK REASSIGN
    function for a SCSI Read or bidirectional command, the iSCSI layer at
-   the initiator MUST set ExpDataSN to zero since the data transfer and
+   the initiator <em>MUST</em> set ExpDataSN to zero since the data transfer and
    acknowledgements happen transparently to the iSCSI layer at the
    initiator.  This provides the flexibility to the iSCSI layer at the
    target to request transmission of only the unacknowledged data as
    specified in [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>].
 
    When the iSER layer at the target receives the Task Management
-   Function Request with the TASK REASSIGN function, it MUST do the
+   Function Request with the TASK REASSIGN function, it <em>MUST</em> do the
    following:
 
-   *  It MUST use the ITT as specified in the Referenced Task Tag from
+   *  It <em>MUST</em> use the ITT as specified in the Referenced Task Tag from
       the Task Management Function Request PDU to locate the Local and
       Remote Mappings (if any).
 
-   *  It MUST invalidate the local STags (if any) associated with the
+   *  It <em>MUST</em> invalidate the local STags (if any) associated with the
       ITT.
 
-   *  It MUST replace the Base Offset(s) and the Advertised STag(s) in
+   *  It <em>MUST</em> replace the Base Offset(s) and the Advertised STag(s) in
       the Remote Mapping with the Base Offset(s) and the Advertised
       STag(s) in the iSER header.  The Write STag is used in the
       handling of the R2T PDU(s) from the iSCSI layer at the target as
@@ -2969,18 +2969,18 @@ Table of Figures
 
       PDU-specific qualifiers:  DataDescriptorOut
 
-   The iSCSI layer at the initiator MUST invoke the Send_Control
+   The iSCSI layer at the initiator <em>MUST</em> invoke the Send_Control
    Operational Primitive qualified with DataDescriptorOut, which defines
    the initiator's I/O Buffer containing unsolicited SCSI Write data.
 
    If the amount of unsolicited data to be transferred as SCSI Data-Out
    exceeds TargetRecvDataSegmentLength, then the iSCSI layer at the
-   initiator MUST segment the data into multiple iSCSI control-type
+   initiator <em>MUST</em> segment the data into multiple iSCSI control-type
    PDUs, where the DataSegmentLength has the value of
    TargetRecvDataSegmentLength in all generated PDUs except the last
    one.  The DataSegmentLength of the last iSCSI control-type PDU
    carrying the unsolicited data can be up to
-   TargetRecvDataSegmentLength.  The iSCSI layer at the target MUST
+   TargetRecvDataSegmentLength.  The iSCSI layer at the target <em>MUST</em>
    perform the reassembly function for the unsolicited data.
 
 
@@ -2992,7 +2992,7 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   For unsolicited data, the iSER layer at the initiator MUST use a Send
+   For unsolicited data, the iSER layer at the initiator <em>MUST</em> use a Send
    Message to send the SCSI Data-Out PDU.  If the F bit is set to 1, the
    SendSE Message should be used if supported by the RCaP layer (e.g.,
    iWARP).
@@ -3009,35 +3009,35 @@ Table of Figures
       PDU-specific qualifiers:  DataDescriptorIn
 
    When the iSCSI layer at the target is ready to return the SCSI Read
-   data to the initiator, it MUST invoke the Put_Data Operational
+   data to the initiator, it <em>MUST</em> invoke the Put_Data Operational
    Primitive qualified with DataDescriptorIn, which defines the SCSI
    Data-In buffer.  See <a href="#section-7.1">Section 7.1</a> on the general requirement on the
    handling of iSCSI data-type PDUs.  SCSI Data-In PDU(s) are used in
    SCSI Read data transfer as described in <a href="#section-9.5.2">Section 9.5.2</a>.
 
-   The iSER layer at the target MUST do the following for each
+   The iSER layer at the target <em>MUST</em> do the following for each
    invocation of the Put_Data Operational Primitive:
 
-   1. It MUST use the ITT in the SCSI Data-In PDU to locate the remote
+   1. It <em>MUST</em> use the ITT in the SCSI Data-In PDU to locate the remote
       Read STag and the Base Offset in the Remote Mapping.  The Remote
       Mapping was established earlier by the iSER layer at the target
       when the SCSI Read Command was received from the initiator.
 
-   2. It MUST generate and send an RDMA Write Message containing the
+   2. It <em>MUST</em> generate and send an RDMA Write Message containing the
       read data to the initiator.
 
-      a. It MUST use the remote Read STag as the Data Sink STag of the
+      a. It <em>MUST</em> use the remote Read STag as the Data Sink STag of the
          RDMA Write Message.
 
-      b. It MUST add the Buffer Offset from the SCSI Data-In PDU to the
+      b. It <em>MUST</em> add the Buffer Offset from the SCSI Data-In PDU to the
          Base Offset from the Remote Mapping as the Data Sink Tagged
          Offset of the RDMA Write Message.
 
-      c. It MUST use DataSegmentLength from the SCSI Data-In PDU to
+      c. It <em>MUST</em> use DataSegmentLength from the SCSI Data-In PDU to
          determine the amount of data to be sent in the RDMA Write
          Message.
 
-   3. It MUST associate the DataSN and ITT from the SCSI Data-In PDU
+   3. It <em>MUST</em> associate the DataSN and ITT from the SCSI Data-In PDU
       with the RDMA Write operation.  If the Put_Data Operational
       Primitive invocation was qualified with Notify_Enable set, then
 
@@ -3050,16 +3050,16 @@ Table of Figures
 
       when the iSER layer at the target receives a completion from the
       RCaP layer for the RDMA Write Message, the iSER layer at the
-      target MUST notify the iSCSI layer by invoking the
+      target <em>MUST</em> notify the iSCSI layer by invoking the
       Data_Completion_Notify Operational Primitive qualified with the
       DataSN and ITT.  Conversely, if the Put_Data Operational Primitive
       invocation was qualified with Notify_Enable cleared, then the iSER
-      layer at the target MUST NOT notify the iSCSI layer on completion
-      and MUST NOT invoke the Data_Completion_Notify Operational
+      layer at the target <em>MUST NOT</em> notify the iSCSI layer on completion
+      and <em>MUST NOT</em> invoke the Data_Completion_Notify Operational
       Primitive.
 
    When the A-bit is set to one in the SCSI Data-In PDU, the iSER layer
-   at the target MUST notify the iSCSI layer at the target when the data
+   at the target <em>MUST</em> notify the iSCSI layer at the target when the data
    transfer is complete at the initiator.  To perform this additional
    function, the iSER layer at the target can take advantage of the
    operational ErrorRecoveryLevel if previously disclosed by the iSCSI
@@ -3069,21 +3069,21 @@ Table of Figures
    1. If the iSER layer at the target knows that the operational
       ErrorRecoveryLevel is 2, or if the iSER layer at the target does
       not know the operational ErrorRecoveryLevel, then the iSER layer
-      at the target MUST issue a zero-length RDMA Read Request Message
+      at the target <em>MUST</em> issue a zero-length RDMA Read Request Message
       following the RDMA Write Message.  When the iSER layer at the
       target receives a completion for the RDMA Read Request Message
       from the RCaP layer, implying that the RDMA-Capable Controller at
       the initiator has completed processing the RDMA Write Message due
       to the completion ordering semantics of RCaP, the iSER layer at
-      the target MUST notify the iSCSI layer at the target by invoking
+      the target <em>MUST</em> notify the iSCSI layer at the target by invoking
       the Data_ACK_Notify Operational Primitive qualified with ITT and
       DataSN (see <a href="#section-3.2.3">Section 3.2.3</a>).
 
    2. If the iSER layer at the target knows that the operational
-      ErrorRecoveryLevel is 1, then the iSER layer at the target MUST do
+      ErrorRecoveryLevel is 1, then the iSER layer at the target <em>MUST</em> do
       one of the following:
 
-      a. It MUST notify the iSCSI layer at the target by invoking the
+      a. It <em>MUST</em> notify the iSCSI layer at the target by invoking the
          Data_ACK_Notify Operational Primitive qualified with ITT and
          DataSN (see <a href="#section-3.2.3">Section 3.2.3</a>) when it receives the local
          completion from the RCaP layer for the RDMA Write Message.
@@ -3104,21 +3104,21 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-      b. Alternatively, it MUST use the same procedure for handling the
+      b. Alternatively, it <em>MUST</em> use the same procedure for handling the
          data transfer completion at the initiator as for
          ErrorRecoveryLevel 2.
 
    It should be noted that the iSCSI layer at the target cannot set the
    A-bit to 1 if the ErrorRecoveryLevel=0.
 
-   SCSI status MUST always be returned in a separate SCSI Response PDU.
-   The S bit in the SCSI Data-In PDU MUST always be set to zero.  There
-   MUST NOT be a "phase collapse" in the SCSI Data-In PDU.
+   SCSI status <em>MUST</em> always be returned in a separate SCSI Response PDU.
+   The S bit in the SCSI Data-In PDU <em>MUST</em> always be set to zero.  There
+   <em>MUST NOT</em> be a "phase collapse" in the SCSI Data-In PDU.
 
    Since the RDMA Write Message only transfers the data portion of the
    SCSI Data-In PDU but not the control information in the header, such
    as ExpCmdSN, if timely updates of such information are crucial, the
-   iSCSI layer at the initiator MAY issue NOP-Out PDUs to request the
+   iSCSI layer at the initiator <em>MAY</em> issue NOP-Out PDUs to request the
    iSCSI layer at the target to respond with the information using
    NOP-In PDUs.
 
@@ -3128,20 +3128,20 @@ Table of Figures
 
       PDU-specific qualifiers:  DataDescriptorOut
 
-   In order to send an R2T PDU, the iSCSI layer at the target MUST
+   In order to send an R2T PDU, the iSCSI layer at the target <em>MUST</em>
    invoke the Get_Data Operational Primitive qualified with
    DataDescriptorOut, which defines the I/O Buffer for receiving the
    SCSI Write data from the initiator.  See <a href="#section-7.1">Section 7.1</a> on the general
    requirements on the handling of iSCSI data-type PDUs.
 
-   The iSER layer at the target MUST do the following for each
+   The iSER layer at the target <em>MUST</em> do the following for each
    invocation of the Get_Data Operational Primitive:
 
-   1. It MUST ensure a valid local STag for the I/O Buffer and a valid
+   1. It <em>MUST</em> ensure a valid local STag for the I/O Buffer and a valid
       Local Mapping.  This may involve allocating a valid local STag and
       establishing a Local Mapping.
 
-   2. It MUST use the ITT in the R2T to locate the remote Write STag and
+   2. It <em>MUST</em> use the ITT in the R2T to locate the remote Write STag and
       the Base Offset in the Remote Mapping.  The Remote Mapping was
       established earlier by the iSER layer at the target when the iSER
       Message containing the Advertised Write STag, the Base Offset, and
@@ -3149,7 +3149,7 @@ Table of Figures
       received from the initiator.
 
    3. If the iSER-ORD value at the target is set to zero, the iSER layer
-      at the target MUST terminate the connection and free up the
+      at the target <em>MUST</em> terminate the connection and free up the
       resources associated with the connection (as described in <a href="#section-5.2.3">Section</a>
       <a href="#section-5.2.3">5.2.3</a>) if it received the R2T PDU from the iSCSI layer at the
 
@@ -3161,45 +3161,45 @@ Table of Figures
 
 
       target.  Upon termination of the connection, the iSER layer at the
-      target MUST notify the iSCSI layer at the target by invoking the
+      target <em>MUST</em> notify the iSCSI layer at the target by invoking the
       Connection_Terminate_Notify Operational Primitive.
 
    4. If the iSER-ORD value at the target is set to greater than 0, the
-      iSER layer at the target MUST transform the R2T PDU into an RDMA
+      iSER layer at the target <em>MUST</em> transform the R2T PDU into an RDMA
       Read Request Message.  While transforming the R2T PDU, the iSER
-      layer at the target MUST ensure that the number of outstanding
+      layer at the target <em>MUST</em> ensure that the number of outstanding
       RDMA Read Request Messages does not exceed the iSER-ORD value.  To
       transform the R2T PDU, the iSER layer at the target:
 
-      a. MUST derive the local STag and local Tagged Offset from the
+      a. <em>MUST</em> derive the local STag and local Tagged Offset from the
          DataDescriptorOut that qualified the Get_Data invocation.
 
-      b. MUST use the local STag as the Data Sink STag of the RDMA Read
+      b. <em>MUST</em> use the local STag as the Data Sink STag of the RDMA Read
          Request Message.
 
-      c. MUST use the local Tagged Offset as the Data Sink Tagged Offset
+      c. <em>MUST</em> use the local Tagged Offset as the Data Sink Tagged Offset
          of the RDMA Read Request Message.
 
-      d. MUST use the Desired Data Transfer Length from the R2T PDU as
+      d. <em>MUST</em> use the Desired Data Transfer Length from the R2T PDU as
          the RDMA Read Message Size of the RDMA Read Request Message.
 
-      e. MUST use the remote Write STag as the Data Source STag of the
+      e. <em>MUST</em> use the remote Write STag as the Data Source STag of the
          RDMA Read Request Message.
 
-      f. MUST add the Buffer Offset from the R2T PDU to the Base Offset
+      f. <em>MUST</em> add the Buffer Offset from the R2T PDU to the Base Offset
          from the Remote Mapping as the Data Source Tagged Offset of the
          RDMA Read Request Message.
 
-   5. It MUST associate the R2TSN and ITT from the R2T PDU with the RDMA
+   5. It <em>MUST</em> associate the R2TSN and ITT from the R2T PDU with the RDMA
       Read operation.  If the Get_Data Operational Primitive invocation
       was qualified with Notify_Enable set, then when the iSER layer at
       the target receives a completion from the RCaP layer for the RDMA
-      Read operation, the iSER layer at the target MUST notify the iSCSI
+      Read operation, the iSER layer at the target <em>MUST</em> notify the iSCSI
       layer by invoking the Data_Completion_Notify Operational Primitive
       qualified with the R2TSN and ITT.  Conversely, if the Get_Data
       Operational Primitive invocation was qualified with Notify_Enable
-      cleared, then the iSER layer at the target MUST NOT notify the
-      iSCSI layer on completion and MUST NOT invoke the
+      cleared, then the iSER layer at the target <em>MUST NOT</em> notify the
+      iSCSI layer on completion and <em>MUST NOT</em> invoke the
       Data_Completion_Notify Operational Primitive.
 
    When the RCaP layer at the initiator receives a valid RDMA Read
@@ -3219,13 +3219,13 @@ Table of Figures
    Since the RDMA Read Request Message from the target does not transfer
    the control information in the R2T PDU such as ExpCmdSN, if timely
    updates of such information are crucial, the iSCSI layer at the
-   initiator MAY issue NOP-Out PDUs to request the iSCSI layer at the
+   initiator <em>MAY</em> issue NOP-Out PDUs to request the iSCSI layer at the
    target to respond with the information using NOP-In PDUs.
 
    Similarly, since the RDMA Read Response Message from the initiator
    only transfers the data but not the control information normally
    found in the SCSI Data-Out PDU, such as ExpStatSN, if timely updates
-   of such information are crucial, the iSCSI layer at the target MAY
+   of such information are crucial, the iSCSI layer at the target <em>MAY</em>
    issue NOP-In PDUs to request the iSCSI layer at the initiator to
    respond with the information using NOP-Out PDUs.
 
@@ -3235,10 +3235,10 @@ Table of Figures
 
       PDU-specific qualifiers:  DataDescriptorSense
 
-   The iSCSI layer MUST invoke the Send_Control Operational Primitive
+   The iSCSI layer <em>MUST</em> invoke the Send_Control Operational Primitive
    qualified with DataDescriptorSense, which defines the buffer
    containing the sense and iSCSI event information.  The iSER layer
-   MUST use a Send Message to send the Asynchronous Message PDU.  The
+   <em>MUST</em> use a Send Message to send the Asynchronous Message PDU.  The
    SendSE Message should be used if supported by the RCaP layer (e.g.,
    iWARP).
 
@@ -3249,10 +3249,10 @@ Table of Figures
       PDU-specific qualifiers:  DataDescriptorTextOut (for Text
       Request), DataDescriptorIn (for Text Response)
 
-   The iSCSI layer MUST invoke the Send_Control Operational Primitive
+   The iSCSI layer <em>MUST</em> invoke the Send_Control Operational Primitive
    qualified with DataDescriptorTextOut (or DataDescriptorIn), which
    defines the Text Request (or Text Response) buffer.  The iSER layer
-   MUST use Send Messages to send the Text Request (or Text Response
+   <em>MUST</em> use Send Messages to send the Text Request (or Text Response
    PDUs).  The SendSE Message should be used if supported by the RCaP
    layer (e.g., iWARP).
 
@@ -3272,12 +3272,12 @@ Table of Figures
 <span class="grey"><a href="./rfc7145.html">RFC 7145</a>                   iSER Specification                 April 2014</span>
 
 
-   The iSCSI layer MUST NOT send a Login Request (or a Login Response)
+   The iSCSI layer <em>MUST NOT</em> send a Login Request (or a Login Response)
    PDU during the Full Feature Phase.  A Login Request (or a Login
-   Response) PDU, if used, MUST be treated as an iSCSI protocol error.
-   The iSER layer MAY reject such a PDU from the iSCSI layer with an
+   Response) PDU, if used, <em>MUST</em> be treated as an iSCSI protocol error.
+   The iSER layer <em>MAY</em> reject such a PDU from the iSCSI layer with an
    appropriate error code.  If a Login Request PDU is received by the
-   iSCSI layer at the target, it MUST respond with a Reject PDU with a
+   iSCSI layer at the target, it <em>MUST</em> respond with a Reject PDU with a
    reason code of "protocol error".
 
 <span class="h4"><a class="selflink" name="section-7.3.10" href="#section-7.3.10">7.3.10</a>.  Logout Request and Logout Response</span>
@@ -3286,7 +3286,7 @@ Table of Figures
 
       PDU-specific qualifiers:  None
 
-   The iSER layer MUST use a Send Message to send the Logout Request or
+   The iSER layer <em>MUST</em> use a Send Message to send the Logout Request or
    Logout Response PDU.  The SendSE Message should be used if supported
    by the RCaP layer (e.g., iWARP).  Sections <a href="#section-5.2.1">5.2.1</a> and <a href="#section-5.2.2">5.2.2</a> describe
    the handling of the Logout Request and the Logout Response at the
@@ -3299,11 +3299,11 @@ Table of Figures
    are no digest errors when the connection is in iSER-assisted mode.
    Also, since RCaP delivers all messages in the order they were sent,
    there are no sequence errors when the connection is in iSER-assisted
-   mode.  Therefore, the iSCSI layer MUST NOT send SNACK Request PDUs.
-   A SNACK Request PDU, if used, MUST be treated as an iSCSI protocol
-   error.  The iSER layer MAY reject such a PDU from the iSCSI layer
+   mode.  Therefore, the iSCSI layer <em>MUST NOT</em> send SNACK Request PDUs.
+   A SNACK Request PDU, if used, <em>MUST</em> be treated as an iSCSI protocol
+   error.  The iSER layer <em>MAY</em> reject such a PDU from the iSCSI layer
    with an appropriate error code.  If a SNACK Request PDU is received
-   by the iSCSI layer at the target, it MUST respond with a Reject PDU
+   by the iSCSI layer at the target, it <em>MUST</em> respond with a Reject PDU
    with a reason code of "protocol error".
 
 <span class="h4"><a class="selflink" name="section-7.3.12" href="#section-7.3.12">7.3.12</a>.  Reject</span>
@@ -3312,9 +3312,9 @@ Table of Figures
 
       PDU-specific qualifiers:  DataDescriptorReject
 
-   The iSCSI layer MUST invoke the Send_Control Operational Primitive
+   The iSCSI layer <em>MUST</em> invoke the Send_Control Operational Primitive
    qualified with DataDescriptorReject, which defines the Reject buffer.
-   The iSER layer MUST use a Send Message to send the Reject PDU.  The
+   The iSER layer <em>MUST</em> use a Send Message to send the Reject PDU.  The
    SendSE Message should be used if supported by the RCaP layer (e.g.,
    iWARP).
 
@@ -3335,9 +3335,9 @@ Table of Figures
       PDU-specific qualifiers:  DataDescriptorNOPOut (for NOP-Out),
       DataDescriptorNOPIn (for NOP-In)
 
-   The iSCSI layer MUST invoke the Send_Control Operational Primitive
+   The iSCSI layer <em>MUST</em> invoke the Send_Control Operational Primitive
    qualified with DataDescriptorNOPOut (or DataDescriptorNOPIn), which
-   defines the Ping (or Return Ping) data buffer.  The iSER layer MUST
+   defines the Ping (or Return Ping) data buffer.  The iSER layer <em>MUST</em>
    use Send Messages to send the NOP-Out (or NOP-In) PDU.  The SendSE
    Message should be used if supported by the RCaP layer (e.g., iWARP).
 
@@ -3349,7 +3349,7 @@ Table of Figures
    control-type PDUs.  Each Send Message in RCaP consumes an Untagged
    Buffer at the Data Sink.  However, neither the RCaP layer nor the
    iSER layer provides an explicit flow control mechanism for the Send
-   Messages.  Therefore, the iSER layer SHOULD provision enough Untagged
+   Messages.  Therefore, the iSER layer <em>SHOULD</em> provision enough Untagged
    buffers for handling incoming Send Messages to prevent buffer
    exhaustion at the RCaP layer.  If buffer exhaustion occurs, it may
    result in the termination of the connection.
@@ -3410,7 +3410,7 @@ Table of Figures
    The queuing capacity required of the iSCSI layer at the target is
    described in Section 4.2.2.1 of [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>].  For each of the control-
    type PDUs that can be sent by the initiator in this category, the
-   initiator MUST provision for the buffer resources required for the
+   initiator <em>MUST</em> provision for the buffer resources required for the
    corresponding control-type PDU sent as a response from the target.
    The following is a list of the PDUs that can be sent by the initiator
    and the PDUs that are sent by the target in response:
@@ -3472,14 +3472,14 @@ Table of Figures
    MaxOutstandingUnexpectedPDUs declared by the target.  (See <a href="#section-6.7">Section</a>
    <a href="#section-6.7">6.7</a>.)  After a PDU in this category is sent by the initiator, it is
    outstanding until it is retired.  At any time, the number of
-   outstanding unexpected PDUs MUST NOT exceed the value of
+   outstanding unexpected PDUs <em>MUST NOT</em> exceed the value of
    MaxOutstandingUnexpectedPDUs declared by the target.
 
    The target uses the value of MaxOutstandingUnexpectedPDUs that it
    declared to determine the amount of buffer resources required for
    control-type PDUs in this category that can be sent by an initiator.
    For the initiator, for each of the control-type PDUs that can be sent
-   in this category, the initiator MUST provision for the buffer
+   in this category, the initiator <em>MUST</em> provision for the buffer
    resources if required for the corresponding control-type PDU that can
    be sent as a response from the target.
 
@@ -3501,7 +3501,7 @@ Table of Figures
    ExpCmdSN is at least y+1.
 
    When the number of outstanding unexpected control-type PDUs equals
-   MaxOutstandingUnexpectedPDUs, the iSCSI layer at the initiator MUST
+   MaxOutstandingUnexpectedPDUs, the iSCSI layer at the initiator <em>MUST</em>
    NOT generate any unexpected PDUs, which otherwise it would have
    generated, even if the unexpected PDU is intended for immediate
    delivery.
@@ -3517,7 +3517,7 @@ Table of Figures
    MaxOutstandingUnexpectedPDUs declared by the initiator.  (See <a href="#section-6.7">Section</a>
    <a href="#section-6.7">6.7</a>.)  After a PDU in this category is sent by a target, it is
    outstanding until it is retired.  At any time, the number of
-   outstanding unexpected PDUs MUST NOT exceed the value of
+   outstanding unexpected PDUs <em>MUST NOT</em> exceed the value of
    MaxOutstandingUnexpectedPDUs declared by the initiator.  The
    initiator uses the value of MaxOutstandingUnexpectedPDUs that it
    declared to determine the amount of buffer resources required for
@@ -3553,7 +3553,7 @@ Table of Figures
 
 
    When the number of outstanding unexpected control-type PDUs equals
-   MaxOutstandingUnexpectedPDUs, the iSCSI layer at the target MUST NOT
+   MaxOutstandingUnexpectedPDUs, the iSCSI layer at the target <em>MUST NOT</em>
    generate any unexpected PDUs, which otherwise it would have
    generated, even if its intent is to indicate an iSCSI error condition
    (e.g., Asynchronous Message, Reject).  Task timeouts, as in the
@@ -3561,10 +3561,10 @@ Table of Figures
    session-level exceptions, will ensure that correct operational
    behavior will result in these cases despite not generating the PDU.
    This rule overrides any other requirements elsewhere that require
-   that a Reject PDU MUST be sent.
+   that a Reject PDU <em>MUST</em> be sent.
 
    (Implementation note:  SCSI task timeout and recovery can be a
-   lengthy process and hence SHOULD be avoided by proper provisioning of
+   lengthy process and hence <em>SHOULD</em> be avoided by proper provisioning of
    resources.)
 
    (Implementation note:  To ensure that the initiator has a means to
@@ -3598,7 +3598,7 @@ Table of Figures
    <a href="#section-9.3">9.3</a>), which contains the value of iSER-IRD.  In response to the iSER
    Hello Message, the target sends the iSER HelloReply Message (see
    <a href="#section-9.4">Section 9.4</a>), which contains the value of iSER-ORD.  The iSER layer
-   at both the initiator and the target MAY adjust (lower) the resources
+   at both the initiator and the target <em>MAY</em> adjust (lower) the resources
    associated with iSER-IRD and iSER-ORD, respectively, to match the
 
 
@@ -3609,7 +3609,7 @@ Table of Figures
 
 
    iSER-ORD value declared in the HelloReply Message.  The iSER layer at
-   the target MUST control the flow of the RDMA Read Request Messages so
+   the target <em>MUST</em> control the flow of the RDMA Read Request Messages so
    that it does not exceed the iSER-ORD value at the target.
 
    If iSERHelloRequired is negotiated to "No", then the maximum number
@@ -3641,7 +3641,7 @@ Table of Figures
    Operational Primitive to request the iSER layer at the initiator to
    process a Task Management Function Request with the TASK REASSIGN
    function, besides allocating zero, one, or two STags, the iSER layer
-   MUST invalidate the existing STags (if any) associated with the ITT.
+   <em>MUST</em> invalidate the existing STags (if any) associated with the ITT.
    See <a href="#section-7.3.3">Section 7.3.3</a> for details.
 
    The iSER layer at the target allocates a local Data Sink STag when
@@ -3666,15 +3666,15 @@ Table of Figures
 
    When a unidirectional or bidirectional command concludes without the
    associated SCSI Response PDU being sent by the target, the iSCSI
-   layer at the initiator MUST request the iSER layer at the initiator
+   layer at the initiator <em>MUST</em> request the iSER layer at the initiator
    to invalidate the STags by invoking the Deallocate_Task_Resources
    Operational Primitive qualified with ITT.  In response, the iSER
-   layer at the initiator MUST locate the STags (if any) in the Local
-   Mapping.  The iSER layer at the initiator MUST invalidate the STags
+   layer at the initiator <em>MUST</em> locate the STags (if any) in the Local
+   Mapping.  The iSER layer at the initiator <em>MUST</em> invalidate the STags
    (if any) and the Local Mapping.
 
    For an RDMA Read operation used to realize a SCSI Write data
-   transfer, the iSER layer at the target SHOULD invalidate the Data
+   transfer, the iSER layer at the target <em>SHOULD</em> invalidate the Data
    Sink STag at the conclusion of the RDMA Read operation referencing
    the Data Sink STag (to permit the immediate reuse of buffer
    resources).
@@ -3686,11 +3686,11 @@ Table of Figures
 
    When a unidirectional or bidirectional command concludes without the
    associated SCSI Response PDU being sent by the target, the iSCSI
-   layer at the target MUST request the iSER layer at the target to
+   layer at the target <em>MUST</em> request the iSER layer at the target to
    invalidate the STags by invoking the Deallocate_Task_Resources
    Operational Primitive qualified with ITT.  In response, the iSER
-   layer at the target MUST locate the local STags (if any) in the Local
-   Mapping.  The iSER layer at the target MUST invalidate the local
+   layer at the target <em>MUST</em> locate the local STags (if any) in the Local
+   Mapping.  The iSER layer at the target <em>MUST</em> invalidate the local
    STags (if any) and the Local Mapping.
 
 
@@ -3729,7 +3729,7 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  iSER Header Format</span>
 
-   An iSER header MUST be present in every Send Message of RCaP.  The
+   An iSER header <em>MUST</em> be present in every Send Message of RCaP.  The
    iSER header is located in the first 28 bytes of the message payload
    of the Send Message of RCaP, as shown in Figure 2.
 
@@ -3784,7 +3784,7 @@ Table of Figures
    iSER Header followed by an iSCSI control-type PDU.
 
    The iSER header in a Send Message of RCaP carrying an iSCSI control-
-   type PDU MUST have the format as described in Figure 3.
+   type PDU <em>MUST</em> have the format as described in Figure 3.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -3812,7 +3812,7 @@ Table of Figures
       Write Base Offset field of the iSER Header.  If set to one, the
       Write STag field and the Write Base Offset field in this iSER
       Header are valid.  If set to zero, the Write STag field and the
-      Write Base Offset field in this iSER Header MUST be ignored at the
+      Write Base Offset field in this iSER Header <em>MUST</em> be ignored at the
       receiver.  The Write STag Valid flag is set to one when there is
       solicited data to be transferred for a SCSI Write or bidirectional
       command, or when there are non-immediate unsolicited and solicited
@@ -3833,7 +3833,7 @@ Table of Figures
 
 
       are valid.  If set to zero, the Read STag field and the Read Base
-      Offset field in this iSER Header MUST be ignored at the receiver.
+      Offset field in this iSER Header <em>MUST</em> be ignored at the receiver.
       The Read STag Valid flag is set to one for a SCSI Read or
       bidirectional command, or a Task Management Function Request with
       the TASK REASSIGN function.
@@ -3848,7 +3848,7 @@ Table of Figures
       Advertise the initiator's I/O Buffer containing the non-immediate
       unsolicited data and solicited data.  This Write STag is used as
       the Data Source STag in the resultant RDMA Read operation(s).
-      When the Write STag Valid flag is set to zero, this field MUST be
+      When the Write STag Valid flag is set to zero, this field <em>MUST</em> be
       set to zero and ignored on receive.
 
    Write Base Offset: 64 bits
@@ -3856,7 +3856,7 @@ Table of Figures
       This field contains the Base Offset associated with the I/O Buffer
       for the SCSI Write command when the Write STag Valid flag is set
       to one.  When the Write STag Valid flag is set to zero, this field
-      MUST be set to zero and ignored on receive.
+      <em>MUST</em> be set to zero and ignored on receive.
 
    Read STag - Read Steering Tag: 32 bits
 
@@ -3866,18 +3866,18 @@ Table of Figures
       Management Function Request with the TASK REASSIGN function.  This
       Read STag is used as the Data Sink STag in the resultant RDMA
       Write operation(s).  When the Read STag Valid flag is zero, this
-      field MUST be set to zero and ignored on receive.
+      field <em>MUST</em> be set to zero and ignored on receive.
 
    Read Base Offset: 64 bits
 
       This field contains the Base Offset associated with the I/O Buffer
       for the SCSI Read command when the Read STag Valid flag is set to
       one.  When the Read STag Valid flag is set to zero, this field
-      MUST be set to zero and ignored on receive.
+      <em>MUST</em> be set to zero and ignored on receive.
 
    Reserved:
 
-      Reserved fields MUST be set to zero on transmit and MUST be
+      Reserved fields <em>MUST</em> be set to zero on transmit and <em>MUST</em> be
       ignored on receive.
 
 
@@ -3890,7 +3890,7 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-9.3" href="#section-9.3">9.3</a>.  iSER Header Format for iSER Hello Message</span>
 
-   An iSER Hello Message MUST only contain the iSER header, which MUST
+   An iSER Hello Message <em>MUST</em> only contain the iSER header, which <em>MUST</em>
    have the format as described in Figure 4.  If iSERHelloRequired is
    negotiated to "Yes", then iSER Hello Message is the first iSER
    Message sent on the RCaP Stream from the iSER layer at the initiator
@@ -3919,13 +3919,13 @@ Table of Figures
    MaxVer - Maximum Version: 4 bits
 
       This field specifies the maximum version of the iSER protocol
-      supported.  It MUST be set to 10 to indicate the version of the
+      supported.  It <em>MUST</em> be set to 10 to indicate the version of the
       specification described in this document.
 
    MinVer - Minimum Version: 4 bits
 
       This field specifies the minimum version of the iSER protocol
-      supported.  It MUST be set to 10 to indicate the version of the
+      supported.  It <em>MUST</em> be set to 10 to indicate the version of the
       specification described in this document.
 
    iSER-IRD: 16 bits
@@ -3934,7 +3934,7 @@ Table of Figures
 
    Reserved (Rsvd):
 
-      Reserved fields MUST be set to zero on transmit and MUST be
+      Reserved fields <em>MUST</em> be set to zero on transmit and <em>MUST</em> be
       ignored on receive.
 
 
@@ -3946,8 +3946,8 @@ Table of Figures
 
 <span class="h3"><a class="selflink" name="section-9.4" href="#section-9.4">9.4</a>.  iSER Header Format for iSER HelloReply Message</span>
 
-   An iSER HelloReply Message MUST only contain the iSER header, which
-   MUST have the format as described in Figure 5.  If iSERHelloRequired
+   An iSER HelloReply Message <em>MUST</em> only contain the iSER header, which
+   <em>MUST</em> have the format as described in Figure 5.  If iSERHelloRequired
    is negotiated to "Yes", then the iSER HelloReply Message is the first
    iSER Message sent on the RCaP Stream from the iSER layer at the
    target to the iSER layer at the initiator.
@@ -3981,13 +3981,13 @@ Table of Figures
    MaxVer - Maximum Version: 4 bits
 
       This field specifies the maximum version of the iSER protocol
-      supported.  It MUST be set to 10 to indicate the version of the
+      supported.  It <em>MUST</em> be set to 10 to indicate the version of the
       specification described in this document.
 
    CurVer - Current Version: 4 bits
 
       This field specifies the current version of the iSER protocol
-      supported.  It MUST be set to 10 to indicate the version of the
+      supported.  It <em>MUST</em> be set to 10 to indicate the version of the
       specification described in this document.
 
 
@@ -4006,7 +4006,7 @@ Table of Figures
 
    Reserved (Rsvd):
 
-      Reserved fields MUST be set to zero on transmit and MUST be
+      Reserved fields <em>MUST</em> be set to zero on transmit and <em>MUST</em> be
       ignored on receive.
 
 <span class="h3"><a class="selflink" name="section-9.5" href="#section-9.5">9.5</a>.  SCSI Data Transfer Operations</span>
@@ -4017,32 +4017,32 @@ Table of Figures
 
 <span class="h4"><a class="selflink" name="section-9.5.1" href="#section-9.5.1">9.5.1</a>.  SCSI Write Operation</span>
 
-   The iSCSI layer at the initiator MUST invoke the Send_Control
+   The iSCSI layer at the initiator <em>MUST</em> invoke the Send_Control
    Operational Primitive to request the iSER layer at the initiator to
-   send the SCSI Write Command.  The iSER layer at the initiator MUST
+   send the SCSI Write Command.  The iSER layer at the initiator <em>MUST</em>
    request the RCaP layer to transmit a Send Message with the message
    payload consisting of the iSER header followed by the SCSI Command
    PDU and immediate data (if any).  The SendSE Message should be used
    if supported by the RCaP layer (e.g., iWARP).  If there is solicited
-   data, the iSER layer MUST Advertise the Write STag and the Base
+   data, the iSER layer <em>MUST</em> Advertise the Write STag and the Base
    Offset in the iSER header of the Send Message, as described in
    <a href="#section-9.2">Section 9.2</a>.  Upon receiving the Send Message, the iSER layer at the
-   target MUST notify the iSCSI layer at the target by invoking the
+   target <em>MUST</em> notify the iSCSI layer at the target by invoking the
    Control_Notify Operational Primitive qualified with the SCSI Command
    PDU.  See <a href="#section-7.3.1">Section 7.3.1</a> for details on the handling of the SCSI Write
    Command.
 
    For the non-immediate unsolicited data, the iSCSI layer at the
-   initiator MUST invoke a Send_Control Operational Primitive qualified
+   initiator <em>MUST</em> invoke a Send_Control Operational Primitive qualified
    with the SCSI Data-Out PDU.  Upon receiving each Send Message
    containing the non-immediate unsolicited data, the iSER layer at the
-   target MUST notify the iSCSI layer at the target by invoking the
+   target <em>MUST</em> notify the iSCSI layer at the target by invoking the
    Control_Notify Operational Primitive qualified with the SCSI Data-Out
    PDU.  See <a href="#section-7.3.4">Section 7.3.4</a> for details on the handling of the SCSI Data-
    Out PDU.
 
    For the solicited data, when the iSCSI layer at the target has an I/O
-   Buffer available, it MUST invoke the Get_Data Operational Primitive
+   Buffer available, it <em>MUST</em> invoke the Get_Data Operational Primitive
    qualified with the R2T PDU.  See <a href="#section-7.3.6">Section 7.3.6</a> for details on the
    handling of the R2T PDU.
 
@@ -4057,41 +4057,41 @@ Table of Figures
 
 
    When the data transfer associated with this SCSI Write operation is
-   complete, the iSCSI layer at the target MUST invoke the Send_Control
+   complete, the iSCSI layer at the target <em>MUST</em> invoke the Send_Control
    Operational Primitive when it is ready to send the SCSI Response PDU.
    Upon receiving a Send Message containing the SCSI Response PDU, the
-   iSER layer at the initiator MUST notify the iSCSI layer at the
+   iSER layer at the initiator <em>MUST</em> notify the iSCSI layer at the
    initiator by invoking the Control_Notify Operational Primitive
    qualified with the SCSI Response PDU.  See <a href="#section-7.3.2">Section 7.3.2</a> for details
    on the handling of the SCSI Response PDU.
 
 <span class="h4"><a class="selflink" name="section-9.5.2" href="#section-9.5.2">9.5.2</a>.  SCSI Read Operation</span>
 
-   The iSCSI layer at the initiator MUST invoke the Send_Control
+   The iSCSI layer at the initiator <em>MUST</em> invoke the Send_Control
    Operational Primitive to request the iSER layer at the initiator to
-   send the SCSI Read Command.  The iSER layer at the initiator MUST
+   send the SCSI Read Command.  The iSER layer at the initiator <em>MUST</em>
    request the RCaP layer to transmit a Send Message with the message
    payload consisting of the iSER header followed by the SCSI Command
    PDU.  The SendSE Message should be used if supported by the RCaP
-   layer (e.g., iWARP).  The iSER layer at the initiator MUST Advertise
+   layer (e.g., iWARP).  The iSER layer at the initiator <em>MUST</em> Advertise
    the Read STag and the Base Offset in the iSER header of the Send
    Message, as described in <a href="#section-9.2">Section 9.2</a>.  Upon receiving the Send
-   Message, the iSER layer at the target MUST notify the iSCSI layer at
+   Message, the iSER layer at the target <em>MUST</em> notify the iSCSI layer at
    the target by invoking the Control_Notify Operational Primitive
    qualified with the SCSI Command PDU.  See <a href="#section-7.3.1">Section 7.3.1</a> for details
    on the handling of the SCSI Read Command.
 
    When the requested SCSI data is available in the I/O Buffer, the
-   iSCSI layer at the target MUST invoke the Put_Data Operational
+   iSCSI layer at the target <em>MUST</em> invoke the Put_Data Operational
    Primitive qualified with the SCSI Data-In PDU.  See <a href="#section-7.3.5">Section 7.3.5</a> for
    details on the handling of the SCSI Data-In PDU.
 
    When the data transfer associated with this SCSI Read operation is
-   complete, the iSCSI layer at the target MUST invoke the Send_Control
+   complete, the iSCSI layer at the target <em>MUST</em> invoke the Send_Control
    Operational Primitive when it is ready to send the SCSI Response PDU.
    The SendInvSE Message should be used if supported by the RCaP layer
    (e.g., iWARP).  Upon receiving the Send Message containing the SCSI
-   Response PDU, the iSER layer at the initiator MUST notify the iSCSI
+   Response PDU, the iSER layer at the initiator <em>MUST</em> notify the iSCSI
    layer at the initiator by invoking the Control_Notify Operational
    Primitive qualified with the SCSI Response PDU.  See <a href="#section-7.3.2">Section 7.3.2</a>
    for details on the handling of the SCSI Response PDU.
@@ -4149,7 +4149,7 @@ Table of Figures
 
    If the connection is lost or terminated after the iSCSI layer has
    invoked the Allocate_Connection_Resources Operational Primitive, then
-   the iSCSI layer MUST request the iSER layer to deallocate all
+   the iSCSI layer <em>MUST</em> request the iSER layer to deallocate all
    connection resources by invoking the Deallocate_Connection_Resources
    Operational Primitive.
 
@@ -4172,10 +4172,10 @@ Table of Figures
 
    If the connection is lost or terminated after the iSCSI layer has
    invoked the Enable_Datamover Operational Primitive, the iSER layer
-   MUST notify the iSCSI layer of the connection loss by invoking the
+   <em>MUST</em> notify the iSCSI layer of the connection loss by invoking the
    Connection_Terminate_Notify Operational Primitive.  Prior to invoking
    the Connection_Terminate_Notify Operational Primitive, the iSER layer
-   MUST perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
+   <em>MUST</em> perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
 
 <span class="h4"><a class="selflink" name="section-10.1.2" href="#section-10.1.2">10.1.2</a>.  Errors in the RCaP Layer</span>
 
@@ -4186,15 +4186,15 @@ Table of Figures
 <span class="h5"><a class="selflink" name="section-10.1.2.1" href="#section-10.1.2.1">10.1.2.1</a>.  Errors Detected in the Local RCaP Layer</span>
 
    If an error is encountered at the local RCaP layer, the RCaP layer
-   MAY send a Send Message to the Remote Peer to report the error if
+   <em>MAY</em> send a Send Message to the Remote Peer to report the error if
    possible.  (For iWARP, see [<a href="#ref-RDMAP" title="&quot;A Remote Direct Memory Access Protocol Specification&quot;">RDMAP</a>] for the list of errors where a
    Terminate Message is sent.)  The RCaP layer is responsible for
    terminating the connection.  After the RCaP layer notifies the iSER
-   layer that the connection is terminated, the iSER layer MUST notify
+   layer that the connection is terminated, the iSER layer <em>MUST</em> notify
    the iSCSI layer by invoking the Connection_Terminate_Notify
    Operational Primitive.  Prior to invoking the
    Connection_Terminate_Notify Operational Primitive, the iSER layer
-   MUST perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
+   <em>MUST</em> perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
 
 <span class="h5"><a class="selflink" name="section-10.1.2.2" href="#section-10.1.2.2">10.1.2.2</a>.  Errors Detected in the RCaP Layer at the Remote Peer</span>
 
@@ -4209,10 +4209,10 @@ Table of Figures
    it is able to send a Send Message, the RCaP layer at the Remote Peer
    is responsible for terminating the connection.  After the local RCaP
    layer notifies the iSER layer that the connection is terminated, the
-   iSER layer MUST notify the iSCSI layer by invoking the
+   iSER layer <em>MUST</em> notify the iSCSI layer by invoking the
    Connection_Terminate_Notify Operational Primitive.  Prior to invoking
    the Connection_Terminate_Notify Operational Primitive, the iSER layer
-   MUST perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
+   <em>MUST</em> perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
 
 
 
@@ -4235,19 +4235,19 @@ Table of Figures
    After the iSCSI layer at the initiator invokes the
    Allocate_Connection_Resources Operational Primitive during the iSCSI
    login negotiation phase, if the iSER layer at the initiator fails to
-   allocate the connection resources necessary to support RCaP, it MUST
+   allocate the connection resources necessary to support RCaP, it <em>MUST</em>
    return a status of failure to the iSCSI layer at the initiator.  The
-   iSCSI layer at the initiator MUST terminate the connection as
+   iSCSI layer at the initiator <em>MUST</em> terminate the connection as
    described in <a href="#section-5.2.3.1">Section 5.2.3.1</a>.
 
    After the iSCSI layer at the target invokes the
    Allocate_Connection_Resources Operational Primitive during the iSCSI
    login negotiation phase, if the iSER layer at the target fails to
-   allocate the connection resources necessary to support RCaP, it MUST
+   allocate the connection resources necessary to support RCaP, it <em>MUST</em>
    return a status of failure to the iSCSI layer at the target.  The
-   iSCSI layer at the target MUST send a Login Response with a Status-
+   iSCSI layer at the target <em>MUST</em> send a Login Response with a Status-
    Class of 0x03 (Target Error), and a Status-Code of 0x02 (Out of
-   Resources).  The iSCSI layers at the initiator and the target MUST
+   Resources).  The iSCSI layers at the initiator and the target <em>MUST</em>
    terminate the connection as described in <a href="#section-5.2.3.1">Section 5.2.3.1</a>.
 
 <span class="h5"><a class="selflink" name="section-10.1.3.2" href="#section-10.1.3.2">10.1.3.2</a>.  iSER Negotiation Failures</span>
@@ -4255,9 +4255,9 @@ Table of Figures
    If iSERHelloRequired is negotiated to "Yes" and the RCaP or iSER
    related parameters declared by the initiator in the iSER Hello
    Message are unacceptable to the iSER layer at the target, the iSER
-   layer at the target MUST set the Reject (REJ) flag, as described in
+   layer at the target <em>MUST</em> set the Reject (REJ) flag, as described in
    <a href="#section-9.4">Section 9.4</a>, in the iSER HelloReply Message.  The following are the
-   cases when the iSER layer MUST set the REJ flag to 1 in the
+   cases when the iSER layer <em>MUST</em> set the REJ flag to 1 in the
    HelloReply Message:
 
    *  The initiator-declared iSER-IRD value is greater than 0, and the
@@ -4292,29 +4292,29 @@ Table of Figures
    *  Length error for an iSER Hello or HelloReply Message (see Sections
       9.3 and 9.4)
 
-   When a format error is detected, the following events MUST occur in
+   When a format error is detected, the following events <em>MUST</em> occur in
    the specified sequence:
 
-   1. The iSER layer MUST request the RCaP layer to terminate the RCaP
-      Stream.  The RCaP layer MUST terminate the associated connection.
+   1. The iSER layer <em>MUST</em> request the RCaP layer to terminate the RCaP
+      Stream.  The RCaP layer <em>MUST</em> terminate the associated connection.
 
-   2.  The iSER layer MUST notify the iSCSI layer of the connection
+   2.  The iSER layer <em>MUST</em> notify the iSCSI layer of the connection
       termination by invoking the Connection_Terminate_Notify
       Operational Primitive.  Prior to invoking the
       Connection_Terminate_Notify Operational Primitive, the iSER layer
-      MUST perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
+      <em>MUST</em> perform the actions described in <a href="#section-5.2.3.2">Section 5.2.3.2</a>.
 
 <span class="h5"><a class="selflink" name="section-10.1.3.4" href="#section-10.1.3.4">10.1.3.4</a>.  iSER Protocol Errors</span>
 
    If iSERHelloRequired is negotiated to "Yes", then the first iSER
-   Message sent by the iSER layer at the initiator MUST be the iSER
+   Message sent by the iSER layer at the initiator <em>MUST</em> be the iSER
    Hello Message (see <a href="#section-9.3">Section 9.3</a>).  In this case the first iSER Message
-   sent by the iSER layer at the target MUST be the iSER HelloReply
+   sent by the iSER layer at the target <em>MUST</em> be the iSER HelloReply
    Message (see <a href="#section-9.4">Section 9.4</a>).  Failure to send the iSER Hello or
    HelloReply Message, as indicated by the wrong Opcode in the iSER
    header, is a protocol error.  Conversely, if the iSER Hello Message
    is sent by the iSER layer at the initiator when iSERHelloRequired is
-   negotiated to "No", the iSER layer at the target MAY treat this as a
+   negotiated to "No", the iSER layer at the target <em>MAY</em> treat this as a
    protocol error or respond with an iSER HelloReply Message.  The
    handling of iSER protocol errors is the same as that for iSER format
    errors as described in <a href="#section-10.1.3.3">Section 10.1.3.3</a>.
@@ -4322,7 +4322,7 @@ Table of Figures
    If the sending side of an iSER-enabled connection acts in a manner
    not permitted by the negotiated or declared login/text operational
    key values as described in <a href="#section-6">Section 6</a>, this is a protocol error and
-   the receiving side MAY handle this the same as for iSER format errors
+   the receiving side <em>MAY</em> handle this the same as for iSER format errors
    as described in <a href="#section-10.1.3.3">Section 10.1.3.3</a>.
 
 
@@ -4343,7 +4343,7 @@ Table of Figures
 
 <span class="h5"><a class="selflink" name="section-10.1.4.1" href="#section-10.1.4.1">10.1.4.1</a>.  iSCSI Format Errors</span>
 
-   When an iSCSI format error is detected, the iSCSI layer MUST request
+   When an iSCSI format error is detected, the iSCSI layer <em>MUST</em> request
    the iSER layer to terminate the RCaP Stream by invoking the
    Connection_Terminate Operational Primitive.  For more details on
    connection termination, see <a href="#section-5.2.3.1">Section 5.2.3.1</a>.
@@ -4383,7 +4383,7 @@ Table of Figures
    initiator after the iSCSI layer has invoked the
    Allocate_Connection_Resources Operational Primitive and before the
    Enable_Datamover Operational Primitive has been invoked, the iSCSI
-   layer MUST request the iSER layer to deallocate all connection
+   layer <em>MUST</em> request the iSER layer to deallocate all connection
 
 
 
@@ -4393,7 +4393,7 @@ Table of Figures
 
 
    resources by invoking the Deallocate_Connection_Resources Operational
-   Primitive.  The iSCSI layer at the initiator MUST terminate the
+   Primitive.  The iSCSI layer at the initiator <em>MUST</em> terminate the
    connection.
 
    For negotiation failures during the Login Phase at the target, the
@@ -4401,19 +4401,19 @@ Table of Figures
    (success) to terminate the Login Phase.  If the iSCSI layer has
    invoked the Allocate_Connection_Resources Operational Primitive and
    has not yet invoked the Enable_Datamover Operational Primitive, the
-   iSCSI layer at the target MUST request the iSER layer at the target
+   iSCSI layer at the target <em>MUST</em> request the iSER layer at the target
    to deallocate all connection resources by invoking the
    Deallocate_Connection_Resources Operational Primitive.  The iSCSI
-   layer at both the initiator and the target MUST terminate the
+   layer at both the initiator and the target <em>MUST</em> terminate the
    connection.
 
    During the iSCSI Login Phase, if the iSCSI layer at the initiator
    receives a Login Response from the target with a Status-Class other
    than 0 (Success) after the iSCSI layer at the initiator has invoked
    the Allocate_Connection_Resources Operational Primitive, the iSCSI
-   layer MUST request the iSER layer to deallocate all connection
+   layer <em>MUST</em> request the iSER layer to deallocate all connection
    resources by invoking the Deallocate_Connection_Resources Operational
-   Primitive.  The iSCSI layer MUST terminate the connection in this
+   Primitive.  The iSCSI layer <em>MUST</em> terminate the connection in this
    case.
 
    For negotiation failures during the Full Feature Phase, the error
@@ -4456,19 +4456,19 @@ Table of Figures
    described in <a href="#section-10.1.2">Section 10.1.2</a>.  Therefore, PDU recovery is not useful
    in the iSER-assisted mode.
 
-   The iSCSI layer at the initiator SHOULD disable iSCSI timeout-driven
+   The iSCSI layer at the initiator <em>SHOULD</em> disable iSCSI timeout-driven
    PDU retransmissions.
 
 <span class="h4"><a class="selflink" name="section-10.2.2" href="#section-10.2.2">10.2.2</a>.  Connection Recovery</span>
 
-   The iSCSI layer at the initiator MAY reassign connection allegiance
+   The iSCSI layer at the initiator <em>MAY</em> reassign connection allegiance
    for non-immediate commands that are still in progress and are
    associated with the failed connection by using a Task Management
    Function Request with the TASK REASSIGN function.  See <a href="#section-7.3.3">Section 7.3.3</a>
    for more details.
 
    When the iSCSI layer at the initiator does a task reassignment for a
-   SCSI Write command, it MUST qualify the Send_Control Operational
+   SCSI Write command, it <em>MUST</em> qualify the Send_Control Operational
    Primitive invocation with DataDescriptorOut, which defines the I/O
    Buffer for both the non-immediate unsolicited data and the solicited
    data.  This allows the iSCSI layer at the target to use recovery R2Ts
@@ -4476,21 +4476,21 @@ Table of Figures
    initiator.
 
    When the iSCSI layer at the target accepts a reassignment request for
-   a SCSI Read command, it MUST request the iSER layer to process SCSI
+   a SCSI Read command, it <em>MUST</em> request the iSER layer to process SCSI
    Data-In for all unacknowledged data by invoking the Put_Data
    Operational Primitive.  See <a href="#section-7.3.5">Section 7.3.5</a> on the handling of SCSI
    Data-In.
 
    When the iSCSI layer at the target accepts a reassignment request for
-   a SCSI Write command, it MUST request the iSER layer to process a
+   a SCSI Write command, it <em>MUST</em> request the iSER layer to process a
    recovery R2T for any non-immediate unsolicited data and any solicited
    data sequences that have not been received by invoking the Get_Data
    Operational Primitive.  See <a href="#section-7.3.6">Section 7.3.6</a> on the handling of Ready To
    Transfer (R2T).
 
-   The iSCSI layer at the target MUST NOT issue recovery R2Ts on an
+   The iSCSI layer at the target <em>MUST NOT</em> issue recovery R2Ts on an
    iSCSI/iSER connection for a task for which the connection allegiance
-   was never reassigned.  The iSER layer at the target MAY reject such a
+   was never reassigned.  The iSER layer at the target <em>MAY</em> reject such a
    recovery R2T received via the Get_Data Operational Primitive
    invocation from the iSCSI layer at the target, with an appropriate
    error code.
@@ -4522,15 +4522,15 @@ Table of Figures
    top of a non-IP-based RCaP layer, all the security protocol
    mechanisms applicable to that RCaP layer are also applicable to an
    iSCSI/iSER connection.  If iSER is layered on top of a non-IP
-   protocol, the IPsec mechanism as specified in [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>] MUST be
+   protocol, the IPsec mechanism as specified in [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>] <em>MUST</em> be
    implemented at any point where the iSER protocol enters the IP
-   network (e.g., via gateways), and the non-IP protocol SHOULD
+   network (e.g., via gateways), and the non-IP protocol <em>SHOULD</em>
    implement (optional to use) a packet-by-packet security protocol
    equal in strength to the IPsec mechanism specified by [<a href="#ref-iSCSI" title="&quot;Internet Small Computer System Interface (iSCSI) Protocol (Consolidated)&quot;">iSCSI</a>].
 
    In order to protect target RCaP connection resources from possible
    resource exhaustion attacks, allocation of such resources for a new
-   connection MUST be delayed until it is reasonably certain that the
+   connection <em>MUST</em> be delayed until it is reasonably certain that the
    new connection is not part of a resource exhaustion attack (e.g.,
    until after the SecurityNegotiation stage of Login); see <a href="#section-5.1.2">Section</a>
    <a href="#section-5.1.2">5.1.2</a>.
@@ -4546,10 +4546,10 @@ Table of Figures
    A complementary means of controlling I/O Buffer resource exposure is
    invalidation of the STag after completion of the associated task, as
    specified in <a href="#section-1.5.1">Section 1.5.1</a>.  The use of Send with Invalidate messages
-   (which cause remote STag invalidation) is OPTIONAL, therefore the
-   iSER layer MUST NOT rely on use of a Send with Invalidate by its
+   (which cause remote STag invalidation) is <em>OPTIONAL</em>, therefore the
+   iSER layer <em>MUST NOT</em> rely on use of a Send with Invalidate by its
    Remote Peer to cause local STag invalidation.  If an STag is expected
-   to be invalid after completion of a task, the iSER layer MUST check
+   to be invalid after completion of a task, the iSER layer <em>MUST</em> check
    the STag and invalidate it if it is still valid.
 
 
@@ -4700,7 +4700,7 @@ Table of Figures
        buffer unless the length of the data sent with the NOP-Out
        request is less than InitiatorMaxRecvDataSegmentLength.
 
-   4.  Added a SHOULD negotiate recommendation for
+   4.  Added a <em>SHOULD</em> negotiate recommendation for
        MaxOutstandingUnexpectedPDUs in <a href="#section-6.7">Section 6.7</a>.
 
    5.  Added MaxAHSLength key in <a href="#section-6.8">Section 6.8</a> to set a limit on the AHS

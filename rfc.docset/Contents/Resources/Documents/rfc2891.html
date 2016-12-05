@@ -226,7 +226,7 @@ Abstract
    sorting of the results that is independent of the result code
    returned for the search operation.
 
-   The key words "MUST", "SHOULD", and "MAY" used in this document are
+   The key words "<em>MUST</em>", "<em>SHOULD</em>", and "<em>MAY</em>" used in this document are
    to be interpreted as described in [bradner97].
 
 
@@ -253,19 +253,19 @@ Abstract
    [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>].
 
    The controlType is set to "1.2.840.113556.1.4.473". The criticality
-   MAY be either TRUE or FALSE (where absent is also equivalent to
+   <em>MAY</em> be either TRUE or FALSE (where absent is also equivalent to
    FALSE) at the client's option. The controlValue is an OCTET STRING,
    whose value is the BER encoding of a value of the following SEQUENCE:
 
       SortKeyList ::= SEQUENCE OF SEQUENCE {
                  attributeType   AttributeDescription,
-                 orderingRule    [0] MatchingRuleId OPTIONAL,
+                 orderingRule    [0] MatchingRuleId <em>OPTIONAL</em>,
                  reverseOrder    [1] BOOLEAN DEFAULT FALSE }
 
    The SortKeyList sequence is in order of highest to lowest sort key
    precedence.
 
-   The MatchingRuleId, as defined in section 4.1.9 of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>], SHOULD
+   The MatchingRuleId, as defined in section 4.1.9 of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>], <em>SHOULD</em>
    be one that is valid for the attribute type it applies to.  If it is
    not, the server will return inappropriateMatching.
 
@@ -275,9 +275,9 @@ Abstract
    unwillingToPerform.
 
    If the orderingRule is omitted, the ordering MatchingRule defined for
-   use with this attribute MUST be used.
+   use with this attribute <em>MUST</em> be used.
 
-   Any conformant implementation of this control MUST allow a sort key
+   Any conformant implementation of this control <em>MUST</em> allow a sort key
    list with at least one key.
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a> Response Control</span>
@@ -287,7 +287,7 @@ Abstract
    of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>].
 
    The controlType is set to "1.2.840.113556.1.4.474". The criticality
-   is FALSE (MAY be absent). The controlValue is an OCTET STRING, whose
+   is FALSE (<em>MAY</em> be absent). The controlValue is an OCTET STRING, whose
    value is the BER encoding of a value of the following SEQUENCE:
 
 
@@ -322,13 +322,13 @@ Abstract
              unwillingToPerform       (53), -- unable to sort
              other                    (80)
              },
-       attributeType [0] AttributeDescription OPTIONAL }
+       attributeType [0] AttributeDescription <em>OPTIONAL</em> }
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Client-Server Interaction</span>
 
    The sortKeyRequestControl specifies one or more attribute types and
    matching rules for the results returned by a search request. The
-   server SHOULD return all results for the search request in the order
+   server <em>SHOULD</em> return all results for the search request in the order
    specified by the sort keys. If the reverseOrder field is set to TRUE,
    then the entries will be presented in reverse sorted order for the
    specified key.
@@ -338,14 +338,14 @@ Abstract
 
    1 - If the server does not support this sorting control and the
        client specified TRUE for the control's criticality field, then
-       the server MUST return unavailableCriticalExtension as a return
+       the server <em>MUST</em> return unavailableCriticalExtension as a return
        code in the searchResultDone message and not send back any other
        results. This behavior is specified in section 4.1.12 of
        [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>].
 
    2 - If the server does not support this sorting control and the
        client specified FALSE for the control's criticality field, then
-       the server MUST ignore the sort control and process the search
+       the server <em>MUST</em> ignore the sort control and process the search
        request as if it were not present. This behavior is specified in
        section 4.1.12 of [<a href="#ref-LDAPv3" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAPv3</a>].
 
@@ -359,7 +359,7 @@ Abstract
    3 - If the server supports this sorting control but for some reason
        cannot sort the search results using the specified sort keys and
        the client specified TRUE for the control's criticality field,
-       then the server SHOULD do the following: return
+       then the server <em>SHOULD</em> do the following: return
        unavailableCriticalExtension as a return code in the
        searchResultDone message; include the sortKeyResponseControl in
        the searchResultDone message, and not send back any search result
@@ -379,23 +379,23 @@ Abstract
 
    6 - If the search request failed for any reason and/or there are no
        searchResultEntry messages returned for the search response, then
-       the server SHOULD omit the sortKeyResponseControl from the
+       the server <em>SHOULD</em> omit the sortKeyResponseControl from the
        searchResultDone message.
 
    The client application is assured that the results are sorted in the
    specified key order if and only if the result code in the
    sortKeyResponseControl is success. If the server omits the
    sortKeyResponseControl from the searchResultDone message, the client
-   SHOULD assume that the sort control was ignored by the server.
+   <em>SHOULD</em> assume that the sort control was ignored by the server.
 
    The sortKeyResponseControl, if included by the server in the
    searchResultDone message, should have the sortResult set to either
    success if the results were sorted in accordance with the keys
    specified in the sortKeyRequestControl or set to the appropriate
    error code as to why it could not sort the data (such as
-   noSuchAttribute or inappropriateMatching). Optionally, the server MAY
+   noSuchAttribute or inappropriateMatching). Optionally, the server <em>MAY</em>
    set the attributeType to the first attribute type specified in the
-   SortKeyList that was in error. The client SHOULD ignore the
+   SortKeyList that was in error. The client <em>SHOULD</em> ignore the
    attributeType field if the sortResult is success.
 
    The server may not be able to sort the results using the specified
@@ -422,8 +422,8 @@ Abstract
    set of sorted results. If a client submits a sort request to a server
    which chains the request and gets entries from multiple servers, and
    the client has set the criticality of the sort extension to TRUE, the
-   server MUST merge sort the results before returning them to the
-   client or MUST return unwillingToPerform.
+   server <em>MUST</em> merge sort the results before returning them to the
+   client or <em>MUST</em> return unwillingToPerform.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a> Other sort issues</span>
 
@@ -439,7 +439,7 @@ Abstract
 
    If a sort key is a multi-valued attribute, and an entry happens to
    have multiple values for that attribute and no other controls are
-   present that affect the sorting order, then the server SHOULD use the
+   present that affect the sorting order, then the server <em>SHOULD</em> use the
    least value (according to the ORDERING rule for that attribute).
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Interaction with other search controls</span>
@@ -453,7 +453,7 @@ Abstract
 
    The sortKeyList must be present on each searchRequest message for the
    paged result. It also must not change between searchRequests for the
-   same result set. If the server has sorted the data, then it SHOULD
+   same result set. If the server has sorted the data, then it <em>SHOULD</em>
    send back a sortKeyResponseControl control on every searchResultDone
    message for each page. This will allow clients to quickly determine
    if the result set is sorted, rather than waiting to receive the

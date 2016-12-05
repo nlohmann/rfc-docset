@@ -221,7 +221,7 @@ Copyright Notice
    are not defined in this extension. This extension is not designed to
    provide more sophisticated result set management.
 
-   The key words "MUST", "SHOULD", and "MAY" used in this document are
+   The key words "<em>MUST</em>", "<em>SHOULD</em>", and "<em>MAY</em>" used in this document are
    to be interpreted as described in [bradner97].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. The Control</span>
@@ -263,17 +263,17 @@ realSearchControlValue ::= SEQUENCE {
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Client-Server Interaction</span>
 
    An LDAP client application that needs to control the rate at which
-   results are returned MAY specify on the searchRequest a
+   results are returned <em>MAY</em> specify on the searchRequest a
    pagedResultsControl with size set to the desired page size and cookie
-   set to the zero-length string. The page size specified MAY be greater
+   set to the zero-length string. The page size specified <em>MAY</em> be greater
    than zero and less than the sizeLimit value specified in the
    searchRequest.
 
    If the page size is greater than or equal to the sizeLimit value, the
    server should ignore the control as the request can be satisfied in a
    single page. If the server does not support this control, the server
-   MUST return an error of unsupportedCriticalExtension if the client
-   requested it as critical, otherwise the server SHOULD ignore the
+   <em>MUST</em> return an error of unsupportedCriticalExtension if the client
+   requested it as critical, otherwise the server <em>SHOULD</em> ignore the
    control. The remainder of this section assumes the server does not
    ignore the client's pagedResultsControl.
 
@@ -281,17 +281,17 @@ realSearchControlValue ::= SEQUENCE {
    processing a search request containing the pagedResultsControl, the
    server includes the pagedResultsControl control in the
    searchResultDone message. In the control returned to the client, the
-   size MAY be set to the server's estimate of the total number of
+   size <em>MAY</em> be set to the server's estimate of the total number of
    entries in the entire result set. Servers that cannot provide such an
-   estimate MAY set this size to zero (0).  The cookie MUST be set to an
+   estimate <em>MAY</em> set this size to zero (0).  The cookie <em>MUST</em> be set to an
    empty value if there are no more entries to return (i.e., the page of
    search results returned was the last), or, if there are more entries
    to return, to an octet string of the server's choosing,used to resume
    the search.
 
-   The client MUST consider the cookie to be an opaque structure and
+   The client <em>MUST</em> consider the cookie to be an opaque structure and
    make no assumptions about its internal organization or value. When
-   the client wants to retrieve more entries for the result set, it MUST
+   the client wants to retrieve more entries for the result set, it <em>MUST</em>
 
 
 
@@ -302,7 +302,7 @@ realSearchControlValue ::= SEQUENCE {
 
    send to the server a searchRequest with all values identical to the
    initial request with the exception of the messageID, the cookie, and
-   optionally a modified pageSize. The cookie MUST be the octet string
+   optionally a modified pageSize. The cookie <em>MUST</em> be the octet string
    on the last searchResultDone response returned by the server.
    Returning cookies from previous searchResultDone responses besides
    the last one is undefined, as the server implementation may restrict
@@ -313,28 +313,28 @@ realSearchControlValue ::= SEQUENCE {
    retrieved all the results, in which case the cookie in the
    searchResultDone field will be empty, or until the client abandons
    the search sequence as described below. Once the paged search
-   sequence has been completed, the cookie is no longer valid and MUST
+   sequence has been completed, the cookie is no longer valid and <em>MUST</em>
    NOT be used.
 
    A sequence of paged search requests is abandoned by the client
    sending a search request containing a pagedResultsControl with the
    size set to zero (0) and the cookie set to the last cookie returned
-   by the server.  A client MAY use the LDAP Abandon operation to
+   by the server.  A client <em>MAY</em> use the LDAP Abandon operation to
    abandon one paged search request in progress, but this is discouraged
-   as it MAY invalidate the client's cookie.
+   as it <em>MAY</em> invalidate the client's cookie.
 
    If, for any reason, the server cannot resume a paged search operation
-   for a client, then it SHOULD return the appropriate error in a
+   for a client, then it <em>SHOULD</em> return the appropriate error in a
    searchResultDone entry. If this occurs, both client and server should
    assume the paged result set is closed and no longer resumable.
 
    A client may have any number of outstanding search requests pending,
    any of which may have used the pagedResultsControl.  A server
    implementation which requires a limit on the number of outstanding
-   paged search requests from a given client MAY either return
+   paged search requests from a given client <em>MAY</em> either return
    unwillingToPerform when the client attempts to create a new paged
    search request, or age out an older result set.  If the server
-   implementation ages out an older paged search request, it SHOULD
+   implementation ages out an older paged search request, it <em>SHOULD</em>
    return "unwilling to perform" if the client attempts to resume the
    paged search that was aged out.
 

@@ -315,7 +315,7 @@ Table of Contents
    initiator of its choice.
 
    Once a common security mechanism is chosen, mechanism-specific
-   options MAY be negotiated as part of the selected mechanism's context
+   options <em>MAY</em> be negotiated as part of the selected mechanism's context
    establishment.  These negotiations (if any) are internal to the
    mechanism and opaque to the SPNEGO protocol.  As such, they are
    outside the scope of this document.
@@ -342,8 +342,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Negotiation Protocol</span>
@@ -373,7 +373,7 @@ Table of Contents
    list of mechanisms in decreasing preference order (favorite mechanism
    first), and optionally the initial mechanism token for the preferred
    mechanism of the initiator (i.e., the first in the list).  (Note that
-   the list MUST NOT contain this SPNEGO mechanism itself or any
+   the list <em>MUST NOT</em> contain this SPNEGO mechanism itself or any
    mechanism for which the client does not have appropriate
    credentials.)
 
@@ -386,15 +386,15 @@ Table of Contents
    the security mechanism token embedded in the first negotiation
    message was sufficient to complete the authentication; an accept-
    incomplete state indicates that further message exchange is needed
-   but the MIC token exchange (as described in <a href="#section-5">Section 5</a>) is OPTIONAL; a
+   but the MIC token exchange (as described in <a href="#section-5">Section 5</a>) is <em>OPTIONAL</em>; a
    request-mic state (this state can only be present in the first reply
    message from the target) indicates that the MIC token exchange is
-   REQUIRED if per-message integrity services are available.
+   <em>REQUIRED</em> if per-message integrity services are available.
 
    Unless the preference order is specified by the application, the
    policy by which the target chooses a mechanism is an implementation-
    specific, local matter.  In the absence of an application-specified
-   preference order or other policy, the target SHALL choose the first
+   preference order or other policy, the target <em>SHALL</em> choose the first
    mechanism in the initiator proposed list for which it has valid
    credentials.
 
@@ -403,7 +403,7 @@ Table of Contents
    was chosen from the list offered by the initiator.
 
    In case of an unsuccessful negotiation, the reject state is returned,
-   and the generation of a context-level negotiation token is OPTIONAL.
+   and the generation of a context-level negotiation token is <em>OPTIONAL</em>.
 
    Once a mechanism has been selected, context establishment tokens
    specific to the selected mechanism are carried within the negotiation
@@ -422,13 +422,13 @@ Table of Contents
 
 
    To avoid conflicts with the use of MIC tokens by SPNEGO, partially-
-   established contexts MUST NOT be used for per-message calls.  To
-   guarantee this, the prot_ready_state [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface Version 2, Update 1&quot;">RFC2743</a>] MUST be set to false
+   established contexts <em>MUST NOT</em> be used for per-message calls.  To
+   guarantee this, the prot_ready_state [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface Version 2, Update 1&quot;">RFC2743</a>] <em>MUST</em> be set to false
    on return from GSS_Init_sec_context() and GSS_Accept_sec_context(),
    even if the underlying mechanism returned true.
 
    Note that in order to avoid an extra round trip, the first context
-   establishment token of the initiator's preferred mechanism SHOULD be
+   establishment token of the initiator's preferred mechanism <em>SHOULD</em> be
    embedded in the initial negotiation message (as defined in <a href="#section-4.2">Section</a>
    <a href="#section-4.2">4.2</a>).  (This mechanism token is referred to as the optimistic
    mechanism token in this document.)  In addition, using the optimistic
@@ -436,7 +436,7 @@ Table of Contents
    encountered when trying to produce the first mechanism token before a
    mechanism can be selected.  In cases where the initiator's preferred
    mechanism is not likely to be selected by the acceptor because of the
-   significant cost of its generation, implementations MAY omit the
+   significant cost of its generation, implementations <em>MAY</em> omit the
    optimistic mechanism token.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Negotiation Procedure</span>
@@ -461,8 +461,8 @@ Table of Contents
       the following:
 
         I) If none of the proposed mechanisms are acceptable, the
-           negotiation SHALL be terminated.  GSS_Accept_sec_context
-           indicates GSS_S_BAD_MECH.  The acceptor MAY output a
+           negotiation <em>SHALL</em> be terminated.  GSS_Accept_sec_context
+           indicates GSS_S_BAD_MECH.  The acceptor <em>MAY</em> output a
            negotiation token containing a reject state.
 
        II) If either the initiator's preferred mechanism is not accepted
@@ -478,7 +478,7 @@ Table of Contents
 
 
            GSS_Accept_sec_context() indicates GSS_S_CONTINUE_NEEDED.
-           The acceptor MUST output a negotiation token containing a
+           The acceptor <em>MUST</em> output a negotiation token containing a
            request-mic state.
 
       III) Otherwise, if at least one additional negotiation token from
@@ -493,10 +493,10 @@ Table of Contents
            containing an accept_complete state.
 
       If the initiator's preferred mechanism is accepted, and an
-      optimistic mechanism token was included, this mechanism token MUST
+      optimistic mechanism token was included, this mechanism token <em>MUST</em>
       be passed to the selected mechanism by invoking
       GSS_Accept_sec_context().  If a response mechanism token is
-      returned, it MUST be included in the response negotiation token.
+      returned, it <em>MUST</em> be included in the response negotiation token.
       Otherwise, the target will not generate a response mechanism token
       in the first reply.
 
@@ -523,7 +523,7 @@ Table of Contents
    had been requested and was not supported.
 
    When a GSS-API credential is acquired for the SPNEGO mechanism, the
-   implementation SHOULD produce a credential element for the SPNEGO
+   implementation <em>SHOULD</em> produce a credential element for the SPNEGO
    mechanism that internally contains GSS-API credential elements for
 
 
@@ -575,7 +575,7 @@ Table of Contents
    initialContextToken syntax defined in <a href="./rfc2743.html#section-3.1">Section&nbsp;3.1 of [RFC2743]</a>.  The
    SPNEGO pseudo mechanism is identified by the Object Identifier
    iso.org.dod.internet.security.mechanism.snego (1.3.6.1.5.5.2).
-   Subsequent tokens MUST NOT be encapsulated in this GSS-API generic
+   Subsequent tokens <em>MUST NOT</em> be encapsulated in this GSS-API generic
    token framing.
 
    This section specifies the syntax of the inner token for the initial
@@ -598,11 +598,11 @@ Table of Contents
 
       NegTokenInit ::= SEQUENCE {
           mechTypes       [0] MechTypeList,
-          reqFlags        [1] ContextFlags  OPTIONAL,
+          reqFlags        [1] ContextFlags  <em>OPTIONAL</em>,
             -- inherited from <a href="./rfc2478.html">RFC 2478</a> for backward compatibility,
-            -- RECOMMENDED to be left out
-          mechToken       [2] OCTET STRING  OPTIONAL,
-          mechListMIC     [3] OCTET STRING  OPTIONAL,
+            -- <em>RECOMMENDED</em> to be left out
+          mechToken       [2] OCTET STRING  <em>OPTIONAL</em>,
+          mechListMIC     [3] OCTET STRING  <em>OPTIONAL</em>,
           ...
       }
       ContextFlags ::= BIT STRING {
@@ -630,8 +630,8 @@ Table of Contents
       requested to establish the context (the req_flags parameter of
       GSS_Init_sec_context()).  This field is inherited from <a href="./rfc2478.html">RFC 2478</a>
       and is not integrity protected.  For implementations of this
-      specification, the initiator SHOULD omit this reqFlags field and
-      the acceptor MUST ignore this reqFlags field.
+      specification, the initiator <em>SHOULD</em> omit this reqFlags field and
+      the acceptor <em>MUST</em> ignore this reqFlags field.
 
       The size constraint on the ContextFlags ASN.1 type only applies to
       the abstract type.  The ASN.1 DER requires that all trailing zero
@@ -666,12 +666,12 @@ Table of Contents
               accept-incomplete   (1),
               reject              (2),
               request-mic         (3)
-          }                                 OPTIONAL,
-            -- REQUIRED in the first reply from the target
-          supportedMech   [1] MechType      OPTIONAL,
+          }                                 <em>OPTIONAL</em>,
+            -- <em>REQUIRED</em> in the first reply from the target
+          supportedMech   [1] MechType      <em>OPTIONAL</em>,
             -- present only in the first reply from the target
-          responseToken   [2] OCTET STRING  OPTIONAL,
-          mechListMIC     [3] OCTET STRING  OPTIONAL,
+          responseToken   [2] OCTET STRING  <em>OPTIONAL</em>,
+          mechListMIC     [3] OCTET STRING  <em>OPTIONAL</em>,
           ...
       }
 
@@ -708,20 +708,20 @@ Table of Contents
       request-mic
 
          The sender indicates that the exchange of MIC tokens, as
-         described in <a href="#section-5">Section 5</a>, will be REQUIRED if per-message
+         described in <a href="#section-5">Section 5</a>, will be <em>REQUIRED</em> if per-message
          integrity services are available on the mechanism context to be
-         established.  This value SHALL only be present in the first
+         established.  This value <em>SHALL</em> only be present in the first
          reply from the target.
 
-      This field is REQUIRED in the first reply from the target, and is
-      OPTIONAL thereafter.  When negState is absent, the actual state
+      This field is <em>REQUIRED</em> in the first reply from the target, and is
+      <em>OPTIONAL</em> thereafter.  When negState is absent, the actual state
       should be inferred from the state of the negotiated mechanism
       context.
 
    supportedMech
 
-      This field SHALL only be present in the first reply from the
-      target.  It MUST be one of the mechanism(s) offered by the
+      This field <em>SHALL</em> only be present in the first reply from the
+      target.  It <em>MUST</em> be one of the mechanism(s) offered by the
       initiator.
 
    ResponseToken
@@ -742,12 +742,12 @@ Table of Contents
 
    Otherwise, if the accepted mechanism is the most preferred mechanism
    of both the initiator and the acceptor, then the MIC token exchange,
-   as described later in this section, is OPTIONAL.  A mechanism is the
+   as described later in this section, is <em>OPTIONAL</em>.  A mechanism is the
    acceptor's most preferred mechanism if there is no other mechanism
    that the acceptor would have preferred over the accepted mechanism
    had it been present in the mechanism list.
 
-   In all other cases, MIC tokens MUST be exchanged after the mechanism
+   In all other cases, MIC tokens <em>MUST</em> be exchanged after the mechanism
    context is fully established.
 
 
@@ -784,11 +784,11 @@ Table of Contents
         I) If a mechlistMIC token was included and is correctly
            verified, GSS_Init_sec_context() indicates GSS_S_COMPLETE.
            The output negotiation message contains a mechlistMIC token
-           and an accept_complete state.  The acceptor MUST then verify
+           and an accept_complete state.  The acceptor <em>MUST</em> then verify
            this mechlistMIC token.
 
        II) If a mechlistMIC token was included but is incorrect, the
-           negotiation SHALL be terminated.  GSS_Init_sec_context()
+           negotiation <em>SHALL</em> be terminated.  GSS_Init_sec_context()
            indicates GSS_S_DEFECTIVE_TOKEN.
 
       III) If no mechlistMIC token was included and the MIC token
@@ -796,7 +796,7 @@ Table of Contents
            GSS_S_COMPLETE with no output token.
 
        IV) If no mechlistMIC token was included but the MIC token
-           exchange is required, the negotiation SHALL be terminated.
+           exchange is required, the negotiation <em>SHALL</em> be terminated.
            GSS_Accept_sec_context() indicates GSS_S_DEFECTIVE_TOKEN.
 
    c) In the case that the chosen mechanism exchanges an odd number of
@@ -804,7 +804,7 @@ Table of Contents
       token), the initiator does the following when generating the
       negotiation message containing the last mechanism token: if the
       negState was request-mic in the first reply from the target, a
-      mechlistMIC token MUST be included; otherwise, the mechlistMIC
+      mechlistMIC token <em>MUST</em> be included; otherwise, the mechlistMIC
 
 
 
@@ -813,11 +813,11 @@ Table of Contents
 <span class="grey"><a href="./rfc4178.html">RFC 4178</a>           The GSS-API Negotiation Mechanism        October 2005</span>
 
 
-      token is OPTIONAL.  (Note that the MIC token exchange is required
+      token is <em>OPTIONAL</em>.  (Note that the MIC token exchange is required
       if a mechanism other than the initiator's first choice is chosen.)
       In the case that the optimistic mechanism token is the only
       mechanism token for the initiator's preferred mechanism, the
-      mechlistMIC token is OPTIONAL.  Whether the mechlistMIC token is
+      mechlistMIC token is <em>OPTIONAL</em>.  Whether the mechlistMIC token is
       included, GSS_Init_sec_context() indicates GSS_S_CONTINUE_NEEDED.
       Initiators that wish to be compatible with legacy Windows SPNEGO
       implementations, as described in <a href="#appendix-C">Appendix C</a>, should not generate a
@@ -828,11 +828,11 @@ Table of Contents
         I) If a mechlistMIC token was included and is correctly
            verified, GSS_Accept_sec_context() indicates GSS_S_COMPLETE.
            The output negotiation message contains a mechlistMIC token
-           and an accept_complete state.  The initiator MUST then verify
+           and an accept_complete state.  The initiator <em>MUST</em> then verify
            this mechlistMIC token.
 
        II) If a mechlistMIC token was included but is incorrect, the
-           negotiation SHALL be terminated.  GSS_Accept_sec_context()
+           negotiation <em>SHALL</em> be terminated.  GSS_Accept_sec_context()
            indicates GSS_S_DEFECTIVE_TOKEN.
 
       III) If no mechlistMIC token was included and the mechlistMIC
@@ -844,17 +844,17 @@ Table of Contents
            last mechanism token (when the initiator's preferred
            mechanism is accepted by the target) and the target sends a
            request-mic state but the initiator did not send a
-           mechlistMIC token, the target then MUST include a mechlistMIC
+           mechlistMIC token, the target then <em>MUST</em> include a mechlistMIC
            token in that first reply.  GSS_Accept_sec_context()
-           indicates GSS_S_CONTINUE_NEEDED.  The initiator MUST verify
+           indicates GSS_S_CONTINUE_NEEDED.  The initiator <em>MUST</em> verify
            the received mechlistMIC token and generate a mechlistMIC
-           token to send back to the target.  The target SHALL, in turn,
+           token to send back to the target.  The target <em>SHALL</em>, in turn,
            verify the returned mechlistMIC token and complete the
            negotiation.
 
         V) If no mechlistMIC token was included and the acceptor sent a
            request-mic state in the first reply message (the exchange of
-           MIC tokens is required), the negotiation SHALL be terminated.
+           MIC tokens is required), the negotiation <em>SHALL</em> be terminated.
            GSS_Accept_sec_context() indicates GSS_S_DEFECTIVE_TOKEN.
 
 
@@ -872,8 +872,8 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Extensibility</span>
 
    Two mechanisms are provided for extensibility.  First, the ASN.1
-   structures in this specification MAY be expanded by IETF standards
-   action.  Implementations receiving unknown fields MUST ignore these
+   structures in this specification <em>MAY</em> be expanded by IETF standards
+   action.  Implementations receiving unknown fields <em>MUST</em> ignore these
    fields.
 
    Secondly, OIDs corresponding to a desired mechanism attribute (i.e.,
@@ -882,13 +882,13 @@ Table of Contents
    request by preferring mechanisms that have the included attributes.
    Future work within the Kitten working group is expected to
    standardize common attributes that SPNEGO mechanisms may wish to
-   support.  At this time, it is sufficient to say that initiators MAY
-   include OIDs that do not correspond to mechanisms.  Such OIDs MAY
+   support.  At this time, it is sufficient to say that initiators <em>MAY</em>
+   include OIDs that do not correspond to mechanisms.  Such OIDs <em>MAY</em>
    influence the acceptor's choice of mechanism.  As discussed in
    <a href="#section-5">Section 5</a>, if there are mechanisms that, if present in the
    initiator's list of mechanisms, might be preferred by the acceptor
-   instead of the initiator's preferred mechanism, the acceptor MUST
-   demand the MIC token exchange.  As the consequence, acceptors MUST
+   instead of the initiator's preferred mechanism, the acceptor <em>MUST</em>
+   demand the MIC token exchange.  As the consequence, acceptors <em>MUST</em>
    demand the MIC token exchange if they support negotiation of
    attributes not available in the initiator's preferred mechanism,
    regardless of whether the initiator actually requested these
@@ -1057,11 +1057,11 @@ Table of Contents
 
    NegTokenInit ::= SEQUENCE {
        mechTypes       [0] MechTypeList,
-       reqFlags        [1] ContextFlags  OPTIONAL,
+       reqFlags        [1] ContextFlags  <em>OPTIONAL</em>,
          -- inherited from <a href="./rfc2478.html">RFC 2478</a> for backward compatibility,
-         -- RECOMMENDED to be left out
-       mechToken       [2] OCTET STRING  OPTIONAL,
-       mechListMIC     [3] OCTET STRING  OPTIONAL,
+         -- <em>RECOMMENDED</em> to be left out
+       mechToken       [2] OCTET STRING  <em>OPTIONAL</em>,
+       mechListMIC     [3] OCTET STRING  <em>OPTIONAL</em>,
        ...
    }
    NegTokenResp ::= SEQUENCE {
@@ -1070,12 +1070,12 @@ Table of Contents
            accept-incomplete   (1),
            reject              (2),
            request-mic         (3)
-       }                                 OPTIONAL,
-         -- REQUIRED in the first reply from the target
-       supportedMech   [1] MechType      OPTIONAL,
+       }                                 <em>OPTIONAL</em>,
+         -- <em>REQUIRED</em> in the first reply from the target
+       supportedMech   [1] MechType      <em>OPTIONAL</em>,
          -- present only in the first reply from the target
-       responseToken   [2] OCTET STRING  OPTIONAL,
-       mechListMIC     [3] OCTET STRING  OPTIONAL,
+       responseToken   [2] OCTET STRING  <em>OPTIONAL</em>,
+       mechListMIC     [3] OCTET STRING  <em>OPTIONAL</em>,
        ...
    }
 

@@ -330,9 +330,9 @@ Table of Contents
    a resource is a link, node, or Shared Risk Link Group (SRLG)) in the
    network so that they do not share any failure probability, but this
    is not mandatory.  With respect to a given set of network resources,
-   a pair of working/protecting LSPs SHOULD be resource disjoint in case
+   a pair of working/protecting LSPs <em>SHOULD</em> be resource disjoint in case
    of dedicated recovery type (see below).  On the other hand, in case
-   of shared recovery (see below), a group of working LSPs SHOULD be
+   of shared recovery (see below), a group of working LSPs <em>SHOULD</em> be
    mutually resource-disjoint in order to allow for a (single and
    commonly) shared protecting LSP, itself resource-disjoint from each
    of the working LSPs.  Note that resource disjointness is a necessary
@@ -373,7 +373,7 @@ Table of Contents
    2) In 1:N (N &gt;= 1) protection with extra-traffic, the protecting LSP
       is a fully provisioned and resource-disjoint LSP from the N
       working LSPs, that allows for carrying extra-traffic.  The N
-      working LSPs MAY be mutually resource-disjoint.  Coordination
+      working LSPs <em>MAY</em> be mutually resource-disjoint.  Coordination
       between end-nodes is required when switching from one of the
       working LSPs to the protecting LSP.  As the protecting LSP is
       fully provisioned, default operations during protection switching
@@ -435,8 +435,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    In addition, the reader is assumed to be familiar with the
@@ -494,7 +494,7 @@ Table of Contents
         A 32-bit (or 16-byte) identifier used in the SESSION that
         remains constant over the life of the tunnel.  Normally set to
         all zeros.  Ingress nodes that wish to narrow the scope of a
-        SESSION to the ingress-egress pair MAY place their IPv4 (or
+        SESSION to the ingress-egress pair <em>MAY</em> place their IPv4 (or
         IPv6) address here as a globally unique identifier.
 
    IPv4 (or IPv6) tunnel sender address
@@ -546,13 +546,13 @@ Table of Contents
      full cross-connection has been performed).  Both working and
      protecting LSPs can be primary LSPs.  A secondary LSP is an LSP
      that has been provisioned in the control plane only, and for which
-     resource selection MAY have been done but for which the resource
+     resource selection <em>MAY</em> have been done but for which the resource
      allocation has not been committed at the data plane (for instance,
      no cross-connection has been performed).  Therefore, a secondary
      LSP is not immediately available to carry any traffic (thus
      requiring additional signaling to be available).  A secondary LSP
      can only be a protecting LSP.  The (data plane) resources allocated
-     for a secondary LSP MAY be used by other LSPs until the primary LSP
+     for a secondary LSP <em>MAY</em> be used by other LSPs until the primary LSP
      fails over to the secondary LSP.
 
    - P (Protecting) bit: enables distinction between working and
@@ -628,7 +628,7 @@ Table of Contents
    that a single bit (the S bit alone) does not allow determining
    whether resource allocation should be performed with respect to the
    status of the LSP within the protected entity.  The introduction of
-   the P bit solves this problem unambiguously.  These bits MUST be
+   the P bit solves this problem unambiguously.  These bits <em>MUST</em> be
    processed on a hop-by-hop basis (independently of the LSP Protection
    Type context).  This allows for an easier implementation of reversion
 
@@ -673,7 +673,7 @@ Table of Contents
    During the provisioning phase, both LSPs are fully instantiated (and
    thus activated) so that no resource sharing can be done along the
    protecting LSP (nor can any extra-traffic be transported).  It is
-   also RECOMMENDED to set the N bit since no protection-switching
+   also <em>RECOMMENDED</em> to set the N bit since no protection-switching
    signaling is assumed in this case.
 
    When a failure occurs (say, at node B) and is detected at end-node D,
@@ -681,7 +681,7 @@ Table of Contents
    From this perspective, 1+1 unidirectional protection can be seen as
    an uncoordinated protection-switching mechanism acting independently
    at both endpoints.  Also, for the LSP under failure condition, it is
-   RECOMMENDED to not set the Path_State_Removed Flag of the ERROR_SPEC
+   <em>RECOMMENDED</em> to not set the Path_State_Removed Flag of the ERROR_SPEC
    object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]) upon PathErr message generation.
 
    Note: it is necessary that both paths are SRLG disjoint to ensure
@@ -698,8 +698,8 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Identifiers</span>
 
    To simplify association operations, both LSPs belong to the same
-   session.  Thus, the SESSION object MUST be the same for both LSPs.
-   The LSP ID, however, MUST be different to distinguish between the two
+   session.  Thus, the SESSION object <em>MUST</em> be the same for both LSPs.
+   The LSP ID, however, <em>MUST</em> be different to distinguish between the two
    LSPs.
 
    A new PROTECTION object (see <a href="#section-14">Section 14</a>) is included in the Path
@@ -717,8 +717,8 @@ Table of Contents
 
    After protection switching completes, and after reception of the
    PathErr message, to keep track of the LSP from which the signal is
-   taken, the protecting LSP SHOULD be signaled with the O bit set.  The
-   formerly working LSP MAY be signaled with the A bit set in the
+   taken, the protecting LSP <em>SHOULD</em> be signaled with the O bit set.  The
+   formerly working LSP <em>MAY</em> be signaled with the A bit set in the
    ADMIN_STATUS object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).  This process assumes the tail-
    end node has notified the head-end node that traffic selection
    switchover has occurred.
@@ -764,8 +764,8 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Identifiers</span>
 
    To simplify association operations, both LSPs belong to the same
-   session.  Thus, the SESSION object MUST be the same for both LSPs.
-   The LSP ID, however, MUST be different to distinguish between the two
+   session.  Thus, the SESSION object <em>MUST</em> be the same for both LSPs.
+   The LSP ID, however, <em>MUST</em> be different to distinguish between the two
    LSPs.
 
    A new PROTECTION object (see <a href="#section-14">Section 14</a>) is included in the Path
@@ -797,7 +797,7 @@ Table of Contents
          receives a Notify message including its SESSION object within
          the &lt;upstream/downstream session list&gt; (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]), and the
          new error code/sub-code "Notify Error/ LSP Locally Failed" in
-         the (IF_ID)_ERROR_SPEC object, it MUST begin receiving on the
+         the (IF_ID)_ERROR_SPEC object, it <em>MUST</em> begin receiving on the
          protecting LSP.  Note that the &lt;sender descriptor&gt; or &lt;flow
 
 
@@ -815,46 +815,46 @@ Table of Contents
             ERROR_SPEC (C-Type 1/2) or the ERROR_SPEC (C-Type 3/4,
             defined in [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]) can be used.
 
-         This node MUST reliably send a Notify message, including the
+         This node <em>MUST</em> reliably send a Notify message, including the
          MESSAGE_ID object, to the other end-node (D or A, respectively)
          with the new error code/sub-code "Notify Error/LSP Failure"
          (Switchover Request) indicating the failure of the working LSP.
-         This Notify message MUST be sent with the ACK_Desired flag set
+         This Notify message <em>MUST</em> be sent with the ACK_Desired flag set
          in the MESSAGE_ID object to request the receiver to send an
          acknowledgment for the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
-         This (switchover request) Notify message MAY indicate the
+         This (switchover request) Notify message <em>MAY</em> indicate the
          identity of the failed link or any other relevant information
          using the IF_ID ERROR_SPEC object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).  In this
          case, the IF_ID ERROR_SPEC object replaces the ERROR_SPEC
          object in the Notify message; otherwise, the corresponding
-         (data plane) information SHOULD be received in the
+         (data plane) information <em>SHOULD</em> be received in the
          PathErr/ResvErr message.
 
       2. Upon receipt of the (switchover request) Notify message, the
-         end-node (D or A, respectively) MUST begin receiving from the
+         end-node (D or A, respectively) <em>MUST</em> begin receiving from the
          protecting LSP.
 
-         This node MUST reliably send a Notify message, including the
+         This node <em>MUST</em> reliably send a Notify message, including the
          MESSAGE_ID object, to the other end-node (A or D,
-         respectively).  This (switchover response) Notify message MUST
+         respectively).  This (switchover response) Notify message <em>MUST</em>
          also include a MESSAGE_ID_ACK object to acknowledge reception
          of the (switchover request) Notify message.
 
-         This (switchover response) Notify message MAY indicate the
+         This (switchover response) Notify message <em>MAY</em> indicate the
          identity of the failed link or any other relevant information
          using the IF_ID ERROR_SPEC object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).
 
          Note: upon receipt of the (switchover response) Notify message,
-         the end-node (A or D, respectively) MUST send an Ack message to
+         the end-node (A or D, respectively) <em>MUST</em> send an Ack message to
          the other end-node to acknowledge its reception.
 
    Since the intermediate nodes (B, C, E, F, and G) are assumed to be
    GMPLS RSVP-TE signaling capable, each node adjacent to the failure
-   MAY generate a Notify message directed either to the LSP head-end
+   <em>MAY</em> generate a Notify message directed either to the LSP head-end
    (upstream direction), or the LSP tail-end (downstream direction), or
    even both.  Therefore, it is expected that these LSP terminating
-   nodes (that MAY also detect the failure of the LSP from the data
+   nodes (that <em>MAY</em> also detect the failure of the LSP from the data
 
 
 
@@ -866,14 +866,14 @@ Table of Contents
    plane) provide either the right correlation mechanism to avoid
    repetition of the above procedure or just discard subsequent Notify
    messages corresponding to the same Session.  In addition, for the LSP
-   under failure condition, it is RECOMMENDED to not set the Path_State_
+   under failure condition, it is <em>RECOMMENDED</em> to not set the Path_State_
    Removed Flag of the ERROR_SPEC object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]) upon PathErr
    message generation.
 
    After protection switching completes (step 2), and after reception of
    the PathErr message, to keep track of the LSP from which the signal
-   is taken, the protecting LSP SHOULD be signaled with the O bit set.
-   The formerly working LSP MAY be signaled with the A bit set in the
+   is taken, the protecting LSP <em>SHOULD</em> be signaled with the O bit set.
+   The formerly working LSP <em>MAY</em> be signaled with the A bit set in the
    ADMIN_STATUS object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).
 
    Note: when the N bit is set, the end-to-end switchover request/
@@ -899,13 +899,13 @@ Table of Contents
    the protecting LSP is capable of carrying extra-traffic with the
    caveat that this traffic will be preempted if the working LSP fails.
 
-   The setup of the working LSP SHOULD indicate that the LSP head-end
+   The setup of the working LSP <em>SHOULD</em> indicate that the LSP head-end
    and tail-end node wish to receive Notify messages using the NOTIFY
    REQUEST object.  The node upstream to the failure (upstream in terms
-   of the direction an Path message traverses) SHOULD send a Notify
+   of the direction an Path message traverses) <em>SHOULD</em> send a Notify
    message to the LSP head-end node, and the node downstream to the
-   failure SHOULD send an Notify message to the LSP tail-end node.  Upon
-   receipt of the Notify messages, both the end-nodes MUST switch the
+   failure <em>SHOULD</em> send an Notify message to the LSP tail-end node.  Upon
+   receipt of the Notify messages, both the end-nodes <em>MUST</em> switch the
    (normal) traffic from the working LSP to the pre-configured
    protecting LSP (see <a href="#section-7.2">Section 7.2</a>).  Moreover, some coordination is
    required if extra-traffic is carried over the end-to-end protecting
@@ -942,8 +942,8 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.1" href="#section-7.1">7.1</a>.  Identifiers</span>
 
    To simplify association operations, both LSPs belong to the same
-   session.  Thus, the SESSION object MUST be the same for both LSPs.
-   The LSP ID, however, MUST be different to distinguish between the
+   session.  Thus, the SESSION object <em>MUST</em> be the same for both LSPs.
+   The LSP ID, however, <em>MUST</em> be different to distinguish between the
    protected LSP carrying working traffic and the protecting LSP that
    can carry extra-traffic.
 
@@ -998,30 +998,30 @@ Table of Contents
          (together with the SESSION object) the LSP under failure
          condition.
 
-         This node MUST reliably send a Notify message, including the
+         This node <em>MUST</em> reliably send a Notify message, including the
          MESSAGE_ID object, to the other end-node (D or A, respectively)
          with the new error code/sub-code "Notify Error/LSP Failure"
          (Switchover Request) indicating the failure of the working LSP.
-         This Notify message MUST be sent with the ACK_Desired flag set
+         This Notify message <em>MUST</em> be sent with the ACK_Desired flag set
          in the MESSAGE_ID object to request the receiver to send an
          acknowledgment for the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
-         This (switchover request) Notify message MAY indicate the
+         This (switchover request) Notify message <em>MAY</em> indicate the
          identity of the failed link or any other relevant information
          using the IF_ID ERROR_SPEC object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).  In this
          case, the IF_ID ERROR_SPEC object replaces the ERROR_SPEC
          object in the Notify message; otherwise, the corresponding
-         (data plane) information SHOULD be received in the
+         (data plane) information <em>SHOULD</em> be received in the
          PathErr/ResvErr message.
 
       2. Upon receipt of the (switchover request) Notify message, the
-         end-node (D or A, respectively) MUST disconnect the extra-
+         end-node (D or A, respectively) <em>MUST</em> disconnect the extra-
          traffic from the protecting LSP and begin sending/receiving
          normal traffic out/from the protecting LSP.
 
-         This node MUST reliably send a Notify message, including the
+         This node <em>MUST</em> reliably send a Notify message, including the
          MESSAGE_ID object, to the other end-node (A or D,
-         respectively).  This (switchover response) Notify message MUST
+         respectively).  This (switchover response) Notify message <em>MUST</em>
 
 
 
@@ -1034,7 +1034,7 @@ Table of Contents
          also include a MESSAGE_ID_ACK object to acknowledge reception
          of the (switchover request) Notify message.
 
-         This (switchover response) Notify message MAY indicate the
+         This (switchover response) Notify message <em>MAY</em> indicate the
          identity of the failed link or any other relevant information
          using the IF_ID ERROR_SPEC object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).
 
@@ -1045,10 +1045,10 @@ Table of Contents
          receipt of a Notify message from an intermediate node.
 
       3. Upon receipt of the (switchover response) Notify message, the
-         end-node (A or D, respectively) MUST begin receiving normal
+         end-node (A or D, respectively) <em>MUST</em> begin receiving normal
          traffic from or sending normal traffic out the protecting LSP.
 
-         This node MUST also send an Ack message to the other end-node
+         This node <em>MUST</em> also send an Ack message to the other end-node
          (D or A, respectively) to acknowledge the reception of the
          (switchover response) Notify message.
 
@@ -1057,7 +1057,7 @@ Table of Contents
    a notification message, a switchover request, and a switchover
    response messages is not considered here.  Also, when the protecting
    LSPs do not carry extra-traffic, protection-switching signaling (as
-   defined in <a href="#section-6.2">Section 6.2</a>) MAY be used instead of the procedure
+   defined in <a href="#section-6.2">Section 6.2</a>) <em>MAY</em> be used instead of the procedure
    described in this section.
 
    Note 2: when the N bit is set, the above end-to-end switchover
@@ -1066,8 +1066,8 @@ Table of Contents
 
    After protection switching completes (step 3), and after reception of
    the PathErr message, to keep track of the LSP from which the normal
-   traffic is taken, the protecting LSP SHOULD be signaled with the O
-   bit set.  In addition, the formerly working LSP MAY be signaled with
+   traffic is taken, the protecting LSP <em>SHOULD</em> be signaled with the O
+   bit set.  In addition, the formerly working LSP <em>MAY</em> be signaled with
    the A bit set in the ADMIN_STATUS object (see [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>]).
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  1:N (N &gt; 1) Protection with Extra-Traffic</span>
@@ -1077,7 +1077,7 @@ Table of Contents
    LSPs.  This protecting LSP thereby allows for carrying extra-traffic.
    Note that the N working LSPs and the protecting LSP are all between
    the same pair of endpoints.  In addition, the N working LSPs
-   (considered as identical in terms of traffic parameters) MAY be
+   (considered as identical in terms of traffic parameters) <em>MAY</em> be
 
 
 
@@ -1099,7 +1099,7 @@ Table of Contents
    The protecting LSP (carrying extra-traffic) is signaled with the S
    bit set to 0 and the P bit set to 1.  The LSP Protection Type is set
    to 0x04 (1:N Protection with Extra-Traffic) during LSP setup.  The
-   Association ID MUST be set by default to the LSP ID of the protected
+   Association ID <em>MUST</em> be set by default to the LSP ID of the protected
    LSP corresponding to N = 1.
 
    Any signaling procedure applicable to 1:1 protection with extra-
@@ -1126,11 +1126,11 @@ Table of Contents
    during the provisioning phase, and for the protecting LSPs, no
    resources are committed at the data plane level (they are pre-
    reserved at the control plane level only).  The setup of the working
-   LSP SHOULD indicate (using the NOTIFY REQUEST object as specified in
+   LSP <em>SHOULD</em> indicate (using the NOTIFY REQUEST object as specified in
    <a href="./rfc3473.html#section-4">Section&nbsp;4 of [RFC3473]</a>) that the LSP head-end node (and possibly the
    tail-end node) wish to receive a Notify message upon LSP failure
    occurrence.  Upon receipt of the Notify message, the head-end node
-   MUST switch the (normal) traffic from the working LSP to the
+   <em>MUST</em> switch the (normal) traffic from the working LSP to the
    protecting LSP after its activation.  Note that since the working and
    the protecting LSPs are established between the same end-nodes, no
    further notification is required to indicate that the working LSPs
@@ -1156,7 +1156,7 @@ Table of Contents
    X (where X is the Setup Priority of the protecting LSP), and the
    Holding Priority field to at least X+1.  Also, if the resources pre-
    reserved for the protecting LSP are used by lower-priority LSPs,
-   these LSPs MUST be preempted when the protecting LSP is activated
+   these LSPs <em>MUST</em> be preempted when the protecting LSP is activated
    (see <a href="#section-10">Section 10</a>).
 
    Consider the following topology:
@@ -1203,8 +1203,8 @@ Table of Contents
 
    To simplify association operations, both LSPs (i.e., the protected
    and the secondary LSPs) belong to the same session.  Thus, the
-   SESSION object MUST be the same for both LSPs.  The LSP ID, however,
-   MUST be different to distinguish between the protected LSP carrying
+   SESSION object <em>MUST</em> be the same for both LSPs.  The LSP ID, however,
+   <em>MUST</em> be different to distinguish between the protected LSP carrying
    working traffic and the secondary LSP that cannot carry extra-
    traffic.
 
@@ -1233,10 +1233,10 @@ Table of Contents
    Secondary protecting LSPs are signaled by setting in the new
    PROTECTION object the S bit and the P bit to 1, and in the
    ASSOCIATION object, the Association ID to the associated primary
-   working LSP_ID, which MUST be known before signaling of the secondary
+   working LSP_ID, which <em>MUST</em> be known before signaling of the secondary
    LSP.
 
-   With this setting, the resources for the secondary LSP SHOULD be
+   With this setting, the resources for the secondary LSP <em>SHOULD</em> be
    pre-reserved, but not committed at the data plane level, meaning that
    the internals of the switch need not be established until explicit
    action is taken to activate this secondary LSP.  Activation of a
@@ -1260,26 +1260,26 @@ Table of Contents
    sharing of the recovery resources).  In the former case (defined as
    the default), label allocation during secondary LSP signaling does
    not require any specific procedure compared to [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>].  However,
-   in the latter case, label (and thus resource) re-allocation MAY occur
+   in the latter case, label (and thus resource) re-allocation <em>MAY</em> occur
    during the secondary LSP activation.  This means that during the LSP
-   activation phase, labels MAY be reassigned (with higher precedence
+   activation phase, labels <em>MAY</em> be reassigned (with higher precedence
    over existing label assignment; see also [<a href="./rfc3471.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Functional Description&quot;">RFC3471</a>]).
 
    Note: under certain circumstances (e.g., when pre-reserved protecting
-   resources are used by lower-priority LSPs), it MAY be desirable to
+   resources are used by lower-priority LSPs), it <em>MAY</em> be desirable to
    perform the activation of the secondary LSP in the upstream direction
    (Resv trigger message) instead of using the default downstream
    activation.  In this case, any mis-ordering and any mis-
    interpretation between a refresh Resv (along the lower-priority LSP)
-   and a trigger Resv message (along the secondary LSP) MUST be avoided
+   and a trigger Resv message (along the secondary LSP) <em>MUST</em> be avoided
    at any intermediate node.  For this purpose, upon reception of the
-   Path message, the egress node MAY include the PROTECTION object in
+   Path message, the egress node <em>MAY</em> include the PROTECTION object in
    the Resv message.  The latter is then processed on a hop-by-hop basis
    to activate the secondary LSP until reaching the ingress node.  The
-   PROTECTION object included in the Path message MUST be set as
+   PROTECTION object included in the Path message <em>MUST</em> be set as
    specified in this section.  In this case, the PROTECTION object with
-   the S bit MUST be set to 0 and included in the Resv message sent in
-   the upstream direction.  The upstream activation behavior SHOULD be
+   the S bit <em>MUST</em> be set to 0 and included in the Resv message sent in
+   the upstream direction.  The upstream activation behavior <em>SHOULD</em> be
    configurable on a local basis.  Details concerning lower-priority LSP
    preemption upon secondary LSP activation are provided in <a href="#section-10">Section 10</a>.
 
@@ -1321,7 +1321,7 @@ Table of Contents
    X (where X is the Setup Priority of the protecting LSP) and the
    Holding Priority field to at least X+1.  Also, if the resources pre-
    reserved for the protecting LSP are used by lower priority LSPs,
-   these LSPs MUST be preempted when the protecting LSP is activated
+   these LSPs <em>MUST</em> be preempted when the protecting LSP is activated
    (see <a href="#section-10">Section 10</a>).  Further, if the recovery resources are shared
    between multiple protecting LSPs, the corresponding working LSPs
    head-end nodes must be informed that they are no longer protected
@@ -1394,8 +1394,8 @@ Table of Contents
 
    To simplify association operations, both LSPs (i.e., the protected
    and the secondary LSPs) belong to the same session.  Thus, the
-   SESSION object MUST be the same for both LSPs.  The LSP ID, however,
-   MUST be different to distinguish between the protected LSP carrying
+   SESSION object <em>MUST</em> be the same for both LSPs.  The LSP ID, however,
+   <em>MUST</em> be different to distinguish between the protected LSP carrying
    working traffic and the secondary LSP that cannot carry extra-
    traffic.
 
@@ -1432,13 +1432,13 @@ Table of Contents
    Secondary protecting LSPs are signaled by setting in the new
    PROTECTION object the S bit and the P bit to 1, and in the
    ASSOCIATION object, the Association ID to the associated primary
-   working LSP_ID, which MUST be known before signaling of the secondary
+   working LSP_ID, which <em>MUST</em> be known before signaling of the secondary
    LSP.  Moreover, the Path message used to instantiate the secondary
-   LSP SHOULD include at least one PRIMARY_PATH_ROUTE object (see
+   LSP <em>SHOULD</em> include at least one PRIMARY_PATH_ROUTE object (see
    <a href="#section-15">Section 15</a>) that further allows for recovery resource sharing at each
    intermediate node along the secondary path.
 
-   With this setting, the resources for the secondary LSP SHOULD be
+   With this setting, the resources for the secondary LSP <em>SHOULD</em> be
    pre-reserved, but not committed at the data plane level, meaning that
    the internals of the switch need not be established until explicit
    action is taken to activate this LSP.  Activation of a secondary LSP
@@ -1452,16 +1452,16 @@ Table of Contents
    sharing of the recovery resources).  In the former case (defined as
    the default), label allocation during secondary LSP signaling does
    not require any specific procedure compared to [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>].  However,
-   in the latter case, label (and thus resource) re-allocation MAY occur
+   in the latter case, label (and thus resource) re-allocation <em>MAY</em> occur
    during the secondary LSP activation.  This means that, during the LSP
-   activation phase, labels MAY be reassigned (with higher precedence
+   activation phase, labels <em>MAY</em> be reassigned (with higher precedence
    over existing label assignment; see also [<a href="./rfc3471.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Functional Description&quot;">RFC3471</a>]).
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  LSP Preemption</span>
 
    When protecting resources are only pre-reserved for the secondary
-   LSPs, they MAY be used to set up lower-priority LSPs.  In this case,
-   these resources MUST be preempted when the protecting LSP is
+   LSPs, they <em>MAY</em> be used to set up lower-priority LSPs.  In this case,
+   these resources <em>MUST</em> be preempted when the protecting LSP is
    activated.  An additional condition raises from misconnection
    avoidance between the secondary protecting LSP being activated and
    the low-priority LSP(s) being preempted.  Procedure to be applied
@@ -1483,7 +1483,7 @@ Table of Contents
       the cross-connection.  Note that if the preempting LSP is
       bidirectional, these resources may come from one or two lower-
       priority LSPs, and if from two LSPs, they may be uni- or bi-
-      directional.  The preempting node SHOULD NOT send the Path message
+      directional.  The preempting node <em>SHOULD NOT</em> send the Path message
       before the de-allocation of resources has completed since this may
       lead to the downstream path becoming misconnected if the
       downstream node is able to reassign the resources more quickly.
@@ -1493,7 +1493,7 @@ Table of Contents
       Path_State_Removed flag set for the preempted LSP(s).
 
    3. Reserve the preempted resources for the protecting LSP.  The
-      preempting node MUST NOT cross-connect the upstream resources of a
+      preempting node <em>MUST NOT</em> cross-connect the upstream resources of a
       bidirectional preempting LSP.
 
    4. Send the Path message.
@@ -1504,7 +1504,7 @@ Table of Contents
       path resources.
 
    Note that step 1 may cause alarms to be raised for the preempted LSP.
-   If alarm suppression is desired, the preempting node MAY insert the
+   If alarm suppression is desired, the preempting node <em>MAY</em> insert the
    following steps before step 1.
 
    1a. Before de-allocating resources, send a Resv message, including an
@@ -1512,7 +1512,7 @@ Table of Contents
    1b. Receive a Path message indicating that alarms are disabled.
 
    At the downstream node (with respect to the preempting LSP), the
-   processing is RECOMMENDED to be as follows:
+   processing is <em>RECOMMENDED</em> to be as follows:
 
    1.  Receive PathTear (and/or PathErr) message for the preempted
        LSP(s).
@@ -1547,9 +1547,9 @@ Table of Contents
    the failure occurred within a loose-routed hop, the head-end node may
    not have enough information to reroute the LSP around the failure.
    Crankback signaling (see [<a href="#ref-CRANK" title="&quot;Crankback Signaling Extensions for MPLS and GMPLS RSVP-TE&quot;">CRANK</a>]) and route exclusion techniques (see
-   [<a href="./rfc4874.html" title="&quot;Exclude Routes - Extension to Resource ReserVation Protocol-Traffic Engineering (RSVP-TE)&quot;">RFC4874</a>]) MAY be used in this case.
+   [<a href="./rfc4874.html" title="&quot;Exclude Routes - Extension to Resource ReserVation Protocol-Traffic Engineering (RSVP-TE)&quot;">RFC4874</a>]) <em>MAY</em> be used in this case.
 
-   The alternate route MAY be either computed on demand (that is, when
+   The alternate route <em>MAY</em> be either computed on demand (that is, when
    the failure occurs; this is referred to as full LSP rerouting) or
    pre-computed and stored for use when the failure is reported.  The
    latter offers faster restoration time.  There is, however, a risk
@@ -1591,13 +1591,13 @@ Table of Contents
 <span class="grey"><a href="./rfc4872.html">RFC 4872</a>       RSVP-TE Extensions for E2E GMPLS Recovery        May 2007</span>
 
 
-   The alternate LSP MAY be set up before any failure occurrence with
+   The alternate LSP <em>MAY</em> be set up before any failure occurrence with
    SE-style resource reservation, the latter shares the same Tunnel End
    Point Address, Tunnel ID, Extended Tunnel ID, and Tunnel Sender
-   Address with the original LSP (i.e., only the LSP ID value MUST be
+   Address with the original LSP (i.e., only the LSP ID value <em>MUST</em> be
    different).
 
-   In both cases, the Association ID of the ASSOCIATION object MUST be
+   In both cases, the Association ID of the ASSOCIATION object <em>MUST</em> be
    set to the LSP ID value of the signaled LSP.
 
 <span class="h3"><a class="selflink" name="section-11.2" href="#section-11.2">11.2</a>.  Signaling Reroutable LSPs</span>
@@ -1612,9 +1612,9 @@ Table of Contents
    node local policy.
 
    Note: when the end-to-end LSP Protection Type is set to
-   "Unprotected", both S and P bit MUST be set to 0, and the LSP SHOULD
+   "Unprotected", both S and P bit <em>MUST</em> be set to 0, and the LSP <em>SHOULD</em>
    NOT be rerouted at the head-end node after failure occurrence.  The
-   Association_ID value MUST be set to the LSP_ID value of the signaled
+   Association_ID value <em>MUST</em> be set to the LSP_ID value of the signaled
    LSP.  This does not mean that the Unprotected LSP cannot be re-
    established for other reasons such as path re-optimization and
    bandwidth adjustment driven by policy conditions.
@@ -1654,7 +1654,7 @@ Table of Contents
          source node sends reliably a Notify message to the destination
          with the new error code/sub-code "Notify Error/LSP Recovered"
          (Switchback Request).  This Notify message includes the
-         MESSAGE_ID object.  The ACK_Desired flag MUST be set in this
+         MESSAGE_ID object.  The ACK_Desired flag <em>MUST</em> be set in this
          object to request the receiver to send an acknowledgment for
          the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
@@ -1666,7 +1666,7 @@ Table of Contents
          source confirming the completion of the operation.  This
          message includes the MESSAGE_ID_ACK object to acknowledge
          reception of the received Notify message.  This Notify message
-         also includes the MESSAGE_ID object.  The ACK_Desired flag MUST
+         also includes the MESSAGE_ID object.  The ACK_Desired flag <em>MUST</em>
          be set in this object to request the receiver to send an
          acknowledgment for the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
@@ -1705,7 +1705,7 @@ Table of Contents
 
          with the new error code/sub-code "Notify Error/LSP Recovered"
          (Switchback Request).  This Notify message includes the
-         MESSAGE_ID object.  The ACK_Desired flag MUST be set in this
+         MESSAGE_ID object.  The ACK_Desired flag <em>MUST</em> be set in this
          object to request the receiver to send an acknowledgment for
          the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
@@ -1717,7 +1717,7 @@ Table of Contents
          source confirming the completion of the operation.  This
          message includes the MESSAGE_ID_ACK object to acknowledge
          reception of the received Notify message.  This Notify message
-         also includes the MESSAGE_ID object.  The ACK_Desired flag MUST
+         also includes the MESSAGE_ID object.  The ACK_Desired flag <em>MUST</em>
          be set in this object to request the receiver to send an
          acknowledgment for the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
@@ -1766,7 +1766,7 @@ Table of Contents
          source node sends reliably a Notify message to the destination
          with the new error code/sub-code "Notify Error/LSP Recovered"
          (Switchback Request).  This Notify message includes the
-         MESSAGE_ID object.  The ACK_Desired flag MUST be set in this
+         MESSAGE_ID object.  The ACK_Desired flag <em>MUST</em> be set in this
          object to request the receiver to send an acknowledgment for
          the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
@@ -1778,7 +1778,7 @@ Table of Contents
          source confirming the completion of the operation.  This
          message includes the MESSAGE_ID_ACK object to acknowledge
          reception of the received Notify message.  This Notify message
-         also includes the MESSAGE_ID object.  The ACK_Desired flag MUST
+         also includes the MESSAGE_ID object.  The ACK_Desired flag <em>MUST</em>
          be set in this object to request the receiver to send an
          acknowledgment for the message (see [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>]).
 
@@ -1848,7 +1848,7 @@ Table of Contents
 
    The O bit of the PROTECTION object is set to 1 to force the recovery
    LSP to be temporarily unavailable to transport normal traffic.  This
-   operation MUST NOT occur unless the working LSP is carrying the
+   operation <em>MUST NOT</em> occur unless the working LSP is carrying the
    normal traffic.  Unlock is performed by clearing the O bit over the
    protecting LSP.  This procedure is only applicable when the LSP
    Protection Type Flag is set to either 0x04 (1:N Protection with
@@ -1937,7 +1937,7 @@ Table of Contents
          when the LSP Protection Type Flag is set to either 0x04 (1:N
          Protection with Extra-Traffic), or 0x08 (1+1 Unidirectional
          Protection), or 0x10 (1+1 Bidirectional Protection).  The N bit
-         MUST be set to 0 in any other case.
+         <em>MUST</em> be set to 0 in any other case.
 
       Operational (O): 1 bit
 
@@ -1946,19 +1946,19 @@ Table of Contents
          bit is only applicable when the P bit is set to 1, and the LSP
          Protection Type Flag is set to either 0x04 (1:N Protection with
          Extra-Traffic), or 0x08 (1+1 Unidirectional Protection) or 0x10
-         (1+1 Bidirectional Protection).  The O bit MUST be set to 0 in
+         (1+1 Bidirectional Protection).  The O bit <em>MUST</em> be set to 0 in
          any other case.
 
       Reserved: 5 bits
 
-         This field is reserved.  It MUST be set to zero on transmission
-         and MUST be ignored on receipt.  These bits SHOULD be passed
+         This field is reserved.  It <em>MUST</em> be set to zero on transmission
+         and <em>MUST</em> be ignored on receipt.  These bits <em>SHOULD</em> be passed
          through unmodified by transit nodes.
 
       LSP (Protection Type) Flags: 6 bits
 
          Indicates the desired end-to-end LSP recovery type.  A value of
-         0 implies that the LSP is "Unprotected".  Only one value SHOULD
+         0 implies that the LSP is "Unprotected".  Only one value <em>SHOULD</em>
          be set at a time.  The following values are defined.  All other
          values are reserved.
 
@@ -1971,8 +1971,8 @@ Table of Contents
 
       Reserved: 10 bits
 
-         This field is reserved.  It MUST be set to zero on transmission
-         and MUST be ignored on receipt.  These bits SHOULD be passed
+         This field is reserved.  It <em>MUST</em> be set to zero on transmission
+         and <em>MUST</em> be ignored on receipt.  These bits <em>SHOULD</em> be passed
          through unmodified by transit nodes.
 
 
@@ -1994,16 +1994,16 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-14.2" href="#section-14.2">14.2</a>.  Processing</span>
 
    Intermediate and egress nodes processing a Path message containing a
-   PROTECTION object MUST verify that the requested LSP Protection Type
+   PROTECTION object <em>MUST</em> verify that the requested LSP Protection Type
    can be satisfied by the incoming interface.  If it cannot, the node
-   MUST generate a PathErr message, with the new error code/sub-code
+   <em>MUST</em> generate a PathErr message, with the new error code/sub-code
    "Routing problem/Unsupported LSP Protection".
 
    Intermediate nodes processing a Path message containing a PROTECTION
    object with the LSP Protection Type 0x02 (Rerouting without Extra-
    Traffic) value set and a PRIMARY_PATH_ROUTE object (see <a href="#section-15">Section 15</a>)
-   MUST verify that the requested LSP Protection Type can be supported
-   by the outgoing interface.  If it cannot, the node MUST generate a
+   <em>MUST</em> verify that the requested LSP Protection Type can be supported
+   by the outgoing interface.  If it cannot, the node <em>MUST</em> generate a
    PathErr message with the new error code/sub-code "Routing
    problem/Unsupported LSP Protection".
 
@@ -2014,7 +2014,7 @@ Table of Contents
    (link/nodes) are being used by the associated primary protected LSP
    (as specified by the Association ID field).  If the LSP Protection
    Type value is set to 0x02 (Rerouting without Extra-Traffic), this
-   object SHOULD be present in the Path message for the pre-provisioning
+   object <em>SHOULD</em> be present in the Path message for the pre-provisioning
    of the secondary protecting LSP to enable recovery resource sharing
    between one or more secondary protecting LSPs (see <a href="#section-9">Section 9</a>).  This
    document does not assume or preclude any other usage for this object.
@@ -2061,7 +2061,7 @@ Table of Contents
    The contents of a PRIMARY_PATH_ROUTE object are a series of
    variable-length data items called subobjects (see <a href="#section-15.3">Section 15.3</a>).
 
-   To signal a secondary protecting LSP, the Path message MAY include
+   To signal a secondary protecting LSP, the Path message <em>MAY</em> include
    one or multiple PRIMARY_PATH_ROUTE objects, where each object is
    meaningful.  The latter is useful when a given secondary protecting
    LSP must be link/node/SRLG disjoint from more than one primary LSP
@@ -2076,7 +2076,7 @@ Table of Contents
 
    Each subobject has its own length field.  The length contains the
    total length of the subobject in bytes, including the Type and Length
-   fields.  The length MUST always be a multiple of 4, and at least 4.
+   fields.  The length <em>MUST</em> always be a multiple of 4, and at least 4.
 
    The following subobjects are currently defined for the
    PRIMARY_PATH_ROUTE object:
@@ -2097,7 +2097,7 @@ Table of Contents
 
    An empty PPRO with no subobjects is considered illegal.  If there is
    no first subobject, the corresponding Path message is also in error,
-   and the receiving node SHOULD return a PathErr message with the new
+   and the receiving node <em>SHOULD</em> return a PathErr message with the new
    error code/sub-code "Routing Problem/Bad PRIMARY_PATH_ROUTE object".
 
    Note: an intermediate node processing a PPRO can derive SRLG
@@ -2107,37 +2107,37 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-15.3" href="#section-15.3">15.3</a>.  Applicability</span>
 
-   The PRIMARY_PATH_ROUTE object MAY only be used when all GMPLS nodes
+   The PRIMARY_PATH_ROUTE object <em>MAY</em> only be used when all GMPLS nodes
    along the path support the PRIMARY_PATH_ROUTE object and a secondary
    protecting LSP is being requested.  The PRIMARY_PATH_ROUTE object is
    assigned a class value of the form 0bbbbbbb.  Receiving GMPLS nodes
-   along the path that do not support this object MUST return a PathErr
+   along the path that do not support this object <em>MUST</em> return a PathErr
    message with the "Unknown Object Class" error code (see [<a href="./rfc2205.html" title="&quot;Resource ReSerVation Protocol (RSVP) -- Version 1 Functional Specification&quot;">RFC2205</a>]).
 
-   Also, the following restrictions MUST be applied with respect to the
+   Also, the following restrictions <em>MUST</em> be applied with respect to the
    PPRO usage:
 
-   - PPROs MAY only be included in Path messages when signaling
+   - PPROs <em>MAY</em> only be included in Path messages when signaling
      secondary protecting LSPs (S bit = 1 and P bit = 1) and when the
      LSP Protection Type value is set to 0x02 (without Rerouting Extra-
      Traffic) in the PROTECTION object (see <a href="#section-14">Section 14</a>).
 
-   - PRROs SHOULD be present in the Path message for the pre-
+   - PRROs <em>SHOULD</em> be present in the Path message for the pre-
      provisioning of the secondary protecting LSP to enable recovery
      resource sharing between one or more secondary protecting LSPs (see
      <a href="#section-15.4">Section 15.4</a>).
 
-   - PPROs MUST NOT be used in any other conditions.  In particular, if
+   - PPROs <em>MUST NOT</em> be used in any other conditions.  In particular, if
      a PPRO is received when the S bit is set to 0 in the PROTECTION
-     object, the receiving node MUST return a PathErr message with the
+     object, the receiving node <em>MUST</em> return a PathErr message with the
      new error code/sub-code "Routing Problem/PRIMARY_PATH_ROUTE object
      not applicable".
 
    - Crossed exchanges of PPROs over primary LSPs are forbidden (i.e.,
      their usage is restricted to a single set of protected LSPs).
 
-   - The PPRO's content MUST NOT include subobjects coming from other
-     PPROs.  In particular, received PPROs MUST NOT be reused to
+   - The PPRO's content <em>MUST NOT</em> include subobjects coming from other
+     PPROs.  In particular, received PPROs <em>MUST NOT</em> be reused to
      establish other working or protecting LSPs.
 
 
@@ -2173,26 +2173,26 @@ Table of Contents
      associated with P'[1],...,P'[n] with the PPRO subobjects associated
      with Q' received in the Path message.
 
-   - If this is the case, N SHOULD NOT attempt to share the outgoing
+   - If this is the case, N <em>SHOULD NOT</em> attempt to share the outgoing
      link resource r between P[1],...,P[n] and Q.  However, upon local
-     policy decision, N MAY allocate another available (shared) link
+     policy decision, N <em>MAY</em> allocate another available (shared) link
      other than r for use by Q.  If this is not the case (upon the local
      policy decision that no other link is allowed to be allocated for
-     Q) or if no other link is available for Q, N SHOULD return a
+     Q) or if no other link is available for Q, N <em>SHOULD</em> return a
      PathErr message with the new error code/sub-code "Admission Control
      Failure/LSP Admission Failure".
 
    - Otherwise (if P'[1],...,P'[n] and Q' are fully disjoint), the link
-     r selected by N for the LSP Q MAY be exactly the same as the one
+     r selected by N for the LSP Q <em>MAY</em> be exactly the same as the one
      selected for the LSPs P[1],...,P[n].  This happens after verifying
      (from the node's local policy) that the selected link r can be
      shared between these LSPs.  If this is not the case (for instance,
      the sharing ratio has reached its maximum for that link), and if
      upon local policy decision, no other link is allowed to be
-     allocated for Q, N SHOULD return a PathErr message with the error
+     allocated for Q, N <em>SHOULD</em> return a PathErr message with the error
      code/sub-code "Admission Control Failure/Requested Bandwidth
      Unavailable" (see [<a href="./rfc2205.html" title="&quot;Resource ReSerVation Protocol (RSVP) -- Version 1 Functional Specification&quot;">RFC2205</a>]).  Otherwise (if no other link is
-     available), N SHOULD return a PathErr message with the new error
+     available), N <em>SHOULD</em> return a PathErr message with the new error
      code/sub-code "Admission Control Failure/LSP Admission Failure".
 
    Note that the process, through which m out of the n (m =&lt; n)
@@ -2210,7 +2210,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-16" href="#section-16">16</a>.  ASSOCIATION Object</span>
 
    The ASSOCIATION object is used to associate LSPs with each other.  In
-   the context of end-to-end LSP recovery, the association MUST only
+   the context of end-to-end LSP recovery, the association <em>MUST</em> only
    identify LSPs that support the same Tunnel ID as well as the same
    tunnel sender address and tunnel endpoint address.  The Association
    Type, Association Source, and Association ID fields of the object
@@ -2290,21 +2290,21 @@ Table of Contents
    In the end-to-end LSP recovery context, the ASSOCIATION object is
    used to associate a recovery LSP with the LSP(s) it is protecting or
    a protected LSP(s) with its recovery LSP.  The object is carried in
-   Path messages.  More than one object MAY be carried in a single Path
+   Path messages.  More than one object <em>MAY</em> be carried in a single Path
    message.
 
-   Transit nodes MUST transmit, without modification, any received
+   Transit nodes <em>MUST</em> transmit, without modification, any received
    ASSOCIATION object in the corresponding outgoing Path message.
 
    An ASSOCIATION object with an Association Type set to the value
    "Recovery" is used to identify an LSP-Recovery-related association.
-   Any node associating a recovery LSP MUST insert an ASSOCIATION object
+   Any node associating a recovery LSP <em>MUST</em> insert an ASSOCIATION object
    with the following setting:
 
-   - The Association Type MUST be set to the value "Recovery" in the
+   - The Association Type <em>MUST</em> be set to the value "Recovery" in the
      Path message of the recovery LSP.
 
-   - The (IPv4/IPv6) Association Source MUST be set to the tunnel sender
+   - The (IPv4/IPv6) Association Source <em>MUST</em> be set to the tunnel sender
      address of the LSP being protected.
 
 
@@ -2319,25 +2319,25 @@ Table of Contents
 <span class="grey"><a href="./rfc4872.html">RFC 4872</a>       RSVP-TE Extensions for E2E GMPLS Recovery        May 2007</span>
 
 
-   - The Association ID MUST be set to the LSP ID of the LSP being
+   - The Association ID <em>MUST</em> be set to the LSP ID of the LSP being
      protected by this LSP or the LSP protecting this LSP.  If unknown,
      this value is set to its own signaled LSP_ID value (default).
-     Also, the value of the Association ID MAY change during the
+     Also, the value of the Association ID <em>MAY</em> change during the
      lifetime of the LSP.
 
    Terminating nodes use received ASSOCIATION object(s) with the
    Association Type set to the value "Recovery" to associate a recovery
    LSP with its matching working LSP.  This information is used to bind
-   the appropriate working and recovery LSPs together.  Such nodes MUST
+   the appropriate working and recovery LSPs together.  Such nodes <em>MUST</em>
    ensure that the received Path messages, including ASSOCIATION
    object(s), are processed with the appropriate PROTECTION object
    settings, if present (see <a href="#section-14">Section 14</a> for PROTECTION object
-   processing).  Otherwise, this node MUST return a PathErr message with
+   processing).  Otherwise, this node <em>MUST</em> return a PathErr message with
    the new error code/sub-code "LSP Admission Failure/Bad Association
    Type".  Similarly, terminating nodes receiving a Path message with a
 
    PROTECTION object requiring association between working and recovery
-   LSPs MUST include an ASSOCIATION object.  Otherwise, such nodes MUST
+   LSPs <em>MUST</em> include an ASSOCIATION object.  Otherwise, such nodes <em>MUST</em>
    return a PathErr message with the new error code/sub-code "Routing
    Problem/PROTECTION object not Applicable".
 
@@ -2397,7 +2397,7 @@ Table of Contents
    to the exchange of RSVP messages and information as detailed in this
    document.  The following security mechanisms apply.
 
-   RSVP signaling MUST be able to provide authentication and integrity.
+   RSVP signaling <em>MUST</em> be able to provide authentication and integrity.
    Authentication is required to ensure that the signaling messages are
    originating from the right place and have not been modified in
    transit.

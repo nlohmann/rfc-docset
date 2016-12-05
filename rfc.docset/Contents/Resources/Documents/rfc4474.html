@@ -338,9 +338,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT
-   RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT
+   <em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" are to be interpreted as
    described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>] and indicate requirement levels for
    compliant SIP implementations.
 
@@ -533,9 +533,9 @@ Table of Contents
    This document defines a new role for SIP entities called an
    authentication service.  The authentication service role can be
    instantiated by a proxy server or a user agent.  Any entity that
-   instantiates the authentication service role MUST possess the private
+   instantiates the authentication service role <em>MUST</em> possess the private
    key of a domain certificate.  Intermediaries that instantiate this
-   role MUST be capable of authenticating one or more SIP users that can
+   role <em>MUST</em> be capable of authenticating one or more SIP users that can
    register in that domain.  Commonly, this role will be instantiated by
    a proxy server, since these entities are more likely to have a static
    hostname, hold a corresponding certificate, and have access to SIP
@@ -544,10 +544,10 @@ Table of Contents
    might be instantiated by an entity that acts as a redirect server,
    but that is left as a topic for future work.
 
-   SIP entities that act as an authentication service MUST add a Date
+   SIP entities that act as an authentication service <em>MUST</em> add a Date
    header field to SIP requests if one is not already present (see
    <a href="#section-9">Section 9</a> for information on how the Date header field assists
-   verifiers).  Similarly, authentication services MUST add a Content-
+   verifiers).  Similarly, authentication services <em>MUST</em> add a Content-
    Length header field to SIP requests if one is not already present;
    this can help verifiers to double-check that they are hashing exactly
    as many bytes of message-body as the authentication service when they
@@ -559,11 +559,11 @@ Table of Contents
 
    Step 1:
 
-   The authentication service MUST extract the identity of the sender
+   The authentication service <em>MUST</em> extract the identity of the sender
    from the request.  The authentication service takes this value from
    the From header field; this AoR will be referred to here as the
    'identity field'.  If the identity field contains a SIP or SIP Secure
-   (SIPS) URI, the authentication service MUST extract the hostname
+   (SIPS) URI, the authentication service <em>MUST</em> extract the hostname
    portion of the identity field and compare it to the domain(s) for
    which it is responsible (following the procedures in <a href="./rfc3261.html#section-16.4">RFC 3261,
    Section&nbsp;16.4</a>, used by a proxy server to determine the domain(s) for
@@ -571,8 +571,8 @@ Table of Contents
    scheme, the policy of the authentication service determines whether
    or not it is responsible for this identity; see <a href="#section-11">Section 11</a> for more
    information.  If the authentication service is not responsible for
-   the identity in question, it SHOULD process and forward the request
-   normally, but it MUST NOT add an Identity header; see below for more
+   the identity in question, it <em>SHOULD</em> process and forward the request
+   normally, but it <em>MUST NOT</em> add an Identity header; see below for more
    information on authentication service handling of an existing
    Identity header.
 
@@ -586,9 +586,9 @@ Table of Contents
 
    Step 2:
 
-   The authentication service MUST determine whether or not the sender
+   The authentication service <em>MUST</em> determine whether or not the sender
    of the request is authorized to claim the identity given in the
-   identity field.  In order to do so, the authentication service MUST
+   identity field.  In order to do so, the authentication service <em>MUST</em>
    authenticate the sender of the message.  Some possible ways in which
    this authentication might be performed include:
 
@@ -615,7 +615,7 @@ Table of Contents
    that depends greatly on the manner in which authentication is
    performed.  For example, one policy might be as follows: the username
    given in the 'username' parameter of the Proxy-Authorization header
-   MUST correspond exactly to the username in the From header field of
+   <em>MUST</em> correspond exactly to the username in the From header field of
    the SIP message.  However, there are many cases in which this is too
    limiting or inappropriate; a realm might use 'username' parameters in
    Proxy-Authorization that do not correspond to the user-portion of SIP
@@ -628,7 +628,7 @@ Table of Contents
    Generation Partnership Project (3GPP), in which case the From header
    field can contain any one of the public identities associated with
    this private identity.  In this instance, another policy might be as
-   follows: the URI in the From header field MUST correspond exactly to
+   follows: the URI in the From header field <em>MUST</em> correspond exactly to
    one of the mapped URIs associated with the 'username' given in the
    Proxy-Authorization header.  Various exceptions to such policies
    might arise for cases like anonymity; if the AoR asserted in the From
@@ -649,10 +649,10 @@ Table of Contents
    field (e.g., the URI of the sender, like
    'sip:alice@atlanta.example.com'); it does not convert the display-
    name portion of the From header field (e.g., 'Alice Atlanta').
-   Authentication services MAY check and validate the display-name as
+   Authentication services <em>MAY</em> check and validate the display-name as
    well, and compare it to a list of acceptable display-names that may
    be used by the sender; if the display-name does not meet policy
-   constraints, the authentication service MUST return a 403 response
+   constraints, the authentication service <em>MUST</em> return a 403 response
    code.  The reason phrase should indicate the nature of the problem;
    for example, "Inappropriate Display Name".  However, the display-name
    is not always present, and in many environments the requisite
@@ -661,28 +661,28 @@ Table of Contents
 
    Step 3:
 
-   The authentication service SHOULD ensure that any preexisting Date
+   The authentication service <em>SHOULD</em> ensure that any preexisting Date
    header in the request is accurate.  Local policy can dictate
-   precisely how accurate the Date must be; a RECOMMENDED maximum
+   precisely how accurate the Date must be; a <em>RECOMMENDED</em> maximum
    discrepancy of ten minutes will ensure that the request is unlikely
    to upset any verifiers.  If the Date header contains a time different
    by more than ten minutes from the current time noted by the
-   authentication service, the authentication service SHOULD reject the
+   authentication service, the authentication service <em>SHOULD</em> reject the
    request.  This behavior is not mandatory because a user agent client
    (UAC) could only exploit the Date header in order to cause a request
    to fail verification; the Identity header is not intended to provide
    a source of non-repudiation or a perfect record of when messages are
-   processed.  Finally, the authentication service MUST verify that the
+   processed.  Finally, the authentication service <em>MUST</em> verify that the
    Date header falls within the validity period of its certificate.  For
    more information on the security properties associated with the Date
    header field value, see <a href="#section-9">Section 9</a>.
 
    Step 4:
 
-   The authentication service MUST form the identity signature and add
+   The authentication service <em>MUST</em> form the identity signature and add
    an Identity header to the request containing this signature.  After
    the Identity header has been added to the request, the authentication
-   service MUST also add an Identity-Info header.  The Identity-Info
+   service <em>MUST</em> also add an Identity-Info header.  The Identity-Info
    header contains a URI from which its certificate can be acquired.
    Details on the generation of both of these headers are provided in
    <a href="#section-9">Section 9</a>.
@@ -696,7 +696,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4474.html">RFC 4474</a>                      SIP Identity                   August 2006</span>
 
 
-   Finally, the authentication service MUST forward the message
+   Finally, the authentication service <em>MUST</em> forward the message
    normally.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Identity within a Dialog and Retargeting</span>
@@ -725,7 +725,7 @@ Table of Contents
    then clearly it would be inappropriate to provide an Identity
    signature over that From header.  As specified above, if the
    authentication service is not responsible for the domain in the From
-   header field of the request, it MUST NOT add an Identity header to
+   header field of the request, it <em>MUST NOT</em> add an Identity header to
    the request, and it should process/forward the request normally.
 
    Any means of anticipating retargeting, and so on, is outside the
@@ -762,16 +762,16 @@ Table of Contents
    is outside the scope of this document.  If an Identity header is not
    present in a request, and one is required by local policy (for
    example, based on a per-sending-domain policy, or a per-sending-user
-   policy), then a 428 'Use Identity Header' response MUST be sent.
+   policy), then a 428 'Use Identity Header' response <em>MUST</em> be sent.
 
    In order to verify the identity of the sender of a message, an entity
-   acting as a verifier MUST perform the following steps, in the order
+   acting as a verifier <em>MUST</em> perform the following steps, in the order
    here specified.
 
    Step 1:
 
-   The verifier MUST acquire the certificate for the signing domain.
-   Implementations supporting this specification SHOULD have some means
+   The verifier <em>MUST</em> acquire the certificate for the signing domain.
+   Implementations supporting this specification <em>SHOULD</em> have some means
    of retaining domain certificates (in accordance with normal practices
    for certificate lifetimes and revocation) in order to prevent
    themselves from needlessly downloading the same certificate every
@@ -780,24 +780,24 @@ Table of Contents
    Info header field value.
 
    Provided that the domain certificate used to sign this message is not
-   previously known to the verifier, SIP entities SHOULD discover this
+   previously known to the verifier, SIP entities <em>SHOULD</em> discover this
    certificate by dereferencing the Identity-Info header, unless they
    have some more efficient implementation-specific way of acquiring
    certificates for that domain.  If the URI scheme in the Identity-Info
    header cannot be dereferenced, then a 436 'Bad Identity-Info'
-   response MUST be returned.  The verifier processes this certificate
+   response <em>MUST</em> be returned.  The verifier processes this certificate
    in the usual ways, including checking that it has not expired, that
    the chain is valid back to a trusted certification authority (CA),
    and that it does not appear on revocation lists.  Once the
-   certificate is acquired, it MUST be validated following the
+   certificate is acquired, it <em>MUST</em> be validated following the
    procedures in <a href="./rfc3280.html">RFC 3280</a> [<a href="#ref-9" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">9</a>].  If the certificate cannot be validated
    (it is self-signed and untrusted, or signed by an untrusted or
    unknown certificate authority, expired, or revoked), the verifier
-   MUST send a 437 'Unsupported Certificate' response.
+   <em>MUST</em> send a 437 'Unsupported Certificate' response.
 
    Step 2:
 
-   The verifier MUST follow the process described in <a href="#section-13.4">Section 13.4</a> to
+   The verifier <em>MUST</em> follow the process described in <a href="#section-13.4">Section 13.4</a> to
    determine if the signer is authoritative for the URI in the From
    header field.
 
@@ -810,18 +810,18 @@ Table of Contents
 
    Step 3:
 
-   The verifier MUST verify the signature in the Identity header field,
+   The verifier <em>MUST</em> verify the signature in the Identity header field,
    following the procedures for generating the hashed digest-string
    described in <a href="#section-9">Section 9</a>.  If a verifier determines that the signature
    on the message does not correspond to the reconstructed digest-
-   string, then a 438 'Invalid Identity Header' response MUST be
+   string, then a 438 'Invalid Identity Header' response <em>MUST</em> be
    returned.
 
    Step 4:
 
-   The verifier MUST validate the Date, Contact, and Call-ID headers in
+   The verifier <em>MUST</em> validate the Date, Contact, and Call-ID headers in
    the manner described in <a href="#section-13.1">Section 13.1</a>; recipients that wish to verify
-   Identity signatures MUST support all of the operations described
+   Identity signatures <em>MUST</em> support all of the operations described
    there.  It must furthermore ensure that the value of the Date header
    falls within the validity period of the certificate whose
    corresponding private key was used to sign the Identity header.
@@ -832,26 +832,26 @@ Table of Contents
    deployments; accordingly, it requires no change to SIP user agent
    behavior in order for it to be effective.  However, because this
    mechanism does not provide integrity protection between the UAC and
-   the authentication service, a UAC SHOULD implement some means of
+   the authentication service, a UAC <em>SHOULD</em> implement some means of
    providing this integrity.  TLS would be one such mechanism, which is
-   attractive because it MUST be supported by SIP proxy servers, but is
+   attractive because it <em>MUST</em> be supported by SIP proxy servers, but is
    potentially problematic because it is a hop-by-hop mechanism.  See
    <a href="#section-13.3">Section 13.3</a> for more information about securing the channel between
    the UAC and the authentication service.
 
-   When a UAC sends a request, it MUST accurately populate the From
+   When a UAC sends a request, it <em>MUST</em> accurately populate the From
    header field with a value corresponding to an identity that it
-   believes it is authorized to claim.  In a request, it MUST set the
+   believes it is authorized to claim.  In a request, it <em>MUST</em> set the
    URI portion of its From header to match a SIP, SIPS, or TEL URI AoR
    that it is authorized to use in the domain (including anonymous URIs,
-   as described in <a href="./rfc3323.html">RFC 3323</a> [<a href="#ref-3" title="&quot;A Privacy Mechanism for the Session Initiation Protocol (SIP)&quot;">3</a>]).  In general, UACs SHOULD NOT use the
+   as described in <a href="./rfc3323.html">RFC 3323</a> [<a href="#ref-3" title="&quot;A Privacy Mechanism for the Session Initiation Protocol (SIP)&quot;">3</a>]).  In general, UACs <em>SHOULD NOT</em> use the
    TEL URI form in the From header field (see <a href="#section-11">Section 11</a>).
 
    Note that this document defines a number of new 4xx response codes.
    If user agents support these response codes, they will be able to
    respond intelligently to Identity-based error conditions.
 
-   The UAC MUST also be capable of sending requests, including mid-call
+   The UAC <em>MUST</em> also be capable of sending requests, including mid-call
    requests, through an 'outbound' proxy (the authentication service).
    The best way to accomplish this is using pre-loaded Route headers and
    loose routing.  For a given domain, if an entity that can instantiate
@@ -870,7 +870,7 @@ Table of Contents
    As a recipient of a request, a user agent that can verify signed
    identities should also support an appropriate user interface to
    render the validity of identity to a user.  User agent
-   implementations SHOULD differentiate signed From header field values
+   implementations <em>SHOULD</em> differentiate signed From header field values
    from unsigned From header field values when rendering to an end-user
    the identity of the sender of a request.
 
@@ -880,9 +880,9 @@ Table of Contents
    identity provided in SIP requests.  A proxy server may wish to
    ascertain the identity of the sender of the message to provide spam
    prevention or call control services.  Even if a proxy server does not
-   act as an authentication service, it MAY validate the Identity header
+   act as an authentication service, it <em>MAY</em> validate the Identity header
    before it makes a forwarding decision for a request.  Proxy servers
-   MUST NOT remove or modify an existing Identity or Identity-Info
+   <em>MUST NOT</em> remove or modify an existing Identity or Identity-Info
    header in a request.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Header Syntax</span>
@@ -905,7 +905,7 @@ Table of Contents
    The signed-identity-digest is a signed hash of a canonical string
    generated from certain components of a SIP request.  To create the
    contents of the signed-identity-digest, the following elements of a
-   SIP message MUST be placed in a bit-exact string in the order
+   SIP message <em>MUST</em> be placed in a bit-exact string in the order
    specified here, separated by a vertical line, "|" or %x7C, character:
 
    o  The AoR of the UA sending the message, or addr-spec of the From
@@ -928,7 +928,7 @@ Table of Contents
       the CSeq header field allows linear whitespace (LWS) rather than
       SP to separate the digit and method portions, and thus the CSeq
       header field may need to be transformed in order to be
-      canonicalized.  The authentication service MUST strip leading
+      canonicalized.  The authentication service <em>MUST</em> strip leading
       zeros from the 'digit' portion of the Cseq before generating the
       digest-string.
    o  The Date header field, with exactly one space each for each SP and
@@ -937,12 +937,12 @@ Table of Contents
       amongst a set of tokens.  The <a href="./rfc2234.html">RFC 2234</a> rules for the BNF specify
       that tokens are case sensitive.  However, when used to construct
       the canonical string defined here, the first letter of each week
-      and month MUST be capitalized, and the remaining two letters must
+      and month <em>MUST</em> be capitalized, and the remaining two letters must
       be lowercase.  This matches the capitalization provided in the
       definition of each token.  All requests that use the Identity
-      mechanism MUST contain a Date header.
+      mechanism <em>MUST</em> contain a Date header.
    o  The addr-spec component of the Contact header field value.  If the
-      request does not contain a Contact header, this field MUST be
+      request does not contain a Contact header, this field <em>MUST</em> be
       empty (i.e., there will be no whitespace between the fourth and
       fifth "|" characters in the canonical string).
    o  The body content of the message with the bits exactly as they are
@@ -963,9 +963,9 @@ Table of Contents
                    1*DIGIT SP Method "|" SIP-date "|" [ addr-spec ] "|"
                    message-body
 
-   Note again that the first addr-spec MUST be taken from the From
-   header field value, the second addr-spec MUST be taken from the To
-   header field value, and the third addr-spec MUST be taken from the
+   Note again that the first addr-spec <em>MUST</em> be taken from the From
+   header field value, the second addr-spec <em>MUST</em> be taken from the To
+   header field value, and the third addr-spec <em>MUST</em> be taken from the
    Contact header field value, provided the Contact header is present in
    the request.
 
@@ -976,40 +976,40 @@ Table of Contents
 <span class="grey"><a href="./rfc4474.html">RFC 4474</a>                      SIP Identity                   August 2006</span>
 
 
-   After the digest-string is formed, it MUST be hashed and signed with
+   After the digest-string is formed, it <em>MUST</em> be hashed and signed with
    the certificate for the domain.  The hashing and signing algorithm is
    specified by the 'alg' parameter of the Identity-Info header (see
    below for more information on Identity-Info header parameters).  This
    document defines only one value for the 'alg' parameter: 'rsa-sha1';
-   further values MUST be defined in a Standards Track RFC, see <a href="#section-14.7">Section</a>
+   further values <em>MUST</em> be defined in a Standards Track RFC, see <a href="#section-14.7">Section</a>
    <a href="#section-14.7">14.7</a> for more information.  All implementations of this specification
-   MUST support 'rsa-sha1'.  When the 'rsa-sha1' algorithm is specified
-   in the 'alg' parameter of Identity-Info, the hash and signature MUST
+   <em>MUST</em> support 'rsa-sha1'.  When the 'rsa-sha1' algorithm is specified
+   in the 'alg' parameter of Identity-Info, the hash and signature <em>MUST</em>
    be generated as follows: compute the results of signing this string
    with sha1WithRSAEncryption as described in <a href="./rfc3370.html">RFC 3370</a> [<a href="#ref-7" title="&quot;Cryptographic Message Syntax (CMS) Algorithms&quot;">7</a>] and base64
    encode the results as specified in <a href="./rfc3548.html">RFC 3548</a> [<a href="#ref-8" title="&quot;The Base16, Base32, and Base64 Data Encodings&quot;">8</a>].  A 1024-bit or
-   longer RSA key MUST be used.  The result is placed in the Identity
+   longer RSA key <em>MUST</em> be used.  The result is placed in the Identity
    header field.  For detailed examples of the usage of this algorithm,
    see <a href="#section-10">Section 10</a>.
 
-   The 'absoluteURI' portion of the Identity-Info header MUST contain a
+   The 'absoluteURI' portion of the Identity-Info header <em>MUST</em> contain a
    URI which dereferences to a resource containing the certificate of
    the authentication service.  All implementations of this
-   specification MUST support the use of HTTP and HTTPS URIs in the
-   Identity-Info header.  Such HTTP and HTTPS URIs MUST follow the
+   specification <em>MUST</em> support the use of HTTP and HTTPS URIs in the
+   Identity-Info header.  Such HTTP and HTTPS URIs <em>MUST</em> follow the
    conventions of <a href="./rfc2585.html">RFC 2585</a> [<a href="#ref-10" title="&quot;Internet X.509 Public Key Infrastructure Operational Protocols: FTP and HTTP&quot;">10</a>], and for those URIs the indicated
-   resource MUST be of the form 'application/pkix-cert' described in
+   resource <em>MUST</em> be of the form 'application/pkix-cert' described in
    that specification.  Note that this introduces key lifecycle
    management concerns; were a domain to change the key available at the
    Identity-Info URI before a verifier evaluates a request signed by an
    authentication service, this would cause obvious verifier failures.
-   When a rollover occurs, authentication services SHOULD thus provide
-   new Identity-Info URIs for each new certificate, and SHOULD continue
+   When a rollover occurs, authentication services <em>SHOULD</em> thus provide
+   new Identity-Info URIs for each new certificate, and <em>SHOULD</em> continue
    to make older key acquisition URIs available for a duration longer
    than the plausible lifetime of a SIP message (an hour would most
    likely suffice).
 
-   The Identity-Info header field MUST contain an 'alg' parameter.  No
+   The Identity-Info header field <em>MUST</em> contain an 'alg' parameter.  No
    other parameters are defined for the Identity-Info header in this
    document.  Future Standards Track RFCs may define additional
    Identity-Info header parameters.
@@ -1059,7 +1059,7 @@ Table of Contents
    complicate its applicability to this mechanism, and the use of
    Identity with REGISTER is consequently a subject for future study,
    although it is left as optional here for forward-compatibility
-   reasons.  The Identity and Identity-Info header MUST NOT appear in
+   reasons.  The Identity and Identity-Info header <em>MUST NOT</em> appear in
    CANCEL.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Compliance Tests and Examples</span>
@@ -1069,12 +1069,12 @@ Table of Contents
    to verify their compliance with the specification against the
    following criteria:
 
-   o  Implementations of the authentication service role MUST generate
+   o  Implementations of the authentication service role <em>MUST</em> generate
       identical base64 identity strings to the ones shown in the
       Identity headers in these examples when presented with the source
       message and utilizing the appropriate supplied private key for the
       domain in question.
-   o  Implementations of the verifier role MUST correctly validate the
+   o  Implementations of the verifier role <em>MUST</em> correctly validate the
       given messages containing the Identity header when utilizing the
       supplied certificates (with the caveat about self-signed
       certificates below).
@@ -1091,8 +1091,8 @@ Table of Contents
    Note that the following examples use self-signed certificates, rather
    than certificates issued by a recognized certificate authority.  The
    use of self-signed certificates for this mechanism is NOT
-   RECOMMENDED, and it appears here only for illustrative purposes.
-   Therefore, in compliance testing, implementations of verifiers SHOULD
+   <em>RECOMMENDED</em>, and it appears here only for illustrative purposes.
+   Therefore, in compliance testing, implementations of verifiers <em>SHOULD</em>
    generate appropriate warnings about the use of self-signed
    certificates.  Also, the example certificates in this section have
    placed their domain name subject in the subjectAltName field; in
@@ -1426,13 +1426,13 @@ Table of Contents
 
    form a proper From header field containing a SIP URI with a username
    in TEL URI form.  Implementations that intend to send their requests
-   through an authentication service SHOULD put telephone numbers in the
+   through an authentication service <em>SHOULD</em> put telephone numbers in the
    From header field into SIP or SIPS URIs whenever possible.
 
    If the local domain is unknown to a UAC formulating a request, it
    most likely will not be able to locate an authentication service for
    its request, and therefore the question of providing identity in
-   these cases is somewhat moot.  However, an authentication service MAY
+   these cases is somewhat moot.  However, an authentication service <em>MAY</em>
    sign a request containing a TEL URI in the From header field.  This
    is permitted in this specification strictly for forward compatibility
    purposes.  In the longer-term, it is possible that ENUM [<a href="#ref-14" title="&quot;The E.164 to Uniform Resource Identifiers (URI) Dynamic Delegation Discovery System (DDDS) Application (ENUM)&quot;">14</a>] may
@@ -1491,7 +1491,7 @@ Table of Contents
    identity for billing or security purposes.  The danger of this
    network-specific information leaking outside of the closed network
    motivated the "id" priv-value token.  The "id" priv-value token has
-   no implications for the Identity header, and privacy services MUST
+   no implications for the Identity header, and privacy services <em>MUST</em>
    NOT remove the Identity header when a priv-value of "id" appears in a
    Privacy header.
 
@@ -1538,11 +1538,11 @@ Table of Contents
 
    The Date and Contact headers provide reference integrity and replay
    protection, as described in <a href="./rfc3261.html#section-23.4.2">RFC 3261, Section&nbsp;23.4.2</a>.
-   Implementations of this specification MUST NOT deem valid a request
-   with an outdated Date header field (the RECOMMENDED interval is that
+   Implementations of this specification <em>MUST NOT</em> deem valid a request
+   with an outdated Date header field (the <em>RECOMMENDED</em> interval is that
    the Date header must indicate a time within 3600 seconds of the
-   receipt of a message).  Implementations MUST also record Call-IDs
-   received in valid requests containing an Identity header, and MUST
+   receipt of a message).  Implementations <em>MUST</em> also record Call-IDs
+   received in valid requests containing an Identity header, and <em>MUST</em>
    remember those Call-IDs for at least the duration of a single Date
    interval (i.e., commonly 3600 seconds).  Because a SIP-compliant UA
    never generates the same Call-ID twice, verifiers can use the Call-ID
@@ -1615,7 +1615,7 @@ Table of Contents
    that the users trust their local domain to vouch for their security,
    they must also trust the service not to violate the integrity of
    their message without good reason.  Note that <a href="./rfc3261.html#section-16.6">RFC 3261, Section&nbsp;16.6</a>,
-   states that SIP proxy servers "MUST NOT add to, modify, or remove the
+   states that SIP proxy servers "<em>MUST NOT</em> add to, modify, or remove the
    message body."
 
    In the end analysis, the Identity and Identity-Info headers cannot
@@ -1741,7 +1741,7 @@ Table of Contents
    protection, especially body integrity, for services other than replay
    protection.
 
-   Accordingly, direct TLS connections SHOULD be used between the UAC
+   Accordingly, direct TLS connections <em>SHOULD</em> be used between the UAC
    and the authentication service whenever possible.  The opportunistic
    nature of this mechanism, however, makes it very difficult to
    constrain UAC behavior, and moreover there will be some deployment
@@ -1784,7 +1784,7 @@ Table of Contents
    authentication service.
 
    To meet the second of these problems, a domain that deploys an
-   authentication service on a subordinate host MUST be willing to
+   authentication service on a subordinate host <em>MUST</em> be willing to
    supply that host with the private keying material associated with a
    certificate whose subject is a domain name that corresponds to the
    domain portion of the AoRs that the domain distributes to users.
@@ -1804,7 +1804,7 @@ Table of Contents
    unsecurable for SIP in environments where domain administrators are
    unwilling to share keys with hosting services.
 
-   A verifier MUST evaluate the correspondence between the user's
+   A verifier <em>MUST</em> evaluate the correspondence between the user's
    identity and the signing certificate by following the procedures
    defined in <a href="./rfc2818.html">RFC 2818</a> [<a href="#ref-11" title="&quot;HTTP Over TLS&quot;">11</a>], Section 3.1.  While <a href="./rfc2818.html">RFC 2818</a> deals with the
    use of HTTP in TLS, the procedures described are applicable to
@@ -1834,7 +1834,7 @@ Table of Contents
    standards for authentication services.  Some federations of service
    providers, for example, might only trust certificates that have been
    provided by a certificate authority operated by the federation.  It
-   is strongly RECOMMENDED that self-signed domain certificates should
+   is strongly <em>RECOMMENDED</em> that self-signed domain certificates should
    not be trusted by verifiers, unless some previous key exchange has
    justified such trust.
 
@@ -1857,7 +1857,7 @@ Table of Contents
    request, it is expected that further work in authorization practices
    could be built on top of this identity solution; without such an
    identity solution, many promising approaches to authorization policy
-   are impossible.  That much said, it is RECOMMENDED that
+   are impossible.  That much said, it is <em>RECOMMENDED</em> that
    authentication services based on proxy servers employ strong
    authentication practices such as token-based identifiers.
 

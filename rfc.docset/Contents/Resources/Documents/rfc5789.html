@@ -275,9 +275,9 @@ Table of Contents
    discover patch format support).  PATCH was mentioned in earlier HTTP
    specifications, but not completely defined.
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Furthermore, this document uses the ABNF syntax defined in <a href="#section-2.1">Section</a>
    <a href="#section-2.1">2.1</a> of [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>].
@@ -288,7 +288,7 @@ Table of Contents
    request entity be applied to the resource identified by the Request-
    URI.  The set of changes is represented in a format called a "patch
    document" identified by a media type.  If the Request-URI does not
-   point to an existing resource, the server MAY create a new resource,
+   point to an existing resource, the server <em>MAY</em> create a new resource,
    depending on the patch document type (whether it can logically modify
    a null resource) and permissions, etc.
 
@@ -309,7 +309,7 @@ Table of Contents
    of instructions describing how a resource currently residing on the
    origin server should be modified to produce a new version.  The PATCH
    method affects the resource identified by the Request-URI, and it
-   also MAY have side effects on other resources; i.e., new resources
+   also <em>MAY</em> have side effects on other resources; i.e., new resources
    may be created, or existing ones modified, by the application of a
    PATCH.
 
@@ -322,7 +322,7 @@ Table of Contents
    Collisions from multiple PATCH requests may be more dangerous than
    PUT collisions because some patch formats need to operate from a
    known base-point or else they will corrupt the resource.  Clients
-   using this kind of patch application SHOULD use a conditional request
+   using this kind of patch application <em>SHOULD</em> use a conditional request
    such that the request will fail if the resource has been updated
    since the client last accessed the resource.  For example, the client
    can use a strong ETag [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>] in an If-Match header on the PATCH
@@ -333,10 +333,10 @@ Table of Contents
    colliding rows to database tables), in which case the same care in
    client requests is not needed.
 
-   The server MUST apply the entire set of changes atomically and never
+   The server <em>MUST</em> apply the entire set of changes atomically and never
    provide (e.g., in response to a GET during this operation) a
    partially modified representation.  If the entire patch document
-   cannot be successfully applied, then the server MUST NOT apply any of
+   cannot be successfully applied, then the server <em>MUST NOT</em> apply any of
    the changes.  The determination of what constitutes a successful
    PATCH can vary depending on the patch document and the type of
    resource(s) being modified.  For example, the common 'diff' utility
@@ -346,7 +346,7 @@ Table of Contents
    details on status codes and possible error conditions.
 
    If the request passes through a cache and the Request-URI identifies
-   one or more currently cached entities, those entries SHOULD be
+   one or more currently cached entities, those entries <em>SHOULD</em> be
    treated as stale.  A response to this method is only cacheable if it
 
 
@@ -360,15 +360,15 @@ Table of Contents
    "Cache-Control: max-age" directive) as well as the Content-Location
    header matching the Request-URI, indicating that the PATCH response
    body is a resource representation.  A cached PATCH response can only
-   be used to respond to subsequent GET and HEAD requests; it MUST NOT
+   be used to respond to subsequent GET and HEAD requests; it <em>MUST NOT</em>
    be used to respond to other methods (in particular, PATCH).
 
    Note that entity-headers contained in the request apply only to the
-   contained patch document and MUST NOT be applied to the resource
+   contained patch document and <em>MUST NOT</em> be applied to the resource
    being modified.  Thus, a Content-Language header could be present on
    the request, but it would only mean (for whatever that's worth) that
-   the patch document had a language.  Servers SHOULD NOT store such
-   headers except as trace information, and SHOULD NOT use such header
+   the patch document had a language.  Servers <em>SHOULD NOT</em> store such
+   headers except as trace information, and <em>SHOULD NOT</em> use such header
    values the same way they might be used on PUT requests.  Therefore,
    this document does not specify a way to modify a document's Content-
    Type or Content-Language value through headers, though a mechanism
@@ -379,7 +379,7 @@ Table of Contents
    appropriate for different types of resources and that no single
    format will be appropriate for all types of resources.  Therefore,
    there is no single default patch document format that implementations
-   are required to support.  Servers MUST ensure that a received patch
+   are required to support.  Servers <em>MUST</em> ensure that a received patch
    document is appropriate for the type of resource identified by the
    Request-URI.
 
@@ -437,13 +437,13 @@ Table of Contents
 
    Malformed patch document:  When the server determines that the patch
       document provided by the client is not properly formatted, it
-      SHOULD return a 400 (Bad Request) response.  The definition of
+      <em>SHOULD</em> return a 400 (Bad Request) response.  The definition of
       badly formatted depends on the patch document chosen.
 
    Unsupported patch document:  Can be specified using a 415
       (Unsupported Media Type) response when the client sends a patch
       document format that the server does not support for the resource
-      identified by the Request-URI.  Such a response SHOULD include an
+      identified by the Request-URI.  Such a response <em>SHOULD</em> include an
       Accept-Patch response header as described in <a href="#section-3.1">Section 3.1</a> to notify
       the client what patch document media types are supported.
 
@@ -506,7 +506,7 @@ Table of Contents
    Other HTTP status codes can also be used under the appropriate
    circumstances.
 
-   The entity body of error responses SHOULD contain enough information
+   The entity body of error responses <em>SHOULD</em> contain enough information
    to communicate the nature of the error to the client.  The content-
    type of the response entity can vary across implementations.
 
@@ -528,7 +528,7 @@ Table of Contents
 
    A server can advertise its support for the PATCH method by adding it
    to the listing of allowed methods in the "Allow" OPTIONS response
-   header defined in HTTP/1.1.  The PATCH method MAY appear in the
+   header defined in HTTP/1.1.  The PATCH method <em>MAY</em> appear in the
    "Allow" header even if the Accept-Patch header is absent, in which
    case the list of allowed patch documents is not advertised.
 
@@ -536,7 +536,7 @@ Table of Contents
 
    This specification introduces a new response header Accept-Patch used
    to specify the patch document formats accepted by the server.
-   Accept-Patch SHOULD appear in the OPTIONS response for any resource
+   Accept-Patch <em>SHOULD</em> appear in the OPTIONS response for any resource
    that supports the use of the PATCH method.  The presence of the
    Accept-Patch header in response to any method is an implicit
    indication that PATCH is allowed on the resource identified by the
@@ -644,7 +644,7 @@ Table of Contents
    considerations that will likely vary depending on the types of
    resources being patched.  The considerations for patched binary
    resources, for instance, will be different than those for patched XML
-   documents.  Servers MUST take adequate precautions to ensure that
+   documents.  Servers <em>MUST</em> take adequate precautions to ensure that
    malicious clients cannot consume excessive server resources (e.g.,
    CPU, disk I/O) through the client's use of PATCH.
 

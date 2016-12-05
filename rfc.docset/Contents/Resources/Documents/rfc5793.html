@@ -378,7 +378,7 @@ Table of Contents
 
    This specification defines the syntax of PB-TNC messages using
    diagrams.  Each diagram depicts the format and size of each field in
-   bits.  Implementations MUST send the bits in each diagram as they are
+   bits.  Implementations <em>MUST</em> send the bits in each diagram as they are
    shown, traversing the diagram from top to bottom and then from left
    to right within each line (which represents a 32-bit quantity).
    Multi-byte fields representing numeric values must be sent in network
@@ -402,8 +402,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
 
@@ -733,7 +733,7 @@ Table of Contents
    the underlying PT connection closes.  This can be caused by an action
    of the Posture Broker Client or Posture Broker Server or it can be
    caused by some external factor, such as pulling the network plug.
-   When possible, a CLOSE batch SHOULD be sent before the underlying PT
+   When possible, a CLOSE batch <em>SHOULD</em> be sent before the underlying PT
    connection is terminated.  However, there may be cases where the PT
    connection is closed without notice.  For example, a plug may be
    pulled, a software program may fail, or a Posture Broker Client or
@@ -780,7 +780,7 @@ Table of Contents
    start a new PB-TNC session.  This limitation does not exist when a
    full-duplex transport is used.
 
-   The Posture Broker Server and Posture Broker Client MUST follow the
+   The Posture Broker Server and Posture Broker Client <em>MUST</em> follow the
    state machine described in this section.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Layering on PT</span>
@@ -788,7 +788,7 @@ Table of Contents
    PB-TNC batches are carried over protocol bindings of the PT protocol,
    which provides the interaction between a Posture Transport Client and
    a Posture Transport Server.  PB-TNC counts on PT to provide a secure
-   transport.  In particular, PT MUST support mutual authentication of
+   transport.  In particular, PT <em>MUST</em> support mutual authentication of
    the Posture Transport Client and the Posture Transport Server,
    confidentiality and integrity protection for PB-TNC batches, and
    protection against replay attacks.  PB-TNC is unaware of the
@@ -816,15 +816,15 @@ Table of Contents
 
    The additional requirements for candidate PT protocols are:
 
-   PT-6 The PT protocol MUST be connection oriented; it MUST support
+   PT-6 The PT protocol <em>MUST</em> be connection oriented; it <em>MUST</em> support
         confirmed initiation and close down.
 
-   PT-7 The PT protocol MUST be able to carry binary data.
+   PT-7 The PT protocol <em>MUST</em> be able to carry binary data.
 
-   PT-8 The PT protocol MUST provide mechanisms for flow control and
+   PT-8 The PT protocol <em>MUST</em> provide mechanisms for flow control and
         congestion control.
 
-   PT-9 PT protocol specifications MUST describe the capabilities that
+   PT-9 PT protocol specifications <em>MUST</em> describe the capabilities that
         they provide for and limitations that they impose on the PB
         protocol (e.g., half/full duplex, maximum message size).
 
@@ -866,14 +866,14 @@ Table of Contents
 
    This section defines the syntax and semantics of the PB-TNC protocol
    fields.  If a Posture Broker Client or Posture Broker Server receives
-   a batch that violates the requirements of this specification, it MUST
+   a batch that violates the requirements of this specification, it <em>MUST</em>
    respond by sending a fatal Invalid Parameter error in a CLOSE batch
    unless this document specifies otherwise.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  PB-TNC Header</span>
 
-   Every PB-TNC batch MUST start with the following header.  A PB-TNC
-   batch MUST contain only one instance of this header followed by zero
+   Every PB-TNC batch <em>MUST</em> start with the following header.  A PB-TNC
+   batch <em>MUST</em> contain only one instance of this header followed by zero
    or more PB-TNC messages.  The PB-TNC messages are defined in
    subsequent sections of this specification.
 
@@ -892,7 +892,7 @@ Table of Contents
       PB-TNC protocol in a manner that can easily be detected by message
       recipients.
 
-      This field MUST be set to 2 when the batch conforms to this
+      This field <em>MUST</em> be set to 2 when the batch conforms to this
       specification.  Later versions of PB-TNC may define other values
       for this field.  The values 0x00, 0x09, 0x0a, 0x0d, 0x20, and 0x3c
       are reserved and cannot be used for any version of PB-TNC to
@@ -900,13 +900,13 @@ Table of Contents
       posture broker protocols already in use.
 
       If a Posture Broker Client or Posture Broker Server receives a
-      Version value that it does not support, it MUST respond with a PB-
+      Version value that it does not support, it <em>MUST</em> respond with a PB-
       TNC batch with batch type CLOSE that contains only a fatal Version
       Not Supported error code and whose Version header field has the
       value 2.  Implementations responding to a PB-TNC message
-      containing a supported version MUST use the same Version number to
+      containing a supported version <em>MUST</em> use the same Version number to
       minimize the risk of version incompatibility.  PB-TNC message
-      initiators that support multiple PB-TNC protocol versions SHOULD
+      initiators that support multiple PB-TNC protocol versions <em>SHOULD</em>
       be able to alter which version of PB-TNC message they send based
       on prior message exchanges with a particular peer Posture Broker
       Client or Posture Broker Server.
@@ -921,8 +921,8 @@ Table of Contents
    Directionality (D) (1 bit)
 
       When a Posture Broker Client is sending this message, the
-      Directionality bit MUST be set to 0.  When a Posture Broker Server
-      is sending this message, the Directionality bit MUST be set to 1.
+      Directionality bit <em>MUST</em> be set to 0.  When a Posture Broker Server
+      is sending this message, the Directionality bit <em>MUST</em> be set to 1.
       This helps avoid any situation where two Posture Broker Clients or
       two Posture Broker Servers engage in a dialog.  It also helps with
       debugging.
@@ -930,19 +930,19 @@ Table of Contents
    Reserved (19 bits)
 
       This field is reserved.  For this version of this specification,
-      it MUST be set to 0 on transmission and ignored on reception.
+      it <em>MUST</em> be set to 0 on transmission and ignored on reception.
       Future versions of this specification may allow senders to set
       some of these bits and recipients to interpret them.
 
    B-Type (Batch Type) (4 bits)
 
       This field is used to drive the state machine described in <a href="#section-3.2">section</a>
-      <a href="#section-3.2">3.2</a>.  This field MUST have one of the values from the following
-      table.  If any other value is received, the recipient MUST ignore
+      <a href="#section-3.2">3.2</a>.  This field <em>MUST</em> have one of the values from the following
+      table.  If any other value is received, the recipient <em>MUST</em> ignore
       the contents of the batch and send a fatal Invalid Parameter error
       code in a CLOSE batch.  If the value received is not permitted for
       the current state, according to the state machine in <a href="#section-3.2">section 3.2</a>.,
-      the recipient MUST ignore the contents of the batch and send a
+      the recipient <em>MUST</em> ignore the contents of the batch and send a
       fatal Unexpected Batch Type error code in a CLOSE batch.
 
 
@@ -980,34 +980,34 @@ Table of Contents
       1        CDATA    The Posture Broker Client may send a batch with
                         this Batch Type to convey messages to the
                         Posture Broker Server.  A Posture Broker Server
-                        MUST NOT send this Batch Type.  A CDATA batch
+                        <em>MUST NOT</em> send this Batch Type.  A CDATA batch
                         may be empty (contain no messages) if the
                         Posture Broker Client has nothing to send.
 
       2        SDATA    The Posture Broker Server may send a batch with
                         this Batch Type to convey messages to the
                         Posture Broker Client.  A Posture Broker Client
-                        MUST NOT send this Batch Type.  An SDATA batch
+                        <em>MUST NOT</em> send this Batch Type.  An SDATA batch
                         may be empty (contain no messages) if the
                         Posture Broker Server has nothing to send.
 
       3        RESULT   The Posture Broker Server may send a batch with
                         this Batch Type to indicate that it has
-                        completed its evaluation.  The batch MUST
-                        include a PB-Assessment-Result message and MAY
+                        completed its evaluation.  The batch <em>MUST</em>
+                        include a PB-Assessment-Result message and <em>MAY</em>
                         include a PB-Access-Recommendation message.
 
       4        CRETRY   The Posture Broker Client may send a batch with
                         this Batch Type to indicate that it wishes to
                         restart an exchange.  A Posture Broker Server
-                        MUST NOT send this Batch Type.  A CRETRY batch
+                        <em>MUST NOT</em> send this Batch Type.  A CRETRY batch
                         may be empty (contain no messages) if the
                         Posture Broker Client has nothing else to send.
 
       5        SRETRY  The Posture Broker Server may send a batch with
                        this Batch Type to indicate that it wishes to
                        restart the exchange.  A Posture Broker Client
-                       MUST NOT send this Batch Type.  A SRETRY batch
+                       <em>MUST NOT</em> send this Batch Type.  A SRETRY batch
                        may be empty (contain no messages) if the
                        Posture Broker Server has nothing else to send.
 
@@ -1017,7 +1017,7 @@ Table of Contents
                        underlying PT connection.  A CLOSE batch may be
                        empty (contain no messages) if there is nothing
                        to send.  However, if the termination is due to a
-                       fatal error, then the CLOSE batch MUST contain a
+                       fatal error, then the CLOSE batch <em>MUST</em> contain a
                        PB-Error message.
 
 
@@ -1035,10 +1035,10 @@ Table of Contents
       This length field contains the size of the full PB-TNC batch in
       octets.  This length includes the PB-TNC header and all the PB-TNC
       messages in the batch.  In other words, it includes the entire
-      contents of the batch.  This field MUST contain at least the value
+      contents of the batch.  This field <em>MUST</em> contain at least the value
       8 for the fixed-length fields in this header.  Any Posture Broker
       Client or Posture Broker Server that receives a PB-TNC message
-      with a PB-TNC Message Length field whose value is less than 8 MUST
+      with a PB-TNC Message Length field whose value is less than 8 <em>MUST</em>
       respond with a fatal Invalid Parameter error code in a CLOSE
       batch.
 
@@ -1071,13 +1071,13 @@ Table of Contents
       skip (ignore) this message if the message type is not understood
       or the recipient cannot or will not process the message as
       required in the definition of that message.  If this flag is set
-      (value 1), then recipients MUST NOT skip this attribute.
+      (value 1), then recipients <em>MUST NOT</em> skip this attribute.
 
       This flag does not mean that all recipients must support this
       message.  Instead, any recipient that receives a message with this
-      flag set to 1 but cannot or will not process it as required MUST
+      flag set to 1 but cannot or will not process it as required <em>MUST</em>
       NOT act on any part of the PB-TNC batch.  Instead, the recipient
-      MUST respond with a fatal Unsupported Mandatory Message error code
+      <em>MUST</em> respond with a fatal Unsupported Mandatory Message error code
 
 
 
@@ -1094,7 +1094,7 @@ Table of Contents
       unsupported message with the NOSKIP flag set.
 
       The other bits in this Flags field are reserved.  For this version
-      of PB-TNC, they MUST be set to 0 on transmission and ignored on
+      of PB-TNC, they <em>MUST</em> be set to 0 on transmission and ignored on
       reception.
 
    PB-TNC Vendor ID (24 bits)
@@ -1108,10 +1108,10 @@ Table of Contents
 
       Message types standardized by the IETF use zero (0) in this field.
       The Vendor ID 0xffffff is reserved.  Posture Broker Clients and
-      Posture Broker Servers MUST NOT send messages in which the Vendor
+      Posture Broker Servers <em>MUST NOT</em> send messages in which the Vendor
       ID has this reserved value (0xffffff).  If a Posture Broker Client
       or Posture Broker Server receives a message in which the PB-TNC
-      Vendor ID has this reserved value (0xffffff), it MUST respond with
+      Vendor ID has this reserved value (0xffffff), it <em>MUST</em> respond with
       a fatal Invalid Parameter error code in a CLOSE batch.
 
    PB-TNC Message Type (32 bits)
@@ -1119,11 +1119,11 @@ Table of Contents
       The PB-TNC Message Type field identifies the type of the PB-TNC
       message contained in the PB-TNC Message Value field.  The PB-TNC
       message type 0xffffffff is reserved.  Posture Broker Clients and
-      Posture Broker Servers MUST NOT send messages in which the PB-TNC
+      Posture Broker Servers <em>MUST NOT</em> send messages in which the PB-TNC
       Message Type field has this reserved value (0xffffffff).  If a
       Posture Broker Client or Posture Broker Server receives a message
       in which the PB-TNC Message Type field has this reserved value
-      (0xffffffff), it MUST respond with a fatal Invalid Parameter error
+      (0xffffffff), it <em>MUST</em> respond with a fatal Invalid Parameter error
       code in a CLOSE batch.  Unless otherwise prohibited in the
       definition of a particular PB-TNC message type (e.g., PB-Language-
       Preference), a single PB-TNC batch may contain multiple messages
@@ -1149,7 +1149,7 @@ Table of Contents
       This document defines certain PB-TNC message types that, when used
       with the IETF SMI PEN (0), have standard meanings.  These are
       known as IETF Standard PB-TNC Message Types.  Some of these PB-TNC
-      message types are mandatory and therefore MUST be implemented by
+      message types are mandatory and therefore <em>MUST</em> be implemented by
       all Posture Broker Client and Posture Broker Server
       implementations that claim compliance with this specification.
       For details on which PB-TNC message types are mandatory, see the
@@ -1162,10 +1162,10 @@ Table of Contents
       New vendor-specific PB-TNC message types (those used with a non-
       zero PB-TNC vendor ID) may be defined and employed by vendors
       without IETF or IANA involvement.  However, Posture Broker Clients
-      and Posture Broker Servers MUST NOT require support for particular
-      vendor-specific PB-TNC message types and MUST interoperate with
+      and Posture Broker Servers <em>MUST NOT</em> require support for particular
+      vendor-specific PB-TNC message types and <em>MUST</em> interoperate with
       other parties despite any differences in the set of vendor-
-      specific PB-TNC message types supported (although they MAY permit
+      specific PB-TNC message types supported (although they <em>MAY</em> permit
       administrators to configure them to require support for specific
       PB-TNC message types).
 
@@ -1178,9 +1178,9 @@ Table of Contents
       This field specifies the length of this PB-TNC message in octets.
       It includes this header (the fields Flags, PB-TNC Vendor ID, PB-
       TNC Message Type, and PB-TNC Message Length).  Therefore, this
-      value MUST always be at least 12.  Any Posture Broker Client or
+      value <em>MUST</em> always be at least 12.  Any Posture Broker Client or
       Posture Broker Server that receives a message with a PB-TNC
-      Message Length field whose value is less than 12 MUST respond with
+      Message Length field whose value is less than 12 <em>MUST</em> respond with
       a fatal Invalid Parameter error code in a CLOSE batch.
 
    PB-TNC Message Value (variable length)
@@ -1232,7 +1232,7 @@ Table of Contents
 
    The PB-Experimental PB-TNC message type is a PB-TNC message type
    (value 0) that has been set aside for experimental purposes.  It may
-   be used to test code or for other experimental purposes.  It MUST NOT
+   be used to test code or for other experimental purposes.  It <em>MUST NOT</em>
    be used in a production environment or in a product.  This meaning
    for this PB-TNC message type only applies if the PB-TNC Vendor ID
    field in the PB-TNC Message Header contains the value zero (0).  If a
@@ -1259,15 +1259,15 @@ Table of Contents
    PB-TNC Vendor ID, PB-TNC Message Type, and PB-TNC Message Length).
    Any Posture Broker Client or Posture Broker Server that receives a
    message with a PB-TNC Message Length field whose value is invalid
-   MUST respond with a fatal Invalid Parameter error code in a CLOSE
+   <em>MUST</em> respond with a fatal Invalid Parameter error code in a CLOSE
    batch.
 
    A Posture Broker Client or Posture Broker Server implementation
-   intended for production use MUST NOT send a message with this Message
+   intended for production use <em>MUST NOT</em> send a message with this Message
    Type with the value zero (0) as the vendor ID.  If it receives a
    message with this message type and with the value zero (0) as the
-   vendor ID, it MUST ignore the message unless the NOSKIP bit is set,
-   in which case it MUST respond with a fatal Unsupported Mandatory
+   vendor ID, it <em>MUST</em> ignore the message unless the NOSKIP bit is set,
+   in which case it <em>MUST</em> respond with a fatal Unsupported Mandatory
    Message error code in a CLOSE batch.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  PB-PA</span>
@@ -1277,7 +1277,7 @@ Table of Contents
    batches may not contain any messages of this type.
 
    All Posture Broker Client and Posture Broker Server implementations
-   MUST implement support for this PB-TNC message type.  Generally, this
+   <em>MUST</em> implement support for this PB-TNC message type.  Generally, this
    support will consist of forwarding the enclosed PA message to the
    appropriate Posture Collectors and Posture Validators.  Specific
    requirements are contained later in the description of this message
@@ -1291,14 +1291,14 @@ Table of Contents
    Other PA message types may also be defined, as described in the
    description of the PA Subtype field later in this section.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST be set for this
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST</em> be set for this
    message type.  Any Posture Broker Client or Posture Broker Server
-   that receives a PB-PA message with the NOSKIP flag not set MUST
-   ignore the message and MUST respond with a fatal Invalid Parameter
+   that receives a PB-PA message with the NOSKIP flag not set <em>MUST</em>
+   ignore the message and <em>MUST</em> respond with a fatal Invalid Parameter
    error code in a CLOSE batch.
 
-   For the PB-PA message type, the PB-TNC Vendor ID field MUST contain
-   the value zero (0) and the PB-TNC Message Type field MUST contain 1.
+   For the PB-PA message type, the PB-TNC Vendor ID field <em>MUST</em> contain
+   the value zero (0) and the PB-TNC Message Type field <em>MUST</em> contain 1.
    If a non-zero value is contained in the PB-TNC Vendor ID field,
    message type 1 has a completely different meaning not defined in this
    specification.
@@ -1310,18 +1310,18 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-   The PB-TNC Message Length field MUST contain the length of the entire
+   The PB-TNC Message Length field <em>MUST</em> contain the length of the entire
    PB-TNC message, including the fixed-length fields at the start of the
    PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC Message
    Type, and PB-TNC Message Length), the fixed-length fields listed
    below (Flags, PA Message Vendor ID, PA Subtype, Posture Collector
    Identifier, and Posture Validator Identifier), and the PA Message
    Body.  Since the PA Message Body is variable length, the value in the
-   PB-TNC Message Length field will vary also.  However, it MUST always
+   PB-TNC Message Length field will vary also.  However, it <em>MUST</em> always
    be at least 24 to cover the fixed-length fields listed in the
    preceding sentences.  Any Posture Broker Client or Posture Broker
    Server that receives a PB-PA message with a PB-TNC Message Length
-   field that has an invalid value MUST respond with a fatal Invalid
+   field that has an invalid value <em>MUST</em> respond with a fatal Invalid
    Parameter error code in a CLOSE batch.
 
    The following diagram illustrates the format and contents of the PB-
@@ -1347,12 +1347,12 @@ Table of Contents
       Bit 0 of this flags field (the most significant bit) is known as
       the EXCL flag (for exclusive).  If the EXCL bit is cleared (value
       0), the Posture Broker Client or Posture Broker Server that
-      receives this PB-TNC message SHOULD deliver the PA message
+      receives this PB-TNC message <em>SHOULD</em> deliver the PA message
       contained in this PB-TNC message to all Posture Collectors or
       Posture Validators that have expressed an interest in PA messages
       with this PA Message Vendor ID and PA subtype.  If a Posture
       Broker Client receives a message with the EXCL flag set (value 1),
-      the Posture Broker Client SHOULD deliver the PA message contained
+      the Posture Broker Client <em>SHOULD</em> deliver the PA message contained
       in this PB-TNC message only to the Posture Collector identified by
       the Posture Collector Identifier field.  However, if the
       identified Posture Collector has not expressed an interest in PA
@@ -1377,7 +1377,7 @@ Table of Contents
       apply to one of those Posture Collectors.
 
       The other bits in this Flags field are reserved.  For this version
-      of PB-TNC, they MUST be set to 0 on transmission and ignored on
+      of PB-TNC, they <em>MUST</em> be set to 0 on transmission and ignored on
       reception.
 
    PA Message Vendor ID (24 bits)
@@ -1390,11 +1390,11 @@ Table of Contents
       available for its use.  PA subtypes standardized by the IETF are
       always used with a PA Message Vendor ID of the value zero (0) in
       this field.  The PA Message Vendor ID 0xffffff is reserved.  A
-      Posture Broker Client or Posture Broker Server MUST NOT send
+      Posture Broker Client or Posture Broker Server <em>MUST NOT</em> send
       messages in which the PA Message Vendor ID field has this reserved
       value (0xffffff).  If a Posture Broker Client or Posture Broker
       Server receives a message in which the PA Message Vendor ID has
-      this reserved value (0xffffff), it MUST respond with a fatal
+      this reserved value (0xffffff), it <em>MUST</em> respond with a fatal
       Invalid Parameter error code in a CLOSE batch.
 
    PA Subtype (32 bits)
@@ -1402,12 +1402,12 @@ Table of Contents
       The PA Subtype field identifies the type of the PA message
       contained in the PA Message Body field.  The PA subtype 0xffffffff
       is reserved.  A Posture Broker Client or Posture Broker Server
-      MUST NOT send messages in which the PA Subtype field has this
+      <em>MUST NOT</em> send messages in which the PA Subtype field has this
       reserved value (0xffffffff).  If a Posture Broker Client or
       Posture Broker Server receives a message in which the PA Subtype
-      has this reserved value (0xffffffff), it MUST respond with a fatal
+      has this reserved value (0xffffffff), it <em>MUST</em> respond with a fatal
       Invalid Parameter error code in a CLOSE batch.  A Posture Broker
-      Client or Posture Broker Server MUST support having multiple PA
+      Client or Posture Broker Server <em>MUST</em> support having multiple PA
       messages in a single PB-TNC batch that have the same PA subtype
       and/or PA Message Vendor ID.
 
@@ -1430,10 +1430,10 @@ Table of Contents
       New vendor-specific PA subtypes (those used with a non-zero PA
       Message Vendor ID) may be defined and employed by vendors without
       IETF or IANA involvement.  However, Posture Broker Clients and
-      Posture Broker Servers MUST NOT require support for particular
-      vendor-specific PA subtypes and MUST interoperate with other
+      Posture Broker Servers <em>MUST NOT</em> require support for particular
+      vendor-specific PA subtypes and <em>MUST</em> interoperate with other
       parties despite any differences in the set of vendor-specific PA
-      subtypes supported (although they MAY permit administrators to
+      subtypes supported (although they <em>MAY</em> permit administrators to
       configure them to require support for specific PA subtypes).
 
       Note that the PB-TNC Message Type field is completely separate
@@ -1456,7 +1456,7 @@ Table of Contents
       specification for an example that illustrates the use of multiple
       Posture Collector Identifiers.  The Posture Collector Identifier
       value(s) assigned to a Posture Collector by a Posture Broker
-      Client MUST NOT change during the course of a PT session.  This
+      Client <em>MUST NOT</em> change during the course of a PT session.  This
       identifier is used to identify a unique Posture Collector
       communicating with the Posture Broker Client on the endpoint
       during a NEA exchange, and is used by the Posture Validator to
@@ -1464,10 +1464,10 @@ Table of Contents
       if required.
 
       When a Posture Broker Server sets the EXCL flag for a PA message,
-      the Posture Broker Server MUST set the Posture Collector
+      the Posture Broker Server <em>MUST</em> set the Posture Collector
       Identifier field to the identifier of the Posture Collector that
       should receive the PA message.  If the EXCL flag is not set, a
-      Posture Broker Server MAY still set the Posture Collector
+      Posture Broker Server <em>MAY</em> still set the Posture Collector
       Identifier value for PA messages that it sends to indicate that
       the PA message is intended as a response to a message sent by the
 
@@ -1480,7 +1480,7 @@ Table of Contents
 
       Posture Collector associated with the specified Posture Collector
       Identifier.  If the Posture Broker Server does not wish to
-      indicate any Posture Collector in this manner, it SHOULD set this
+      indicate any Posture Collector in this manner, it <em>SHOULD</em> set this
       field to the reserved value 0xffff.
 
    Posture Validator Identifier (16 bits)
@@ -1488,12 +1488,12 @@ Table of Contents
       The Posture Validator Identifier field contains the identifier of
       the Posture Validator associated with this PA message.
 
-      The Posture Broker Server MUST assign a unique Posture Validator
+      The Posture Broker Server <em>MUST</em> assign a unique Posture Validator
       Identifier value (but not 0xffff) to each Posture Validator
       involved in a message exchange and include this Posture Validator
       identifier in this field for any PA messages sent by that Posture
       Validator.  The Posture Validator Identifier value assigned to a
-      Posture Validator by a Posture Broker Server MUST NOT change
+      Posture Validator by a Posture Broker Server <em>MUST NOT</em> change
       during the course of a PT session.  This identifier is used to
       identify a unique Posture Validator communicating with the Posture
       Broker Server endpoint during a NEA exchange, and is used by the
@@ -1501,15 +1501,15 @@ Table of Contents
       Validator if required.
 
       When a Posture Broker Client sets the EXCL flag for a PA message,
-      the Posture Broker Client MUST set the Posture Validator
+      the Posture Broker Client <em>MUST</em> set the Posture Validator
       Identifier field to the identifier of the Posture Validator that
       should receive the PA message.  If the EXCL flag is not set, a
-      Posture Broker Client MAY still set the Posture Validator
+      Posture Broker Client <em>MAY</em> still set the Posture Validator
       Identifier value for PA messages that it sends to indicate that
       the PA message is intended as a response to a message sent by the
       Posture Validator associated with the specified Posture Validator
       Identifier.  If the Posture Broker Client does not wish to
-      indicate any Posture Validator in this manner, it SHOULD set this
+      indicate any Posture Validator in this manner, it <em>SHOULD</em> set this
       field to the reserved value 0xffff.
 
    PA Message Body (variable length)
@@ -1534,7 +1534,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-      a PB-TNC Message Length field whose value is less than 24 MUST
+      a PB-TNC Message Length field whose value is less than 24 <em>MUST</em>
       respond with a fatal Invalid Parameter error code in a CLOSE
       batch.
 
@@ -1548,28 +1548,28 @@ Table of Contents
    results received from the various Posture Validators; the algorithm
    for computation of assessment result at the Posture Broker layer is
    implementation specific and can also change based on policies in a
-   specific deployment.  The Posture Broker Server MUST include one
-   message of this type in any batch of type RESULT and MUST NOT include
+   specific deployment.  The Posture Broker Server <em>MUST</em> include one
+   message of this type in any batch of type RESULT and <em>MUST NOT</em> include
    a message of this type in any other type of batch.  The Posture
-   Broker Client MUST NOT send a PB-TNC message with this message type.
+   Broker Client <em>MUST NOT</em> send a PB-TNC message with this message type.
    If a Posture Broker Server receives a PB-TNC message with this
-   message type, it MUST respond with a fatal Invalid Parameter error in
-   a CLOSE batch.  The Posture Broker Client MUST implement and process
-   this message and MUST ignore any message with this message type that
+   message type, it <em>MUST</em> respond with a fatal Invalid Parameter error in
+   a CLOSE batch.  The Posture Broker Client <em>MUST</em> implement and process
+   this message and <em>MUST</em> ignore any message with this message type that
    is not part of a batch of type RESULT.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST be set for this
-   message type.  The PB-TNC Vendor ID field MUST contain the value zero
-   (0) and the PB-TNC Message Type field MUST contain 2.  If a non-zero
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST</em> be set for this
+   message type.  The PB-TNC Vendor ID field <em>MUST</em> contain the value zero
+   (0) and the PB-TNC Message Type field <em>MUST</em> contain 2.  If a non-zero
    value is contained in the PB-TNC Vendor ID field, message type 2 has
    a completely different meaning not defined in this specification.
-   The PB-TNC Message Length field MUST contain the value 16 since that
+   The PB-TNC Message Length field <em>MUST</em> contain the value 16 since that
    is the total of the length of the fixed-length fields at the start of
    the PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC
    Message Type, and PB-TNC Message Length) along with the Assessment
    Result field described below.  Any Posture Broker Client or Posture
    Broker Server that receives a PB-Assessment-Result message with a PB-
-   TNC Message Length field that does not have a value of 16 MUST
+   TNC Message Length field that does not have a value of 16 <em>MUST</em>
    respond with a fatal Invalid Parameter error code in a CLOSE batch.
 
    The following diagram illustrates the format and contents of the PB-
@@ -1592,7 +1592,7 @@ Table of Contents
 
    Assessment Result
 
-      This 32-bit field MUST contain one of the following values
+      This 32-bit field <em>MUST</em> contain one of the following values
 
       Value   Description
       -----   -----------
@@ -1615,7 +1615,7 @@ Table of Contents
               attributes provided by endpoint.
 
       If a Posture Broker Client receives an Assessment Result value
-      other than the five values described above, it MUST respond with a
+      other than the five values described above, it <em>MUST</em> respond with a
       fatal Invalid Parameter error in a CLOSE batch.  Other values may
       be defined in future versions of PB-TNC but only if the PB-TNC
       version number is changed.  Therefore, there is no need for an
@@ -1631,12 +1631,12 @@ Table of Contents
    endpoint.  The PB-Access-Recommendation is not authoritative, and the
    network and host-based access control systems would typically use
    additional information to determine the network access that is
-   granted to the endpoint.  The Posture Broker Server MAY include one
-   message of this type in any batch of type RESULT and MUST NOT include
+   granted to the endpoint.  The Posture Broker Server <em>MAY</em> include one
+   message of this type in any batch of type RESULT and <em>MUST NOT</em> include
    a message of this type in any other type of batch.  Posture Broker
-   Clients MUST NOT send a PB-TNC message with this message type.  If a
+   Clients <em>MUST NOT</em> send a PB-TNC message with this message type.  If a
    Posture Broker Server receives a PB-TNC message with this message
-   type, it MUST respond with a fatal Invalid Parameter error in a CLOSE
+   type, it <em>MUST</em> respond with a fatal Invalid Parameter error in a CLOSE
 
 
 
@@ -1646,26 +1646,26 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-   batch.  The Posture Broker Client MUST implement and process this
-   message and MUST ignore any message with this message type that is
+   batch.  The Posture Broker Client <em>MUST</em> implement and process this
+   message and <em>MUST</em> ignore any message with this message type that is
    not part of a batch of type RESULT.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST NOT be set for this
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST NOT</em> be set for this
    message type.  Any Posture Broker Client or Posture Broker Server
    that receives a PB-Access-Recommendation message with the NOSKIP flag
-   set MUST ignore the message and MUST respond with a fatal Invalid
+   set <em>MUST</em> ignore the message and <em>MUST</em> respond with a fatal Invalid
    Parameter error code in a CLOSE batch.  The PB-TNC Vendor ID field
-   MUST contain the value zero (0) and the PB-TNC Message Type field
-   MUST contain 3.  If a non-zero value is contained in the PB-TNC
+   <em>MUST</em> contain the value zero (0) and the PB-TNC Message Type field
+   <em>MUST</em> contain 3.  If a non-zero value is contained in the PB-TNC
    Vendor ID field, message type 3 has a completely different meaning
    not defined in this specification.  The PB-TNC Message Length field
-   MUST contain the value 16 since that is the total of the length of
+   <em>MUST</em> contain the value 16 since that is the total of the length of
    the fixed-length fields at the start of the PB-TNC message (the
    fields Flags, PB-TNC Vendor ID, PB-TNC Message Type, and PB-TNC
    Message Length) along with the Access Recommendation field described
    below.  Any Posture Broker Client or Posture Broker Server that
    receives a PB-Access-Recommendation message with a PB-TNC Message
-   Length field that does not have a value of 16 MUST respond with a
+   Length field that does not have a value of 16 <em>MUST</em> respond with a
    fatal Invalid Parameter error code in a CLOSE batch.
 
    The following diagram illustrates the format and contents of the PB-
@@ -1680,18 +1680,18 @@ Table of Contents
 
    Reserved (16 bits)
 
-      These Reserved bits MUST be set to 0 on transmission and ignored
+      These Reserved bits <em>MUST</em> be set to 0 on transmission and ignored
       on reception.
 
    Access Recommendation Code (16 bits)
 
       The Access Recommendation Code field identifies the Access
       Recommendation that the Posture Broker Server has made for this
-      Posture Broker Client at this time.  This field MUST have one of
+      Posture Broker Client at this time.  This field <em>MUST</em> have one of
       these three values: 1 for Access Allowed (full access), 2 for
       Access Denied (no access), or 3 for Quarantined (partial access).
       If a Posture Broker Client receives an Access Recommendation Code
-      value other than these three values, it MUST respond with a fatal
+      value other than these three values, it <em>MUST</em> respond with a fatal
       Invalid Parameter error code in a CLOSE batch.  Other values may
 
 
@@ -1712,36 +1712,36 @@ Table of Contents
    used by the Posture Broker Server to provide global (not Posture
    Validator-specific) remediation parameters after the Posture Broker
    Server has completed some assessment of the endpoint.  The Posture
-   Broker Server MAY include one or more messages of this type in any
+   Broker Server <em>MAY</em> include one or more messages of this type in any
    batch of any type, but this message type is most useful in batches of
    type RESULT.
 
-   The Posture Broker Client MUST NOT send a PB-TNC message with this
+   The Posture Broker Client <em>MUST NOT</em> send a PB-TNC message with this
    message type.  If a Posture Broker Server receives a PB-TNC message
-   with this message type, it MUST respond with a fatal Invalid
+   with this message type, it <em>MUST</em> respond with a fatal Invalid
    Parameter error in a CLOSE batch.  The Posture Broker Client may
    implement and process this message but is not required to do so.  It
    may skip this message.  Even if the Posture Broker Client implements
    this message type, it is not obligated to act on it.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST NOT be set for this
-   message type.  The PB-TNC Vendor ID field MUST contain the value zero
-   (0) and the PB-TNC Message Type field MUST contain 4.  If a non-zero
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST NOT</em> be set for this
+   message type.  The PB-TNC Vendor ID field <em>MUST</em> contain the value zero
+   (0) and the PB-TNC Message Type field <em>MUST</em> contain 4.  If a non-zero
    value is contained in the PB-TNC Vendor ID field, message type 4 has
    a completely different meaning not defined in this specification.
 
-   The PB-TNC Message Length field MUST contain the length of the entire
+   The PB-TNC Message Length field <em>MUST</em> contain the length of the entire
    PB-TNC message, including the fixed-length fields at the start of the
    PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC Message
    Type, and PB-TNC Message Length), the fixed-length fields listed
    below (Reserved, Remediation Parameters Vendor ID, and Remediation
    Parameters Type), and the Remediation Parameters.  Since the
    Remediation Parameters field is variable length, the value in the PB-
-   TNC Message Length field will vary also.  However, it MUST always be
+   TNC Message Length field will vary also.  However, it <em>MUST</em> always be
    at least 20 to cover the fixed-length fields listed in the preceding
    sentences.  Any Posture Broker Client that receives a PB-Remediation-
    Parameters message with a PB-TNC Message Length field that contains
-   an invalid value (e.g., less than 20) MUST respond with a fatal
+   an invalid value (e.g., less than 20) <em>MUST</em> respond with a fatal
    Invalid Parameter error code in a CLOSE batch.
 
    The following diagram illustrates the format and contents of the PB-
@@ -1770,7 +1770,7 @@ Table of Contents
 
    Reserved (8 bits)
 
-      These Reserved bits MUST be set to 0 on transmission and ignored
+      These Reserved bits <em>MUST</em> be set to 0 on transmission and ignored
       on reception.
 
    Remediation Parameters Vendor ID (24 bits)
@@ -1788,7 +1788,7 @@ Table of Contents
 
       The Remediation Parameters Type field identifies the type of
       remediation parameters contained in the Remediation Parameters
-      field.  A Posture Broker Client or Posture Broker Server MUST
+      field.  A Posture Broker Client or Posture Broker Server <em>MUST</em>
       support having multiple Remediation Parameters messages contained
       in a single PB-TNC batch that have the same Remediation Parameters
       Type and/or Remediation Parameters Vendor ID.
@@ -1802,9 +1802,9 @@ Table of Contents
       New vendor-specific Remediation Parameters Types (those used with
       a non-zero Remediation Parameters vendor ID) may be defined and
       employed by vendors without IETF or IANA involvement.  However,
-      Posture Broker Clients and Posture Broker Servers MUST NOT require
+      Posture Broker Clients and Posture Broker Servers <em>MUST NOT</em> require
       support for particular vendor-specific Remediation Parameters
-      Types and MUST interoperate with other parties despite any
+      Types and <em>MUST</em> interoperate with other parties despite any
       differences in the set of vendor-specific Remediation Parameters
 
 
@@ -1814,7 +1814,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-      Types supported (although they MAY permit administrators to
+      Types supported (although they <em>MAY</em> permit administrators to
       configure them to require support for specific Remediation
       Parameters Types).
 
@@ -1837,8 +1837,8 @@ Table of Contents
       of these fixed-length fields is 20 octets.  Therefore, any Posture
       Broker Client that receives a PB-Remediation-Parameters message
       with a PB-TNC Message Length field whose value is less than 20
-      MUST consider this a malformed message.  The Posture Broker Client
-      MUST respond with a fatal Invalid Parameter error code in a CLOSE
+      <em>MUST</em> consider this a malformed message.  The Posture Broker Client
+      <em>MUST</em> respond with a fatal Invalid Parameter error code in a CLOSE
       batch.
 
 <span class="h4"><a class="selflink" name="section-4.8.1" href="#section-4.8.1">4.8.1</a>.  IETF Standard PB-TNC Remediation Parameters Types</span>
@@ -1852,11 +1852,11 @@ Table of Contents
       Remediation-Parameters message with a Remediation Parameters
       Vendor ID equal to the value zero (0) and a Remediation Parameters
       Type of 1.  The Remediation Parameters field in the PB-
-      Remediation-Parameters message MUST contain a URI, as described in
+      Remediation-Parameters message <em>MUST</em> contain a URI, as described in
       <a href="./rfc3986.html">RFC 3986</a> [<a href="#ref-2" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">2</a>].  This URI contains instructions and resources for
-      remediation.  The Posture Broker Client MAY load the URI and
+      remediation.  The Posture Broker Client <em>MAY</em> load the URI and
       display the resulting web page to the user.  The Posture Broker
-      Client MAY also ignore the URI or take another action with it.
+      Client <em>MAY</em> also ignore the URI or take another action with it.
       The Posture Broker Server and any other parties involved in
       configuring this remediation URI should consider the likely
       capabilities of the Posture Broker Client when creating the URI
@@ -1880,11 +1880,11 @@ Table of Contents
       Remediation-Parameters message with a Remediation Parameters
       Vendor ID equal to the value zero (0) and a Remediation Parameters
       Type of 2.  The Remediation Parameters field in the PB-
-      Remediation-Parameters message MUST contain the structure defined
+      Remediation-Parameters message <em>MUST</em> contain the structure defined
       below, which contains human-readable instructions for remediation.
 
-      The Posture Broker Client MAY display the instructions to the
-      user.  The Posture Broker Client MAY also ignore the instructions
+      The Posture Broker Client <em>MAY</em> display the instructions to the
+      user.  The Posture Broker Client <em>MAY</em> also ignore the instructions
       or take another action with them.  The Posture Broker Server and
       any other parties involved in configuring these instructions
       should consider the likely capabilities of the Posture Broker
@@ -1914,10 +1914,10 @@ Table of Contents
 
    Remediation String (variable length)
 
-      The Remediation String field MUST contain a UTF-8 [<a href="#ref-6" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">6</a>] encoded
+      The Remediation String field <em>MUST</em> contain a UTF-8 [<a href="#ref-6" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">6</a>] encoded
       string.  This string contains human-readable instructions for
-      remediation that MAY be displayed to the user by the Posture
-      Broker Client.  NUL termination MUST NOT be included.  If a
+      remediation that <em>MAY</em> be displayed to the user by the Posture
+      Broker Client.  NUL termination <em>MUST NOT</em> be included.  If a
 
 
 
@@ -1927,7 +1927,7 @@ Table of Contents
 
 
       Posture Broker Client receives a Reason String that does contain a
-      NUL termination, it MUST respond with a fatal Invalid Parameter
+      NUL termination, it <em>MUST</em> respond with a fatal Invalid Parameter
       error in a CLOSE batch.
 
    Lang Code Len (8 bits)
@@ -1951,21 +1951,21 @@ Table of Contents
    The PB-TNC message type named PB-Error (value 5) is used by the
    Posture Broker Client or Posture Broker Server to indicate that an
    error has occurred.  The Posture Broker Client or Posture Broker
-   Server MAY include one or more messages of this type in any batch of
+   Server <em>MAY</em> include one or more messages of this type in any batch of
    any type.  Other messages may also be included in the same batch.
-   The party that receives a PB-Error message MAY log it or take other
+   The party that receives a PB-Error message <em>MAY</em> log it or take other
    action as deemed appropriate.  If the FATAL flag is set (value 1),
-   the recipient MUST terminate the PB-TNC session after processing the
+   the recipient <em>MUST</em> terminate the PB-TNC session after processing the
    batch without sending any messages in response.  Every Posture Broker
-   Client and Posture Broker Server MUST implement this message type.
+   Client and Posture Broker Server <em>MUST</em> implement this message type.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST be set for this
-   message type.  The PB-TNC Vendor ID field MUST contain the value zero
-   (0) and the PB-TNC Message Type field MUST contain 5.  If a non-zero
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST</em> be set for this
+   message type.  The PB-TNC Vendor ID field <em>MUST</em> contain the value zero
+   (0) and the PB-TNC Message Type field <em>MUST</em> contain 5.  If a non-zero
    value is contained in the PB-TNC Vendor ID field, message type 5 has
    a completely different meaning not defined in this specification.
 
-   The PB-TNC Message Length field MUST contain the length of the entire
+   The PB-TNC Message Length field <em>MUST</em> contain the length of the entire
    PB-TNC message, including the fixed-length fields at the start of the
    PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC Message
    Type, and PB-TNC Message Length), the fixed-length fields listed
@@ -1982,13 +1982,13 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-   However, it MUST always be at least 20 to cover the fixed-length
+   However, it <em>MUST</em> always be at least 20 to cover the fixed-length
    fields listed in the preceding sentences.  Any Posture Broker Client
    or Posture Broker Server that receives a PB-Error message with a PB-
    TNC Message Length field that contains an invalid value (e.g., less
-   than 20) MUST respond with a fatal Invalid Parameter error code in a
+   than 20) <em>MUST</em> respond with a fatal Invalid Parameter error code in a
    CLOSE batch.  Any PB-Error message generated while processing a PB-
-   Error message MUST be a fatal error to avoid the chance of generating
+   Error message <em>MUST</em> be a fatal error to avoid the chance of generating
    an infinite loop of errors.
 
    The following diagram illustrates the format and contents of the PB-
@@ -2012,15 +2012,15 @@ Table of Contents
       Bit 0 of this flags field (the most significant bit) is known as
       the FATAL flag.  If the FATAL bit is cleared (value 0), the
       Posture Broker Client or Posture Broker Server that receives this
-      PB-TNC message SHOULD process this error and then continue with
+      PB-TNC message <em>SHOULD</em> process this error and then continue with
       the exchange.  If the FATAL flag is set (value 1), the Posture
       Broker Client or Posture Broker Server that receives this PB-TNC
-      message MUST terminate the exchange after processing the error.
+      message <em>MUST</em> terminate the exchange after processing the error.
       In addition, any Posture Broker Client or Posture Broker Server
-      that sends a fatal error MUST NOT process the batch that caused
-      the error and MUST terminate the exchange after sending the batch
+      that sends a fatal error <em>MUST NOT</em> process the batch that caused
+      the error and <em>MUST</em> terminate the exchange after sending the batch
       containing the error report.  A PB-Error message with the FATAL
-      flag set MUST always be sent in a CLOSE batch since the sender
+      flag set <em>MUST</em> always be sent in a CLOSE batch since the sender
       will be terminating the exchange immediately after sending the
       batch.
 
@@ -2039,7 +2039,7 @@ Table of Contents
 
 
       The other bits in this Flags field are reserved.  For this version
-      of PB-TNC, they MUST be set to 0 on transmission and ignored on
+      of PB-TNC, they <em>MUST</em> be set to 0 on transmission and ignored on
       reception.
 
    Error Code Vendor ID (24 bits)
@@ -2073,14 +2073,14 @@ Table of Contents
       New vendor-specific error codes (those used with a non-zero error
       code vendor ID) may be defined and employed by vendors without
       IETF or IANA involvement.  Posture Broker Clients and Posture
-      Broker Servers that receive an unknown error code MUST process
+      Broker Servers that receive an unknown error code <em>MUST</em> process
       this error code gracefully by ignoring or logging it if it is not
       marked as fatal and terminating the exchange if it is marked as
       fatal.
 
    Reserved (16 bits)
 
-      The Reserved bits MUST be set to 0 on transmission and ignored on
+      The Reserved bits <em>MUST</em> be set to 0 on transmission and ignored on
       reception.
 
 
@@ -2097,7 +2097,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.9.1" href="#section-4.9.1">4.9.1</a>.  IETF Standard PB-TNC Error Codes</span>
 
    The following error codes are IETF Standard PB-TNC Error Codes, hence
-   the Error Code Vendor ID MUST be the value zero (0).  The following
+   the Error Code Vendor ID <em>MUST</em> be the value zero (0).  The following
    table defines the 16-bit error code.  Vendor-specific error codes may
    be defined by setting the Error Code Vendor ID to the defining
    vendor's SMI PEN and setting the Error Code field to whatever error
@@ -2129,7 +2129,7 @@ Table of Contents
    this specification.
 
    The Error Parameters field is zero length for the IETF Standard PB-
-   TNC Error Code 0.  The FATAL flag MUST be set for this error code.
+   TNC Error Code 0.  The FATAL flag <em>MUST</em> be set for this error code.
 
    The Error Parameters field has the following structure for the IETF
    Standard PB-TNC Error Code 1.  The Offset field is the offset in
@@ -2151,13 +2151,13 @@ Table of Contents
 
 
    The Error Parameters field is zero length for the IETF Standard PB-
-   TNC Error Code 2.  The FATAL flag MUST be set for this error code.
+   TNC Error Code 2.  The FATAL flag <em>MUST</em> be set for this error code.
 
    The Error Parameters field has the following structure for the IETF
    Standard PB-TNC Error Code 3.  The Offset field is the offset in
    octets from the start of the PB-TNC batch to the PB-TNC message whose
    message type was not recognized (and where the NOSKIP flag was set).
-   The FATAL flag MUST be set for this error code.
+   The FATAL flag <em>MUST</em> be set for this error code.
 
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -2166,7 +2166,7 @@ Table of Contents
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The Error Parameters field has the following structure for the IETF
-   Standard PB-TNC Error Code 4.  The FATAL flag MUST be set for this
+   Standard PB-TNC Error Code 4.  The FATAL flag <em>MUST</em> be set for this
    error code.
 
        0                   1                   2                   3
@@ -2178,19 +2178,19 @@ Table of Contents
    The Bad Version field is the version number that was received and is
    not supported.  The Max Version and Min Version fields indicate which
    PB-TNC version numbers are supported by the sender of the error code.
-   The sender MUST support all PB-TNC versions between the Min Version
+   The sender <em>MUST</em> support all PB-TNC versions between the Min Version
    and the Max Version, inclusive (i.e., including the Min Version and
    the Max Version) but excluding the reserved versions listed in
-   <a href="#section-4.1">section 4.1</a>.  The Reserved field MUST be set to 0 on transmission and
+   <a href="#section-4.1">section 4.1</a>.  The Reserved field <em>MUST</em> be set to 0 on transmission and
    ignored upon reception.  When possible, recipients of this error code
-   SHOULD send future messages to the Posture Broker Server or Posture
+   <em>SHOULD</em> send future messages to the Posture Broker Server or Posture
    Broker Client that originated this error message with a PB-TNC
    version number within the stated range.
 
-   Any party that is sending the Version Not Supported error code MUST
+   Any party that is sending the Version Not Supported error code <em>MUST</em>
    include that error code as the only PB-TNC message in a PB-TNC CLOSE
    batch with version number 2.  All parties that send PB-TNC batches
-   SHOULD be able to properly process a batch that meets this
+   <em>SHOULD</em> be able to properly process a batch that meets this
    description, even if they cannot process any other aspect of PB-TNC
    version 2.  This ensures that a PB-TNC version exchange can proceed
    properly, no matter what versions of PB-TNC the parties implement.
@@ -2225,7 +2225,7 @@ Table of Contents
 
    No Posture Broker Client or Posture Broker Server is required to send
    or implement this message type.  However, a Posture Broker Server
-   SHOULD attempt to adapt to user language preferences by implementing
+   <em>SHOULD</em> attempt to adapt to user language preferences by implementing
    this message type, passing the language preference information to
    Posture Validators, and allowing administrators to configure human-
    readable languages in whatever languages are preferred by their
@@ -2241,15 +2241,15 @@ Table of Contents
    same PB-TNC session, the value included in the later message should
    be considered to replace the value in the earlier message.
 
-   A Posture Broker Client or Posture Broker Server MUST NOT include
+   A Posture Broker Client or Posture Broker Server <em>MUST NOT</em> include
    more than one message of this type in a single batch.  If a Posture
    Broker Client or Posture Broker Server receives more than one message
    of this type in a single batch, it should ignore all but the last
    one.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST NOT be set for this
-   message type.  The PB-TNC Vendor ID field MUST contain the value zero
-   (0) and the PB-TNC Message Type field MUST contain 6.  If a non-zero
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST NOT</em> be set for this
+   message type.  The PB-TNC Vendor ID field <em>MUST</em> contain the value zero
+   (0) and the PB-TNC Message Type field <em>MUST</em> contain 6.  If a non-zero
    value is contained in the PB-TNC Vendor ID field, message type 6 has
    a completely different meaning not defined in this specification.
 
@@ -2262,12 +2262,12 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-   The PB-TNC Message Length field MUST contain the length of the entire
+   The PB-TNC Message Length field <em>MUST</em> contain the length of the entire
    PB-TNC message, including the fixed-length fields at the start of the
    PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC Message
    Type, and PB-TNC Message Length) and the Language Preference field.
    Since the Language Preference field is variable length, the value in
-   the PB-TNC Message Length field will vary also.  However, it MUST
+   the PB-TNC Message Length field will vary also.  However, it <em>MUST</em>
    always be at least 12 to cover the fixed-length fields listed in the
    preceding sentences.
 
@@ -2288,7 +2288,7 @@ Table of Contents
       of Accept-Language included in that RFC, US-ASCII only, no control
       characters allowed, no comments, no NUL termination).  Any Posture
       Broker Client or Posture Broker Server that sends a PB-Language-
-      Preference message MUST ensure that the Language Preference field
+      Preference message <em>MUST</em> ensure that the Language Preference field
       conforms to this format.  For example, one acceptable value would
       be "Accept-Language: fr, en" (without the quote marks).
 
@@ -2318,51 +2318,51 @@ Table of Contents
 <span class="grey"><a href="./rfc5793.html">RFC 5793</a>                         PB-TNC                       March 2010</span>
 
 
-   message SHOULD only be included in the same batch as the PB-
+   message <em>SHOULD</em> only be included in the same batch as the PB-
    Assessment-Result and PB-Access-Recommendation message.  The Posture
-   Broker Client MUST NOT ever send a PB-Reason-String message.
+   Broker Client <em>MUST NOT</em> ever send a PB-Reason-String message.
 
    The Posture Broker Client is not required to implement this message
    type and the Posture Broker Server is not required to send it.
    However, there is some benefit to doing so since users are often
    curious about why the endpoint was considered non-compliant.  The
    manner in which a Posture Broker Client uses this field is up to the
-   implementer and not specified here.  The Posture Broker Client MAY
+   implementer and not specified here.  The Posture Broker Client <em>MAY</em>
    display the message to the user, log it, ignore it, or take any other
    action that is not inconsistent with the requirements of this
    specification.  Since the strings contained in this message are
-   human-readable, the Posture Broker Server SHOULD adapt them to the
+   human-readable, the Posture Broker Server <em>SHOULD</em> adapt them to the
    Posture Broker Client's language preferences as expressed in any PB-
    Language-Preference message sent by the Posture Broker Client in this
    PB-TNC session.
 
-   A Posture Broker Server MAY include more than one message of this
+   A Posture Broker Server <em>MAY</em> include more than one message of this
    type in any batch of any type.  However, it is suggested that this
    message be included in the same batch as the PB-Assessment-Result and
    PB-Access-Recommendation message.  If more than one PB-Reason-String
    message is included in a single batch, the Posture Broker Client
-   SHOULD consider the strings included in these messages to be
+   <em>SHOULD</em> consider the strings included in these messages to be
    equivalent in meaning.  This allows the Posture Broker Server to
    return multiple equivalent reason strings in different languages,
    which may help if the Posture Broker Server is not able to
    accommodate the Posture Broker Client's language preferences.
 
-   The NOSKIP flag in the PB-TNC Message Header MUST NOT be set for this
-   message type.  The PB-TNC Vendor ID field MUST contain the value zero
-   (0) and the PB-TNC Message Type field MUST contain 7.  If a non-zero
+   The NOSKIP flag in the PB-TNC Message Header <em>MUST NOT</em> be set for this
+   message type.  The PB-TNC Vendor ID field <em>MUST</em> contain the value zero
+   (0) and the PB-TNC Message Type field <em>MUST</em> contain 7.  If a non-zero
    value is contained in the PB-TNC Vendor ID field, message type 7 has
    a completely different meaning not defined in this specification.
 
-   The PB-TNC Message Length field MUST contain the length of the entire
+   The PB-TNC Message Length field <em>MUST</em> contain the length of the entire
    PB-TNC message, including the fixed-length fields at the start of the
    PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC Message
    Type, and PB-TNC Message Length), the fixed-length fields listed
    below (Reason String Length and Lang Code Len), and the Reason String
    and Reason String Language Code fields.  Since the Reason String and
    Reason String Language Code fields are variable length, the value in
-   the PB-TNC Message Length field will vary also.  However, it MUST
+   the PB-TNC Message Length field will vary also.  However, it <em>MUST</em>
    always be at least 17 to cover the fixed-length fields listed in the
-   preceding sentences.  In fact, the PB-TNC Message Length field MUST
+   preceding sentences.  In fact, the PB-TNC Message Length field <em>MUST</em>
    be exactly the sum of 17 (for the fixed-length fields) and the values
 
 
@@ -2375,7 +2375,7 @@ Table of Contents
 
 
    of the Reason String Length and Lang Code Len fields.  If this is not
-   the case, the recipient MUST respond with a fatal Invalid Parameter
+   the case, the recipient <em>MUST</em> respond with a fatal Invalid Parameter
    error code in a CLOSE batch.
 
    The following diagram illustrates the format and contents of the PB-
@@ -2401,10 +2401,10 @@ Table of Contents
 
       The Reason String field contains a UTF-8 encoded string that
       provides a human-readable reason for the Posture Broker Server's
-      assessment decision.  NUL termination MUST NOT be included.  If a
+      assessment decision.  NUL termination <em>MUST NOT</em> be included.  If a
       Posture Broker Client receives a Reason String that does contain a
-      NUL termination, it MUST respond with a fatal Invalid Parameter
-      error code in a CLOSE batch.  A zero-length string MUST NOT be
+      NUL termination, it <em>MUST</em> respond with a fatal Invalid Parameter
+      error code in a CLOSE batch.  A zero-length string <em>MUST NOT</em> be
       sent since this is the same as sending no reason string at all,
       leaving the reason unspecified.
 
@@ -2418,8 +2418,8 @@ Table of Contents
       The Reason String Language Code field contains a US-ASCII string
       containing a well-formed <a href="./rfc4646.html">RFC 4646</a> [<a href="#ref-3" title="&quot;Tags for Identifying Languages&quot;">3</a>] language tag that indicates
       the language(s) used in the Reason String in this message.  NUL
-      termination MUST NOT be included in this field.  A zero-length
-      string MAY be sent for this field (essentially omitting this
+      termination <em>MUST NOT</em> be included in this field.  A zero-length
+      string <em>MAY</em> be sent for this field (essentially omitting this
       field) to indicate that the language code for the reason string is
       not known.
 
@@ -2599,11 +2599,11 @@ Table of Contents
 
 
    behavior is explicitly prohibited by this specification, which
-   dictates that "Posture Broker Clients and Posture Broker Servers MUST
+   dictates that "Posture Broker Clients and Posture Broker Servers <em>MUST</em>
    NOT require support for particular vendor-specific PB-TNC message
-   types and MUST interoperate with other parties despite any
+   types and <em>MUST</em> interoperate with other parties despite any
    differences in the set of vendor-specific PB-TNC message types
-   supported (although they MAY permit administrators to configure them
+   supported (although they <em>MAY</em> permit administrators to configure them
    to require support for specific PB-TNC message types)." Similar
    requirements are included for PA Subtypes, Remediation Parameters
    Types, and PB-TNC Error Codes.
@@ -2627,9 +2627,9 @@ Table of Contents
    not be terribly concerned about exhausting the set of values.
 
    Instead, designated experts should focus on the following
-   requirements.  All values in these IANA registries MUST be documented
+   requirements.  All values in these IANA registries <em>MUST</em> be documented
    in a specification that is permanently and publicly available.  IETF
-   standard values MUST also be useful, not harmful to the Internet, and
+   standard values <em>MUST</em> also be useful, not harmful to the Internet, and
    defined in a manner that is clear and likely to ensure
    interoperability.
 
@@ -2641,7 +2641,7 @@ Table of Contents
    and publicly available.  It may be published as an RFC.
    Alternatively, it may be published in another manner that makes it
    freely available to anyone.  However, in this latter case, the vendor
-   MUST supply a copy to the IANA and authorize the IANA to archive this
+   <em>MUST</em> supply a copy to the IANA and authorize the IANA to archive this
    copy and make it freely available to all if at some point the
    document becomes no longer freely available to all through other
    channels.
@@ -4067,7 +4067,7 @@ Table of Contents
 
    Requirement C-1 says:
 
-   C-1   NEA protocols MUST support multiple round trips between the NEA
+   C-1   NEA protocols <em>MUST</em> support multiple round trips between the NEA
          Client and NEA Server in a single assessment.
 
    PB-TNC meets this requirement.  It allows an unlimited number of
@@ -4077,7 +4077,7 @@ Table of Contents
 
    Requirement C-2 says:
 
-   C-2   NEA protocols SHOULD provide a way for both the NEA Client and
+   C-2   NEA protocols <em>SHOULD</em> provide a way for both the NEA Client and
          the NEA Server to initiate a posture assessment or reassessment
          as needed.
 
@@ -4098,7 +4098,7 @@ Table of Contents
 
    Requirement C-3 says:
 
-   C-3   NEA protocols including security capabilities MUST be capable
+   C-3   NEA protocols including security capabilities <em>MUST</em> be capable
          of protecting against active and passive attacks by
          intermediaries and endpoints including prevention from replay-
          based attacks.
@@ -4120,7 +4120,7 @@ Table of Contents
 
    Requirement C-4 says:
 
-   C-4   The PA and PB protocols MUST be capable of operating over any
+   C-4   The PA and PB protocols <em>MUST</em> be capable of operating over any
          PT protocol.  For example, the PB protocol must provide a
          transport-independent interface allowing the PA protocol to
          operate without change across a variety of network protocol
@@ -4136,7 +4136,7 @@ Table of Contents
 
    Requirement C-5 says:
 
-   C-5   The selection process for NEA protocols MUST evaluate and
+   C-5   The selection process for NEA protocols <em>MUST</em> evaluate and
          prefer the reuse of existing open standards that meet the
          requirements before defining new ones.  The goal of NEA is not
          to create additional alternative protocols where acceptable
@@ -4152,7 +4152,7 @@ Table of Contents
 
    Requirement C-6 says:
 
-   C-6   NEA protocols MUST be highly scalable; the protocols MUST
+   C-6   NEA protocols <em>MUST</em> be highly scalable; the protocols <em>MUST</em>
          support many Posture Collectors on a large number of NEA
          Clients to be assessed by numerous Posture Validators residing
          on multiple NEA Servers.
@@ -4182,7 +4182,7 @@ Table of Contents
 
    Requirement C-7 says:
 
-   C-7   The protocols MUST support efficient transport of a large
+   C-7   The protocols <em>MUST</em> support efficient transport of a large
          number of attribute messages between the NEA Client and the NEA
          Server.
 
@@ -4198,7 +4198,7 @@ Table of Contents
 
    Requirement C-8 says:
 
-   C-8   NEA protocols MUST operate efficiently over low bandwidth or
+   C-8   NEA protocols <em>MUST</em> operate efficiently over low bandwidth or
          high latency links.
 
    PB-TNC meets this requirement.  A minimal PB-TNC exchange can be as
@@ -4211,7 +4211,7 @@ Table of Contents
    Requirement C-9 says:
 
    C-9   For any strings intended for display to a user, the protocols
-         MUST support adapting these strings to the user's language
+         <em>MUST</em> support adapting these strings to the user's language
          preferences.
 
 
@@ -4231,7 +4231,7 @@ Table of Contents
 
    Requirement C-10 says:
 
-   C-10  NEA protocols MUST support encoding of strings in UTF-8 format.
+   C-10  NEA protocols <em>MUST</em> support encoding of strings in UTF-8 format.
 
    PB-TNC meets this requirement.  All strings in the PB-TNC protocol
    are encoded in UTF-8 format.  This allows the protocol to support a
@@ -4243,14 +4243,14 @@ Table of Contents
 
    C-11  Due to the potentially different transport characteristics
          provided by the underlying candidate PT protocols, the NEA
-         Client and NEA Server MUST be capable of becoming aware of and
+         Client and NEA Server <em>MUST</em> be capable of becoming aware of and
          adapting to the limitations of the available PT protocol.  For
          example, some PT protocol characteristics that might impact the
          operation of PA and PB include restrictions on which end can
          initiate a NEA connection, maximum data size in a message or
          full assessment, upper bound on number of round trips, and
          ordering (duplex) of messages exchanged.  The selection process
-         for the PT protocols MUST consider the limitations the
+         for the PT protocols <em>MUST</em> consider the limitations the
          candidate PT protocol would impose upon the PA and PB
          protocols.
 
@@ -4282,7 +4282,7 @@ Table of Contents
 
    Requirement PB-1 says:
 
-   PB-1  The PB protocol MUST be capable of carrying attributes from the
+   PB-1  The PB protocol <em>MUST</em> be capable of carrying attributes from the
          Posture Broker Server to the Posture Broker Client.  This
          enables the Posture Broker Client to learn the posture
          assessment decision and if appropriate to aid in remediation
@@ -4298,7 +4298,7 @@ Table of Contents
 
    Requirement PB-2 says:
 
-   PB-2  The PB protocol MUST NOT interpret the contents of PA messages
+   PB-2  The PB protocol <em>MUST NOT</em> interpret the contents of PA messages
          being carried; i.e., the data it is carrying must be opaque to
          it.
 
@@ -4309,7 +4309,7 @@ Table of Contents
 
    Requirement PB-3 says:
 
-   PB-3  The PB protocol MUST carry unique identifiers that are used by
+   PB-3  The PB protocol <em>MUST</em> carry unique identifiers that are used by
          the Posture Brokers to route (deliver) PA messages between
          Posture Collectors and Posture Validators.  Such message
          routing should facilitate dynamic registration or
@@ -4338,7 +4338,7 @@ Table of Contents
 
    Requirement PB-4 says:
 
-   PB-4  The PB protocol MUST be capable of supporting a half-duplex PT
+   PB-4  The PB protocol <em>MUST</em> be capable of supporting a half-duplex PT
          protocol.  However, this does not preclude PB from operating
          full-duplex when running over a full-duplex PT.
 
@@ -4354,7 +4354,7 @@ Table of Contents
 
    Requirement PB-5 says:
 
-   PB-5  The PB protocol MAY support authentication, integrity, and
+   PB-5  The PB protocol <em>MAY</em> support authentication, integrity, and
          confidentiality protection for the attribute messages it
          carries between a Posture Broker Client and Posture Broker
          Server.  This provides security protection for a message dialog
@@ -4366,7 +4366,7 @@ Table of Contents
          operations possibly improving scalability and manageability.
 
    PB-TNC does not address this optional requirement.  It leaves
-   security to PT (which is required to address it) and PA (which SHOULD
+   security to PT (which is required to address it) and PA (which <em>SHOULD</em>
    do so).  There seems to be minimal benefit in adding a third layer of
    security to the NEA protocol stack.  However, if the NEA working
    group determines that PB should include support for authentication,
@@ -4394,7 +4394,7 @@ Table of Contents
 
    Requirement PB-6 says:
 
-   PB-6  The PB protocol MUST support grouping of attribute messages to
+   PB-6  The PB protocol <em>MUST</em> support grouping of attribute messages to
          optimize transport of messages and minimize round trips.
 
    PB-TNC meets this requirement.  Multiple attribute messages can be

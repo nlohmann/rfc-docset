@@ -265,8 +265,8 @@ Table of Contents
    Some design trade-offs leading to the mechanism presented here are
    described in [<a href="#ref-INI1999-19" title="&quot;Deploying DNSSEC Without a Signed Root&quot;">INI1999-19</a>].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Architecture</span>
@@ -333,20 +333,20 @@ Table of Contents
    in the DLV domain.
 
    To gain full benefit from aggressive negative caching, described in
-   <a href="#section-6">Section 6</a>, a DLV domain SHOULD NOT use minimally-covering NSEC
-   records, as described in [<a href="./rfc4470.html" title="&quot;Minimally Covering NSEC Records and DNSSEC On-line Signing&quot;">RFC4470</a>], and it SHOULD NOT use NSEC3
+   <a href="#section-6">Section 6</a>, a DLV domain <em>SHOULD NOT</em> use minimally-covering NSEC
+   records, as described in [<a href="./rfc4470.html" title="&quot;Minimally Covering NSEC Records and DNSSEC On-line Signing&quot;">RFC4470</a>], and it <em>SHOULD NOT</em> use NSEC3
    records, as described in [<a href="#ref-NSEC3" title="&quot;DNSSEC Hashed Authenticated Denial of Existence&quot;">NSEC3</a>].
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Overview of Validator Behavior</span>
 
    To minimize the load on the DLV domain's authoritative servers as
-   well as query response time, a validator SHOULD first attempt
+   well as query response time, a validator <em>SHOULD</em> first attempt
    validation using any applicable (non-DLV) trust anchors.  If the
    validation succeeds (with a result of Secure), DLV processing need
    not occur.
 
    When configured with a trust anchor for a DLV domain, a validator
-   SHOULD attempt to validate all responses at and below the target of
+   <em>SHOULD</em> attempt to validate all responses at and below the target of
    that DLV domain.
 
 
@@ -384,7 +384,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Details of Validator Behavior</span>
 
    As above, to minimize the load on the DLV domain's authoritative
-   servers as well as query response time, a validator SHOULD first
+   servers as well as query response time, a validator <em>SHOULD</em> first
    attempt validation using any applicable (non-DLV) trust anchors.  If
    the validation succeeds (with a result of Secure), DLV processing
    need not occur.
@@ -396,12 +396,12 @@ Table of Contents
    apex of the DLV domain, the validator removes the leading label from
    the name and tries again.  This process is repeated until a DLV RRset
    is found or it is proved that there is no enclosing DLV RRset
-   applicable to the QNAME.  In all cases, a validator SHOULD check its
+   applicable to the QNAME.  In all cases, a validator <em>SHOULD</em> check its
    cache for the desired DLV RRset before issuing a query.  <a href="#section-8">Section 8</a>
    discusses a slight optimization to this strategy.
 
    Having found the closest enclosing DLV RRset or received proof that
-   no applicable DLV RRset exists, the validator MUST validate the RRset
+   no applicable DLV RRset exists, the validator <em>MUST</em> validate the RRset
    or non-existence proof using the normal procedures in <a href="./rfc4035.html#section-5">Section&nbsp;5 of
    RFC 4035</a>.  In particular, any delegations within the DLV domain need
 
@@ -413,12 +413,12 @@ Table of Contents
 
 
    to be followed, with normal DNSSEC validation applied.  If validation
-   of the DLV RRset leads to a result of Bogus, then it MUST NOT be used
-   and the validation result for the original response SHOULD be Bogus,
+   of the DLV RRset leads to a result of Bogus, then it <em>MUST NOT</em> be used
+   and the validation result for the original response <em>SHOULD</em> be Bogus,
    also.  If validation of the DLV RRset leads to a result of Insecure
    (i.e., the DLV record is in an unsecured portion of the DLV domain),
-   then it MUST NOT be used and the validation result for the original
-   response SHOULD be Insecure, also.  (It should be very odd, indeed,
+   then it <em>MUST NOT</em> be used and the validation result for the original
+   response <em>SHOULD</em> be Insecure, also.  (It should be very odd, indeed,
    to find part of a DLV domain marked as Insecure: this is likely to
    happen only when there are delegations within the DLV domain and some
    portions of that domain use different cryptographic signing
@@ -427,13 +427,13 @@ Table of Contents
    DS RRset for the applicable zone and attempts validation using the
    procedures described in <a href="./rfc4035.html#section-5">Section&nbsp;5 of RFC 4035</a>.
 
-   In the interest of limiting complexity, validators SHOULD NOT attempt
+   In the interest of limiting complexity, validators <em>SHOULD NOT</em> attempt
    to use DLV to validate data from another DLV domain.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Aggressive Negative Caching</span>
 
    To minimize load on authoritative servers for DLV domains,
-   particularly those with few entries, DLV validators SHOULD implement
+   particularly those with few entries, DLV validators <em>SHOULD</em> implement
    aggressive negative caching, as defined in this section.
 
    Previously, cached negative responses were indexed by QNAME, QCLASS,
@@ -482,7 +482,7 @@ Table of Contents
 
    If a validator supports multiple DLV domains, the choice of
    precedence in case of overlap is left up to the implementation and
-   SHOULD be exposed as a configuration option to the user (as compared
+   <em>SHOULD</em> be exposed as a configuration option to the user (as compared
    to the choice of DLV records within each domain, a precedence for
    which is clearly specified in this document).  As a very simple
    default, a validator could give precedence to the most specific DLV
@@ -530,7 +530,7 @@ Table of Contents
    on DLV servers and improve validator response time.
 
    Authoritative servers, when processing a query for a DLV RRset,
-   SHOULD include all DLV RRsets potentially applicable to a query
+   <em>SHOULD</em> include all DLV RRsets potentially applicable to a query
    (specifically, all DLV RRsets applicable to the QNAME and any of its
    ancestors) in the Additional section of the response as well as NSEC
    records proving the non-existence of any other applicable DLV records
@@ -538,19 +538,19 @@ Table of Contents
    RRsets they're aware of -- RRsets in sub-zones may be omitted.
 
    Validators still seek out of the closest enclosing DLV RRset first.
-   If they receive any data about other DLV RRsets in the zone, they MAY
+   If they receive any data about other DLV RRsets in the zone, they <em>MAY</em>
    cache and use it (assuming that it validates), thus avoiding further
    round-trips to the DLV domain's authoritative servers.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Security Considerations</span>
 
-   Validators MUST NOT use a DLV record unless it has been successfully
+   Validators <em>MUST NOT</em> use a DLV record unless it has been successfully
    authenticated.  Normally, validators will have a trust anchor for the
    DLV domain and use DNSSEC to validate the data in it.
 
    Aggressive negative caching increases the need for validators to do
    some basic validation of incoming NSEC records before caching them.
-   In particular, the 'next name' field in the NSEC record MUST be
+   In particular, the 'next name' field in the NSEC record <em>MUST</em> be
    within the zone that generated (and signed) the NSEC.  Otherwise, a
    malicious zone operator could generate an NSEC that reaches out of
    its zone -- into its ancestor zones, even up into the root zone --
@@ -580,7 +580,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5074.html">RFC 5074</a>                          DLV                      November 2007</span>
 
 
-   As a reminder, validators MUST NOT use the mere presence of an RRSIG
+   As a reminder, validators <em>MUST NOT</em> use the mere presence of an RRSIG
    or apex DNSKEY RRset as a trigger for doing validation, whether
    through the normal DNSSEC hierarchy or DLV.  Otherwise, an attacker
    might perpetrate a downgrade attack by stripping off those RRSIGs or

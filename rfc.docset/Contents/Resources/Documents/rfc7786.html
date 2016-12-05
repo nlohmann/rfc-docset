@@ -366,8 +366,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Sender-Side Modifications</span>
@@ -375,8 +375,8 @@ Table of Contents
    This section gives an overview of actions that need to be taken by a
    TCP sender modified to use ConEx signaling.
 
-   In the TCP handshake, a ConEx sender MUST negotiate for SACK and ECN
-   preferably with AccECN feedback.  Therefore, a ConEx sender MUST also
+   In the TCP handshake, a ConEx sender <em>MUST</em> negotiate for SACK and ECN
+   preferably with AccECN feedback.  Therefore, a ConEx sender <em>MUST</em> also
    implement SACK and ECN.  Depending on the capability of the receiver,
    the following operation modes exist:
 
@@ -392,11 +392,11 @@ Table of Contents
 
    o  Basic-ConEx (neither SACK nor ECN)
 
-   A ConEx sender MUST expose all congestion information to the network
+   A ConEx sender <em>MUST</em> expose all congestion information to the network
    according to the congestion information received by ECN or based on
    loss information provided by the TCP feedback loop.  A TCP sender
-   SHOULD count congestion byte-wise (rather than packet-wise; see next
-   paragraph).  After any congestion notification, a sender MUST mark
+   <em>SHOULD</em> count congestion byte-wise (rather than packet-wise; see next
+   paragraph).  After any congestion notification, a sender <em>MUST</em> mark
    subsequent packets with the appropriate ConEx flag in the IP header.
    Furthermore, a ConEx sender must send enough credit to cover all
    experienced congestion for the connection so far, as well as the risk
@@ -447,14 +447,14 @@ Table of Contents
 
    Note that all bytes of an IP packet must be counted in the LEG or CEG
    to capture the right number of bytes that should be marked.
-   Therefore, the sender SHOULD take the payload and headers into
+   Therefore, the sender <em>SHOULD</em> take the payload and headers into
    account, up to and including the IP header.  However, in TCP the
    information regarding how large the headers of a lost or marked
    packet were is usually not available, as only payload data will be
    acknowledged.
 
    If equal-sized packets, or at least equally distributed packet sizes,
-   can be assumed, the sender MAY only add and subtract TCP payload
+   can be assumed, the sender <em>MAY</em> only add and subtract TCP payload
    bytes.  In this case, there should be about the same number of ConEx-
    Marked packets as the original packets that were causing the
    congestion.  Thus, both contain about the same number of header bytes
@@ -525,13 +525,13 @@ Table of Contents
 
 
    Further, to accommodate spurious retransmissions, a ConEx sender
-   SHOULD make use of heuristics to detect such spurious retransmissions
+   <em>SHOULD</em> make use of heuristics to detect such spurious retransmissions
    (e.g., F-RTO [<a href="./rfc5682.html" title="&quot;Forward RTO-Recovery (F-RTO): An Algorithm for Detecting Spurious Retransmission Timeouts with TCP&quot;">RFC5682</a>], DSACK [<a href="./rfc3708.html" title="&quot;Using TCP Duplicate Selective Acknowledgement (DSACKs) and Stream Control Transmission Protocol (SCTP) Duplicate Transmission Sequence Numbers (TSNs) to Detect Spurious Retransmissions&quot;">RFC3708</a>], and Eifel [<a href="./rfc3522.html" title="&quot;The Eifel Detection Algorithm for TCP&quot;">RFC3522</a>],
    [<a href="./rfc4015.html" title="&quot;The Eifel Response Algorithm for TCP&quot;">RFC4015</a>]), if already available in a given implementation.  If no
    mechanism for detecting spurious retransmissions is available, the
-   ConEx sender MAY chose to implement one of the mechanisms stated
+   ConEx sender <em>MAY</em> chose to implement one of the mechanisms stated
    above.  However, given the inaccuracy that ConEx may have anyway and
-   the timeliness of ConEx information, a ConEx MAY also chose not to
+   the timeliness of ConEx information, a ConEx <em>MAY</em> also chose not to
    compensate for spurious retransmission.  In this case, if spurious
    retransmissions occur, the ConEx sender has simply sent too many
    ConEx Signals which, e.g., would decrease the congestion allowance in
@@ -724,7 +724,7 @@ Table of Contents
    the ECE flag set whenever at least one CE mark was received by the
    receiver.  As the sender cannot estimate how many packets have
    actually been CE-marked during this RTT, the most conservative
-   assumption MAY be taken, namely assuming that all packets were
+   assumption <em>MAY</em> be taken, namely assuming that all packets were
    marked.  This can be achieved by increasing the CEG by DeliveredData
    for each ACK with the ECE flag:
 
@@ -749,20 +749,20 @@ Table of Contents
 
 
    the next ACK, ECN feedback information could get lost (depending on
-   the actual receiver implementation).  Thus, a sender SHOULD set CWR
+   the actual receiver implementation).  Thus, a sender <em>SHOULD</em> set CWR
    only on those data segments that will presumably trigger a (delayed)
    ACK.  The sender would need an additional control loop to estimate
    which data segments will trigger an ACK in order to extract more
-   timely congestion notifications.  Still, the CEG SHOULD be increased
+   timely congestion notifications.  Still, the CEG <em>SHOULD</em> be increased
    by DeliveredData, as one or more CE-marked packets could be
    acknowledged by one delayed ACK.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Setting the ConEx Flags</span>
 
    By setting the X flag, a packet is marked as ConEx-capable.  All
-   packets carrying payload MUST be marked with the X flag set,
+   packets carrying payload <em>MUST</em> be marked with the X flag set,
    including retransmissions.  Only if no congestion feedback
-   information is (currently) available, SHOULD the X flag be zero
+   information is (currently) available, <em>SHOULD</em> the X flag be zero
    (e.g., for control packets on a connection that has not sent any user
    data for some time and, therefore is sending only pure ACKs that are
    not carrying any payload).
@@ -778,18 +778,18 @@ Table of Contents
    decreases the LEG or CEG counter by the TCP payload bytes carried in
    the marked packet (assuming headers are not being counted because
    packet sizes are regular).  No matter how small the value of LEG or
-   CEG, if the value is positive the sender MUST NOT defer packet
+   CEG, if the value is positive the sender <em>MUST NOT</em> defer packet
    marking; this ensures that ConEx Signals are timely.  Therefore, the
    value of LEG and CEG will commonly be negative.
 
-   If both the LEG and CEG are positive, the sender MUST mark each
+   If both the LEG and CEG are positive, the sender <em>MUST</em> mark each
    ConEx-capable packet with both L and E.  If a credit signal is also
    pending (see the next section), the C flag can be set as well.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Setting the Credit Flag</span>
 
    The ConEx abstract mechanism [<a href="./rfc7713.html" title="&quot;Congestion Exposure (ConEx) Concepts, Abstract Mechanism, and Requirements&quot;">RFC7713</a>] requires that sufficient
-   credit MUST be signaled in advance to cover the expected congestion
+   credit <em>MUST</em> be signaled in advance to cover the expected congestion
    during the feedback delay of one RTT.
 
    To monitor the credit state at the audit, a ConEx sender needs to
@@ -924,14 +924,14 @@ Table of Contents
    = 0.01%).  Further, the penalty an audit induces should be
    proportional to the mismatch of expected ConEx marks and observed
    congestion, therefore the audit might only slightly increase the loss
-   level of this flow.  Therefore, an implementer MAY choose to ignore
+   level of this flow.  Therefore, an implementer <em>MAY</em> choose to ignore
    this problem, accepting instead the risk that an audit function might
    wrongly penalize a flow.
 
    Nonetheless, a ConEx sender is responsible for always signaling
-   sufficient congestion feedback, and therefore SHOULD remember which
+   sufficient congestion feedback, and therefore <em>SHOULD</em> remember which
    packet was marked with either the L, the E, or the C flag.  If one of
-   these packets is detected as lost, the sender SHOULD increase the
+   these packets is detected as lost, the sender <em>SHOULD</em> increase the
    respective gauge(s), LEG or CEG, by the number of lost payload bytes
    in addition to increasing LEG for the loss.
 
@@ -939,7 +939,7 @@ Table of Contents
 
    ConEx Signals will only be useful to a network node within a time
    delay of about one RTT after the congestion occurred.  To avoid
-   further delays, a ConEx sender SHOULD send the ConEx signaling on the
+   further delays, a ConEx sender <em>SHOULD</em> send the ConEx signaling on the
    next available packet.
 
    Any or all of the ConEx flags can be used in the same packet, which
@@ -959,7 +959,7 @@ Table of Contents
    the sender cannot help but delay ConEx Signals.  Nonetheless, as long
    as the sender is marking all outgoing packets, an audit function is
    unlikely to penalize ConEx-Marked packets.  Therefore, no matter how
-   long a gauge has been positive, a sender MUST NOT reduce the gauge by
+   long a gauge has been positive, a sender <em>MUST NOT</em> reduce the gauge by
    more than the ConEx-Marked bytes it has sent.
 
 
@@ -972,7 +972,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7786.html">RFC 7786</a>               TCP Modifications for ConEx              May 2016</span>
 
 
-   If the CEG or LEG counter is negative, the respective counter MAY be
+   If the CEG or LEG counter is negative, the respective counter <em>MAY</em> be
    reset to zero within one RTT after it was decreased the last time, or
    one RTT after recovery if no further congestion occurred.
 

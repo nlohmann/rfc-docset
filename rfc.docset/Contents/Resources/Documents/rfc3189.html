@@ -273,8 +273,8 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a> Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-8" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">8</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. DV format encoding</span>
@@ -327,13 +327,13 @@ Abstract
    Payload type (PT): The payload type is dynamically assigned by means
    outside the scope of this document.  If multiple DV encoding formats
    are to be used within one RTP session, then multiple dynamic payload
-   types MUST be assigned, one for each DV encoding format.  The sender
-   MUST change to the corresponding payload type whenever the encoding
+   types <em>MUST</em> be assigned, one for each DV encoding format.  The sender
+   <em>MUST</em> change to the corresponding payload type whenever the encoding
    format is changed.
 
    Timestamp: 32-bit 90 kHz timestamp representing the time at which the
    first data in the frame was sampled.  All RTP packets within the same
-   video frame MUST have the same timestamp.  The timestamp SHOULD
+   video frame <em>MUST</em> have the same timestamp.  The timestamp <em>SHOULD</em>
    increment by a multiple of the nominal interval for one frame time,
    as given in the following table:
 
@@ -355,7 +355,7 @@ Abstract
 
 
    When the DV stream is obtained from an IEEE 1394 interface, the
-   progress of video frame times MAY be monitored using the SYT
+   progress of video frame times <em>MAY</em> be monitored using the SYT
    timestamp carried in the CIP header as specified in IEC 61883 [<a href="#ref-2">2</a>].
 
    Marker bit (M): The marker bit of the RTP fixed header is set to one
@@ -363,9 +363,9 @@ Abstract
    The M bit allows the receiver to know that it has received the last
    packet of a frame so it can display the image without waiting for the
    first packet of the next frame to arrive to detect the frame change.
-   However, detection of a frame change MUST NOT rely on the marker bit
+   However, detection of a frame change <em>MUST NOT</em> rely on the marker bit
    since the last packet of the frame might be lost.  Detection of a
-   frame change MUST be based on a difference in the RTP timestamp.
+   frame change <em>MUST</em> be based on a difference in the RTP timestamp.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a> DV data encapsulation into RTP payload</span>
 
@@ -373,7 +373,7 @@ Abstract
    immediately after the RTP header.  Any number of DIF blocks may be
    packed into one RTP packet, except that all DIF blocks in one RTP
    packet must be from the same video frame.  DIF blocks from the next
-   video frame MUST NOT be packed into the same RTP packet even if more
+   video frame <em>MUST NOT</em> be packed into the same RTP packet even if more
    payload space remains.  This requirement stems from the fact that the
    transition from one video frame to the next is indicated by a change
    in the RTP timestamp.  It also reduces the processing complexity on
@@ -382,14 +382,14 @@ Abstract
    bytes.
 
    Audio and video data may be transmitted as one bundled RTP stream or
-   in separate RTP streams (unbundled).  The choice MUST be indicated as
-   part of the assignment of the dynamic payload type and MUST remain
+   in separate RTP streams (unbundled).  The choice <em>MUST</em> be indicated as
+   part of the assignment of the dynamic payload type and <em>MUST</em> remain
    unchanged for the duration of the RTP session to avoid complicated
-   procedures of sequence number synchronization.  The RTP sender MAY
+   procedures of sequence number synchronization.  The RTP sender <em>MAY</em>
    omit DIF-sequence header and subcode DIF blocks from a stream since
    the information is either known out-of-band or may not be required
    for RTP transport.  When sending DIF-sequence header and subcode DIF
-   blocks, both types of blocks MUST be included in the video stream.
+   blocks, both types of blocks <em>MUST</em> be included in the video stream.
 
    DV streams include "source" and "source control" packs that carry
    information indispensable for proper decoding, such as aspect ratio,
@@ -399,7 +399,7 @@ Abstract
    would require large descriptions to enumerate all the combinations.
    Therefore, no Session Description Protocol (SDP) [<a href="#ref-13" title="&quot;SDP: Session Description Protocol&quot;">13</a>] parameters for
    these attributes are defined in this document.  Instead, the RTP
-   sender MUST transmit at least those VAUX DIF blocks and/or audio DIF
+   sender <em>MUST</em> transmit at least those VAUX DIF blocks and/or audio DIF
    blocks with AAUX information bytes that include "source" and "source
    control" packs containing the indispensable information for decoding.
 
@@ -420,26 +420,26 @@ Abstract
    It is also possible to send audio duplicated in a separate stream, in
    addition to bundling it in with the video stream.
 
-   When using unbundled mode, it is RECOMMENDED that the audio stream
+   When using unbundled mode, it is <em>RECOMMENDED</em> that the audio stream
    data be extracted from the DIF blocks and repackaged into the
    corresponding RTP payload format for the audio encoding (DAT12, L16,
    L20) [<a href="#ref-11" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">11</a>,<a href="#ref-12" title="&quot;RTP Payload Format for 12-bit DAT Audio and 20- and 24-bit Linear Sampled Audio&quot;">12</a>] in order to maximize interoperability with non-DV-
    capable receivers while maintaining the original source quality.
 
    In the case of unbundled transmission where both audio and video are
-   sent in the DV format, the same timestamp SHOULD be used for both
+   sent in the DV format, the same timestamp <em>SHOULD</em> be used for both
    audio and video data within the same frame to simplify the lip
    synchronization effort on the receiver.  Lip synchronization may also
    be achieved using reference timestamps passed in RTCP as described in
    <a href="./rfc1889.html">RFC 1889</a> [<a href="#ref-6" title="&quot;RTP: A transport protocol for real-time applications&quot;">6</a>].
 
-   The sender MAY reduce the video frame rate by discarding the video
+   The sender <em>MAY</em> reduce the video frame rate by discarding the video
    data and VAUX DIF blocks for some of the video frames.  The RTP
    timestamp must still be incremented to account for the discarded
-   frames.  The sender MAY alternatively reduce bandwidth by discarding
+   frames.  The sender <em>MAY</em> alternatively reduce bandwidth by discarding
    video data DIF blocks for portions of the image which are unchanged
    from the previous image.  To enable this bandwidth reduction,
-   receivers SHOULD implement an error concealment strategy to
+   receivers <em>SHOULD</em> implement an error concealment strategy to
    accommodate lost or missing DIF blocks, e.g., repeating the
    corresponding DIF block from the previous image.
 
@@ -447,7 +447,7 @@ Abstract
 
    When using SDP (Session Description Protocol) [<a href="#ref-13" title="&quot;SDP: Session Description Protocol&quot;">13</a>] for negotiation of
    the RTP payload information, the format described in this document
-   SHOULD be used.  SDP descriptions will be slightly different for a
+   <em>SHOULD</em> be used.  SDP descriptions will be slightly different for a
    bundled stream and an unbundled stream.
 
    When a DV stream is sent to port 31394 using RTP payload type
@@ -506,7 +506,7 @@ Abstract
       bundled
       none     (default)
 
-   If the fmtp audio parameter is not present, then audio data MUST NOT
+   If the fmtp audio parameter is not present, then audio data <em>MUST NOT</em>
    be bundled into the DV video stream.
 
 

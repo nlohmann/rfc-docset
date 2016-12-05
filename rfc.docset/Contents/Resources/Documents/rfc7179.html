@@ -327,8 +327,8 @@ Table of Contents
    with the same meaning.  Devices implementing the TRILL protocol are
    referred to as RBridges (Routing Bridges) or TRILL Switches.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  TRILL Header Extensions</span>
@@ -373,14 +373,14 @@ Table of Contents
    o  both "critical" and "non-critical" flags.
 
    Any RBridge receiving a frame with a critical hop-by-hop extension
-   that it does not implement MUST discard the frame because it is
+   that it does not implement <em>MUST</em> discard the frame because it is
    unsafe to process the frame without understanding such a critical
    extension.
 
    Any egress RBridge receiving a frame with a critical ingress-to-
-   egress extension it does not implement MUST drop the frame if it is a
+   egress extension it does not implement <em>MUST</em> drop the frame if it is a
    unicast frame (TRILL Header M bit = 0); if it is a multi-destination
-   TRILL Data frame (M=1), then it MUST NOT be egressed at that RBridge,
+   TRILL Data frame (M=1), then it <em>MUST NOT</em> be egressed at that RBridge,
    but the egress RBridge still forwards such a frame on the
    distribution tree.
 
@@ -389,8 +389,8 @@ Table of Contents
    Any extended flag indicating a significant change in the structure or
    interpretation of later parts of the frame that, if the extended flag
    were ignored, could cause a failure of service or violation of
-   security policy MUST be a critical extension.  If such an extended
-   flag affects any fields that transit RBridges will examine, it MUST
+   security policy <em>MUST</em> be a critical extension.  If such an extended
+   flag affects any fields that transit RBridges will examine, it <em>MUST</em>
    be a hop-by-hop critical extended flag.
 
       Note: Most RBridge implementations are expected to be optimized
@@ -415,33 +415,33 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  RBridge Extended Flag Handling Requirements</span>
 
-   All RBridges MUST check whether there are any critical flags set that
+   All RBridges <em>MUST</em> check whether there are any critical flags set that
    are necessarily applicable to their processing of the frame.  To
    assist in this task, critical summary bits are provided that cover
    not only the extended flags specified herein but will cover any
    further extensions that may be specified in future documents, for
    example, [<a href="#ref-Options" title="&quot;RBridges: Further TRILL Header Extensions&quot;">Options</a>] and [<a href="#ref-Options2" title="&quot;RBridges: More Proposed TRILL Header Options&quot;">Options2</a>].  If an RBridge does not implement
-   all critical flags in a TRILL Data frame, it MUST treat the frame as
+   all critical flags in a TRILL Data frame, it <em>MUST</em> treat the frame as
    having an unimplemented critical extension as described in <a href="#section-2">Section 2</a>.
    A transit or egress RBridge may assume that the critical summary bits
    are correct.
 
    In addition, a transit RBridge:
 
-   o  MAY set or clear hop-by-hop flags as specified for such flags;
+   o  <em>MAY</em> set or clear hop-by-hop flags as specified for such flags;
 
-   o  MUST adjust the length of the extensions area, including changing
+   o  <em>MUST</em> adjust the length of the extensions area, including changing
       Op-Length in the TRILL Header, as appropriate if it adds or
       removes the extended header flags word;
 
-   o  MUST, if it adds the word of extended header flags or changes any
+   o  <em>MUST</em>, if it adds the word of extended header flags or changes any
       critical flags, correctly set the critical summary bits in the
       extended header flags word;
 
-   o  MUST NOT remove the extended header flags word unless it is all
+   o  <em>MUST NOT</em> remove the extended header flags word unless it is all
       zero (either on arrival or after permitted modifications); and
 
-   o  MUST NOT set or clear ingress-to-egress or reserved extended
+   o  <em>MUST NOT</em> set or clear ingress-to-egress or reserved extended
       header flags except as specifically permitted in the specification
       of such flags.
 
@@ -453,7 +453,7 @@ Table of Contents
    receive frames with that flag set.  An RBridge is not required to
    support any extensions.
 
-   An RBridge SHOULD NOT set a critical extended flag in a frame unless,
+   An RBridge <em>SHOULD NOT</em> set a critical extended flag in a frame unless,
 
    o  for a critical hop-by-hop extended header flag, it has determined
       that the next hop RBridge or RBridges that will accept the frame
@@ -478,7 +478,7 @@ Table of Contents
       has determined that those RBridges that will accept the frame
       support that flag.
 
-   "SHOULD NOT" is specified above since there may be cases where it is
+   "<em>SHOULD NOT</em>" is specified above since there may be cases where it is
    acceptable for those frames, particularly for the multi-destination
    case, to be discarded or not egressed by any RBridges that do not
    implement the extended flag.
@@ -495,7 +495,7 @@ Table of Contents
    first 32 bits to zero except when permitted or required to set one or
    more of those bits as specified.  For TRILL Data frames with
    extensions present, any transit RBridge that does not discard the
-   frame MUST transparently copy the extended flags word, except for
+   frame <em>MUST</em> transparently copy the extended flags word, except for
    modifications permitted by an extension implemented by that RBridge.
 
    The extended header flags word is illustrated below and the meanings
@@ -554,7 +554,7 @@ Table of Contents
       extensions after the first word in the extensions area.  Transit
       RBridges that do not support all of the critical hop-by-hop
       extensions present, for example, an RBridge that supported no
-      critical hop-by-hop extensions, MUST drop the frame.  If the CHbHS
+      critical hop-by-hop extensions, <em>MUST</em> drop the frame.  If the CHbHS
       bit is zero, the frame is safe, from the point of view of
       extensions processing, for a transit RBridge to forward,
       regardless of what extensions that RBridge does or does not
@@ -568,7 +568,7 @@ Table of Contents
       such extensions are present.  If either CHbHS or CItES is non-
       zero, egress RBridges that do not support all critical extensions
       present, for example, an RBridge that supports no critical
-      extensions, MUST drop the frame.  If both CHbHS and CItES are
+      extensions, <em>MUST</em> drop the frame.  If both CHbHS and CItES are
       zero, the frame is safe, from the point of view of extensions, for
       an egress RBridge to process, regardless of what extensions that
       RBridge does or does not support.
@@ -586,7 +586,7 @@ Table of Contents
       a class of RBridges to be specified in the future, for example,
       border RBridges in a TRILL campus extended to support multi-level
       IS-IS.  This class will be a subset of transit RBridges.  RBridges
-      in this class MUST drop frames with the CRSVS bit set unless they
+      in this class <em>MUST</em> drop frames with the CRSVS bit set unless they
       implement all critical hop-by-hop and all critical reserved
       extensions present in the frame.
 
@@ -611,7 +611,7 @@ Table of Contents
    limit implementation flexibility and could impose substantial
    processing burdens.
 
-   Conflicting extensions SHOULD NOT be defined, but if they are,
+   Conflicting extensions <em>SHOULD NOT</em> be defined, but if they are,
    careful thought should be given as to whether and how to specify the
    handling of conflicting extensions.
 
@@ -734,7 +734,7 @@ Table of Contents
    security considerations.  Implementations should keep in mind that
    they might be erroneously set in a frame.  If either RBridge Channel
    Alert flag is found set in a frame that is not an RBridge Channel
-   message [<a href="./rfc7178.html" title="&quot;Transparent Interconnection of Lots of Links (TRILL): RBridge Channel Support&quot;">RFC7178</a>], the flag MAY be cleared and should have no effect
+   message [<a href="./rfc7178.html" title="&quot;Transparent Interconnection of Lots of Links (TRILL): RBridge Channel Support&quot;">RFC7178</a>], the flag <em>MAY</em> be cleared and should have no effect
    except, possibly, delaying processing of the frame.  If either
    RBridge Channel Alert flag is erroneously omitted from a frame,
    desired per-hop processing for the frame may not occur.

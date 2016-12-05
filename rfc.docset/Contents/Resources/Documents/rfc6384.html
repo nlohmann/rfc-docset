@@ -374,8 +374,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Notational Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
@@ -440,9 +440,9 @@ Table of Contents
    from the client/server interaction over the control channel.  This
    needs to happen before the EPRT command can be translated into a PORT
    command and passed on to the server.  As such, an ALG used with a
-   stateful translator MUST support EPSV translation and MAY support
+   stateful translator <em>MUST</em> support EPSV translation and <em>MAY</em> support
    EPRT translation.  However, an ALG used with a stateless translator
-   MUST support EPSV translation and SHOULD also support EPRT
+   <em>MUST</em> support EPSV translation and <em>SHOULD</em> also support EPRT
    translation.
 
    The ALG functionality is described as a function separate from the
@@ -461,9 +461,9 @@ Table of Contents
    interactions, to the degree necessary to interpret commands and
    responses and re-issue those commands and responses, modifying them
    as outlined below.  Telnet option negotiation attempts by either the
-   client or the server, except for those allowed by [<a href="./rfc1123.html" title="&quot;Requirements for Internet Hosts - Application and Support&quot;">RFC1123</a>], MUST be
+   client or the server, except for those allowed by [<a href="./rfc1123.html" title="&quot;Requirements for Internet Hosts - Application and Support&quot;">RFC1123</a>], <em>MUST</em> be
    refused by the FTP ALG without relaying those attempts.  For the
-   purpose of Telnet option negotiation, an FTP ALG MUST follow the
+   purpose of Telnet option negotiation, an FTP ALG <em>MUST</em> follow the
    behavior of an FTP server as specified in [<a href="./rfc1123.html" title="&quot;Requirements for Internet Hosts - Application and Support&quot;">RFC1123</a>], <a href="#section-4.1.2.12">Section</a>
    <a href="#section-4.1.2.12">4.1.2.12</a>.  This avoids the situation where the client and the server
    negotiate Telnet options that are unimplemented by the FTP ALG.
@@ -488,7 +488,7 @@ Table of Contents
    As they ultimately provide the same result, either implementation
    strategy, or any other that is functionally equivalent, can be used.
 
-   In the second case, an implementation MUST have the ability to track
+   In the second case, an implementation <em>MUST</em> have the ability to track
    and update TCP sequence numbers when translating packets as well as
    the ability to break up packets into smaller packets after
    translation, as the control channel translation could modify the
@@ -499,7 +499,7 @@ Table of Contents
    commands and responses from multiple packets.
 
    Some FTP clients use the TCP urgent data feature when interrupting
-   transfers.  An ALG MUST either maintain the semantics of the urgent
+   transfers.  An ALG <em>MUST</em> either maintain the semantics of the urgent
    pointer when translating control channel interactions, even when
    crossing packet boundaries, or clear the URG bit in the TCP header.
 
@@ -532,22 +532,22 @@ Table of Contents
 <span class="grey"><a href="./rfc6384.html">RFC 6384</a>                 An IPv6-to-IPv4 FTP ALG            October 2011</span>
 
 
-   An ALG MUST adopt the first option and allow a client and a server to
+   An ALG <em>MUST</em> adopt the first option and allow a client and a server to
    negotiate security mechanisms.  To ensure consistent behavior, as
-   soon as the initial AUTH command is issued by the client, an ALG MUST
+   soon as the initial AUTH command is issued by the client, an ALG <em>MUST</em>
    stop translating commands and responses, and start transparently
    copying TCP data sent by the server to the client and vice versa.
-   The ALG SHOULD ignore the AUTH command and not go into transparent
+   The ALG <em>SHOULD</em> ignore the AUTH command and not go into transparent
    mode if the server response is in the 4xx or 5xx ranges.
 
    It is possible that commands or responses that were sent through the
    ALG before the AUTH command was issued were changed in length so TCP
    sequence numbers in packets entering the ALG and packets exiting the
-   ALG no longer match.  In transparent mode, the ALG MUST continue to
+   ALG no longer match.  In transparent mode, the ALG <em>MUST</em> continue to
    adjust sequence numbers if it was doing so before entering
    transparent mode as the result of the AUTH command.  The ALGS command
    (<a href="#section-11">Section 11</a>) can also be used to disable the ALG functionality, but
-   the control channel MUST then still be monitored for subsequent ALGS
+   the control channel <em>MUST</em> then still be monitored for subsequent ALGS
    commands that re-enable the ALG functionality.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Language Negotiation</span>
@@ -564,7 +564,7 @@ Table of Contents
    negotiate a language not supported by the ALG is unavoidable.  The
    proper behavior for an FTP ALG in this situation may be addressed in
    a future specification, as the same issue is present in IPv4-to-IPv4
-   FTP ALGs.  For the time being, ALG implementations MAY employ one of
+   FTP ALGs.  For the time being, ALG implementations <em>MAY</em> employ one of
    the following strategies regarding LANG negotiation:
 
    1.  Monitor LANG negotiation and send text in the negotiated language
@@ -589,17 +589,17 @@ Table of Contents
 
 
    In the first two cases, if a language is negotiated, text transmitted
-   by the client or the server MUST be assumed to be encoded in UTF-8
+   by the client or the server <em>MUST</em> be assumed to be encoded in UTF-8
    [<a href="./rfc3629.html" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">RFC3629</a>] rather than be limited to 7-bit ASCII.  An ALG that
-   implements the first or second option MUST translate and/or forward
+   implements the first or second option <em>MUST</em> translate and/or forward
    commands and responses containing UTF-8-encoded text when those
-   occur.  The ALG itself MUST NOT generate characters outside the 7-bit
+   occur.  The ALG itself <em>MUST NOT</em> generate characters outside the 7-bit
    ASCII range unless it implements the first option and a language was
    negotiated.
 
    Note that <a href="./rfc2640.html#section-3.1">Section&nbsp;3.1 of [RFC2640]</a> specifies new handling for spaces
    and the carriage return (CR) character in pathnames.  ALGs that do
-   not block LANG negotiation SHOULD comply with the specified rules for
+   not block LANG negotiation <em>SHOULD</em> comply with the specified rules for
    path handling.  Implementers should especially note that the NUL
    (%x00) character is used as an escape whenever a CR character occurs
    in a pathname.
@@ -607,8 +607,8 @@ Table of Contents
    In the sections that follow, a number of well-known response numbers
    are shown, along with the descriptive text that is associated with
    that response number.  However, this text is not part of the
-   specification of the response.  As such, implementations MAY use the
-   response text shown, or they MAY show a different response text for a
+   specification of the response.  As such, implementations <em>MAY</em> use the
+   response text shown, or they <em>MAY</em> show a different response text for a
    given response number.  Requirements language only applies to the
    response number.
 
@@ -617,9 +617,9 @@ Table of Contents
    Although many IPv4 FTP servers support the EPSV command, some servers
    react adversely to this command (see <a href="#section-1">Section 1</a> for examples), and
    there is no reliable way to detect in advance that this will happen.
-   As such, an FTP ALG SHOULD translate all occurrences of the EPSV
+   As such, an FTP ALG <em>SHOULD</em> translate all occurrences of the EPSV
    command issued by the client to the PASV command and reformat a 227
-   response as a corresponding 229 response.  However, an ALG MAY forego
+   response as a corresponding 229 response.  However, an ALG <em>MAY</em> forego
    EPSV to PASV translation if it has positive knowledge, either gained
    through administrative configuration or learned dynamically, that
    EPSV will be successful without translation to PASV.
@@ -644,12 +644,12 @@ Table of Contents
 <span class="grey"><a href="./rfc6384.html">RFC 6384</a>                 An IPv6-to-IPv4 FTP ALG            October 2011</span>
 
 
-   The ALG SHOULD ignore the IPv4 address in the server's 227 response.
+   The ALG <em>SHOULD</em> ignore the IPv4 address in the server's 227 response.
    This is the behavior that is exhibited by most clients and is needed
    to work with servers that include [<a href="./rfc1918.html" title="&quot;Address Allocation for Private Internets&quot;">RFC1918</a>] addresses in their 227
    responses.  However, if the 227 response contains an IPv4 address
    that does not match the destination of the control channel, the FTP
-   ALG MAY send a 425 response to the client instead of the 229
+   ALG <em>MAY</em> send a 425 response to the client instead of the 229
    response, for example:
 
       425 Can't open data connection
@@ -658,12 +658,12 @@ Table of Contents
    temporary condition.
 
    If the client issues an EPSV command with a numeric argument other
-   than 2, the ALG MUST NOT pass the command on to the server but rather
+   than 2, the ALG <em>MUST NOT</em> pass the command on to the server but rather
    respond with a 522 error, for example:
 
       522 Network protocol not supported
 
-   If the client issues EPSV ALL, the FTP ALG MUST NOT pass this command
+   If the client issues EPSV ALL, the FTP ALG <em>MUST NOT</em> pass this command
    to the server, but respond with a 504 error, for example:
 
       504 Command not implemented for that parameter
@@ -674,7 +674,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  EPRT to PORT Translation</span>
 
-   Should the IPv6 client issue an EPRT command, the FTP ALG MAY
+   Should the IPv6 client issue an EPRT command, the FTP ALG <em>MAY</em>
    translate this EPRT command to a PORT command.  The translation is
    different depending on whether the translator is a stateless one-to-
    one translator or a stateful one-to-many translator.
@@ -684,7 +684,7 @@ Table of Contents
    If the address specified in the EPRT command is the IPv6 address used
    by the client for the control channel session, then the FTP ALG
    reformats the EPRT command into a PORT command with the IPv4 address
-   that maps to the client's IPv6 address.  The port number MUST be
+   that maps to the client's IPv6 address.  The port number <em>MUST</em> be
    preserved for compatibility with stateless translators.  For
    instance, if the client with IPv6 address 2001:db8:2::31 issues the
    following EPRT command:
@@ -707,7 +707,7 @@ Table of Contents
 
    If the address specified in the EPRT command is an IPv4 address or an
    IPv6 address that is not the IPv6 address used by the client for the
-   control session, the ALG SHOULD NOT attempt any translation but pass
+   control session, the ALG <em>SHOULD NOT</em> attempt any translation but pass
    along the command unchanged.
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Stateful EPRT Translation</span>
@@ -722,12 +722,12 @@ Table of Contents
    mapping is created.  Initially, the mapping is such that either any
    transport address or the FTP server's IPv4 address with any port
    number is accepted as a source, but once the three-way handshake is
-   complete, the mapping SHOULD be narrowed to only match the negotiated
+   complete, the mapping <em>SHOULD</em> be narrowed to only match the negotiated
    TCP session.
 
    If the address specified in the EPRT command is an IPv4 address or an
    IPv6 address that is not the IPv6 address used by the client for the
-   control session, the ALG SHOULD NOT attempt any translation but pass
+   control session, the ALG <em>SHOULD NOT</em> attempt any translation but pass
    along the command unchanged.
 
    If the client with IPv6 address 2001:db8:2::31 issues the EPRT
@@ -761,7 +761,7 @@ Table of Contents
    as the source port for the control channel session.
 
    In the case of a stateless translator, this does not pose any
-   problems.  In the case of a stateful translator, the translator MAY
+   problems.  In the case of a stateful translator, the translator <em>MAY</em>
    accept incoming connection requests from the server on the IPv4 side
    if the transport addresses match that of an existing FTP control
    channel session, with the exception that the control channel session
@@ -769,7 +769,7 @@ Table of Contents
    set up towards the same transport address on the IPv6 side that is
    used for the matching FTP control channel session.
 
-   An ALG/translator MAY monitor the progress of FTP control channels
+   An ALG/translator <em>MAY</em> monitor the progress of FTP control channels
    and only attempt to perform a mapping when an FTP client has started
    a file transfer without issuing the EPSV, PASV, EPRT, or PORT
    commands.
@@ -782,7 +782,7 @@ Table of Contents
    made from the client to the server, while PORT reaffirms the default
    behavior where the server connects to the client.  As such, the
    behavior of an ALG is undefined when a client issues both PASV and
-   PORT.  Implementations SHOULD NOT try to detect the situation where
+   PORT.  Implementations <em>SHOULD NOT</em> try to detect the situation where
    both PASV and PORT commands are issued prior to a command that
    initiates a transfer, but rather, translate commands as they occur.
    So, if a client issues PASV, PASV is then translated to EPSV.  If
@@ -796,9 +796,9 @@ Table of Contents
    translate (because the command is not specified in this document, the
    command is not part of any FTP specification, the ALG functionality
    is disabled administratively for the command in question, or
-   translation does not apply for any other reason), the command MUST be
+   translation does not apply for any other reason), the command <em>MUST</em> be
    passed on to the server without modification, and the server response
-   MUST be passed on to the client without modification.  For example,
+   <em>MUST</em> be passed on to the client without modification.  For example,
    if the client issues the PASV command, this command is passed on to
    the server transparently, and the server's response is passed on to
    the client transparently.
@@ -814,10 +814,10 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  The ALGS Command</span>
 
-   ALGs MUST support the new ALGS (ALG status) command that allows
+   ALGs <em>MUST</em> support the new ALGS (ALG status) command that allows
    clients to query and set the ALG's status.  FTP servers (as opposed
-   to ALGs) MUST NOT perform any actions upon receiving the ALGS
-   command.  However, FTP servers MUST still send a response.  If FTP
+   to ALGs) <em>MUST NOT</em> perform any actions upon receiving the ALGS
+   command.  However, FTP servers <em>MUST</em> still send a response.  If FTP
    servers recognize the ALGS command, the best course of action would
    be to return a 202 response:
 
@@ -839,13 +839,13 @@ Table of Contents
 
    ALGS DISABLE64  The ALG is requested to disable translation.
 
-   The ALG MUST enable or disable EPSV to PASV translation as requested.
-   If EPRT to PORT translation is supported, ALGS ENABLE64 SHOULD enable
-   it, and ALGS DISABLE64 MUST disable it along with enabling or
+   The ALG <em>MUST</em> enable or disable EPSV to PASV translation as requested.
+   If EPRT to PORT translation is supported, ALGS ENABLE64 <em>SHOULD</em> enable
+   it, and ALGS DISABLE64 <em>MUST</em> disable it along with enabling or
    disabling EPSV to PASV translation, respectively.  If EPRT to PORT
    translation is not supported, ALGS ENABLE64 only enables EPSV to PASV
    translation.  After an ALGS command with any of the three supported
-   arguments, the ALG MUST return a 216 response indicating the type of
+   arguments, the ALG <em>MUST</em> return a 216 response indicating the type of
    translation that will be performed.
 
    216 NONE        Neither EPSV nor EPRT translation is performed.
@@ -856,7 +856,7 @@ Table of Contents
    216 EPSVEPRT    EPSV is translated to PASV; EPRT is translated to
                    PORT.
 
-   The translation type MAY be followed by a space and additional
+   The translation type <em>MAY</em> be followed by a space and additional
    descriptive text until end-of-line.  If the ALG is unable to set the
    requested translation mode, for instance, because of lack of certain
 
@@ -874,7 +874,7 @@ Table of Contents
 
    If there is no argument to the ALGS command, or the argument is not
    one of STATUS64, ENABLE64, or DISABLE64 (or an argument specified by
-   a supported newer document), a 504 or 502 error SHOULD be returned.
+   a supported newer document), a 504 or 502 error <em>SHOULD</em> be returned.
 
    The Augmented Backus-Naur Form (ABNF) notation (see [<a href="./rfc5234.html" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">RFC5234</a>]) of the
    ALGS command and its response are as follows:
@@ -892,22 +892,22 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-12" href="#section-12">12</a>.  Timeouts and Translating to NOOP</span>
 
-   Wherever possible, control channels SHOULD NOT time out while there
+   Wherever possible, control channels <em>SHOULD NOT</em> time out while there
    is an active data channel.  A timeout of at least 30 seconds is
-   RECOMMENDED for data channel mappings created by the FTP ALG that are
+   <em>RECOMMENDED</em> for data channel mappings created by the FTP ALG that are
    waiting for initial packets.
 
    Whenever a command from the client is not propagated to the server,
    the FTP ALG instead issues a NOOP command in order to keep the
    keepalive state between the client and the server synchronized.  The
-   response to the NOOP command MUST NOT be relayed back to the client.
-   An implementation MAY wait for the server to return the 200 response
+   response to the NOOP command <em>MUST NOT</em> be relayed back to the client.
+   An implementation <em>MAY</em> wait for the server to return the 200 response
    to the NOOP command and translate that 200 response into the response
    the ALG is required to return to the client.  This way, the ALG never
    has to create new packets to send to the client, but it can limit
    itself to modifying packets transmitted by the server.  If the server
    responds with something other than a 200 response to the NOOP
-   command, the ALG SHOULD tear down the control channel session and log
+   command, the ALG <em>SHOULD</em> tear down the control channel session and log
    an error.
 
 

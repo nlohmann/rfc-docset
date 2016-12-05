@@ -395,7 +395,7 @@ Table of Contents
    FTP protocol to be used with either SSL or TLS.  The actual protocol
    used will be decided by the negotiation of the protected session by
    the TLS/SSL layer.  This document will only refer to the TLS
-   protocol; however, it is understood that the Client and Server MAY
+   protocol; however, it is understood that the Client and Server <em>MAY</em>
    actually be using SSL if they are so configured.
 
    There are many ways in which these three protocols can be combined.
@@ -407,8 +407,8 @@ Table of Contents
    either party to impose their security requirements on the FTP
    session.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY" and "OPTIONAL" that
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>" and "<em>OPTIONAL</em>" that
    appear in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC-2119</a>].
 
@@ -457,18 +457,18 @@ Table of Contents
 
    The server listens on the normal FTP control port {FTP-PORT} and the
    session initiation is not secured at all.  Once the client wishes to
-   secure the session, the AUTH command is sent and the server MAY then
+   secure the session, the AUTH command is sent and the server <em>MAY</em> then
    allow TLS negotiation to take place.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Client Wants a Secured Session</span>
 
-   If a client wishes to attempt to secure a session, then it SHOULD, in
+   If a client wishes to attempt to secure a session, then it <em>SHOULD</em>, in
    accordance with [<a href="./rfc2228.html" title="&quot;FTP Security Extensions&quot;">RFC-2228</a>], send the AUTH command with the parameter
    requesting TLS {TLS-PARM} ('TLS').
 
    The client then needs to behave according to its policies depending
    on the response received from the server and also the result of the
-   TLS negotiation.  A client that receives an AUTH rejection MAY choose
+   TLS negotiation.  A client that receives an AUTH rejection <em>MAY</em> choose
    to continue with the session unprotected if it so desires.
 
 
@@ -495,7 +495,7 @@ Table of Contents
    The FTP protocol insists that a USER command be used to identify the
    entity attempting to use the ftp server.  Although the TLS
    negotiation may be providing authentication information, the USER
-   command MUST still be issued by the client.  However, it will be a
+   command <em>MUST</em> still be issued by the client.  However, it will be a
    server implementation issue to decide which credentials to accept and
    what consistency checks to make between the client cert used and the
    parameter on the USER command.
@@ -565,7 +565,7 @@ Table of Contents
    The FEAT command (introduced in [<a href="./rfc2389.html" title="&quot;Feature negotiation mechanism for the File Transfer Protocol&quot;">RFC-2389</a>]) allows servers with
    additional features to advertise these to a client by responding to
    the FEAT command.  If a server supports the FEAT command, then it
-   MUST advertise supported AUTH, PBSZ, and PROT commands in the reply,
+   <em>MUST</em> advertise supported AUTH, PBSZ, and PROT commands in the reply,
    as described in <a href="./rfc2389.html#section-3.2">section&nbsp;3.2 of [RFC-2389]</a>.  Additionally, the AUTH
    command should have a reply that identifies 'TLS' as one of the
    possible parameters to AUTH.  It is not necessary to identify the
@@ -629,8 +629,8 @@ Table of Contents
                    PASV host and is a client for the Data Connection to
                    server B.
 
-   For i) and ii), the FTP client MUST be the TLS client and the FTP
-   server MUST be the TLS server.
+   For i) and ii), the FTP client <em>MUST</em> be the TLS client and the FTP
+   server <em>MUST</em> be the TLS server.
 
    That is to say, it does not matter which side initiates the
    connection with a connect() call or which side reacts to the
@@ -662,9 +662,9 @@ Table of Contents
    and server to negotiate TLS on the control connection without
    altering the protection of the data channel.  To protect the data
    channel as well, the PBSZ command, followed by the PROT command
-   sequence, MUST be used.
+   sequence, <em>MUST</em> be used.
 
-   Note: The data connection state MAY be modified by the client issuing
+   Note: The data connection state <em>MAY</em> be modified by the client issuing
    the PROT command with the new desired level of data channel
    protection and the server replying in the affirmative.  This data
    channel protection negotiation can happen at any point in the session
@@ -681,7 +681,7 @@ Table of Contents
       negotiation of the security level of the data connection.  Once a
       PROT command has been issued by the client and accepted by the
       server returning the '200' reply, the security of subsequent data
-      connections MUST be at that level until another PROT command is
+      connections <em>MUST</em> be at that level until another PROT command is
       issued and accepted; the session ends and a REIN command is
       issued, or the security of the session (via an AUTH command) is
       re-negotiated.
@@ -690,8 +690,8 @@ Table of Contents
 
       Note: In line with [<a href="./rfc2228.html" title="&quot;FTP Security Extensions&quot;">RFC-2228</a>], there is no facility for securing
       the Data connection with an insecure Control connection.
-      Specifically, the PROT command MUST be preceded by a PBSZ command,
-      and a PBSZ command MUST be preceded by a successful security data
+      Specifically, the PROT command <em>MUST</em> be preceded by a PBSZ command,
+      and a PBSZ command <em>MUST</em> be preceded by a successful security data
       exchange (the TLS negotiation in this case).
 
 
@@ -743,7 +743,7 @@ Table of Contents
       This document also defines a data channel encapsulation mechanism
       for protected data buffers.  For FTP-TLS, which appears to the FTP
       application as a streaming protection mechanism, this is not
-      required.  Thus, the PBSZ command MUST still be issued, but must
+      required.  Thus, the PBSZ command <em>MUST</em> still be issued, but must
       have a parameter of '0' to indicate that no buffering is taking
       place and the data connection should not be encapsulated.
 
@@ -767,7 +767,7 @@ Table of Contents
 
    Initial Data Connection Security
 
-      The initial state of the data connection MUST be 'Clear' (this is
+      The initial state of the data connection <em>MUST</em> be 'Clear' (this is
       the behaviour as indicated by [<a href="./rfc2228.html" title="&quot;FTP Security Extensions&quot;">RFC-2228</a>]).
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  A Discussion of Negotiation Behaviour</span>
@@ -783,7 +783,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-10.1" href="#section-10.1">10.1</a>.  The Server's View of the Control Connection</span>
 
-   A server MAY have a policy statement somewhere that might:
+   A server <em>MAY</em> have a policy statement somewhere that might:
 
       - Deny any command before TLS is negotiated (this might cause
         problems if a SITE or some such command is required prior to
@@ -823,7 +823,7 @@ Table of Contents
          The TLS negotiation failed completely
 
             In this case, the control connection should still be in an
-            unprotected mode and the server SHOULD issue an unprotected
+            unprotected mode and the server <em>SHOULD</em> issue an unprotected
             '421' reply to end the session.
 
          The TLS negotiation completed successfully, but the server
@@ -832,14 +832,14 @@ Table of Contents
          to use the server).
 
             In this case, the control connection should still be in a
-            protected state, so the server MAY either continue to refuse
+            protected state, so the server <em>MAY</em> either continue to refuse
             to service commands or issue a protected '421' reply and
             close the connection.
 
          The TLS negotiation failed during the TLS handshake
 
             In this case, the control connection is in an unknown state
-            and the server SHOULD simply drop the control connection.
+            and the server <em>SHOULD</em> simply drop the control connection.
 
    The server code will be responsible for implementing the required
    policies and ensuring that the client is prevented from circumventing
@@ -870,7 +870,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4217.html">RFC 4217</a>                 Securing FTP with TLS              October 2005</span>
 
 
-   The server SHOULD only check the status of the data protection level
+   The server <em>SHOULD</em> only check the status of the data protection level
    (for options 3 and 4 above) on the actual command that will initiate
    the data transfer (and not on the PORT or PASV).  The following
    commands, defined in [<a href="./rfc959.html" title="&quot;File Transfer Protocol&quot;">RFC-959</a>], cause data connections to be opened
@@ -930,7 +930,7 @@ Table of Contents
 
    In most cases, it is likely that the client will be using TLS because
    the server would refuse to interact insecurely.  To allow for this,
-   clients SHOULD be flexible enough to manage the securing of a session
+   clients <em>SHOULD</em> be flexible enough to manage the securing of a session
    at the appropriate time and still allow the user/server policies to
    dictate exactly when during the session the security is negotiated.
 
@@ -940,15 +940,15 @@ Table of Contents
    inform the user should the server not support, or not be prepared to
    use, the required security levels.
 
-   Clients SHOULD be coded in such a manner as to allow the timing of
+   Clients <em>SHOULD</em> be coded in such a manner as to allow the timing of
    the AUTH, PBSZ, and PROT commands to be flexible and dictated by the
    server.  It is quite reasonable for a server to refuse certain
    commands prior to these commands.  Similarly, it is quite possible
    that a SITE or quoted command might be needed by a server prior to
-   the AUTH.  A client MUST allow a user to override the timing of these
+   the AUTH.  A client <em>MUST</em> allow a user to override the timing of these
    commands to suit a specific server.
 
-   For example, a client SHOULD NOT insist on sending the AUTH as the
+   For example, a client <em>SHOULD NOT</em> insist on sending the AUTH as the
    first command in a session, nor should it insist on issuing a
    PBSZ/PROT pair directly after the AUTH.  This may well be the default
    behaviour, but must be overridable by a user.
@@ -1389,14 +1389,14 @@ Table of Contents
          control connection is opened.  A USER command may be expected
          to follow.
 
-   When this command is processed by the server, the TLS session(s) MUST
+   When this command is processed by the server, the TLS session(s) <em>MUST</em>
    be cleared and the control and data connections revert to
-   unprotected, clear communications.  It MAY be acceptable to use
+   unprotected, clear communications.  It <em>MAY</em> be acceptable to use
    cached TLS sessions for subsequent connections, however, a server
-   MUST NOT mandate this.
+   <em>MUST NOT</em> mandate this.
 
    If the REIN command is being used to clear a TLS session, then the
-   reply to the REIN command MUST be sent in a protected session prior
+   reply to the REIN command <em>MUST</em> be sent in a protected session prior
    to the session(s) being cleared.
 
 <span class="h2"><a class="selflink" name="section-14" href="#section-14">14</a>.  Discussion of the STAT and ABOR Commands</span>
@@ -1418,8 +1418,8 @@ Table of Contents
       support the notion of Urgent data.
 
       When TLS is implemented as a security method in FTP, the server
-      SHOULD NOT rely on the use of SIGURG to process input on the
-      control channel during data transfers.  The client MUST send all
+      <em>SHOULD NOT</em> rely on the use of SIGURG to process input on the
+      control channel during data transfers.  The client <em>MUST</em> send all
       data, including Telnet commands, across the TLS session.
 
 
@@ -1579,10 +1579,10 @@ Table of Contents
 
    {TLS-PARM} - The parameter for the AUTH command to indicate that TLS
    is required.  To request the TLS protocol in accordance with this
-   document, the client MUST use 'TLS'
+   document, the client <em>MUST</em> use 'TLS'
 
       To maintain backward compatibility with older versions of this
-      document, the server SHOULD accept 'TLS-C' as a synonym for 'TLS'.
+      document, the server <em>SHOULD</em> accept 'TLS-C' as a synonym for 'TLS'.
 
       Note: [<a href="./rfc2228.html" title="&quot;FTP Security Extensions&quot;">RFC-2228</a>] states that these parameters are case-
       insensitive.

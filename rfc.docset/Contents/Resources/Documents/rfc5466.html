@@ -258,8 +258,8 @@ Table of Contents
    public (accessible to all logged-in users).  Both a private and a
    public filter with the same name can exist at the same time.  If both
    filter types with the same name exist, the FILTER SEARCH criterion
-   (see <a href="#section-3.1">Section 3.1</a>) MUST use the value of the private filter;
-   otherwise, it MUST use the value of the filter that exists.
+   (see <a href="#section-3.1">Section 3.1</a>) <em>MUST</em> use the value of the private filter;
+   otherwise, it <em>MUST</em> use the value of the filter that exists.
 
    Let us call a pair of filter name and filter type a "typed filter".
    Each typed filter can have a value (which is a valid IMAP SEARCH
@@ -268,7 +268,7 @@ Table of Contents
    creates or updates the value and/or the description of a typed
    filter.
 
-   Values of all search keys stored in a filter MUST be encoded in
+   Values of all search keys stored in a filter <em>MUST</em> be encoded in
    UTF-8.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
@@ -279,8 +279,8 @@ Table of Contents
    editorial clarity only and are not part of the actual protocol
    exchange.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Basic familiarity with the METADATA-SERVER extension [<a href="#ref-METADATA" title="&quot;The IMAP METADATA Extension&quot;">METADATA</a>] and
@@ -326,12 +326,12 @@ Table of Contents
    SMALLER 5000 FROM "boss@example.com"'.
 
    A reference to a nonexistent or unaccessible (e.g., due to access
-   control restrictions) filter MUST cause failure of the SEARCH command
+   control restrictions) filter <em>MUST</em> cause failure of the SEARCH command
    with the tagged NO response that includes the UNDEFINED-FILTER
    response code followed by the name of the nonexistent/unaccessible
    filter.
 
-   Note the server SHOULD verify that each search criterion referenced
+   Note the server <em>SHOULD</em> verify that each search criterion referenced
    by the FILTER search key is a full and correct search criterion.  For
    example, the server should fail the SEARCH command if its SEARCH
    criterion references a filter containing "OR SMALLER" search
@@ -339,11 +339,11 @@ Table of Contents
    not a fully specified search criterion.
 
    Note that a named filter itself can reference another filter using
-   the FILTER search-key.  Implementations MUST be able to perform at
+   the FILTER search-key.  Implementations <em>MUST</em> be able to perform at
    least 3 substitution passes on the SEARCH command criterion.  If an
-   implementation allows for more passes, it MUST implement some kind of
+   implementation allows for more passes, it <em>MUST</em> implement some kind of
    loop detection.  If an implementation detects a loop or still sees a
-   FILTER search-key after performing at least 3 substitutions, it MUST
+   FILTER search-key after performing at least 3 substitutions, it <em>MUST</em>
    behave as if the specified filter doesn't exist (as described above).
 
 
@@ -358,13 +358,13 @@ Table of Contents
    Note that use of the FILTER search key implies the CHARSET "UTF-8"
    parameter to the SEARCH/UID SEARCH command.  If the SEARCH/UID SEARCH
    command includes the explicit CHARSET parameter with the value other
-   than "UTF-8" or "US-ASCII", then such command MUST result in the
-   tagged BAD response from the server.  Such tagged response MUST
+   than "UTF-8" or "US-ASCII", then such command <em>MUST</em> result in the
+   tagged BAD response from the server.  Such tagged response <em>MUST</em>
    contain the BADCHARSET response code (see [<a href="./rfc3501.html" title="&quot;INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1&quot;">RFC3501</a>]).
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Managing Filters Using SETMETADATA/GETMETADATA Commands</span>
 
-   Any server compliant with this document MUST either implement the
+   Any server compliant with this document <em>MUST</em> either implement the
    METADATA-SERVER (or METADATA) [<a href="#ref-METADATA" title="&quot;The IMAP METADATA Extension&quot;">METADATA</a>] extension, or implement
    SETMETADATA/GETMETADATA commands described in [<a href="#ref-METADATA" title="&quot;The IMAP METADATA Extension&quot;">METADATA</a>] so that they
    work for the case of empty mailbox name (i.e., for managing server
@@ -378,14 +378,14 @@ Table of Contents
    conforming to ABNF for the "search-criteria" non-terminal.  A name of
    a filter is governed by the ABNF for the "filter-name" non-terminal.
 
-   Note that values of all search keys stored in these entries MUST be
+   Note that values of all search keys stored in these entries <em>MUST</em> be
    encoded in UTF-8.
 
    A new filter named "&lt;filter_name&gt;" can be created (or an existing
    filter can be modified) by storing a non-NIL value in the "/private/
    filters/values/&lt;filter_name&gt;" server entry (or in the "/shared/
    filters/values/&lt;filter_name&gt;") using the SETMETADATA [<a href="#ref-METADATA" title="&quot;The IMAP METADATA Extension&quot;">METADATA</a>]
-   command.  The server SHOULD verify that each search criterion stored
+   command.  The server <em>SHOULD</em> verify that each search criterion stored
    in such a server entry is a full and correct search criterion.
 
    A filter can be deleted by storing the NIL value in both the
@@ -413,7 +413,7 @@ Table of Contents
 
    If the server is unable to create a new typed filter because the
    maximum number of allowed filters has already been reached, the
-   server MUST return a tagged NO response with a "[METADATA TOOMANY]"
+   server <em>MUST</em> return a tagged NO response with a "[METADATA TOOMANY]"
    response code, as defined in [<a href="#ref-METADATA" title="&quot;The IMAP METADATA Extension&quot;">METADATA</a>].
 
            C: a007 SETMETADATA "" ("/private/filters/values/on-the-road"
@@ -425,7 +425,7 @@ Table of Contents
    that might not be recognized by another client that tries to present
    a user interface for editing a filter value.  In order to help other
    clients to (partially) parse filter values for editing purposes, a
-   client storing a filter value SHOULD use () around any SEARCH key not
+   client storing a filter value <em>SHOULD</em> use () around any SEARCH key not
    defined in [<a href="./rfc3501.html" title="&quot;INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1&quot;">RFC3501</a>].  For example, if there is an IMAP extension
    that defines a new x-dsfa SEARCH key that takes 2 parameters, then
    the following SEARCH criterion 'from "@example.com&gt;" x-dsfa from 5'
@@ -446,13 +446,13 @@ Table of Contents
    the value of the "/shared/filters/descriptions/&lt;filter_name&gt;" server
    annotation is used as the filter description.  In the absence of both
    the "/private/filters/descriptions/&lt;filter_name&gt;" and the "/shared/
-   filters/descriptions/&lt;filter_name&gt;" entries, the client MAY display
+   filters/descriptions/&lt;filter_name&gt;" entries, the client <em>MAY</em> display
    the name of the filter as its description.
 
-   The description string SHOULD be annotated with one or more language
+   The description string <em>SHOULD</em> be annotated with one or more language
    tags [<a href="./rfc4646.html" title="&quot;Tags for Identifying Languages&quot;">RFC4646</a>] as specified in Chapter 16.9 of [<a href="#ref-Unicode" title="&quot;The Unicode Standard 5.0&quot;">Unicode</a>].  In the
    absence of any language tag, the "i-default" [<a href="./rfc2277.html" title="&quot;IETF Policy on Character Sets and Languages&quot;">RFC2277</a>] language
-   SHOULD be assumed.  Description in multiple languages MAY be present
+   <em>SHOULD</em> be assumed.  Description in multiple languages <em>MAY</em> be present
    in a single description string.  This is done by concatenating
    descriptions in multiple languages into a single string, each
    description prefixed with its language tag, for example
@@ -480,7 +480,7 @@ Table of Contents
 
    Except as noted otherwise, all alphabetic characters are case-
    insensitive.  The use of upper or lower case characters to define
-   token strings is for editorial clarity only.  Implementations MUST
+   token strings is for editorial clarity only.  Implementations <em>MUST</em>
    accept these strings in a case-insensitive fashion.
 
    capability            =/ "FILTERS"
@@ -508,12 +508,12 @@ Table of Contents
    of-service attacks, especially if combined with poor implementations
    and lack of loop detection (i.e., detection of filters referencing
    each other to create a loop).  Servers that allow for anonymous
-   access SHOULD NOT allow anonymous users to create/edit/delete
+   access <em>SHOULD NOT</em> allow anonymous users to create/edit/delete
    filters.
 
    Also note that stored filters can potentially disclose personal
    information about users.  When confidentiality of such information is
-   important, clients MUST use TLS and/or SASL security layer (or
+   important, clients <em>MUST</em> use TLS and/or SASL security layer (or
    similar) as recommended in [<a href="./rfc3501.html" title="&quot;INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1&quot;">RFC3501</a>].  Also, clients should use
 
 

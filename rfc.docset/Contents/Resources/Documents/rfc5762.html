@@ -331,7 +331,7 @@ Table of Contents
    to the potential for congestion collapse of the network [<a href="#ref-15" title="&quot;IAB Concerns Regarding Congestion Control for Voice Traffic in the Internet&quot;">15</a>].  The
    designers of RTP recognised this issue, stating in <a href="./rfc3551.html">RFC 3551</a> that [<a href="#ref-4" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">4</a>]:
 
-      If best-effort service is being used, RTP receivers SHOULD monitor
+      If best-effort service is being used, RTP receivers <em>SHOULD</em> monitor
       packet loss to ensure that the packet loss rate is within
       acceptable parameters.  Packet loss is considered acceptable if a
       TCP flow across the same network path and experiencing the same
@@ -388,8 +388,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Conventions Used in This Memo</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-6" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">6</a>].
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  RTP over DCCP: Framing</span>
@@ -401,8 +401,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  RTP Data Packets</span>
 
-   Each RTP data packet MUST be conveyed in a single DCCP datagram.
-   Fields in the RTP header MUST be interpreted according to the RTP
+   Each RTP data packet <em>MUST</em> be conveyed in a single DCCP datagram.
+   Fields in the RTP header <em>MUST</em> be interpreted according to the RTP
    specification, and any applicable RTP Profile and Payload Format.
    Header processing is not affected by DCCP framing (in particular,
 
@@ -420,7 +420,7 @@ Table of Contents
 
    A DCCP connection is opened when an end system joins an RTP session,
    and it remains open for the duration of the session.  To ensure NAT
-   bindings are kept open, an end system SHOULD send a zero-length DCCP-
+   bindings are kept open, an end system <em>SHOULD</em> send a zero-length DCCP-
    Data packet once every 15 seconds during periods when it has no other
    data to send.  This removes the need for RTP no-op packets [<a href="#ref-18" title="&quot;A No-Op Payload Format for RTP&quot;">18</a>], and
    similar application-level keepalives, when using RTP over DCCP.  This
@@ -429,7 +429,7 @@ Table of Contents
    the application can determine that there are no NAT devices on the
    path.
 
-   RTP data packets MUST obey the dictates of DCCP congestion control.
+   RTP data packets <em>MUST</em> obey the dictates of DCCP congestion control.
    In some cases, the congestion control will require a sender to send
    at a rate below that which the payload format would otherwise use.
    To support this, an application could use either a rate-adaptive
@@ -439,7 +439,7 @@ Table of Contents
    memo (but see [<a href="#ref-19" title="&quot;Strategies for Streaming Media Applications Using TCP-Friendly Rate Control&quot;">19</a>] and [<a href="#ref-20" title="&quot;Datagram Congestion Control Protocol (DCCP) User Guide&quot;">20</a>] for guidance).
 
    RTP extensions that provide application-level congestion control
-   (e.g., [<a href="#ref-16" title="&quot;RTP with TCP Friendly Rate Control&quot;">16</a>]) will conflict with DCCP congestion control, and MUST NOT
+   (e.g., [<a href="#ref-16" title="&quot;RTP with TCP Friendly Rate Control&quot;">16</a>]) will conflict with DCCP congestion control, and <em>MUST NOT</em>
    be used.
 
    DCCP allows an application to choose the checksum coverage, using a
@@ -448,9 +448,9 @@ Table of Contents
    of this feature in conjunction with payload-specific mechanisms to
    improve performance when operating in environments with frequent non-
    congestive packet corruption.  If such a payload format is used, an
-   RTP end system MAY enable partial checksums at the DCCP layer, in
-   which case the checksum MUST cover at least the DCCP and RTP headers
-   to ensure packets are correctly delivered.  Partial checksums MUST
+   RTP end system <em>MAY</em> enable partial checksums at the DCCP layer, in
+   which case the checksum <em>MUST</em> cover at least the DCCP and RTP headers
+   to ensure packets are correctly delivered.  Partial checksums <em>MUST</em>
    NOT be used unless supported by mechanisms in the RTP payload format.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  RTP Control Packets</span>
@@ -471,7 +471,7 @@ Table of Contents
 
 
    The usual RTCP timing rules apply, with the additional constraint
-   that RTCP packets MUST obey the DCCP congestion control algorithm
+   that RTCP packets <em>MUST</em> obey the DCCP congestion control algorithm
    negotiated for the connection.  This can prevent a participant from
    sending an RTCP packet at the expiration of the RTCP transmission
    timer if there is insufficient network capacity available.  In such
@@ -488,7 +488,7 @@ Table of Contents
    however, the capacity of the DCCP connection is significantly below
    the nominal session bandwidth, RTCP packets may be delayed enough for
    participants to time out due to apparent inactivity.  In such cases,
-   the session parameters SHOULD be re-negotiated to more closely match
+   the session parameters <em>SHOULD</em> be re-negotiated to more closely match
    the available capacity, for example by performing a re-invite with an
    updated "b=" line when using the Session Initiation Protocol [<a href="#ref-22" title="&quot;SIP: Session Initiation Protocol&quot;">22</a>] for
    signalling.
@@ -511,7 +511,7 @@ Table of Contents
    does occur: most clearly between the Loss RLE Report Blocks defined
    as part of the RTCP Extended Reports [<a href="#ref-23" title="&quot;RTP Control Protocol Extended Reports (RTCP XR)&quot;">23</a>] and the DCCP Ack Vector
    option.  If there is overlap between RTCP report packets and DCCP
-   acknowledgements, an application SHOULD use either RTCP feedback or
+   acknowledgements, an application <em>SHOULD</em> use either RTCP feedback or
    DCCP acknowledgements, but not both (use of both types of feedback
    will waste available network capacity, but is not otherwise harmful).
 
@@ -534,7 +534,7 @@ Table of Contents
    it uses, since large telephony gateways can support more than 32768
    RTP flows between pairs of gateways, and so run out of UDP ports.  In
    addition, use of multiple ports complicates NAT traversal.  For these
-   reasons, it is RECOMMENDED that the RTP and RTCP traffic for a single
+   reasons, it is <em>RECOMMENDED</em> that the RTP and RTCP traffic for a single
    RTP session is multiplexed onto a single DCCP connection following
    the guidelines in [<a href="#ref-7" title="&quot;Multiplexing RTP Data and Control Packets on a Single Port&quot;">7</a>], where possible (it may not be possible in all
    circumstances, for example when translating from an RTP stream over a
@@ -543,13 +543,13 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  RTP Sessions and DCCP Connections</span>
 
-   An end system SHOULD NOT assume that it will observe only a single
+   An end system <em>SHOULD NOT</em> assume that it will observe only a single
    RTP synchronisation source (SSRC) because it is using DCCP framing.
    An RTP session can span any number of transport connections, and can
    include RTP mixers or translators bringing other participants into
    the session.  The use of a unicast DCCP connection does not imply
    that the RTP session will have only two participants, and RTP end
-   systems SHOULD assume that multiple synchronisation sources may be
+   systems <em>SHOULD</em> assume that multiple synchronisation sources may be
    observed when using RTP over DCCP, unless otherwise signalled.
 
    An RTP translator bridging multiple DCCP connections to form a single
@@ -596,14 +596,14 @@ Table of Contents
    o  An RTP profile that mandates a particular non-DCCP lower-layer
       transport will conflict with DCCP.
 
-   RTP profiles that fall under these exceptions SHOULD NOT be used with
+   RTP profiles that fall under these exceptions <em>SHOULD NOT</em> be used with
    DCCP unless the conflicting features can be disabled.
 
    Of the profiles currently defined, the RTP Profile for Audio and
    Video Conferences with Minimal Control [<a href="#ref-4" title="&quot;RTP Profile for Audio and Video Conferences with Minimal Control&quot;">4</a>], the Secure Real-time
    Transport Protocol [<a href="#ref-8" title="&quot;The Secure Real-time Transport Protocol (SRTP)&quot;">8</a>], the Extended RTP Profile for RTCP-based
    Feedback [<a href="#ref-9" title="&quot;Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF)&quot;">9</a>], and the Extended Secure RTP Profile for RTCP-based
-   Feedback [<a href="#ref-10" title="&quot;Extended Secure RTP Profile for Real- time Transport Control Protocol (RTCP)-Based Feedback (RTP/ SAVPF)&quot;">10</a>] MAY be used with DCCP (noting the potential conflict
+   Feedback [<a href="#ref-10" title="&quot;Extended Secure RTP Profile for Real- time Transport Control Protocol (RTCP)-Based Feedback (RTP/ SAVPF)&quot;">10</a>] <em>MAY</em> be used with DCCP (noting the potential conflict
    between DCCP partial checksums and the integrity protection provided
    by the secure RTP variants -- see <a href="#section-6">Section 6</a>).
 
@@ -647,12 +647,12 @@ Table of Contents
    The "DCCP" protocol identifier is similar to the "UDP" and "TCP"
    protocol identifiers and denotes the DCCP transport protocol [<a href="#ref-2" title="&quot;Datagram Congestion Control Protocol (DCCP)&quot;">2</a>], but
    not its upper-layer protocol.  An SDP "m=" line that specifies the
-   "DCCP" protocol MUST further qualify the application-layer protocol
+   "DCCP" protocol <em>MUST</em> further qualify the application-layer protocol
    using a "fmt" identifier (the "fmt" namespace is managed in the same
    manner as for the "UDP" protocol identifier).  A single DCCP port is
    used, as denoted by the port field in the media line.  The "DCCP"
-   protocol identifier MUST NOT be used to signal RTP sessions running
-   over DCCP; those sessions MUST use a protocol identifier of the form
+   protocol identifier <em>MUST NOT</em> be used to signal RTP sessions running
+   over DCCP; those sessions <em>MUST</em> use a protocol identifier of the form
    "DCCP/RTP/..." as described below.
 
    The "DCCP/RTP/AVP" protocol identifier refers to RTP using the RTP
@@ -670,21 +670,21 @@ Table of Contents
    DCCP.
 
    RTP payload formats used with the "DCCP/RTP/AVP", "DCCP/RTP/SAVP",
-   "DCCP/RTP/AVPF", and "DCCP/RTP/SAVPF" protocol identifiers MUST use
+   "DCCP/RTP/AVPF", and "DCCP/RTP/SAVPF" protocol identifiers <em>MUST</em> use
    the payload type number as their "fmt" value.  If the payload type
-   number is dynamically assigned, an additional "rtpmap" attribute MUST
+   number is dynamically assigned, an additional "rtpmap" attribute <em>MUST</em>
    be included to specify the format name and parameters as defined by
    the media type registration for the payload format.
 
    DCCP port 5004 is registered for use by the RTP profiles listed
-   above, and SHOULD be the default port chosen by applications using
+   above, and <em>SHOULD</em> be the default port chosen by applications using
    those profiles.  If multiple RTP sessions are active from a host,
-   even-numbered ports in the dynamic range SHOULD be used for the other
+   even-numbered ports in the dynamic range <em>SHOULD</em> be used for the other
    sessions.  If RTCP is to be sent on a separate DCCP connection to
-   RTP, the RTCP connection SHOULD use the next higher destination port
+   RTP, the RTCP connection <em>SHOULD</em> use the next higher destination port
    number, unless an alternative DCCP port is signalled using the
    "a=rtcp:" attribute [<a href="#ref-13" title="&quot;Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)&quot;">13</a>].  For improved interoperability, "a=rtcp:"
-   SHOULD be used whenever an alternate DCCP port is used.
+   <em>SHOULD</em> be used whenever an alternate DCCP port is used.
 
 
 
@@ -716,30 +716,30 @@ Table of Contents
    where DIGIT and HEXDIG are as defined in [<a href="#ref-14" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">14</a>].  The service code is
    interpreted as defined in Section 8.1.2 of [<a href="#ref-2" title="&quot;Datagram Congestion Control Protocol (DCCP)&quot;">2</a>] and may be specified
    using either the hexadecimal, decimal, or ASCII formats.  A parser
-   MUST interpret service codes according to their numeric value,
+   <em>MUST</em> interpret service codes according to their numeric value,
    independent of the format used to represent them in SDP.
 
    The following DCCP service codes are registered for use with RTP:
 
    o  SC:RTPA (equivalently SC=1381257281 or SC=x52545041): an RTP
-      session conveying audio data (and OPTIONAL multiplexed RTCP)
+      session conveying audio data (and <em>OPTIONAL</em> multiplexed RTCP)
 
    o  SC:RTPV (equivalently SC=1381257302 or SC=x52545056): an RTP
-      session conveying video data (and OPTIONAL multiplexed RTCP)
+      session conveying video data (and <em>OPTIONAL</em> multiplexed RTCP)
 
    o  SC:RTPT (equivalently SC=1381257300 or SC=x52545054): an RTP
-      session conveying text media (and OPTIONAL multiplexed RTCP)
+      session conveying text media (and <em>OPTIONAL</em> multiplexed RTCP)
 
    o  SC:RTPO (equivalently SC=1381257295 or SC=x5254504f): an RTP
-      session conveying any other type of media (and OPTIONAL
+      session conveying any other type of media (and <em>OPTIONAL</em>
       multiplexed RTCP)
 
    o  SC:RTCP (equivalently SC=1381253968 or SC=x52544350): an RTCP
       connection, separate from the corresponding RTP
 
-   To ease the job of middleboxes, applications SHOULD use these service
+   To ease the job of middleboxes, applications <em>SHOULD</em> use these service
    codes to identify RTP sessions running within DCCP.  The service code
-   SHOULD match the top-level media type signalled for the session
+   <em>SHOULD</em> match the top-level media type signalled for the session
 
 
 
@@ -761,12 +761,12 @@ Table of Contents
 
    The "a=setup:" attribute indicates which of the endpoints should
    initiate the DCCP connection establishment (i.e., send the initial
-   DCCP-Request packet).  The "a=setup:" attribute MUST be used in a
+   DCCP-Request packet).  The "a=setup:" attribute <em>MUST</em> be used in a
    manner comparable with [<a href="#ref-12" title="&quot;TCP-Based Media Transport in the Session Description Protocol (SDP)&quot;">12</a>], except that DCCP connections are being
    initiated rather than TCP connections.
 
    After the initial offer/answer exchange, the endpoints may decide to
-   re-negotiate various parameters.  The "a=connection:" attribute MUST
+   re-negotiate various parameters.  The "a=connection:" attribute <em>MUST</em>
    be used in a manner compatible with [<a href="#ref-12" title="&quot;TCP-Based Media Transport in the Session Description Protocol (SDP)&quot;">12</a>] to decide whether a new DCCP
    connection needs to be established as a result of subsequent offer/
    answer exchanges, or if the existing connection should still be used.
@@ -774,10 +774,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Multiplexing Data and Control</span>
 
    A single DCCP connection can be used to transport multiplexed RTP and
-   RTCP packets.  Such multiplexing MUST be signalled using an "a=rtcp-
+   RTCP packets.  Such multiplexing <em>MUST</em> be signalled using an "a=rtcp-
    mux" attribute according to [<a href="#ref-7" title="&quot;Multiplexing RTP Data and Control Packets on a Single Port&quot;">7</a>].  If multiplexed RTP and RTCP are not
-   to be used, then the "a=rtcp-mux" attribute MUST NOT be present in
-   the SDP offer, and a separate DCCP connection MUST be opened to
+   to be used, then the "a=rtcp-mux" attribute <em>MUST NOT</em> be present in
+   the SDP offer, and a separate DCCP connection <em>MUST</em> be opened to
    transport the RTCP data on a different DCCP port.
 
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  Example</span>
@@ -850,7 +850,7 @@ Table of Contents
    and RTCP packets.  Message authentication codes of the type used by
    these profiles cannot be used with partial checksums, since any bit
    error in the DCCP packet payload will cause the authentication check
-   to fail.  Accordingly, DCCP partial checksums SHOULD NOT be used in
+   to fail.  Accordingly, DCCP partial checksums <em>SHOULD NOT</em> be used in
    conjunction with Secure Real-time Transport Protocol (SRTP)
    authentication.  The confidentiality features of the basic RTP
    specification cannot be used with DCCP partial checksums, since bit
@@ -864,7 +864,7 @@ Table of Contents
 
    errors propagate.  Also, despite the fact that bit errors do not
    propagate when using AES in counter mode, the Secure RTP profiles
-   SHOULD NOT be used with DCCP partial checksums, since the profiles
+   <em>SHOULD NOT</em> be used with DCCP partial checksums, since the profiles
    require authentication for security, and authentication is
    incompatible with partial checksums.
 

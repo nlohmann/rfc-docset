@@ -367,13 +367,13 @@ Table of Contents
    The following language conventions are used in the items of
    specification in this document:
 
-   o    MUST, SHALL or MANDATORY -- the item is an absolute requirement
+   o    <em>MUST</em>, <em>SHALL</em> or MANDATORY -- the item is an absolute requirement
         of the specification.
 
-   o    SHOULD or RECOMMENDED -- the item should generally be followed
+   o    <em>SHOULD</em> or <em>RECOMMENDED</em> -- the item should generally be followed
         for all but exceptional circumstances.
 
-   o    MAY or OPTIONAL -- the item is truly optional and may be
+   o    <em>MAY</em> or <em>OPTIONAL</em> -- the item is truly optional and may be
         followed or ignored according to the needs of the implementor.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  General Overview</span>
@@ -427,7 +427,7 @@ Table of Contents
         o  No Self-Describing-Padding
 
    According to the rules specified in <a href="./rfc1661.html">RFC1661</a>, this means that an
-   implementation MUST accept reassembled packets with and without
+   implementation <em>MUST</em> accept reassembled packets with and without
    leading zeroes present in the Protocol Field of the reassembled
    packet.  Although it is explicitly forbidden below to include the
    Address and Control fields (usually, the two bytes FF 03) in the
@@ -443,23 +443,23 @@ Table of Contents
    a bundle persists.
 
    Of course, individual links are permitted to have different settings
-   for these options.  As described below, member links SHOULD negotiate
-   Self-Describing-Padding, even though pre-fragmented packets MUST NOT
+   for these options.  As described below, member links <em>SHOULD</em> negotiate
+   Self-Describing-Padding, even though pre-fragmented packets <em>MUST NOT</em>
    be padded.  Since the Protocol Field Compression mode on the member
    link allows a sending system to include a leading byte of zero or not
    at its discretion, this is an alternative mechanism for generating
    even-length packets.
 
    LCP negotiations are not permitted on the bundle itself.  An
-   implementation MUST NOT transmit LCP Configure-Request, -Reject,
+   implementation <em>MUST NOT</em> transmit LCP Configure-Request, -Reject,
    -Ack, -Nak, Terminate-Request or -Ack packets via the multilink
-   procedure, and an implementation receiving them MUST silently discard
+   procedure, and an implementation receiving them <em>MUST</em> silently discard
    them.  (By "silently discard" we mean to not generate any PPP packets
    in response; an implementation is free to generate a log entry
    registering the reception of the unexpected packet).  By contrast,
    other LCP packets having control functions not associated with
    changing the defaults for the bundle itself are permitted.  An
-   implementation MAY transmit LCP Code-Reject, Protocol-Reject, Echo-
+   implementation <em>MAY</em> transmit LCP Code-Reject, Protocol-Reject, Echo-
    Request, Echo-Reply and Discard-Request Packets.
 
 
@@ -566,7 +566,7 @@ Table of Contents
    PPP procedures, and large packets are broken up into multiple
    segments sized appropriately for the multiple physical links.
    Although it would otherwise be permitted by the PPP spec,
-   implementations MUST NOT include the Address and Control Field in the
+   implementations <em>MUST NOT</em> include the Address and Control Field in the
    logical entity to be fragmented.  A new PPP header consisting of the
    Multilink Protocol Identifier, and the Multilink header is inserted
    before each section.  (Thus the first fragment of a multilink packet
@@ -670,7 +670,7 @@ Table of Contents
    configuration option described below.
 
    Between the (E)nding fragment bit and the sequence number is a
-   reserved field, whose use is not currently defined, which MUST be set
+   reserved field, whose use is not currently defined, which <em>MUST</em> be set
    to zero.  It is 2 bits long when the use of short sequence numbers
    has been negotiated, 6 bits otherwise.
 
@@ -696,7 +696,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Padding Considerations</span>
 
-   Systems that support the multilink protocol SHOULD implement Self-
+   Systems that support the multilink protocol <em>SHOULD</em> implement Self-
    Describing-Padding.  A system that implements self-describing-padding
    by definition will either include the padding option in its initial
    LCP Configure-Requests, or (to avoid the delay of a Configure-Reject)
@@ -704,25 +704,25 @@ Table of Contents
    option.
 
    A system that must pad its own transmissions but does not use Self-
-   Describing-Padding when not using multilink, MAY continue to not use
+   Describing-Padding when not using multilink, <em>MAY</em> continue to not use
    Self-Describing-Padding if it ensures by careful choice of fragment
    lengths that only (E)nding fragments of packets are padded.  A system
-   MUST NOT add padding to any packet that cannot be recognized as
-   padded by the peer.  Non-terminal fragments MUST NOT be padded with
+   <em>MUST NOT</em> add padding to any packet that cannot be recognized as
+   padded by the peer.  Non-terminal fragments <em>MUST NOT</em> be padded with
    trailing material by any other method than Self-Describing-Padding.
 
-   A system MUST ensure that Self-Describing-Padding as described in <a href="./rfc1570.html">RFC</a>
+   A system <em>MUST</em> ensure that Self-Describing-Padding as described in <a href="./rfc1570.html">RFC</a>
    <a href="./rfc1570.html">1570</a> [<a href="#ref-11" title="&quot;PPP LCP Extensions&quot;">11</a>] is negotiated on the individual link before transmitting
    any multilink data packets if it might pad non-terminal fragments or
    if it would use network or compression protocols that are vulnerable
    to padding, as described in <a href="./rfc1570.html">RFC 1570</a>.  If necessary, the system that
-   adds padding MUST use LCP Configure-NAK's to elicit a Configure-
+   adds padding <em>MUST</em> use LCP Configure-NAK's to elicit a Configure-
    Request for Self-Describing-Padding from the peer.
 
    Note that LCP Configure-Requests can be sent at any time on any link,
    and that the peer will always respond with a Configure-Request of its
    own.  A system that pads its transmissions but uses no protocols
-   other than multilink that are vulnerable to padding MAY delay
+   other than multilink that are vulnerable to padding <em>MAY</em> delay
    ensuring that the peer has Configure-Requested Self-Describing-
    Padding until it seems desireable to negotiate the use of Multilink
    itself.  This permits the interoperability of a system that pads with
@@ -752,7 +752,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Detecting Fragment Loss</span>
 
-   On each member link in a bundle, the sender MUST transmit fragments
+   On each member link in a bundle, the sender <em>MUST</em> transmit fragments
    with strictly increasing sequence numbers (modulo the size of the
    sequence space).  This requirement supports a strategy for the
    receiver to detect lost fragments based on comparing sequence
@@ -761,10 +761,10 @@ Table of Contents
    contain an entire PPP packet, i.e., one in which both the (B)eginning
    and (E)nding bits are set.
 
-   An implementation MUST set the sequence number of the first fragment
+   An implementation <em>MUST</em> set the sequence number of the first fragment
    transmited on a newly-constructed bundle to zero.  (Joining a
    secondary link to an exisiting bundle is invisible to the protocol,
-   and an implementation MUST NOT reset the sequence number space in
+   and an implementation <em>MUST NOT</em> reset the sequence number space in
    this situation).
 
    The receiver keeps track of the incoming sequence numbers on each
@@ -783,12 +783,12 @@ Table of Contents
    sequence number rule over the bundle.  Any sequence number so
    detected is assumed to correspond to a fragment which has been lost.
 
-   An implementation MUST assume that if a fragment bears a (B)eginning
+   An implementation <em>MUST</em> assume that if a fragment bears a (B)eginning
    bit, that the previously numbered fragment bore an (E)nding bit.
    Thus if a packet is lost bearing the (E)nding bit, and the packet
    whose fragment number is M contains a (B)eginning bit, the
-   implementation MUST discard fragments for all unassembled packets
-   through M-1, but SHOULD NOT discard the fragment bearing the new
+   implementation <em>MUST</em> discard fragments for all unassembled packets
+   through M-1, but <em>SHOULD NOT</em> discard the fragment bearing the new
    (B)eginning bit on this basis alone.
 
    The detection of a lost fragment, whose sequence number was deduced
@@ -813,9 +813,9 @@ Table of Contents
    quality management facility, or the periodic issuance of LCP echo-
    requests could be used to achieve this.
 
-   Senders SHOULD avoid keeping any member links idle to maximize early
+   Senders <em>SHOULD</em> avoid keeping any member links idle to maximize early
    detection of lost fragments by the receiver, since the value of M is
-   not incremented on idle links.  Senders SHOULD rotate traffic among
+   not incremented on idle links.  Senders <em>SHOULD</em> rotate traffic among
    the member links if there isn't sufficient traffic to overflow the
    capacity of one link to avoid idle links.
 
@@ -829,7 +829,7 @@ Table of Contents
    about either wasting bandwidth or per packet costs are not required
    to send null fragments and may elect to defer sending them until a
    timer expires, with the marginally increased possibility of lengthier
-   stalls in the receiver.  The receiver SHOULD implement some type of
+   stalls in the receiver.  The receiver <em>SHOULD</em> implement some type of
    link idle timer to guard against indefinite stalls.
 
    The increasing sequence per link rule prohibits the reallocation of
@@ -875,16 +875,16 @@ Table of Contents
    fragment for each link (and will usually buffer up at least two) A
    receiver that allocates any less than S[1] + S[2] + ... + S[N] + F[1]
    + ... + F[N], will be at risk for incorrectly assuming packet loss,
-   and therefore, SHOULD allocate at least twice that.
+   and therefore, <em>SHOULD</em> allocate at least twice that.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  PPP Link Control Protocol Extensions</span>
 
    If reliable multilink operation is desired, PPP Reliable Transmission
-   [<a href="#ref-6" title="&quot;PPP Reliable Transmission&quot;">6</a>] (essentially the use of ISO LAPB) MUST be negotiated prior to the
+   [<a href="#ref-6" title="&quot;PPP Reliable Transmission&quot;">6</a>] (essentially the use of ISO LAPB) <em>MUST</em> be negotiated prior to the
    use of the Multilink Protocol on each member link.
 
    Whether or not reliable delivery is employed over member links, an
-   implementation MUST present a signal to the NCP's running over the
+   implementation <em>MUST</em> present a signal to the NCP's running over the
    multilink arrangement that a loss has occurred.
 
    Compression may be used separately on each member link, or run over
@@ -937,30 +937,30 @@ Table of Contents
 
    The Max-Receive-Reconstructed unit field is two octets, and specifies
    the maximum number of octets in the Information fields of reassembled
-   packets.  A system MUST be able to receive the full 1500 octet
-   Information field of any reassembled PPP packet although it MAY
+   packets.  A system <em>MUST</em> be able to receive the full 1500 octet
+   Information field of any reassembled PPP packet although it <em>MAY</em>
    attempt to negotiate a smaller, or larger value.  The number 1500
    here comes from the specification for the MRU LCP option in PPP; if
    this requirement is changed in a future version of <a href="./rfc1661.html">RFC 1661</a>, the same
    rules will apply here.
 
-   A system MUST include the LCP MRRU option in every LCP negotiation
+   A system <em>MUST</em> include the LCP MRRU option in every LCP negotiation
    intended to instantiate a bundle or to join an existing bundle.  If
    the LCP MRRU option is offered on a link which is intended to join an
-   existing bundle, a system MUST offer the same Max-Receive-
+   existing bundle, a system <em>MUST</em> offer the same Max-Receive-
    Reconstruct-Unit value previously negotiated for the bundle.
 
-   A system MUST NOT send any multilink packets on any link unless its
+   A system <em>MUST NOT</em> send any multilink packets on any link unless its
    peer has offered the MMRU LCP option and the system has configure-
    Ack'ed it during the most recent LCP negotiation on that link.  A
-   system MAY include the MMRU LCP option in a configure-NAK, if its
+   system <em>MAY</em> include the MMRU LCP option in a configure-NAK, if its
    peer has not offered it (until, according to PPP rules, the peer
    configure-Reject's it).
 
    Note: the MRRU value conveyed im this option corresponds to the MRU
    of the bundle when conceptualized as a PPP entity; but the rules for
    the Multilink MRRU option are different from the LCP MRU option, as
-   some value MUST be offered in every LCP negotiation, and that
+   some value <em>MUST</em> be offered in every LCP negotiation, and that
    confirmation of this option is required prior to multilink
    interpretation.
 
@@ -986,18 +986,18 @@ Table of Contents
 
    This option advises the peer that the implementation wishes to
    receive fragments with short, 12 bit sequence numbers.  When a peer
-   system configure-Ack's this option, it MUST transmit all multilink
+   system configure-Ack's this option, it <em>MUST</em> transmit all multilink
    packets on all links of the bundle with 12 bit sequence numbers or
    configure-Reject the option.  If 12 bit sequence numbers are desired,
-   this option MUST be negotiated when the bundle is instantiated, and
-   MUST be explicitly included in every LCP configure request offered by
+   this option <em>MUST</em> be negotiated when the bundle is instantiated, and
+   <em>MUST</em> be explicitly included in every LCP configure request offered by
    a system when the system intends to include that link in an existing
    bundle using 12 bit sequence numbers.  If this option is never
    negotiated during the life of a bundle, sequence numbers are 24 bits
    long.
 
    An implementation wishing to transmit multilink fragments with short
-   sequence numbers MAY include the multilink short sequence number in a
+   sequence numbers <em>MAY</em> include the multilink short sequence number in a
    configure-NAK to ask that the peer respond with a request to receive
    short sequence numbers.  The peer is not compelled to respond with
    the option.
@@ -1016,10 +1016,10 @@ Table of Contents
    system transmitting the packet.  This option advises a system that
    the peer on this link could be the same as the peer on another
    existing link.  If the option distinguishes this peer from all
-   others, a new bundle MUST be established from the link being
+   others, a new bundle <em>MUST</em> be established from the link being
    negotiated.  If this option matches the class and address of some
-   other peer of an existing link, the new link MUST be joined to the
-   bundle containing the link to the matching peer or MUST establish a
+   other peer of an existing link, the new link <em>MUST</em> be joined to the
+   bundle containing the link to the matching peer or <em>MUST</em> establish a
    new bundle, depending on the decision tree shown in (1) through (4)
    below.
 
@@ -1038,30 +1038,30 @@ Table of Contents
    This option is not required for multilink operation.  If a system
    does not receive the Multilink MRRU option, but does receive the
    Endpoint Discriminator Option, and there is no manual configuration
-   providing outside information, the implementation MUST NOT assume
+   providing outside information, the implementation <em>MUST NOT</em> assume
    that multilink operation is being requested on this basis alone.
 
    As there is also no requirement for authentication, there are four
    sets of scenarios:
 
    (1)  No authentication, no discriminator:
-        All new links MUST be joined to one bundle, unless
+        All new links <em>MUST</em> be joined to one bundle, unless
         there is manual configuration to the contrary.
         It is also permissible to have more than one manually
         configured bundle connecting two given systems.
 
    (2)  Discriminator, no authentication:
-        Discriminator match -&gt; MUST join matching bundle,
-        discriminator mismatch -&gt; MUST establish new bundle.
+        Discriminator match -&gt; <em>MUST</em> join matching bundle,
+        discriminator mismatch -&gt; <em>MUST</em> establish new bundle.
 
    (3)  No discriminator, authentication:
-        Authenticated match -&gt; MUST join matching bundle,
-        authenticated mismatch -&gt; MUST establish new bundle.
+        Authenticated match -&gt; <em>MUST</em> join matching bundle,
+        authenticated mismatch -&gt; <em>MUST</em> establish new bundle.
 
    (4)  Discriminator, authentication:
-        Discriminator match and authenticated match -&gt; MUST join bundle,
-        discriminator mismatch -&gt; MUST establish new bundle,
-        authenticated mismatch -&gt; MUST establish new bundle.
+        Discriminator match and authenticated match -&gt; <em>MUST</em> join bundle,
+        discriminator mismatch -&gt; <em>MUST</em> establish new bundle,
+        authenticated mismatch -&gt; <em>MUST</em> establish new bundle.
 
    The option contains a Class which selects an identifier address space
    and an Address which selects a unique identifier within the class
@@ -1090,10 +1090,10 @@ Table of Contents
 
    This option is not required to be supported either by the system or
    the peer.  If the option is not present in a Configure-Request, the
-   system MUST NOT generate a Configure-Nak of this option for any
-   reason; instead it SHOULD behave as if it had received the option
+   system <em>MUST NOT</em> generate a Configure-Nak of this option for any
+   reason; instead it <em>SHOULD</em> behave as if it had received the option
    with Class = 0, Address = 0.  If a system receives a Configure-Nak or
-   Configure-Reject of this option, it MUST remove it from any
+   Configure-Reject of this option, it <em>MUST</em> remove it from any
    additional Configure-Request.
 
    The size is determined from the Length field of the element.  For
@@ -1101,7 +1101,7 @@ Table of Contents
    The option is invalid if the Length field indicates a size below the
    minimum for the class.
 
-   An implementation MAY use the Endpoint Discriminator to locate
+   An implementation <em>MAY</em> use the Endpoint Discriminator to locate
    administration or authentication records in a local database.  Such
    use of this option is incidental to its purpose and is deprecated
    when a PPP Authentication protocol [<a href="#ref-3" title="&quot;PPP Authentication Protocols&quot;">3</a>] can be used instead.  Since
@@ -1185,8 +1185,8 @@ Table of Contents
              Content:
 
              An address in this class contains an IEEE 802.1 MAC address
-             in canonical (802.3) format [<a href="#ref-9" title="&quot;IEEE Local and Metropolitan Area Networks: Overview and Architecture&quot;">9</a>].  The address MUST have the
-             global/local assignment bit clear and MUST have the
+             in canonical (802.3) format [<a href="#ref-9" title="&quot;IEEE Local and Metropolitan Area Networks: Overview and Architecture&quot;">9</a>].  The address <em>MUST</em> have the
+             global/local assignment bit clear and <em>MUST</em> have the
              multicast/specific bit clear.  Locally assigned MAC
              addresses should be represented using Class 1.
 
@@ -1207,7 +1207,7 @@ Table of Contents
              This is not an address but a block of 1 to 5 concatenated
              32 bit PPP Magic-Numbers as defined in [<a href="#ref-2" title="&quot;The Point-to-Point Protocol (PPP)&quot;">2</a>].  This class
              provides for automatic generation of a value likely but not
-             guaranteed to be unique.  The same block MUST be used by an
+             guaranteed to be unique.  The same block <em>MUST</em> be used by an
              endpoint continuously during any period in which at least
              one link is in the LCP Open state.  The use of this class
              is deprecated.
@@ -1244,7 +1244,7 @@ Table of Contents
 
    When the use of the Multilink protocol has been negotiated on a link
    (say Y), and the link is being added to a bundle which currently
-   contains a single existing link (say X), a system MUST transmit a
+   contains a single existing link (say X), a system <em>MUST</em> transmit a
    Multilink-encapsulated packet on X before transmitting any Multilink-
 
 
@@ -1277,7 +1277,7 @@ Table of Contents
    So long as any member links in the bundle are active, the PPP state
    for the bundle persists as a separate entity.  However, if the there
    is a unique link in the bundle, and all the other links were closed
-   gracefully (with Terminate-Ack), an implementation MAY cease using
+   gracefully (with Terminate-Ack), an implementation <em>MAY</em> cease using
    multilink
    headers.
 

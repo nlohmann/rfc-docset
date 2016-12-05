@@ -349,13 +349,13 @@ Table of Contents
 
    This document talks about some known in-window attacks and suitable
    defenses against these.  The mitigations suggested in this document
-   SHOULD be implemented in devices that regularly need to maintain TCP
+   <em>SHOULD</em> be implemented in devices that regularly need to maintain TCP
    connections of the kind most vulnerable to the attacks described in
    this document.  Examples of such TCP connections are the ones that
    tend to be long-lived and where the connection endpoints can be
    determined, in cases where no auxiliary anti-spoofing protection
    mechanisms like TCP MD5 [<a href="./rfc2385.html" title="&quot;Protection of BGP Sessions via the TCP MD5 Signature Option&quot;">RFC2385</a>] can be deployed.  These mitigations
-   MAY be implemented in other cases.
+   <em>MAY</em> be implemented in other cases.
 
 
 
@@ -539,8 +539,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].  TCP
    terminology should be interpreted as described in [<a href="./rfc0793.html" title="&quot;Transmission Control Protocol&quot;">RFC0793</a>].
 
@@ -571,14 +571,14 @@ Table of Contents
    2) If the RST bit is set and the sequence number is acceptable, i.e.,
       (RCV.NXT &lt;= SEG.SEQ &lt; RCV.NXT+RCV.WND), then reset the connection.
 
-   Instead, implementations SHOULD implement the following steps in
+   Instead, implementations <em>SHOULD</em> implement the following steps in
    place of those specified in [<a href="./rfc0793.html" title="&quot;Transmission Control Protocol&quot;">RFC0793</a>] (as listed above).
 
    1) If the RST bit is set and the sequence number is outside the
       current receive window, silently drop the segment.
 
    2) If the RST bit is set and the sequence number exactly matches the
-      next expected sequence number (RCV.NXT), then TCP MUST reset the
+      next expected sequence number (RCV.NXT), then TCP <em>MUST</em> reset the
       connection.
 
 
@@ -595,12 +595,12 @@ Table of Contents
 
    3) If the RST bit is set and the sequence number does not exactly
       match the next expected sequence value, yet is within the current
-      receive window (RCV.NXT &lt; SEG.SEQ &lt; RCV.NXT+RCV.WND), TCP MUST
+      receive window (RCV.NXT &lt; SEG.SEQ &lt; RCV.NXT+RCV.WND), TCP <em>MUST</em>
       send an acknowledgment (challenge ACK):
 
       &lt;SEQ=SND.NXT&gt;&lt;ACK=RCV.NXT&gt;&lt;CTL=ACK&gt;
 
-      After sending the challenge ACK, TCP MUST drop the unacceptable
+      After sending the challenge ACK, TCP <em>MUST</em> drop the unacceptable
       segment and stop processing the incoming packet further.  Further
       segments destined to this connection will be processed as normal.
 
@@ -613,11 +613,11 @@ Table of Contents
    match the next expected sequence number but is within the window,
    then the receiver should generate an ACK.  In all other cases, where
    the SEQ-field does not match and is outside the window, the receiver
-   MUST silently discard the segment.
+   <em>MUST</em> silently discard the segment.
 
    In the SYN-SENT state (a RST received in response to an initial SYN),
    the RST is acceptable if the ACK field acknowledges the SYN.  In all
-   other cases the receiver MUST silently discard the segment.
+   other cases the receiver <em>MUST</em> silently discard the segment.
 
    With the above slight change to the TCP state machine, it becomes
    much harder for an attacker to generate an acceptable reset segment.
@@ -670,16 +670,16 @@ Table of Contents
       (RCV.NXT &lt;= SEG.SEQ &lt; RCV.NXT+RCV.WND), then send a RST segment to
       the sender.
 
-   Instead, the handling of the SYN in the synchronized state SHOULD be
+   Instead, the handling of the SYN in the synchronized state <em>SHOULD</em> be
    performed as follows:
 
    1) If the SYN bit is set, irrespective of the sequence number, TCP
-      MUST send an ACK (also referred to as challenge ACK) to the remote
+      <em>MUST</em> send an ACK (also referred to as challenge ACK) to the remote
       peer:
 
       &lt;SEQ=SND.NXT&gt;&lt;ACK=RCV.NXT&gt;&lt;CTL=ACK&gt;
 
-      After sending the acknowledgment, TCP MUST drop the unacceptable
+      After sending the acknowledgment, TCP <em>MUST</em> drop the unacceptable
       segment and stop processing further.
 
    By sending an ACK, the remote peer is challenged to confirm the loss
@@ -691,7 +691,7 @@ Table of Contents
 
    This RST will confirm that the remote peer has indeed closed the
    previous connection.  Upon receipt of a valid RST, the local TCP
-   endpoint MUST terminate its connection.  The local TCP endpoint
+   endpoint <em>MUST</em> terminate its connection.  The local TCP endpoint
    should then rely on SYN retransmission from the remote end to
    re-establish the connection.
 
@@ -789,12 +789,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Mitigation</span>
 
-   All TCP stacks MAY implement the following mitigation.  TCP stacks
-   that implement this mitigation MUST add an additional input check to
+   All TCP stacks <em>MAY</em> implement the following mitigation.  TCP stacks
+   that implement this mitigation <em>MUST</em> add an additional input check to
    any incoming segment.  The ACK value is considered acceptable only if
    it is in the range of ((SND.UNA - MAX.SND.WND) &lt;= SEG.ACK &lt;=
    SND.NXT).  All incoming segments whose ACK value doesn't satisfy the
-   above condition MUST be discarded and an ACK sent back.  It needs to
+   above condition <em>MUST</em> be discarded and an ACK sent back.  It needs to
    be noted that <a href="./rfc793.html">RFC 793</a> on page 72 (fifth check) says: "If the ACK is a
    duplicate (SEG.ACK &lt; SND.UNA), it can be ignored.  If the ACK
    acknowledges something not yet sent (SEG.ACK &gt; SND.NXT) then send an
@@ -842,8 +842,8 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Suggested Mitigation Strengths</span>
 
    As described in the above sections, recommendation levels for RST,
-   SYN, and DATA are tagged as SHOULD, SHOULD, and MAY, respectively.
-   The reason that DATA mitigation is tagged as MAY, even though it
+   SYN, and DATA are tagged as <em>SHOULD</em>, <em>SHOULD</em>, and <em>MAY</em>, respectively.
+   The reason that DATA mitigation is tagged as <em>MAY</em>, even though it
    increased the TCP robustness in general is because, the DATA
    injection is perceived to be more difficult (twice as unlikely) when
    compared to RST and SYN counterparts.  However, it needs to be noted
@@ -861,7 +861,7 @@ Table of Contents
       any 5 second window, no more than 10 challenge ACKs should be
       sent.
 
-   2) The values for both the time and number of ACKs SHOULD be tunable
+   2) The values for both the time and number of ACKs <em>SHOULD</em> be tunable
       by the system administrator to accommodate different perceived
       levels of threat and/or system resources.
 
@@ -879,7 +879,7 @@ Table of Contents
    implement the above mechanism, instead a timestamp and a counter can
    be used.
 
-   An implementation SHOULD include an ACK throttling mechanism to be
+   An implementation <em>SHOULD</em> include an ACK throttling mechanism to be
    conservative.  While we have not encountered a case where the lack of
    ACK throttling can be exploited, as a fail-safe mechanism we
    recommend its use.  An implementation may take an excessive number of
@@ -893,7 +893,7 @@ Table of Contents
    set a higher value thus allowing more RST's to be processed in any
    given time period.
 
-   The time limit SHOULD be tunable to help timeout brute force attacks
+   The time limit <em>SHOULD</em> be tunable to help timeout brute force attacks
    faster than a potential legitimate flood of RSTs.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Backward Compatibility and Other Considerations</span>

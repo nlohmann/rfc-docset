@@ -435,8 +435,8 @@ Table of Contents
    refers to the party who started the latest IKE_SA rekeying) is not
    used in this document.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Protocol Overview</span>
@@ -733,13 +733,13 @@ Table of Contents
    configuration and DNS.
 
    If either or both of the peers have multiple addresses, some
-   combinations may not work.  Thus, the initiator SHOULD try various
+   combinations may not work.  Thus, the initiator <em>SHOULD</em> try various
    source and destination address combinations when retransmitting the
    IKE_SA_INIT request.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Signaling Support for MOBIKE</span>
 
-   Implementations that wish to use MOBIKE for a particular IKE_SA MUST
+   Implementations that wish to use MOBIKE for a particular IKE_SA <em>MUST</em>
    include a MOBIKE_SUPPORTED notification in the IKE_AUTH exchange (in
    case of multiple IKE_AUTH exchanges, in the message containing the SA
    payload).
@@ -766,14 +766,14 @@ Table of Contents
    The addresses are taken from the IKE_AUTH request because IKEv2
    requires changing from port 500 to 4500 if a NAT is discovered.  To
    simplify things, implementations that support both this specification
-   and NAT Traversal MUST change to port 4500 if the correspondent also
+   and NAT Traversal <em>MUST</em> change to port 4500 if the correspondent also
    supports both, even if no NAT was detected between them (this way,
    there is no need to change the ports later if a NAT is detected on
    some other path).
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Additional Addresses</span>
 
-   Both the initiator and responder MAY include one or more
+   Both the initiator and responder <em>MAY</em> include one or more
    ADDITIONAL_IP4_ADDRESS and/or ADDITIONAL_IP6_ADDRESS notifications in
    the IKE_AUTH exchange (in case of multiple IKE_AUTH exchanges, in the
    message containing the SA payload).  Here "ADDITIONAL_*_ADDRESS"
@@ -824,7 +824,7 @@ Table of Contents
    responder will be incorrect.  This means the procedure for changing
    responder addresses described in <a href="#section-3.6">Section 3.6</a> does not fully work when
    the initiator is behind a NAT.  For the same reason, the peers also
-   SHOULD NOT use this information for any other purpose than what is
+   <em>SHOULD NOT</em> use this information for any other purpose than what is
    explicitly described either in this document or a future
    specification updating it.
 
@@ -841,8 +841,8 @@ Table of Contents
    information received from lower layers, such as changes in IP
    addresses or link-down indications.  Some of this information can be
    unreliable: for instance, ICMP messages could be spoofed by an
-   attacker.  Unreliable information SHOULD be treated only as a hint
-   that there might be a problem, and the initiator SHOULD trigger Dead
+   attacker.  Unreliable information <em>SHOULD</em> be treated only as a hint
+   that there might be a problem, and the initiator <em>SHOULD</em> trigger Dead
    Peer Detection (that is, send an INFORMATIONAL request) to determine
    if the current path is still usable.
 
@@ -990,7 +990,7 @@ Table of Contents
       the initiator processes the response as described in <a href="#section-3.9">Section 3.9</a>.
 
    o  If the response contains an UNACCEPTABLE_ADDRESSES notification,
-      the initiator MAY select another addresses and retry the exchange,
+      the initiator <em>MAY</em> select another addresses and retry the exchange,
       keep on using the previously used addresses, or disconnect.
 
    o  It updates the IPsec SAs associated with this IKE_SA with the new
@@ -1066,11 +1066,11 @@ Table of Contents
 
    o  Sends a response.
 
-   The initiator MAY include these notifications in the same request as
+   The initiator <em>MAY</em> include these notifications in the same request as
    UPDATE_SA_ADDRESSES.
 
    If the request to update the addresses is retransmitted using several
-   different source addresses, a new INFORMATIONAL request MUST be sent.
+   different source addresses, a new INFORMATIONAL request <em>MUST</em> be sent.
 
    There is one additional complication: when the responder wants to
    update the address set, the currently used addresses may no longer
@@ -1104,16 +1104,16 @@ Table of Contents
 
    Both parties can optionally verify that the other party can actually
    receive packets at the claimed address.  By default, this "return
-   routability check" SHOULD be performed.  In environments where the
+   routability check" <em>SHOULD</em> be performed.  In environments where the
    peer is expected to be well-behaved (many corporate VPNs, for
    instance), or the address can be verified by some other means (e.g.,
    a certificate issued by an authority trusted for this purpose), the
-   return routability check MAY be omitted.
+   return routability check <em>MAY</em> be omitted.
 
    The check can be done before updating the IPsec SAs, immediately
    after updating them, or continuously during the connection.  By
-   default, the return routability check SHOULD be done before updating
-   the IPsec SAs, but in some environments it MAY be postponed until
+   default, the return routability check <em>SHOULD</em> be done before updating
+   the IPsec SAs, but in some environments it <em>MAY</em> be postponed until
    after the IPsec SAs have been updated.
 
    Any INFORMATIONAL exchange can be used for return routability
@@ -1123,12 +1123,12 @@ Table of Contents
 
    To ensure that the peer cannot generate the correct INFORMATIONAL
    response without seeing the request, a new payload is added to
-   INFORMATIONAL messages.  The sender of an INFORMATIONAL request MAY
+   INFORMATIONAL messages.  The sender of an INFORMATIONAL request <em>MAY</em>
    include a COOKIE2 notification, and if included, the recipient of an
-   INFORMATIONAL request MUST copy the notification as-is to the
-   response.  When processing the response, the original sender MUST
+   INFORMATIONAL request <em>MUST</em> copy the notification as-is to the
+   response.  When processing the response, the original sender <em>MUST</em>
    verify that the value is the same one as sent.  If the values do not
-   match, the IKE_SA MUST be closed.  (See also <a href="#section-4.2.5">Section 4.2.5</a> for the
+   match, the IKE_SA <em>MUST</em> be closed.  (See also <a href="#section-4.2.5">Section 4.2.5</a> for the
    format of the COOKIE2 notification.)
 
 
@@ -1161,19 +1161,19 @@ Table of Contents
    the NAT box is rebooted).  More specifically, if both peers support
    both this specification and NAT Traversal, the
    NAT_DETECTION_SOURCE_IP and NAT_DETECTION_DESTINATION_IP
-   notifications MAY be included in any INFORMATIONAL request; if the
-   request includes them, the responder MUST also include them in the
+   notifications <em>MAY</em> be included in any INFORMATIONAL request; if the
+   request includes them, the responder <em>MUST</em> also include them in the
    response (but no other action is taken, unless otherwise specified).
 
    When the initiator is behind a NAT (as detected earlier using the
    NAT_DETECTION_SOURCE_IP and NAT_DETECTION_DESTINATION_IP
-   notifications), it SHOULD include these notifications in DPD messages
+   notifications), it <em>SHOULD</em> include these notifications in DPD messages
    and compare the received NAT_DETECTION_DESTINATION_IP notifications
    with the value from the previous UPDATE_SA_ADDRESSES response (or the
    IKE_SA_INIT response).  If the values do not match, the IP address
    and/or port seen by the responder has changed, and the initiator
-   SHOULD send UPDATE_SA_ADDRESSES as described in <a href="#section-3.5">Section 3.5</a>.  If the
-   initiator suspects that the NAT mapping has changed, it MAY also skip
+   <em>SHOULD</em> send UPDATE_SA_ADDRESSES as described in <a href="#section-3.5">Section 3.5</a>.  If the
+   initiator suspects that the NAT mapping has changed, it <em>MAY</em> also skip
    the detection step and send UPDATE_SA_ADDRESSES immediately.  This
    saves one roundtrip if the NAT mapping has indeed changed.
 
@@ -1186,8 +1186,8 @@ Table of Contents
    When MOBIKE is in use, the dynamic updates (specified in [<a href="#ref-IKEv2" title="&quot;Internet Key Exchange (IKEv2) Protocol&quot;">IKEv2</a>],
    Section 2.23), where the peer address and port are updated from the
    last valid authenticated packet, work in a slightly different
-   fashion.  The host not behind a NAT MUST NOT use these dynamic
-   updates for IKEv2 packets, but MAY use them for ESP packets.  This
+   fashion.  The host not behind a NAT <em>MUST NOT</em> use these dynamic
+   updates for IKEv2 packets, but <em>MAY</em> use them for ESP packets.  This
    ensures that an INFORMATIONAL exchange that does not contain
    UPDATE_SA_ADDRESSES does not cause any changes, allowing it to be
    used for, e.g., testing whether a particular path works.
@@ -1223,8 +1223,8 @@ Table of Contents
    SAs (the first IKE_AUTH request and all INFORMATIONAL requests that
    contain any of the following notifications: UPDATE_SA_ADDRESSES,
    ADDITIONAL_IP4_ADDRESS, ADDITIONAL_IP6_ADDRESS,
-   NO_ADDITIONAL_ADDRESSES) MUST also include a NO_NATS_ALLOWED
-   notification.  The exchange responder MUST verify that the contents
+   NO_ADDITIONAL_ADDRESSES) <em>MUST</em> also include a NO_NATS_ALLOWED
+   notification.  The exchange responder <em>MUST</em> verify that the contents
    of the NO_NATS_ALLOWED notification match the addresses in the IP
    header.  If they do not match, a response containing an
    UNEXPECTED_NAT_DETECTED notification is sent.  The response message
@@ -1233,10 +1233,10 @@ Table of Contents
    notification.
 
    If the exchange initiator receives an UNEXPECTED_NAT_DETECTED
-   notification in response to its INFORMATIONAL request, it SHOULD
+   notification in response to its INFORMATIONAL request, it <em>SHOULD</em>
    retry the operation several times using new INFORMATIONAL requests.
    Similarly, if the initiator receives UNEXPECTED_NAT_DETECTED in the
-   IKE_AUTH exchange, it SHOULD retry IKE_SA establishment several
+   IKE_AUTH exchange, it <em>SHOULD</em> retry IKE_SA establishment several
    times, starting from a new IKE_SA_INIT request.  This ensures that an
    attacker who is able to modify only a single packet does not
    unnecessarily cause a path to remain unused.  The exact number of
@@ -1257,7 +1257,7 @@ Table of Contents
 
 
    If an UNEXPECTED_NAT_DETECTED notification is sent, the exchange
-   responder MUST NOT use the contents of the NO_NATS_ALLOWED
+   responder <em>MUST NOT</em> use the contents of the NO_NATS_ALLOWED
    notification for any other purpose than possibly logging the
    information for troubleshooting purposes.
 
@@ -1270,7 +1270,7 @@ Table of Contents
 
    If required by its address selection policy, the initiator can use
    normal IKEv2 INFORMATIONAL request/response messages to test whether
-   a certain path works.  Implementations MAY do path testing even if
+   a certain path works.  Implementations <em>MAY</em> do path testing even if
    the path currently being used is working to, for example, detect when
    a better (but previously unavailable) path becomes available.
 
@@ -1280,7 +1280,7 @@ Table of Contents
    from most failures.
 
    To give the initiator enough time to detect the error, the responder
-   SHOULD use relatively long timeout intervals when, for instance,
+   <em>SHOULD</em> use relatively long timeout intervals when, for instance,
    retransmitting IKEv2 requests or deciding whether to initiate Dead
    Peer Detection.  While no specific timeout lengths are required, it
    is suggested that responders continue retransmitting IKEv2 requests
@@ -1293,9 +1293,9 @@ Table of Contents
    peer is alive, but also that it is synchronized with the address
    updates and has not, for instance, ignored an address update due to
    failure to complete return routability test.  This means that when
-   there are incoming IPsec packets, MOBIKE nodes SHOULD inspect the
+   there are incoming IPsec packets, MOBIKE nodes <em>SHOULD</em> inspect the
    addresses used in those packets and determine that they correspond to
-   those that should be employed.  If they do not, such packets SHOULD
+   those that should be employed.  If they do not, such packets <em>SHOULD</em>
    NOT be used as evidence that the peer is able to communicate with
    this node and or that the peer has received all address updates.
 
@@ -1349,8 +1349,8 @@ Table of Contents
 
    The Notify Message Type for MOBIKE_SUPPORTED is 16396.  The Protocol
    ID and SPI Size fields are set to zero.  The notification data field
-   MUST be left empty (zero-length) when sending, and its contents (if
-   any) MUST be ignored when this notification is received.  This allows
+   <em>MUST</em> be left empty (zero-length) when sending, and its contents (if
+   any) <em>MUST</em> be ignored when this notification is received.  This allows
    the field to be used by future versions of this protocol.
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  ADDITIONAL_IP4_ADDRESS and ADDITIONAL_IP6_ADDRESS Notify</span>
@@ -1397,13 +1397,13 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.5" href="#section-4.2.5">4.2.5</a>.  COOKIE2 Notify Payload</span>
 
-   This notification MAY be included in any INFORMATIONAL request for
+   This notification <em>MAY</em> be included in any INFORMATIONAL request for
    return routability check purposes (see <a href="#section-3.7">Section 3.7</a>).  If the
-   INFORMATIONAL request includes COOKIE2, the exchange responder MUST
+   INFORMATIONAL request includes COOKIE2, the exchange responder <em>MUST</em>
    copy the notification to the response message.
 
-   The data associated with this notification MUST be between 8 and 64
-   octets in length (inclusive), and MUST be chosen by the exchange
+   The data associated with this notification <em>MUST</em> be between 8 and 64
+   octets in length (inclusive), and <em>MUST</em> be chosen by the exchange
    initiator in a way that is unpredictable to the exchange responder.
    The Notify Message Type for this message is 16401.  The Protocol ID
    and SPI Size fields are set to zero.
@@ -1629,7 +1629,7 @@ Table of Contents
    The duration of the attack can also be limited if the victim reports
    the unwanted traffic to the originating IPsec tunnel endpoint using
    ICMP error messages or INVALID_SPI notifications.  As described in
-   [<a href="#ref-IKEv2" title="&quot;Internet Key Exchange (IKEv2) Protocol&quot;">IKEv2</a>], Section 2.21, this SHOULD trigger a liveness test, which
+   [<a href="#ref-IKEv2" title="&quot;Internet Key Exchange (IKEv2) Protocol&quot;">IKEv2</a>], Section 2.21, this <em>SHOULD</em> trigger a liveness test, which
    also doubles as a return routability check if the COOKIE2
    notification is included.
 

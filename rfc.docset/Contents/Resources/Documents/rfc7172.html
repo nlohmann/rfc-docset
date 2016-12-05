@@ -408,7 +408,7 @@ Table of Contents
    advertise interest in one or more fine-grained labels in its
    contribution to the link state (its LSP).  If any VL RBridges remain
    at the point when any RBridge announces that it might source or sink
-   FGL traffic, the adjacent FGL-safe RBridges MUST ensure that no FGL
+   FGL traffic, the adjacent FGL-safe RBridges <em>MUST</em> ensure that no FGL
    packets are forwarded to their VL RBridge neighbor(s).  The details
    are specified in <a href="#section-5.1">Section 5.1</a> below.
 
@@ -452,8 +452,8 @@ Table of Contents
 
       VL RBridge - A TRILL switch that supports VL but is not FGL-safe.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Contributors</span>
@@ -622,10 +622,10 @@ Table of Contents
                        Figure 2: TRILL Data with FGL
 
    For FGL packets, the inner Media Access Control (MAC) address fields
-   are followed by the FGL information using 0x893B.  There MUST be two
+   are followed by the FGL information using 0x893B.  There <em>MUST</em> be two
    occurrences of 0x893B, as shown.  Should a TRILL switch processing an
    FGL TRILL Data packet notice that the second occurrence is actually
-   some other value, it MUST discard the packet.  (A TRILL switch
+   some other value, it <em>MUST</em> discard the packet.  (A TRILL switch
    transiting a TRILL Data packet is not required to examine any fields
    past the initial fixed fields and options, although it may do so to
    support Equal-Cost Multi-Path (ECMP) or distribution tree pruning.)
@@ -777,31 +777,31 @@ Table of Contents
 
    FGL-edge TRILL switches support configurable per-port mapping from
    the C-VLAN of a native frame, as reported by the ingress port, to an
-   FGL.  FGL TRILL switches MAY support other methods to determine the
+   FGL.  FGL TRILL switches <em>MAY</em> support other methods to determine the
    FGL of an incoming native frame, such as methods based on the
    protocol of the native frame or based on local knowledge.
 
-   The FGL ingress process MUST copy the priority and DEI (Drop
+   The FGL ingress process <em>MUST</em> copy the priority and DEI (Drop
    Eligibility Indicator) associated with an ingressed native frame to
-   the upper 4 bits of the Inner.Label Low Order part.  It SHOULD also
+   the upper 4 bits of the Inner.Label Low Order part.  It <em>SHOULD</em> also
    associate a possibly different mapped priority and DEI with an
    ingressed frame, but a TRILL switch might not be able to do so
    because of implementation limitations.  The mapped priority is placed
    in the Inner.Label High Part.  If such mapping is not supported, then
-   the original priority and DEI MUST be placed in the Inner.Label
+   the original priority and DEI <em>MUST</em> be placed in the Inner.Label
    High Part.
 
 <span class="h4"><a class="selflink" name="section-4.1.1" href="#section-4.1.1">4.1.1</a>.  Multi-Destination FGL Ingress</span>
 
    If a native frame that has a broadcast, multicast, or unknown MAC
-   destination address is FGL ingressed, it MUST be handled in one of
+   destination address is FGL ingressed, it <em>MUST</em> be handled in one of
    the following two ways.  The choice of which method to use can vary
    from frame to frame, at the choice of the ingress TRILL switch.
 
    1. Ingress as a TRILL multi-destination data packet (TRILL Header M
       bit = 1) on a distribution tree rooted at a nickname held by an
       FGL RBridge or by the pseudonode of an FGL link.  FGL TRILL Data
-      packets MUST NOT be sent on a tree rooted at a nickname held by a
+      packets <em>MUST NOT</em> be sent on a tree rooted at a nickname held by a
       VL TRILL switch or by the pseudonode of a VL link.
 
 
@@ -816,11 +816,11 @@ Table of Contents
 
    2. Serially TRILL unicast the ingressed frame to the relevant egress
       TRILL switches by using a known unicast TRILL Header (M bit = 0).
-      An FGL ingress TRILL switch SHOULD unicast a multi-destination
+      An FGL ingress TRILL switch <em>SHOULD</em> unicast a multi-destination
       TRILL Data packet if there is only one relevant egress FGL TRILL
       switch.  The relevant egress TRILL switches are determined by
       starting with those announcing interest in the frame's (X.Y)
-      label.  That set SHOULD be further filtered based on multicast
+      label.  That set <em>SHOULD</em> be further filtered based on multicast
       listener and multicast router attachment LSP announcements if the
       native frame was a multicast frame.
 
@@ -833,7 +833,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Transit Processing</span>
 
-   Any FGL TRILL switch MUST be capable of TRILL Data packet transit
+   Any FGL TRILL switch <em>MUST</em> be capable of TRILL Data packet transit
    processing.  Such processing is fairly straightforward as described
    in <a href="#section-4.2.1">Section 4.2.1</a> for known unicast TRILL Data packets and in
    <a href="#section-4.2.2">Section 4.2.2</a> for multi-destination TRILL Data packets.
@@ -843,19 +843,19 @@ Table of Contents
    There is very little change in TRILL Data packet unicast transit
    processing.  A transit TRILL switch forwards any unicast TRILL Data
    packet to the next hop towards the egress TRILL switch as specified
-   in the TRILL Header.  All transit TRILL switches MUST take the
+   in the TRILL Header.  All transit TRILL switches <em>MUST</em> take the
    priority and DEI used to forward a packet from the Inner.VLAN label
    or the FGL Inner.Label High Part.  These bits are in the same place
    in the packet.
 
-   An FGL TRILL switch MUST properly distinguish flows if it provides
+   An FGL TRILL switch <em>MUST</em> properly distinguish flows if it provides
    ECMP for unicast FGL TRILL Data packets.
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  Multi-Destination Transit Processing</span>
 
    Multi-destination TRILL Data packets are forwarded on a distribution
    tree selected by the ingress TRILL switch, except that an FGL ingress
-   TRILL switch MAY TRILL unicast such a frame to all relevant egress
+   TRILL switch <em>MAY</em> TRILL unicast such a frame to all relevant egress
    TRILL switches, all as described in <a href="#section-4.1">Section 4.1</a>.  The distribution
    trees do not distinguish between FGL and VL multi-destination
    packets, except in pruning behavior if they provide pruning.  There
@@ -871,16 +871,16 @@ Table of Contents
 
 
    An FGL TRILL switch (say, RB1) having an FGL multi-destination frame
-   for label (X.Y) to forward on a distribution tree SHOULD prune that
+   for label (X.Y) to forward on a distribution tree <em>SHOULD</em> prune that
    tree based on whether there are any TRILL switches on a tree branch
    that are advertising connectivity to label (X.Y).  In addition, RB1
-   SHOULD prune multicast frames based on reported multicast listener
+   <em>SHOULD</em> prune multicast frames based on reported multicast listener
    and multicast router attachment in (X.Y).
 
    Pruning is an optimization.  If a transit TRILL switch does less
    pruning than it could, there may be greater link utilization than
    strictly necessary but the campus will still operate correctly.  A
-   transit TRILL switch MAY prune based on an arbitrary subset of the
+   transit TRILL switch <em>MAY</em> prune based on an arbitrary subset of the
    bits in the FGL label, for example, only the High Part or only the
    Low Part of the label.
 
@@ -891,11 +891,11 @@ Table of Contents
    ports, in which case it is not required to support the capabilities
    for FGL egress described in this section.
 
-   An FGL-edge TRILL switch MUST be able to convert, in a configurable
+   An FGL-edge TRILL switch <em>MUST</em> be able to convert, in a configurable
    fashion, from the FGL in an FGL TRILL Data packet it is egressing to
    the C-VLAN ID for the resulting native frame with different mappings
    on a per-port basis.  The priority and DEI of the egressed native
-   frame are taken from the Inner.Label Low Order Part.  A port MAY be
+   frame are taken from the Inner.Label Low Order Part.  A port <em>MAY</em> be
    configured to strip output VLAN tagging.
 
    It is the responsibility of the network manager to properly configure
@@ -932,14 +932,14 @@ Table of Contents
       packet with a broadcast or multicast Inner.MacDA that might be
       received due to serial unicast.
 
-   An FGL TRILL switch MUST NOT egress an FGL packet with label (X.Y) to
+   An FGL TRILL switch <em>MUST NOT</em> egress an FGL packet with label (X.Y) to
    any port not configured with that FGL, even if the port is configured
    to egress VL packets in VLAN X.
 
-   FGL TRILL switches MUST accept multi-destination TRILL Data packets
+   FGL TRILL switches <em>MUST</em> accept multi-destination TRILL Data packets
    that are sent to them as TRILL unicast packets (packets with the
    TRILL Header M bit set to 0).  They locally egress such packets, if
-   appropriate, but MUST NOT forward them (other than egressing them as
+   appropriate, but <em>MUST NOT</em> forward them (other than egressing them as
    native frames on their local links).
 
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Appointed Forwarders and the DRB</span>
@@ -947,7 +947,7 @@ Table of Contents
    There is no change in adjacency [<a href="./rfc7177.html" title="&quot;Transparent Interconnection of Lots of Links (TRILL): Adjacency&quot;">RFC7177</a>], DRB (Designated RBridge)
    election, or Appointed Forwarder logic [<a href="./rfc6439.html" title="&quot;Routing Bridges (RBridges): Appointed Forwarders&quot;">RFC6439</a>] on a link,
    regardless of whether some or all the ports on the link are for FGL
-   TRILL switches, with one exception: implementations SHOULD provide
+   TRILL switches, with one exception: implementations <em>SHOULD</em> provide
    that their default priority for a VL RBridge port to be the DRB is
    less than their default priority for an FGL RBridge to be the DRB.
    This will assure that, in the unconfigured case, an FGL RBridge will
@@ -961,7 +961,7 @@ Table of Contents
    an FGL TRILL switch or an FGL link pseudonode is 0x9000.  As a
    result, they will be chosen in preference to VL nicknames in the
    absence of configuration.  If distribution tree roots are configured,
-   there MUST be at least one tree rooted at a nickname held by an FGL
+   there <em>MUST</em> be at least one tree rooted at a nickname held by an FGL
    TRILL switch or by an FGL link pseudonode.  If distribution tree
    roots are misconfigured so there would not be such a tree, then the
    highest priority FGL nickname to be a tree root is used to construct
@@ -1057,7 +1057,7 @@ Table of Contents
 
    Once a TRILL switch advertises an FGL-edge, any FGL-safe TRILL switch
    (RB1 in this discussion) that observes, on one of its ports, a VL
-   RBridge on the link out of that port, MUST take Step (A) or (B) below
+   RBridge on the link out of that port, <em>MUST</em> take Step (A) or (B) below
    for that port and also take Step (C) further below.  ("Observes"
    means that it has an adjacency to the VL TRILL switch that is in any
    state other than Down [<a href="./rfc7177.html" title="&quot;Transparent Interconnection of Lots of Links (TRILL): Adjacency&quot;">RFC7177</a>] and holds an LSP fragment zero for
@@ -1070,12 +1070,12 @@ Table of Contents
        through a port where it observes a VL RBridge, while allowing the
        output of VL TRILL Data packets through that port, then
 
-       A1. RB1 MUST so discard all FGL TRILL Data output packets that
+       A1. RB1 <em>MUST</em> so discard all FGL TRILL Data output packets that
            would otherwise be output through the port, and
 
        A2. For all adjacencies out of that port (even adjacencies to
            other FGL RBridges or a pseudonode) in the Report state
-           [<a href="./rfc7177.html" title="&quot;Transparent Interconnection of Lots of Links (TRILL): Adjacency&quot;">RFC7177</a>], RB1 MUST report that adjacency cost as 2**23
+           [<a href="./rfc7177.html" title="&quot;Transparent Interconnection of Lots of Links (TRILL): Adjacency&quot;">RFC7177</a>], RB1 <em>MUST</em> report that adjacency cost as 2**23
            greater than it would have otherwise reported, but not more
            than 2**24 - 2 (the highest link cost still usable in least-
            cost path calculations and distribution tree construction).
@@ -1084,7 +1084,7 @@ Table of Contents
 
    (B) If RB1 cannot discard any FGL TRILL Data packet that would be
        output through a port where it observes a VL RBridge while
-       allowing VL TRILL Data packets, then RB1 MUST, for all
+       allowing VL TRILL Data packets, then RB1 <em>MUST</em>, for all
        adjacencies out of that port (even adjacencies to other FGL-safe
 
 
@@ -1113,7 +1113,7 @@ Table of Contents
    determination method specified in Item 1 of <a href="./rfc6325.html#section-4.2.4.4">Section&nbsp;4.2.4.4 of
    [RFC6325]</a>.  However, if links have low speed (such as about
    100 megabits/second or less) or some non-default method is used for
-   determining link costs, then link costs MUST be adjusted such that no
+   determining link costs, then link costs <em>MUST</em> be adjusted such that no
    adjacency between FGL-safe TRILL switches has a cost greater than
    200,000.
 
@@ -1121,23 +1121,23 @@ Table of Contents
    introduced, it is essential that the steps above be followed by
    FGL-safe RBridges, to ensure that paths between such RBridges do not
    include VL RBridges, and to ensure that FGL packets are never
-   forwarded to VL RBridges.  That is, all FGL-safe switches MUST do
+   forwarded to VL RBridges.  That is, all FGL-safe switches <em>MUST</em> do
    Step (A) or (B) for any port out of which they observe a VL RBridge
    neighbor.  Also, for full FGL connectivity, all FGL-safe TRILL
-   switches MUST do Step (C) and be connected in a single FGL contiguous
+   switches <em>MUST</em> do Step (C) and be connected in a single FGL contiguous
    area.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  FGL and VL Mixed Links</span>
 
    The usual DRB election operates on a link with mixed FGL and VL
    ports.  If an FGL TRILL switch port is a DRB, it can handle all
-   native traffic.  It MUST appoint only other FGL TRILL switch ports as
+   native traffic.  It <em>MUST</em> appoint only other FGL TRILL switch ports as
    Appointed Forwarder for any VLANs that are to be mapped to FGL.
 
    For VLANs that are not being mapped to FGL, if Step (A) is being
    followed (see <a href="#section-5.1">Section 5.1</a>), it can appoint either a VL or FGL TRILL
    switch for a VLAN on the link to be handled by a VL.  If Step (B) is
-   being followed, an FGL DRB MUST only appoint FGL Appointed
+   being followed, an FGL DRB <em>MUST</em> only appoint FGL Appointed
    Forwarders, so that all end stations will get service to the FGL
    campus.  If a VL RBridge is a DRB, it will not understand that FGL
    TRILL switch ports are different.  To the extent that Step (B) is in
@@ -1162,23 +1162,23 @@ Table of Contents
    The list below summarizes the requirements for a TRILL switch to be
    FGL-safe.
 
-   1. For both unicast and multi-destination data, RB1 MUST NOT forward
+   1. For both unicast and multi-destination data, RB1 <em>MUST NOT</em> forward
       an FGL packet to a VL neighbor RB2.  This is accomplished as
       specified in <a href="#section-5.1">Section 5.1</a>.
 
-   2. For both unicast and multi-destination data, RB1 MUST NOT egress a
+   2. For both unicast and multi-destination data, RB1 <em>MUST NOT</em> egress a
       packet onto a link that does not belong in that FGL.
 
    3. For unicast data, RB1 must forward the FGL packet properly to the
-      egress nickname in the TRILL Header.  This means that it MUST NOT
+      egress nickname in the TRILL Header.  This means that it <em>MUST NOT</em>
       delete the packet because of not having the expected VLAN tag, it
-      MUST NOT insert a VLAN tag, and it MUST NOT misclassify a flow so
+      <em>MUST NOT</em> insert a VLAN tag, and it <em>MUST NOT</em> misclassify a flow so
       as to persistently misorder packets, because the TRILL fields are
       now 4 bytes longer than in VL TRILL packets.
 
    4. For multi-destination data, RB1 must forward the packet properly
-      along the specified tree.  This means that RB1 MUST NOT falsely
-      prune the packet.  RB1 is allowed not to prune at all, but it MUST
+      along the specified tree.  This means that RB1 <em>MUST NOT</em> falsely
+      prune the packet.  RB1 is allowed not to prune at all, but it <em>MUST</em>
       NOT prevent an FGL packet from reaching all the links with that
       FGL by incorrectly refusing to forward the FGL packet along a
       branch in the tree.
@@ -1338,7 +1338,7 @@ Table of Contents
    distribution tree and never egressed, but the propagation of the
    packet would still waste bandwidth.
 
-   To avoid these problems, all TRILL switches MUST check the Ethertype
+   To avoid these problems, all TRILL switches <em>MUST</em> check the Ethertype
    immediately after the Inner.MacSA and, if it is a value they do not
    know how to handle, either discard the frame or make no decisions
    based on any data after that Ethertype.  In addition, care must be
@@ -1407,7 +1407,7 @@ Table of Contents
    other hand, if distribution trees were used, each frame would be
    constrained to the tree used for that frame and would likely follow a
    higher cost route and only a single path would be available per tree.
-   Thus, this document says that unicast SHOULD be used if there are
+   Thus, this document says that unicast <em>SHOULD</em> be used if there are
    exactly two TRILL switches involved.
 
    The decision of whether to use a distribution tree or serial unicast

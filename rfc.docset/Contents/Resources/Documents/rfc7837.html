@@ -339,8 +339,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL","SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>","<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -479,21 +479,21 @@ Table of Contents
       are set to zero by the sender and are ignored by the receiver.
 
    All packets sent over a ConEx-capable TCP connection or belonging to
-   the same ConEx-capable flow MUST carry the CDO.  The chg bit (the
+   the same ConEx-capable flow <em>MUST</em> carry the CDO.  The chg bit (the
    third-highest-order bit) in the CDO Option Type field is set to zero,
    meaning that the CDO option is immutable.  Network devices with
-   ConEx-aware functions read the flags, but all network devices MUST
+   ConEx-aware functions read the flags, but all network devices <em>MUST</em>
    forward the CDO unaltered.
 
-   The CDO SHOULD be placed as the first option in the Destination
+   The CDO <em>SHOULD</em> be placed as the first option in the Destination
    Option header before the AH [<a href="./rfc4302.html" title="&quot;IP Authentication Header&quot;">RFC4302</a>] and/or Encapsulating Security
    Payload (ESP) [<a href="./rfc4303.html" title="&quot;IP Encapsulating Security Payload (ESP)&quot;">RFC4303</a>] (if present).  The IPsec Authentication
-   Header (AH) MAY be used to verify that the CDO has not been modified.
+   Header (AH) <em>MAY</em> be used to verify that the CDO has not been modified.
 
    If the X bit is zero, all the other three bits are undefined and thus
-   MUST be ignored and forwarded unchanged by network nodes.  The X bit
+   <em>MUST</em> be ignored and forwarded unchanged by network nodes.  The X bit
    set to zero means that the connection is ConEx-capable but that this
-   packet MUST NOT be counted when determining ConEx information in an
+   packet <em>MUST NOT</em> be counted when determining ConEx information in an
    audit function.  This can be the case if no congestion feedback is
    (currently) available, e.g., in TCP if one endpoint has been
    receiving data but sending nothing but pure ACKs (no user data) for
@@ -506,14 +506,14 @@ Table of Contents
    be set.  Whenever one of these bits is set, the number of bytes
    carried by this IP packet (including the IP header that directly
    encapsulates the CDO and everything that IP header encapsulates)
-   SHOULD be counted to determine congestion or credit information.  In
+   <em>SHOULD</em> be counted to determine congestion or credit information.  In
    IPv6, the number of bytes can easily be calculated by adding the
    number 40 (length of the IPv6 header in bytes) to the value present
    in the Payload Length field in the IPv6 header.
 
    The credit signal represents potential for congestion.  If a
    congestion event occurs, a corresponding amount of credit is consumed
-   as outlined in [<a href="./rfc7713.html" title="&quot;Congestion Exposure (ConEx) Concepts, Abstract Mechanism, and Requirements&quot;">RFC7713</a>].  A ConEx-enabled sender SHOULD, therefore,
+   as outlined in [<a href="./rfc7713.html" title="&quot;Congestion Exposure (ConEx) Concepts, Abstract Mechanism, and Requirements&quot;">RFC7713</a>].  A ConEx-enabled sender <em>SHOULD</em>, therefore,
    signal sufficient credit in advance of any congestion event to cover
    the (estimated maximum) amount of lost or CE-marked bytes that could
 
@@ -539,7 +539,7 @@ Table of Contents
    connection.
 
    In principle, all of these three bits (L, E, or C) might be set in
-   the same packet.  In this case, the packet size MUST be counted once
+   the same packet.  In this case, the packet size <em>MUST</em> be counted once
    for each respective ConEx information counter.
 
    If a network node extracts the ConEx information from a connection,
@@ -547,7 +547,7 @@ Table of Contents
    total number of bytes sent with the number of bytes sent with ConEx
    congestion marks (L or E) to determine the current whole path
    congestion level.  Therefore, a ConEx-aware node that processes the
-   CDO MUST use the Payload Length field of the preceding IPv6 header
+   CDO <em>MUST</em> use the Payload Length field of the preceding IPv6 header
    for byte-based counting.  When a ratio is measured and equally sized
    packets can be assumed, counting the number of packets (instead of
    the number of bytes) should deliver the same result.  But an audit
@@ -557,17 +557,17 @@ Table of Contents
 
    All remaining bits in the CDO are reserved for future use (which are
    currently the last four bits of the eight bit option space).  A ConEx
-   sender SHOULD set the reserved bits in the CDO to zero.  Other nodes
-   MUST ignore these bits and ConEx-aware intermediate nodes MUST
-   forward them unchanged, whatever their values.  They MAY log the
+   sender <em>SHOULD</em> set the reserved bits in the CDO to zero.  Other nodes
+   <em>MUST</em> ignore these bits and ConEx-aware intermediate nodes <em>MUST</em>
+   forward them unchanged, whatever their values.  They <em>MAY</em> log the
    presence of a non-zero Reserved field.
 
    The CDO is only applicable on unicast or anycast packets (for
    reasoning, see the note regarding item J on multicast at the end of
-   <a href="./rfc7713.html#section-3.3">Section&nbsp;3.3 of [RFC7713]</a>).  A ConEx sender MUST NOT send a packet
+   <a href="./rfc7713.html#section-3.3">Section&nbsp;3.3 of [RFC7713]</a>).  A ConEx sender <em>MUST NOT</em> send a packet
    with the CDO to a multicast address.  ConEx-capable network nodes
-   MUST treat a multicast packet with the X flag set the same as an
-   equivalent packet without the CDO, and they SHOULD forward it
+   <em>MUST</em> treat a multicast packet with the X flag set the same as an
+   equivalent packet without the CDO, and they <em>SHOULD</em> forward it
    unchanged.
 
    As stated in [<a href="./rfc7713.html" title="&quot;Congestion Exposure (ConEx) Concepts, Abstract Mechanism, and Requirements&quot;">RFC7713</a>] (see <a href="#section-3.3">Section 3.3</a>, item N on network-layer
@@ -599,31 +599,31 @@ Table of Contents
    the option if it is present.  To efficiently perform this, the CDO
    needs to be placed in a fairly deterministic location.  In order to
    facilitate forwarding on ConEx-aware routers, ConEx-aware senders
-   that send IPv6 datagrams with the CDO SHOULD place the CDO as the
+   that send IPv6 datagrams with the CDO <em>SHOULD</em> place the CDO as the
    first destination option in the Destination Option header.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Tunnel Processing</span>
 
    As with any destination option, an ingress tunnel endpoint will not
    normally copy the CDO when adding an encapsulating outer IP header.
-   In general, an ingress tunnel SHOULD NOT copy the CDO to the outer
+   In general, an ingress tunnel <em>SHOULD NOT</em> copy the CDO to the outer
    header as this would change the number of bytes that would be
-   counted.  However, it MAY copy the CDO to the outer header in order
+   counted.  However, it <em>MAY</em> copy the CDO to the outer header in order
    to facilitate visibility by subsequent on-path ConEx functions if the
    configuration of the tunnel ingress and the ConEx nodes is
    coordinated.  This trades off the performance of ConEx functions
    against that of tunnel processing.
 
-   An egress tunnel endpoint SHOULD ignore any CDO in the outer header
+   An egress tunnel endpoint <em>SHOULD</em> ignore any CDO in the outer header
    on decapsulation of an outer IP header.  The information in any inner
    CDO will always be considered correct, even if it differs from any
    outer CDO.  Therefore, the decapsulator can strip the outer CDO
-   without comparison to the inner.  A decapsulator MAY compare the two
-   and MAY log any case where they differ.  However, the packet MUST be
+   without comparison to the inner.  A decapsulator <em>MAY</em> compare the two
+   and <em>MAY</em> log any case where they differ.  However, the packet <em>MUST</em> be
    forwarded irrespective of any such anomaly, given an outer CDO is
    only a performance optimization.
 
-   A network node that assesses ConEx information SHOULD search for
+   A network node that assesses ConEx information <em>SHOULD</em> search for
    encapsulated IP headers until a CDO is found.  At any specific
    network location, the maximum necessary depth of search is likely to
    be the same for all packets between a given set of tunnel endpoints.
@@ -668,7 +668,7 @@ Table of Contents
 
    The destination IP stack will not usually process the CDO; therefore,
    the sender can send a CDO without checking if the receiver will
-   understand it.  The CDO MUST still be forwarded to the destination IP
+   understand it.  The CDO <em>MUST</em> still be forwarded to the destination IP
    stack, because the destination might check the integrity of the whole
    packet, irrespective of whether it understands ConEx.
 
@@ -702,14 +702,14 @@ Table of Contents
    the following ConEx-based preferential dropping scheme is proposed:
 
    If a router queue experiences a very high load so that it has to drop
-   arriving packets, it MAY preferentially drop packets within the same
+   arriving packets, it <em>MAY</em> preferentially drop packets within the same
    DiffServ Per-Hop Behavior (PHB) using the preference order given in
    Table 1 (1 means drop first).  Additionally, if a router implements
-   preferential drop based on ConEx, it SHOULD also support ECN marking.
+   preferential drop based on ConEx, it <em>SHOULD</em> also support ECN marking.
    Even though preferential dropping can be difficult to implement on
    some hardware, if nowhere else, routers at the egress of a network
-   SHOULD implement preferential drop based on ConEx markings (stronger
-   than the MAY above).
+   <em>SHOULD</em> implement preferential drop based on ConEx markings (stronger
+   than the <em>MAY</em> above).
 
                  +----------------------+----------------+
                  |                      |   Preference   |

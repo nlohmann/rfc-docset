@@ -269,8 +269,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Terminology</span>
 
-   Keywords "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT" and
-   "MAY" that appear in this document are to be interpreted as described
+   Keywords "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>" and
+   "<em>MAY</em>" that appear in this document are to be interpreted as described
    in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Overview Of Method</span>
@@ -343,14 +343,14 @@ Table of Contents
      KM = H ( ZZ || OtherInfo)
 
    H is the message digest function SHA-1 [<a href="#ref-FIPS-180" title="&quot;Secure Hash Standard&quot;">FIPS-180</a>] ZZ is the shared
-   secret value computed in <a href="#section-2.1.1">Section 2.1.1</a>. Leading zeros MUST be
+   secret value computed in <a href="#section-2.1.1">Section 2.1.1</a>. Leading zeros <em>MUST</em> be
    preserved, so that ZZ occupies as many octets as p. For instance, if
    p is 1024 bits, ZZ should be 128 bytes long.  OtherInfo is the DER
    encoding of the following structure:
 
      OtherInfo ::= SEQUENCE {
        keyInfo KeySpecificInfo,
-       partyAInfo [0] OCTET STRING OPTIONAL,
+       partyAInfo [0] OCTET STRING <em>OPTIONAL</em>,
        suppPubInfo [2] OCTET STRING
 
 
@@ -382,7 +382,7 @@ Table of Contents
 
    partyAInfo is a random string provided by the sender. In CMS, it is
      provided as a parameter in the UserKeyingMaterial field (encoded as
-     an OCTET STRING). If provided, partyAInfo MUST contain 512 bits.
+     an OCTET STRING). If provided, partyAInfo <em>MUST</em> contain 512 bits.
 
    suppPubInfo is the length of the generated KEK, in bits, represented
      as a 32 bit number in network byte order. E.g. for 3DES it would be
@@ -398,8 +398,8 @@ Table of Contents
    space of the KEK is limited by the size of ZZ, in addition to any
    security level considerations imposed by the parameters p and q.
    However, if partyAInfo is different for each message, a different KEK
-   will be generated for each message. Note that partyAInfo MUST be used
-   in Static-Static mode, but MAY appear in Ephemeral-Static mode.
+   will be generated for each message. Note that partyAInfo <em>MUST</em> be used
+   in Static-Static mode, but <em>MAY</em> appear in Ephemeral-Static mode.
 
 <span class="h4"><a class="selflink" name="section-2.1.3" href="#section-2.1.3">2.1.3</a>.  KEK Computation</span>
 
@@ -437,7 +437,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.1.5" href="#section-2.1.5">2.1.5</a>.  Public Key Validation</span>
 
-   The following algorithm MAY be used to validate a received public key
+   The following algorithm <em>MAY</em> be used to validate a received public key
    y.
 
      1. Verify that y lies within the interval [2,p-1]. If it does not,
@@ -565,14 +565,14 @@ Table of Contents
 
    X9.42 requires that the private key x be in the interval [2, (q -
    2)].  x should be randomly generated in this interval. y is then
-   computed by calculating g^x mod p.  To comply with this memo, m MUST
-   be &gt;=160 bits in length, (consequently, q MUST be at least 160 bits
+   computed by calculating g^x mod p.  To comply with this memo, m <em>MUST</em>
+   be &gt;=160 bits in length, (consequently, q <em>MUST</em> be at least 160 bits
    long). When symmetric ciphers stronger than DES are to be used, a
    larger m may be advisable. p must be a minimum of 512 bits long.
 
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a>.  Group Parameter Generation</span>
 
-   Agents SHOULD generate domain parameters (g,p,q) using the following
+   Agents <em>SHOULD</em> generate domain parameters (g,p,q) using the following
    algorithm, derived from [<a href="#ref-FIPS-186" title="&quot;Digital Signature Standard&quot;">FIPS-186</a>] and [<a href="#ref-X942" title="&quot;Agreement Of Symmetric Keys Using Diffie-Hellman and MQV Algorithms&quot;">X942</a>]. When this algorithm is
    used, the correctness of the generation procedure can be verified by
    a third party by the algorithm of 2.2.2.
@@ -676,7 +676,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-2.2.2" href="#section-2.2.2">2.2.2</a>.  Group Parameter Validation</span>
 
    The ASN.1 for DH keys in [<a href="#ref-PKIX" title="&quot;Internet X.509 Public Key Infrastructure Certificate and CRL Profile&quot;">PKIX</a>] includes elements j and validation-
-   Parms which MAY be used by recipients of a key to verify that the
+   Parms which <em>MAY</em> be used by recipients of a key to verify that the
    group parameters were correctly generated. Two checks are possible:
 
      1. Verify that p=qj + 1. This demonstrates that the parameters meet
@@ -705,18 +705,18 @@ Table of Contents
    key pair, but the sender generates a new key pair for each message
    and sends it using the originatorKey production. If the sender's key
    is freshly generated for each message, the shared secret ZZ will be
-   similarly different for each message and partyAInfo MAY be omitted,
+   similarly different for each message and partyAInfo <em>MAY</em> be omitted,
    since it serves merely to decouple multiple KEKs generated by the
    same set of pairwise keys. If, however, the same ephemeral sender key
    is used for multiple messages (e.g. it is cached as a performance
-   optimization) then a separate partyAInfo MUST be used for each
-   message. All implementations of this standard MUST implement
+   optimization) then a separate partyAInfo <em>MUST</em> be used for each
+   message. All implementations of this standard <em>MUST</em> implement
    Ephemeral-Static mode.
 
-   In order to resist small subgroup attacks, the recipient SHOULD
+   In order to resist small subgroup attacks, the recipient <em>SHOULD</em>
    perform the check described in 2.1.5. If an opponent cannot determine
    success or failure of a decryption operation by the recipient, the
-   recipient MAY choose to omit this check. See also [<a href="#ref-LL97" title="&quot;A key recovery attack on discrete log-based schemes using a prime order subgroup&quot;">LL97</a>] for a method
+   recipient <em>MAY</em> choose to omit this check. See also [<a href="#ref-LL97" title="&quot;A key recovery attack on discrete log-based schemes using a prime order subgroup&quot;">LL97</a>] for a method
    of generating keys which are not subject to small subgroup attack.
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a>.  Static-Static Mode</span>
@@ -724,12 +724,12 @@ Table of Contents
    In Static-Static mode, both the sender and the recipient have a
    static (and certified) key pair. Since the sender's and recipient's
    keys are therefore the same for each message, ZZ will be the same for
-   each message. Thus, partyAInfo MUST be used (and different for each
+   each message. Thus, partyAInfo <em>MUST</em> be used (and different for each
    message) in order to ensure that different messages use different
-   KEKs. Implementations MAY implement Static-Static mode.
+   KEKs. Implementations <em>MAY</em> implement Static-Static mode.
 
    In order to prevent small subgroup attacks, both originator and
-   recipient SHOULD either perform the validation step described in
+   recipient <em>SHOULD</em> either perform the validation step described in
    <a href="#section-2.1.5">Section 2.1.5</a> or verify that the CA has properly verified the
    validity of the key.  See also [<a href="#ref-LL97" title="&quot;A key recovery attack on discrete log-based schemes using a prime order subgroup&quot;">LL97</a>] for a method of generating keys
    which are not subject to small subgroup attack.

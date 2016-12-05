@@ -442,7 +442,7 @@ Table of Contents
    by RDMA applications and/or ULPs, applications are either statically
    configured to use or not use optional features or use application-
    specific negotiation mechanisms.  For the extensions covered by this
-   document, it is RECOMMENDED that RDMA applications and/or ULPs
+   document, it is <em>RECOMMENDED</em> that RDMA applications and/or ULPs
    negotiate at the application or ULP level the usage of these
    extensions.  The definition of such application-specific mechanisms
    is outside the scope of this specification.  For backward
@@ -461,8 +461,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -594,7 +594,7 @@ Table of Contents
    applicable for the RDMA Messages defined in this specification.
    Figure 2 also shows the appropriate Queue Number for each Opcode.
 
-   All RDMA Messages defined in this specification MUST have:
+   All RDMA Messages defined in this specification <em>MUST</em> have:
 
    The RDMA Version (RV) field: 01b.
 
@@ -698,22 +698,22 @@ Table of Contents
 
 
    same RNIC do not occur between the read and the write caused by the
-   Atomic Operation.  Therefore, the Responder RNIC MUST implement
+   Atomic Operation.  Therefore, the Responder RNIC <em>MUST</em> implement
    mechanisms to prevent Atomic Operations to a memory registered for
    Atomic Operations while an Atomic Operation targeting the memory is
    in progress.  The Requester of an Atomic Operation cannot rely on
    Atomic Operation behavior at the Responder across multiple RNICs or
    with respect to other applications/ULPs running at the Responder that
-   can access the ULP Buffer.  It is OPTIONAL for an RNIC to provide
+   can access the ULP Buffer.  It is <em>OPTIONAL</em> for an RNIC to provide
    such behavior when implementing the Atomic Operations specified in
    this document.  An RNIC that supports Atomic Operations as specified
-   in this document MUST implement both the FetchAdd operation as
+   in this document <em>MUST</em> implement both the FetchAdd operation as
    specified in <a href="#section-5.1.1">Section 5.1.1</a> and the CmpSwap operation as specified in
    <a href="#section-5.1.2">Section 5.1.2</a>.  The advertisement of Tagged Buffer information for
    Atomic Operations is outside the scope of this specification and is
    handled by the ULPs.
 
-   Implementation note: It is RECOMMENDED that the applications do not
+   Implementation note: It is <em>RECOMMENDED</em> that the applications do not
    use the ULP Buffer addresses used for Atomic Operations for other
    RDMA operations due to the lack of atomicity guarantees between
    operations other than Atomic Operations.
@@ -727,7 +727,7 @@ Table of Contents
    in the request is in the address space of the Remote Peer to which
    the Atomic Operation is targeted.
 
-   Atomic Operation Response Messages MUST use the Untagged Buffer model
+   Atomic Operation Response Messages <em>MUST</em> use the Untagged Buffer model
    with QN=3.  Queue number 3 will be used to track outstanding Atomic
    Operation Request messages at the Requester.  When the Atomic
    Operation Response message is received, the Message Sequence Number
@@ -760,11 +760,11 @@ Table of Contents
    causing any carry out of that bit position to be discarded when the
    addition is performed.
 
-   FetchAdd Atomic Operations MUST target ULP Buffer addresses that are
+   FetchAdd Atomic Operations <em>MUST</em> target ULP Buffer addresses that are
    64-bit aligned.  FetchAdd Atomic Operations that target ULP Buffer
-   addresses that are not 64-bit aligned MUST be surfaced as errors, and
-   the Responder's memory MUST NOT be modified in such cases.
-   Additionally, an error MUST be surfaced and a terminate message MUST
+   addresses that are not 64-bit aligned <em>MUST</em> be surfaced as errors, and
+   the Responder's memory <em>MUST NOT</em> be modified in such cases.
+   Additionally, an error <em>MUST</em> be surfaced and a terminate message <em>MUST</em>
    be generated.  The setting of the Add Mask field to
    0x0000000000000000 results in Atomic Add of 64-bit Original Remote
    Data Value and 64-bit "Add Data".
@@ -888,28 +888,28 @@ Table of Contents
 
          Remote Data Value = Original Remote Data Value
 
-   After the operation, the remote data Buffer MUST contain the
+   After the operation, the remote data Buffer <em>MUST</em> contain the
    "Original Remote Data Value" (if comparison did not match) or the
    masked "Swap Data" (if the comparison did match).  CmpSwap Atomic
-   Operations MUST target ULP Buffer addresses that are 64-bit aligned.
+   Operations <em>MUST</em> target ULP Buffer addresses that are 64-bit aligned.
 
    If a CmpSwap Atomic Operation is attempted on a target ULP Buffer
    address that is not 64-bit aligned:
 
-   o  The operation MUST NOT be performed,
+   o  The operation <em>MUST NOT</em> be performed,
 
-   o  The Responder's memory MUST NOT be modified,
+   o  The Responder's memory <em>MUST NOT</em> be modified,
 
-   o  The result MUST be surfaced as an error, and
+   o  The result <em>MUST</em> be surfaced as an error, and
 
-   o  A terminate message MUST be generated.  (See <a href="#section-8.2">Section 8.2</a> for the
+   o  A terminate message <em>MUST</em> be generated.  (See <a href="#section-8.2">Section 8.2</a> for the
       contents of the terminate message.)
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Atomic Operations</span>
 
    The Atomic Operation Request and Response are RDMA Messages.  An
    Atomic Operation makes use of the DDP Untagged Buffer Model.  Atomic
-   Operation Request messages MUST use the same Queue Number as RDMA
+   Operation Request messages <em>MUST</em> use the same Queue Number as RDMA
    Read Requests (QN=1).  Reusing the same Queue Number for Atomic
    Request messages allows the Atomic Operations to reuse the same
    infrastructure (e.g., Outbound and Inbound RDMA Read Queue Depth
@@ -922,7 +922,7 @@ Table of Contents
 
 
    (ORD/IRD) flow control) as defined for RDMA Read Requests.  Atomic
-   Operation Response messages MUST set Queue Number (QN) to 3 in the
+   Operation Response messages <em>MUST</em> set Queue Number (QN) to 3 in the
    DDP header.
 
    The RDMA Message OpCode for an Atomic Request Message is 1010b.  The
@@ -983,7 +983,7 @@ Table of Contents
 
       Atomic Operation Code (AOpCode): 4 bits.
 
-         See Figure 5.  All Atomic Operation Codes from Figure 5 MUST be
+         See Figure 5.  All Atomic Operation Codes from Figure 5 <em>MUST</em> be
          implemented by an RNIC that supports Atomic Operations.
 
       Request Identifier: 32 bits.
@@ -1005,8 +1005,8 @@ Table of Contents
 
          The Remote Tagged Offset specifies the starting offset, in
          octets, from the base of the Remote Peer's Tagged Buffer
-         targeted by the Atomic Operation.  The Remote Tagged Offset MAY
-         start at an arbitrary offset but MUST represent a ULP Buffer
+         targeted by the Atomic Operation.  The Remote Tagged Offset <em>MAY</em>
+         start at an arbitrary offset but <em>MUST</em> represent a ULP Buffer
          address that is 64-bit aligned.
 
       Add or Swap Data: 64 bits.
@@ -1062,19 +1062,19 @@ Table of Contents
 
    The Atomic Operation Request Message has the following semantics:
 
-   1. An Atomic Operation Request Message MUST reference an Untagged
-      Buffer.  That is, the Local Peer's RDMAP layer MUST request that
+   1. An Atomic Operation Request Message <em>MUST</em> reference an Untagged
+      Buffer.  That is, the Local Peer's RDMAP layer <em>MUST</em> request that
       the DDP mark the Message as Untagged.
 
-   2. One Atomic Operation Request Message MUST consume one Untagged
+   2. One Atomic Operation Request Message <em>MUST</em> consume one Untagged
       Buffer.
 
-   3. The Responder's RDMAP layer MUST process an Atomic Operation
-      Request Message.  A valid Atomic Operation Request Message MUST
+   3. The Responder's RDMAP layer <em>MUST</em> process an Atomic Operation
+      Request Message.  A valid Atomic Operation Request Message <em>MUST</em>
       NOT be delivered to the Responder's ULP (i.e., it is processed by
       the RDMAP layer).
 
-   4. At the Responder, an error MUST be surfaced in response to
+   4. At the Responder, an error <em>MUST</em> be surfaced in response to
       delivery to the Remote Peer's RDMAP layer of an Atomic Operation
       Request Message with an Atomic Operation Code that the RNIC does
       not support.
@@ -1089,18 +1089,18 @@ Table of Contents
 <span class="grey"><a href="./rfc7306.html">RFC 7306</a>                RDMA Protocol Extensions               June 2014</span>
 
 
-   5. An Atomic Operation Request Message MUST reference the RDMA Read
-      Request Queue.  That is, the Requester's RDMAP layer MUST request
+   5. An Atomic Operation Request Message <em>MUST</em> reference the RDMA Read
+      Request Queue.  That is, the Requester's RDMAP layer <em>MUST</em> request
       that the DDP layer set the Queue Number field to one.
 
-   6. The Requester MUST pass to the DDP layer Atomic Operation Request
+   6. The Requester <em>MUST</em> pass to the DDP layer Atomic Operation Request
       Messages in the order they were submitted by the ULP.
 
-   7. The Responder MUST process the Atomic Operation Request Messages
+   7. The Responder <em>MUST</em> process the Atomic Operation Request Messages
       in the order they were sent.
 
    8. If the Responder receives a valid Atomic Operation Request
-      Message, it MUST respond with a valid Atomic Operation Response
+      Message, it <em>MUST</em> respond with a valid Atomic Operation Response
       Message.
 
 <span class="h4"><a class="selflink" name="section-5.2.2" href="#section-5.2.2">5.2.2</a>.  Atomic Operation Response Message</span>
@@ -1150,26 +1150,26 @@ Table of Contents
    1. The Atomic Operation Response Message for the associated Atomic
       Operation Request Message travels in the opposite direction.
 
-   2. An Atomic Operation Response Message MUST consume an Untagged
-      Buffer.  That is, the Responder RDMAP layer MUST request that the
+   2. An Atomic Operation Response Message <em>MUST</em> consume an Untagged
+      Buffer.  That is, the Responder RDMAP layer <em>MUST</em> request that the
       DDP mark the Message as Untagged.
 
-   3. An Atomic Operation Response Message MUST reference the Queue
-      Number 3.  That is, the Responder's RDMAP layer MUST request that
+   3. An Atomic Operation Response Message <em>MUST</em> reference the Queue
+      Number 3.  That is, the Responder's RDMAP layer <em>MUST</em> request that
       the DDP layer set the Queue Number field to 3.
 
-   4. The Responder MUST ensure that a sufficient number of Untagged
+   4. The Responder <em>MUST</em> ensure that a sufficient number of Untagged
       Buffers are available on the RDMA Read Request Queue (Queue with
       DDP Queue Number 1) to support the maximum number of Atomic
       Operation Requests negotiated by the ULP in addition to the
       maximum number of RDMA Read Requests negotiated by the ULP.
 
-   5. The Requester MUST ensure that a sufficient number of Untagged
+   5. The Requester <em>MUST</em> ensure that a sufficient number of Untagged
       Buffers are available on the RDMA Atomic Response Queue (Queue
       with DDP Queue Number 3) to support the maximum number of Atomic
       Operation Requests negotiated by the ULP.
 
-   6. The RDMAP layer MUST Deliver the Atomic Operation Response Message
+   6. The RDMAP layer <em>MUST</em> Deliver the Atomic Operation Response Message
       to the ULP.
 
    7. At the Requester, when an invalid Atomic Operation Response
@@ -1177,14 +1177,14 @@ Table of Contents
       surfaced.
 
    8. When the Responder receives Atomic Operation Request messages, the
-      Responder RDMAP layer MUST pass Atomic Operation Response Messages
+      Responder RDMAP layer <em>MUST</em> pass Atomic Operation Response Messages
       to the DDP layer, in the order that the Atomic Operation Request
       Messages were received by the RDMAP layer, at the Responder.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Atomicity Guarantees</span>
 
    Atomicity of the Read-Modify-Write (RMW) on the Responder's node by
-   the Atomic Operation MUST be assured in the context of concurrent
+   the Atomic Operation <em>MUST</em> be assured in the context of concurrent
    atomic accesses by other RDMAP Streams on the same RNIC.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Atomic Operations Ordering and Completion Rules</span>
@@ -1201,46 +1201,46 @@ Table of Contents
 <span class="grey"><a href="./rfc7306.html">RFC 7306</a>                RDMA Protocol Extensions               June 2014</span>
 
 
-   1. For an Atomic Operation, the Requester MUST NOT consider the
+   1. For an Atomic Operation, the Requester <em>MUST NOT</em> consider the
       contents of the Tagged Buffer at the Responder to be modified by
       that specific Atomic Operation until the Atomic Operation Response
       Message has been Delivered to RDMAP at the Requester.
 
-   2. Atomicity guarantees MUST be provided within the scope of a single
+   2. Atomicity guarantees <em>MUST</em> be provided within the scope of a single
       RNIC.
 
       Implementation Note: This requirement for atomicity among
       operations is limited to the scope of a single RNIC.  Atomicity
-      guarantees are OPTIONAL with respect to access to the Tagged
+      guarantees are <em>OPTIONAL</em> with respect to access to the Tagged
       Buffer by any other method than an Atomic Operation via the same
       RNIC.  Examples of such accesses that may not be atomic with
       respect to an Atomic Operation include accesses via other RNICs
       and local processor memory access to the Tagged Buffer.
 
-   3. Atomic Operation Request Messages MUST NOT start processing at the
+   3. Atomic Operation Request Messages <em>MUST NOT</em> start processing at the
       Responder until they have been Delivered to RDMAP by DDP.
 
-   4. Atomic Operation Response Messages MAY be generated at the
+   4. Atomic Operation Response Messages <em>MAY</em> be generated at the
       Responder after subsequent RDMA Write Messages or Send Messages
       have been Placed or Delivered.
 
-   5. Atomic Operation Response Message processing at the Responder MUST
+   5. Atomic Operation Response Message processing at the Responder <em>MUST</em>
       be started only after the Atomic Operation Request Message has
       been Delivered by the DDP layer (thus, all previous RDMA Messages
       on that DDP Stream have been Delivered).
 
-   6. Send Messages MAY be Completed at the Responder before prior
+   6. Send Messages <em>MAY</em> be Completed at the Responder before prior
       incoming Atomic Operation Request Messages have completed their
       response processing.
 
-   7. An Atomic Operation MUST NOT be Completed at the Requester until
+   7. An Atomic Operation <em>MUST NOT</em> be Completed at the Requester until
       the DDP layer Delivers the associated incoming Atomic Operation
       Response Message.
 
    8. If more than one outstanding Atomic Request Message is supported
-      by both peers, the Atomic Operation Request Messages MUST be
+      by both peers, the Atomic Operation Request Messages <em>MUST</em> be
       processed in the order they were delivered by the DDP layer on the
-      Responder.  Atomic Operation Response Messages MUST be submitted
+      Responder.  Atomic Operation Response Messages <em>MUST</em> be submitted
       to the DDP layer on the Responder in the order the Atomic
       Operation Request Messages were Delivered by DDP.
 
@@ -1342,23 +1342,23 @@ Table of Contents
    Untagged Buffer Model to transfer Immediate Data from the Data Source
    to the Data Sink.
 
-   o  An Immediate Data or Immediate Data with SE Message MUST reference
-      an Untagged Buffer.  That is, the Local Peer's RDMAP Layer MUST
+   o  An Immediate Data or Immediate Data with SE Message <em>MUST</em> reference
+      an Untagged Buffer.  That is, the Local Peer's RDMAP Layer <em>MUST</em>
       request that the DDP layer mark the Message as Untagged.
 
-   o  One Immediate Data or Immediate Data with SE Message MUST consume
+   o  One Immediate Data or Immediate Data with SE Message <em>MUST</em> consume
       one Untagged Buffer.
 
    o  At the Remote Peer, the Immediate Data and Immediate Data with SE
-      Messages MUST be Delivered to the Remote Peer's ULP in the order
+      Messages <em>MUST</em> be Delivered to the Remote Peer's ULP in the order
       they were sent.
 
    o  For an Immediate Data or Immediate Data with SE Message, the Local
-      Peer's RDMAP Layer MUST request that the DDP layer set the Queue
+      Peer's RDMAP Layer <em>MUST</em> request that the DDP layer set the Queue
       Number field to zero.
 
    o  For an Immediate Data or Immediate Data with SE Message, the Local
-      Peer's RDMAP Layer MUST request that the DDP layer transmit 8
+      Peer's RDMAP Layer <em>MUST</em> request that the DDP layer transmit 8
       bytes of data.
 
 
@@ -1369,10 +1369,10 @@ Table of Contents
 <span class="grey"><a href="./rfc7306.html">RFC 7306</a>                RDMA Protocol Extensions               June 2014</span>
 
 
-   o  The Local Peer MUST issue Immediate Data and Immediate Data with
+   o  The Local Peer <em>MUST</em> issue Immediate Data and Immediate Data with
       SE Messages in the order they were submitted by the ULP.
 
-   o  The Remote Peer MUST check that Immediate Data and Immediate Data
+   o  The Remote Peer <em>MUST</em> check that Immediate Data and Immediate Data
       with SE Messages include exactly 8 bytes of data from the DDP
       layer.  The DDP header carries the length field that is reported
       by the DDP layer.
@@ -1457,7 +1457,7 @@ Table of Contents
             |          |             |             | and Delivered
    ---------+----------+-------------+-------------+------------------
    RDMA Read| Immediate| No Placement| Immediate   | Not Applicable
-            | Data     | Guarantee   | Data MAY be |
+            | Data     | Guarantee   | Data <em>MAY</em> be |
             |          | between     | Placed      |
             |          | Immediate   | before      |
             |          | Data and    | RDMA Read   |
@@ -1465,7 +1465,7 @@ Table of Contents
             |          | Request     | generated   |
    ---------+----------+-------------+-------------+------------------
    Atomic   | Immediate| No Placement| Immediate   | Not Applicable
-            | Data     | Guarantee   | Data MAY be |
+            | Data     | Guarantee   | Data <em>MAY</em> be |
             |          | between     | Placed      |
             |          | Immediate   | before      |
             |          | Data and    | Atomic      |
@@ -1483,7 +1483,7 @@ Table of Contents
 
    ---------+----------+-------------+-------------+------------------
    Atomic   | Send     | No Placement| Send Payload| Not Applicable
-            |          | Guarantee   | MAY be      |
+            |          | Guarantee   | <em>MAY</em> be      |
             |          | between Send| Placed      |
             |          | Payload and | before      |
             |          | Atomic      | Atomic      |
@@ -1491,7 +1491,7 @@ Table of Contents
             |          |             | generated   |
    ---------+----------+-------------+-------------+------------------
    Atomic   | RDMA     | No Placement| RDMA Write  | Not
-            | Write    | Guarantee   | Payload MAY | Applicable
+            | Write    | Guarantee   | Payload <em>MAY</em> | Applicable
             |          | between RDMA| be Placed   |
             |          | Write       | before      |
             |          | Payload and | Atomic      |
@@ -1568,7 +1568,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>.  Errors Detected at the Local Peer</span>
 
-   The Local Peer MUST send a Terminate Message for each of the
+   The Local Peer <em>MUST</em> send a Terminate Message for each of the
    following cases:
 
    1. For errors detected while creating an Atomic Request, Atomic
@@ -1600,20 +1600,20 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Errors Detected at the Remote Peer</span>
 
    On incoming Atomic Requests, Atomic Responses, Immediate Data, and
-   Immediate Data with Solicited Event, the following MUST be validated:
+   Immediate Data with Solicited Event, the following <em>MUST</em> be validated:
 
-   o  The DDP layer MUST validate all DDP Segment fields.
+   o  The DDP layer <em>MUST</em> validate all DDP Segment fields.
 
-   o  The RDMA OpCode MUST be valid.
+   o  The RDMA OpCode <em>MUST</em> be valid.
 
-   o  The RDMA Version MUST be valid.
+   o  The RDMA Version <em>MUST</em> be valid.
 
-   On incoming Atomic requests the following additional validation MUST
+   On incoming Atomic requests the following additional validation <em>MUST</em>
    be performed:
 
-   o  The RDMAP layer MUST validate that the Remote Peer's Tagged ULP
+   o  The RDMAP layer <em>MUST</em> validate that the Remote Peer's Tagged ULP
       Buffer address references a ULP Buffer address that is 64-bit
-      aligned.  In the case of an error, the RDMAP layer MUST generate a
+      aligned.  In the case of an error, the RDMAP layer <em>MUST</em> generate a
       Terminate Message indicating RDMA Layer Remote Operation Error
       with Error Code Name "Catastrophic error, localized to RDMAP
       Stream" as described in <a href="./rfc5040.html#section-4.8">Section&nbsp;4.8 of RFC 5040</a>.  Implementation

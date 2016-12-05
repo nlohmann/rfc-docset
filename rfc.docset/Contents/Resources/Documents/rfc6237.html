@@ -326,18 +326,18 @@ Table of Contents
    In examples, "C:" indicates lines sent by a client that is connected
    to a server.  "S:" indicates lines sent by the server to the client.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  New ESEARCH Command</span>
 
-   Arguments:  OPTIONAL source options
-               OPTIONAL result options
-               OPTIONAL charset specification (see [<a href="./rfc2978.html" title="&quot;IANA Charset Registration Procedures&quot;">RFC2978</a>])
+   Arguments:  <em>OPTIONAL</em> source options
+               <em>OPTIONAL</em> result options
+               <em>OPTIONAL</em> charset specification (see [<a href="./rfc2978.html" title="&quot;IANA Charset Registration Procedures&quot;">RFC2978</a>])
                searching criteria (one or more)
 
-   Responses:  REQUIRED untagged response: ESEARCH
+   Responses:  <em>REQUIRED</em> untagged response: ESEARCH
 
    Result:     OK -- search completed
                NO -- error: cannot search that charset or criteria
@@ -365,7 +365,7 @@ Table of Contents
 
    Because there has been confusion about this, it is worth pointing out
    that with ESEARCH, as with *any* SEARCH or UID SEARCH command, it
-   MUST NOT be considered an error if the search terms include a range
+   <em>MUST NOT</em> be considered an error if the search terms include a range
    of message numbers that extends (or, in fact, starts) beyond the end
    of the mailbox.  For example, a client might want to establish a
    rolling window through the search results this way:
@@ -386,10 +386,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  The ESEARCH Response</span>
 
-   In response to an ESEARCH command, the server MUST return ESEARCH
+   In response to an ESEARCH command, the server <em>MUST</em> return ESEARCH
    responses [<a href="./rfc4731.html" title="&quot;IMAP4 Extension to SEARCH Command for Controlling What Kind of Information Is Returned&quot;">RFC4731</a>] (that is, not SEARCH responses).  Because message
    numbers are not useful for mailboxes that are not selected, the
-   responses MUST contain information about UIDs, not message numbers.
+   responses <em>MUST</em> contain information about UIDs, not message numbers.
    This is true even if the source options specify that only the
    selected mailbox be searched.
 
@@ -404,8 +404,8 @@ Table of Contents
    mailboxes are searched.
 
    For each mailbox satisfying the source options, a single ESEARCH
-   response MUST be returned if any messages in that mailbox match the
-   search criteria.  An ESEARCH response MUST NOT be returned for
+   response <em>MUST</em> be returned if any messages in that mailbox match the
+   search criteria.  An ESEARCH response <em>MUST NOT</em> be returned for
    mailboxes that contain no matching messages.  This is true even when
    result options such as MIN, MAX, and COUNT are specified (see
    <a href="./rfc4731.html#section-3.1">Section&nbsp;3.1 of [RFC4731]</a>), and the values returned (lowest UID
@@ -426,18 +426,18 @@ Table of Contents
    finding the tagged OK response without having received any matching
    untagged ESEARCH responses.
 
-   Each ESEARCH response MUST contain the MAILBOX, TAG, and UIDVALIDITY
+   Each ESEARCH response <em>MUST</em> contain the MAILBOX, TAG, and UIDVALIDITY
    correlators.  Correlators allow clients to issue several ESEARCH
    commands at once (pipelined).  If the SEARCHRES [<a href="./rfc5182.html" title="&quot;IMAP Extension for Referencing the Last SEARCH Result&quot;">RFC5182</a>] extension
-   is used in an ESEARCH command, that ESEARCH command MUST be executed
+   is used in an ESEARCH command, that ESEARCH command <em>MUST</em> be executed
    by the server after all previous SEARCH/ESEARCH commands have
    completed and before any subsequent SEARCH/ESEARCH commands are
-   executed.  The server MAY perform consecutive ESEARCH commands in
+   executed.  The server <em>MAY</em> perform consecutive ESEARCH commands in
    parallel as long as none of them use the SEARCHRES extension.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Source Options: Specifying Mailboxes to Search</span>
 
-   The source options, if present, MUST contain a mailbox specifier as
+   The source options, if present, <em>MUST</em> contain a mailbox specifier as
    defined in the IMAP NOTIFY extension <a href="./rfc5465.html#section-6">[RFC5465], Section&nbsp;6</a> (using the
    "filter-mailboxes" ABNF item), with the following differences:
 
@@ -450,12 +450,12 @@ Table of Contents
        of the specified mailbox and all selectable child mailboxes, one
        hierarchy level down.
 
-   If "subtree" is specified, the server MUST defend against loops in
+   If "subtree" is specified, the server <em>MUST</em> defend against loops in
    the hierarchy (for example, those caused by recursive file-system
-   links within the message store).  The server SHOULD do this by
+   links within the message store).  The server <em>SHOULD</em> do this by
    keeping track of the mailboxes that have been searched, and
    terminating the hierarchy traversal when a repeat is found.  If it
-   cannot do that, it MAY do it by limiting the hierarchy depth.
+   cannot do that, it <em>MAY</em> do it by limiting the hierarchy depth.
 
    If the source options are not present, the value "selected" is
    assumed -- that is, only the currently selected mailbox is searched.
@@ -476,15 +476,15 @@ Table of Contents
 
 
    If the source options include (or default to) "selected", the IMAP
-   session MUST be in "selected" state.  If the source options specify
-   other mailboxes and NOT "selected", then the IMAP session MUST be in
+   session <em>MUST</em> be in "selected" state.  If the source options specify
+   other mailboxes and NOT "selected", then the IMAP session <em>MUST</em> be in
    either "selected" or "authenticated" state.  If the session is not in
-   a correct state, the ESEARCH command MUST return a "BAD" result.
+   a correct state, the ESEARCH command <em>MUST</em> return a "BAD" result.
 
    If the server supports the SEARCHRES [<a href="./rfc5182.html" title="&quot;IMAP Extension for Referencing the Last SEARCH Result&quot;">RFC5182</a>] extension, then the
    "SAVE" result option is valid *only* if "selected" is specified or
    defaulted as the sole mailbox to be searched.  If any source option
-   other than "selected" is specified, the ESEARCH command MUST return a
+   other than "selected" is specified, the ESEARCH command <em>MUST</em> return a
    "BAD" result.
 
    If the server supports the CONTEXT=SEARCH and/or CONTEXT=SORT
@@ -494,9 +494,9 @@ Table of Contents
       with an ESEARCH command.
 
    o  If the UPDATE return option is used (<a href="./rfc5267.html#section-4.3">Section&nbsp;4.3 of [RFC5267]</a>), it
-      MUST apply ONLY to the currently selected mailbox.  If UPDATE is
+      <em>MUST</em> apply ONLY to the currently selected mailbox.  If UPDATE is
       used and there is no mailbox currently selected, the ESEARCH
-      command MUST return a "BAD" result.
+      command <em>MUST</em> return a "BAD" result.
 
    o  The PARTIAL search return option (<a href="./rfc5267.html#section-4.4">Section&nbsp;4.4 of [RFC5267]</a>) can be
       used and applies to each mailbox searched by the ESEARCH command.
@@ -507,8 +507,8 @@ Table of Contents
    that are not explicitly named (accessed through "personal" or
    "subtree", for example) are required to have the "l" right.
    Mailboxes matching the source options for which the logged-in user
-   lacks sufficient rights MUST be ignored by the ESEARCH command
-   processing.  In particular, ESEARCH responses MUST NOT be returned
+   lacks sufficient rights <em>MUST</em> be ignored by the ESEARCH command
+   processing.  In particular, ESEARCH responses <em>MUST NOT</em> be returned
    for those mailboxes.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Examples</span>
@@ -566,7 +566,7 @@ Table of Contents
 
    one-correlator =  ("TAG" SP tag-string) / ("MAILBOX" SP astring) /
            ("UIDVALIDITY" SP nz-number)
-           ; Each correlator MUST appear exactly once.
+           ; Each correlator <em>MUST</em> appear exactly once.
 
    scope-option =  scope-option-name [SP scope-option-value]
            ; No options defined here.  Syntax for future extensions.
@@ -619,20 +619,20 @@ Table of Contents
    devoted to responding to a single client, are reasonable limitations
    for an implementation to impose.
 
-   Implementations MUST, of course, apply access controls appropriately,
+   Implementations <em>MUST</em>, of course, apply access controls appropriately,
    limiting a user's access to ESEARCH in the same way its access is
    limited for any other IMAP commands.  This extension has no data-
    access risks beyond what may be there in the unextended IMAP
    implementation.
 
    Mailboxes matching the source options for which the logged-in user
-   lacks sufficient rights MUST be ignored by the ESEARCH command
+   lacks sufficient rights <em>MUST</em> be ignored by the ESEARCH command
    processing (see the paragraph about this in <a href="#section-2.2">Section 2.2</a>).  In
    particular, any attempt to distinguish insufficient access from
    non-existent mailboxes may expose information about the mailbox
    hierarchy that isn't otherwise available to the client.
 
-   If "subtree" is specified, the server MUST defend against loops in
+   If "subtree" is specified, the server <em>MUST</em> defend against loops in
    the hierarchy (see the paragraph about this in <a href="#section-2.2">Section 2.2</a>).
 
 

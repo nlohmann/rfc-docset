@@ -347,8 +347,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -446,17 +446,17 @@ Table of Contents
 
                        Figure 1: GETTGT Message Flow
 
-   The initiator MAY support the following events as triggers to go to
+   The initiator <em>MAY</em> support the following events as triggers to go to
    the User-to-User path.  Note that the two errors described below will
    not be authenticated, and how to act on them depends on the policy.
 
         o    The local policy says that the responder requires a User-
              to-User authentication.
 
-        o    A KRB_AP_ERR_USER_TO_USER_REQUIRED error is returned from
+        o    A KRB_AP_ERR_USER_TO_USER_<em>REQUIRED</em> error is returned from
              the responder.
 
-        o    A KDC_ERR_MUST_USE_USER2USER error is returned from the
+        o    A KDC_ERR_<em>MUST</em>_USE_USER2USER error is returned from the
              KDC.
 
 
@@ -476,24 +476,24 @@ Table of Contents
    approach, where SAs are initially created on the expectation that the
    responder will choose the initial proposed payload.  The optimistic
    proposal is placed in the first transform payload(s) of the first
-   proposal.  The initiator MUST check to see if the optimistic proposal
-   was selected by comparing all transforms and attributes, which MUST
+   proposal.  The initiator <em>MUST</em> check to see if the optimistic proposal
+   was selected by comparing all transforms and attributes, which <em>MUST</em>
    be identical to those in the initiator's optimistic proposal with the
    exceptions of LIFE_KILOBYTES and LIFE_SECONDS.  Each of these
-   attributes MAY be set to a lower value by the responder and still
-   expect optimistic keying, but MUST NOT be set to a higher value that
-   MUST generate a NO-PROPOSAL-CHOSEN error.  The initiator MUST use the
+   attributes <em>MAY</em> be set to a lower value by the responder and still
+   expect optimistic keying, but <em>MUST NOT</em> be set to a higher value that
+   <em>MUST</em> generate a NO-PROPOSAL-CHOSEN error.  The initiator <em>MUST</em> use the
    shorter lifetime.
 
    When a CREATE command contains an existing Security Parameter Index
-   (SPI), the responder MUST reject it and SHOULD return an ISAKMP
+   (SPI), the responder <em>MUST</em> reject it and <em>SHOULD</em> return an ISAKMP
    notification with INVALID-SPI.
 
    When a key exchange (KE) payload is sent from the initiator but the
-   responder does not support it, the responder MUST reject it with an
+   responder does not support it, the responder <em>MUST</em> reject it with an
    ISAKMP notification of INVALID-PAYLOAD-TYPE containing a KE payload
    type as its notification data.  When the initiator receives this
-   error, it MAY retry without a KE payload (as another transaction) if
+   error, it <em>MAY</em> retry without a KE payload (as another transaction) if
    its policy allows that.
 
        A                        B                       KDC
@@ -553,9 +553,9 @@ Table of Contents
          SA.
       2) B chooses one proposal according to its policy.
       3) B creates an inbound SA (A-&gt;B) and sends the actual choice in
-         the REPLY.  It SHOULD send the optional Nonce payload (as it
+         the REPLY.  It <em>SHOULD</em> send the optional Nonce payload (as it
          does not increase message count and generally increases entropy
-         sources) and MUST request that the REPLY be acknowledged.
+         sources) and <em>MUST</em> request that the REPLY be acknowledged.
       4) Upon receipt of the REPLY, A creates the inbound SA (B-&gt;A) (or
          modifies it as necessary, if switched from 2-way), and the
          outbound SA (A-&gt;B).
@@ -564,8 +564,8 @@ Table of Contents
          (B-&gt;A).
 
    If B does not choose the first proposal, adds a nonce, or accepts the
-   KE exchange, then it MUST request an ACK (i.e., set the ACKREQ bit)
-   so that it can install the final outbound SA.  The initiator MUST
+   KE exchange, then it <em>MUST</em> request an ACK (i.e., set the ACKREQ bit)
+   so that it can install the final outbound SA.  The initiator <em>MUST</em>
    always generate an ACK if the ACKREQ bit is set in the KINK header,
    even if it believes that the responder was in error.
 
@@ -618,16 +618,16 @@ Table of Contents
    delete inbound SAs until it receives acknowledgement that the other
    host has received the DELETE.  The exception to the pessimistic
    approach is if the initiator wants to immediately cease all activity
-   on an inbound SA.  In this case, it MAY delete the inbound SA as well
+   on an inbound SA.  In this case, it <em>MAY</em> delete the inbound SA as well
    in step 1, above.
 
    The ISAKMP payload contains ISAKMP Delete payload(s) that indicate
    the inbound SA(s) for the initiator of this flow.  KINK does not
    allow half-open SAs; thus, when the responder receives a DELETE
-   command, it MUST delete SAs of both directions, and MUST reply with
+   command, it <em>MUST</em> delete SAs of both directions, and <em>MUST</em> reply with
    ISAKMP Delete payload(s) that indicate the inbound SA(s) for the
    responder of this flow.  If the responder cannot find an appropriate
-   SPI to be deleted, it MUST return an ISAKMP notification with
+   SPI to be deleted, it <em>MUST</em> return an ISAKMP notification with
    INVALID_SPI, which also serves to inform the initiator that it can
    delete the inbound SA.
 
@@ -641,10 +641,10 @@ Table of Contents
    A race condition with the DELETE flow exists.  Due to network
    reordering, etc., packets in flight while the DELETE operation is
    taking place may arrive after the diagrams above, which recommend
-   deleting the inbound SA.  A KINK implementation SHOULD implement a
-   grace timer that SHOULD be set to a period of at least two times the
+   deleting the inbound SA.  A KINK implementation <em>SHOULD</em> implement a
+   grace timer that <em>SHOULD</em> be set to a period of at least two times the
    average round-trip time, or to a configurable value.  A KINK
-   implementation MAY choose to set the grace period to zero at
+   implementation <em>MAY</em> choose to set the grace period to zero at
    appropriate times to delete an SA ungracefully.  The behavior
    described here is referred from the behavior of the TCP [<a href="./rfc793.html" title="&quot;Transmission Control Protocol&quot;">RFC793</a>]
    flags FIN and RST.
@@ -677,14 +677,14 @@ Table of Contents
    described in sections <a href="#section-4.2.3">4.2.3</a>, <a href="#section-4.2.8">4.2.8</a>, and <a href="#section-4.2.6">4.2.6</a>, respectively.
 
    If the initiator detects an error in a received reply, there is no
-   means to report it back to the responder.  The initiator SHOULD log
-   the event and MAY take a remedial action by reinitiating the initial
+   means to report it back to the responder.  The initiator <em>SHOULD</em> log
+   the event and <em>MAY</em> take a remedial action by reinitiating the initial
    command.
 
    If the server clock and the client clock are off by more than the
    policy-determined clock skew limit (usually 5 minutes), the server
-   MUST return a KRB_AP_ERR_SKEW.  The optional client's time in the
-   KRB-ERROR SHOULD be filled out.  If the server protects the error by
+   <em>MUST</em> return a KRB_AP_ERR_SKEW.  The optional client's time in the
+   KRB-ERROR <em>SHOULD</em> be filled out.  If the server protects the error by
    adding the Cksum field and returning the correct client's time, the
 
 
@@ -694,11 +694,11 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-   client SHOULD compute the difference (in seconds) between the two
+   client <em>SHOULD</em> compute the difference (in seconds) between the two
    clocks based upon the client and server time contained in the
-   KRB-ERROR message.  The client SHOULD store this clock difference and
+   KRB-ERROR message.  The client <em>SHOULD</em> store this clock difference and
    use it to adjust its clock in subsequent messages.  If the error is
-   not protected, the client MUST NOT use the difference to adjust
+   not protected, the client <em>MUST NOT</em> use the difference to adjust
    subsequent messages, because doing so would allow an attacker to
    construct authenticators that can be used to mount replay attacks.
 
@@ -718,29 +718,29 @@ Table of Contents
    order to rekey an existing SA, the initiator must CREATE a new SA
    followed by either deleting the old SA with the DELETE flow or
    letting it time out.  When identical flow selectors are available on
-   different SAs, KINK implementations SHOULD choose the SA most
+   different SAs, KINK implementations <em>SHOULD</em> choose the SA most
    recently created.  It should be noted that KINK avoids most of the
    problems of [<a href="#ref-IKE" title="&quot;The Internet Key Exchange (IKE)&quot;">IKE</a>] rekeying by having a reliable delete mechanism.
 
    Normally, a KINK implementation that rekeys existing SAs will try to
    rekey the SA ahead of an SA termination, which may include the hard
    lifetime in time/bytecount or the overflow of the sequence number
-   counter.  We call this time "soft lifetime".  The soft lifetime MUST
+   counter.  We call this time "soft lifetime".  The soft lifetime <em>MUST</em>
    be randomized to avoid synchronization with similar implementations.
    In the case of the lifetime in time, one reasonable approach to
    determine the soft lifetime is picking a random time between T-rekey
    and T-retrans and subtracting it from the hard lifetime.  Here,
    T-rekey is the reasonable maximum rekeying margin, and T-retrans is
    the amount of time it would take to go through a full retransmission
-   cycle.  T-rekey SHOULD be at least twice as high as T-retrans.
+   cycle.  T-rekey <em>SHOULD</em> be at least twice as high as T-retrans.
 
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  Dead Peer Detection</span>
 
    In order to determine that a KINK peer has lost its security database
-   information, KINK peers MUST record the current epoch for which they
+   information, KINK peers <em>MUST</em> record the current epoch for which they
    have valid SA information for a peer and reflect that epoch in each
    AP-REQ and AP-REP message.  When a KINK peer creates state for a
-   given SA, it MUST also record the principal's epoch.  If it discovers
+   given SA, it <em>MUST</em> also record the principal's epoch.  If it discovers
 
 
 
@@ -751,17 +751,17 @@ Table of Contents
 
 
    on a subsequent message that the principal's epoch has changed, it
-   MUST consider all SAs created by that principal as invalid, and take
+   <em>MUST</em> consider all SAs created by that principal as invalid, and take
    some action such as tearing those SAs down.
 
-   While a KINK peer SHOULD use feedback from routing (in the form of
+   While a KINK peer <em>SHOULD</em> use feedback from routing (in the form of
    ICMP messages) as a trigger to check whether or not the peer is still
-   alive, a KINK peer MUST NOT conclude the peer is dead simply based on
+   alive, a KINK peer <em>MUST NOT</em> conclude the peer is dead simply based on
    unprotected routing information (said ICMP messages).
 
    If there is suspicion that a peer may be dead (based on any
    information available to the KINK peer, including lack of IPsec
-   traffic, etc.), the KINK STATUS message SHOULD be used to coerce an
+   traffic, etc.), the KINK STATUS message <em>SHOULD</em> be used to coerce an
    acknowledgement out of the peer.  Since nothing is negotiated about
    dead peer detection in KINK, each peer can decide its own metric for
    "suspicion" and also what timeouts to use before declaring a peer
@@ -783,15 +783,15 @@ Table of Contents
    epoch is needed.
 
    Assume a Peer A sending a STATUS and a peer B sending the REPLY (see
-   <a href="#section-3.4">section 3.4</a>).  Peer B MAY assume that the sender is alive, and the
+   <a href="#section-3.4">section 3.4</a>).  Peer B <em>MAY</em> assume that the sender is alive, and the
    epoch in the STATUS message will indicate whether or not the peer A
-   has lost state.  Peer B MUST acknowledge the STATUS message with a
+   has lost state.  Peer B <em>MUST</em> acknowledge the STATUS message with a
    REPLY message, as described in <a href="#section-3.4">section 3.4</a>.
 
    The REPLY message will indicate to peer A that the peer is alive, and
    the epoch in the REPLY will indicate whether peer B has lost its
    state or not.  If peer A does not receive a REPLY message from peer B
-   in a suitable timeout, peer A MAY send another STATUS message.  It is
+   in a suitable timeout, peer A <em>MAY</em> send another STATUS message.  It is
    up to peer A to decide how aggressively to declare peer B dead.  The
    level of aggressiveness may depend on many factors such as rapid fail
    over versus number of messages sent by nodes with large numbers of
@@ -806,9 +806,9 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-   Note that peer B MUST NOT make any inferences about a lack of STATUS
-   message from peer A.  Peer B MAY use a STATUS message from peer A as
-   an indication of A's aliveness, but peer B MUST NOT expect another
+   Note that peer B <em>MUST NOT</em> make any inferences about a lack of STATUS
+   message from peer A.  Peer B <em>MAY</em> use a STATUS message from peer A as
+   an indication of A's aliveness, but peer B <em>MUST NOT</em> expect another
    STATUS message at any time (i.e., dead peer detection is not periodic
    keepalives).
 
@@ -842,11 +842,11 @@ Table of Contents
    initiator.  After recovery, they can exchange their epochs, and usual
    DPD mechanism will detect a dead peer if it really has been dead.
 
-   The initiator MUST NOT think the peer has been dead on the receipt of
+   The initiator <em>MUST NOT</em> think the peer has been dead on the receipt of
    a KINK_TGT_REP because of two reasons.  One is that the message is
    not authenticated, and the other is that losing a TGT does not
    necessarily mean losing the SA database information.  The initiator
-   SHOULD NOT forget the previous service ticket until the new one is
+   <em>SHOULD NOT</em> forget the previous service ticket until the new one is
    successfully obtained in order to reduce the cost when a forged
    KINK_TGT_REP is received.
 
@@ -865,8 +865,8 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  KINK Message Format</span>
 
    All values in KINK are formatted in network byte order (most
-   significant byte first).  The RESERVED fields MUST be set to zero (0)
-   when a packet is sent.  The receiver MUST ignore these fields.
+   significant byte first).  The RESERVED fields <em>MUST</em> be set to zero (0)
+   when a packet is sent.  The receiver <em>MUST</em> ignore these fields.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -906,7 +906,7 @@ Table of Contents
               RESERVED TO IANA    7 - 127
               Private Use       128 - 255
 
-     o    MjVer (4 bits) -- Major protocol version number.  This MUST be
+     o    MjVer (4 bits) -- Major protocol version number.  This <em>MUST</em> be
           set to 1.
 
 
@@ -918,12 +918,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-     o    RESRVED (4 bits) -- Reserved and MUST be zero when sent, MUST
+     o    RESRVED (4 bits) -- Reserved and <em>MUST</em> be zero when sent, <em>MUST</em>
           be ignored when received.
 
      o    Length (2 octets) -- Length of the message in octets.  It is
           not forbidden in KINK that there are unnecessary data after
-          the message, but the Length field MUST represent the actual
+          the message, but the Length field <em>MUST</em> represent the actual
           length of the message.
 
      o    DOI (4 octets) -- The domain of interpretation.  All DOIs must
@@ -933,8 +933,8 @@ Table of Contents
           [<a href="#ref-IPDOI" title="&quot;The Internet IP Security Domain of Interpretation for ISAKMP&quot;">IPDOI</a>] is one (1).  This field defines the context of all
           sub-payloads in this message.  If sub-payloads have a DOI
           field (e.g., Security Association Payload), then the DOI in
-          that sub-payload MUST be checked against the DOI in this
-          header, and the values MUST be the same.
+          that sub-payload <em>MUST</em> be checked against the DOI in this
+          header, and the values <em>MUST</em> be the same.
 
      o    XID (4 octets) -- The transaction ID.  A KINK transaction is
           bound together by a transaction ID, which is created by the
@@ -944,8 +944,8 @@ Table of Contents
           the initiator to discriminate between multiple outstanding
           requests to a responder.  It is not used for replay protection
           because that functionality is provided by Kerberos.  The value
-          of XID is chosen by the initiator and MUST be unique with all
-          outstanding transactions.  XIDs MAY be constructed by using a
+          of XID is chosen by the initiator and <em>MUST</em> be unique with all
+          outstanding transactions.  XIDs <em>MAY</em> be constructed by using a
           monotonic counter or random number generator.
 
      o    NextPayload (1 octet) -- Indicates the type of the first
@@ -953,11 +953,11 @@ Table of Contents
 
      o    A, or ACKREQ (1 bit) -- ACK Request.  Set to one if the
           responder requires an explicit acknowledgement that a REPLY
-          was received.  An initiator MUST NOT set this flag, nor should
+          was received.  An initiator <em>MUST NOT</em> set this flag, nor should
           a responder except for a REPLY to a CREATE when the optimistic
           proposal is chosen.
 
-     o    RESERVED2 (7 bits) -- Reserved and MUST be zero on send, MUST
+     o    RESERVED2 (7 bits) -- Reserved and <em>MUST</em> be zero on send, <em>MUST</em>
           be ignored by a receiver.
 
      o    CksumLen (2 octets) -- CksumLen is the length in octets of the
@@ -977,9 +977,9 @@ Table of Contents
      o    Cksum (variable) -- Kerberos keyed checksum over the entire
           message excluding the Cksum field itself.  When any padding
           bytes are required between the last payload and the Cksum
-          field, they MUST be included in the calculation.  This field
-          MUST always be present whenever a key is available via an
-          AP-REQ or AP-REP payload.  The key used MUST be the session
+          field, they <em>MUST</em> be included in the calculation.  This field
+          <em>MUST</em> always be present whenever a key is available via an
+          AP-REQ or AP-REP payload.  The key used <em>MUST</em> be the session
           key in the ticket.  When a key is not available, this field is
           not present, and the CksumLen field is set to zero.  The
           content of this field is the output of the Kerberos 5 get_mic
@@ -987,7 +987,7 @@ Table of Contents
           a checksum type, which is a "required checksum mechanism" of
           the etype for the Kerberos session key in the Kerberos ticket.
           If the checksum type is not a keyed algorithm, the message
-          MUST be rejected.
+          <em>MUST</em> be rejected.
 
           To compute the checksum, the CksumLen field is zeroed out and
           the Length field is filled with the total packet length
@@ -1007,7 +1007,7 @@ Table of Contents
           without-checksum minus 1 of the received packet) and the
           checksum (offset from length-without-checksum to the last) are
           passed to the verify_mic function.  If verification fails, the
-          message MUST be dropped.
+          message <em>MUST</em> be dropped.
 
    The KINK header is followed immediately by a series of
    Type/Length/Value fields, defined in <a href="#section-4.2">section 4.2</a>.
@@ -1016,11 +1016,11 @@ Table of Contents
 
    KINK has the following rules regarding alignment and padding:
 
-     o    All length fields MUST reflect the actual number of octets in
+     o    All length fields <em>MUST</em> reflect the actual number of octets in
           the structure; i.e., they do not account for padding bytes
           required by KINK alignments.
 
-     o    KINK headers, payloads, and the Cksum field MUST be aligned on
+     o    KINK headers, payloads, and the Cksum field <em>MUST</em> be aligned on
           4-octet boundaries.
 
 
@@ -1030,7 +1030,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-     o    Variable length fields (except the Cksum field) MUST always
+     o    Variable length fields (except the Cksum field) <em>MUST</em> always
           start immediately after the last octet of the previous field.
           That is, they are not aligned to 4-octet boundaries.
 
@@ -1038,11 +1038,11 @@ Table of Contents
 
    Immediately following the header, there is a list of
    Type/Length/Value (TLV) payloads.  There can be any number of
-   payloads following the header.  Each payload MUST begin with a
+   payloads following the header.  Each payload <em>MUST</em> begin with a
    payload header.  Each payload header is built on the generic payload
    header.  Any data immediately follows the generic header.  Payloads
    are all implicitly aligned to 4-octet boundaries, though the payload
-   length field MUST accurately reflect the actual number of octets in
+   length field <em>MUST</em> accurately reflect the actual number of octets in
    the payload.
 
      0                   1                   2                   3
@@ -1076,8 +1076,8 @@ Table of Contents
           Next Payload type KINK_DONE denotes that the current payload
           is the final payload in the message.
 
-     o    RESERVED (1 octet) -- Reserved and MUST be set to zero by a
-          sender, MUST be ignored by a receiver.
+     o    RESERVED (1 octet) -- Reserved and <em>MUST</em> be set to zero by a
+          sender, <em>MUST</em> be ignored by a receiver.
 
 
 
@@ -1095,7 +1095,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  KINK_AP_REQ Payload</span>
 
    The KINK_AP_REQ payload relays a Kerberos AP-REQ to the responder.
-   The AP-REQ MUST request mutual authentication.
+   The AP-REQ <em>MUST</em> request mutual authentication.
 
    This document does not specify how to generate the principal name.
    That is, complete principal names may be stored in local policy,
@@ -1109,7 +1109,7 @@ Table of Contents
    "kink/fqdn@REALM"; where "kink" is a literal string for the KINK
    IPsec service, "fqdn" is the fully qualified domain name of the
    service host, and "REALM" is the Kerberos realm of the service.  A
-   principal name is case sensitive, and "fqdn" part MUST be lowercase
+   principal name is case sensitive, and "fqdn" part <em>MUST</em> be lowercase
    as described in [<a href="#ref-KERBEROS" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">KERBEROS</a>].
 
    The value field of this payload has the following format:
@@ -1157,7 +1157,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  KINK_AP_REP Payload</span>
 
    The KINK_AP_REP payload relays a Kerberos AP-REP to the initiator.
-   The AP-REP MUST be checked for freshness as described in [<a href="#ref-KERBEROS" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">KERBEROS</a>].
+   The AP-REP <em>MUST</em> be checked for freshness as described in [<a href="#ref-KERBEROS" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">KERBEROS</a>].
 
    The value field of this payload has the following format:
 
@@ -1204,22 +1204,22 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  KINK_KRB_ERROR Payload</span>
 
    The KINK_KRB_ERROR payload relays Kerberos type errors back to the
-   initiator.  The initiator MUST be prepared to receive any valid
+   initiator.  The initiator <em>MUST</em> be prepared to receive any valid
    Kerberos error type [<a href="#ref-KERBEROS" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">KERBEROS</a>].
 
-   KINK implementations SHOULD make use of a KINK Cksum field when
+   KINK implementations <em>SHOULD</em> make use of a KINK Cksum field when
    returning KINK_KRB_ERROR and the appropriate service key is
    available.  Especially in the case of clock skew errors, protecting
    the error at the server creates a better user experience because it
    does not require clocks to be synchronized.  However, many Kerberos
    implementations do not make it easy to obtain the session key in
    order to protect error packets.  For unauthenticated Kerberos errors,
-   the initiator MAY choose to act on them, but SHOULD take precautions
+   the initiator <em>MAY</em> choose to act on them, but <em>SHOULD</em> take precautions
    against make-work kinds of attacks.
 
    Note that KINK does not make use of the text or e_data field of the
-   Kerberos error message, though a compliant KINK implementation MUST
-   be prepared to receive them and MAY log them.
+   Kerberos error message, though a compliant KINK implementation <em>MUST</em>
+   be prepared to receive them and <em>MAY</em> log them.
 
    The value field of this payload has the following format:
 
@@ -1282,8 +1282,8 @@ Table of Contents
           wants to communicate with.  It is assumed that the initiator
           knows the responder's principal name (including the realm
           name) in the same way as the non-User-to-User case.  The TGT
-          returned MUST NOT be an inter-realm TGT and its cname and
-          crealm MUST match the requested principal name, so that the
+          returned <em>MUST NOT</em> be an inter-realm TGT and its cname and
+          crealm <em>MUST</em> match the requested principal name, so that the
           initiator can rendezvous with the responder at the responder's
           realm.
 
@@ -1295,8 +1295,8 @@ Table of Contents
           See <a href="./rfc1964.html#section-2.1.3">RFC 1964, section&nbsp;2.1.3</a>.
 
    If the responder is not the requested principal and is unable to get
-   a TGT for the name, it MAY return a KRB_AP_ERR_NOT_US.  If the
-   administrative policy prohibits returning a TGT, it MAY return a
+   a TGT for the name, it <em>MAY</em> return a KRB_AP_ERR_NOT_US.  If the
+   administrative policy prohibits returning a TGT, it <em>MAY</em> return a
    KINK_U2UDENIED.
 
 
@@ -1366,10 +1366,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-     o    QMMaj -- The major version of the inner payloads.  MUST be set
+     o    QMMaj -- The major version of the inner payloads.  <em>MUST</em> be set
           to 1.
 
-     o    QMMin -- The minor version of the inner payloads.  MUST be set
+     o    QMMin -- The minor version of the inner payloads.  <em>MUST</em> be set
           to 0.
 
    The KINK_ISAKMP payload encapsulates the IKE Quick Mode (phase 2)
@@ -1378,7 +1378,7 @@ Table of Contents
    single KINK message.  While [<a href="#ref-IKE" title="&quot;The Internet Key Exchange (IKE)&quot;">IKE</a>] is somewhat fuzzy about whether
    multiple different SAs may be created within a single IKE message,
    KINK explicitly requires that a new ISAKMP header be used for each
-   discrete SA operation.  In other words, a KINK implementation MUST
+   discrete SA operation.  In other words, a KINK implementation <em>MUST</em>
    NOT send multiple Quick Mode transactions within a single KINK_ISAKMP
    payload.
 
@@ -1387,19 +1387,19 @@ Table of Contents
    At the present time, the Quick Mode major and minor versions are set
    to one and zero (1.0), respectively.  These versions do not
    correspond to the ISAKMP version in the ISAKMP header.  A compliant
-   KINK implementation MUST support receipt of 1.0 payloads.  It MAY
-   support subsequent versions (both sending and receiving), and SHOULD
+   KINK implementation <em>MUST</em> support receipt of 1.0 payloads.  It <em>MAY</em>
+   support subsequent versions (both sending and receiving), and <em>SHOULD</em>
    provide a means to resort back to Quick Mode version 1.0 if the KINK
    peer is unable to process future versions.  A compliant KINK
-   implementation MUST NOT mix Quick Mode versions in any given
+   implementation <em>MUST NOT</em> mix Quick Mode versions in any given
    transaction.
 
 <span class="h4"><a class="selflink" name="section-4.2.7" href="#section-4.2.7">4.2.7</a>.  KINK_ENCRYPT Payload</span>
 
    The KINK_ENCRYPT payload encapsulates other KINK payloads and is
    encrypted using the session key and the algorithm specified by its
-   etype.  This payload MUST be the final one in the outer payload chain
-   of the message.  The KINK_ENCRYPT payload MUST be encrypted before
+   etype.  This payload <em>MUST</em> be the final one in the outer payload chain
+   of the message.  The KINK_ENCRYPT payload <em>MUST</em> be encrypted before
    the final KINK checksum is applied.
 
      0                   1                   2                   3
@@ -1432,7 +1432,7 @@ Table of Contents
      o    InnerNextPload -- First payload type of the inner series of
           encrypted KINK payloads.
 
-     o    RESERVED2 -- Reserved and MUST be zero when sent, MUST be
+     o    RESERVED2 -- Reserved and <em>MUST</em> be zero when sent, <em>MUST</em> be
           ignored when received.
 
    The coverage of the encrypted data begins at InnerNextPload so that
@@ -1445,7 +1445,7 @@ Table of Contents
    such as encrypt function itself, specific-key, and initial state are
    defined with the etype.  The encrypt function may have padding in
    itself and there may be some garbage data at the end of the decrypted
-   plaintext.  A KINK implementation MUST be prepared to ignore such
+   plaintext.  A KINK implementation <em>MUST</em> be prepared to ignore such
    padding after the last sub-payload inside the KINK_ENCRYPT payload.
    Note that each encrypt function has its own integrity protection
    mechanism.  It is redundant with the checksum in the KINK header, but
@@ -1500,20 +1500,20 @@ Table of Contents
           Private Use       8192 - 16383
           RESERVED         16384 -
 
-   The responder MUST NOT return KINK_OK.  When received, the initiator
-   MAY act as if the specific KINK_ERROR payload were not present.  If
+   The responder <em>MUST NOT</em> return KINK_OK.  When received, the initiator
+   <em>MAY</em> act as if the specific KINK_ERROR payload were not present.  If
    the initiator supports multiple Quick Mode versions or DOIs,
    KINK_BADQMVERS or KINK_INVDOI is received, and the Cksum is verified,
-   then it MAY retry with another version or DOI.  A responder SHOULD
+   then it <em>MAY</em> retry with another version or DOI.  A responder <em>SHOULD</em>
    return a KINK error with KINK_INVMAJ, when it receives an unsupported
    KINK version number in the header.  When KINK_U2UDENIED is received,
-   the initiator MAY retry with the non-User-to-User mode (if it has not
+   the initiator <em>MAY</em> retry with the non-User-to-User mode (if it has not
    yet been tried).
 
-   In general, the responder MAY choose to return these errors in reply
-   to unauthenticated commands, but SHOULD take care to avoid being
-   involved in denial of service attacks.  Similarly, the initiator MAY
-   choose to act on unauthenticated errors, but SHOULD take care to
+   In general, the responder <em>MAY</em> choose to return these errors in reply
+   to unauthenticated commands, but <em>SHOULD</em> take care to avoid being
+   involved in denial of service attacks.  Similarly, the initiator <em>MAY</em>
+   choose to act on unauthenticated errors, but <em>SHOULD</em> take care to
    avoid denial of service attacks.
 
 
@@ -1540,8 +1540,8 @@ Table of Contents
    KINK uses IKE phase 2 payload types (aka Quick Mode).  In general,
    there should be very few changes necessary to an IKE implementation
    to establish the SAs, and unless there is a note to the contrary in
-   the memo, all capabilities and requirements in [<a href="#ref-IKE" title="&quot;The Internet Key Exchange (IKE)&quot;">IKE</a>] MUST be
-   supported.  IKE phase 1 payloads MUST NOT be sent.
+   the memo, all capabilities and requirements in [<a href="#ref-IKE" title="&quot;The Internet Key Exchange (IKE)&quot;">IKE</a>] <em>MUST</em> be
+   supported.  IKE phase 1 payloads <em>MUST NOT</em> be sent.
 
    Unlike IKE, KINK defines specific commands for creation, deletion,
    and status of SAs, mainly to facilitate predictable SA
@@ -1556,8 +1556,8 @@ Table of Contents
 
      o   The Security Association Payload header for IP is defined in
          section 4.6.1 of [<a href="#ref-IPDOI" title="&quot;The Internet IP Security Domain of Interpretation for ISAKMP&quot;">IPDOI</a>].  For this memo, the Domain of
-         Interpretation MUST be set to 1 (IPsec) and the Situation
-         bitmap MUST be set to 1 (SIT_IDENTITY_ONLY).  All other fields
+         Interpretation <em>MUST</em> be set to 1 (IPsec) and the Situation
+         bitmap <em>MUST</em> be set to 1 (SIT_IDENTITY_ONLY).  All other fields
          are omitted (because SIT_IDENTITY_ONLY is set).
 
      o   KINK also expands the semantics of IKE in that it defines an
@@ -1566,7 +1566,7 @@ Table of Contents
 
      o   IKE Quick Mode (phase 2) uses the hash algorithm used in main
          mode (phase 1) to generate the keying material.  For this
-         purpose, KINK MUST use a pseudo-random function determined by
+         purpose, KINK <em>MUST</em> use a pseudo-random function determined by
          the etype of the session key.
 
      o   KINK does not use the HASH payload at all.
@@ -1629,8 +1629,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Nonce Payloads</span>
 
-   The Nonce payload contains random data that MUST be used in key
-   generation.  It MUST be sent by the initiating KINK peer, and MAY be
+   The Nonce payload contains random data that <em>MUST</em> be used in key
+   generation.  It <em>MUST</em> be sent by the initiating KINK peer, and <em>MAY</em> be
    sent by the responding KINK peer.  See <a href="#section-7">section 7</a> for the discussion
    of its use in key generation.
 
@@ -1657,11 +1657,11 @@ Table of Contents
 
    Types in the range 0 - 16383 are intended for reporting errors
    [<a href="#ref-ISAKMP" title="&quot;Internet Security Association and Key Management Protocol (ISAKMP)&quot;">ISAKMP</a>].  An implementation receiving a type in this range that it
-   does not recognize in a response MUST assume that the corresponding
+   does not recognize in a response <em>MUST</em> assume that the corresponding
    request has failed entirely.  Unrecognized error types in a request
-   and status types in a request or response MUST be ignored, and they
-   SHOULD be logged.  Notify payloads with status types MAY be added to
-   any message and MUST be ignored if not recognized.  They are intended
+   and status types in a request or response <em>MUST</em> be ignored, and they
+   <em>SHOULD</em> be logged.  Notify payloads with status types <em>MAY</em> be added to
+   any message and <em>MUST</em> be ignored if not recognized.  They are intended
    to indicate capabilities, and as part of SA negotiation are used to
    negotiate non-cryptographic parameters.
 
@@ -1678,7 +1678,7 @@ Table of Contents
 
       Sent if the ISAKMP payload type is not recognized.  It is also
       sent when the KE payload is not supported by the responder.
-      Notification Data MUST contains the one-octet payload type.
+      Notification Data <em>MUST</em> contains the one-octet payload type.
 
    INVALID-SPI                              11
 
@@ -1717,7 +1717,7 @@ Table of Contents
 
    IKE requires that perfect forward secrecy (PFS) be supported through
    the use of the KE payload.  KINK retains the ability to use PFS, but
-   relaxes the requirement from must implement to SHOULD implement.  The
+   relaxes the requirement from must implement to <em>SHOULD</em> implement.  The
    reasons are described in the Security Considerations section.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Message Construction and Constraints for IPsec DOI</span>
@@ -1728,24 +1728,24 @@ Table of Contents
    differentiate between outstanding requests to a responder.  The XID
    field does not provide replay protection as that functionality is
    provided by the Kerberos mechanisms.  In addition, commands and
-   responses MUST use a cryptographic checksum over the entire message
+   responses <em>MUST</em> use a cryptographic checksum over the entire message
    if the two peers share a key via a ticket exchange.
 
    In all cases in this section, if a message contains a KINK_AP_REQ or
-   KINK_AP_REP payload, other KINK payloads MAY be encapsulated in a
+   KINK_AP_REP payload, other KINK payloads <em>MAY</em> be encapsulated in a
    KINK_ENCRYPT payload.
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  REPLY Message</span>
 
-   The REPLY message is a generic reply that MUST contain either a
+   The REPLY message is a generic reply that <em>MUST</em> contain either a
    KINK_AP_REP, a KINK_KRB_ERROR, or a KINK_ERROR payload.  REPLY
-   messages MAY contain additional DOI-specific payloads such as ISAKMP
+   messages <em>MAY</em> contain additional DOI-specific payloads such as ISAKMP
    payloads that are defined in the following sections.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  ACK Message</span>
 
    ACKs are sent only when the ACKREQ bit is set in a REPLY message.  An
-   ACK message MUST contain an AP-REQ payload and no other payload.
+   ACK message <em>MUST</em> contain an AP-REQ payload and no other payload.
 
 
 
@@ -1790,17 +1790,17 @@ Table of Contents
             [IDci, IDcr]
             [Notification Payloads]
 
-   Note that there MUST be at least a single proposal payload and a
+   Note that there <em>MUST</em> be at least a single proposal payload and a
    single transform payload in REPLY messages.  There will be multiple
    proposal payloads only when an SA bundle is negotiated.  Also: unlike
    IKE, the Nonce payload Nr is not required, and if it exists, an
    acknowledgement must be requested to indicate that the initiator's
    outgoing SAs must be modified.  If any of the first proposals are not
-   chosen by the recipient, it SHOULD include the Nonce payload.
+   chosen by the recipient, it <em>SHOULD</em> include the Nonce payload.
 
    KINK, like IKE, allows the creation of many SAs in one create
    command.  If any of the optimistic proposals are not chosen by the
-   responder, it MUST request an ACK.
+   responder, it <em>MUST</em> request an ACK.
 
    If an IPsec DOI-specific error is encountered, the responder must
    reply with a Notify payload describing the error:
@@ -1830,7 +1830,7 @@ Table of Contents
         KINK_KRB_ERROR
 
    Finally, if the responder finds a Kerberos or KINK type of error for
-   which it cannot create an AP-REP, it MUST reply with a lone
+   which it cannot create an AP-REP, it <em>MUST</em> reply with a lone
    KINK_KRB_ERROR or KINK_ERROR payload:
 
    REPLY KINK Header
@@ -1885,7 +1885,7 @@ Table of Contents
      [KINK_ENCRYPT]
         KINK_KRB_ERROR
 
-   If the responder finds a KINK or Kerberos type of error, it MUST
+   If the responder finds a KINK or Kerberos type of error, it <em>MUST</em>
    reply with a lone KINK_KRB_ERROR or KINK_ERROR payload:
 
    REPLY KINK Header
@@ -1934,7 +1934,7 @@ Table of Contents
      [KINK_ENCRYPT]
         KINK_KRB_ERROR
 
-   If the responder finds a KINK or Kerberos type of error, it MUST
+   If the responder finds a KINK or Kerberos type of error, it <em>MUST</em>
    reply with a lone KINK_KRB_ERROR or KINK_ERROR payload:
 
    REPLY KINK Header
@@ -1950,7 +1950,7 @@ Table of Contents
    There are two forms of replies for a GETTGT.  In the normal form,
    where the responder is allowed to return its TGT, the REPLY contains
    KINK_TGT_REP payload.  If the responder is not allowed to return its
-   TGT, it MUST reply with a KINK_ERROR payload.
+   TGT, it <em>MUST</em> reply with a KINK_ERROR payload.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  ISAKMP Key Derivation</span>
 
@@ -1966,13 +1966,13 @@ Table of Contents
 
      o    SKEYID_d is the session key in the Kerberos service ticket
           from the AP-REQ.  Note that subkeys are not used in KINK and
-          MUST be ignored if received.
+          <em>MUST</em> be ignored if received.
 
      o    Both Ni_b and Nr_b are the part of the Nonce payloads (Ni and
           Nr, respectively) as described in section 3.2 of [<a href="#ref-IKE" title="&quot;The Internet Key Exchange (IKE)&quot;">IKE</a>].  Nr_b
           is optional, which means that Nr_b is treated as if a zero
           length value was supplied when the responder's nonce (Nr) does
-          not exist.  When Nr exists, Nr_b MUST be included in the
+          not exist.  When Nr exists, Nr_b <em>MUST</em> be included in the
           calculation.
 
 
@@ -2006,26 +2006,26 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Transport Considerations</span>
 
    KINK uses UDP on port 910 to transport its messages.  There is one
-   timer T which SHOULD take into consideration round-trip
-   considerations and MUST implement a truncated exponential back-off
+   timer T which <em>SHOULD</em> take into consideration round-trip
+   considerations and <em>MUST</em> implement a truncated exponential back-off
    mechanism.  The state machine is simple: any message that expects a
-   response MUST retransmit the request using timer T.  Since Kerberos
+   response <em>MUST</em> retransmit the request using timer T.  Since Kerberos
    requires that messages be retransmitted with new times for replay
-   protection, the message MUST be re-created each time including the
+   protection, the message <em>MUST</em> be re-created each time including the
    checksum of the message.  Both commands and replies with the ACKREQ
    bit set are kept on retransmit timers.  When a KINK initiator
-   receives a REPLY with the ACKREQ bit set, it MUST retain the ability
+   receives a REPLY with the ACKREQ bit set, it <em>MUST</em> retain the ability
    to regenerate the ACK message for the transaction for a minimum of
    its full retransmission timeout cycle or until it notices that
    packets have arrived on the newly constructed SA, whichever comes
    first.
 
-   When a KINK peer retransmits a message, it MUST create a new Kerberos
+   When a KINK peer retransmits a message, it <em>MUST</em> create a new Kerberos
    authenticator for the AP-REQ so that the peer can differentiate
    between replays and dropped packets.  This results in a potential
    race condition when a retransmission occurs before an in-flight reply
    is received/processed.  To counter this race condition, the
-   retransmitting party SHOULD keep a list of valid authenticators that
+   retransmitting party <em>SHOULD</em> keep a list of valid authenticators that
    are outstanding for any particular transaction.
 
 
@@ -2038,12 +2038,12 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-   When a KINK peer retransmits a command, it MUST use the same ticket
+   When a KINK peer retransmits a command, it <em>MUST</em> use the same ticket
    within the retransmissions.  This is to avoid race conditions on
    using different keys, which result in different KEYMATs between an
-   initiator and a responder.  For this reason, (1) an initiator MUST
+   initiator and a responder.  For this reason, (1) an initiator <em>MUST</em>
    obtain a ticket whose lifetime is greater than the initiator's
-   maximum transaction time including timeouts, or (2) it MUST continue
+   maximum transaction time including timeouts, or (2) it <em>MUST</em> continue
    to use the same ticket within a set of retransmissions, and iff it
    receives an error (most likely KRB_AP_ERR_TKT_EXPIRED) from the
    responder, it starts a new transaction with a new ticket.
@@ -2139,7 +2139,7 @@ Table of Contents
    interpretation.  In this memo, the only supported Quick Mode version
    is 1.0, which corresponds to [<a href="#ref-IKE" title="&quot;The Internet Key Exchange (IKE)&quot;">IKE</a>].  Likewise, the only DOI supported
    is the IPsec domain of interpretation [<a href="#ref-IPDOI" title="&quot;The Internet IP Security Domain of Interpretation for ISAKMP&quot;">IPDOI</a>].  New Quick Mode
-   versions and DOIs MUST be described in subsequent memos.
+   versions and DOIs <em>MUST</em> be described in subsequent memos.
 
 
 
@@ -2150,10 +2150,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4430.html">RFC 4430</a>                          KINK                        March 2006</span>
 
 
-   KINK implementations MUST reject ISAKMP versions that are greater
+   KINK implementations <em>MUST</em> reject ISAKMP versions that are greater
    than the highest currently supported version with a KINK_BADQMVERS
    error type.  A KINK implementation that receives a KINK_BADQMVERS
-   message SHOULD be capable of reverting back to version 1.0.
+   message <em>SHOULD</em> be capable of reverting back to version 1.0.
 
 <span class="h3"><a class="selflink" name="section-12.1" href="#section-12.1">12.1</a>.  New Versions of Quick Mode</span>
 

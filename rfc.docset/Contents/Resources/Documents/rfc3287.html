@@ -359,8 +359,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Terms</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>.
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>]
 
@@ -602,7 +602,7 @@ Table of Contents
    assignment may be the data source, but in order to reduce MIB
    complexity (by avoiding an extra layer of tables), an instance of the
    counter aggregation profile parameter exists for each collection.  An
-   agent MAY choose to restrict configurations such that all DSMON data
+   agent <em>MAY</em> choose to restrict configurations such that all DSMON data
    collections for the same data source must use the same counter
    aggregation profile.
 
@@ -662,11 +662,11 @@ Table of Contents
    The dsmonMaxAggGroups scalar is a read-only integer which indicates
    the maximum number of counter aggregation groups that the agent will
    allow to be configured into a single aggregation profile.  This value
-   SHOULD be equal to 64 (the number of codepoints), but an agent MAY
+   <em>SHOULD</em> be equal to 64 (the number of codepoints), but an agent <em>MAY</em>
    limit the number of counter aggregation groups because of resource
    limitations (e.g., small number of hardware-based counters).  At
    least one counter aggregation profile containing at least two counter
-   aggregation groups SHOULD be supported by the agent.  (Note that
+   aggregation groups <em>SHOULD</em> be supported by the agent.  (Note that
    classifying all DSCP counters into the same statistical 'bucket' may
    yield a redundant data collection, which can be achieved more easily
    with an HC-RMON or RMON-2 collection instead.)
@@ -701,14 +701,14 @@ Table of Contents
    select a counter aggregation profile by referencing this index value.
 
    The dsmonAggProfileTable is a read-write table which contains 64 rows
-   for each associated entry in the dsmonAggControlTable, which MUST be
+   for each associated entry in the dsmonAggControlTable, which <em>MUST</em> be
    indexed from 0 to 63.  The agent creates this set of 64 instances
    when the associated dsmonAggControlEntry is activated, and deletes
    them when that dsmonAggControlEntry is deactivated.  Each of the 64
    rows represents a conceptual DSCP counter, identified by the same
    dsmonAggProfileDSCP value, and contains the DSCP counter to counter
    aggregation group mapping for that DSCP counter, in the indicated
-   profile.  The agent SHOULD use the value zero as the initial counter
+   profile.  The agent <em>SHOULD</em> use the value zero as the initial counter
    aggregation group assignment for each entry in this table.
 
    The dsmonAggGroupTable contains an administratively assigned
@@ -718,7 +718,7 @@ Table of Contents
    with integer indices.  It is provided to allow the agent to store a
    descriptive string for each configured counter aggregation group.
    There is no attempt made to convey any real semantics for each
-   counter aggregation group.  A management station MAY choose not to
+   counter aggregation group.  A management station <em>MAY</em> choose not to
    configure entries in this table.
 
 <span class="h4"><a class="selflink" name="section-3.2.2" href="#section-3.2.2">3.2.2</a>.  DS Statistics Group</span>
@@ -819,7 +819,7 @@ Table of Contents
    The DS Host Distribution is different from the RMON-2 network layer
    host group in two ways:
 
-   -  the protocolDirLocalIndex in the INDEX clause MUST identify a
+   -  the protocolDirLocalIndex in the INDEX clause <em>MUST</em> identify a
       network protocol encapsulation which contains a DS field (e.g.,
       IPv4 or IPv6).  If a protocol encapsulation with multiple network
       layers is specified, then associated entries in this table refer
@@ -1209,8 +1209,8 @@ dsmonMaxAggGroups OBJECT-TYPE
             'dsmonMaxAggGroups - 1', for each counter aggregation
             profile entry supported by the agent.
 
-            The agent MUST NOT lower this value during system operation,
-            and SHOULD set this object to an appropriate value during
+            The agent <em>MUST NOT</em> lower this value during system operation,
+            and <em>SHOULD</em> set this object to an appropriate value during
             system initialization."
     ::= { dsmonAggObjects 1 }
 
@@ -1329,29 +1329,29 @@ dsmonAggControlTable OBJECT-TYPE
             point for all dsmonAggProfileEntries with the same
             dsmonAggControlIndex value.
 
-            A management application SHOULD create a counter aggregation
+            A management application <em>SHOULD</em> create a counter aggregation
             profile by first creating and activating an entry in this
             table.  This will cause the agent to create a set of 64
             dsmonAggProfileEntries on behalf of this control entry.  An
             application can then set the individual counter aggregation
             group assignments for each of the 64 DSCP values,
 
-            This table MUST NOT be modified if the dsmonAggControlLocked
+            This table <em>MUST NOT</em> be modified if the dsmonAggControlLocked
             object is equal to 'true'.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table, and
             (independently) the number of counter aggregation profiles
             which may be applied to a particular data source.  In this
-            case, the agent SHOULD return an error-status of
+            case, the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>].
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.  Otherwise, each
             potential counter aggregation group description string
-            SHOULD contain the empty string."
+            <em>SHOULD</em> contain the empty string."
     ::= { dsmonAggObjects 5 }
 
 dsmonAggControlEntry OBJECT-TYPE
@@ -1397,11 +1397,11 @@ dsmonAggControlDescr OBJECT-TYPE
             aggregation profile identified by this entry.
 
             Upon first creation of an instance of this object, the agent
-            SHOULD set this object to the empty string.  If the agent
-            supports non-volatile storage, then this object SHOULD be
+            <em>SHOULD</em> set this object to the empty string.  If the agent
+            supports non-volatile storage, then this object <em>SHOULD</em> be
             re-initialized with its stored value after a system reboot.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonAggControlStatus object is equal to 'active', or the
             dsmonAggControlLocked object is equal to 'true'."
     ::= { dsmonAggControlEntry 2 }
@@ -1430,7 +1430,7 @@ dsmonAggControlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this row.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             Upon setting this object to active(1), the agent will create
@@ -1440,7 +1440,7 @@ dsmonAggControlStatus OBJECT-TYPE
             If this object is not equal to active(1), all associated
             entries in the dsmonAggProfileTable shall be deleted.
 
-            This object MUST NOT be modified if the
+            This object <em>MUST NOT</em> be modified if the
             dsmonAggControlLocked object is equal to 'true'."
     ::= { dsmonAggControlEntry 4 }
 
@@ -1454,10 +1454,10 @@ dsmonAggProfileTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
             "Controls the setup of counter aggregation profiles for this
-            agent.  For each such profile, every DSCP value MUST be
+            agent.  For each such profile, every DSCP value <em>MUST</em> be
             configured into exactly one counter aggregation group.
 
-            This table MUST NOT be modified if the dsmonAggControlLocked
+            This table <em>MUST NOT</em> be modified if the dsmonAggControlLocked
             object is equal to 'true'.
 
             The agent will create a set of 64 entries in this table
@@ -1465,7 +1465,7 @@ dsmonAggProfileTable OBJECT-TYPE
             associated dsmonAggControlEntry is activated.
 
             If the agent supports non-volatile configuration of this
-            table, then upon system initialization, this table SHOULD be
+            table, then upon system initialization, this table <em>SHOULD</em> be
             initialized with the saved values."
     ::= { dsmonAggObjects 6 }
 
@@ -1512,10 +1512,10 @@ dsmonAggGroupIndex OBJECT-TYPE
             "The counter aggregation group which contains this DSCP
             value.  Upon creation of a new sub-tree (set of 64 entries
             with the same dsmonAggControlIndex value) in this table, the
-            agent SHOULD initialize all related instances of this object
+            agent <em>SHOULD</em> initialize all related instances of this object
             to the value zero.
 
-            This object MUST NOT be modified if the
+            This object <em>MUST NOT</em> be modified if the
             dsmonAggControlLocked object is equal to 'true'."
     DEFVAL { 0 }
     ::= { dsmonAggProfileEntry 2 }
@@ -1544,24 +1544,24 @@ dsmonAggGroupTable OBJECT-TYPE
             relevant within the scope of a particular counter
             aggregation profile.
 
-            This table MUST NOT be modified if the dsmonAggControlLocked
+            This table <em>MUST NOT</em> be modified if the dsmonAggControlLocked
             object is equal to 'true'.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table, and
             (independently) the number of counter aggregation profiles
             which may be applied to a particular data source.  In this
-            case, the agent SHOULD return an error-status of
+            case, the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>].
 
             If the agent supports non-volatile configuration of this
-            table, then upon system initialization, this table SHOULD be
+            table, then upon system initialization, this table <em>SHOULD</em> be
             initialized with the saved values.  Otherwise, each
             potential counter aggregation group description string
-            SHOULD contain the empty string.
+            <em>SHOULD</em> contain the empty string.
 
-            An agent SHOULD allow entries to be created or modified in
+            An agent <em>SHOULD</em> allow entries to be created or modified in
             this table, even if the specified dsmonAggControlIndex value
             does not identify a valid dsmonAggControlEntry or a complete
             set of valid dsmonAggProfileEntries, to reduce row creation
@@ -1589,13 +1589,13 @@ dsmonAggGroupEntry OBJECT-TYPE
 <span class="grey"><a href="./rfc3287.html">RFC 3287</a>                       DSMON MIB                      July 2002</span>
 
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             The dsmonAggGroupIndex in the index identifies the counter
             aggregation group associated with each entry.  This object
-            SHOULD be indexed from zero to 'N', where 'N' is less than
+            <em>SHOULD</em> be indexed from zero to 'N', where 'N' is less than
             the value of the dsmonMaxAggGroups for this agent."
 
     INDEX { dsmonAggControlIndex, dsmonAggGroupIndex }
@@ -1614,9 +1614,9 @@ dsmonAggGroupDescr OBJECT-TYPE
             aggregation group identified by this entry.
 
             Upon first creation of an instance of this object, the agent
-            SHOULD set this object to the empty string.
+            <em>SHOULD</em> set this object to the empty string.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonAggGroupStatus object is equal to 'active', or the
             dsmonAggControlLocked object is equal to 'true'."
     ::= { dsmonAggGroupEntry 1 }
@@ -1628,10 +1628,10 @@ dsmonAggGroupStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this row.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
-            This object MUST NOT be modified if the
+            This object <em>MUST NOT</em> be modified if the
             dsmonAggControlLocked object is equal to 'true'."
     ::= { dsmonAggGroupEntry 2 }
 
@@ -1663,9 +1663,9 @@ dsmonStatsControlTable OBJECT-TYPE
             "Controls the setup of per data source per counter
             aggregation group distribution statistics.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonStatsObjects 1 }
@@ -1681,8 +1681,8 @@ dsmonStatsControlEntry OBJECT-TYPE
             management action only, using the dsmonStatsControlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -1730,7 +1730,7 @@ dsmonStatsControlDataSource OBJECT-TYPE
             encapsulation which contains a DS field [<a href="./rfc2474.html" title="&quot;Definition of the Differentiated Services Field (DS Field) in the IPv4 and IPv6 Headers&quot;">RFC2474</a>] will be
             counted in this table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonStatsControlStatus object is equal to active(1)."
     ::= { dsmonStatsControlEntry 2 }
 
@@ -1745,7 +1745,7 @@ dsmonStatsControlAggProfile OBJECT-TYPE
 
             The associated dsmonAggControlEntry and
             dsmonAggProfileEntries, identified by the same
-            dsmonAggControlIndex index value, MUST be active in order
+            dsmonAggControlIndex index value, <em>MUST</em> be active in order
             for this entry to remain active.  It is possible for the
             counter aggregation configuration to change from a valid to
             invalid state for this dsmonStats collection.  In this case,
@@ -1761,11 +1761,11 @@ dsmonStatsControlAggProfile OBJECT-TYPE
             changed to the 'notReady' state, and data collection will
             not occur on behalf of this control entry.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             counter aggregation profiles which may be applied to a
             particular data source.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonStatsControlStatus object is equal to active(1)."
     ::= { dsmonStatsControlEntry 3 }
 
@@ -1824,7 +1824,7 @@ dsmonStatsControlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this row.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -1853,9 +1853,9 @@ dsmonStatsTable OBJECT-TYPE
             increment.
 
             For full-duplex links, the dsmonStatsOut* objects will be
-            present.  Whenever possible, the probe SHOULD count packets
+            present.  Whenever possible, the probe <em>SHOULD</em> count packets
             moving away from the closest terminating equipment as output
-            packets.  Failing that, the probe SHOULD count packets
+            packets.  Failing that, the probe <em>SHOULD</em> count packets
             moving away from the DTE as output packets.
 
             If the dsmonAggControlLocked object is equal to 'false',
@@ -2105,9 +2105,9 @@ dsmonPdistCtlTable OBJECT-TYPE
             "Controls the setup of per application per counter
             aggregation group distribution statistics.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonPdistObjects 1 }
@@ -2123,8 +2123,8 @@ dsmonPdistCtlEntry OBJECT-TYPE
             management action only, using the dsmonPdistCtlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -2170,7 +2170,7 @@ dsmonPdistCtlDataSource OBJECT-TYPE
             "The source of data for the this per protocol counter
             aggregation group distribution.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonPdistCtlStatus object is equal to active(1)."
     ::= { dsmonPdistCtlEntry 2 }
 
@@ -2185,7 +2185,7 @@ dsmonPdistCtlAggProfile OBJECT-TYPE
 
             The associated dsmonAggControlEntry and
             dsmonAggProfileEntries, identified by the same
-            dsmonAggControlIndex index value, MUST be active in order
+            dsmonAggControlIndex index value, <em>MUST</em> be active in order
             for this entry to remain active.  It is possible for the
             counter aggregation configuration to change from a valid to
             invalid state for this dsmonPdist collection.  In this case,
@@ -2193,7 +2193,7 @@ dsmonPdistCtlAggProfile OBJECT-TYPE
             the 'notReady' state, and data collection will not occur on
             behalf of this control entry.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             counter aggregation profiles which may be applied to a
             particular data source.
 
@@ -2205,7 +2205,7 @@ dsmonPdistCtlAggProfile OBJECT-TYPE
 <span class="grey"><a href="./rfc3287.html">RFC 3287</a>                       DSMON MIB                      July 2002</span>
 
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonPdistCtlStatus object is equal to active(1)."
     ::= { dsmonPdistCtlEntry 3 }
 
@@ -2217,14 +2217,14 @@ dsmonPdistCtlMaxDesiredEntries OBJECT-TYPE
             "The maximum number of entries that are desired in the
             dsmonPdistStatsTable on behalf of this control entry.  The
             probe will not create more than this number of associated
-            entries in the table, but MAY choose to create fewer entries
+            entries in the table, but <em>MAY</em> choose to create fewer entries
             in this table for any reason including the lack of
             resources.
 
-            If this value is set to -1, the probe MAY create any number
+            If this value is set to -1, the probe <em>MAY</em> create any number
             of entries in this table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonPdistCtlStatus object is equal to active(1)."
     ::= { dsmonPdistCtlEntry 4 }
 
@@ -2267,7 +2267,7 @@ dsmonPdistCtlInserts OBJECT-TYPE
             deleted, and then inserted, this counter will be incremented
             by 2.
 
-            To allow for efficient implementation strategies, agents MAY
+            To allow for efficient implementation strategies, agents <em>MAY</em>
             delay updating this object for short periods of time.  For
             example, an implementation strategy may allow internal data
             structures to differ from those visible via SNMP for short
@@ -2289,7 +2289,7 @@ dsmonPdistCtlDeletes OBJECT-TYPE
             deleted, then inserted, and then deleted, this counter will
             be incremented by 2.
 
-            To allow for efficient implementation strategies, agents MAY
+            To allow for efficient implementation strategies, agents <em>MAY</em>
             delay updating this object for short periods of time.  For
             example, an implementation strategy may allow internal data
             structures to differ from those visible via SNMP for short
@@ -2335,7 +2335,7 @@ dsmonPdistCtlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this row.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -2554,9 +2554,9 @@ dsmonPdistTopNCtlTable OBJECT-TYPE
             of the top N dsmonPdist entries according to a particular
             metric.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonPdistObjects 3 }
@@ -2572,8 +2572,8 @@ dsmonPdistTopNCtlEntry OBJECT-TYPE
             management action only, using the dsmonPdistTopNCtlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -2627,7 +2627,7 @@ dsmonPdistTopNCtlPdistIndex OBJECT-TYPE
             table - that value is used here to identify the particular
             table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonPdistTopNCtlStatus object is equal to active(1)."
     ::= { dsmonPdistTopNCtlEntry 2 }
 
@@ -2670,7 +2670,7 @@ dsmonPdistTopNCtlRateBase OBJECT-TYPE
             dsmonPdistTopNHCOctets enumerations are only available if
             the agent supports High Capacity monitoring.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonPdistTopNCtlStatus object is equal to active(1)."
     ::= { dsmonPdistTopNCtlEntry 3 }
 
@@ -2752,7 +2752,7 @@ dsmonPdistTopNCtlRequestedSize OBJECT-TYPE
             "The maximum number of dsmonPdist entries requested for this
             report.
 
-            When this object is created or modified, the probe SHOULD
+            When this object is created or modified, the probe <em>SHOULD</em>
             set dsmonPdistTopNCtlGrantedSize as closely to this object
             as is possible for the particular probe implementation and
             available resources."
@@ -2776,10 +2776,10 @@ dsmonPdistTopNCtlGrantedSize OBJECT-TYPE
             "The maximum number of dsmonPdist entries in this report.
 
             When the associated dsmonPdistTopNCtlRequestedSize object is
-            created or modified, the probe SHOULD set this object as
+            created or modified, the probe <em>SHOULD</em> set this object as
             closely to the requested value as is possible for the
             particular implementation and available resources.  The
-            probe MUST NOT lower this value except as a result of a
+            probe <em>MUST NOT</em> lower this value except as a result of a
             set to the associated dsmonPdistTopNCtlRequestedSize
             object.
 
@@ -2830,7 +2830,7 @@ dsmonPdistTopNCtlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this dsmonPdistTopNCtlEntry.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -2851,16 +2851,16 @@ dsmonPdistTopNTable OBJECT-TYPE
             that have counted the highest number of octets or packets.
 
             If the dsmonAggControlLocked object is equal to 'false',
-            then all entries in this table SHALL be deleted, and the
+            then all entries in this table <em>SHALL</em> be deleted, and the
             agent will not process TopN reports on behalf of any
             dsmonPdistTopNCtlEntry.
 
             When the dsmonAggControlLocked object is set to 'true', then
-            particular reports SHOULD be restarted from the beginning,
+            particular reports <em>SHOULD</em> be restarted from the beginning,
             on behalf of all active rows in the dsmonPdistTopNCtlTable.
 
             Note that dsmonPdist entries which did not increment at all
-            during the report interval SHOULD NOT be included in
+            during the report interval <em>SHOULD NOT</em> be included in
             dsmonPdistTopN reports."
     ::= { dsmonPdistObjects 4 }
 
@@ -2919,7 +2919,7 @@ dsmonPdistTopNPDLocalIndex OBJECT-TYPE
 
             If the protocolDirEntry associated with the
             protocolDirLocalIndex with the same value as this object is
-            de-activated or deleted, then the agent MUST delete this
+            de-activated or deleted, then the agent <em>MUST</em> delete this
             dsmonPdistTopN entry."
     ::= { dsmonPdistTopNEntry 2 }
 
@@ -2977,7 +2977,7 @@ dsmonPdistTopNRateOvfl OBJECT-TYPE
             'dsmonPdistTopNPkts' or 'dsmonPdistTopNOctets', then this
             object will contain the value zero.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonPdistTopNEntry 5 }
 
@@ -3005,7 +3005,7 @@ dsmonPdistTopNHCRate OBJECT-TYPE
             dsmonPdistTopNRate object will contain the change in the
             selected variable during the sampling interval.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonPdistTopNEntry 6 }
 
@@ -3029,9 +3029,9 @@ dsmonHostCtlTable OBJECT-TYPE
             "Controls setup of per counter aggregation group, per
             network layer host distribution statistics.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonHostObjects 1 }
@@ -3055,8 +3055,8 @@ dsmonHostCtlEntry OBJECT-TYPE
             management action only, using the dsmonHostCtlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -3107,7 +3107,7 @@ dsmonHostCtlDataSource OBJECT-TYPE
             encapsulation which contains a DS field [<a href="./rfc2474.html" title="&quot;Definition of the Differentiated Services Field (DS Field) in the IPv4 and IPv6 Headers&quot;">RFC2474</a>] will be
             counted in this table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostCtlStatus object is equal to active(1)."
     ::= { dsmonHostCtlEntry 2 }
 
@@ -3122,7 +3122,7 @@ dsmonHostCtlAggProfile OBJECT-TYPE
 
             The associated dsmonAggControlEntry and
             dsmonAggProfileEntries, identified by the same
-            dsmonAggControlIndex index value, MUST be active in order
+            dsmonAggControlIndex index value, <em>MUST</em> be active in order
             for this entry to remain active.  It is possible for the
             counter aggregation configuration to change from a valid to
             invalid state for this dsmonHost collection.  In this case,
@@ -3130,11 +3130,11 @@ dsmonHostCtlAggProfile OBJECT-TYPE
             the 'notReady' state, and data collection will not occur on
             behalf of this control entry.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             counter aggregation profiles which may be applied to a
             particular data source.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostCtlStatus object is equal to active(1)."
     ::= { dsmonHostCtlEntry 3 }
 
@@ -3147,7 +3147,7 @@ dsmonHostCtlMaxDesiredEntries OBJECT-TYPE
             "The maximum number of entries that are desired in the
             dsmonHostTable on behalf of this control entry.  The probe
             will not create more than this number of associated entries
-            in the table, but MAY choose to create fewer entries in this
+            in the table, but <em>MAY</em> choose to create fewer entries in this
             table for any reason including the lack of resources.
 
 
@@ -3157,10 +3157,10 @@ dsmonHostCtlMaxDesiredEntries OBJECT-TYPE
 <span class="grey"><a href="./rfc3287.html">RFC 3287</a>                       DSMON MIB                      July 2002</span>
 
 
-            If this value is set to -1, the probe MAY create any number
+            If this value is set to -1, the probe <em>MAY</em> create any number
             of entries in this table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostCtlStatus object is equal to active(1)."
     ::= { dsmonHostCtlEntry 4 }
 
@@ -3186,7 +3186,7 @@ dsmonHostCtlIPv4PrefixLen OBJECT-TYPE
             If this object is equal to 32, then no bits are cleared in
             each dsmonHostAddress field.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostCtlStatus object is equal to active(1)."
     DEFVAL { 32 }
     ::= { dsmonHostCtlEntry 5 }
@@ -3221,7 +3221,7 @@ dsmonHostCtlIPv6PrefixLen OBJECT-TYPE
             If this object is equal to 128, then no bits are cleared in
             each dsmonHostAddress field.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostCtlStatus object is equal to active(1)."
     DEFVAL { 128 }
     ::= { dsmonHostCtlEntry 6 }
@@ -3244,7 +3244,7 @@ dsmonHostCtlDroppedFrames OBJECT-TYPE
 
             Note that if the dsmonHostTable is inactive because no
             appropriate protocols are enabled in the protocol directory,
-            this value SHOULD be 0.
+            this value <em>SHOULD</em> be 0.
 
             Note that, unlike the dropEvents counter, this number is the
             exact number of frames dropped."
@@ -3269,7 +3269,7 @@ dsmonHostCtlInserts OBJECT-TYPE
 <span class="grey"><a href="./rfc3287.html">RFC 3287</a>                       DSMON MIB                      July 2002</span>
 
 
-            To allow for efficient implementation strategies, agents MAY
+            To allow for efficient implementation strategies, agents <em>MAY</em>
             delay updating this object for short periods of time.  For
             example, an implementation strategy may allow internal data
             structures to differ from those visible via SNMP for short
@@ -3291,7 +3291,7 @@ dsmonHostCtlDeletes OBJECT-TYPE
             deleted, then inserted, and then deleted, this counter will
             be incremented by 2.
 
-            To allow for efficient implementation strategies, agents MAY
+            To allow for efficient implementation strategies, agents <em>MAY</em>
             delay updating this object for short periods of time.  For
             example, an implementation strategy may allow internal data
             structures to differ from those visible via SNMP for short
@@ -3337,7 +3337,7 @@ dsmonHostCtlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this dsmonHostCtlEntry.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -3393,7 +3393,7 @@ dsmonHostEntry OBJECT-TYPE
             The protocolDirLocalIndex value in the index identifies the
             specific network layer protocol encapsulation associated
             with each entry, and the network protocol type of the
-            dsmonHostAddress object.  It MUST identify a
+            dsmonHostAddress object.  It <em>MUST</em> identify a
             protocolDirEntry which contains a DS field (e.g., IPv4 or
             IPv6).  Note that if a protocol encapsulation with multiple
             network layers is specified, then associated entries in this
@@ -3686,9 +3686,9 @@ dsmonHostTopNCtlTable OBJECT-TYPE
             of the top N dsmonHost entries according to a selected
             metric.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonHostObjects 3 }
@@ -3704,8 +3704,8 @@ dsmonHostTopNCtlEntry OBJECT-TYPE
             management action only, using the dsmonHostTopNCtlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -3757,7 +3757,7 @@ dsmonHostTopNCtlHostIndex OBJECT-TYPE
             table - that value is used here to identify the particular
             table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostTopNCtlStatus object is equal to active(1)."
     ::= { dsmonHostTopNCtlEntry 2 }
 
@@ -3848,7 +3848,7 @@ dsmonHostTopNCtlRateBase OBJECT-TYPE
             dsmonHostTopNRateOvfl, and/or dsmonHostTopNHCRate objects
             should be set to their maximum value.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonHostTopNCtlStatus object is equal to active(1)."
     ::= { dsmonHostTopNCtlEntry 3 }
 
@@ -3930,7 +3930,7 @@ dsmonHostTopNCtlRequestedSize OBJECT-TYPE
             "The maximum number of dsmonHost entries requested for this
             report.
 
-            When this object is created or modified, the probe SHOULD
+            When this object is created or modified, the probe <em>SHOULD</em>
             set dsmonHostTopNCtlGrantedSize as closely to this object as
             is possible for the particular probe implementation and
 
@@ -3954,10 +3954,10 @@ dsmonHostTopNCtlGrantedSize OBJECT-TYPE
             "The maximum number of dsmonHost entries in this report.
 
             When the associated dsmonHostTopNCtlRequestedSize object is
-            created or modified, the probe SHOULD set this object as
+            created or modified, the probe <em>SHOULD</em> set this object as
             closely to the requested value as is possible for the
             particular implementation and available resources.  The
-            probe MUST NOT lower this value except as a result of a
+            probe <em>MUST NOT</em> lower this value except as a result of a
             set to the associated dsmonHostTopNCtlRequestedSize
             object.
 
@@ -4008,7 +4008,7 @@ dsmonHostTopNCtlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this dsmonHostTopNCtlEntry.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -4029,16 +4029,16 @@ dsmonHostTopNTable OBJECT-TYPE
             counted the highest number of octets or packets.
 
             If the dsmonAggControlLocked object is equal to 'false',
-            then all entries in this table SHALL be deleted, and the
+            then all entries in this table <em>SHALL</em> be deleted, and the
             agent will not process TopN reports on behalf of any
             dsmonHostTopNCtlEntry.
 
             When the dsmonAggControlLocked object is set to 'true', then
-            particular reports SHOULD be restarted from the beginning,
+            particular reports <em>SHOULD</em> be restarted from the beginning,
             on behalf of all active rows in the dsmonHostTopNCtlTable.
 
             Note that dsmonHost entries which did not increment at all
-            during the report interval SHOULD NOT be included in
+            during the report interval <em>SHOULD NOT</em> be included in
             dsmonHostTopN reports."
     ::= { dsmonHostObjects 4 }
 
@@ -4099,7 +4099,7 @@ dsmonHostTopNPDLocalIndex OBJECT-TYPE
 
             If the protocolDirEntry associated with the
             protocolDirLocalIndex with the same value as this object is
-            de-activated or deleted, then the agent MUST delete this
+            de-activated or deleted, then the agent <em>MUST</em> delete this
             dsmonHostTopN entry."
 
 
@@ -4174,7 +4174,7 @@ dsmonHostTopNRateOvfl OBJECT-TYPE
             any of High Capacity monitoring enumerations, then this
             object will contain the value zero.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonHostTopNEntry 6 }
 
@@ -4194,7 +4194,7 @@ dsmonHostTopNHCRate OBJECT-TYPE
             contain the change in the selected variable during the
             sampling interval.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonHostTopNEntry 7 }
 
@@ -4225,9 +4225,9 @@ dsmonMatrixCtlTable OBJECT-TYPE
             "Controls setup of per counter aggregation group, per host-
             pair, application protocol distribution statistics.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonMatrixObjects 1 }
@@ -4243,8 +4243,8 @@ dsmonMatrixCtlEntry OBJECT-TYPE
             management action only, using the dsmonMatrixCtlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -4295,7 +4295,7 @@ dsmonMatrixCtlDataSource OBJECT-TYPE
             encapsulation which contains a DS field [<a href="./rfc2474.html" title="&quot;Definition of the Differentiated Services Field (DS Field) in the IPv4 and IPv6 Headers&quot;">RFC2474</a>] will be
             counted in this table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonMatrixCtlStatus object is equal to active(1)."
     ::= { dsmonMatrixCtlEntry 2 }
 
@@ -4310,7 +4310,7 @@ dsmonMatrixCtlAggProfile OBJECT-TYPE
 
             The associated dsmonAggControlEntry and
             dsmonAggProfileEntries, identified by the same
-            dsmonAggControlIndex index value, MUST be active in order
+            dsmonAggControlIndex index value, <em>MUST</em> be active in order
             for this entry to remain active.  It is possible for the
             counter aggregation configuration to change from a valid to
             invalid state for this dsmonMatrix collection.  In this
@@ -4318,11 +4318,11 @@ dsmonMatrixCtlAggProfile OBJECT-TYPE
             changed to the 'notReady' state, and data collection will
             not occur on behalf of this control entry.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             counter aggregation profiles which may be applied to a
             particular data source.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonMatrixCtlStatus object is equal to active(1)."
     ::= { dsmonMatrixCtlEntry 3 }
 
@@ -4349,7 +4349,7 @@ dsmonMatrixCtlMaxDesiredEntries OBJECT-TYPE
             If this value is set to -1, the probe may create any number
             of entries in this table.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonMatrixCtlStatus object is equal to active(1)."
     ::= { dsmonMatrixCtlEntry 4 }
 
@@ -4371,7 +4371,7 @@ dsmonMatrixCtlDroppedFrames OBJECT-TYPE
 
             Note that if the dsmonMatrix tables are inactive because no
             appropriate protocols are enabled in the protocol directory,
-            this value SHOULD be 0.
+            this value <em>SHOULD</em> be 0.
 
             Note that, unlike the dropEvents counter, this number is the
             exact number of frames dropped."
@@ -4425,7 +4425,7 @@ dsmonMatrixCtlDeletes OBJECT-TYPE
             deletion from one table must be accompanied by a deletion
             from the other).
 
-            To allow for efficient implementation strategies, agents MAY
+            To allow for efficient implementation strategies, agents <em>MAY</em>
             delay updating this object for short periods of time.  For
             example, an implementation strategy may allow internal data
             structures to differ from those visible via SNMP for short
@@ -4472,7 +4472,7 @@ dsmonMatrixCtlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this dsmonMatrixCtlEntry.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -4632,7 +4632,7 @@ dsmonMatrixALIndex OBJECT-TYPE
             representing the specific application layer protocol
             associated with each entry.
 
-            It MUST identify an protocolDirEntry which is a direct or
+            It <em>MUST</em> identify an protocolDirEntry which is a direct or
             indirect descendant of the protocolDirEntry identified by
             the associated dsmonMatrixNLIndex object."
     ::= { dsmonMatrixSDEntry 5 }
@@ -4958,9 +4958,9 @@ dsmonMatrixTopNCtlTable OBJECT-TYPE
             of the top N dsmonMatrix entries according to a selected
             metric.
 
-            Note that an agent MAY choose to limit the actual number of
+            Note that an agent <em>MAY</em> choose to limit the actual number of
             entries which may be created in this table.  In this case,
-            the agent SHOULD return an error-status of
+            the agent <em>SHOULD</em> return an error-status of
             'resourceUnavailable(13)', as per <a href="#section-4.2.5">section 4.2.5</a> of the
             'Protocol Operations for SNMPv2' specification [<a href="./rfc1905.html" title="&quot;Protocol Operations for Version 2 of the Simple Network Management Protocol (SNMPv2)&quot;">RFC1905</a>]."
     ::= { dsmonMatrixObjects 4 }
@@ -4976,8 +4976,8 @@ dsmonMatrixTopNCtlEntry OBJECT-TYPE
             management action only, using the dsmonMatrixTopNCtlStatus
             RowStatus object.
 
-            The agent SHOULD support non-volatile configuration of this
-            table, and upon system initialization, the table SHOULD be
+            The agent <em>SHOULD</em> support non-volatile configuration of this
+            table, and upon system initialization, the table <em>SHOULD</em> be
             initialized with the saved values.
 
             Activation of a control row in this table will cause an
@@ -5028,7 +5028,7 @@ dsmonMatrixTopNCtlMatrixIndex OBJECT-TYPE
             identified by the same value of the dsmonMatrixCtlIndex
             object.
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonMatrixTopNCtlStatus object is equal to active(1)."
     ::= { dsmonMatrixTopNCtlEntry 2 }
 
@@ -5073,7 +5073,7 @@ dsmonMatrixTopNCtlRateBase OBJECT-TYPE
             dsmonMatrixTopNHCPkts
             dsmonMatrixTopNHCOctets
 
-            This object MUST NOT be modified if the associated
+            This object <em>MUST NOT</em> be modified if the associated
             dsmonMatrixTopNCtlStatus object is equal to active(1)."
     ::= { dsmonMatrixTopNCtlEntry 3 }
 
@@ -5154,7 +5154,7 @@ dsmonMatrixTopNCtlRequestedSize OBJECT-TYPE
             "The maximum number of dsmonMatrix entries requested for
             this report.
 
-            When this object is created or modified, the probe SHOULD
+            When this object is created or modified, the probe <em>SHOULD</em>
             set dsmonMatrixTopNCtlGrantedSize as closely to this object
             as is possible for the particular probe implementation and
             available resources."
@@ -5178,10 +5178,10 @@ dsmonMatrixTopNCtlGrantedSize OBJECT-TYPE
             "The maximum number of dsmonMatrix entries in this report.
 
             When the associated dsmonMatrixTopNCtlRequestedSize object
-            is created or modified, the probe SHOULD set this object as
+            is created or modified, the probe <em>SHOULD</em> set this object as
             closely to the requested value as is possible for the
             particular implementation and available resources.  The
-            probe MUST NOT lower this value except as a result of a
+            probe <em>MUST NOT</em> lower this value except as a result of a
             set to the associated dsmonMatrixTopNCtlRequestedSize
             object.
 
@@ -5232,7 +5232,7 @@ dsmonMatrixTopNCtlStatus OBJECT-TYPE
     DESCRIPTION
             "The status of this dsmonMatrixTopNCtlEntry.
 
-            An entry MUST NOT exist in the active state unless all
+            An entry <em>MUST NOT</em> exist in the active state unless all
             objects in the entry have an appropriate value.
 
             If this object is not equal to active(1), all associated
@@ -5253,16 +5253,16 @@ dsmonMatrixTopNTable OBJECT-TYPE
             counted the highest number of octets or packets.
 
             If the dsmonAggControlLocked object is equal to 'false',
-            then all entries in this table SHALL be deleted, and the
+            then all entries in this table <em>SHALL</em> be deleted, and the
             agent will not process TopN reports on behalf of any
             dsmonMatrixTopNCtlEntry.
 
             When the dsmonAggControlLocked object is set to 'true', then
-            particular reports SHOULD be restarted from the beginning,
+            particular reports <em>SHOULD</em> be restarted from the beginning,
             on behalf of all active rows in the dsmonMatrixTopNCtlTable.
 
             Note that dsmonMatrix entries which did not increment at all
-            during the report interval SHOULD NOT be included in
+            during the report interval <em>SHOULD NOT</em> be included in
             dsmonMatrixTopN reports."
     ::= { dsmonMatrixObjects 5 }
 
@@ -5354,7 +5354,7 @@ dsmonMatrixTopNNLIndex OBJECT-TYPE
 
             If the protocolDirEntry associated with the
             protocolDirLocalIndex with the same value as this object is
-            de-activated or deleted, then the agent MUST delete this
+            de-activated or deleted, then the agent <em>MUST</em> delete this
             dsmonMatrixTopN entry."
     ::= { dsmonMatrixTopNEntry 3 }
 
@@ -5398,7 +5398,7 @@ dsmonMatrixTopNALIndex OBJECT-TYPE
 
 
             protocolDirLocalIndex with the same value as this object is
-            de-activated or deleted, then the agent MUST delete this
+            de-activated or deleted, then the agent <em>MUST</em> delete this
             dsmonMatrixTopN entry."
     ::= { dsmonMatrixTopNEntry 6 }
 
@@ -5436,7 +5436,7 @@ dsmonMatrixTopNPktRateOvfl OBJECT-TYPE
             associated dsmonMatrixTopNHCPktRate object, otherwise this
             object will contain the value zero.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 8 }
 
@@ -5462,7 +5462,7 @@ dsmonMatrixTopNHCPktRate OBJECT-TYPE
             dsmonMatrixTopNHCPkts, this variable will be used to sort
             this report.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 9 }
 
@@ -5495,7 +5495,7 @@ dsmonMatrixTopNRevPktRateOvfl OBJECT-TYPE
             associated dsmonMatrixTopNHCRevPktRate object, otherwise
             this object will contain the value zero.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 11 }
 
@@ -5521,7 +5521,7 @@ dsmonMatrixTopNHCRevPktRate OBJECT-TYPE
             destination address is equal to
             dsmonMatrixTopNSourceAddress.)
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 12 }
 
@@ -5567,7 +5567,7 @@ dsmonMatrixTopNOctetRateOvfl OBJECT-TYPE
 
             object will contain the value zero.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 14 }
 
@@ -5585,7 +5585,7 @@ dsmonMatrixTopNHCOctetRate OBJECT-TYPE
             dsmonMatrixTopNHCOctets, this variable will be used to sort
             this report.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 15 }
 
@@ -5626,7 +5626,7 @@ dsmonMatrixTopNRevOctetRateOvfl OBJECT-TYPE
             associated dsmonMatrixTopNHCRevPktRate object, otherwise
             this object will contain the value zero.
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 17 }
 
@@ -5644,7 +5644,7 @@ dsmonMatrixTopNHCRevOctetRate OBJECT-TYPE
             whose destination address is equal to
             dsmonMatrixTopNSourceAddress.)
 
-            The agent MAY choose not to instantiate this object if High
+            The agent <em>MAY</em> choose not to instantiate this object if High
             Capacity monitoring is not supported."
     ::= { dsmonMatrixTopNEntry 18 }
 

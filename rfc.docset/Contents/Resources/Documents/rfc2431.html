@@ -241,8 +241,8 @@ Abstract
 <span class="grey"><a href="./rfc2431.html">RFC 2431</a>             RTP Payload Format for BT.656          October 1998</span>
 
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-5" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">5</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Definitions</span>
@@ -317,12 +317,12 @@ Abstract
    provided.  However, it is possible to include frame blanking samples
    if such samples contain relevant information, such as a vertical-
    interlace time code (VITC), or teletext data.  In the absence of
-   frame blanking samples, the receiver MUST generate true black levels
+   frame blanking samples, the receiver <em>MUST</em> generate true black levels
    as defined above, to complete the correct number of scan lines per
-   field.  If frame blanking samples are provided, they MUST be copied
+   field.  If frame blanking samples are provided, they <em>MUST</em> be copied
    without modification into the resultant BT.656-3 stream.
 
-   Scan lines MUST be sent in sequential order.  Error concealment for
+   Scan lines <em>MUST</em> be sent in sequential order.  Error concealment for
    missing scan lines or fragments of scan lines is at the discretion of
    the receiver.
 
@@ -331,17 +331,17 @@ Abstract
    fixed-point precision such that a binary value of 10111110.11
    represents a sample value of 190.75.  Using 8-bit quantization, this
    would give a sample value of 190.  An application receiving 8-bit
-   samples for a 10-bit device MUST consider the sample as reflecting
-   the most-significant 8 bits.  The two least-significant bits SHOULD
+   samples for a 10-bit device <em>MUST</em> consider the sample as reflecting
+   the most-significant 8 bits.  The two least-significant bits <em>SHOULD</em>
    be set to zero.  Similarly, an application sending 8-bit samples from
-   a 10-bit device MUST drop the two least-significant bits.  For a 10-
-   bit quantization payload, each pair of samples MUST be encoded into a
+   a 10-bit device <em>MUST</em> drop the two least-significant bits.  For a 10-
+   bit quantization payload, each pair of samples <em>MUST</em> be encoded into a
    40-bit word (five octets) prior to transmission, as specified in
    <a href="#section-6">Section 6</a>.
 
    To allow for scan lines with octet lengths larger than the path
    maximum transmission unit (MTU), a scan offset field is included in
-   the packet header.  Applications SHOULD attempt path MTU discovery
+   the packet header.  Applications <em>SHOULD</em> attempt path MTU discovery
    [<a href="#ref-6" title="&quot;Path MTU Discovery&quot;">6</a>] and fragment scan lines into multiple packets no larger than the
    MTU.
 
@@ -353,7 +353,7 @@ Abstract
 <span class="grey"><a href="./rfc2431.html">RFC 2431</a>             RTP Payload Format for BT.656          October 1998</span>
 
 
-   Fragmentation MUST occur on a sample-pair boundary, such that the
+   Fragmentation <em>MUST</em> occur on a sample-pair boundary, such that the
    chrominance and luminance values are not split across packets.  For
    8-bit quantization this gives a four-octet alignment, and a five-
    octet alignment for 10-bit quantization.  As a result, the scan
@@ -391,13 +391,13 @@ Abstract
    fragmented), and set to 0 on all other packets.
 
    Payload Type (PT): The Payload Type indicates the use of the payload
-   format defined in this document.  A profile MAY assign a payload type
+   format defined in this document.  A profile <em>MAY</em> assign a payload type
    value for this format either statically or dynamically as described
    in <a href="./rfc1890.html">RFC 1890</a> [<a href="#ref-4" title="&quot;RTP Profile for Audio and Video Conference with Minimal Control&quot;">4</a>].
 
    Timestamp: The RTP Timestamp encodes the sampling instant of the
    video frame currently being rendered.  All scan line packets within
-   the same frame will have the same timestamp.  The timestamp SHOULD
+   the same frame will have the same timestamp.  The timestamp <em>SHOULD</em>
    refer to the 'Ov' field synchronization point of the first field.
    For the payload format defined by this document, the RTP timestamp is
    based on a 90kHz clock.
@@ -431,17 +431,17 @@ Abstract
    V: 1 bit
    When 1, indicates that the scan line is part of the vertical interval.
    Should always be 0 unless frame blanking data is sent.  In which case,
-   the V bit SHOULD be set to 1 for scan lines which do not form an
+   the V bit <em>SHOULD</em> be set to 1 for scan lines which do not form an
    integral part of the image. This bit is copied directly from the
    BT.656-compliant stream by the transmitter, and inserted into the
    stream by the receiver.  For receivers which do not receive scan lines
-   during the vertical interval, BT.656 vertical interval data MUST be
+   during the vertical interval, BT.656 vertical interval data <em>MUST</em> be
    generated by repeating the quad-sample sequence 0x80, 0x10, 0x80,
    0x10, representing a true black level.
 
    Type: 4 bits
    This field indicates the type of frame encoding within the payload.
-   It MUST remain unchanged for all scan lines within the same frame.
+   It <em>MUST</em> remain unchanged for all scan lines within the same frame.
    Currently only four types of encoding are defined.  These are as
    follows;
 
@@ -472,7 +472,7 @@ Abstract
    P: 1 bit
    Indicates the required sample quantization size.  When 0, the payload
    is comprised of 8-bit samples.  Otherwise, it carries 10-bit samples.
-   This bit MUST remain unchanged for all scan lines within the same
+   This bit <em>MUST</em> remain unchanged for all scan lines within the same
    frame.
 
    Z: 2 bits
@@ -483,21 +483,21 @@ Abstract
    Indicates the scan line encapsulated in the payload.  Valid values
    range from 1 through 625 inclusive. If no frame blanking data is
    being transmitted, only scan lines 23 through 310 inclusive, and
-   lines 336 through 623 inclusive SHOULD be sent in the case of Type=1
+   lines 336 through 623 inclusive <em>SHOULD</em> be sent in the case of Type=1
    or 3.  For 525/60 encoding (Type=0 or 2), scan lines 10 through 263
-   inclusive and lines 273 through 525 SHOULD be transmitted.
+   inclusive and lines 273 through 525 <em>SHOULD</em> be transmitted.
 
    If a receiver is generating a BT.656-3 data stream directly from this
-   packet, the F and V bits MUST be copied from the header rather than
+   packet, the F and V bits <em>MUST</em> be copied from the header rather than
    being generated implicitly from the scan line number.  In the event
    of a conflict, the F and V bits have precedence.
 
    Scan Offset (SO): 11 bits
    Indicates the offset within the scan line for application-level
    fragmentation.  After doing PMTU discovery, if the path MTU is less
-   than the required size for one complete scan line, the data SHOULD be
+   than the required size for one complete scan line, the data <em>SHOULD</em> be
    fragmented such that a given RTP packet does not exceed the allowable
-   MTU.  The offset for the first packet of a scan line MUST be set to
+   MTU.  The offset for the first packet of a scan line <em>MUST</em> be set to
    zero.  The scan offset refers to the sample-pair offset within the
    scan such that for a scan line width of 720, the maximum scan offset
    is 359.
@@ -506,7 +506,7 @@ Abstract
 
    In keeping with the 4:2:2 color subsampling of BT.656 and BT.601,
    each pair of color-difference samples will be intermixed with two
-   luminance samples.  As per BT.656, the format for transmission SHALL
+   luminance samples.  As per BT.656, the format for transmission <em>SHALL</em>
    be Cb, Y, Cr, Y.  The following is a representation of a 720 sample
    packet with 8-bit quantization:
 
@@ -535,10 +535,10 @@ Abstract
       |     Cb359     |     Y718      |     Cr359     |     Y719      |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   1144 and 1152 sample packets SHOULD increase the packet size
+   1144 and 1152 sample packets <em>SHOULD</em> increase the packet size
    accordingly while maintaining the sample order.
 
-   For 10-bit quantization, each group of four samples MUST be encoded
+   For 10-bit quantization, each group of four samples <em>MUST</em> be encoded
    into a 40-bit word (five octets) prior to transmission.  The sample
    order is identical to that for 8-bit quantization.  The following is
    a representation of a 720 sample packet with 10-bit quantization:
@@ -583,7 +583,7 @@ Abstract
    are subject to the security considerations discussed in the RTP
    specification [<a href="#ref-1" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">1</a>].  This implies that confidentiality of the media
    streams is achieved by encryption.  Because the payload format is
-   arranged end-to-end, encryption MAY be performed after encapsulation
+   arranged end-to-end, encryption <em>MAY</em> be performed after encapsulation
    so there is no conflict between the two operations.
 
    This payload type does not exhibit any significant non-uniformity in
@@ -600,16 +600,16 @@ Abstract
    reserved for future use.  Due to the small number of possible
    encodings and given that it is very unlikely that future revisions of
    BT.656 will introduce any new schema, requests to extend the Type
-   field MUST be vetted by the Internet Assigned Numbers Authority.
-   Furthermore, implementors SHOULD check the IANA repository for new
+   field <em>MUST</em> be vetted by the Internet Assigned Numbers Authority.
+   Furthermore, implementors <em>SHOULD</em> check the IANA repository for new
    definitions of the Type field in order to comply with this document.
 
-   Applications for a new Type value MUST be submitted to the IANA and
+   Applications for a new Type value <em>MUST</em> be submitted to the IANA and
    include the requestors name and contact information, the reason for
    requesting a new Type and references to appropriate standards, such
    as an updated version of ITU-R Recommendation BT.656.  Furthermore,
    in the unlikely event that the new Type will lessen the security of a
-   compliant implementation, such security risk MUST be detailed in the
+   compliant implementation, such security risk <em>MUST</em> be detailed in the
    application.  The application will be reviewed by a Designated Expert
    and if appropriate, a new Type will be assigned.  This type will be
    listed in the IANA repository for future implementations.

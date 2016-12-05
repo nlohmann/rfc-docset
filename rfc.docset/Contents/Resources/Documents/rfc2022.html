@@ -456,7 +456,7 @@ Table of Contents
    The mapping of clusters to other constrained sets of endpoints (such
    as unicast Logical IP Subnets) is left to each network administrator.
    However, for the purposes of conformance with this document network
-   administrators MUST ensure that each Logical IP Subnet (LIS) is
+   administrators <em>MUST</em> ensure that each Logical IP Subnet (LIS) is
 
 
 
@@ -468,7 +468,7 @@ Table of Contents
    served by a separate MARS, creating a one-to-one mapping between
    cluster and unicast LIS.  IP multicast routers then interconnect each
    LIS as they do with conventional subnets. (Relaxation of this
-   restriction MAY only occur after future research on the interaction
+   restriction <em>MAY</em> only occur after future research on the interaction
    between existing layer 3 multicast routing protocols and unicast
    subnet boundaries.)
 
@@ -840,7 +840,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>  Control message format.</span>
 
-   By default all MARS control messages MUST be LLC/SNAP encapsulated
+   By default all MARS control messages <em>MUST</em> be LLC/SNAP encapsulated
    using the following codepoints:
 
       [0xAA-AA-03][0x00-00-5E][0x00-03][MARS control message]
@@ -883,7 +883,7 @@ Table of Contents
    further detail in <a href="#section-10">section 10</a>.
 
    MARS messages contain variable length address fields. In all cases
-   null addresses SHALL be encoded as zero length, and have no space
+   null addresses <em>SHALL</em> be encoded as zero length, and have no space
    allocated in the message.
 
    (Unique LLC/SNAP encapsulation of MARS control messages means MARS
@@ -925,7 +925,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.3.1" href="#section-4.3.1">4.3.1</a>  Hardware type.</span>
 
    mar$afn defines the type of link layer addresses being carried. The
-   value of 0x000F SHALL be used by MARS messages generated in
+   value of 0x000F <em>SHALL</em> be used by MARS messages generated in
    accordance with this document. The encoding of ATM addresses and
    subaddresses when mar$afn = 0x000F is described in <a href="#section-5.1.2">section 5.1.2</a>.
    Encodings when mar$afn != 0x000F are outside the scope of this
@@ -955,7 +955,7 @@ Table of Contents
    the SNAP extension is encoded in the mar$pro.snap field.  This is
    termed the 'long form' protocol ID.
 
-   If mar$pro.type != 0x80 then the mar$pro.snap field MUST be zero on
+   If mar$pro.type != 0x80 then the mar$pro.snap field <em>MUST</em> be zero on
    transmit and ignored on receive. The mar$pro.type field itself
    identifies the protocol being referred to. This is termed the 'short
    form' protocol ID.
@@ -970,15 +970,15 @@ Table of Contents
 
 
    In all cases, where a protocol has an assigned number in the
-   mar$pro.type space (excluding 0x80) the short form MUST be used when
+   mar$pro.type space (excluding 0x80) the short form <em>MUST</em> be used when
    transmitting MARS messages. Additionally, where a protocol has valid
-   short and long forms of identification, receivers MAY choose to
+   short and long forms of identification, receivers <em>MAY</em> choose to
    recognise the long form.
 
-   mar$pro.type values other than 0x80 MAY have 'long forms' defined in
+   mar$pro.type values other than 0x80 <em>MAY</em> have 'long forms' defined in
    future documents.
 
-   For the remainder of this document references to mar$pro SHALL be
+   For the remainder of this document references to mar$pro <em>SHALL</em> be
    interpreted to mean mar$pro.type, or mar$pro.type in combination with
    mar$pro.snap as appropriate.
 
@@ -992,11 +992,11 @@ Table of Contents
    field is set to zero before performing the checksum calculation.
 
    As the entire LLC/SNAP encapsulated MARS message is protected by the
-   32 bit CRC of the AAL5 transport, implementors MAY choose to ignore
-   the checksum facility. If no checksum is calculated these bits MUST
+   32 bit CRC of the AAL5 transport, implementors <em>MAY</em> choose to ignore
+   the checksum facility. If no checksum is calculated these bits <em>MUST</em>
    be reset before transmission. If no checksum is performed on
-   reception, this field MUST be ignored. If a receiver is capable of
-   validating a checksum it MUST only perform the validation when the
+   reception, this field <em>MUST</em> be ignored. If a receiver is capable of
+   validating a checksum it <em>MUST</em> only perform the validation when the
    received mar$chksum field is non-zero. Messages arriving with
    mar$chksum of 0 are always considered valid.
 
@@ -1043,7 +1043,7 @@ Table of Contents
          Value indicates operation being performed, within context of
          the control protocol version indicated by mar$op.version.
 
-   For the rest of this document references to the mar$op value SHALL be
+   For the rest of this document references to the mar$op value <em>SHALL</em> be
    taken to mean mar$op.type, with mar$op.version = 0x00. The values
    used in this document are summarised in <a href="#section-11">section 11</a>.
 
@@ -1068,7 +1068,7 @@ Table of Contents
    Multiple logical ATM interfaces may be supported by a single physical
    ATM interface (for example, using different SEL values in the NSAP
    formatted address assigned to the physical ATM interface). Therefore
-   implementors MUST allow for multiple independent 'layer 3 over ATM'
+   implementors <em>MUST</em> allow for multiple independent 'layer 3 over ATM'
    interfaces too, each with its own configured MARS (or table of MARSs,
    as discussed in <a href="#section-5.4">section 5.4</a>), and ability to be attached to the same
    or different clusters.
@@ -1087,7 +1087,7 @@ Table of Contents
    used to send queries to, and receive replies from, the MARS. It has
    an associated idle timer, and is dismantled if not used for a
    configurable period of time. The minimum suggested value for this
-   time is 1 minute, and the RECOMMENDED default is 20 minutes.  (Where
+   time is 1 minute, and the <em>RECOMMENDED</em> default is 20 minutes.  (Where
    the MARS and ARP Server are co-resident, this VC may be used for both
    ATM ARP traffic and MARS control traffic.)
 
@@ -1159,7 +1159,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.1.1" href="#section-5.1.1">5.1.1</a>   Retrieving Group Membership from the MARS.</span>
 
    If the MARS had no mapping for the desired Class D address a MARS_NAK
-   will be returned. In this case the IP packet MUST be discarded
+   will be returned. In this case the IP packet <em>MUST</em> be discarded
    silently. If a match is found in the MARS's tables it proceeds to
    return addresses ATM.1 through ATM.n in a sequence of one or more
    MARS_MULTIs.  A simple mechanism is used to detect and recover from
@@ -1167,7 +1167,7 @@ Table of Contents
 
    (If the client learns that there is no other group member in the
    cluster - the MARS returns a MARS_NAK or returns a MARS_MULTI with
-   the client as the only member - it MUST delay sending out a new
+   the client as the only member - it <em>MUST</em> delay sending out a new
    MARS_REQUEST for that group for a period no less than 5 seconds and
    no more than 10 seconds.)
 
@@ -1178,10 +1178,10 @@ Table of Contents
    considered complete.
 
    In addition, each MARS_MULTI may carry multiple ATM addresses from
-   the set {ATM.1, ATM.2, .... ATM.n}. A MARS MUST minimise the number
+   the set {ATM.1, ATM.2, .... ATM.n}. A MARS <em>MUST</em> minimise the number
    of MARS_MULTIs transmitted by placing as many group members'
    addresses in a single MARS_MULTI as possible. The limit on the length
-   of an individual MARS_MULTI message MUST be the MTU of the underlying
+   of an individual MARS_MULTI message <em>MUST</em> be the MTU of the underlying
    VC.
 
 
@@ -1208,20 +1208,20 @@ Table of Contents
    Typical failure mode will be losing one or more of MARS_MULTI(0,1)
    through MARS_MULTI(0,k-1). This is detected when y jumps by more than
    one between consecutive MARS_MULTI's. An alternative failure mode is
-   losing MARS_MULTI(1,k).  A timer MUST be implemented to flag the
+   losing MARS_MULTI(1,k).  A timer <em>MUST</em> be implemented to flag the
    failure of the last MARS_MULTI to arrive. A default value of 10
-   seconds is RECOMMENDED.
+   seconds is <em>RECOMMENDED</em>.
 
-   If a 'sequence jump' is detected, the host MUST wait for the
+   If a 'sequence jump' is detected, the host <em>MUST</em> wait for the
    MARS_MULTI(1,k), discard all results, and repeat the MARS_REQUEST.
 
-   If a timeout occurs, the host MUST discard all results, and repeat
+   If a timeout occurs, the host <em>MUST</em> discard all results, and repeat
    the MARS_REQUEST.
 
    A final failure mode involves the MARS Sequence Number (described in
    <a href="#section-5.1.4.2">section 5.1.4.2</a> and carried in each part of a multi-part MARS_MULTI).
    If its value changes during the reception of a multi-part MARS_MULTI
-   the host MUST wait for the MARS_MULTI(1,k), discard all results, and
+   the host <em>MUST</em> wait for the MARS_MULTI(1,k), discard all results, and
    repeat the MARS_REQUEST.
 
    (Corruption of cell contents will lead to loss of a MARS_MULTI
@@ -1234,7 +1234,7 @@ Table of Contents
    message format allows for either E.164, ISO NSAP, or (E.164 + NSAP)
    to be returned as ATM addresses. However, each MARS_MULTI message may
    only return ATM addresses of the same type and length. The returned
-   addresses MUST be grouped according to type (E.164, ISO NSAP, or
+   addresses <em>MUST</em> be grouped according to type (E.164, ISO NSAP, or
    both) and returned in a sequence of separate MARS_MULTI parts.
 
 
@@ -1259,9 +1259,9 @@ Table of Contents
    set to null (mar$thtl and mar$tstl both zero).
 
    In IPv4 environments the protocol type (mar$pro) is 0x800 and the
-   target protocol address length (mar$tpln) MUST be set to 4. The
-   source fields MUST contain the ATM number and subaddress of the
-   client issuing the MARS_REQUEST (the subaddress MAY be null).
+   target protocol address length (mar$tpln) <em>MUST</em> be set to 4. The
+   source fields <em>MUST</em> contain the ATM number and subaddress of the
+   client issuing the MARS_REQUEST (the subaddress <em>MAY</em> be null).
 
       Data:
        mar$afn      16 bits  Address Family (0x000F).
@@ -1305,7 +1305,7 @@ Table of Contents
 <span class="grey"><a href="./rfc2022.html">RFC 2022</a>          Multicast over UNI 3.0/3.1 based ATM     November 1996</span>
 
 
-   The most significant bit is reserved and MUST be set to zero.  The
+   The most significant bit is reserved and <em>MUST</em> be set to zero.  The
    second most significant bit (x) is a flag indicating whether the ATM
    address being referred to is in:
 
@@ -1321,7 +1321,7 @@ Table of Contents
    respectively.
 
    MARS packets use true variable length fields. A null (non-existant)
-   address MUST be coded as zero length, and no space allocated for it
+   address <em>MUST</em> be coded as zero length, and no space allocated for it
    in the message body.
 
    MARS_NAK is the MARS_REQUEST returned with operation type value of 6.
@@ -1439,22 +1439,22 @@ Table of Contents
    VC is established.
 
    Each ATM address for which an L_MULTI_RQ failed with cause 49, 51,
-   37, or 41 MUST be tagged rather than deleted. An L_MULTI_ADD is
+   37, or 41 <em>MUST</em> be tagged rather than deleted. An L_MULTI_ADD is
    issued for these tagged addresses using the random delay procedure
    outlined above.
 
-   The VC MAY be considered 'up' before failed L_MULTI_ADDs have been
-   successfully re-issued. An endpoint MAY implement a concurrent
+   The VC <em>MAY</em> be considered 'up' before failed L_MULTI_ADDs have been
+   successfully re-issued. An endpoint <em>MAY</em> implement a concurrent
    mechanism that allows data to start flowing out the new VC even while
    failed L_MULTI_ADDs are being re-tried. (The alternative of waiting
    for each leaf node to accept the connection could lead to significant
    delays in transmitting the first packet.)
 
-   Each VC MUST have a configurable inactivity timer associated with it.
+   Each VC <em>MUST</em> have a configurable inactivity timer associated with it.
    If the timer expires, an L_RELEASE is issued for that VC, and the
    Class D address is no longer considered to have an active path out of
-   the local host. The timer SHOULD be no less than 1 minute, and a
-   default of 20 minutes is RECOMMENDED. Choice of specific timer
+   the local host. The timer <em>SHOULD</em> be no less than 1 minute, and a
+   default of 20 minutes is <em>RECOMMENDED</em>. Choice of specific timer
    periods is beyond the scope of this document.
 
    VC consumption may also be reduced by endpoints noting when a new
@@ -1513,7 +1513,7 @@ Table of Contents
    to that group's address will trigger the creation of a new VC, as
    described in sections <a href="#section-5.1.1">5.1.1</a> to <a href="#section-5.1.3">5.1.3</a>).
 
-   The transmit side of the interface MUST NOT shut down an active VC to
+   The transmit side of the interface <em>MUST NOT</em> shut down an active VC to
    a group for which the receive side has just executed a
    LeaveLocalGroup.  (This behaviour is consistent with the model of
    hosts transmitting to groups regardless of their own membership
@@ -1547,7 +1547,7 @@ Table of Contents
    being sent to cluster members, whether out ClusterControlVC or on a
    point to point VC.
 
-   Calculations on the sequence numbers MUST be performed as unsigned 32
+   Calculations on the sequence numbers <em>MUST</em> be performed as unsigned 32
    bit arithmetic.
 
    Every cluster member keeps its own 32 bit Host Sequence Number (HSN)
@@ -1648,12 +1648,12 @@ Table of Contents
 
    During the life of a multipoint VC an ERR_L_DROP may be received
    indicating that a leaf node has terminated its participation at the
-   ATM level. The ATM endpoint associated with the ERR_L_DROP MUST be
+   ATM level. The ATM endpoint associated with the ERR_L_DROP <em>MUST</em> be
    removed from the locally held set {ATM.1, ATM.2, .... ATM.n}
    associated with the VC.
 
    After a random period of time between 1 and 10 seconds the
-   VC_revalidate flag associated with that VC MUST be set true.
+   VC_revalidate flag associated with that VC <em>MUST</em> be set true.
 
    If an ERR_L_RELEASE is received then the entire set {ATM.1, ATM.2,
    .... ATM.n} is cleared and the VC is considered to be completely shut
@@ -1664,7 +1664,7 @@ Table of Contents
 
    <a href="#section-5.1.4.2">Section 5.1.4.2</a> describes how a CSN jump is detected. If a CSN jump
    is detected upon receipt of a MARS_JOIN or a MARS_LEAVE then every
-   outgoing multicast VC MUST have its VC_revalidate flag set true at
+   outgoing multicast VC <em>MUST</em> have its VC_revalidate flag set true at
    some random interval between 1 and 10 seconds from when the CSN jump
    was detected.
 
@@ -1672,7 +1672,7 @@ Table of Contents
    detected during the establishment of a new group's VC (i.e. a
    MARS_MULTI reply was correctly received, but its mar$msn indicated
    that some previous MARS traffic had been missed on ClusterControlVC).
-   In this case every open VC, EXCEPT the one just established, MUST
+   In this case every open VC, EXCEPT the one just established, <em>MUST</em>
    have its VC_revalidate flag set true at some random interval between
    1 and 10 seconds from when the CSN jump was detected.  (The VC being
    established at the time is considered already validated.)
@@ -1724,7 +1724,7 @@ Table of Contents
    A migration is requested when the MARS determines that it no longer
    wants cluster members forwarding their packets directly to the ATM
    addresses it had previously specified (through MARS_REQUESTs or
-   MARS_JOINs). When a MARS_MIGRATE is received each cluster member MUST
+   MARS_JOINs). When a MARS_MIGRATE is received each cluster member <em>MUST</em>
    perform the following steps:
 
       Close down any existing outgoing VC associated with the group
@@ -1790,8 +1790,8 @@ Table of Contents
    inclusive of, a &lt;min,max&gt; address pair. A MARS_JOIN or MARS_LEAVE may
    carry multiple &lt;min,max&gt; pairs.
 
-   Cluster members MUST provide ONLY a single &lt;min,max&gt; pair in each
-   JOIN/LEAVE message they issue. However, they MUST be able to process
+   Cluster members <em>MUST</em> provide ONLY a single &lt;min,max&gt; pair in each
+   JOIN/LEAVE message they issue. However, they <em>MUST</em> be able to process
    multiple &lt;min,max&gt; pairs in JOIN/LEAVE messages when performing VC
    management as described in <a href="#section-5.1.4">section 5.1.4</a> (the interpretation being
    that the join/leave operation applies to all addresses in the range
@@ -1811,18 +1811,18 @@ Table of Contents
 
    Cluster members with special requirements (e.g. multicast routers)
    may issue MARS_JOINs and MARS_LEAVEs specifying a single block of 2
-   or more multicast group addresses. However, a cluster member SHALL
+   or more multicast group addresses. However, a cluster member <em>SHALL</em>
    NOT issue such a multi-group block join for an address range fully or
    partially overlapped by multi-group block join(s) that the cluster
    member has previously issued and not yet retracted. A cluster member
-   MAY issue combinations of single group MARS_JOINs that overlap with a
+   <em>MAY</em> issue combinations of single group MARS_JOINs that overlap with a
    multi-group block MARS_JOIN.
 
-   An endpoint MUST register with a MARS in order to become a member of
+   An endpoint <em>MUST</em> register with a MARS in order to become a member of
    a cluster and be added as a leaf to ClusterControlVC.  Registration
    is covered in <a href="#section-5.2.3">section 5.2.3</a>.
 
-   Finally, the endpoint MUST be capable of terminating unidirectional
+   Finally, the endpoint <em>MUST</em> be capable of terminating unidirectional
    VCs (i.e. act as a leaf node of a UNI 3.0/3.1 point to multipoint VC,
    with zero bandwidth assigned on the return path). <a href="./rfc1755.html">RFC 1755</a> describes
    the signalling information required to terminate VCs carrying
@@ -1878,19 +1878,19 @@ Table of Contents
       Bit 12  - mar$flags.punched.
       Bit 0-7 - mar$flags.sequence.
 
-   Bits 8 to 11 are reserved and MUST be zero.
+   Bits 8 to 11 are reserved and <em>MUST</em> be zero.
 
-   mar$flags.sequence is set by cluster members, and MUST always be
+   mar$flags.sequence is set by cluster members, and <em>MUST</em> always be
    passed on unmodified by the MARS when retransmitting MARS_JOIN or
-   MARS_LEAVE messages. It is source specific, and MUST be ignored by
+   MARS_LEAVE messages. It is source specific, and <em>MUST</em> be ignored by
    other cluster members. Its use is described in <a href="#section-5.2.2">section 5.2.2</a>.
 
-   mar$flags.punched MUST be zero when the MARS_JOIN or MARS_LEAVE is
+   mar$flags.punched <em>MUST</em> be zero when the MARS_JOIN or MARS_LEAVE is
    transmitted to the MARS. Its use is described in <a href="#section-5.2.2">section 5.2.2</a> and
    <a href="#section-6.2.4">section 6.2.4</a>.
 
-   mar$flags.copy MUST be set to 0 when the message is being sent from a
-   MARS client, and MUST be set to 1 when the message is being sent from
+   mar$flags.copy <em>MUST</em> be set to 0 when the message is being sent from a
+   MARS client, and <em>MUST</em> be set to 1 when the message is being sent from
    a MARS. (This flag is intended to support integrating the MARS
    function with one of the MARS clients in your cluster. The
    destination of an incoming MARS_JOIN can be determined from its
@@ -1900,16 +1900,16 @@ Table of Contents
    information described further in <a href="#section-5.3">section 5.3</a>. The rules for its use
    are:
 
-      mar$flags.layer3grp MUST be set when the cluster member is issuing
+      mar$flags.layer3grp <em>MUST</em> be set when the cluster member is issuing
       the MARS_JOIN as the result of a layer 3 multicast group being
       explicitly joined. (e.g. as a result of a JoinHostGroup operation
       in an <a href="./rfc1112.html">RFC1112</a> compliant host).
 
-      mar$flags.layer3grp MUST be reset in each MARS_JOIN if the
+      mar$flags.layer3grp <em>MUST</em> be reset in each MARS_JOIN if the
       MARS_JOIN is simply the local ip/atm interface registering to
       receive traffic on that group for its own reasons.
 
-      mar$flags.layer3grp is ignored and MUST be treated as reset by the
+      mar$flags.layer3grp is ignored and <em>MUST</em> be treated as reset by the
       MARS for any MARS_JOIN that specifies a block covering more than a
       single group (e.g. a block join from a router ensuring their
       forwarding engines 'see' all traffic).
@@ -1924,19 +1924,19 @@ Table of Contents
    mar$flags.register indicates whether the MARS_JOIN or MARS_LEAVE is
    being used to register or deregister a cluster member (described in
    <a href="#section-5.2.3">section 5.2.3</a>). When used to join or leave specific groups the
-   mar$register flag MUST be zero.
+   mar$register flag <em>MUST</em> be zero.
 
    mar$pnum indicates how many &lt;min,max&gt; pairs are included in the
-   message. This field MUST be 1 when the message is sent from a cluster
-   member. A MARS MAY return a MARS_JOIN or MARS_LEAVE with any mar$pnum
+   message. This field <em>MUST</em> be 1 when the message is sent from a cluster
+   member. A MARS <em>MAY</em> return a MARS_JOIN or MARS_LEAVE with any mar$pnum
    value, including zero.  This will be explained futher in <a href="#section-6.2.4">section</a>
    <a href="#section-6.2.4">6.2.4</a>.
 
-   The mar$cmi field MUST be zeroed by cluster members, and is used by
+   The mar$cmi field <em>MUST</em> be zeroed by cluster members, and is used by
    the MARS during cluster member registration, described in <a href="#section-5.2.3">section</a>
    <a href="#section-5.2.3">5.2.3</a>.
 
-   mar$msn MUST be zero when transmitted by an endpoint. It is set to
+   mar$msn <em>MUST</em> be zero when transmitted by an endpoint. It is set to
    the current value of the Cluster Sequence Number by the MARS when the
    MARS_JOIN or MARS_LEAVE is retransmitted. Its use has been described
    in <a href="#section-5.1.4">section 5.1.4</a>.
@@ -1961,14 +1961,14 @@ Table of Contents
 
    The JoinLocalGroup and LeaveLocalGroup operations are only valid for
    a single group. For any arbitrary group address X the associated
-   MARS_JOIN or MARS_LEAVE MUST specify a single pair &lt;X, X&gt;.
-   mar$flags.layer3grp MUST be set under these circumstances.
+   MARS_JOIN or MARS_LEAVE <em>MUST</em> specify a single pair &lt;X, X&gt;.
+   mar$flags.layer3grp <em>MUST</em> be set under these circumstances.
 
-   A router choosing to behave strictly in accordance with <a href="./rfc1112.html">RFC1112</a> MUST
+   A router choosing to behave strictly in accordance with <a href="./rfc1112.html">RFC1112</a> <em>MUST</em>
    specify the entire Class D space. The associated MARS_JOIN or
-   MARS_LEAVE MUST specify a single pair &lt;224.0.0.0, 239.255.255.255&gt;.
+   MARS_LEAVE <em>MUST</em> specify a single pair &lt;224.0.0.0, 239.255.255.255&gt;.
    Whenever a router issues a MARS_JOIN only in order to forward IP
-   traffic it MUST reset mar$flags.layer3grp.
+   traffic it <em>MUST</em> reset mar$flags.layer3grp.
 
 
 
@@ -1994,7 +1994,7 @@ Table of Contents
 
    The interval should be no shorter than 5 seconds, and a default value
    of 10 seconds is recommended. After 5 retransmissions the attempt
-   should be flagged locally as a failure. This MUST be considered as a
+   should be flagged locally as a failure. This <em>MUST</em> be considered as a
    MARS failure, and triggers the MARS reconnection described in <a href="#section-5.4">section</a>
    <a href="#section-5.4">5.4</a>.
 
@@ -2008,18 +2008,18 @@ Table of Contents
       - Source ATM address
       - First &lt;min,max&gt; pair
 
-   In addition, a valid copy MUST have the following field values:
+   In addition, a valid copy <em>MUST</em> have the following field values:
 
       - mar$flags.punched = 0
       - mar$flags.copy = 1
 
    The mar$flags.sequence field is never modified or checked by a MARS.
-   Implementors MAY choose to utilize locally significant sequence
-   number schemes, which MAY differ from one cluster member to the next.
+   Implementors <em>MAY</em> choose to utilize locally significant sequence
+   number schemes, which <em>MAY</em> differ from one cluster member to the next.
    In the absence of such schemes the default value for
-   mar$flags.sequence MUST be zero.
+   mar$flags.sequence <em>MUST</em> be zero.
 
-   Careful implementations MAY have more than one unacknowledged
+   Careful implementations <em>MAY</em> have more than one unacknowledged
    MARS_JOIN/LEAVE outstanding at a time.
 
 
@@ -2045,7 +2045,7 @@ Table of Contents
    with the mar$flags.register flag set to one (bit 13 of the mar$flags
    field).
 
-   The cluster member MUST include its source ATM address, and MAY
+   The cluster member <em>MUST</em> include its source ATM address, and <em>MAY</em>
    choose to specify a null source protocol address when registering.
 
    No protocol specific group addresses are included in a registration
@@ -2055,7 +2055,7 @@ Table of Contents
    <a href="#section-5.2.2">section 5.2.2</a> until it confirms that the MARS has received it.
 
    When the registration MARS_JOIN is returned it contains a non-zero
-   value in mar$cmi. This value MUST be noted by the cluster member, and
+   value in mar$cmi. This value <em>MUST</em> be noted by the cluster member, and
    used whenever circumstances require the cluster member's CMI.
 
    An endpoint may also choose to de-register, using a MARS_LEAVE with
@@ -2063,8 +2063,8 @@ Table of Contents
    endpoint from ClusterControlVC, removing all references to the member
    in the mapping database, and freeing up its CMI.
 
-   As for registration, a deregistration request MUST include the
-   correct source ATM address for the cluster member, but MAY choose to
+   As for registration, a deregistration request <em>MUST</em> include the
+   correct source ATM address for the cluster member, but <em>MAY</em> choose to
    specify a null source protocol address.
 
    The cluster member retransmits this MARS_LEAVE in accordance with
@@ -2151,7 +2151,7 @@ Table of Contents
    than ATM addresses.
 
    As for MARS_MULTIs, if an error occurs in the reception of a multi
-   part MARS_GROUPLIST_REPLY the whole thing MUST be discarded and the
+   part MARS_GROUPLIST_REPLY the whole thing <em>MUST</em> be discarded and the
    MARS_GROUPLIST_REQUEST re-issued. (This includes the mar$msn value
    being constant.)
 
@@ -2159,12 +2159,12 @@ Table of Contents
    and receive MARS_GROUPLIST_REPLY messages, is not required for
    general host interface implementations. It is optional for interfaces
    being implemented to support layer 3 multicast forwarding engines.
-   However, this functionality MUST be supported by the MARS.
+   However, this functionality <em>MUST</em> be supported by the MARS.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>   Support for redundant/backup MARS entities.</span>
 
    Endpoints are assumed to have been configured with the ATM address of
-   at least one MARS. Endpoints MAY choose to maintain a table of ATM
+   at least one MARS. Endpoints <em>MAY</em> choose to maintain a table of ATM
    addresses, representing alternative MARSs that will be contacted in
    the event that normal operation with the original MARS is deemed to
    have failed. It is assumed that this table orders the ATM addresses
@@ -2191,7 +2191,7 @@ Table of Contents
    connect and re-register with the MARS. If the registration MARS_JOIN
    is successful then:
 
-        The cluster member MUST then proceed to rejoin every group that
+        The cluster member <em>MUST</em> then proceed to rejoin every group that
         its local higher layer protocol(s) have joined. It is
 
 
@@ -2204,7 +2204,7 @@ Table of Contents
         recommended that a random delay between 1 and 10 seconds be
         inserted before attempting each MARS_JOIN.
 
-        The cluster member MUST initiate the revalidation of every
+        The cluster member <em>MUST</em> initiate the revalidation of every
         multicast group it was sending to (as though a sequence number
         jump had been detected, <a href="#section-5.1.5">section 5.1.5</a>).
 
@@ -2213,9 +2213,9 @@ Table of Contents
         the time of the MARS failure.
 
    If re-registration with the current MARS fails, and there are no
-   backup MARS addresses configured, the cluster member MUST wait for at
+   backup MARS addresses configured, the cluster member <em>MUST</em> wait for at
    least 1 minute before repeating the re-registration procedure. It is
-   RECOMMENDED that the cluster member signals an error condition in
+   <em>RECOMMENDED</em> that the cluster member signals an error condition in
    some locally significant fashion.
 
    This procedure may repeat until network administrators manually
@@ -2228,11 +2228,11 @@ Table of Contents
    chosen to be the current MARS, and the cluster member immediately
    restarts the re-registration procedure described in <a href="#section-5.4.1">section 5.4.1</a>. If
    this is succesful the cluster member will resume normal operation
-   using the new MARS. It is RECOMMENDED that the cluster member signals
+   using the new MARS. It is <em>RECOMMENDED</em> that the cluster member signals
    a warning of this condition in some locally significant fashion.
 
    If the attempt at re-registration with the new MARS fails, the
-   cluster member MUST wait for at least 1 minute before choosing the
+   cluster member <em>MUST</em> wait for at least 1 minute before choosing the
    next MARS address in the table and repeating the procedure. If the
    end of the table has been reached, the cluster member starts again at
    the top of the table (which should be the original MARS that the
@@ -2247,7 +2247,7 @@ Table of Contents
    To support some level of autoconfiguration, a MARS message is defined
    that allows the current MARS to broadcast on ClusterControlVC a table
    of backup MARS addresses. When this message is received, cluster
-   members that maintain a list of backup MARS addresses MUST insert
+   members that maintain a list of backup MARS addresses <em>MUST</em> insert
    this information at the top of their locally held list (i.e. the
 
 
@@ -2296,12 +2296,12 @@ Table of Contents
        mar$tha.N    xoctets  ATM number for MARS N
        mar$tsa.N    yoctets  ATM subaddress for MARS N
 
-   The source ATM address field(s) MUST identify the originating MARS.
+   The source ATM address field(s) <em>MUST</em> identify the originating MARS.
    A multi-part MARS_REDIRECT_MAP may be transmitted and reassembled
    using the mar$seqxy field in the same manner as a multi-part
    MARS_MULTI (<a href="#section-5.1.1">section 5.1.1</a>). If a failure occurs during the reassembly
    of a multi-part MARS_REDIRECT_MAP (a part lost, reassembly timeout,
-   or illegal MARS Sequence Number jump) the entire message MUST be
+   or illegal MARS Sequence Number jump) the entire message <em>MUST</em> be
    discarded.
 
 
@@ -2313,14 +2313,14 @@ Table of Contents
 <span class="grey"><a href="./rfc2022.html">RFC 2022</a>          Multicast over UNI 3.0/3.1 based ATM     November 1996</span>
 
 
-   This message is transmitted regularly by the MARS (it MUST be
-   transmitted at least every 2 minutes, it is RECOMMENDED that it is
+   This message is transmitted regularly by the MARS (it <em>MUST</em> be
+   transmitted at least every 2 minutes, it is <em>RECOMMENDED</em> that it is
    transmitted every 1 minute).
 
    The MARS_REDIRECT_MAP is also used to force cluster members to shift
    from one MARS to another. If the ATM address of the first MARS
    contained in a MARS_REDIRECT_MAP table is not the address of cluster
-   member's current MARS the client MUST 'redirect' to the new MARS. The
+   member's current MARS the client <em>MUST</em> 'redirect' to the new MARS. The
    mar$redirf field controls how the redirection occurs.
 
    mar$redirf has the following format:
@@ -2331,12 +2331,12 @@ Table of Contents
                +-+-+-+-+-+-+-+-+
 
    If Bit 7 (the most significant bit) of mar$redirf is 1 then the
-   cluster member MUST perform a 'hard' redirect. Having installed the
+   cluster member <em>MUST</em> perform a 'hard' redirect. Having installed the
    new table of MARS addresses carried by the MARS_REDIRECT_MAP, the
    cluster member re-registers with the MARS now at the top of the table
    using the mechanism described in sections <a href="#section-5.4.1">5.4.1</a> and <a href="#section-5.4.2">5.4.2</a>.
 
-   If Bit 7 of mar$redirf is 0 then the cluster member MUST perform a
+   If Bit 7 of mar$redirf is 0 then the cluster member <em>MUST</em> perform a
    'soft' redirect, beginning with the following actions:
 
       - open a point to point VC to the first ATM address.
@@ -2356,7 +2356,7 @@ Table of Contents
    outside the scope of this specification.
 
    Some level of trust is required before initiating a soft redirect. A
-   cluster member MUST check that the calling party at the other end of
+   cluster member <em>MUST</em> check that the calling party at the other end of
    the VC on which the MARS_REDIRECT_MAP arrived (supposedly
    ClusterControlVC) is in fact the node it trusts as the current MARS.
 
@@ -2390,12 +2390,12 @@ Table of Contents
 
    For conformance with this document MARS clients:
 
-      MUST transmit data using Type #1 encapsulation.
+      <em>MUST</em> transmit data using Type #1 encapsulation.
 
-      MUST be able to correctly receive traffic using Type #1 OR Type #2
+      <em>MUST</em> be able to correctly receive traffic using Type #1 OR Type #2
       encapsulation.
 
-      MUST NOT transmit using Type #2 encapsulation.
+      <em>MUST NOT</em> transmit using Type #2 encapsulation.
 
 <span class="h4"><a class="selflink" name="section-5.5.1" href="#section-5.5.1">5.5.1</a> Type #1 encapsulation.</span>
 
@@ -2416,7 +2416,7 @@ Table of Contents
    in the MARS control messages.
 
    When carrying packets belonging to protocols that only have a long
-   form representation (pkt$pro = 0x80) the overhead SHALL be further
+   form representation (pkt$pro = 0x80) the overhead <em>SHALL</em> be further
 
 
 
@@ -2426,7 +2426,7 @@ Table of Contents
 
 
    extended to carry the 5 byte mar$pro.snap field (with padding for 32
-   bit alignment). The encoded form SHALL be:
+   bit alignment). The encoded form <em>SHALL</em> be:
 
       [pkt$cmi][0x00-80][mar$pro.snap][padding][Original Layer 3 packet]
         2octet   2octet   5 octets   3 octets        N octet
@@ -2441,7 +2441,7 @@ Table of Contents
    the pkt$pro (and possibly SNAP) field(s).
 
    Where a protocol has valid short and long forms of identification,
-   receivers MAY choose to additionally recognise the long form.
+   receivers <em>MAY</em> choose to additionally recognise the long form.
 
 <span class="h4"><a class="selflink" name="section-5.5.2" href="#section-5.5.2">5.5.2</a> Type #2 encapsulation.</span>
 
@@ -2456,7 +2456,7 @@ Table of Contents
    protocol type as appropriate (<a href="#section-4.3">section 4.3</a>).  The form and content of
    the source ID field is currently unspecified, and is not relevant to
    any MARS client built in conformance with this document. Received
-   Type #2 encapsulated packets MUST always be accepted and passed up to
+   Type #2 encapsulated packets <em>MUST</em> always be accepted and passed up to
    the higher layer indicated by the protocol identifier.
 
    When carrying packets belonging to protocols with valid short form
@@ -2467,9 +2467,9 @@ Table of Contents
                            2octets     2octets
 
    When carrying packets belonging to protocols that only have a long
-   form representation (pkt$pro = 0x80) the overhead SHALL be further
+   form representation (pkt$pro = 0x80) the overhead <em>SHALL</em> be further
    extended to carry the 5 byte mar$pro.snap field (with padding for 32
-   bit alignment). The encoded form SHALL be:
+   bit alignment). The encoded form <em>SHALL</em> be:
 
       [8 octet sourceID][mar$pro.type][mar$pro.snap][Null pad][Layer 3
       packet]
@@ -2487,7 +2487,7 @@ Table of Contents
    rather than the 3 octets used in Type #1.)
 
    Where a protocol has valid short and long forms of identification,
-   receivers MAY choose to additionally recognise the long form.
+   receivers <em>MAY</em> choose to additionally recognise the long form.
 
    (Future documents may specify the contents of the source ID field.
    This will only be relevant to implementations sending Type #2
@@ -2514,7 +2514,7 @@ Table of Contents
    behaviour changes when an MCS is registered to support a group.
 
    The MARS is intended to be a multiprotocol entity - all its mapping
-   tables, CMIs, and control VCs MUST be managed within the context of
+   tables, CMIs, and control VCs <em>MUST</em> be managed within the context of
    the mar$pro field in incoming MARS messages. For example, a MARS
    supports completely separate ClusterControlVCs for each layer 3
    protocol that it is registering members for. If a MARS receives
@@ -2563,7 +2563,7 @@ Table of Contents
 
    Except as described in <a href="#section-6.2">section 6.2</a>, if a MARS_REQUEST arrives whose
    source ATM address does not match that of any registered Cluster
-   member the message MUST be dropped and ignored.
+   member the message <em>MUST</em> be dropped and ignored.
 
 <span class="h4"><a class="selflink" name="section-6.1.2" href="#section-6.1.2">6.1.2</a>  Response to MARS_JOIN and MARS_LEAVE.</span>
 
@@ -2596,17 +2596,17 @@ Table of Contents
    Non-registration MARS_JOIN and MARS_LEAVE messages are ignored if
    they arrive from a node that is not registered as a cluster member.
 
-   MARS_JOIN or MARS_LEAVE messages MUST arrive at the MARS with
+   MARS_JOIN or MARS_LEAVE messages <em>MUST</em> arrive at the MARS with
    mar$flags.copy set to 0, otherwise the message is silently ignored.
 
-   All outgoing MARS_JOIN or MARS_LEAVE messages SHALL have
+   All outgoing MARS_JOIN or MARS_LEAVE messages <em>SHALL</em> have
    mar$flags.copy set to 1, and mar$msn set to the current Cluster
    Sequence Number for ClusterControlVC (<a href="#section-5.1.4.2">Section 5.1.4.2</a>).
 
-   mar$flags.layer3grp (<a href="#section-5.3">section 5.3</a>) MUST be treated as reset for
+   mar$flags.layer3grp (<a href="#section-5.3">section 5.3</a>) <em>MUST</em> be treated as reset for
    MARS_JOINs specifying a single &lt;min,max&gt; pair covering more than a
    single group. If a MARS_JOIN/LEAVE is received that contains more
-   than one &lt;min,max&gt; pair, the MARS MUST silently drop the message.
+   than one &lt;min,max&gt; pair, the MARS <em>MUST</em> silently drop the message.
 
    If one or more MCSs have registered with the MARS, message processing
    continues as described in <a href="#section-6.2.4">section 6.2.4</a>.
@@ -2640,7 +2640,7 @@ Table of Contents
 
          The original MARS_JOIN/LEAVE is transmitted back to the source
          cluster member unchanged, using the VC it arrived on. The
-         mar$flags.punched field MUST be reset to 0 in this message.
+         mar$flags.punched field <em>MUST</em> be reset to 0 in this message.
 
 
 
@@ -2652,29 +2652,29 @@ Table of Contents
          If the hole-punched set contains 1 or more &lt;min,max&gt; pair, the
          copy of the original MARS_JOIN/LEAVE is transmitted on
          ClusterControlVC, carrying the new &lt;min,max&gt; list. The
-         mar$flags.punched field MUST be set to 1 in this message.  (The
+         mar$flags.punched field <em>MUST</em> be set to 1 in this message.  (The
          mar$flags.punched field is set to ensure the hole-punched copy
          is ignored by the message's source when trying to match
          received MARS_JOIN/LEAVE messages with ones previously sent
          (<a href="#section-5.2.2">section 5.2.2</a>)).
 
    If the MARS receives a deregistration MARS_LEAVE (described in
-   <a href="#section-5.2.3">section 5.2.3</a>) that member's ATM address MUST be removed from all
+   <a href="#section-5.2.3">section 5.2.3</a>) that member's ATM address <em>MUST</em> be removed from all
    groups for which it may have joined, dropped from ClusterControlVC,
    and the CMI released.
 
    If the MARS receives an ERR_L_RELEASE on ClusterControlVC indicating
    that a cluster member has disconnected, that member's ATM address
-   MUST be removed from all groups for which it may have joined, and the
+   <em>MUST</em> be removed from all groups for which it may have joined, and the
    CMI released.
 
 <span class="h4"><a class="selflink" name="section-6.1.3" href="#section-6.1.3">6.1.3</a>  Generating MARS_REDIRECT_MAP.</span>
 
-   A MARS_REDIRECT_MAP message (described in <a href="#section-5.4.3">section 5.4.3</a>) MUST be
-   regularly transmitted on ClusterControlVC.  It is RECOMMENDED that
-   this occur every 1 minute, and it MUST occur at least every 2
+   A MARS_REDIRECT_MAP message (described in <a href="#section-5.4.3">section 5.4.3</a>) <em>MUST</em> be
+   regularly transmitted on ClusterControlVC.  It is <em>RECOMMENDED</em> that
+   this occur every 1 minute, and it <em>MUST</em> occur at least every 2
    minutes. If the MARS has no knowledge of other backup MARSs serving
-   the cluster, it MUST include its own address as the only entry in the
+   the cluster, it <em>MUST</em> include its own address as the only entry in the
    MARS_REDIRECT_MAP message (in addition to filling in the source
    address fields).
 
@@ -2705,7 +2705,7 @@ Table of Contents
 <span class="grey"><a href="./rfc2022.html">RFC 2022</a>          Multicast over UNI 3.0/3.1 based ATM     November 1996</span>
 
 
-   Calculations on the CSN MUST be performed as unsigned 32 bit
+   Calculations on the CSN <em>MUST</em> be performed as unsigned 32 bit
    arithmetic.
 
    One implication of this mechanism is that the MARS should serialize
@@ -2765,7 +2765,7 @@ Table of Contents
    registered with it, called ServerControlVC (<a href="#section-6.2.3">section 6.2.3</a>). This
    serves an analogous role to ClusterControlVC, allowing the MARS to
    update the MCSs with group membership changes as they occur. A MARS
-   MUST also send its regular MARS_REDIRECT_MAP transmissions on both
+   <em>MUST</em> also send its regular MARS_REDIRECT_MAP transmissions on both
    ServerControlVC and ClusterControlVC.
 
 <span class="h4"><a class="selflink" name="section-6.2.1" href="#section-6.2.1">6.2.1</a>   Response to a MARS_REQUEST if MCS is registered.</span>
@@ -2799,11 +2799,11 @@ Table of Contents
    ServerControlVC to allow other MCSs to note the new node.
 
    When registering or deregistering support for specific groups the
-   mar$flags.register flag MUST be zero. (This flag is only one when the
+   mar$flags.register flag <em>MUST</em> be zero. (This flag is only one when the
    MCS is registering as a member of ServerControlVC, as described in
    <a href="#section-6.2.3">section 6.2.3</a>.)
 
-   When an MCS issues a MARS_MSERV for a specific group the message MUST
+   When an MCS issues a MARS_MSERV for a specific group the message <em>MUST</em>
    be dropped and ignored if the source has not already registered with
    the MARS as a multicast server (<a href="#section-6.2.3">section 6.2.3</a>).  Otherwise, the MARS
    adds the new ATM address to the server map for the specified group,
@@ -2831,7 +2831,7 @@ Table of Contents
    sends a copy of the message on ClusterControlVC.  This fools the
    cluster members into thinking a new leaf node has been added to the
    group specified. In the retransmitted MARS_JOIN mar$flags.layer3grp
-   MUST be zero, mar$flags.copy MUST be one, and mar$flags.register MUST
+   <em>MUST</em> be zero, mar$flags.copy <em>MUST</em> be one, and mar$flags.register <em>MUST</em>
    be zero.
 
    When an MCS issues a MARS_UNSERV the MARS removes its ATM address
@@ -2841,15 +2841,15 @@ Table of Contents
    The operation code is then changed to MARS_LEAVE and the MARS sends a
    copy of the message on ClusterControlVC. This fools the cluster
    members into thinking a leaf node has been dropped from the group
-   specified. In the retransmitted MARS_LEAVE mar$flags.layer3grp MUST
-   be zero, mar$flags.copy MUST be one, and mar$flags.register MUST be
+   specified. In the retransmitted MARS_LEAVE mar$flags.layer3grp <em>MUST</em>
+   be zero, mar$flags.copy <em>MUST</em> be one, and mar$flags.register <em>MUST</em> be
    zero.
 
    The MARS retransmits redundant MARS_MSERV and MARS_UNSERV messages
    directly back to the MCS generating them. MARS_MIGRATE messages are
    never repeated in response to redundant MARS_MSERVs.
 
-   The last or only MCS for a group MAY choose to issue a MARS_UNSERV
+   The last or only MCS for a group <em>MAY</em> choose to issue a MARS_UNSERV
    while the group still has members. When the MARS_UNSERV is processed
    by the MARS the 'server map' will be deleted. When the associated
    MARS_LEAVE is issued on ClusterControlVC, all cluster members with a
@@ -2893,11 +2893,11 @@ Table of Contents
    mechanism described in <a href="#section-5.2.2">section 5.2.2</a> for reliably transmitting
    MARS_JOINs).
 
-   The mar$cmi field in MARS_MSERVs MUST be set to zero by both MCS and
+   The mar$cmi field in MARS_MSERVs <em>MUST</em> be set to zero by both MCS and
    MARS.
 
    An MCS may also choose to de-register, using a MARS_UNSERV with
-   mar$flags.register set to one. When this occurs the MARS MUST remove
+   mar$flags.register set to one. When this occurs the MARS <em>MUST</em> remove
    all references to that MCS in all servermaps associated with the
    protocol (mar$pro) specified in the MARS_UNSERV, and drop the MCS
    from ServerControlVC.
@@ -2909,10 +2909,10 @@ Table of Contents
    (either host or router), provided each logical entity has a different
    ATM address.
 
-   A MARS MUST be capable of handling a multi-entry servermap. However,
+   A MARS <em>MUST</em> be capable of handling a multi-entry servermap. However,
    the possible use of multiple MCSs registering to support the same
    group is a subject for further study. In the absence of an MCS
-   synchronisation protocol a system administrator MUST NOT allow more
+   synchronisation protocol a system administrator <em>MUST NOT</em> allow more
    than one logical MCS to register for a given group.
 
 <span class="h4"><a class="selflink" name="section-6.2.4" href="#section-6.2.4">6.2.4</a>   Modified response to MARS_JOIN and MARS_LEAVE.</span>
@@ -2951,7 +2951,7 @@ Table of Contents
 
       The original message is transmitted back to the source cluster
       member unchanged, using the VC it arrived on rather than
-      ClusterControlVC.  The mar$flags.punched field MUST be reset to 0
+      ClusterControlVC.  The mar$flags.punched field <em>MUST</em> be reset to 0
       in this message.
 
    (<a href="#section-5.2.2">Section 5.2.2</a> requires cluster members have a mechanism to confirm
@@ -3003,12 +3003,12 @@ Table of Contents
 
          The original MARS_JOIN/LEAVE is transmitted back to the source
          cluster member unchanged, using the VC it arrived on. The
-         mar$flags.punched field MUST be reset to 0 in this message.
+         mar$flags.punched field <em>MUST</em> be reset to 0 in this message.
 
          If the hole-punched set contains 1 or more &lt;min,max&gt; pair, a
          copy of the original MARS_JOIN/LEAVE is transmitted on
          ClusterControlVC, carrying the new &lt;min,max&gt; list. The
-         mar$flags.punched field MUST be set to 1 in this message.
+         mar$flags.punched field <em>MUST</em> be set to 1 in this message.
 
       The mar$flags.punched field is set to ensure the hole-punched copy
       is ignored by the message's source when trying to match received
@@ -3021,7 +3021,7 @@ Table of Contents
    update their own VCs out to the actual group's members.
 
    mar$flags.layer3grp is copied over into the messages transmitted by
-   the MARS. mar$flags.copy MUST be set to one.
+   the MARS. mar$flags.copy <em>MUST</em> be set to one.
 
 <span class="h4"><a class="selflink" name="section-6.2.5" href="#section-6.2.5">6.2.5</a>  Sequence numbers for ServerControlVC traffic.</span>
 
@@ -3074,7 +3074,7 @@ Table of Contents
    provide meaningful information about each group's sequence.  Multiple
    mar$msn fields would have been unwieldy.
 
-   Any MARS or cluster member that supports different protocols MUST
+   Any MARS or cluster member that supports different protocols <em>MUST</em>
    keep separate mapping tables and sequence numbers for each protocol.
 
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a> Redundant/Backup MARS Architectures.</span>
@@ -3155,7 +3155,7 @@ Table of Contents
 
    outgoing point to multipoint VCs (one for each group).
 
-   When an MCS starts up it MUST register with the MARS as described in
+   When an MCS starts up it <em>MUST</em> register with the MARS as described in
    <a href="#section-6.2.3">section 6.2.3</a>, identifying the protocol it supports with the mar$pro
    field of the MARS_MSERV. This also applies to logical MCSs, even if
    they share the same physical ATM interface. This is important so that
@@ -3165,19 +3165,19 @@ Table of Contents
    specific processing may support multiple groups while still only
    registering as one member of ServerControlVC.)
 
-   An MCS MUST NOT share the same ATM address as a cluster member,
+   An MCS <em>MUST NOT</em> share the same ATM address as a cluster member,
    although it may share the same physical ATM interface.
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>   Termination of incoming VCs.</span>
 
-   An MCS MUST terminate unidirectional VCs in the same manner as a
+   An MCS <em>MUST</em> terminate unidirectional VCs in the same manner as a
    cluster member.  (e.g. terminate on an LLC entity when LLC/SNAP
    encapsulation is used, as described in <a href="./rfc1755.html">RFC 1755</a> for unicast
    endpoints.)
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>   Management of outgoing VC.</span>
 
-   An MCS MUST establish and manage its outgoing point to multipoint VC
+   An MCS <em>MUST</em> establish and manage its outgoing point to multipoint VC
    as a cluster member does (<a href="#section-5.1">section 5.1</a>).
 
    MARS_REQUEST is used by the MCS to establish the initial leaf nodes
@@ -3237,7 +3237,7 @@ Table of Contents
    MARS_JOIN and MARS_LEAVE messages and responds to them as a normal
    host would.
 
-   The multicast router's transmit side MUST implement inactivity timers
+   The multicast router's transmit side <em>MUST</em> implement inactivity timers
    to shut down idle outgoing VCs, as for normal hosts.
 
    As with normal host, the multicast router does not need to be a
@@ -3387,13 +3387,13 @@ Table of Contents
    MARS carry all the information that the router would have ascertained
    from IGMP replies.
 
-   It is RECOMMENDED that multicast routers utilise this MARS service to
+   It is <em>RECOMMENDED</em> that multicast routers utilise this MARS service to
    minimise IGMP traffic within the cluster.
 
-   By default a MARS_GROUPLIST_REQUEST SHOULD specify the entire address
+   By default a MARS_GROUPLIST_REQUEST <em>SHOULD</em> specify the entire address
    space (e.g. &lt;224.0.0.0, 239.255.255.255&gt; in an IPv4 environment).
    However, routers serving part of the address space (as described in
-   <a href="#section-8.4">section 8.4</a>) MAY choose to issue MARS_GROUPLIST_REQUESTs that specify
+   <a href="#section-8.4">section 8.4</a>) <em>MAY</em> choose to issue MARS_GROUPLIST_REQUESTs that specify
    only the subset of the address space they are serving.
 
    (On the surface it would also seem useful for multicast routers to
@@ -3461,12 +3461,12 @@ Table of Contents
    higher layer protocol that has a 'short form' or 'long form' of
    protocol identification (<a href="#section-4.3">section 4.3</a>) to be supported by a MARS.
 
-   Every MARS MUST implement entirely separate logical mapping tables
+   Every MARS <em>MUST</em> implement entirely separate logical mapping tables
    and support. Every cluster member must interpret messages from the
    MARS in the context of the protocol type that the MARS message refers
    to.
 
-   Every MARS and MARS client MUST treat Cluster Member IDs in the
+   Every MARS and MARS client <em>MUST</em> treat Cluster Member IDs in the
    context of the protocol type carried in the MARS message or data
    packet containing the CMI.
 
@@ -3492,7 +3492,7 @@ Table of Contents
       [0xAA-AA-03][0x00-00-5E][0x00-01][pkt$cmi][0x86DD][IPv6 packet]
 
    A host or endpoint interface that is using the same MARS to support
-   multicasting needs of multiple protocols MUST not assume their CMI
+   multicasting needs of multiple protocols <em>MUST</em> not assume their CMI
    will be the same for each protocol.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.    Supplementary parameter processing.</span>
@@ -3517,8 +3517,8 @@ Table of Contents
    of the mar$afn field).
 
    As TLVs are 32 bit aligned the bottom 2 bits of mar$extoff are also
-   reserved. A receiver MUST mask off these two bits before calculating
-   the octet offset to the TLV list.  A sender MUST set these two bits
+   reserved. A receiver <em>MUST</em> mask off these two bits before calculating
+   the octet offset to the TLV list.  A sender <em>MUST</em> set these two bits
    to zero.
 
    If mar$extoff is zero no TLVs have been appended.
@@ -3554,7 +3554,7 @@ Table of Contents
    (where % is the modulus operator)
 
    The Value subfield is padded with 0, 1, 2, or 3 octets to ensure the
-   next TLV is 32 bit aligned. The padded locations MUST be set to zero.
+   next TLV is 32 bit aligned. The padded locations <em>MUST</em> be set to zero.
 
    (For example, a TLV that needed only 5 valid octets of information
    would be 12 octets long. The Length subfield would hold the value 5,
@@ -3579,7 +3579,7 @@ Table of Contents
       Type.x = 2   Stop processing, drop message, give error indication.
       Type.x = 3   Reserved. (currently treat as x = 0)
 
-   (The error indication generated when Type.x = 2 SHOULD be logged in
+   (The error indication generated when Type.x = 2 <em>SHOULD</em> be logged in
    some locally significant fashion. Consequential MARS message activity
    in response to such an error condition will be defined in future
    documents.)
@@ -3607,8 +3607,8 @@ Table of Contents
    specified by the mar$op field of any given MARS message.
 
    If a MARS message arrives with a non-zero mar$extoff field its TLV
-   list MUST be parsed before handling the MARS message in accordance
-   with the mar$op value. Unrecognised TLVs MUST be handled as required
+   list <em>MUST</em> be parsed before handling the MARS message in accordance
+   with the mar$op value. Unrecognised TLVs <em>MUST</em> be handled as required
    by their Type.x value.
 
    How TLVs modify basic MARS operations will be mar$op and TLV
@@ -3617,8 +3617,8 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-10.4" href="#section-10.4">10.4</a>   Initial set of TLV elements.</span>
 
    Conformance with this document only REQUIRES the recognition of one
-   TLV, the Null TLV. This terminates a list of TLVs, and MUST be
-   present if mar$extoff is non-zero in a MARS message. It MAY be the
+   TLV, the Null TLV. This terminates a list of TLVs, and <em>MUST</em> be
+   present if mar$extoff is non-zero in a MARS message. It <em>MAY</em> be the
    only TLV present.
 
    The Null TLV is coded as:
@@ -3890,7 +3890,7 @@ References
    A MARS implementation might pre-construct a set of &lt;min,max&gt; pairs
    (P) that reflects the entire Class D space, excluding any addresses
    currently supported by multicast servers. The &lt;min&gt; field of the
-   first pair MUST be 224.0.0.0, and the &lt;max&gt; field of the last pair
+   first pair <em>MUST</em> be 224.0.0.0, and the &lt;max&gt; field of the last pair
    must be 239.255.255.255. The first and last pair may be the same.
    This set is updated whenever a multicast server registers or
    deregisters.
@@ -3904,8 +3904,8 @@ References
       Assume Pmin(N) and Pmax(N) are the &lt;min&gt; and &lt;max&gt; fields from the
       Nth pair in the MARS's current set P.
 
-      Assume set P has K pairs. Pmin(1) MUST equal 224.0.0.0, and
-      Pmax(M) MUST equal 239.255.255.255. (If K == 1 then no hole
+      Assume set P has K pairs. Pmin(1) <em>MUST</em> equal 224.0.0.0, and
+      Pmax(M) <em>MUST</em> equal 239.255.255.255. (If K == 1 then no hole
       punching is required).
 
       Execute pseudo-code:
@@ -4150,7 +4150,7 @@ References
    unicast and multicast topologies.
 
    In the absence of futher research in this area, networks deployed in
-   conformance to this document MUST make their IP cluster and IP LIS
+   conformance to this document <em>MUST</em> make their IP cluster and IP LIS
    coincide, so as to avoid these complications.
 
 

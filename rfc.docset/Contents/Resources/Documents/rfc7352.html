@@ -314,8 +314,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS">KEYWORDS</a>].
 
    Conventions for notations are as in Section 1.1 of [<a href="#ref-SIEVE" title="&quot;Sieve: An Email Filtering Language&quot;">SIEVE</a>], including
@@ -360,7 +360,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7352.html">RFC 7352</a>          Sieve: Detecting Duplicate Deliveries   September 2014</span>
 
 
-   Implementations MUST only update the internal duplicate-tracking list
+   Implementations <em>MUST</em> only update the internal duplicate-tracking list
    when the Sieve script execution finishes successfully.  If failing
    script executions add the unique ID to the duplicate-tracking list,
    all "duplicate" tests in the Sieve script would erroneously yield
@@ -376,15 +376,15 @@ Table of Contents
    complex implementations could use a locking mechanism to prevent this
    problem.  But, irrespective of what implementation is chosen,
    situations in which the "duplicate" test erroneously yields "true"
-   MUST be prevented.
+   <em>MUST</em> be prevented.
 
-   The "duplicate" test MUST only check for duplicates amongst unique ID
+   The "duplicate" test <em>MUST</em> only check for duplicates amongst unique ID
    values encountered in previous executions of the Sieve script; it
-   MUST NOT consider ID values encountered earlier in the current Sieve
+   <em>MUST NOT</em> consider ID values encountered earlier in the current Sieve
    script execution as potential duplicates.  This means that all
    "duplicate" tests in a Sieve script execution, including those
    located in scripts included using the "include" [<a href="#ref-INCLUDE" title="&quot;Sieve Email Filtering: Include Extension&quot;">INCLUDE</a>] extension,
-   MUST always yield the same result if the arguments are identical.
+   <em>MUST</em> always yield the same result if the arguments are identical.
 
    The Message-ID header field is assumed to be globally unique as
    required in <a href="./rfc5322.html#section-3.6.4">Section&nbsp;3.6.4 of RFC 5322</a> [<a href="#ref-IMAIL" title="&quot;Internet Message Format&quot;">IMAIL</a>].  In practice, this
@@ -436,19 +436,19 @@ Table of Contents
       parameter that is specified with the argument.
 
    The ":header" and ":uniqueid" arguments are mutually exclusive;
-   specifying both for a single "duplicate" test command MUST trigger an
+   specifying both for a single "duplicate" test command <em>MUST</em> trigger an
    error.
 
    The syntax rules for the header name parameter of the ":header"
    argument are specified in <a href="./rfc5228.html#section-2.4.2.2">Section&nbsp;2.4.2.2 of RFC 5228</a> [<a href="#ref-SIEVE" title="&quot;Sieve: An Email Filtering Language&quot;">SIEVE</a>].  Note
-   that implementations MUST NOT trigger an error for an invalid header
-   name.  Instead, the "duplicate" test MUST yield "false"
+   that implementations <em>MUST NOT</em> trigger an error for an invalid header
+   name.  Instead, the "duplicate" test <em>MUST</em> yield "false"
    unconditionally in this case.  The parameter of the ":uniqueid"
    argument can be any string.
 
    If the tracked unique ID value is extracted directly from a message
    header field (i.e., when the ":uniqueid" argument is not used), the
-   following operations MUST be performed before the actual duplicate
+   following operations <em>MUST</em> be performed before the actual duplicate
    verification:
 
    o  Unfold the header line as described in <a href="./rfc5322.html#section-2.2.3">Section&nbsp;2.2.3 of RFC 5322</a>
@@ -479,11 +479,11 @@ Table of Contents
    created.
 
    If the header field specified using the ":header" argument exists
-   multiple times in the message, extraction of the unique ID MUST use
+   multiple times in the message, extraction of the unique ID <em>MUST</em> use
    only the first occurrence.  This is true whether or not multiple
    occurrences are allowed by <a href="./rfc5322.html#section-3.6">Section&nbsp;3.6 of RFC 5322</a> [<a href="#ref-IMAIL" title="&quot;Internet Message Format&quot;">IMAIL</a>].  If the
    specified header field is not present in the message, the "duplicate"
-   test MUST yield "false" unconditionally.  In that case, the
+   test <em>MUST</em> yield "false" unconditionally.  In that case, the
    duplicate-tracking list is left unmodified by this test, since no
    unique ID value is available.  The same rules apply with respect to
    the Message-ID header field for the basic "duplicate" test without a
@@ -497,7 +497,7 @@ Table of Contents
    used as well.  This provides the user with detailed control over how
    the message's unique ID is created.
 
-   The unique ID MUST be matched case-sensitively with the contents of
+   The unique ID <em>MUST</em> be matched case-sensitively with the contents of
    the duplicate-tracking list, irrespective of how the unique ID was
    determined.  To achieve case-insensitive behavior when the
    ":uniqueid" argument is used, the "set" command added by the
@@ -530,7 +530,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Argument ":handle"</span>
 
-   The "duplicate" test MUST track a unique ID value independent of its
+   The "duplicate" test <em>MUST</em> track a unique ID value independent of its
    source.  This means that all values in the duplicate-tracking list
    should be used for duplicate testing, regardless of whether they were
    obtained from the Message-ID header field, from an arbitrary header
@@ -586,20 +586,20 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Arguments ":seconds" and ":last"</span>
 
-   Implementations SHOULD let entries in the tracking list expire after
+   Implementations <em>SHOULD</em> let entries in the tracking list expire after
    a short period of time.  The user can explicitly control the length
    of this expiration time by means of the ":seconds" argument, which
    accepts an integer value specifying the timeout value in seconds.  If
-   the ":seconds" argument is omitted, an appropriate default value MUST
+   the ":seconds" argument is omitted, an appropriate default value <em>MUST</em>
    be used.  A default expiration time of around 7 days is usually
-   appropriate.  Sites SHOULD impose a maximum limit on the expiration
+   appropriate.  Sites <em>SHOULD</em> impose a maximum limit on the expiration
    time.  If that limit is exceeded by the ":seconds" argument, the
-   maximum value MUST be silently substituted; exceeding the limit MUST
+   maximum value <em>MUST</em> be silently substituted; exceeding the limit <em>MUST</em>
    NOT produce an error.  If the ":seconds" argument is zero, the
-   "duplicate" test MUST yield "false" unconditionally.
+   "duplicate" test <em>MUST</em> yield "false" unconditionally.
 
    When the ":last" argument is omitted, the expiration time for entries
-   in the duplicate-tracking list MUST be measured relative to the
+   in the duplicate-tracking list <em>MUST</em> be measured relative to the
    moment at which the entry was first created (i.e., at the end of the
    successful script execution during which the "duplicate" test
    returned "false" for a message with that particular unique ID value).
@@ -608,7 +608,7 @@ Table of Contents
    expires.
 
    In contrast, when the ":last" argument is specified, the expiration
-   time MUST be measured relative to the last script execution during
+   time <em>MUST</em> be measured relative to the last script execution during
    which the "duplicate" test was used to check the entry's unique ID
    value.  This effectively means that the entry in the duplicate-
    tracking list will not expire while duplicate messages with the
@@ -620,7 +620,7 @@ Table of Contents
    unique ID value and ":handle" argument but different ":seconds" or
    ":last" arguments.  The resulting behavior is left undefined by this
    specification, so such constructs should be avoided.  Implementations
-   MAY choose to use the ":seconds" and ":last" arguments from the
+   <em>MAY</em> choose to use the ":seconds" and ":last" arguments from the
    "duplicate" test that was evaluated last.
 
 
@@ -655,7 +655,7 @@ Table of Contents
    (e.g., when messages are uploaded, flagged, or moved to another
    location).  The "duplicate" test is devised for use at final
    delivery, and the semantics in the "imapsieve" context are left
-   undefined.  Therefore, implementations SHOULD NOT allow the
+   undefined.  Therefore, implementations <em>SHOULD NOT</em> allow the
    "duplicate" test to be used in the context of "imapsieve".
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Sieve Capability Strings</span>
@@ -845,9 +845,9 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Security Considerations</span>
 
    A flood of unique messages could cause the duplicate-tracking list to
-   grow indefinitely.  Therefore, implementations SHOULD limit the
+   grow indefinitely.  Therefore, implementations <em>SHOULD</em> limit the
    number of entries in the duplicate-tracking list.  When limiting the
-   number of entries, implementations SHOULD discard the oldest ones
+   number of entries, implementations <em>SHOULD</em> discard the oldest ones
    first.
 
    Scripts using the "duplicate" test evaluation should be aware that
@@ -871,7 +871,7 @@ Table of Contents
    The list of unique IDs used for duplicate tracking can include
    privacy-sensitive information, such as message ID values, content of
    subject lines, and content extracted from message bodies.
-   Implementations SHOULD protect that information by obscuring it
+   Implementations <em>SHOULD</em> protect that information by obscuring it
    through hashing (see the note at the end of <a href="#section-3.2">Section 3.2</a>) and/or by
    storing it with a level of access control equivalent to that of the
    messages themselves.

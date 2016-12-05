@@ -329,8 +329,8 @@ Table of Contents
    and concepts for the IPv6 terminology.  In a few situations, we
    describe specific details that are different between IPv4 and IPv6.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document is a product of the Path MTU Discovery (PMTUD) working
@@ -640,9 +640,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Requirements</span>
 
-   All links MUST enforce their MTU: links that might non-
+   All links <em>MUST</em> enforce their MTU: links that might non-
    deterministically deliver packets that are larger than their rated
-   MTU MUST consistently discard such packets.
+   MTU <em>MUST</em> consistently discard such packets.
 
    In the distant past, there were a small number of network devices
    that did not enforce MTU, but could not reliably deliver oversized
@@ -654,36 +654,36 @@ Table of Contents
    standardization or deployment of technologies that might be
    incompatible with PLPMTUD.
 
-   All hosts SHOULD use IPv4 fragmentation in a mode that mimics IPv6
-   functionality.  All fragmentation SHOULD be done on the host, and all
-   IPv4 packets, including fragments, SHOULD have the DF bit set such
+   All hosts <em>SHOULD</em> use IPv4 fragmentation in a mode that mimics IPv6
+   functionality.  All fragmentation <em>SHOULD</em> be done on the host, and all
+   IPv4 packets, including fragments, <em>SHOULD</em> have the DF bit set such
    that they will not be fragmented (again) in the network.  See
    <a href="#section-8">Section 8</a>.
 
    The requirements below only apply to those implementations that
    include PLPMTUD.
 
-   To use PLPMTUD, a Packetization Layer MUST have a loss reporting
+   To use PLPMTUD, a Packetization Layer <em>MUST</em> have a loss reporting
    mechanism that provides the sender with timely and accurate
    indications of which packets were lost in the network.
 
-   Normal congestion control algorithms MUST remain in effect under all
+   Normal congestion control algorithms <em>MUST</em> remain in effect under all
    conditions except when only an isolated probe packet is detected as
    lost.  In this case alone, the normal congestion (window or data
-   rate) reduction SHOULD be suppressed.  If any other data loss is
-   detected, standard congestion control MUST take place.
+   rate) reduction <em>SHOULD</em> be suppressed.  If any other data loss is
+   detected, standard congestion control <em>MUST</em> take place.
 
-   Suppressed congestion control MUST be rate limited such that it
+   Suppressed congestion control <em>MUST</em> be rate limited such that it
    occurs less frequently than the worst-case loss rate for TCP
    congestion control at a comparable data rate over the same path
    (i.e., less than the "TCP-friendly" loss rate [<a href="#ref-tcp-friendly" title="&quot;TCP-Friendly Unicast Rate- Based Flow Control&quot;">tcp-friendly</a>]).  This
-   SHOULD be enforced by requiring a minimum headway between a
+   <em>SHOULD</em> be enforced by requiring a minimum headway between a
    suppressed congestion adjustment (due to a failed probe) and the next
    attempted probe, which is equal to one round-trip time for each
    packet permitted by the congestion window.  This is discussed further
    in <a href="#section-7.6.2">Section 7.6.2</a>.
 
-   Whenever the MTU is raised, the congestion state variables MUST be
+   Whenever the MTU is raised, the congestion state variables <em>MUST</em> be
    rescaled so as not to raise the window size in bytes (or data rate in
    bytes per seconds).
 
@@ -695,15 +695,15 @@ Table of Contents
 
 
    Whenever the MTU is reduced (e.g., when processing ICMP PTB
-   messages), the congestion state variable SHOULD be rescaled so as not
+   messages), the congestion state variable <em>SHOULD</em> be rescaled so as not
    to raise the window size in packets.
 
    If PLPMTUD updates the MTU for a particular path, all Packetization
    Layer sessions that share the path representation (as described in
-   <a href="#section-5.2">Section 5.2</a>) SHOULD be notified to make use of the new MTU and make
+   <a href="#section-5.2">Section 5.2</a>) <em>SHOULD</em> be notified to make use of the new MTU and make
    the required congestion control adjustments.
 
-   All implementations MUST include mechanisms for applications to
+   All implementations <em>MUST</em> include mechanisms for applications to
    selectively transmit packets larger than the current effective Path
    MTU, but smaller than the first-hop link MTU.  This is necessary to
    implement PLPMTUD using a connectionless protocol within an
@@ -711,12 +711,12 @@ Table of Contents
    operating system's implementation of Path MTU Discovery.  See
    <a href="#section-9">Section 9</a> for further discussion.
 
-   Implementations MAY use different heuristics to select the initial
+   Implementations <em>MAY</em> use different heuristics to select the initial
    effective Path MTU for each protocol.  Connectionless protocols and
-   protocols that do not support PLPMTUD SHOULD have their own default
+   protocols that do not support PLPMTUD <em>SHOULD</em> have their own default
    value for the initial effective Path MTU, which can be set to a more
    conservative (smaller) value than the initial value used by TCP and
-   other protocols that are well suited to PLPMTUD.  There SHOULD be
+   other protocols that are well suited to PLPMTUD.  There <em>SHOULD</em> be
    per-protocol and per-route limits on the initial effective Path MTU
    (eff_pmtu) and the upper searching limit (search_high).  See
    <a href="#section-7.2">Section 7.2</a> for further discussion.
@@ -752,7 +752,7 @@ Table of Contents
 
    effective Path MTU.  All Packetization Layers participating in
    classical Path MTU Discovery have this requirement already.  When
-   conducting a probe, the Packetization Layer MUST determine the probe
+   conducting a probe, the Packetization Layer <em>MUST</em> determine the probe
    packet's final size including IP headers.  This requirement is
    specific to PLPMTUD, and satisfying it may require additional inter-
    layer communication in existing implementations.
@@ -764,7 +764,7 @@ Table of Contents
    would naturally correspond to an instance of each protocol (i.e.,
    each connection or session).  In such implementations, the algorithms
    described in this document are performed within each session for each
-   protocol.  The observed PMTU (eff_pmtu in <a href="#section-7.1">Section 7.1</a>) MAY be shared
+   protocol.  The observed PMTU (eff_pmtu in <a href="#section-7.1">Section 7.1</a>) <em>MAY</em> be shared
    between different flows with a common path representation.
 
    Alternatively, PLPMTUD could be implemented such that its complete
@@ -784,7 +784,7 @@ Table of Contents
    but other protocols can only share observed PMTU.  In this case, the
    different protocols will have different PMTU convergence properties.
 
-   The IP layer SHOULD be used to store the cached PMTU value and other
+   The IP layer <em>SHOULD</em> be used to store the cached PMTU value and other
    shared state such as MTU values reported by ICMP PTB messages.
    Ideally, this shared state should be associated with a specific path
    traversed by packets exchanged between the source and destination
@@ -794,7 +794,7 @@ Table of Contents
    representation of a path.  It is left to the implementation to select
    the local representation of a path.
 
-   An implementation MAY use the destination address as the local
+   An implementation <em>MAY</em> use the destination address as the local
    representation of a path.  The PMTU value associated with a
    destination would be the minimum PMTU learned across the set of all
    paths in use to that destination.  The set of paths in use to a
@@ -813,20 +813,20 @@ Table of Contents
    a PMTU value could be stored with the corresponding entry in the
    destination cache.  Since Network Address Translators (NATs) and
    other forms of middle boxes may exhibit differing PMTUs
-   simultaneously at a single IP address, the minimum value SHOULD be
+   simultaneously at a single IP address, the minimum value <em>SHOULD</em> be
    stored.
 
-   Network or subnet numbers MUST NOT be used as representations of a
+   Network or subnet numbers <em>MUST NOT</em> be used as representations of a
    path, because there is not a general mechanism to determine the
    network mask at the remote host.
 
    For source-routed packets (i.e., packets containing an IPv6 routing
    header, or IPv4 Loose Source and Record Route (LSRR) or Strict Source
-   and Record Route (SSRR) options), the source route MAY further
-   qualify the local representation of a path.  An implementation MAY
+   and Record Route (SSRR) options), the source route <em>MAY</em> further
+   qualify the local representation of a path.  An implementation <em>MAY</em>
    use source route information in the local representation of a path.
 
-   If IPv6 flows are in use, an implementation MAY use the 3-tuple of
+   If IPv6 flows are in use, an implementation <em>MAY</em> use the 3-tuple of
    the Flow label and the source and destination addresses
    [<a href="./rfc2460.html" title="&quot;Internet Protocol, Version 6 (IPv6) Specification&quot;">RFC2460</a>][RFC3697] as the local representation of a path.  Such an
    approach could theoretically result in the use of optimally sized
@@ -843,7 +843,7 @@ Table of Contents
    treated as part of the IP layer, then each security association to a
    remote node may need to be treated as a separate path.  If IPsec is
    treated as part of the Packetization Layer, the IPsec header size
-   MUST be included in the Packetization Layer's header size
+   <em>MUST</em> be included in the Packetization Layer's header size
    calculations.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Multicast</span>
@@ -862,18 +862,18 @@ Table of Contents
 <span class="grey"><a href="./rfc4821.html">RFC 4821</a>         Packetization Layer Path MTU Discovery       March 2007</span>
 
 
-   Minimally, an implementation MAY maintain a single MTU value to be
+   Minimally, an implementation <em>MAY</em> maintain a single MTU value to be
    used for all multicast packets originated from the node.  This MTU
-   SHOULD be sufficiently small that it is expected to be less than the
+   <em>SHOULD</em> be sufficiently small that it is expected to be less than the
    Path MTU of all paths comprising the multicast tree.  If a Path MTU
    of less than the configured multicast MTU is learned via unicast
-   means, the multicast MTU MAY be reduced to this value.  This approach
+   means, the multicast MTU <em>MAY</em> be reduced to this value.  This approach
    is likely to result in the use of smaller packets than is necessary
    for many paths.
 
    If the application using multicast gets complete delivery reports
    (unlikely since this requirement has poor scaling properties),
-   PLPMTUD MAY be implemented in multicast protocols such that the
+   PLPMTUD <em>MAY</em> be implemented in multicast protocols such that the
    smallest path MTU learned across a group becomes the effective MTU
    for that group.
 
@@ -900,7 +900,7 @@ Table of Contents
    duplicate acknowledgments counting are sufficient.
 
    PLPMTUD can also be implemented in protocols that rely on timeouts as
-   their primary mechanism for loss recovery; however, timeouts SHOULD
+   their primary mechanism for loss recovery; however, timeouts <em>SHOULD</em>
    NOT be used as the primary mechanism for loss indication unless there
    are no other alternatives.
 
@@ -988,10 +988,10 @@ Table of Contents
 
                                  Figure 1
 
-   When transmitting non-probes, the Packetization Layer SHOULD create
+   When transmitting non-probes, the Packetization Layer <em>SHOULD</em> create
    packets of a size less than or equal to eff_pmtu.
 
-   When transmitting probes, the Packetization Layer MUST select a probe
+   When transmitting probes, the Packetization Layer <em>MUST</em> select a probe
    size that is larger than search_low and smaller than or equal to
    search_high.
 
@@ -1005,15 +1005,15 @@ Table of Contents
 
    For initial conditions when there is no information about the path,
    eff_pmtu may be greater than search_low.  The initial value of
-   search_low SHOULD be conservatively low, but performance may be
+   search_low <em>SHOULD</em> be conservatively low, but performance may be
    better if eff_pmtu starts at a higher, less conservative, value.  See
    <a href="#section-7.2">Section 7.2</a>.
 
    If eff_pmtu is larger than search_low, it is explicitly permitted to
    send non-probe packets larger than search_low.  When such a packet is
    acknowledged, it is effectively an "implicit probe" and search_low
-   SHOULD be raised to the size of the acknowledged packet.  However, if
-   an "implicit probe" is lost, it MUST NOT be treated as a probe
+   <em>SHOULD</em> be raised to the size of the acknowledged packet.  However, if
+   an "implicit probe" is lost, it <em>MUST NOT</em> be treated as a probe
    failure as a true probe would be.  If eff_pmtu is too large, this
    condition will only be detected with ICMP PTB messages or black hole
    discovery (see <a href="#section-7.7">Section 7.7</a>).
@@ -1032,20 +1032,20 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Selecting Initial Values</span>
 
-   The initial value for search_high SHOULD be the largest possible
+   The initial value for search_high <em>SHOULD</em> be the largest possible
    packet that might be supported by the flow.  This may be limited by
    the local interface MTU, by an explicit protocol mechanism such as
    the TCP MSS option, or by an intrinsic limit such as the size of a
    protocol length field.  In addition, the initial value for
-   search_high MAY be limited by a configuration option to prevent
+   search_high <em>MAY</em> be limited by a configuration option to prevent
    probing above some maximum size.  Search_high is likely to be the
    same as the initial Path MTU as computed by the classical Path MTU
    Discovery algorithm.
 
-   It is RECOMMENDED that search_low be initially set to an MTU size
+   It is <em>RECOMMENDED</em> that search_low be initially set to an MTU size
    that is likely to work over a very wide range of environments.  Given
    today's technologies, a value of 1024 bytes is probably safe enough.
-   The initial value for search_low SHOULD be configurable.
+   The initial value for search_low <em>SHOULD</em> be configurable.
 
    Properly functioning Path MTU Discovery is critical to the robust and
    efficient operation of the Internet.  Any major change (as described
@@ -1094,7 +1094,7 @@ Table of Contents
    of ICMP black holes use conservative (smaller) initial values for
    eff_pmtu, as described in <a href="#section-10.3">Section 10.3</a>.
 
-   There SHOULD be per-protocol and per-route configuration options to
+   There <em>SHOULD</em> be per-protocol and per-route configuration options to
    override initial values for eff_pmtu and other PLPMTUD state
    variables.
 
@@ -1122,14 +1122,14 @@ Table of Contents
    total size is smaller than search_high, and if possible larger than
    search_low.
 
-   Each Packetization Layer MUST determine when probing has converged,
+   Each Packetization Layer <em>MUST</em> determine when probing has converged,
    that is, when the probe size range is small enough that further
    probing is no longer worth its cost.  When probing has converged, a
-   timer SHOULD be set.  When the timer expires, search_high should be
+   timer <em>SHOULD</em> be set.  When the timer expires, search_high should be
    reset to its initial value (described above) so that probing can
    resume.  Thus, if the path changes, increasing the Path MTU, then the
    flow will eventually take advantage of it.  The value for this timer
-   MUST NOT be less than 5 minutes and is recommended to be 10 minutes,
+   <em>MUST NOT</em> be less than 5 minutes and is recommended to be 10 minutes,
    per <a href="./rfc1981.html">RFC 1981</a>.
 
 
@@ -1144,7 +1144,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.4" href="#section-7.4">7.4</a>.  Probing Preconditions</span>
 
-   Before sending a probe, the flow MUST meet at least the following
+   Before sending a probe, the flow <em>MUST</em> meet at least the following
    conditions:
 
    o  It has no outstanding probes or losses.
@@ -1158,18 +1158,18 @@ Table of Contents
       available to send the probe.
 
    In addition, the timely loss detection algorithms in most protocols
-   have pre-conditions that SHOULD be satisfied before sending a probe.
+   have pre-conditions that <em>SHOULD</em> be satisfied before sending a probe.
    For example, TCP Fast Retransmit is not robust unless there are
-   sufficient segments following a probe; that is, the sender SHOULD
+   sufficient segments following a probe; that is, the sender <em>SHOULD</em>
    have enough data queued and sufficient receiver window to send the
    probe plus at least Tcprexmtthresh [<a href="./rfc2760.html" title="&quot;Ongoing TCP Research Related to Satellites&quot;">RFC2760</a>] additional segments.
    This restriction may inhibit probing in some protocol states, such as
    too close to the end of a connection, or when the window is too
    small.
 
-   Protocols MAY delay sending non-probes in order to accumulate enough
+   Protocols <em>MAY</em> delay sending non-probes in order to accumulate enough
    data to meet the pre-conditions for probing.  The delayed sending
-   algorithm SHOULD use some self-scaling technique to appropriately
+   algorithm <em>SHOULD</em> use some self-scaling technique to appropriately
    limit the time that the data is delayed.  For example, the returning
    ACKs can be used to prevent the window from falling by more than the
    amount of data needed for the probe.
@@ -1177,7 +1177,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.5" href="#section-7.5">7.5</a>.  Conducting a Probe</span>
 
    Once a probe size in the appropriate range has been selected, and the
-   above preconditions have been met, the Packetization Layer MAY
+   above preconditions have been met, the Packetization Layer <em>MAY</em>
    conduct a probe.  To do so, it creates a probe packet such that its
    size, including the outermost IP headers, is equal to the probe size.
    After sending the probe it awaits a response, which will have one of
@@ -1209,7 +1209,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-7.6" href="#section-7.6">7.6</a>.  Response to Probe Results</span>
 
-   When a probe has completed, the result SHOULD be processed as
+   When a probe has completed, the result <em>SHOULD</em> be processed as
    follows, categorized by the probe's result type.
 
 <span class="h4"><a class="selflink" name="section-7.6.1" href="#section-7.6.1">7.6.1</a>.  Probe Success</span>
@@ -1226,20 +1226,20 @@ Table of Contents
    a path with a non-deterministic MTU, delivery of a single probe
    packet does not indicate that all packets of that size will be
    delivered.  To be robust in such a case, the Packetization Layer
-   SHOULD conduct MTU verification as described in <a href="#section-7.8">Section 7.8</a>.
+   <em>SHOULD</em> conduct MTU verification as described in <a href="#section-7.8">Section 7.8</a>.
 
 <span class="h4"><a class="selflink" name="section-7.6.2" href="#section-7.6.2">7.6.2</a>.  Probe Failure</span>
 
    When only the probe is lost, it is treated as an indication that the
    Path MTU is smaller than the probe size.  In this case alone, the
-   loss SHOULD NOT be interpreted as congestion signal.
+   loss <em>SHOULD NOT</em> be interpreted as congestion signal.
 
    In the absence of other indications, set search_high to the probe
    size minus one.  The eff_pmtu might be larger than the probe size if
    the flow has not been using the full MTU of the path because it is
    subject to some other limitation, such as available data in an
    interactive session.  If eff_pmtu is larger than the probe size,
-   eff_pmtu MUST be reduced to no larger than search_high, and SHOULD be
+   eff_pmtu <em>MUST</em> be reduced to no larger than search_high, and <em>SHOULD</em> be
    reduced to search_low, as the eff_pmtu has been determined to be
    invalid, similar to after a full-stop timeout (see <a href="#section-7.7">Section 7.7</a>).
 
@@ -1255,18 +1255,18 @@ Table of Contents
 
 
    If an ICMP PTB message is received matching the probe packet, then
-   search_high and eff_pmtu MAY be set from the MTU value indicated in
+   search_high and eff_pmtu <em>MAY</em> be set from the MTU value indicated in
    the message.  Note that the ICMP message may be received either
    before or after the protocol loss indication.
 
    A probe failure event is the one situation under which the
-   Packetization Layer SHOULD ignore loss as a congestion signal.
+   Packetization Layer <em>SHOULD</em> ignore loss as a congestion signal.
    Because there is some small risk that suppressing congestion control
    might have unanticipated consequences (even for one isolated loss),
-   it is REQUIRED that probe failure events be less frequent than the
+   it is <em>REQUIRED</em> that probe failure events be less frequent than the
    normal period for losses under standard congestion control.
    Specifically, after a probe failure event and suppressed congestion
-   control, PLPMTUD MUST NOT probe again until an interval that is
+   control, PLPMTUD <em>MUST NOT</em> probe again until an interval that is
    larger than the expected interval between congestion control events.
    See <a href="#section-4">Section 4</a> for details.  The simplest estimate of the interval to
    the next congestion event is the same number of round trips as the
@@ -1279,15 +1279,15 @@ Table of Contents
    The relatively high price of a failed probe in this case may merit a
    longer time interval until the next probe.  A time interval that is
    five times the non-timeout failure case (<a href="#section-7.6.2">Section 7.6.2</a>) is
-   RECOMMENDED.
+   <em>RECOMMENDED</em>.
 
 <span class="h4"><a class="selflink" name="section-7.6.4" href="#section-7.6.4">7.6.4</a>.  Probe Inconclusive</span>
 
    The presence of other losses near the loss of the probe may indicate
    that the probe was lost due to congestion rather than due to an MTU
    limitation.  In this case, the state variables eff_pmtu, search_low,
-   and search_high SHOULD NOT be updated, and the same-sized probe
-   SHOULD be attempted again as soon as the probing preconditions are
+   and search_high <em>SHOULD NOT</em> be updated, and the same-sized probe
+   <em>SHOULD</em> be attempted again as soon as the probing preconditions are
    met (i.e., once the packetization layer has no outstanding
    unrecovered losses).  At this point, it is particularly appropriate
    to re-probe since the flow's congestion window will be at its lowest
@@ -1296,7 +1296,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.7" href="#section-7.7">7.7</a>.  Full-Stop Timeout</span>
 
    Under all conditions, a full-stop timeout (also known as a
-   "persistent timeout" in other documents) SHOULD be taken as an
+   "persistent timeout" in other documents) <em>SHOULD</em> be taken as an
    indication of some significantly disruptive event in the network,
    such as a router failure or a routing change to a path with a smaller
    MTU.  For TCP, this occurs when the R1 timeout threshold described by
@@ -1312,7 +1312,7 @@ Table of Contents
 
    If there is a full-stop timeout and there was not an ICMP message
    indicating a reason (PTB, Net unreachable, etc., or the ICMP message
-   was ignored for some reason), the RECOMMENDED first recovery action
+   was ignored for some reason), the <em>RECOMMENDED</em> first recovery action
    is to treat this as a detected ICMP black hole as defined in
    [<a href="./rfc2923.html" title="&quot;TCP Problems with Path MTU Discovery&quot;">RFC2923</a>].
 
@@ -1320,9 +1320,9 @@ Table of Contents
    for search_low and eff_pmtu.  If eff_pmtu is larger than search_low,
    set eff_pmtu to search_low.  Otherwise, set both eff_pmtu and
    search_low to the initial value for search_low.  Upon additional
-   successive timeouts, search_low and eff_pmtu SHOULD be halved, with a
+   successive timeouts, search_low and eff_pmtu <em>SHOULD</em> be halved, with a
    lower bound of 68 bytes for IPv4 and 1280 bytes for IPv6.  Even lower
-   lower bounds MAY be permitted to support limited operation over links
+   lower bounds <em>MAY</em> be permitted to support limited operation over links
    with MTUs that are smaller than permitted by the IP specifications.
 
 <span class="h3"><a class="selflink" name="section-7.8" href="#section-7.8">7.8</a>.  MTU Verification</span>
@@ -1348,11 +1348,11 @@ Table of Contents
    Striping in this manner is often operationally undesirable for other
    reasons (e.g., due to packet reordering) and is usually avoided by
    hashing each flow to a single path.  However, to increase robustness,
-   an implementation SHOULD implement some form of MTU verification,
+   an implementation <em>SHOULD</em> implement some form of MTU verification,
    such that if increasing eff_pmtu results in a sharp increase in loss
    rate, it will fall back to using a lower MTU.
 
-   A RECOMMENDED strategy would be to save the value of eff_pmtu before
+   A <em>RECOMMENDED</em> strategy would be to save the value of eff_pmtu before
    raising it.  Then, if loss rate rises above a threshold for a period
    of time (e.g., loss rate is higher than 10% over multiple
    retransmission timeout (RTO) intervals), then the new MTU is
@@ -1366,13 +1366,13 @@ Table of Contents
 <span class="grey"><a href="./rfc4821.html">RFC 4821</a>         Packetization Layer Path MTU Discovery       March 2007</span>
 
 
-   considered incorrect.  The saved value of eff_pmtu SHOULD be
+   considered incorrect.  The saved value of eff_pmtu <em>SHOULD</em> be
    restored, and search_high reduced in the same manner as in a probe
-   failure.  PLPMTUD implementations SHOULD implement MTU verification.
+   failure.  PLPMTUD implementations <em>SHOULD</em> implement MTU verification.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Host Fragmentation</span>
 
-   Packetization Layers SHOULD avoid sending messages that will require
+   Packetization Layers <em>SHOULD</em> avoid sending messages that will require
    fragmentation [<a href="#ref-Kent87" title="&quot;Fragmentation considered harmful&quot;">Kent87</a>] [<a href="#ref-frag-errors" title="&quot;IPv4 Reassembly Errors at High Data Rates&quot;">frag-errors</a>].  However, entirely preventing
    fragmentation is not always possible.  Some Packetization Layers,
    such as a UDP application outside the kernel, may be unable to change
@@ -1384,14 +1384,14 @@ Table of Contents
    the network or sending host when they encountered a link with an MTU
    smaller than the packet.  In some case, packets could be fragmented
    more than once if there were cascaded links with progressively
-   smaller MTUs.  This approach is NOT RECOMMENDED.
+   smaller MTUs.  This approach is NOT <em>RECOMMENDED</em>.
 
-   It is RECOMMENDED that IPv4 implementations use a strategy that
+   It is <em>RECOMMENDED</em> that IPv4 implementations use a strategy that
    mimics IPv6 functionality.  When an application sends datagrams that
-   are larger than the effective Path MTU, they SHOULD be fragmented to
+   are larger than the effective Path MTU, they <em>SHOULD</em> be fragmented to
    the Path MTU in the host IP layer even if they are smaller than the
    MTU of the first link, directly attached to the host.  The DF bit
-   SHOULD be set on the fragments, so they will not be fragmented again
+   <em>SHOULD</em> be set on the fragments, so they will not be fragmented again
    in the network.  This technique will minimize the likelihood that
    applications will rely on IPv4 fragmentation in a way that cannot be
    implemented in IPv6.  At least one major operating system already
@@ -1424,14 +1424,14 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Application Probing</span>
 
-   All implementations MUST include a mechanism where applications using
+   All implementations <em>MUST</em> include a mechanism where applications using
    connectionless protocols can send their own probes.  This is
    necessary to implement PLPMTUD in an application protocol as
    described in <a href="#section-10.4">Section 10.4</a> or to implement diagnostic tools for
-   debugging problems with PMTUD.  There MUST be a mechanism that
+   debugging problems with PMTUD.  There <em>MUST</em> be a mechanism that
    permits an application to send datagrams that are larger than
    eff_pmtu, the operating systems estimate of the Path MTU, without
-   being fragmented.  If these are IPv4 packets, they MUST have the DF
+   being fragmented.  If these are IPv4 packets, they <em>MUST</em> have the DF
    bit set.
 
    At this time, most operating systems support two modes for sending
@@ -1439,7 +1439,7 @@ Table of Contents
    and another that rejects packets that are too large.  Neither of
    these modes is suitable for implementing PLPMTUD in an application or
    diagnosing problems with Path MTU Discovery.  A third mode is
-   REQUIRED where the datagram is sent even if it is larger than the
+   <em>REQUIRED</em> where the datagram is sent even if it is larger than the
    current estimate of the Path MTU.
 
    Implementing PLPMTUD in an application also requires a mechanism
@@ -1508,7 +1508,7 @@ Table of Contents
    be some duplicate acknowledgments generated due to the duplicate data
    sent.  It is important that these duplicate acknowledgments not
    trigger Fast Retransmit.  As such, an implementation using this
-   approach SHOULD limit the probe size to three times the current MSS
+   approach <em>SHOULD</em> limit the probe size to three times the current MSS
    (causing at most 2 duplicate acknowledgments), or appropriately
    adjust its duplicate acknowledgment threshold for data immediately
    after a successful probe.
@@ -1566,13 +1566,13 @@ Table of Contents
    make larger IP packets to send on paths with a larger PMTU.  Note
    that SCTP must independently probe the PMTU on each path to the peer.
 
-   The RECOMMENDED method for generating probes is to add a chunk
+   The <em>RECOMMENDED</em> method for generating probes is to add a chunk
    consisting only of padding to an SCTP message.  The PAD chunk defined
-   in [<a href="./rfc4820.html" title="&quot;Padding Chunk and Parameter for the Stream Control Transmission Protocol (SCTP)&quot;">RFC4820</a>] SHOULD be attached to a minimum length HEARTBEAT (HB)
+   in [<a href="./rfc4820.html" title="&quot;Padding Chunk and Parameter for the Stream Control Transmission Protocol (SCTP)&quot;">RFC4820</a>] <em>SHOULD</em> be attached to a minimum length HEARTBEAT (HB)
    chunk to build a probe packet.  This method is fully compatible with
    all current SCTP implementations.
 
-   SCTP MAY also probe with a method similar to TCP's described above,
+   SCTP <em>MAY</em> also probe with a method similar to TCP's described above,
    using inline data.  Using such a method has the advantage that
    successful probes have no additional overhead; however, failed probes
    will require retransmission of data, which may impact flow
@@ -1610,7 +1610,7 @@ Table of Contents
    the application.
 
    To support IP fragmentation as a Packetization Layer under an
-   unmodified application, an implementation SHOULD rely on the Path MTU
+   unmodified application, an implementation <em>SHOULD</em> rely on the Path MTU
    sharing described in <a href="#section-5.2">Section 5.2</a> plus an adjunct protocol to probe
    the Path MTU.  There are a number of protocols that might be used for
    the purpose, such as ICMP ECHO and ECHO REPLY, or "traceroute" style
@@ -1650,7 +1650,7 @@ Table of Contents
    effectively diagnose MTU black holes, it would be more robust to err
    on the side of using too small of an initial MTU (e.g., 1 kByte or
    less) prior to probing a path to measure the MTU.  For this reason,
-   implementations that use IP fragmentation SHOULD use an initial
+   implementations that use IP fragmentation <em>SHOULD</em> use an initial
    eff_pmtu, which is selected as described in <a href="#section-7.2">Section 7.2</a>, except using
    a separate global control for the default initial eff_mtu for
    connectionless protocols.
@@ -1681,7 +1681,7 @@ Table of Contents
    function that confirms message delivery, plus a mechanism for padding
    the messages out to the desired probe size, such that the padding is
    not echoed.  This combination (akin to the SCTP HB plus PAD) is
-   RECOMMENDED because an application can separately measure the MTU of
+   <em>RECOMMENDED</em> because an application can separately measure the MTU of
    each direction on a path with asymmetrical MTUs.
 
    For protocols that cannot implement PLPMTUD with "echo plus pad",

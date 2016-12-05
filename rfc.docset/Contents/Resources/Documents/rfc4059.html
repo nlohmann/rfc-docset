@@ -259,15 +259,15 @@ Abstract
    management to be automated.
 
    When a certificate contains a warranty certificate extension, the
-   extension MUST be non-critical, and MUST contain either a NULL to
+   extension <em>MUST</em> be non-critical, and <em>MUST</em> contain either a NULL to
    indicate that no warranty is provided or base warranty data to
-   indicate that a warranty is provided.  The extension MAY contain
+   indicate that a warranty is provided.  The extension <em>MAY</em> contain
    optional qualifiers.
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Warranty Extension Format</span>
@@ -325,8 +325,8 @@ Abstract
    warranty.  The document may be a Certificate Policy that contains
    this information, a document specifically about the warranty, or a
    Relying Party Agreement.  The pointer is always a uniform resource
-   locator (URL).  The URL MUST be a non-relative URL using the http
-   scheme.  The URL MUST follow the URL syntax and encoding rules
+   locator (URL).  The URL <em>MUST</em> be a non-relative URL using the http
+   scheme.  The URL <em>MUST</em> follow the URL syntax and encoding rules
    specified in <a href="./rfc3986.html">RFC 3986</a> [<a href="#ref-URI" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">URI</a>].
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Warranty Extension Syntax</span>
@@ -339,8 +339,8 @@ Abstract
 
    WarrantyData  ::=  SEQUENCE  {
      base                 WarrantyInfo,
-     extended             WarrantyInfo OPTIONAL,
-     tcURL                TermsAndConditionsURL OPTIONAL  }
+     extended             WarrantyInfo <em>OPTIONAL</em>,
+     tcURL                TermsAndConditionsURL <em>OPTIONAL</em>  }
 
    WarrantyInfo  ::=  SEQUENCE  {
      validity             WarrantyValidityPeriod,
@@ -365,7 +365,7 @@ Abstract
 
    -- CurrencyAmount specifies the currency and a monetary value.
    -- Currency codes are defined in [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].  The monetary value
-   -- is: amount / (10 ** amtExp10), and the exponent MUST be the
+   -- is: amount / (10 ** amtExp10), and the exponent <em>MUST</em> be the
    -- minor unit of currency specified in [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].
 
    CurrencyAmount  ::=  SEQUENCE  {
@@ -377,7 +377,7 @@ Abstract
      aggregated           (0),
      perTransaction       (1)  }
 
-   TermsAndConditionsURL  ::=  IA5String  -- MUST use http scheme
+   TermsAndConditionsURL  ::=  IA5String  -- <em>MUST</em> use http scheme
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Warranty Extension Semantics</span>
 
@@ -385,19 +385,19 @@ Abstract
    WarrantyData.  If the CA selects NULL, then the CA is explicitly
    stating that no warranty is provided.  If the CA selects
    WarrantyData, then the CA is explicitly stating that a warranty is
-   provided, and the fields within the WarrantyData type MUST provide
+   provided, and the fields within the WarrantyData type <em>MUST</em> provide
    details about that warranty.
 
-   WarrantyData MUST contain information about the base warranty.
-   WarrantyData MAY contain information about an extended warranty.
+   WarrantyData <em>MUST</em> contain information about the base warranty.
+   WarrantyData <em>MAY</em> contain information about an extended warranty.
    Both base warranty and extended warranty information is provided
-   using the WarrantyInfo type.  WarrantyData MAY contain a URL that
+   using the WarrantyInfo type.  WarrantyData <em>MAY</em> contain a URL that
    points to the terms and conditions of the warranty.  The URL is
    provided using the TermsAndConditionsURL type, which is an IA5
-   string.  The IA5String MUST contain a URI [<a href="#ref-URI" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">URI</a>] using the http
+   string.  The IA5String <em>MUST</em> contain a URI [<a href="#ref-URI" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">URI</a>] using the http
    scheme, such as "http://www.example.com/warranty/t_and_c.html".
 
-   WarrantyInfo MUST contain the warranty validity period, the currency
+   WarrantyInfo <em>MUST</em> contain the warranty validity period, the currency
    amount of the warranty, and the type of warranty.  The warranty
    validity period is provided using the WarrantyValidityPeriod type.
    The currency amount of the warranty is provided using the
@@ -413,24 +413,24 @@ Abstract
 
    WarrantyValidityPeriod is a CHOICE; it is represented either by NULL
    or ValidityPeriod.  If the CA selects NULL, then the validity periods
-   of the warranty and the certificate MUST be exactly the same.  If the
+   of the warranty and the certificate <em>MUST</em> be exactly the same.  If the
    CA selects ValidityPeriod, then the CA is explicitly stating a
    warranty validity period that is different than the validity period
    of the certificate.  If the validity periods of the warranty and the
-   certificate are the same, then the CA MUST select the NULL choice.
+   certificate are the same, then the CA <em>MUST</em> select the NULL choice.
    The validity periods are expected to be the same in the vast majority
    of the cases.  ValidityPeriod is a SEQUENCE of two GeneralizedTime
-   values.  The first (notBefore) GeneralizedTime value MUST indicate
+   values.  The first (notBefore) GeneralizedTime value <em>MUST</em> indicate
    the date and time that the warranty becomes valid, and the second
-   (notAfter) GeneralizedTime value MUST indicate the date and time that
+   (notAfter) GeneralizedTime value <em>MUST</em> indicate the date and time that
    the warranty expires.
 
    CurrencyAmount is a SEQUENCE of three integers which together specify
-   the currency and a monetary value.  The first integer (currency) MUST
+   the currency and a monetary value.  The first integer (currency) <em>MUST</em>
    indicate the currency using one of the currency codes defined in
-   [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].  The second integer (amount) MUST indicate the value of
-   the warranty.  The third integer (amtExp10) MUST indicate the correct
-   placement of the decimal point in the monetary value, and MUST be the
+   [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].  The second integer (amount) <em>MUST</em> indicate the value of
+   the warranty.  The third integer (amtExp10) <em>MUST</em> indicate the correct
+   placement of the decimal point in the monetary value, and <em>MUST</em> be the
    minor unit of currency specified in [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].  For example
    $48,525.50 (in US dollars) is represented as:
 
@@ -443,12 +443,12 @@ Abstract
    fulfilled claims reaches the warranty currency amount, then no
    further claim will be fulfilled.  A value of one indicates that each
    claim is handled independently, but no individual claim can exceed
-   the warranty currency amount.  The CA MUST select either zero or one
+   the warranty currency amount.  The CA <em>MUST</em> select either zero or one
    for this integer value.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Security Considerations</span>
 
-   The procedures and practices employed by the CA MUST ensure that the
+   The procedures and practices employed by the CA <em>MUST</em> ensure that the
    correct values for the warranty are inserted in each issued
    certificate.  Relying parties and users may accept or reject a
    particular certificate for an intended use based on the information
@@ -501,8 +501,8 @@ Abstract
 
    WarrantyData ::= SEQUENCE  {
        base                 WarrantyInfo,
-       extended             WarrantyInfo OPTIONAL,
-       tcURL                TermsAndConditionsURL OPTIONAL  }
+       extended             WarrantyInfo <em>OPTIONAL</em>,
+       tcURL                TermsAndConditionsURL <em>OPTIONAL</em>  }
 
    WarrantyInfo ::= SEQUENCE  {
        validity             WarrantyValidityPeriod,
@@ -529,7 +529,7 @@ Abstract
 
    -- CurrencyAmount specifies the currency and a monetary value.
    -- Currency codes are defined in [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].  The monetary value
-   -- is: amount / (10 ** amtExp10), and the exponent MUST be the
+   -- is: amount / (10 ** amtExp10), and the exponent <em>MUST</em> be the
    -- minor unit of currency specified in [<a href="#ref-ISO4217" title="&quot;Codes for the Representation of Currencies and Funds&quot;">ISO4217</a>].
 
    CurrencyAmount ::= SEQUENCE  {

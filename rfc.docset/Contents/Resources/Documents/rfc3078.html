@@ -219,8 +219,8 @@ Abstract
 
 Specification of Requirements
 
-   In this document, the key words "MAY", "MUST, "MUST NOT", "optional",
-   "recommended", "SHOULD", and "SHOULD NOT" are to be interpreted as
+   In this document, the key words "<em>MAY</em>", "<em>MUST</em>, "<em>MUST NOT</em>", "optional",
+   "recommended", "<em>SHOULD</em>", and "<em>SHOULD NOT</em>" are to be interpreted as
    described in [<a href="#ref-5" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">5</a>].
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Introduction</span>
@@ -256,7 +256,7 @@ Specification of Requirements
       The CCP Configuration Option negotiates the use of MPPE on the
       link.  By default (i.e., if the negotiation of MPPE is not
       attempted), no encryption is used.  If, however, MPPE negotiation
-      is attempted and fails, the link SHOULD be terminated.
+      is attempted and fails, the link <em>SHOULD</em> be terminated.
 
    A summary of the CCP Configuration Option format is shown below.  The
    fields are transmitted from left to right.
@@ -300,7 +300,7 @@ Specification of Requirements
 
    The 'C' bit is used by MPPC [<a href="#ref-4" title="&quot;Microsoft Point-to-Point Compression (MPPC) Protocol&quot;">4</a>] and is not discussed further in this
    memo.  The 'D' bit is obsolete; although some older peers may attempt
-   to negotiate this option, it SHOULD NOT be accepted.  If the 'L' bit
+   to negotiate this option, it <em>SHOULD NOT</em> be accepted.  If the 'L' bit
    is set (corresponding to a value of 0x20 in the least significant
    octet), this indicates the desire of the sender to negotiate the use
    of 40-bit session keys.  If the 'S' bit is set (corresponding to a
@@ -316,17 +316,17 @@ Specification of Requirements
    following discussion, the 'S', 'M' and 'L' bits are sometimes
    referred to collectively as "encryption options".
 
-   All other bits are reserved and MUST be set to 0.
+   All other bits are reserved and <em>MUST</em> be set to 0.
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Option Negotiation</span>
 
    MPPE options are negotiated as described in [<a href="#ref-2" title="&quot;The PPP Compression Control Protocol (CCP)&quot;">2</a>].  In particular, the
-   negotiation initiator SHOULD request all of the options it supports.
-   The responder SHOULD NAK with a single encryption option (note that
+   negotiation initiator <em>SHOULD</em> request all of the options it supports.
+   The responder <em>SHOULD</em> NAK with a single encryption option (note that
    stateless mode may always be negotiated, independent of and in
    addition to an encryption option).  If the responder supports more
    than one encryption option in the set requested by the initiator, the
-   option selected SHOULD be the "strongest" option offered.
+   option selected <em>SHOULD</em> be the "strongest" option offered.
    Informally, the strength of the MPPE encryption options may be
    characterized as follows:
 
@@ -339,7 +339,7 @@ Specification of Requirements
    This characterization takes into account the generally accepted
    strength of the cipher.
 
-   The initiator SHOULD then either send another request containing the
+   The initiator <em>SHOULD</em> then either send another request containing the
    same option(s) as the responder's NAK or cancel the negotiation,
    dropping the connection.
 
@@ -356,8 +356,8 @@ Specification of Requirements
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  MPPE Packets</span>
 
-   Before any MPPE packets are transmitted, PPP MUST reach the Network-
-   Layer Protocol phase and the CCP Control Protocol MUST reach the
+   Before any MPPE packets are transmitted, PPP <em>MUST</em> reach the Network-
+   Layer Protocol phase and the CCP Control Protocol <em>MUST</em> reach the
    Opened state.
 
    Exactly one MPPE datagram is encapsulated in the PPP Information
@@ -375,7 +375,7 @@ Specification of Requirements
       Padding
 
          It is recommended that padding not be used with MPPE.  If the
-         sender uses padding it MUST negotiate the Self-Describing-
+         sender uses padding it <em>MUST</em> negotiate the Self-Describing-
          Padding Configuration option [<a href="#ref-10" title="&quot;PPP LCP Extensions&quot;">10</a>] during LCP phase and use
          self-describing pads.
 
@@ -385,13 +385,13 @@ Specification of Requirements
          relies on a 12-bit coherency count in each packet to keep the
          encryption tables synchronized.  If stateless mode has not been
          negotiated and the coherency count in the received packet does
-         not match the expected count, the receiver MUST send a CCP
+         not match the expected count, the receiver <em>MUST</em> send a CCP
          Reset-Request packet to cause the resynchronization of the RC4
          tables.
 
          MPPE expects packets to be delivered in sequence.
 
-         MPPE MAY be used over a reliable link, as described in "PPP
+         MPPE <em>MAY</em> be used over a reliable link, as described in "PPP
          Reliable Transmission" [<a href="#ref-6" title="&quot;PPP Reliable Transmission&quot;">6</a>], but this typically just adds
          unnecessary overhead since only the coherency count is
          required.
@@ -430,17 +430,17 @@ Specification of Requirements
 
          When MPPE is successfully negotiated by the PPP Compression
          Control Protocol, the value of this field is 0x00FD.  This
-         value MAY be compressed when Protocol-Field-Compression is
+         value <em>MAY</em> be compressed when Protocol-Field-Compression is
          negotiated.
 
       Bit A
 
          This bit indicates that the encryption tables were initialized
-         before this packet was generated.  The receiver MUST re-
+         before this packet was generated.  The receiver <em>MUST</em> re-
          initialize its tables with the current session key before
          decrypting this packet.  This bit is referred to as the FLUSHED
          bit in this document.  If the stateless option has been
-         negotiated, this bit MUST be set on every encrypted packet.
+         negotiated, this bit <em>MUST</em> be set on every encrypted packet.
          Note that MPPC and MPPE both recognize the FLUSHED bit;
          therefore, if the stateless option is negotiated, it applies to
          both MPPC and MPPE.
@@ -482,7 +482,7 @@ Specification of Requirements
          field and then encrypt the IP header.
 
          If the packet contains header compression, the MPPE processor
-         is applied AFTER header compression is performed and MUST be
+         is applied AFTER header compression is performed and <em>MUST</em> be
          applied to the compressed header as well.  For example, if a
          packet contained the protocol type 0x002D (for a compressed
          TCP/IP header), the MPPE processor would first encrypt 0x002D
@@ -492,8 +492,8 @@ Specification of Requirements
       Implementation Note
 
          If both MPPE and MPPC are negotiated on the same link, the MPPE
-         processor MUST be invoked after the MPPC processor by the
-         sender and the MPPE processor MUST be invoked before the MPPC
+         processor <em>MUST</em> be invoked after the MPPC processor by the
+         sender and the MPPE processor <em>MUST</em> be invoked before the MPPC
          processor by the receiver.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Initial Session Keys</span>
@@ -535,17 +535,17 @@ Specification of Requirements
 
    If stateless encryption has been negotiated, the session key changes
    every time the coherency count changes; i.e., on every packet.  In
-   stateless mode, the sender MUST change its key before encrypting and
-   transmitting each packet and the receiver MUST change its key after
+   stateless mode, the sender <em>MUST</em> change its key before encrypting and
+   transmitting each packet and the receiver <em>MUST</em> change its key after
    receiving, but before decrypting, each packet (see "Synchronization",
    below).
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Stateful Mode Key Changes</span>
 
-   If stateful encryption has been negotiated, the sender MUST change
+   If stateful encryption has been negotiated, the sender <em>MUST</em> change
    its key before encrypting and transmitting any packet in which the
    low order octet of the coherency count equals 0xFF (the "flag"
-   packet), and the receiver MUST change its key after receiving, but
+   packet), and the receiver <em>MUST</em> change its key after receiving, but
    before decrypting, a "flag" packet (see "Synchronization", below).
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  The MPPE Key Change Algorithm</span>
@@ -620,7 +620,7 @@ Specification of Requirements
 
    If stateless encryption has been negotiated and the coherency count
    in the received packet (C1) is greater than the coherency count in
-   the last packet previously received (C2), the receiver MUST perform N
+   the last packet previously received (C2), the receiver <em>MUST</em> perform N
    = C1 - C2 key changes before decrypting the packet, in order to
    ensure that its session key is synchronized with the session key of
    the sender.  Normally, the value of N will be 1; however, if
@@ -640,33 +640,33 @@ Specification of Requirements
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Stateful Synchronization</span>
 
-   If stateful encryption has been negotiated, the sender MUST change
+   If stateful encryption has been negotiated, the sender <em>MUST</em> change
    its key before encrypting and transmitting any packet in which the
    low order octet of the coherency count equals 0xFF (the "flag"
-   packet), and the receiver MUST change its key after receiving, but
+   packet), and the receiver <em>MUST</em> change its key after receiving, but
    before decrypting, a "flag" packet.  However, the "flag" packet may
    be lost.  If this happens, the low order octet of the coherency count
    in the received packet will be less than that in the last packet
-   previously received.  In this case, the receiver MUST perform a key
+   previously received.  In this case, the receiver <em>MUST</em> perform a key
    change before decrypting the newly received packet, (since the sender
    will have changed its key before transmitting the packet), then send
    a CCP Reset-Request packet (see below).  It is possible that 256 or
-   more consecutive packets could be lost; the receiver SHOULD detect
+   more consecutive packets could be lost; the receiver <em>SHOULD</em> detect
    this condition and perform the number of key changes necessary to
    resynchronize with the sender.
 
    If packet loss is detected while using stateful encryption, the
-   receiver MUST drop the packet and send a CCP Reset-Request packet
+   receiver <em>MUST</em> drop the packet and send a CCP Reset-Request packet
    without data.  After transmitting the CCP Reset-Request packet, the
-   receiver SHOULD silently discard all packets until a packet is
+   receiver <em>SHOULD</em> silently discard all packets until a packet is
    received with the FLUSHED bit set.  On receiving a packet with the
-   FLUSHED bit set, the receiver MUST set its coherency count to the one
+   FLUSHED bit set, the receiver <em>MUST</em> set its coherency count to the one
    received in that packet and re-initialize its RC4 tables using the
    current session key:
 
       rc4_key(RC4Key, Length_Of_Key, SessionKey)
 
-   When the sender receives a CCP Reset-Request packet, it MUST re-
+   When the sender receives a CCP Reset-Request packet, it <em>MUST</em> re-
    initialize its own RC4 tables using the same method and set the
    FLUSHED bit in the next packet sent.  Thus synchronization is
    achieved without a CCP Reset-Ack packet.
@@ -676,7 +676,7 @@ Specification of Requirements
    Because of the way that the RC4 tables are reinitialized during
    stateful synchronization, it is possible that two packets may be
    encrypted using the same key.  For this reason, the stateful mode
-   SHOULD NOT be used in lossy network environments (e.g., layer two
+   <em>SHOULD NOT</em> be used in lossy network environments (e.g., layer two
    tunnels on the Internet).
 
 
@@ -696,7 +696,7 @@ Specification of Requirements
    effects of this attack can be minimized through appropriate peer
    configuration, however.
 
-   Peers MUST NOT transmit user data until the MPPE negotiation is
+   Peers <em>MUST NOT</em> transmit user data until the MPPE negotiation is
    complete.
 
    It is possible that an active attacker could modify the coherency

@@ -431,8 +431,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
    "SA Counter Synchronization" is the informational exchange defined in
@@ -665,7 +665,7 @@ Table of Contents
    reason given for this is to have multiple SAs with different Quality
    of Service (QoS) attributes.  So while this is not a new requirement
    of IKEv2 implementations working with QoS, we re-iterate here that
-   IPsec peers MUST accept the long-term existence of multiple parallel
+   IPsec peers <em>MUST</em> accept the long-term existence of multiple parallel
    SAs, even when QoS mechanisms are not in use.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Avoiding Collisions in SPI Number Allocation</span>
@@ -686,10 +686,10 @@ Table of Contents
 
    For SAs involving counter mode ciphers such as Counter Mode (CTR) [<a href="#ref-9" title="&quot;Using Advanced Encryption Standard (AES) Counter Mode With IPsec Encapsulating Security Payload (ESP)&quot;">9</a>]
    or Galois/Counter Mode (GCM) [<a href="#ref-10" title="&quot;The Use of Galois/Counter Mode (GCM) in IPsec Encapsulating Security Payload (ESP)&quot;">10</a>], there is yet another complication.
-   The initial vector for such modes MUST NOT be repeated, and senders
+   The initial vector for such modes <em>MUST NOT</em> be repeated, and senders
    may use methods such as counters or linear feedback shift registers
    (LFSRs) to ensure this property.  For an SA shared between multiple
-   active members (load-sharing cases), implementations MUST ensure that
+   active members (load-sharing cases), implementations <em>MUST</em> ensure that
    no initial vector is ever repeated.  Similar concerns apply to an SA
    failing over from one member to another.  See [<a href="#ref-11" title="&quot;Using Counter Modes with Encapsulating Security Payload (ESP) and Authentication Header (AH) to Protect Group Traffic&quot;">11</a>] for a discussion
    of this problem in another context.
@@ -710,11 +710,11 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  The IKEv2/IPsec SA Counter Synchronization Problem</span>
 
-   The IKEv2 protocol [<a href="#ref-4" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">4</a>] states that "An IKE endpoint MUST NOT exceed
+   The IKEv2 protocol [<a href="#ref-4" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">4</a>] states that "An IKE endpoint <em>MUST NOT</em> exceed
    the peer's stated window size for transmitted IKE requests".
 
    All IKEv2 messages are required to follow a request-response
-   paradigm.  The initiator of an IKEv2 request MUST retransmit the
+   paradigm.  The initiator of an IKEv2 request <em>MUST</em> retransmit the
    request, until it has received a response from the peer.  IKEv2
    introduces a windowing mechanism that allows multiple requests to be
    outstanding at a given point of time, but mandates that the sender's
@@ -797,12 +797,12 @@ Table of Contents
    replay counter synchronization.  This is done by exchanging one or
    both of the IKEV2_MESSAGE_ID_SYNC_SUPPORTED and
    IPSEC_REPLAY_COUNTER_SYNC_SUPPORTED notifications during the IKE_AUTH
-   exchange.  When negotiating these capabilities, the responder MUST
+   exchange.  When negotiating these capabilities, the responder <em>MUST</em>
    NOT assert support of a capability unless such support was asserted
    by the initiator.  Only a capability whose support was asserted by
    both parties can be used during the lifetime of the SA.  The peer's
    capabilities with regard to this extension are part of the IKEv2 SA
-   state, and thus MUST be shared between the cluster members.
+   state, and thus <em>MUST</em> be shared between the cluster members.
 
    This per-IKE SA information is shared with the other cluster members.
 
@@ -827,10 +827,10 @@ Table of Contents
                   [N(IPSEC_REPLAY_COUNTER_SYNC_SUPPORTED),]
                   SAr2, TSi, TSr}
 
-   After a failover event, the standby member MAY use the IKE Message ID
+   After a failover event, the standby member <em>MAY</em> use the IKE Message ID
    and/or IPsec replay counter synchronization capability when it
    becomes the active member, and provided support for the capabilities
-   used has been negotiated.  Following that, the peer MUST respond to
+   used has been negotiated.  Following that, the peer <em>MUST</em> respond to
    any synchronization message it receives from the newly active cluster
    member, subject to the rules noted below.
 
@@ -900,19 +900,19 @@ Table of Contents
    invalidating IKE messages that are currently in process.
 
    o  M1 is the next sender's Message ID to be used by the member.  M1
-      MUST be chosen so that it is larger than any value known to have
-      been used.  It is RECOMMENDED to increment the known value at
+      <em>MUST</em> be chosen so that it is larger than any value known to have
+      been used.  It is <em>RECOMMENDED</em> to increment the known value at
       least by the size of the IKE sender window.
 
-   o  P1 SHOULD be 1 more than the last Message ID value received from
+   o  P1 <em>SHOULD</em> be 1 more than the last Message ID value received from
       the peer, but may be any higher value.
 
-   o  The member SHOULD communicate the sent values to the other cluster
+   o  The member <em>SHOULD</em> communicate the sent values to the other cluster
       members, so that if a second failover event takes place, the
       synchronization message is not replayed.  Such a replay would
       result in the eventual deletion of the IKE SA (see below).
 
-   o  The peer MUST silently drop any received synchronization message
+   o  The peer <em>MUST</em> silently drop any received synchronization message
       if M1 is lower than or equal to the highest value it has seen from
       the cluster.  This includes any previous received synchronization
       messages.
@@ -927,27 +927,27 @@ Table of Contents
 <span class="grey"><a href="./rfc6311.html">RFC 6311</a>            High Availability in IKEv2/IPsec           July 2011</span>
 
 
-   o  M2 MUST be at least the higher of the received M1, and one more
+   o  M2 <em>MUST</em> be at least the higher of the received M1, and one more
       than the highest sender value received from the cluster.  This
       includes any previous received synchronization messages.
 
-   o  P2 MUST be the higher of the received P1 value, and one more than
+   o  P2 <em>MUST</em> be the higher of the received P1 value, and one more than
       the highest sender value used by the peer.
 
-   o  The request contains a Nonce field.  This field MUST be returned
-      in the response, unchanged.  A response MUST be silently dropped
+   o  The request contains a Nonce field.  This field <em>MUST</em> be returned
+      in the response, unchanged.  A response <em>MUST</em> be silently dropped
       if the received nonce does not match the one that was sent.
 
-   o  Both the request and the response MUST NOT contain any additional
+   o  Both the request and the response <em>MUST NOT</em> contain any additional
       payloads, other than an optional IPSEC_REPLAY_COUNTER_SYNC
       notification in the request.
 
-   o  The request and the response MUST both be sent with a Message ID
+   o  The request and the response <em>MUST</em> both be sent with a Message ID
       value of zero.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Processing Rules for IPsec Replay Counter Synchronization</span>
 
-   Upon failover, the newly active member MUST increment its own replay
+   Upon failover, the newly active member <em>MUST</em> increment its own replay
    counter (the counter used for outgoing traffic), so as to prevent the
    case of its traffic being dropped by the peer as replay.  We note
    that IPsec allows the replay counter to skip forward by any amount.
@@ -955,7 +955,7 @@ Table of Contents
    frequency of synchronization between cluster members.  In those
    implementations where it is difficult to estimate this value, the
    counter can be incremented by a very large number, e.g., 2**30.  In
-   the latter case, a rekey SHOULD follow shortly afterwards, to ensure
+   the latter case, a rekey <em>SHOULD</em> follow shortly afterwards, to ensure
    that the counter never wraps around.
 
    Next, the cluster member estimates the number of incoming messages it
@@ -964,9 +964,9 @@ Table of Contents
    together with an IKEV2_MESSAGE_ID_SYNC notification.
 
    If the IPSEC_REPLAY_COUNTER_SYNC is included in the same message as
-   IKEV2_MESSAGE_ID_SYNC, the peer MUST process the Message ID
+   IKEV2_MESSAGE_ID_SYNC, the peer <em>MUST</em> process the Message ID
    notification first (which might cause the entire message to be
-   dropped as a replay).  Then, it MUST increment the replay counters
+   dropped as a replay).  Then, it <em>MUST</em> increment the replay counters
    for all Child SAs associated with the current IKE SA by the amount
    requested by the cluster member.
 
@@ -1003,8 +1003,8 @@ Table of Contents
 
    The 'Next Payload', 'Payload Length', 'Protocol ID', 'SPI Size', and
    'Notify Message Type' fields are the same as described in Section 3
-   of [<a href="#ref-4" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">4</a>].  The 'SPI Size' field MUST be set to 0 to indicate that the
-   SPI is not present in this message.  The 'Protocol ID' MUST be set to
+   of [<a href="#ref-4" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">4</a>].  The 'SPI Size' field <em>MUST</em> be set to 0 to indicate that the
+   SPI is not present in this message.  The 'Protocol ID' <em>MUST</em> be set to
    0, since the notification is not specific to a particular security
    association.  The 'Payload Length' field is set to the length in
    octets of the entire payload, including the generic payload header.
@@ -1028,8 +1028,8 @@ Table of Contents
 
    The 'Next Payload', 'Payload Length', 'Protocol ID', 'SPI Size', and
    'Notify Message Type' fields are the same as described in Section 3
-   of [<a href="#ref-4" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">4</a>] .  The 'SPI Size' field MUST be set to 0 to indicate that the
-   SPI is not present in this message.  The 'Protocol ID' MUST be set to
+   of [<a href="#ref-4" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">4</a>] .  The 'SPI Size' field <em>MUST</em> be set to 0 to indicate that the
+   SPI is not present in this message.  The 'Protocol ID' <em>MUST</em> be set to
    0, since the notification is not specific to a particular security
 
 
@@ -1155,7 +1155,7 @@ Table of Contents
    rejecting out-of-window messages is not changed, but such messages
    can still be a valid trigger for the exchange defined in this
    document.  To avoid denial-of-service (DoS) attacks resulting from
-   replayed messages, the peer MUST NOT initiate counter synchronization
+   replayed messages, the peer <em>MUST NOT</em> initiate counter synchronization
    for any particular IKE SA more than once per failover event.
 
    The standby member can initiate the synchronization of IPsec SA
@@ -1185,7 +1185,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>.  Handling of Pending IKE Messages</span>
 
-   After sending its "receive" counter, the cluster member MUST reject
+   After sending its "receive" counter, the cluster member <em>MUST</em> reject
    (silently drop) any incoming IKE messages that are outside its
    declared window.  A similar rule applies to the peer.  Local policies
    vary, and strict implementations will reject any incoming IKE message
@@ -1348,8 +1348,8 @@ Table of Contents
       countered by sending the nonce data along with the synchronization
       payload.  The same nonce data has to be returned in the response.
       Thus, the standby member will accept a reply only for the current
-      request.  After it receives a valid response, it MUST NOT process
-      the same response again and MUST discard any additional responses.
+      request.  After it receives a valid response, it <em>MUST NOT</em> process
+      the same response again and <em>MUST</em> discard any additional responses.
 
    As mentioned in <a href="#section-7">Section 7</a>, triggering counter synchronization by out-
    of-window, potentially replayed messages could open a DoS

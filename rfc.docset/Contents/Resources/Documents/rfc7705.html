@@ -325,8 +325,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Documentation Note</span>
@@ -599,29 +599,29 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Implementation</span>
 
-   The mechanisms introduced in this section MUST be configurable on a
+   The mechanisms introduced in this section <em>MUST</em> be configurable on a
    per-neighbor or per-neighbor-group basis to allow for maximum
    flexibility.  (Here, "neighbor group" refers to a group of similar
    BGP neighbor statements that reuse some common configuration to
    simplify provisioning.)  When the "Local AS" capability is used, a
    local ASN will be provided in the configuration that is different
    from the globally configured ASN of the BGP router.  To implement
-   this mechanism, a BGP speaker SHOULD send BGP OPEN [<a href="./rfc4271.html" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">RFC4271</a>] (see
+   this mechanism, a BGP speaker <em>SHOULD</em> send BGP OPEN [<a href="./rfc4271.html" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">RFC4271</a>] (see
    <a href="#section-4.2">Section 4.2</a>) messages to the configured eBGP peer(s) using the local
    ASN configured for this session as the value sent in "My Autonomous
-   System".  The BGP router SHOULD NOT use the ASN configured globally
+   System".  The BGP router <em>SHOULD NOT</em> use the ASN configured globally
    within the BGP process as the value sent in "My Autonomous System" in
    the OPEN message.  This prevents causing the eBGP neighbor to
    unnecessarily generate a BGP OPEN Error message "Bad Peer AS".  This
    method is typically used to re-establish eBGP sessions with peers
    expecting the legacy ASN after a router has been moved to a new ASN.
 
-   Implementations MAY support a more flexible model where the eBGP
+   Implementations <em>MAY</em> support a more flexible model where the eBGP
    speaker attempts to open the BGP session using either the ASN
    configured as "Local AS" or the globally configured AS as discussed
    in BGP Alias (<a href="#section-4.2">Section 4.2</a>).  If the session is successfully
    established to the globally configured ASN, then the modifications to
-   AS_PATH described in this document SHOULD NOT be performed, as they
+   AS_PATH described in this document <em>SHOULD NOT</em> be performed, as they
    are unnecessary.  The benefit to this more flexible model is that it
    allows the remote neighbor to reconfigure to the new ASN without
    direct coordination between the ISP and the customer.
@@ -644,7 +644,7 @@ Table of Contents
    processing UPDATEs received from an eBGP neighbor configured with
    this mechanism:
 
-   1.  Internal: The router SHOULD append the configured "Local AS" ASN
+   1.  Internal: The router <em>SHOULD</em> append the configured "Local AS" ASN
        in the AS_PATH attribute before installing the route or
        advertising the UPDATE to an iBGP neighbor.  The decision of when
        to append the ASN is an implementation detail outside the scope
@@ -652,7 +652,7 @@ Table of Contents
        decision include consistency in the AS_PATH throughout the AS,
        and implementation of the loop detection mechanism.
 
-   2.  External: The BGP router SHOULD first append the globally
+   2.  External: The BGP router <em>SHOULD</em> first append the globally
        configured ASN to the AS_PATH immediately followed by the "Local
        AS" value before advertising the UPDATE to an eBGP neighbor.
 
@@ -661,17 +661,17 @@ Table of Contents
 
    1.  "No Prepend Inbound": When the BGP router receives inbound BGP
        UPDATEs from its eBGP neighbor configured with this option, it
-       MUST NOT append the "Local AS" ASN value in the AS_PATH attribute
+       <em>MUST NOT</em> append the "Local AS" ASN value in the AS_PATH attribute
        when installing the route or advertising that UPDATE to iBGP
-       neighbors, but it MUST still append the globally configured ASN
+       neighbors, but it <em>MUST</em> still append the globally configured ASN
        as normal when advertising the UPDATE to other local eBGP
        neighbors (i.e., those natively peering with the globally
        configured ASN).
 
    2.  "Replace Old AS" (outbound): When the BGP router generates
        outbound BGP UPDATEs toward an eBGP neighbor configured with this
-       option, the BGP speaker MUST NOT append the globally configured
-       ASN from the AS_PATH attribute.  The BGP router MUST append only
+       option, the BGP speaker <em>MUST NOT</em> append the globally configured
+       ASN from the AS_PATH attribute.  The BGP router <em>MUST</em> append only
        the configured "Local AS" ASN value to the AS_PATH attribute
        before sending the BGP UPDATEs outbound to the eBGP neighbor.
 
@@ -844,14 +844,14 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Implementation</span>
 
-   The mechanism introduced in this section MUST be configurable on a
+   The mechanism introduced in this section <em>MUST</em> be configurable on a
    per-neighbor or per-neighbor-group basis to allow for maximum
-   flexibility.  When configured with this mechanism, a BGP speaker MUST
+   flexibility.  When configured with this mechanism, a BGP speaker <em>MUST</em>
    accept BGP OPEN and establish an iBGP session from configured iBGP
    peers if the ASN value in "My Autonomous System" is either the
    globally configured ASN or a locally configured ASN provided when
    this capability is utilized.  Additionally, a BGP router configured
-   with this mechanism MUST send its own BGP OPEN [<a href="./rfc4271.html" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">RFC4271</a>] (see
+   with this mechanism <em>MUST</em> send its own BGP OPEN [<a href="./rfc4271.html" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">RFC4271</a>] (see
    <a href="#section-4.2">Section 4.2</a>) using either the globally configured or the locally
 
 
@@ -864,10 +864,10 @@ Table of Contents
    configured ASN in "My Autonomous System" as follows.  To avoid
    potential deadlocks when two BGP speakers are attempting to establish
    a BGP peering session and are both configured with this mechanism,
-   the speaker SHOULD send BGP OPEN using the globally configured ASN
+   the speaker <em>SHOULD</em> send BGP OPEN using the globally configured ASN
    first, and only send a BGP OPEN using the locally configured ASN as a
    fallback if the remote neighbor responds with the BGP error "Bad Peer
-   AS".  In each case, the BGP speaker MUST treat UPDATEs sent and
+   AS".  In each case, the BGP speaker <em>MUST</em> treat UPDATEs sent and
    received to this peer as if this was a natively configured iBGP
    session, as defined by [<a href="./rfc4271.html" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">RFC4271</a>] and [<a href="./rfc4456.html" title="&quot;BGP Route Reflection: An Alternative to Full Mesh Internal BGP (IBGP)&quot;">RFC4456</a>].
 
@@ -934,7 +934,7 @@ Table of Contents
    Given that these mechanisms can only be enabled through configuration
    of routers within a single network, standard security measures should
    be taken to restrict access to the management interface(s) of routers
-   that implement these mechanisms.  Additionally, BGP sessions SHOULD
+   that implement these mechanisms.  Additionally, BGP sessions <em>SHOULD</em>
    be protected using TCP Authentication Option [<a href="./rfc5925.html" title="&quot;The TCP Authentication Option&quot;">RFC5925</a>] and the
    Generalized TTL Security Mechanism [<a href="./rfc5082.html" title="&quot;The Generalized TTL Security Mechanism (GTSM)&quot;">RFC5082</a>]
 

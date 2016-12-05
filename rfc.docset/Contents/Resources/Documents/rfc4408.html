@@ -421,8 +421,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document is concerned with the portion of a mail message
@@ -446,7 +446,7 @@ Table of Contents
    this writing, many legitimate E-Mails are delivered with invalid HELO
    domains.
 
-   It is RECOMMENDED that SPF clients not only check the "MAIL FROM"
+   It is <em>RECOMMENDED</em> that SPF clients not only check the "MAIL FROM"
    identity, but also separately check the "HELO" identity by applying
    the check_host() function (<a href="#section-4">Section 4</a>) to the "HELO" identity as the
    &lt;sender&gt;.
@@ -475,17 +475,17 @@ Table of Contents
    localpart "postmaster" and the "HELO" identity (which may or may not
    have been checked separately before).
 
-   SPF clients MUST check the "MAIL FROM" identity.  SPF clients check
+   SPF clients <em>MUST</em> check the "MAIL FROM" identity.  SPF clients check
    the "MAIL FROM" identity by applying the check_host() function to the
    "MAIL FROM" identity as the &lt;sender&gt;.
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Publishing Authorization</span>
 
-   An SPF-compliant domain MUST publish a valid SPF record as described
+   An SPF-compliant domain <em>MUST</em> publish a valid SPF record as described
    in <a href="#section-3">Section 3</a>.  This record authorizes the use of the domain name in
    the "HELO" and "MAIL FROM" identities by the MTAs it specifies.
 
-   If domain owners choose to publish SPF records, it is RECOMMENDED
+   If domain owners choose to publish SPF records, it is <em>RECOMMENDED</em>
    that they end in "-all", or redirect to other records that do, so
    that a definitive determination of authorization can be made.
 
@@ -503,11 +503,11 @@ Table of Contents
    to emit mail with a given identity.  Typically, such checks are done
    by a receiving MTA, but can be performed elsewhere in the mail
    processing chain so long as the required information is available and
-   reliable.  At least the "MAIL FROM" identity MUST be checked, but it
-   is RECOMMENDED that the "HELO" identity also be checked beforehand.
+   reliable.  At least the "MAIL FROM" identity <em>MUST</em> be checked, but it
+   is <em>RECOMMENDED</em> that the "HELO" identity also be checked beforehand.
 
    Without explicit approval of the domain owner, checking other
-   identities against SPF version 1 records is NOT RECOMMENDED because
+   identities against SPF version 1 records is NOT <em>RECOMMENDED</em> because
    there are cases that are known to give incorrect results.  For
    example, almost all mailing lists rewrite the "MAIL FROM" identity
    (see <a href="#section-9.2">Section 9.2</a>), but some do not change any other identities in the
@@ -530,14 +530,14 @@ Table of Contents
    list may cause all other tests to be skipped and all mail from that
    host to be accepted.
 
-   When a mail receiver decides to perform an SPF check, it MUST use a
+   When a mail receiver decides to perform an SPF check, it <em>MUST</em> use a
    correctly-implemented check_host() function (<a href="#section-4">Section 4</a>) evaluated
    with the correct parameters.  Although the test as a whole is
    optional, once it has been decided to perform a test it must be
    performed as specified so that the correct semantics are preserved
    between publisher and receiver.
 
-   To make the test, the mail receiver MUST evaluate the check_host()
+   To make the test, the mail receiver <em>MUST</em> evaluate the check_host()
    function with the arguments set as follows:
 
    &lt;ip&gt;     - the IP address of the SMTP client that is emitting the
@@ -571,7 +571,7 @@ Table of Contents
 
    This section describes how software that performs the authorization
    should interpret the results of the check_host() function.  The
-   authorization check SHOULD be performed during the processing of the
+   authorization check <em>SHOULD</em> be performed during the processing of the
    SMTP transaction that sends the mail.  This allows errors to be
    returned directly to the sending MTA by way of SMTP replies.
 
@@ -604,7 +604,7 @@ Table of Contents
 
    The domain owner has explicitly stated that he cannot or does not
    want to assert whether or not the IP address is authorized.  A
-   "Neutral" result MUST be treated exactly like the "None" result; the
+   "Neutral" result <em>MUST</em> be treated exactly like the "None" result; the
    distinction exists only for informational purposes.  Treating
    "Neutral" more harshly than "None" would discourage domain owners
    from testing the use of SPF records (see <a href="#section-9.1">Section 9.1</a>).
@@ -625,7 +625,7 @@ Table of Contents
    mail outright.
 
    If the checking software chooses to reject the mail during the SMTP
-   transaction, then it SHOULD use an SMTP reply code of 550 (see
+   transaction, then it <em>SHOULD</em> use an SMTP reply code of 550 (see
    [<a href="./rfc2821.html" title="&quot;Simple Mail Transfer Protocol&quot;">RFC2821</a>]) and, if supported, the 5.7.1 Delivery Status Notification
    (DSN) code (see [<a href="./rfc3464.html" title="&quot;An Extensible Message Format for Delivery Status Notifications&quot;">RFC3464</a>]), in addition to an appropriate reply text.
    The check_host() function may return either a default explanation
@@ -651,8 +651,8 @@ Table of Contents
    A "SoftFail" result should be treated as somewhere between a "Fail"
    and a "Neutral".  The domain believes the host is not authorized but
    is not willing to make that strong of a statement.  Receiving
-   software SHOULD NOT reject the message based solely on this result,
-   but MAY subject the message to closer scrutiny than normal.
+   software <em>SHOULD NOT</em> reject the message based solely on this result,
+   but <em>MAY</em> subject the message to closer scrutiny than normal.
 
    The domain owner wants to discourage the use of this host and thus
    desires limited feedback when a "SoftFail" result occurs.  For
@@ -668,7 +668,7 @@ Table of Contents
    transient error while performing the check.  Checking software can
    choose to accept or temporarily reject the message.  If the message
    is rejected during the SMTP transaction for this reason, the software
-   SHOULD use an SMTP reply code of 451 and, if supported, the 4.4.3 DSN
+   <em>SHOULD</em> use an SMTP reply code of 451 and, if supported, the 4.4.3 DSN
    code.
 
 <span class="h4"><a class="selflink" name="section-2.5.7" href="#section-2.5.7">2.5.7</a>.  PermError</span>
@@ -734,9 +734,9 @@ Table of Contents
    the new RR type.  The two-record-type scheme provides a forward path
    to the better solution of using an RR type reserved for this purpose.
 
-   An SPF-compliant domain name SHOULD have SPF records of both RR
-   types.  A compliant domain name MUST have a record of at least one
-   type.  If a domain has records of both types, they MUST have
+   An SPF-compliant domain name <em>SHOULD</em> have SPF records of both RR
+   types.  A compliant domain name <em>MUST</em> have a record of at least one
+   type.  If a domain has records of both types, they <em>MUST</em> have
    identical content.  For example, instead of publishing just one
    record as in <a href="#section-3.1">Section 3.1</a> above, it is better to publish:
 
@@ -757,7 +757,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.1.2" href="#section-3.1.2">3.1.2</a>.  Multiple DNS Records</span>
 
-   A domain name MUST NOT have multiple records that would cause an
+   A domain name <em>MUST NOT</em> have multiple records that would cause an
    authorization check to select more than one record.  See <a href="#section-4.5">Section 4.5</a>
    for the selection rules.
 
@@ -766,12 +766,12 @@ Table of Contents
    As defined in [<a href="./rfc1035.html" title="&quot;Domain names - implementation and specification&quot;">RFC1035</a>] sections <a href="#section-3.3.14">3.3.14</a> and <a href="#section-3.3">3.3</a>, a single text DNS
    record (either TXT or SPF RR types) can be composed of more than one
    string.  If a published record contains multiple strings, then the
-   record MUST be treated as if those strings are concatenated together
+   record <em>MUST</em> be treated as if those strings are concatenated together
    without adding spaces.  For example:
 
       IN TXT "v=spf1 .... first" "second string..."
 
-   MUST be treated as equivalent to
+   <em>MUST</em> be treated as equivalent to
 
       IN TXT "v=spf1 .... firstsecond string..."
 
@@ -781,7 +781,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.1.4" href="#section-3.1.4">3.1.4</a>.  Record Size</span>
 
-   The published SPF record for a given domain name SHOULD remain small
+   The published SPF record for a given domain name <em>SHOULD</em> remain small
    enough that the results of a query for it will fit within 512 octets.
    This will keep even older DNS implementations from falling over to
    TCP.  Since the answer size is dependent on many things outside the
@@ -791,7 +791,7 @@ Table of Contents
    DNS answers should fit in UDP packets.  Note that when computing the
    sizes for queries of the TXT format, one must take into account any
    other TXT records published at the domain name.  Records that are too
-   long to fit in a single UDP packet MAY be silently ignored by SPF
+   long to fit in a single UDP packet <em>MAY</em> be silently ignored by SPF
    clients.
 
 <span class="h4"><a class="selflink" name="section-3.1.5" href="#section-3.1.5">3.1.5</a>.  Wildcard Records</span>
@@ -838,10 +838,10 @@ Table of Contents
    The check_host() function fetches SPF records, parses them, and
    interprets them to determine whether a particular host is or is not
    permitted to send mail with a given identity.  Mail receivers that
-   perform this check MUST correctly evaluate the check_host() function
+   perform this check <em>MUST</em> correctly evaluate the check_host() function
    as described here.
 
-   Implementations MAY use a different algorithm than the canonical
+   Implementations <em>MAY</em> use a different algorithm than the canonical
    algorithm defined here, so long as the results are the same in all
    cases.
 
@@ -894,7 +894,7 @@ Table of Contents
    In accordance with how the records are published (see <a href="#section-3.1">Section 3.1</a>
    above), a DNS query needs to be made for the &lt;domain&gt; name, querying
    for either RR type TXT, SPF, or both.  If both SPF and TXT RRs are
-   looked up, the queries MAY be done in parallel.
+   looked up, the queries <em>MAY</em> be done in parallel.
 
    If all DNS lookups that are made return a server failure (RCODE 2),
    or other error (RCODE other than 0 or 3), or time out, then
@@ -933,8 +933,8 @@ Table of Contents
    remaining, then check_host() exits immediately with the result of
    "PermError".
 
-   If no matching records are returned, an SPF client MUST assume that
-   the domain makes no SPF declarations.  SPF processing MUST stop and
+   If no matching records are returned, an SPF client <em>MUST</em> assume that
+   the domain makes no SPF declarations.  SPF processing <em>MUST</em> stop and
    return "None".
 
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>.  Record Evaluation</span>
@@ -944,9 +944,9 @@ Table of Contents
    there are any syntax errors, check_host() returns immediately with
    the result "PermError".
 
-   Implementations MAY choose to parse the entire record first and
+   Implementations <em>MAY</em> choose to parse the entire record first and
    return "PermError" if the record is not syntactically well formed.
-   However, in all cases, any syntax errors anywhere in the record MUST
+   However, in all cases, any syntax errors anywhere in the record <em>MUST</em>
    be detected.
 
 <span class="h4"><a class="selflink" name="section-4.6.1" href="#section-4.6.1">4.6.1</a>.  Term Evaluation</span>
@@ -1038,7 +1038,7 @@ Table of Contents
    "?all" were specified as the last directive.  If there is a
    "redirect" modifier, check_host() proceeds as defined in <a href="#section-6.1">Section 6.1</a>.
 
-   Note that records SHOULD always use either a "redirect" modifier or
+   Note that records <em>SHOULD</em> always use either a "redirect" modifier or
    an "all" mechanism to explicitly terminate processing.
 
    For example:
@@ -1108,7 +1108,7 @@ Table of Contents
    &lt;ip&gt; is an IPv4 address, A records are fetched, when &lt;ip&gt; is an IPv6
    address, AAAA records are fetched.  Even if the SMTP connection is
    via IPv6, an IPv4-mapped IPv6 IP address (see [<a href="./rfc3513.html" title="&quot;Internet Protocol Version 6 (IPv6) Addressing Architecture&quot;">RFC3513</a>], <a href="#section-2.5.5">Section</a>
-   <a href="#section-2.5.5">2.5.5</a>) MUST still be considered an IPv4 address.
+   <a href="#section-2.5.5">2.5.5</a>) <em>MUST</em> still be considered an IPv4 address.
 
    Several mechanisms rely on information fetched from DNS.  For these
    DNS queries, except where noted, if the DNS server returns an error
@@ -1265,12 +1265,12 @@ Table of Contents
    check_host() first performs an MX lookup on the &lt;target-name&gt;.  Then
    it performs an address lookup on each MX name returned.  The &lt;ip&gt; is
    compared to each returned IP address.  To prevent Denial of Service
-   (DoS) attacks, more than 10 MX names MUST NOT be looked up during the
+   (DoS) attacks, more than 10 MX names <em>MUST NOT</em> be looked up during the
    evaluation of an "mx" mechanism (see <a href="#section-10">Section 10</a>).  If any address
    matches, the mechanism matches.
 
    Note regarding implicit MXs: If the &lt;target-name&gt; has no MX records,
-   check_host() MUST NOT pretend the target is its single MX, and MUST
+   check_host() <em>MUST NOT</em> pretend the target is its single MX, and <em>MUST</em>
    NOT default to an A lookup on the &lt;target-name&gt; directly.  This
    behavior breaks with the legacy "implicit MX" rule.  See <a href="./rfc2821.html#section-5">[RFC2821],
    Section&nbsp;5</a>.  If such behavior is desired, the publisher should specify
@@ -1288,7 +1288,7 @@ Table of Contents
    in "in-addr.arpa." if the address is an IPv4 one and in "ip6.arpa."
    if it is an IPv6 address.  For each record returned, validate the
    domain name by looking up its IP address.  To prevent DoS attacks,
-   more than 10 PTR names MUST NOT be looked up during the evaluation of
+   more than 10 PTR names <em>MUST NOT</em> be looked up during the evaluation of
    a "ptr" mechanism (see <a href="#section-10">Section 10</a>).  If &lt;ip&gt; is among the returned IP
    addresses, then that domain name is validated.  In pseudocode:
 
@@ -1403,13 +1403,13 @@ Table of Contents
    Modifiers are name/value pairs that provide additional information.
    Modifiers always have an "=" separating the name and the value.
 
-   The modifiers defined in this document ("redirect" and "exp") MAY
-   appear anywhere in the record, but SHOULD appear at the end, after
+   The modifiers defined in this document ("redirect" and "exp") <em>MAY</em>
+   appear anywhere in the record, but <em>SHOULD</em> appear at the end, after
    all mechanisms.  Ordering of these two modifiers does not matter.
-   These two modifiers MUST NOT appear in a record more than once each.
+   These two modifiers <em>MUST NOT</em> appear in a record more than once each.
    If they do, then check_host() exits with a result of "PermError".
 
-   Unrecognized modifiers MUST be ignored no matter where in a record,
+   Unrecognized modifiers <em>MUST</em> be ignored no matter where in a record,
    or how often.  This allows implementations of this document to
    gracefully handle records with modifiers that are defined in other
    specifications.
@@ -1461,7 +1461,7 @@ Table of Contents
    especially if domain "B" uses mechanisms involving localparts.  An
    "include" directive may be more appropriate.
 
-   For clarity, it is RECOMMENDED that any "redirect" modifier appear as
+   For clarity, it is <em>RECOMMENDED</em> that any "redirect" modifier appear as
    the very last term in a record.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  exp: Explanation</span>
@@ -1492,7 +1492,7 @@ Table of Contents
 
    The fetched TXT record's strings are concatenated with no spaces, and
    then treated as an &lt;explain-string&gt;, which is macro-expanded.  This
-   final result is the explanation string.  Implementations MAY limit
+   final result is the explanation string.  Implementations <em>MAY</em> limit
    the length of the resulting explanation string to allow for other
    protocol constraints and/or reasonable processing limits.  Since the
    explanation string is intended for an SMTP response and <a href="./rfc2821.html#section-2.4">[RFC2821]
@@ -1501,7 +1501,7 @@ Table of Contents
 
    Software evaluating check_host() can use this string to communicate
    information from the publishing domain in the form of a short message
-   or URL.  Software SHOULD make it clear that the explanation string
+   or URL.  Software <em>SHOULD</em> make it clear that the explanation string
    comes from a third party.  For example, it can prepend the macro
    string "%{o} explains: " to the explanation, such as shown in <a href="#section-2.5.4">Section</a>
    <a href="#section-2.5.4">2.5.4</a>.
@@ -1526,7 +1526,7 @@ Table of Contents
             generated with detailed, custom instructions
 
    Note: During recursion into an "include" mechanism, an exp= modifier
-   from the &lt;target-name&gt; MUST NOT be used.  In contrast, when executing
+   from the &lt;target-name&gt; <em>MUST NOT</em> be used.  In contrast, when executing
 
 
 
@@ -1535,21 +1535,21 @@ Table of Contents
 <span class="grey"><a href="./rfc4408.html">RFC 4408</a>             Sender Policy Framework (SPF)            April 2006</span>
 
 
-   a "redirect" modifier, an exp= modifier from the original domain MUST
+   a "redirect" modifier, an exp= modifier from the original domain <em>MUST</em>
    NOT be used.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  The Received-SPF Header Field</span>
 
-   It is RECOMMENDED that SMTP receivers record the result of SPF
+   It is <em>RECOMMENDED</em> that SMTP receivers record the result of SPF
    processing in the message header.  If an SMTP receiver chooses to do
-   so, it SHOULD use the "Received-SPF" header field defined here for
+   so, it <em>SHOULD</em> use the "Received-SPF" header field defined here for
    each identity that was checked.  This information is intended for the
    recipient.  (Information intended for the sender is described in
    <a href="#section-6.2">Section 6.2</a>, Explanation.)
 
    The Received-SPF header field is a trace field (see [<a href="./rfc2822.html" title="&quot;Internet Message Format&quot;">RFC2822</a>] <a href="#section-3.6.7">Section</a>
-   <a href="#section-3.6.7">3.6.7</a>) and SHOULD be prepended to the existing header, above the
-   Received: field that is generated by the SMTP receiver.  It MUST
+   <a href="#section-3.6.7">3.6.7</a>) and <em>SHOULD</em> be prepended to the existing header, above the
+   Received: field that is generated by the SMTP receiver.  It <em>MUST</em>
    appear above all other Received-SPF fields in the message.  The
    header field has the following format:
 
@@ -1579,7 +1579,7 @@ Table of Contents
    FWS              = &lt;folding white space as per [<a href="./rfc2822.html" title="&quot;Internet Message Format&quot;">RFC2822</a>]&gt;
    CRLF             = &lt;standard end-of-line token as per [<a href="./rfc2822.html" title="&quot;Internet Message Format&quot;">RFC2822</a>]&gt;
 
-   The header field SHOULD include a "(...)" style &lt;comment&gt; after the
+   The header field <em>SHOULD</em> include a "(...)" style &lt;comment&gt; after the
    result, conveying supporting information for the result, such as
    &lt;ip&gt;, &lt;sender&gt;, and &lt;domain&gt;.
 
@@ -1592,7 +1592,7 @@ Table of Contents
 
 
    The following key-value pairs are designed for later machine parsing.
-   SPF clients SHOULD give enough information so that the SPF results
+   SPF clients <em>SHOULD</em> give enough information so that the SPF results
    can be verified.  That is, at least "client-ip", "helo", and, if the
    "MAIL FROM" identity was checked, "envelope-from".
 
@@ -1615,7 +1615,7 @@ Table of Contents
    Other keys may be defined by SPF clients.  Until a new key name
    becomes widely accepted, new key names should start with "x-".
 
-   SPF clients MUST make sure that the Received-SPF header field does
+   SPF clients <em>MUST</em> make sure that the Received-SPF header field does
    not contain invalid characters, is not excessively long, and does not
    contain malicious data that has been provided by the sender.
 
@@ -1743,10 +1743,10 @@ Table of Contents
 
    The DIGIT transformer indicates the number of right-hand parts to
    use, after optional reversal.  If a DIGIT is specified, the value
-   MUST be nonzero.  If no DIGITs are specified, or if the value
+   <em>MUST</em> be nonzero.  If no DIGITs are specified, or if the value
    specifies more parts than are available, all the available parts are
    used.  If the DIGIT was 5, and only 3 parts were available, the macro
-   interpreter would pretend the DIGIT was 3.  Implementations MUST
+   interpreter would pretend the DIGIT was 3.  Implementations <em>MUST</em>
    support at least a value of 128, as that is the maximum number of
    labels in a domain name.
 
@@ -1779,15 +1779,15 @@ Table of Contents
    The "p" macro expands to the validated domain name of &lt;ip&gt;.  The
    procedure for finding the validated domain name is defined in <a href="#section-5.5">Section</a>
    <a href="#section-5.5">5.5</a>.  If the &lt;domain&gt; is present in the list of validated domains, it
-   SHOULD be used.  Otherwise, if a subdomain of the &lt;domain&gt; is
-   present, it SHOULD be used.  Otherwise, any name from the list may be
+   <em>SHOULD</em> be used.  Otherwise, if a subdomain of the &lt;domain&gt; is
+   present, it <em>SHOULD</em> be used.  Otherwise, any name from the list may be
    used.  If there are no validated domain names or if a DNS error
    occurs, the string "unknown" is used.
 
-   The "r" macro expands to the name of the receiving MTA.  This SHOULD
+   The "r" macro expands to the name of the receiving MTA.  This <em>SHOULD</em>
    be a fully qualified domain name, but if one does not exist (as when
    the checking is done by a MUA) or if policy restrictions dictate
-   otherwise, the word "unknown" SHOULD be substituted.  The domain name
+   otherwise, the word "unknown" <em>SHOULD</em> be substituted.  The domain name
    may be different from the name found in the MX record that the client
    MTA used to locate the receiving MTA.
 
@@ -1930,9 +1930,9 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  Mailing Lists</span>
 
    Mailing lists must be aware of how they re-inject mail that is sent
-   to the list.  Mailing lists MUST comply with the requirements in
+   to the list.  Mailing lists <em>MUST</em> comply with the requirements in
    <a href="./rfc2821.html#section-3.10">[RFC2821], Section&nbsp;3.10</a>, and <a href="./rfc1123.html#section-5.3.6">[RFC1123], Section&nbsp;5.3.6</a>, that say that
-   the reverse-path MUST be changed to be the mailbox of a person or
+   the reverse-path <em>MUST</em> be changed to be the mailbox of a person or
    other entity who administers the list.  Whereas the reasons for
    changing the reverse-path are many and long-standing, SPF adds
    enforcement to this requirement.
@@ -2140,7 +2140,7 @@ Table of Contents
    still allow an unreasonable amount of bandwidth amplification.
    Therefore, the processing limits need to be quite low.
 
-   SPF implementations MUST limit the number of mechanisms and modifiers
+   SPF implementations <em>MUST</em> limit the number of mechanisms and modifiers
    that do DNS lookups to at most 10 per SPF check, including any
    lookups caused by the use of the "include" mechanism or the
 
@@ -2152,7 +2152,7 @@ Table of Contents
 
 
    "redirect" modifier.  If this number is exceeded during a check, a
-   PermError MUST be returned.  The "include", "a", "mx", "ptr", and
+   PermError <em>MUST</em> be returned.  The "include", "a", "mx", "ptr", and
    "exists" mechanisms as well as the "redirect" modifier do count
    against this limit.  The "all", "ip4", and "ip6" mechanisms do not
    require DNS lookups and therefore do not count against this limit.
@@ -2161,23 +2161,23 @@ Table of Contents
    has been evaluated.
 
    When evaluating the "mx" and "ptr" mechanisms, or the %{p} macro,
-   there MUST be a limit of no more than 10 MX or PTR RRs looked up and
+   there <em>MUST</em> be a limit of no more than 10 MX or PTR RRs looked up and
    checked.
 
-   SPF implementations SHOULD limit the total amount of data obtained
+   SPF implementations <em>SHOULD</em> limit the total amount of data obtained
    from the DNS queries.  For example, when DNS over TCP or EDNS0 are
    available, there may need to be an explicit limit to how much data
    will be accepted to prevent excessive bandwidth usage or memory usage
    and DoS attacks.
 
-   MTAs or other processors MAY also impose a limit on the maximum
-   amount of elapsed time to evaluate check_host().  Such a limit SHOULD
+   MTAs or other processors <em>MAY</em> also impose a limit on the maximum
+   amount of elapsed time to evaluate check_host().  Such a limit <em>SHOULD</em>
    allow at least 20 seconds.  If such a limit is exceeded, the result
-   of authorization SHOULD be "TempError".
+   of authorization <em>SHOULD</em> be "TempError".
 
-   Domains publishing records SHOULD try to keep the number of "include"
+   Domains publishing records <em>SHOULD</em> try to keep the number of "include"
    mechanisms and chained "redirect" modifiers to a minimum.  Domains
-   SHOULD also try to minimize the amount of other DNS information
+   <em>SHOULD</em> also try to minimize the amount of other DNS information
    needed to evaluate a record.  This can be done by choosing directives
    that require less DNS information and placing lower-cost mechanisms
    earlier in the SPF record.

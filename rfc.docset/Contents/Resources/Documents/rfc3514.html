@@ -224,8 +224,8 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>. Terminology</span>
 
-   The keywords MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD,
-   SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL, when they appear in this
+   The keywords <em>MUST</em>, <em>MUST NOT</em>, <em>REQUIRED</em>, <em>SHALL</em>, <em>SHALL NOT</em>, <em>SHOULD</em>,
+   <em>SHOULD NOT</em>, <em>RECOMMENDED</em>, <em>MAY</em>, and <em>OPTIONAL</em>, when they appear in this
    document, are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Syntax</span>
@@ -253,44 +253,44 @@ Abstract
    Currently-assigned values are defined as follows:
 
    0x0  If the bit is set to 0, the packet has no evil intent.  Hosts,
-        network elements, etc., SHOULD assume that the packet is
-        harmless, and SHOULD NOT take any defensive measures.  (We note
+        network elements, etc., <em>SHOULD</em> assume that the packet is
+        harmless, and <em>SHOULD NOT</em> take any defensive measures.  (We note
         that this part of the spec is already implemented by many common
         desktop operating systems.)
 
    0x1  If the bit is set to 1, the packet has evil intent.  Secure
-        systems SHOULD try to defend themselves against such packets.
-        Insecure systems MAY chose to crash, be penetrated, etc.
+        systems <em>SHOULD</em> try to defend themselves against such packets.
+        Insecure systems <em>MAY</em> chose to crash, be penetrated, etc.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Setting the Evil Bit</span>
 
    There are a number of ways in which the evil bit may be set.  Attack
    applications may use a suitable API to request that it be set.
-   Systems that do not have other mechanisms MUST provide such an API;
-   attack programs MUST use it.
+   Systems that do not have other mechanisms <em>MUST</em> provide such an API;
+   attack programs <em>MUST</em> use it.
 
    Multi-level insecure operating systems may have special levels for
-   attack programs; the evil bit MUST be set by default on packets
+   attack programs; the evil bit <em>MUST</em> be set by default on packets
    emanating from programs running at such levels.  However, the system
-   MAY provide an API to allow it to be cleared for non-malicious
+   <em>MAY</em> provide an API to allow it to be cleared for non-malicious
    activity by users who normally engage in attack behavior.
 
-   Fragments that by themselves are dangerous MUST have the evil bit
+   Fragments that by themselves are dangerous <em>MUST</em> have the evil bit
    set.  If a packet with the evil bit set is fragmented by an
    intermediate router and the fragments themselves are not dangerous,
-   the evil bit MUST be cleared in the fragments, and MUST be turned
+   the evil bit <em>MUST</em> be cleared in the fragments, and <em>MUST</em> be turned
    back on in the reassembled packet.
 
    Intermediate systems are sometimes used to launder attack
    connections.  Packets to such systems that are intended to be relayed
-   to a target SHOULD have the evil bit set.
+   to a target <em>SHOULD</em> have the evil bit set.
 
    Some applications hand-craft their own packets.  If these packets are
-   part of an attack, the application MUST set the evil bit by itself.
+   part of an attack, the application <em>MUST</em> set the evil bit by itself.
 
    In networks protected by firewalls, it is axiomatic that all
    attackers are on the outside of the firewall.  Therefore, hosts
-   inside the firewall MUST NOT set the evil bit on any packets.
+   inside the firewall <em>MUST NOT</em> set the evil bit on any packets.
 
 
 
@@ -299,25 +299,25 @@ Abstract
 <span class="grey"><a href="./rfc3514.html">RFC 3514</a>          The Security Flag in the IPv4 Header      1 April 2003</span>
 
 
-   Because NAT [<a href="./rfc3022.html" title="&quot;Traditional IP Network Address Translator (Traditional NAT)&quot;">RFC3022</a>] boxes modify packets, they SHOULD set the evil
-   bit on such packets.  "Transparent" http and email proxies SHOULD set
+   Because NAT [<a href="./rfc3022.html" title="&quot;Traditional IP Network Address Translator (Traditional NAT)&quot;">RFC3022</a>] boxes modify packets, they <em>SHOULD</em> set the evil
+   bit on such packets.  "Transparent" http and email proxies <em>SHOULD</em> set
    the evil bit on their reply packets to the innocent client host.
 
    Some hosts scan other hosts in a fashion that can alert intrusion
    detection systems.  If the scanning is part of a benign research
-   project, the evil bit MUST NOT be set.  If the scanning per se is
+   project, the evil bit <em>MUST NOT</em> be set.  If the scanning per se is
    innocent, but the ultimate intent is evil and the destination site
-   has such an intrusion detection system, the evil bit SHOULD be set.
+   has such an intrusion detection system, the evil bit <em>SHOULD</em> be set.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>. Processing of the Evil Bit</span>
 
-   Devices such as firewalls MUST drop all inbound packets that have the
-   evil bit set.  Packets with the evil bit off MUST NOT be dropped.
-   Dropped packets SHOULD be noted in the appropriate MIB variable.
+   Devices such as firewalls <em>MUST</em> drop all inbound packets that have the
+   evil bit set.  Packets with the evil bit off <em>MUST NOT</em> be dropped.
+   Dropped packets <em>SHOULD</em> be noted in the appropriate MIB variable.
 
    Intrusion detection systems (IDSs) have a harder problem.  Because of
    their known propensity for false negatives and false positives, IDSs
-   MUST apply a probabilistic correction factor when evaluating the evil
+   <em>MUST</em> apply a probabilistic correction factor when evaluating the evil
    bit.  If the evil bit is set, a suitable random number generator
    [<a href="./rfc1750.html" title="&quot;Randomness Recommendations for Security&quot;">RFC1750</a>] must be consulted to determine if the attempt should be
    logged.  Similarly, if the bit is off, another random number
@@ -327,14 +327,14 @@ Abstract
    The default probabilities for these tests depends on the type of IDS.
    Thus, a signature-based IDS would have a low false positive value but
    a high false negative value.  A suitable administrative interface
-   MUST be provided to permit operators to reset these values.
+   <em>MUST</em> be provided to permit operators to reset these values.
 
-   Routers that are not intended as as security devices SHOULD NOT
+   Routers that are not intended as as security devices <em>SHOULD NOT</em>
    examine this bit.  This will allow them to pass packets at higher
    speeds.
 
    As outlined earlier, host processing of evil packets is operating-
-   system dependent; however, all hosts MUST react appropriately
+   system dependent; however, all hosts <em>MUST</em> react appropriately
    according to their nature.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>. Related Work</span>
@@ -361,7 +361,7 @@ Abstract
 
    Some link layers, notably those based on optical switching, may
    bypass routers (and hence firewalls) entirely.  Accordingly, some
-   link-layer scheme MUST be used to denote evil.  This may involve evil
+   link-layer scheme <em>MUST</em> be used to denote evil.  This may involve evil
    lambdas, evil polarizations, etc.
 
    DDoS attack packets are denoted by a special diffserv code point.

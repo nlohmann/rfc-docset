@@ -328,8 +328,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Compliance Nomenclature</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./bcp14.html">BCP 14</a>, [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Theory of Operation</span>
@@ -369,7 +369,7 @@ Table of Contents
 
    A key is considered revoked when the resolver sees the key in a
    self-signed RRSet and the key has the REVOKE bit (see <a href="#section-7">Section 7</a>
-   below) set to '1'.  Once the resolver sees the REVOKE bit, it MUST
+   below) set to '1'.  Once the resolver sees the REVOKE bit, it <em>MUST</em>
    NOT use this key as a trust anchor or for any other purpose except to
    validate the RRSIG it signed over the DNSKEY RRSet specifically for
    the purpose of validating the revocation.  Unlike the 'Add' operation
@@ -421,12 +421,12 @@ Table of Contents
 
    Once the timer expires, the new key will be added as a trust anchor
    the next time the validated RRSet with the new key is seen at the
-   resolver.  The resolver MUST NOT treat the new key as a trust anchor
+   resolver.  The resolver <em>MUST NOT</em> treat the new key as a trust anchor
    until the hold-down time expires AND it has retrieved and validated a
    DNSKEY RRSet after the hold-down time that contains the new key.
 
    N.B.: Once the resolver has accepted a key as a trust anchor, the key
-   MUST be considered a valid trust anchor by that resolver until
+   <em>MUST</em> be considered a valid trust anchor by that resolver until
    explicitly revoked as described above.
 
    In the given example, the zone owner can recover from a compromise by
@@ -444,7 +444,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Active Refresh</span>
 
    A resolver that has been configured for an automatic update of keys
-   from a particular trust point MUST query that trust point (e.g., do a
+   from a particular trust point <em>MUST</em> query that trust point (e.g., do a
    lookup for the DNSKEY RRSet and related RRSIG records) no less often
    than the lesser of 15 days, half the original TTL for the DNSKEY
    RRSet, or half the RRSIG expiration interval and no more often than
@@ -453,7 +453,7 @@ Table of Contents
    RRSIG.  That is, queryInterval = MAX(1 hr, MIN (15 days, 1/2*OrigTTL,
    1/2*RRSigExpirationInterval))
 
-   If the query fails, the resolver MUST repeat the query until
+   If the query fails, the resolver <em>MUST</em> repeat the query until
    satisfied no more often than once an hour and no less often than the
    lesser of 1 day, 10% of the original TTL, or 10% of the original
    expiration interval.  That is, retryTime = MAX (1 hour, MIN (1 day,
@@ -478,7 +478,7 @@ Table of Contents
    The add hold-down time is 30 days or the expiration time of the
    original TTL of the first trust point DNSKEY RRSet that contained the
    new key, whichever is greater.  This ensures that at least two
-   validated DNSKEY RRSets that contain the new key MUST be seen by the
+   validated DNSKEY RRSets that contain the new key <em>MUST</em> be seen by the
    resolver prior to the key's acceptance.
 
 <span class="h4"><a class="selflink" name="section-2.4.2" href="#section-2.4.2">2.4.2</a>.  Remove Hold-Down Time</span>
@@ -491,14 +491,14 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.4.3" href="#section-2.4.3">2.4.3</a>.  Minimum Trust Anchors per Trust Point</span>
 
-   A compliant resolver MUST be able to manage at least five SEP keys
+   A compliant resolver <em>MUST</em> be able to manage at least five SEP keys
    per trust point.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Changes to DNSKEY RDATA Wire Format</span>
 
    Bit 8 of the DNSKEY Flags field is designated as the 'REVOKE' flag.
    If this bit is set to '1', AND the resolver sees an RRSIG(DNSKEY)
-   signed by the associated key, then the resolver MUST consider this
+   signed by the associated key, then the resolver <em>MUST</em> consider this
    key permanently invalid for all purposes except for validating the
    revocation.
 
@@ -595,7 +595,7 @@ Table of Contents
             Clarification: The DNSKEY RRSet does not need to be
             continuously present at the resolver (e.g., its TTL might
             expire).  If the RRSet is seen and is validated (i.e.,
-            verifies against an existing trust anchor), this key MUST be
+            verifies against an existing trust anchor), this key <em>MUST</em> be
             in the RRSet, otherwise a 'KeyRem' event is triggered.
 
    Missing  This is an abnormal state.  The key remains a valid trust-
@@ -607,12 +607,12 @@ Table of Contents
    Revoked  This is the state a key moves to once the resolver sees an
             RRSIG(DNSKEY) signed by this key where that DNSKEY RRSet
             contains this key with its REVOKE bit set to '1'.  Once in
-            this state, this key MUST permanently be considered invalid
+            this state, this key <em>MUST</em> permanently be considered invalid
             as a trust anchor.
 
    Removed  After a fairly long hold-down time, information about this
             key may be purged from the resolver.  A key in the removed
-            state MUST NOT be considered a valid trust anchor.  (Note:
+            state <em>MUST NOT</em> be considered a valid trust anchor.  (Note:
             this state is more or less equivalent to the "Start" state,
             except that it's bad practice to re-introduce previously
             used keys -- think of this as the holding state for all the
@@ -630,7 +630,7 @@ Table of Contents
    point(s).
 
    Alternately, a trust point that is subordinate to another configured
-   trust point MAY be deleted by a resolver after 180 days, where such a
+   trust point <em>MAY</em> be deleted by a resolver after 180 days, where such a
 
 
 
@@ -790,7 +790,7 @@ Table of Contents
    update trust-anchor keys based on trusting a current trust-anchor key
    is also the resolver owner's decision.
 
-   The resolver owner (and resolver implementers) MAY choose to permit
+   The resolver owner (and resolver implementers) <em>MAY</em> choose to permit
    or prevent key status updates based on this mechanism for specific
    trust points.  If they choose to prevent the automated updates, they
    will need to establish a mechanism for manual or other out-of-band

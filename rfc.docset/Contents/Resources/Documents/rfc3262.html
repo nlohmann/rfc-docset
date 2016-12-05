@@ -301,14 +301,14 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a> Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key Words for Use in RFCs to Indicate Requirement Levels&quot;">2</a>] and
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key Words for Use in RFCs to Indicate Requirement Levels&quot;">2</a>] and
    indicate requirement levels for compliant SIP implementations.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a> UAS Behavior</span>
 
-   A UAS MAY send any non-100 provisional response to INVITE reliably,
+   A UAS <em>MAY</em> send any non-100 provisional response to INVITE reliably,
    so long as the initial INVITE request (the request whose provisional
    response is being sent reliably) contained a Supported header field
    with the option tag 100rel.  While this specification does not allow
@@ -316,16 +316,16 @@ Table of Contents
    that define new methods that can establish dialogs may make use of
    the mechanism.
 
-   The UAS MUST send any non-100 provisional response reliably if the
+   The UAS <em>MUST</em> send any non-100 provisional response reliably if the
    initial request contained a Require header field with the option tag
-   100rel.  If the UAS is unwilling to do so, it MUST reject the initial
+   100rel.  If the UAS is unwilling to do so, it <em>MUST</em> reject the initial
    request with a 420 (Bad Extension) and include an Unsupported header
    field containing the option tag 100rel.
 
-   A UAS MUST NOT attempt to send a 100 (Trying) response reliably.
+   A UAS <em>MUST NOT</em> attempt to send a 100 (Trying) response reliably.
    Only provisional responses numbered 101 to 199 may be sent reliably.
    If the request did not include either a Supported or Require header
-   field indicating this feature, the UAS MUST NOT send the provisional
+   field indicating this feature, the UAS <em>MUST NOT</em> send the provisional
    response reliably.
 
       100 (Trying) responses are hop-by-hop only.  For this reason, the
@@ -334,12 +334,12 @@ Table of Contents
 
    An element that can act as a proxy can also send reliable provisional
    responses.  In this case, it acts as a UAS for purposes of that
-   transaction.  However, it MUST NOT attempt to do so for any request
+   transaction.  However, it <em>MUST NOT</em> attempt to do so for any request
    that contains a tag in the To field.  That is, a proxy cannot
    generate reliable provisional responses to requests sent within the
    context of a dialog.  Of course, unlike a UAS, when the proxy element
    receives a PRACK that does not match any outstanding reliable
-   provisional response, the PRACK MUST be proxied.
+   provisional response, the PRACK <em>MUST</em> be proxied.
 
    There are several reasons why a UAS might want to send a reliable
    provisional response.  One reason is if the INVITE transaction will
@@ -358,9 +358,9 @@ Table of Contents
    the UAS needs to send them more frequently (once a minute is
    recommended) because of the possibility of packet loss.  As a more
    efficient alternative, the UAS can send the response reliably, in
-   which case the UAS SHOULD send provisional responses once every two
+   which case the UAS <em>SHOULD</em> send provisional responses once every two
    and a half minutes.  Use of reliable provisional responses for
-   extending transactions is RECOMMENDED.
+   extending transactions is <em>RECOMMENDED</em>.
 
    The rest of this discussion assumes that the initial request
    contained a Supported or Require header field listing 100rel, and
@@ -368,15 +368,15 @@ Table of Contents
 
    The provisional response to be sent reliably is constructed by the
    UAS core according to the procedures of <a href="./rfc3261.html#section-8.2.6">Section&nbsp;8.2.6 of RFC 3261</a>.
-   In addition, it MUST contain a Require header field containing the
-   option tag 100rel, and MUST include an RSeq header field.  The value
+   In addition, it <em>MUST</em> contain a Require header field containing the
+   option tag 100rel, and <em>MUST</em> include an RSeq header field.  The value
    of the header field for the first reliable provisional response in a
-   transaction MUST be between 1 and 2**31 - 1.  It is RECOMMENDED that
+   transaction <em>MUST</em> be between 1 and 2**31 - 1.  It is <em>RECOMMENDED</em> that
    it be chosen uniformly in this range.  The RSeq numbering space is
    within a single transaction.  This means that provisional responses
-   for different requests MAY use the same values for the RSeq number.
+   for different requests <em>MAY</em> use the same values for the RSeq number.
 
-   The reliable provisional response MAY contain a body.  The usage of
+   The reliable provisional response <em>MAY</em> contain a body.  The usage of
    session descriptions is described in <a href="#section-5">Section 5</a>.
 
    The reliable provisional response is passed to the transaction layer
@@ -412,16 +412,16 @@ Table of Contents
 
 
    If a PRACK request is received by the UA core that does not match any
-   unacknowledged reliable provisional response, the UAS MUST respond to
+   unacknowledged reliable provisional response, the UAS <em>MUST</em> respond to
    the PRACK with a 481 response.  If the PRACK does match an
-   unacknowledged reliable provisional response, it MUST be responded to
+   unacknowledged reliable provisional response, it <em>MUST</em> be responded to
    with a 2xx response.  The UAS can be certain at this point that the
-   provisional response has been received in order.  It SHOULD cease
-   retransmissions of the reliable provisional response, and MUST remove
+   provisional response has been received in order.  It <em>SHOULD</em> cease
+   retransmissions of the reliable provisional response, and <em>MUST</em> remove
    it from the list of unacknowledged provisional responses.
 
    If a reliable provisional response is retransmitted for 64*T1 seconds
-   without reception of a corresponding PRACK, the UAS SHOULD reject the
+   without reception of a corresponding PRACK, the UAS <em>SHOULD</em> reject the
    original request with a 5xx response.
 
    If the PRACK contained a session description, it is processed as
@@ -430,10 +430,10 @@ Table of Contents
    that body in an ACK would be treated.
 
    After the first reliable provisional response for a request has been
-   acknowledged, the UAS MAY send additional reliable provisional
-   responses.  The UAS MUST NOT send a second reliable provisional
+   acknowledged, the UAS <em>MAY</em> send additional reliable provisional
+   responses.  The UAS <em>MUST NOT</em> send a second reliable provisional
    response until the first is acknowledged.  After the first, it is
-   RECOMMENDED that the UAS not send an additional reliable provisional
+   <em>RECOMMENDED</em> that the UAS not send an additional reliable provisional
    response until the previous is acknowledged.  The first reliable
    provisional response receives special treatment because it conveys
    the initial sequence number.  If additional reliable provisional
@@ -441,22 +441,22 @@ Table of Contents
    not be certain these were received in order.
 
    The value of the RSeq in each subsequent reliable provisional
-   response for the same request MUST be greater by exactly one.  RSeq
-   numbers MUST NOT wrap around.  Because the initial one is chosen to
+   response for the same request <em>MUST</em> be greater by exactly one.  RSeq
+   numbers <em>MUST NOT</em> wrap around.  Because the initial one is chosen to
    be less than 2**31 - 1, but the maximum is 2**32 - 1, there can be up
    to 2**31 reliable provisional responses per request, which is more
    than sufficient.
 
-   The UAS MAY send a final response to the initial request before
+   The UAS <em>MAY</em> send a final response to the initial request before
    having received PRACKs for all unacknowledged reliable provisional
    responses, unless the final response is 2xx and any of the
    unacknowledged reliable provisional responses contained a session
-   description.  In that case, it MUST NOT send a final response until
+   description.  In that case, it <em>MUST NOT</em> send a final response until
    those provisional responses are acknowledged.  If the UAS does send a
    final response when reliable responses are still unacknowledged, it
-   SHOULD NOT continue to retransmit the unacknowledged reliable
-   provisional responses, but it MUST be prepared to process PRACK
-   requests for those outstanding responses.  A UAS MUST NOT send new
+   <em>SHOULD NOT</em> continue to retransmit the unacknowledged reliable
+   provisional responses, but it <em>MUST</em> be prepared to process PRACK
+   requests for those outstanding responses.  A UAS <em>MUST NOT</em> send new
    reliable provisional responses (as opposed to retransmissions of
    unacknowledged ones) after sending a final response to a request.
 
@@ -472,7 +472,7 @@ Table of Contents
    When the UAC creates a new request, it can insist on reliable
    delivery of provisional responses for that request.  To do that, it
    inserts a Require header field with the option tag 100rel into the
-   request.  A Require header with the value 100rel MUST NOT be present
+   request.  A Require header with the value 100rel <em>MUST NOT</em> be present
    in any requests excepting INVITE, although extensions to SIP may
    allow its usage with other request methods.
 
@@ -610,15 +610,15 @@ Table of Contents
 
    If the UAC does not wish to insist on usage of reliable provisional
    responses, but merely indicate that it supports them if the UAS needs
-   to send one, a Supported header MUST be included in the request with
-   the option tag 100rel.  The UAC SHOULD include this in all INVITE
+   to send one, a Supported header <em>MUST</em> be included in the request with
+   the option tag 100rel.  The UAC <em>SHOULD</em> include this in all INVITE
    requests.
 
    If a provisional response is received for an initial request, and
    that response contains a Require header field containing the option
    tag 100rel, the response is to be sent reliably.  If the response is
-   a 100 (Trying) (as opposed to 101 to 199), this option tag MUST be
-   ignored, and the procedures below MUST NOT be used.
+   a 100 (Trying) (as opposed to 101 to 199), this option tag <em>MUST</em> be
+   ignored, and the procedures below <em>MUST NOT</em> be used.
 
 
 
@@ -635,28 +635,28 @@ Table of Contents
 <span class="grey"><a href="./rfc3262.html">RFC 3262</a>      Reliability of Provisional Responses in SIP      June 2002</span>
 
 
-   The provisional response MUST establish a dialog if one is not yet
+   The provisional response <em>MUST</em> establish a dialog if one is not yet
    created.
 
-   Assuming the response is to be transmitted reliably, the UAC MUST
+   Assuming the response is to be transmitted reliably, the UAC <em>MUST</em>
    create a new request with method PRACK.  This request is sent within
    the dialog associated with the provisional response (indeed, the
    provisional response may have created the dialog).  PRACK requests
-   MAY contain bodies, which are interpreted according to their type and
+   <em>MAY</em> contain bodies, which are interpreted according to their type and
    disposition.
 
    Note that the PRACK is like any other non-INVITE request within a
-   dialog.  In particular, a UAC SHOULD NOT retransmit the PRACK request
+   dialog.  In particular, a UAC <em>SHOULD NOT</em> retransmit the PRACK request
    when it receives a retransmission of the provisional response being
    acknowledged, although doing so does not create a protocol error.
 
    Once a reliable provisional response is received, retransmissions of
-   that response MUST be discarded.  A response is a retransmission when
+   that response <em>MUST</em> be discarded.  A response is a retransmission when
    its dialog ID, CSeq, and RSeq match the original response.  The UAC
-   MUST maintain a sequence number that indicates the most recently
+   <em>MUST</em> maintain a sequence number that indicates the most recently
    received in-order reliable provisional response for the initial
-   request.  This sequence number MUST be maintained until a final
-   response is received for the initial request.  Its value MUST be
+   request.  This sequence number <em>MUST</em> be maintained until a final
+   response is received for the initial request.  Its value <em>MUST</em> be
    initialized to the RSeq header field in the first reliable
    provisional response received for the initial request.
 
@@ -665,13 +665,13 @@ Table of Contents
    difference: reliable provisional responses are guaranteed to be in
    order.  As a result, if the UAC receives another reliable provisional
    response to the same request, and its RSeq value is not one higher
-   than the value of the sequence number, that response MUST NOT be
-   acknowledged with a PRACK, and MUST NOT be processed further by the
-   UAC.  An implementation MAY discard the response, or MAY cache the
+   than the value of the sequence number, that response <em>MUST NOT</em> be
+   acknowledged with a PRACK, and <em>MUST NOT</em> be processed further by the
+   UAC.  An implementation <em>MAY</em> discard the response, or <em>MAY</em> cache the
    response in the hopes of receiving the missing responses.
 
-   The UAC MAY acknowledge reliable provisional responses received after
-   the final response or MAY discard them.
+   The UAC <em>MAY</em> acknowledge reliable provisional responses received after
+   the final response or <em>MAY</em> discard them.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a> The Offer/Answer Model and PRACK</span>
 
@@ -680,7 +680,7 @@ Table of Contents
    extension provides additional opportunities for offer/answer
    exchanges.
 
-   If the INVITE contained an offer, the UAS MAY generate an answer in a
+   If the INVITE contained an offer, the UAS <em>MAY</em> generate an answer in a
    reliable provisional response (assuming these are supported by the
    UAC).  That results in the establishment of the session before
 
@@ -693,29 +693,29 @@ Table of Contents
 
    completion of the call.  Similarly, if a reliable provisional
    response is the first reliable message sent back to the UAC, and the
-   INVITE did not contain an offer, one MUST appear in that reliable
+   INVITE did not contain an offer, one <em>MUST</em> appear in that reliable
    provisional response.
 
    If the UAC receives a reliable provisional response with an offer
    (this would occur if the UAC sent an INVITE without an offer, in
    which case the first reliable provisional response will contain the
-   offer), it MUST generate an answer in the PRACK.  If the UAC receives
-   a reliable provisional response with an answer, it MAY generate an
+   offer), it <em>MUST</em> generate an answer in the PRACK.  If the UAC receives
+   a reliable provisional response with an answer, it <em>MAY</em> generate an
    additional offer in the PRACK.  If the UAS receives a PRACK with an
-   offer, it MUST place the answer in the 2xx to the PRACK.
+   offer, it <em>MUST</em> place the answer in the 2xx to the PRACK.
 
-   Once an answer has been sent or received, the UA SHOULD establish the
+   Once an answer has been sent or received, the UA <em>SHOULD</em> establish the
    session based on the parameters of the offer and answer, even if the
    original INVITE itself has not been responded to.
 
    If the UAS had placed a session description in any reliable
    provisional response that is unacknowledged when the INVITE is
-   accepted, the UAS MUST delay sending the 2xx until the provisional
+   accepted, the UAS <em>MUST</em> delay sending the 2xx until the provisional
    response is acknowledged.  Otherwise, the reliability of the 1xx
    cannot be guaranteed, and reliability is needed for proper operation
    of the offer/answer exchange.
 
-   All user agents that support this extension MUST support all
+   All user agents that support this extension <em>MUST</em> support all
    offer/answer exchanges that are possible based on the rules in
    <a href="./rfc3261.html#section-13.2">Section&nbsp;13.2 of RFC 3261</a>, based on the existence of INVITE and PRACK
    as requests, and 2xx and reliable 1xx as non-failure reliable
@@ -789,7 +789,7 @@ Table of Contents
          responses.  When present in a Supported header, it indicates
          that the UA can send or receive reliable provisional responses.
          When present in a Require header in a request, it indicates
-         that the UAS MUST send all provisional responses reliably.
+         that the UAS <em>MUST</em> send all provisional responses reliably.
          When present in a Require header in a reliable provisional
          response, it indicates that the response is to be sent
          reliably.
@@ -825,7 +825,7 @@ Table of Contents
 
    The PRACK request can be injected by attackers to force
    retransmissions of reliable provisional responses to cease.  As these
-   responses can convey important information, PRACK messages SHOULD be
+   responses can convey important information, PRACK messages <em>SHOULD</em> be
    authenticated as any other request.  Authentication procedures are
    specified in <a href="./rfc3261.html">RFC 3261</a>.
 

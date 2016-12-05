@@ -307,8 +307,8 @@ Abstract
 <span class="grey"><a href="./rfc4212.html">RFC 4212</a>            Alternative Certificate Formats         October 2005</span>
 
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Certificate Template</span>
@@ -331,15 +331,15 @@ Abstract
       CertRequest ::= SEQUENCE {
           certReqId     INTEGER,
           certTemplate  CertTemplate,
-          controls      Controls OPTIONAL }
+          controls      Controls <em>OPTIONAL</em> }
 
       -- If certTemplate is an empty SEQUENCE (i.e., all fields
-      -- omitted), then controls MAY contain the
+      -- omitted), then controls <em>MAY</em> contain the
       -- id-regCtrl-altCertTemplate control, specifying a template
       -- for a certificate other than an X.509v3 public-key
       -- certificate.  Conversely, if certTemplate is not empty
       -- (i.e., at least one field is present), then controls
-      -- MUST NOT contain id-regCtrl-altCertTemplate.  The new
+      -- <em>MUST NOT</em> contain id-regCtrl-altCertTemplate.  The new
       -- control is defined as follows:
       id-regCtrl-altCertTemplate OBJECT IDENTIFIER ::= {id-regCtrl 7}
       AltCertTemplate ::= AttributeTypeAndValue
@@ -371,19 +371,19 @@ Abstract
    Value:
 
       AttCertTemplate ::= SEQUENCE {
-         version                 AttCertVersion            OPTIONAL,
-         holder                  Holder                    OPTIONAL,
-         issuer                  AttCertIssuer             OPTIONAL,
-         signature               AlgorithmIdentifier       OPTIONAL,
-         serialNumber            CertificateSerialNumber   OPTIONAL,
-         attrCertValidityPeriod  OptionalAttCertValidity   OPTIONAL,
-         attributes              SEQUENCE OF Attribute     OPTIONAL,
-         issuerUniqueID          UniqueIdentifier          OPTIONAL,
-         extensions              Extensions                OPTIONAL
+         version                 AttCertVersion            <em>OPTIONAL</em>,
+         holder                  Holder                    <em>OPTIONAL</em>,
+         issuer                  AttCertIssuer             <em>OPTIONAL</em>,
+         signature               AlgorithmIdentifier       <em>OPTIONAL</em>,
+         serialNumber            CertificateSerialNumber   <em>OPTIONAL</em>,
+         attrCertValidityPeriod  OptionalAttCertValidity   <em>OPTIONAL</em>,
+         attributes              SEQUENCE OF Attribute     <em>OPTIONAL</em>,
+         issuerUniqueID          UniqueIdentifier          <em>OPTIONAL</em>,
+         extensions              Extensions                <em>OPTIONAL</em>
       }
       OptionalAttCertValidity  ::= SEQUENCE {
-         notBeforeTime  GeneralizedTime  OPTIONAL,
-         notAfterTime   GeneralizedTime  OPTIONAL
+         notBeforeTime  GeneralizedTime  <em>OPTIONAL</em>,
+         notAfterTime   GeneralizedTime  <em>OPTIONAL</em>
       } -- at least one must be present
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  OpenPGP Certificate CertTemplate</span>
@@ -402,7 +402,7 @@ Abstract
 
       OpenPGPCertTemplateExtended ::= SEQUENCE {
          nativeTemplate   OpenPGPCertTemplate,
-         controls         Controls  OPTIONAL }
+         controls         Controls  <em>OPTIONAL</em> }
 
       OpenPGPCertTemplate ::= OCTET STRING
       -- contains the OpenPGP CertTemplate data structure defined
@@ -443,7 +443,7 @@ Abstract
    - After each Subkey packet, zero or one Subkey Binding Signature
      packet.
 
-   Each packet in the OpenPGP CertTemplate MUST be a syntactically
+   Each packet in the OpenPGP CertTemplate <em>MUST</em> be a syntactically
    correct OpenPGP packet.  This will enable conformant implementations
    to use existing PGP libraries for building and parsing OpenPGP
    CertTemplates.
@@ -452,10 +452,10 @@ Abstract
 
    - Fields for which the OpenPGP specification defines a set of
      permitted values (e.g., the signature type or the public key
-     algorithm fields of the Signature packet) MUST have a value from
+     algorithm fields of the Signature packet) <em>MUST</em> have a value from
      the defined set.  Even if the requester does not have any
      particular preferences for, for example, the signature algorithm,
-     it MUST choose one value that is the most desirable.
+     it <em>MUST</em> choose one value that is the most desirable.
 
      Rationale: An alternative solution could be to define extra "any"
      values, but this would be a modification of the OpenPGP syntax,
@@ -463,7 +463,7 @@ Abstract
 
    - All subpackets of the Signature packet defined by the OpenPGP
      specification as mandatory (e.g., the creation time and the
-     issuer's key id subpackets) MUST be present even though they do not
+     issuer's key id subpackets) <em>MUST</em> be present even though they do not
      make much sense in the context of a certificate request.
 
 
@@ -476,7 +476,7 @@ Abstract
 
 
    - The number of MPIs at the end of the Key Material and the Signature
-     packets MUST match the number defined by the OpenPGP specification
+     packets <em>MUST</em> match the number defined by the OpenPGP specification
      for the given algorithm (the algorithm is controlled by the value
      of the "algorithm" field).  For example, there should be 2 MPIs for
      DSA signatures.  Note that the OpenPGP specification does not
@@ -591,7 +591,7 @@ Abstract
      the CA is requested to certify all User IDs that are present in the
      OpenPGP CertTemplate.  Such a CertTemplate does not define
      parameters of the certification signatures explicitly, but the CA
-     SHOULD use parameters of the certification self-signatures (if
+     <em>SHOULD</em> use parameters of the certification self-signatures (if
      present in the CertTemplate) as a guide (e.g., key flags fields).
 
    - If neither Signature Templates nor User IDs are present in the
@@ -604,11 +604,11 @@ Abstract
    If several certification signatures have to be produced according to
    an OpenPGP CertTemplate, and any of them cannot be granted (even with
    modifications) for whatever reason, then the whole request with this
-   OpenPGP CertTemplate MUST be rejected.
+   OpenPGP CertTemplate <em>MUST</em> be rejected.
 
-   The client SHOULD provide enough information in its request that the
+   The client <em>SHOULD</em> provide enough information in its request that the
    CA could produce a complete OpenPGP certificate.  For example, the
-   client SHOULD include in the template all relevant subkeys with their
+   client <em>SHOULD</em> include in the template all relevant subkeys with their
    binding signatures so that the CA can include them in the resultant
    OpenPGP certificate as well.  Rationale: In some environments, the
    CA/RA is responsible for publishing certificates.
@@ -648,16 +648,16 @@ Abstract
      generation parameters).
 
    In order to return a complete OpenPGP certificate, in addition to
-   certifying the new key and the User ID, the CA (or RA) SHOULD also
+   certifying the new key and the User ID, the CA (or RA) <em>SHOULD</em> also
    create a self-signature (i.e., sign the new public key and the User
    ID with the new private key) and include it after the User ID packet.
-   This SHOULD be done for all User IDs certified by the CA.
+   This <em>SHOULD</em> be done for all User IDs certified by the CA.
 
    If a Subkey packet of an OpenPGP CertTemplate is a Key Template, then
    this OpenPGP CertTemplate requests that the CA/RA generate a subkey.
    Fields of the Key Template define parameters of the new subkey.  The
    new subkey obviously does not have to be certified.  However, the
-   CA/RA SHOULD produce the binding signature and include it after the
+   CA/RA <em>SHOULD</em> produce the binding signature and include it after the
    subkey, if the CA/RA knows the user's primary private key (e.g., it
    was centrally generated as well).  Note that if the CA/RA does not
    know the user's primary private key, then the resultant OpenPGP
@@ -678,7 +678,7 @@ Abstract
 
 <span class="h4"><a class="selflink" name="section-2.2.5" href="#section-2.2.5">2.2.5</a>.  OpenPGP CertTemplate Required Profile</span>
 
-   A conformant implementation is REQUIRED to support OpenPGP
+   A conformant implementation is <em>REQUIRED</em> to support OpenPGP
    CertTemplates that are valid OpenPGP certificates, i.e., that have
    the following structure (see examples in the Appendix):
 
@@ -704,8 +704,8 @@ Abstract
    - After each Subkey packet, one Subkey Binding Signature packet (not
      a Signature Template).
 
-   A conformant implementation is REQUIRED to recognise Key Templates
-   and Signature Templates and is REQUIRED to either support them or
+   A conformant implementation is <em>REQUIRED</em> to recognise Key Templates
+   and Signature Templates and is <em>REQUIRED</em> to either support them or
    reject requests containing them if it does not.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Proof-of-Possession</span>
@@ -719,8 +719,8 @@ Abstract
 
       * NOTE: If CertReqMsg certReq certTemplate (or the
       * altCertTemplate control) contains the subject and
-      * publicKey values, then poposkInput MUST be omitted
-      * and the signature MUST be computed on the DER-encoded
+      * publicKey values, then poposkInput <em>MUST</em> be omitted
+      * and the signature <em>MUST</em> be computed on the DER-encoded
       * value of CertReqMsg certReq (or the DER-encoded value
       * of AltCertTemplate).
 
@@ -824,13 +824,13 @@ Abstract
    specification mandates that
 
       When CRMF message bodies are used in the Full Enrollment Request
-      message, each CRMF message MUST include both the subject and
+      message, each CRMF message <em>MUST</em> include both the subject and
       publicKey fields in the CertTemplate.
 
    If alternative certificate types are used, this should be extended as
 
       When CRMF message bodies are used in the Full Enrollment Request
-      message, each CRMF message MUST include both the subject and
+      message, each CRMF message <em>MUST</em> include both the subject and
       publicKey fields in the CertTemplate (or in the altCertTemplate
       control).
 

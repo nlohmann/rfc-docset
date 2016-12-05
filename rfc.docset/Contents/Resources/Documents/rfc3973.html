@@ -371,8 +371,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" are to
    be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-11" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">11</a>] and indicate requirement
    levels for compliant PIM-DM implementations.
 
@@ -428,7 +428,7 @@ Table of Contents
    NULL
      is the empty set or list.
 
-   Note that operations MUST be conducted in the order specified.  This
+   Note that operations <em>MUST</em> be conducted in the order specified.  This
    is due to the fact that (-) is not a true difference operator,
    because B is not necessarily a subset of A.  That is, A (+) B (-) C =
    A (-) C (+) B is not a true statement unless C is a subset of both A
@@ -542,7 +542,7 @@ Table of Contents
 
    Unlike PIM-SM, PIM-DM does not maintain a keepalive timer associated
    with each (S,G) route.  Within PIM-DM, route and state information
-   associated with an (S,G) entry MUST be maintained as long as any
+   associated with an (S,G) entry <em>MUST</em> be maintained as long as any
    timer associated with that (S,G) entry is active.  When no timer
    associated with an (S,G) entry is active, all information concerning
    that (S,G) route may be discarded.
@@ -730,16 +730,16 @@ Table of Contents
    address).  RPF_interface(S) is the interface the MRIB indicates would
    be used to route packets to S.
 
-   First, an RPF check MUST be performed to determine whether the packet
+   First, an RPF check <em>MUST</em> be performed to determine whether the packet
    should be accepted based on TIB state and the interface on which that
-   the packet arrived.  Packets that fail the RPF check MUST NOT be
+   the packet arrived.  Packets that fail the RPF check <em>MUST NOT</em> be
    forwarded, and the router will conduct an assert process for the
    (S,G) pair specified in the packet.  Packets for which a route to the
-   source cannot be found MUST be discarded.
+   source cannot be found <em>MUST</em> be discarded.
 
    If the RPF check has been passed, an outgoing interface list is
    constructed for the packet.  If this list is not empty, then the
-   packet MUST be forwarded to all listed interfaces.  If the list is
+   packet <em>MUST</em> be forwarded to all listed interfaces.  If the list is
    empty, then the router will conduct a prune process for the (S,G)
    pair specified in the packet.
 
@@ -776,25 +776,25 @@ Table of Contents
    messages are sent periodically on each PIM enabled interface.  Hello
    messages are multicast to the ALL-PIM-ROUTERS group.  When PIM is
    enabled on an interface or when a router first starts, the Hello
-   Timer (HT) MUST be set to random value between 0 and
+   Timer (HT) <em>MUST</em> be set to random value between 0 and
    Triggered_Hello_Delay.  This prevents synchronization of Hello
    messages if multiple routers are powered on simultaneously.
 
-   After the initial Hello message, a Hello message MUST be sent every
-   Hello_Period.  A single Hello timer MAY be used to trigger sending
-   Hello messages on all active interfaces.  The Hello Timer SHOULD NOT
+   After the initial Hello message, a Hello message <em>MUST</em> be sent every
+   Hello_Period.  A single Hello timer <em>MAY</em> be used to trigger sending
+   Hello messages on all active interfaces.  The Hello Timer <em>SHOULD NOT</em>
    be reset except when it expires.
 
 <span class="h4"><a class="selflink" name="section-4.3.2" href="#section-4.3.2">4.3.2</a>.  Receiving Hello Messages</span>
 
-   When a Hello message is received, the receiving router SHALL record
+   When a Hello message is received, the receiving router <em>SHALL</em> record
    the receiving interface, the sender, and any information contained in
    recognized options.  This information is retained for a number of
    seconds in the Hold Time field of the Hello Message.  If a new Hello
    message is received from a particular neighbor N, the Neighbor
-   Liveness Timer (NLT(N,I)) MUST be reset to the newly received Hello
+   Liveness Timer (NLT(N,I)) <em>MUST</em> be reset to the newly received Hello
    Holdtime.  If a Hello message is received from a new neighbor, the
-   receiving router SHOULD send its own Hello message after a random
+   receiving router <em>SHOULD</em> send its own Hello message after a random
    delay between 0 and Triggered_Hello_Delay.
 
 
@@ -814,14 +814,14 @@ Table of Contents
    message is received.  On most links, this will be 3.5 times the value
    of Hello_Period.
 
-   If the Hold Time is set to '0xffff', the receiving router MUST NOT
+   If the Hold Time is set to '0xffff', the receiving router <em>MUST NOT</em>
    time out that Hello message.  This feature might be used for on-
    demand links to avoid keeping the link up with periodic Hello
    messages.
 
    If a Hold Time of '0' is received, the corresponding neighbor state
    expires immediately.  When a PIM router takes an interface down or
-   changes IP address, a Hello message with a zero Hold Time SHOULD be
+   changes IP address, a Hello message with a zero Hold Time <em>SHOULD</em> be
    sent immediately (with the old IP address if the IP address is
    changed) to cause any PIM neighbors to remove the old information
    immediately.
@@ -830,25 +830,25 @@ Table of Contents
 
    If a Hello message is received from an active neighbor with a
    different Generation ID (GenID), the neighbor has restarted and may
-   not contain the correct (S,G) state.  A Hello message SHOULD be sent
+   not contain the correct (S,G) state.  A Hello message <em>SHOULD</em> be sent
    after a random delay between 0 and Triggered_Hello_Delay (see 4.8)
    before any other messages are sent.  If the neighbor is downstream,
-   the router MAY replay the last State Refresh message for any (S,G)
+   the router <em>MAY</em> replay the last State Refresh message for any (S,G)
    pairs for which it is the Assert Winner indicating Prune and Assert
-   status to the downstream router.  These State Refresh messages SHOULD
+   status to the downstream router.  These State Refresh messages <em>SHOULD</em>
    be sent out immediately after the Hello message.  If the neighbor is
-   the upstream neighbor for an (S,G) entry, the router MAY cancel its
+   the upstream neighbor for an (S,G) entry, the router <em>MAY</em> cancel its
    Prune Limit Timer to permit sending a prune and reestablishing a
    Pruned state in the upstream router.
 
-   Upon startup, a router MAY use any State Refresh messages received
+   Upon startup, a router <em>MAY</em> use any State Refresh messages received
    within Hello_Period of its first Hello message on an interface to
    establish state information.  The State Refresh source will be the
    RPF'(S), and Prune status for all interfaces will be set according to
    the Prune Indicator bit in the State Refresh message.  If the Prune
-   Indicator is set, the router SHOULD set the PruneLimitTimer to
+   Indicator is set, the router <em>SHOULD</em> set the PruneLimitTimer to
    Prune_Holdtime and set the PruneTimer on all downstream interfaces to
-   the State Refresh's Interval times two.  The router SHOULD then
+   the State Refresh's Interval times two.  The router <em>SHOULD</em> then
    propagate the State Refresh as described in <a href="#section-4.5.1">Section 4.5.1</a>.
 
 
@@ -877,13 +877,13 @@ Table of Contents
    Each router on the LAN expresses its view of the amount of
    randomization necessary in the Override Interval field of the LAN
    Prune Delay option.  When all routers on a LAN use the LAN Prune
-   Delay Option, all routers on the LAN MUST set their Override_Interval
+   Delay Option, all routers on the LAN <em>MUST</em> set their Override_Interval
    to the largest Override value on the LAN.
 
    The LAN Delay inserted by a router in the LAN Prune Delay option
    expresses the expected message propagation delay on the link and
-   SHOULD be configurable by the system administrator.  When all routers
-   on a link use the LAN Prune Delay Option, all routers on the LAN MUST
+   <em>SHOULD</em> be configurable by the system administrator.  When all routers
+   on a link use the LAN Prune Delay Option, all routers on the LAN <em>MUST</em>
    set Propagation Delay to the largest LAN Delay on the LAN.
 
    PIM implementers should enforce a lower bound on the permitted values
@@ -1094,7 +1094,7 @@ Table of Contents
 
      Data Packet arrives on RPF_Interface(S) AND olist(S,G) == NULL AND
      S NOT directly connected
-       The Upstream(S,G) state machine MUST transition to the Pruned (P)
+       The Upstream(S,G) state machine <em>MUST</em> transition to the Pruned (P)
        state, send a Prune(S,G) to RPF'(S), and set PLT(S,G) to t_limit
        seconds.
 
@@ -1103,7 +1103,7 @@ Table of Contents
        If the received State Refresh has the Prune Indicator bit set to
        one, this router must override the upstream router's Prune state
        after a short random interval.  If OT(S,G) is not running and the
-       Prune Indicator bit equals one, the router MUST set OT(S,G) to
+       Prune Indicator bit equals one, the router <em>MUST</em> set OT(S,G) to
        t_override seconds.
 
      See Join(S,G) to RPF'(S)
@@ -1112,7 +1112,7 @@ Table of Contents
        a Join(S,G) to RPF'(S,G).  If the OT(S,G) is running, then it
        means that the router had scheduled a Join to override a
        previously received Prune.  Another router has responded more
-       quickly with a Join, so the local router SHOULD cancel its
+       quickly with a Join, so the local router <em>SHOULD</em> cancel its
        OT(S,G), if it is running.  The Upstream(S,G) state machine
        remains in the Forwarding (F) state.
 
@@ -1121,17 +1121,17 @@ Table of Contents
        medium.  This router sees another router on RPF_interface(S) send
        a Prune(S,G).  As this router is in Forwarding state, it must
        override the Prune after a short random interval.  If OT(S,G) is
-       not running, the router MUST set OT(S,G) to t_override seconds.
+       not running, the router <em>MUST</em> set OT(S,G) to t_override seconds.
        The Upstream(S,G) state machine remains in Forwarding (F) state.
 
      OT(S,G) Expires AND S NOT directly connected
-       The OverrideTimer (OT(S,G)) expires.  The router MUST send a
+       The OverrideTimer (OT(S,G)) expires.  The router <em>MUST</em> send a
        Join(S,G) to RPF'(S) to override a previously detected prune.
        The Upstream(S,G) state machine remains in the Forwarding (F)
        state.
 
      olist(S,G) -&gt; NULL AND S NOT directly connected
-       The Upstream(S,G) state machine MUST transition to the Pruned (P)
+       The Upstream(S,G) state machine <em>MUST</em> transition to the Pruned (P)
        state, send a Prune(S,G) to RPF'(S), and set PLT(S,G) to t_limit
        seconds.
 
@@ -1147,14 +1147,14 @@ Table of Contents
      connected
        Unicast routing or Assert state causes RPF'(S) to change,
        including changes to RPF_Interface(S).  The Upstream(S,G) state
-       machine MUST transition to the AckPending (AP) state, unicast a
+       machine <em>MUST</em> transition to the AckPending (AP) state, unicast a
        Graft to the new RPF'(S), and set the GraftRetry Timer (GRT(S,G))
        to Graft_Retry_Period.
 
      RPF'(S) Changes AND olist(S,G) is NULL
        Unicast routing or Assert state causes RPF'(S) to change,
        including changes to RPF_Interface(S).  The Upstream(S,G) state
-       machine MUST transition to the Pruned (P) state.
+       machine <em>MUST</em> transition to the Pruned (P) state.
 
 <span class="h5"><a class="selflink" name="section-4.4.1.2" href="#section-4.4.1.2">4.4.1.2</a>.  Transitions from the Pruned (P) State</span>
 
@@ -1168,28 +1168,28 @@ Table of Contents
        Prune(S,G) in response to every data packet, the PruneLimit Timer
        (PLT(S,G)) is used.  Once the PLT(S,G) expires, the router needs
        to send another prune in response to a data packet not received
-       directly from the source.  A Prune(S,G) MUST be sent to RPF'(S),
-       and the PLT(S,G) MUST be set to t_limit.
+       directly from the source.  A Prune(S,G) <em>MUST</em> be sent to RPF'(S),
+       and the PLT(S,G) <em>MUST</em> be set to t_limit.
 
      State Refresh(S,G) Received from RPF'(S)
        The Upstream(S,G) state machine remains in a Pruned state.  If
        the State Refresh has its Prune Indicator bit set to zero and
-       PLT(S,G) is not running, a Prune(S,G) MUST be sent to RPF'(S),
-       and the PLT(S,G) MUST be set to t_limit.  If the State Refresh
-       has its Prune Indicator bit set to one, the router MUST reset
+       PLT(S,G) is not running, a Prune(S,G) <em>MUST</em> be sent to RPF'(S),
+       and the PLT(S,G) <em>MUST</em> be set to t_limit.  If the State Refresh
+       has its Prune Indicator bit set to one, the router <em>MUST</em> reset
        PLT(S,G) to t_limit.
 
      See Prune(S,G) to RPF'(S)
        A Prune(S,G) is seen on RPF_interface(S) to RPF'(S).  The
        Upstream(S,G) state machine stays in the Pruned (P) state.  The
-       router MAY reset its PLT(S,G) to the value in the Holdtime field
+       router <em>MAY</em> reset its PLT(S,G) to the value in the Holdtime field
        of the received message if it is greater than the current value
        of the PLT(S,G).
 
      olist(S,G)-&gt;non-NULL AND S NOT directly connected
        The set of interfaces defined by the olist(S,G) macro becomes
        non-empty, indicating that traffic from S addressed to group G
-       must be forwarded.  The Upstream(S,G) state machine MUST cancel
+       must be forwarded.  The Upstream(S,G) state machine <em>MUST</em> cancel
        PLT(S,G), transition to the AckPending (AP) state and unicast a
 
 
@@ -1199,21 +1199,21 @@ Table of Contents
 <span class="grey"><a href="./rfc3973.html">RFC 3973</a>                   PIM - Dense Mode                 January 2005</span>
 
 
-       Graft message to RPF'(S).  The Graft Retry Timer (GRT(S,G)) MUST
+       Graft message to RPF'(S).  The Graft Retry Timer (GRT(S,G)) <em>MUST</em>
        be set to Graft_Retry_Period.
 
      RPF'(S) Changes AND olist(S,G) == non-NULL AND S NOT directly
      connected
        Unicast routing or Assert state causes RPF'(S) to change,
        including changes to RPF_Interface(S).  The Upstream(S,G) state
-       machine MUST cancel PLT(S,G), transition to the AckPending (AP)
+       machine <em>MUST</em> cancel PLT(S,G), transition to the AckPending (AP)
        state, send a Graft unicast to the new RPF'(S), and set the
        GraftRetry Timer (GRT(S,G)) to Graft_Retry_Period.
 
      RPF'(S) Changes AND olist(S,G) == NULL AND S NOT directly connected
        Unicast routing or Assert state causes RPF'(S) to change,
        including changes to RPF_Interface(S).  The Upstream(S,G) state
-       machine stays in the Pruned (P) state and MUST cancel the
+       machine stays in the Pruned (P) state and <em>MUST</em> cancel the
        PLT(S,G) timer.
 
      S becomes directly connected
@@ -1229,11 +1229,11 @@ Table of Contents
        The Upstream(S,G) state machine remains in an AckPending state.
        The router must override the upstream router's Prune state after
        a short random interval.  If OT(S,G) is not running and the Prune
-       Indicator bit equals one, the router MUST set OT(S,G) to
+       Indicator bit equals one, the router <em>MUST</em> set OT(S,G) to
        t_override seconds.
 
      State Refresh(S,G) Received from RPF'(S) with Prune Indicator == 0
-       The router MUST cancel its GraftRetry Timer (GRT(S,G)) and
+       The router <em>MUST</em> cancel its GraftRetry Timer (GRT(S,G)) and
        transition to the Forwarding (F) state.
 
      See Join(S,G) to RPF'(S,G)
@@ -1242,7 +1242,7 @@ Table of Contents
        a Join(S,G) to RPF'(S,G).  If the OT(S,G) is running, then it
        means that the router had scheduled a Join to override a
        previously received Prune.  Another router has responded more
-       quickly with a Join, so the local router SHOULD cancel its
+       quickly with a Join, so the local router <em>SHOULD</em> cancel its
        OT(S,G), if it is running.  The Upstream(S,G) state machine
        remains in the AckPending (AP) state.
 
@@ -1260,42 +1260,42 @@ Table of Contents
        medium.  This router sees another router on RPF_interface(S) send
        a Prune(S,G).  As this router is in AckPending (AP) state, it
        must override the Prune after a short random interval.  If
-       OT(S,G) is not running, the router MUST set OT(S,G) to t_override
+       OT(S,G) is not running, the router <em>MUST</em> set OT(S,G) to t_override
        seconds.  The Upstream(S,G) state machine remains in AckPending
        (AP) state.
 
      OT(S,G) Expires
-       The OverrideTimer (OT(S,G)) expires.  The router MUST send a
+       The OverrideTimer (OT(S,G)) expires.  The router <em>MUST</em> send a
        Join(S,G) to RPF'(S).  The Upstream(S,G) state machine remains in
        the AckPending (AP) state.
 
      olist(S,G) -&gt; NULL
        The set of interfaces defined by the olist(S,G) macro becomes
        null, indicating that traffic from S addressed to group G should
-       no longer be forwarded.  The Upstream(S,G) state machine MUST
-       transition to the Pruned (P) state.  A Prune(S,G) MUST be
+       no longer be forwarded.  The Upstream(S,G) state machine <em>MUST</em>
+       transition to the Pruned (P) state.  A Prune(S,G) <em>MUST</em> be
        multicast to the RPF_interface(S), with RPF'(S) named in the
-       upstream neighbor field.  The GraftRetry Timer (GRT(S,G)) MUST be
-       cancelled, and PLT(S,G) MUST be set to t_limit seconds.
+       upstream neighbor field.  The GraftRetry Timer (GRT(S,G)) <em>MUST</em> be
+       cancelled, and PLT(S,G) <em>MUST</em> be set to t_limit seconds.
 
      RPF'(S) Changes AND olist(S,G) does not become NULL AND S NOT
      directly connected
        Unicast routing or Assert state causes RPF'(S) to change,
        including changes to RPF_Interface(S).  The Upstream(S,G) state
-       machine stays in the AckPending (AP) state.  A Graft MUST be
+       machine stays in the AckPending (AP) state.  A Graft <em>MUST</em> be
        unicast to the new RPF'(S) and the GraftRetry Timer (GRT(S,G))
        reset to Graft_Retry_Period.
 
      RPF'(S) Changes AND olist(S,G) == NULL AND S NOT directly connected
        Unicast routing or Assert state causes RPF'(S) to change,
        including changes to RPF_Interface(S).  The Upstream(S,G) state
-       machine MUST transition to the Pruned (P) state.  The GraftRetry
-       Timer (GRT(S,G)) MUST be cancelled.
+       machine <em>MUST</em> transition to the Pruned (P) state.  The GraftRetry
+       Timer (GRT(S,G)) <em>MUST</em> be cancelled.
 
      S becomes directly connected
        Unicast routing has changed so that S is directly connected.  The
-       GraftRetry Timer MUST be cancelled, and the Upstream(S,G) state
-       machine MUST transition to the Forwarding(F) state.
+       GraftRetry Timer <em>MUST</em> be cancelled, and the Upstream(S,G) state
+       machine <em>MUST</em> transition to the Forwarding(F) state.
 
 
 
@@ -1314,21 +1314,21 @@ Table of Contents
      GRT(S,G) Expires
        The GraftRetry Timer (GRT(S,G)) expires for this (S,G) entry.
        The Upstream(S,G) state machine stays in the AckPending (AP)
-       state.  Another Graft message for (S,G) SHOULD be unicast to
+       state.  Another Graft message for (S,G) <em>SHOULD</em> be unicast to
        RPF'(S) and the GraftRetry Timer (GRT(S,G)) reset to
-       Graft_Retry_Period.  It is RECOMMENDED that the router retry a
+       Graft_Retry_Period.  It is <em>RECOMMENDED</em> that the router retry a
        configured number of times before ceasing retries.
 
      See GraftAck(S,G) from RPF'(S)
-       A GraftAck is received from  RPF'(S).  The GraftRetry Timer MUST
-       be cancelled, and the Upstream(S,G) state machine MUST transition
+       A GraftAck is received from  RPF'(S).  The GraftRetry Timer <em>MUST</em>
+       be cancelled, and the Upstream(S,G) state machine <em>MUST</em> transition
        to the Forwarding(F) state.
 
 <span class="h4"><a class="selflink" name="section-4.4.2" href="#section-4.4.2">4.4.2</a>.  Downstream Prune, Join, and Graft Messages</span>
 
    The Prune(S,G) Downstream state machine for receiving Prune, Join and
    Graft messages on interface I is given below.  This state machine
-   MUST always be in the NoInfo state on the upstream interface.  It
+   <em>MUST</em> always be in the NoInfo state on the upstream interface.  It
    contains three states.
 
      NoInfo(NI)
@@ -1468,9 +1468,9 @@ Table of Contents
      Receive Prune(S,G)
        A Prune(S,G) is received on interface I with the upstream
        neighbor field set to the router's address on I.  The Prune(S,G)
-       Downstream state machine on interface I MUST transition to the
+       Downstream state machine on interface I <em>MUST</em> transition to the
        PrunePending (PP) state.  The PrunePending Timer (PPT(S,G,I))
-       MUST be set to J/P_Override_Interval if the router has more than
+       <em>MUST</em> be set to J/P_Override_Interval if the router has more than
 
 
 
@@ -1480,14 +1480,14 @@ Table of Contents
 
 
        one neighbor on I.  If the router has only one neighbor on
-       interface I, then it SHOULD set the PPT(S,G,I) to zero,
+       interface I, then it <em>SHOULD</em> set the PPT(S,G,I) to zero,
        effectively transitioning immediately to the Pruned (P) state.
 
      Receive Graft(S,G)
        A Graft(S,G) is received on the interface I with the upstream
        neighbor field set to the router's address on I.  The Prune(S,G)
        Downstream state machine on interface I stays in the NoInfo (NI)
-       state.  A GraftAck(S,G) MUST be unicast to the originator of the
+       state.  A GraftAck(S,G) <em>MUST</em> be unicast to the originator of the
        Graft(S,G) message.
 
 <span class="h5"><a class="selflink" name="section-4.4.2.2" href="#section-4.4.2.2">4.4.2.2</a>.  Transitions from the PrunePending (PP) State</span>
@@ -1498,33 +1498,33 @@ Table of Contents
      Receive Join(S,G)
        A Join(S,G) is received on interface I with the upstream neighbor
        field set to the router's address on I.  The Prune(S,G)
-       Downstream state machine on interface I MUST transition to the
-       NoInfo (NI) state.  The PrunePending Timer (PPT(S,G,I)) MUST be
+       Downstream state machine on interface I <em>MUST</em> transition to the
+       NoInfo (NI) state.  The PrunePending Timer (PPT(S,G,I)) <em>MUST</em> be
        cancelled.
 
      Receive Graft(S,G)
        A Graft(S,G) is received on interface I with the upstream
        neighbor field set to the router's address on I.  The Prune(S,G)
-       Downstream state machine on interface I MUST transition to the
-       NoInfo (NI) state and MUST unicast a Graft Ack message to the
-       Graft originator.  The PrunePending Timer (PPT(S,G,I)) MUST be
+       Downstream state machine on interface I <em>MUST</em> transition to the
+       NoInfo (NI) state and <em>MUST</em> unicast a Graft Ack message to the
+       Graft originator.  The PrunePending Timer (PPT(S,G,I)) <em>MUST</em> be
        cancelled.
 
      PPT(S,G,I) Expires
        The PrunePending Timer (PPT(S,G,I)) expires, indicating that no
        neighbors have overridden the previous Prune(S,G) message.  The
-       Prune(S,G) Downstream state machine on interface I MUST
+       Prune(S,G) Downstream state machine on interface I <em>MUST</em>
        transition to the Pruned (P) state.  The Prune Timer (PT(S,G,I))
-       is started and MUST be initialized to the received
+       is started and <em>MUST</em> be initialized to the received
        Prune_Hold_Time minus J/P_Override_Interval.  A PruneEcho(S,G)
-       MUST be sent on I if I has more than one PIM neighbor.  A
+       <em>MUST</em> be sent on I if I has more than one PIM neighbor.  A
        PruneEcho(S,G) is simply a Prune(S,G) message multicast by the
        upstream router to a LAN, with itself as the Upstream Neighbor.
        Its purpose is to add additional reliability so that if a Join
        that should have overridden the Prune is lost locally on the LAN,
        the PruneEcho(S,G) may be received and trigger a new Join
-       message.  A PruneEcho(S,G) is OPTIONAL on an interface with only
-       one PIM neighbor.  In addition, the router MUST evaluate any
+       message.  A PruneEcho(S,G) is <em>OPTIONAL</em> on an interface with only
+       one PIM neighbor.  In addition, the router <em>MUST</em> evaluate any
        possible transitions in the Upstream(S,G) state machine.
 
 
@@ -1537,8 +1537,8 @@ Table of Contents
 
      RPF_Interface(S) becomes interface I
        The upstream interface for S has changed.  The Prune(S,G)
-       Downstream state machine on interface I MUST transition to the
-       NoInfo (NI) state.  The PrunePending Timer (PPT(S,G,I)) MUST be
+       Downstream state machine on interface I <em>MUST</em> transition to the
+       NoInfo (NI) state.  The PrunePending Timer (PPT(S,G,I)) <em>MUST</em> be
        cancelled.
 
 <span class="h5"><a class="selflink" name="section-4.4.2.3" href="#section-4.4.2.3">4.4.2.3</a>.  Transitions from the Prune (P) State</span>
@@ -1550,38 +1550,38 @@ Table of Contents
        A Prune(S,G) is received on the interface I with the upstream
        neighbor field set to the router's address on I.  The Prune(S,G)
        Downstream state machine on interface I remains in the Pruned (P)
-       state.  The Prune Timer (PT(S,G,I)) SHOULD be reset to the
+       state.  The Prune Timer (PT(S,G,I)) <em>SHOULD</em> be reset to the
        holdtime contained in the Prune(S,G) message if it is greater
        than the current value.
 
      Receive Join(S,G)
        A Join(S,G) is received on the interface I with the upstream
        neighbor field set to the router's address on I.  The Prune(S,G)
-       downstream state machine on interface I MUST transition to the
-       NoInfo (NI) state.  The Prune Timer (PT(S,G,I)) MUST be
-       cancelled.  The router MUST evaluate any possible transitions in
+       downstream state machine on interface I <em>MUST</em> transition to the
+       NoInfo (NI) state.  The Prune Timer (PT(S,G,I)) <em>MUST</em> be
+       cancelled.  The router <em>MUST</em> evaluate any possible transitions in
        the Upstream(S,G) state machine.
 
      Receive Graft(S,G)
        A Graft(S,G) is received on interface I with the upstream
        neighbor field set to the router's address on I.  The Prune(S,G)
-       Downstream state machine on interface I MUST transition to the
+       Downstream state machine on interface I <em>MUST</em> transition to the
        NoInfo (NI) state and send a Graft Ack back to the Graft's
-       source.  The Prune Timer (PT(S,G,I)) MUST be cancelled.  The
-       router MUST evaluate any possible transitions in the
+       source.  The Prune Timer (PT(S,G,I)) <em>MUST</em> be cancelled.  The
+       router <em>MUST</em> evaluate any possible transitions in the
        Upstream(S,G) state machine.
 
      PT(S,G,I) Expires
        The Prune Timer (PT(S,G,I)) expires, indicating that it is again
        time to flood data from S addressed to group G onto interface I.
-       The Prune(S,G) Downstream state machine on interface I MUST
-       transition to the NoInfo (NI) state.  The router MUST evaluate
+       The Prune(S,G) Downstream state machine on interface I <em>MUST</em>
+       transition to the NoInfo (NI) state.  The router <em>MUST</em> evaluate
        any possible transitions in the Upstream(S,G) state machine.
 
      RPF_Interface(S) becomes interface I
        The upstream interface for S has changed.  The Prune(S,G)
-       Downstream state machine on interface I MUST transition to the
-       NoInfo (NI) state.  The PruneTimer (PT(S,G,I)) MUST be cancelled.
+       Downstream state machine on interface I <em>MUST</em> transition to the
+       NoInfo (NI) state.  The PruneTimer (PT(S,G,I)) <em>MUST</em> be cancelled.
 
 
 
@@ -1593,9 +1593,9 @@ Table of Contents
 
      Send State Refresh(S,G) out interface I
        The router has refreshed the Prune(S,G) state on interface I.
-       The router MUST reset the Prune Timer (PT(S,G,I)) to the Holdtime
+       The router <em>MUST</em> reset the Prune Timer (PT(S,G,I)) to the Holdtime
        from an active Prune received on interface I.  The Holdtime used
-       SHOULD be the largest active one but MAY be the most recently
+       <em>SHOULD</em> be the largest active one but <em>MAY</em> be the most recently
        received active Prune Holdtime.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a>.  State Refresh</span>
@@ -1789,9 +1789,9 @@ Table of Contents
 
      Data Packet received from directly connected Source S addressed to
      group G
-       The router MUST transition to an Originator (O) state, set
+       The router <em>MUST</em> transition to an Originator (O) state, set
        SAT(S,G) to SourceLifetime, and set SRT(S,G) to
-       StateRefreshInterval.  The router SHOULD record the TTL of the
+       StateRefreshInterval.  The router <em>SHOULD</em> record the TTL of the
        packet for use in State Refresh messages.
 
 <span class="h5"><a class="selflink" name="section-4.5.2.2" href="#section-4.5.2.2">4.5.2.2</a>.  Transitions from the Originator (O) State</span>
@@ -1800,10 +1800,10 @@ Table of Contents
    state, the following events may trigger a transition:
 
      Receive Data Packet from S addressed to G
-       The router remains in the Originator (O) state and MUST reset
-       SAT(S,G) to SourceLifetime.  The router SHOULD increase its
+       The router remains in the Originator (O) state and <em>MUST</em> reset
+       SAT(S,G) to SourceLifetime.  The router <em>SHOULD</em> increase its
        recorded TTL to match the TTL of the packet, if the packet's TTL
-       is larger than the previously recorded TTL.  A router MAY record
+       is larger than the previously recorded TTL.  A router <em>MAY</em> record
        the TTL based on an implementation specific sampling policy to
        avoid examining the TTL of every multicast packet it handles.
 
@@ -1816,8 +1816,8 @@ Table of Contents
 
 
      SRT(S,G) Expires
-       The router remains in the Originator (O) state and MUST reset
-       SRT(S,G) to StateRefreshInterval.  The router MUST also generate
+       The router remains in the Originator (O) state and <em>MUST</em> reset
+       SRT(S,G) to StateRefreshInterval.  The router <em>MUST</em> also generate
        State Refresh messages for transmission, as described in the
        State Refresh Forwarding rules (<a href="#section-4.5.1">Section 4.5.1</a>), except for the
        TTL.  If the TTL of data packets from S to G are being recorded,
@@ -1826,15 +1826,15 @@ Table of Contents
        Refresh TTL.  Let I denote the interface over which a State
        Refresh message is being sent.  If the Prune(S,G) Downstream
        state machine is in the Pruned (P) state, then the Prune-
-       Indicator bit MUST be set to 1 in the State Refresh message being
-       sent over I. Otherwise, the Prune-Indicator bit MUST be set to 0.
+       Indicator bit <em>MUST</em> be set to 1 in the State Refresh message being
+       sent over I. Otherwise, the Prune-Indicator bit <em>MUST</em> be set to 0.
 
      SAT(S,G) Expires
-       The router MUST cancel the SRT(S,G) timer and transition to the
+       The router <em>MUST</em> cancel the SRT(S,G) timer and transition to the
        NotOriginator (NO) state.
 
      S is no longer directly connected
-       The router MUST transition to the NotOriginator (NO) state and
+       The router <em>MUST</em> transition to the NotOriginator (NO) state and
        cancel both the SAT(S,G) and SRT(S,G).
 
 <span class="h3"><a class="selflink" name="section-4.6" href="#section-4.6">4.6</a>.  PIM Assert Messages</span>
@@ -2082,7 +2082,7 @@ Table of Contents
      An (S,G) data packet arrives on downstream interface I
        An (S,G) data packet arrived on a downstream interface.  It is
        optimistically assumed that this router will be the Assert winner
-       for this (S,G).  The Assert state machine MUST transition to the
+       for this (S,G).  The Assert state machine <em>MUST</em> transition to the
        "I am Assert Winner" state, send an Assert(S,G) to interface I,
        store its own address and metric as the Assert Winner, and set
        the Assert_Timer (AT(S,G,I) to Assert_Time, thereby initiating
@@ -2099,21 +2099,21 @@ Table of Contents
      CouldAssert(S,G,I)==TRUE
        An Assert or State Refresh is received for (S,G) that is inferior
        to our own assert metric on interface I. The Assert state machine
-       MUST transition to the "I am Assert Winner" state, send an
+       <em>MUST</em> transition to the "I am Assert Winner" state, send an
        Assert(S,G) to interface I, store its own address and metric as
        the Assert Winner, and set the Assert Timer (AT(S,G,I)) to
        Assert_Time.
 
      Receive Preferred Assert or State Refresh
        The received Assert or State Refresh has a better metric than
-       this router's, and therefore the Assert state machine MUST
+       this router's, and therefore the Assert state machine <em>MUST</em>
        transition to the "I am Assert Loser" state and store the Assert
        Winner's address and metric.  If the metric was received in an
-       Assert, the router MUST set the Assert Timer (AT(S,G,I)) to
+       Assert, the router <em>MUST</em> set the Assert Timer (AT(S,G,I)) to
        Assert_Time.  If the metric was received in a State Refresh, the
-       router MUST set the Assert Timer (AT(S,G,I)) to three times the
+       router <em>MUST</em> set the Assert Timer (AT(S,G,I)) to three times the
        received State Refresh Interval.  If CouldAssert(S,G,I) == TRUE,
-       the router MUST also multicast a Prune(S,G) to the Assert winner
+       the router <em>MUST</em> also multicast a Prune(S,G) to the Assert winner
        with a Prune Hold Time equal to the Assert Timer and evaluate any
        changes in its Upstream(S,G) state machine.
 
@@ -2125,24 +2125,24 @@ Table of Contents
      An (S,G) data packet arrives on downstream interface I
        An (S,G) data packet arrived on a downstream interface.  The
        Assert state machine remains in the "I am Assert Winner" state.
-       The router MUST send an Assert(S,G) to interface I and set the
+       The router <em>MUST</em> send an Assert(S,G) to interface I and set the
        Assert Timer (AT(S,G,I) to Assert_Time.
 
      Receive Inferior Assert or State Refresh
        An (S,G) Assert is received containing a metric for S that is
        worse than this router's metric for S.  Whoever sent the Assert
-       is in error.  The router MUST send an Assert(S,G) to interface I
+       is in error.  The router <em>MUST</em> send an Assert(S,G) to interface I
        and reset the Assert Timer (AT(S,G,I)) to Assert_Time.
 
      Receive Preferred Assert or State Refresh
        An (S,G) Assert or State Refresh is received that has a better
        metric than this router's metric for S on interface I.  The
-       Assert state machine MUST transition to "I am Assert Loser" state
+       Assert state machine <em>MUST</em> transition to "I am Assert Loser" state
        and store the new Assert Winner's address and metric.  If the
-       metric was received in an Assert, the router MUST set the Assert
+       metric was received in an Assert, the router <em>MUST</em> set the Assert
        Timer (AT(S,G,I)) to Assert_Time.  If the metric was received in
-       a State Refresh, the router MUST set the Assert Timer (AT(S,G,I))
-       to three times the State Refresh Interval.  The router MUST also
+       a State Refresh, the router <em>MUST</em> set the Assert Timer (AT(S,G,I))
+       to three times the State Refresh Interval.  The router <em>MUST</em> also
 
 
 
@@ -2157,18 +2157,18 @@ Table of Contents
 
      Send State Refresh
        The router is sending a State Refresh(S,G) message on interface
-       I.  The router MUST set the Assert Timer (AT(S,G,I)) to three
+       I.  The router <em>MUST</em> set the Assert Timer (AT(S,G,I)) to three
        times the State Refresh Interval contained in the State
        Refresh(S,G) message.
 
      AT(S,G,I) Expires
        The (S,G) Assert Timer (AT(S,G,I)) expires.  The Assert state
-       machine MUST transition to the NoInfo (NI) state.
+       machine <em>MUST</em> transition to the NoInfo (NI) state.
 
      CouldAssert(S,G,I) -&gt; FALSE
        This router's RPF interface changed, making CouldAssert(S,G,I)
        false.  This router can no longer perform the actions of the
-       Assert winner, so the Assert state machine MUST transition to
+       Assert winner, so the Assert state machine <em>MUST</em> transition to
        NoInfo (NI) state, send an AssertCancel(S,G) to interface I,
        cancel the Assert Timer (AT(S,G,I)), and remove itself as the
        Assert Winner.
@@ -2181,9 +2181,9 @@ Table of Contents
      Receive Inferior Assert or State Refresh from Current Winner
        An Assert or State Refresh is received from the current Assert
        winner that is worse than this router's metric for S (typically,
-       the winner's metric became worse).  The Assert state machine MUST
+       the winner's metric became worse).  The Assert state machine <em>MUST</em>
        transition to NoInfo (NI) state and cancel AT(S,G,I).  The router
-       MUST delete the previous Assert Winner's address and metric and
+       <em>MUST</em> delete the previous Assert Winner's address and metric and
        evaluate any possible transitions to its Upstream(S,G) state
        machine.  Usually this router will eventually re-assert and win
        when data packets from S have started flowing again.
@@ -2192,11 +2192,11 @@ Table of Contents
        An Assert or State Refresh is received that has a metric better
        than or equal to that of the current Assert winner.  The Assert
        state machine remains in Loser (L) state.  If the metric was
-       received in an Assert, the router MUST set the Assert Timer
+       received in an Assert, the router <em>MUST</em> set the Assert Timer
        (AT(S,G,I)) to Assert_Time.  If the metric was received in a
-       State Refresh, the router MUST set the Assert Timer (AT(S,G,I))
+       State Refresh, the router <em>MUST</em> set the Assert Timer (AT(S,G,I))
        to three times the received State Refresh Interval.  If the
-       metric is better than the current Assert Winner, the router MUST
+       metric is better than the current Assert Winner, the router <em>MUST</em>
 
 
 
@@ -2208,31 +2208,31 @@ Table of Contents
 
 
        store the address and metric of the new Assert Winner, and if
-       CouldAssert(S,G,I) == TRUE, the router MUST multicast a
+       CouldAssert(S,G,I) == TRUE, the router <em>MUST</em> multicast a
        Prune(S,G) to the new Assert winner.
 
      AT(S,G,I) Expires
        The (S,G) Assert Timer (AT(S,G,I)) expires.  The Assert state
-       machine MUST transition to NoInfo (NI) state.  The router MUST
+       machine <em>MUST</em> transition to NoInfo (NI) state.  The router <em>MUST</em>
        delete the Assert Winner's address and metric.  If CouldAssert ==
-       TRUE, the router MUST evaluate any possible transitions to its
+       TRUE, the router <em>MUST</em> evaluate any possible transitions to its
        Upstream(S,G) state machine.
 
      CouldAssert -&gt; FALSE
        CouldAssert has become FALSE because interface I has become the
-       RPF interface for S.  The Assert state machine MUST transition to
+       RPF interface for S.  The Assert state machine <em>MUST</em> transition to
        NoInfo (NI) state, cancel AT(S,G,I), and delete information
        concerning the Assert Winner on I.
 
      CouldAssert -&gt; TRUE
        CouldAssert has become TRUE because interface I used to be the
        RPF interface for S, and now it is not.  The Assert state machine
-       MUST transition to NoInfo (NI) state, cancel AT(S,G,I), and
+       <em>MUST</em> transition to NoInfo (NI) state, cancel AT(S,G,I), and
        delete information concerning the Assert Winner on I.
 
      Current Assert Winner's NeighborLiveness Timer Expires
        The current Assert winner's NeighborLiveness Timer (NLT(N,I)) has
-       expired.  The Assert state machine MUST transition to the NoInfo
+       expired.  The Assert state machine <em>MUST</em> transition to the NoInfo
        (NI) state, delete the Assert Winner's address and metric, and
        evaluate any possible transitions to its Upstream(S,G) state
        machine.
@@ -2240,10 +2240,10 @@ Table of Contents
      Receive Prune(S,G), Join(S,G), or Graft(S,G)
        A Prune(S,G), Join(S,G), or Graft(S,G) message was received on
        interface I with its upstream neighbor address set to the
-       router's address on I.  The router MUST send an Assert(S,G) on
+       router's address on I.  The router <em>MUST</em> send an Assert(S,G) on
        the receiving interface I to initiate an Assert negotiation.  The
        Assert state machine remains in the Assert Loser(L) state.  If a
-       Graft(S,G) was received, the router MUST respond with a
+       Graft(S,G) was received, the router <em>MUST</em> respond with a
        GraftAck(S,G).
 
 
@@ -2286,10 +2286,10 @@ Table of Contents
    All PIM-DM packets use the same format as PIM-SM packets.  In the
    event of a discrepancy, PIM-SM [<a href="#ref-4" title="&quot;Protocol Independent Multicast-Sparse Mode (PIM-SM): Protocol Specification&quot;">4</a>] should be considered the
    definitive specification.  All PIM control messages have IP protocol
-   number 103.  All PIM-DM messages MUST be sent with a TTL of 1.  All
-   PIM-DM messages except Graft and Graft Ack messages MUST be sent to
-   the ALL-PIM-ROUTERS group.  Graft messages SHOULD be unicast to the
-   RPF'(S).  Graft Ack messages MUST be unicast to the sender of the
+   number 103.  All PIM-DM messages <em>MUST</em> be sent with a TTL of 1.  All
+   PIM-DM messages except Graft and Graft Ack messages <em>MUST</em> be sent to
+   the ALL-PIM-ROUTERS group.  Graft messages <em>SHOULD</em> be unicast to the
+   RPF'(S).  Graft Ack messages <em>MUST</em> be unicast to the sender of the
    Graft.
 
    The IPv4 ALL-PIM-ROUTERS group is 224.0.0.13.  The IPv6 ALL-PIM-
@@ -2415,8 +2415,8 @@ Table of Contents
      with the address, describes a range of addresses.  It is less than
      or equal to the address length in bits for the given Address Family
      and Encoding Type.  If the message is sent for a single address
-     then the mask length MUST equal the address length.  PIM-DM routers
-     MUST only send for a single address.
+     then the mask length <em>MUST</em> equal the address length.  PIM-DM routers
+     <em>MUST</em> only send for a single address.
 
    Group Multicast Address
      The address of the multicast group.
@@ -2463,7 +2463,7 @@ Table of Contents
      receipt.
 
    Mask Len
-     As described above.  PIM-DM routers MUST only send for a single
+     As described above.  PIM-DM routers <em>MUST</em> only send for a single
      source address.
 
    Source Address
@@ -2524,7 +2524,7 @@ Table of Contents
        2              LAN Prune Delay
        3 - 16         Reserved
        17             To be assigned by IANA
-       18             Deprecated and SHOULD NOT be used
+       18             Deprecated and <em>SHOULD NOT</em> be used
        19             DR Priority (PIM-SM Only)
        20             Generation ID
        21             State Refresh Capable
@@ -2532,7 +2532,7 @@ Table of Contents
        23 - 65000     To be assigned by IANA
        65001 - 65535  Reserved for Private Use [<a href="#ref-9" title="&quot;Address Family Numbers&quot;">9</a>]
 
-     Unknown options SHOULD be ignored.
+     Unknown options <em>SHOULD</em> be ignored.
 
 
 
@@ -2553,13 +2553,13 @@ Table of Contents
    |            Hold Time          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   Hold Time is the number of seconds a receiver MUST keep the neighbor
+   Hold Time is the number of seconds a receiver <em>MUST</em> keep the neighbor
    reachable.  If the Hold Time is set to '0xffff', the receiver of this
    message never times out the neighbor.  This may be used with dial-
    on-demand links to avoid keeping the link up with periodic Hello
    messages.  Furthermore, if the Holdtime is set to '0', the
    information is timed out immediately.  The Hello Hold Time option
-   MUST be used by PIM-DM routers.
+   <em>MUST</em> be used by PIM-DM routers.
 
 <span class="h5"><a class="selflink" name="section-4.7.5.2" href="#section-4.7.5.2">4.7.5.2</a>.  LAN Prune Delay Option</span>
 
@@ -2572,13 +2572,13 @@ Table of Contents
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The LAN_Prune_Delay option is used to tune the prune propagation
-   delay on multi-access LANs.  The T bit is used by PIM-SM and SHOULD
+   delay on multi-access LANs.  The T bit is used by PIM-SM and <em>SHOULD</em>
    be set to 0 by PIM-DM routers and ignored upon receipt.  The LAN
    Delay and Override Interval fields are time intervals in units of
    milliseconds and are used to tune the value of the J/P Override
    Interval and its derived timer values.  <a href="#section-4.3.5">Section 4.3.5</a> describes how
    these values affect the behavior of a router.  The LAN Prune Delay
-   SHOULD be used by PIM-DM routers.
+   <em>SHOULD</em> be used by PIM-DM routers.
 
 
 
@@ -2612,7 +2612,7 @@ Table of Contents
    Generation ID is a random value for the interface on which the Hello
    message is sent.  The Generation ID is regenerated whenever PIM
    forwarding is started or restarted on the interface.  The Generation
-   ID option MAY be used by PIM-DM routers.
+   ID option <em>MAY</em> be used by PIM-DM routers.
 
 <span class="h5"><a class="selflink" name="section-4.7.5.4" href="#section-4.7.5.4">4.7.5.4</a>.  State Refresh Capable Option</span>
 
@@ -2626,7 +2626,7 @@ Table of Contents
 
    The Interval field is the router's configured State Refresh Interval
    in seconds.  The Reserved field is set to zero and ignored upon
-   receipt.  The State Refresh Capable option MUST be used by State
+   receipt.  The State Refresh Capable option <em>MUST</em> be used by State
    Refresh capable PIM-DM routers.
 
 
@@ -2730,15 +2730,15 @@ Table of Contents
    Upstream Neighbor Address
      The address of the upstream neighbor.  The format for this address
      is given in the Encoded Unicast address in <a href="#section-4.7.2">Section 4.7.2</a>.  PIM-DM
-     routers MUST set this field to the RPF next hop.
+     routers <em>MUST</em> set this field to the RPF next hop.
 
    Reserved
      Transmitted as zero.  Ignored upon receipt.
 
    Hold Time
-     The number of seconds a receiving PIM-DM router MUST keep a Prune
+     The number of seconds a receiving PIM-DM router <em>MUST</em> keep a Prune
      state alive, unless removed by a Join or Graft message.  If the
-     Hold Time is '0xffff', the receiver MUST NOT remove the Prune state
+     Hold Time is '0xffff', the receiver <em>MUST NOT</em> remove the Prune state
      unless a corresponding Join or Graft message is received.  The Hold
      Time is ignored in Join messages.
 
@@ -2834,16 +2834,16 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.7.8" href="#section-4.7.8">4.7.8</a>.  Graft Message Format</span>
 
    PIM Graft messages use the same format as Join/Prune messages, except
-   that the Type field is set to 6.  The source address MUST be in the
-   Join section of the message.  The Hold Time field SHOULD be zero and
-   SHOULD be ignored when a Graft is received.
+   that the Type field is set to 6.  The source address <em>MUST</em> be in the
+   Join section of the message.  The Hold Time field <em>SHOULD</em> be zero and
+   <em>SHOULD</em> be ignored when a Graft is received.
 
 <span class="h4"><a class="selflink" name="section-4.7.9" href="#section-4.7.9">4.7.9</a>.  Graft Ack Message Format</span>
 
    PIM Graft Ack messages are identical in format to the received Graft
    message, except that the Type field is set to 7.  The Upstream
-   Neighbor Address field SHOULD be set to the sender of the Graft
-   message and SHOULD be ignored upon receipt.
+   Neighbor Address field <em>SHOULD</em> be set to the sender of the Graft
+   message and <em>SHOULD</em> be ignored upon receipt.
 
 <span class="h4"><a class="selflink" name="section-4.7.10" href="#section-4.7.10">4.7.10</a>.  State Refresh Message Format</span>
 
@@ -2912,19 +2912,19 @@ Table of Contents
      Header TTL, which is always set to 1.
 
    P
-     Prune indicator flag.  This MUST be set to 1 if the State Refresh
-     is to be sent on a Pruned interface.  Otherwise, it MUST be set to
+     Prune indicator flag.  This <em>MUST</em> be set to 1 if the State Refresh
+     is to be sent on a Pruned interface.  Otherwise, it <em>MUST</em> be set to
      0.
 
    N
-     Prune Now flag.  This SHOULD be set to 1 by the State Refresh
-     originator on every third State Refresh message and SHOULD be
+     Prune Now flag.  This <em>SHOULD</em> be set to 1 by the State Refresh
+     originator on every third State Refresh message and <em>SHOULD</em> be
      ignored upon receipt.  This is for compatibility with earlier
      versions of state refresh.
 
    O
-     Assert Override flag.  This SHOULD be set to 1 by upstream routers
-     on a LAN if the Assert Timer (AT(S,G)) is not running and SHOULD be
+     Assert Override flag.  This <em>SHOULD</em> be set to 1 by upstream routers
+     on a LAN if the Assert Timer (AT(S,G)) is not running and <em>SHOULD</em> be
      ignored upon receipt.  This is for compatibility with earlier
      versions of state refresh.
 
@@ -3030,9 +3030,9 @@ Timer Name: PrunePending Timer (PPT(S,G,I))
    The J/P_Override_Interval is the sum of the interface's
    Override_Interval (OI(I)) and Propagation_Delay (PD(I)).  If all
    routers on a LAN are using the LAN Prune Delay option, both
-   parameters MUST be set to the largest value on the LAN.  Otherwise,
-   the Override_Interval (OI(I)) MUST be set to 2.5 seconds, and the
-   Propagation_Delay (PD(I)) MUST be set to 0.5 seconds.
+   parameters <em>MUST</em> be set to the largest value on the LAN.  Otherwise,
+   the Override_Interval (OI(I)) <em>MUST</em> be set to 2.5 seconds, and the
+   Propagation_Delay (PD(I)) <em>MUST</em> be set to 0.5 seconds.
 
 
 
@@ -3088,9 +3088,9 @@ Timer Name: Upstream Override Timer (OT(S,G))
 
    t_override is a random value between 0 and the interface's
    Override_Interval (OI(I)).  If all routers on a LAN are using the LAN
-   Prune Delay option, the Override_Interval (OI(I)) MUST be set to the
+   Prune Delay option, the Override_Interval (OI(I)) <em>MUST</em> be set to the
    largest value on the LAN.  Otherwise, the Override_Interval (OI(I))
-   MUST be set to 2.5 seconds.
+   <em>MUST</em> be set to 2.5 seconds.
 
 
 
@@ -3177,7 +3177,7 @@ Timer Name: State Refresh Timer (SRT(S,G))
    message is not permitted to prevent the delivery of messages to a
    network with group members.
 
-   A PIM-DM Router MAY use the DR Priority option described in PIM-SM
+   A PIM-DM Router <em>MAY</em> use the DR Priority option described in PIM-SM
    [<a href="#ref-14" title="&quot;Protocol Independent Multicast - Sparse Mode (PIM-SM): Protocol Specification (Revised)&quot;">14</a>] to elect an IGMP v1 querier.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Source Specific Multicast (SSM) Interactions</span>
@@ -3190,7 +3190,7 @@ Timer Name: State Refresh Timer (SRT(S,G))
 
    Although multicast group scope boundaries are generally identical to
    routing area boundaries, it is conceivable that a routing area might
-   be partitioned for a particular multicast group.  PIM-DM routers MUST
+   be partitioned for a particular multicast group.  PIM-DM routers <em>MUST</em>
    NOT send any messages concerning a particular group across that
    group's scope boundary.
 
@@ -3232,11 +3232,11 @@ Timer Name: State Refresh Timer (SRT(S,G))
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Security Considerations</span>
 
-   The IPsec authentication header [<a href="#ref-10" title="&quot;Security Architecture for the Internet Protocol&quot;">10</a>] MAY be used to provide data
+   The IPsec authentication header [<a href="#ref-10" title="&quot;Security Architecture for the Internet Protocol&quot;">10</a>] <em>MAY</em> be used to provide data
    integrity protection and groupwise data origin authentication of PIM
    protocol messages.  Authentication of PIM messages can protect
    against unwanted behaviors caused by unauthorized or altered PIM
-   messages.  In any case, a PIM router SHOULD NOT accept and process
+   messages.  In any case, a PIM router <em>SHOULD NOT</em> accept and process
    PIM messages from neighbors unless a valid Hello message has been
    received from that neighbor.
 
@@ -3283,7 +3283,7 @@ Timer Name: State Refresh Timer (SRT(S,G))
       upstream router.  This should not be a problem, as the remote
       forger should have no way to get a Hello message to the target of
       the attack.  Without a valid Hello message, the receiving router
-      SHOULD NOT accept the Graft.
+      <em>SHOULD NOT</em> accept the Graft.
 
    4. A forged GraftAck message has no impact, as it will be ignored
       unless the router has recently sent a Graft to its upstream
@@ -3298,18 +3298,18 @@ Timer Name: State Refresh Timer (SRT(S,G))
       the same impact as a forged Assert message, having the same
       general functions.  In addition, forged State Refresh messages
       would be propagated downstream and might be used in a denial of
-      service attack.  Therefore, a PIM-DM router SHOULD rate limit
+      service attack.  Therefore, a PIM-DM router <em>SHOULD</em> rate limit
       State Refresh messages propagated.
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Non-cryptographic Authentication Mechanisms</span>
 
-   A PIM-DM router SHOULD provide an option to limit the set of
+   A PIM-DM router <em>SHOULD</em> provide an option to limit the set of
    neighbors from which it will accept PIM-DM messages.  Either static
    configuration of IP addresses or an IPSec security association may be
    used.  All options that restrict the range of addresses from which
-   packets are accepted MUST default to allowing all packets.
+   packets are accepted <em>MUST</em> default to allowing all packets.
 
-   Furthermore, a PIM router SHOULD NOT accept protocol messages from a
+   Furthermore, a PIM router <em>SHOULD NOT</em> accept protocol messages from a
    router from which it has not yet received a valid Hello message.
 
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  Authentication Using IPsec</span>
@@ -3327,9 +3327,9 @@ Timer Name: State Refresh Timer (SRT(S,G))
 <span class="grey"><a href="./rfc3973.html">RFC 3973</a>                   PIM - Dense Mode                 January 2005</span>
 
 
-   Payload (ESP) MAY also be used to provide both encryption and
+   Payload (ESP) <em>MAY</em> also be used to provide both encryption and
    authentication of PIM protocol messages.  When IPsec authentication
-   is used, a PIM router SHOULD reject (drop without processing) any
+   is used, a PIM router <em>SHOULD</em> reject (drop without processing) any
    unauthorized PIM protocol messages.
 
    To use IPSec, the administrator of a PIM network configures each PIM
@@ -3352,7 +3352,7 @@ Timer Name: State Refresh Timer (SRT(S,G))
    link.  This will not specifically authenticate the individual router
    sending the message, but will ensure that the sender is a PIM-DM
    router on that link.  If this method is used, the receiver of the
-   message MUST ignore the received sequence number, thus disabling
+   message <em>MUST</em> ignore the received sequence number, thus disabling
    anti-replay mechanisms.  The effects of disabling anti-replay
    mechanisms are essentially the same as the effects of forged
    messages, described in <a href="#section-7.1">Section 7.1</a>, with the additional protection
@@ -3399,7 +3399,7 @@ Timer Name: State Refresh Timer (SRT(S,G))
 
    * Forged State Refresh messages sent quickly could be propagated by
      downstream routers, creating a potential denial of service attack.
-     Therefore, a PIM-DM router SHOULD limit the rate of State Refresh
+     Therefore, a PIM-DM router <em>SHOULD</em> limit the rate of State Refresh
      messages propagated.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Acknowledgments</span>

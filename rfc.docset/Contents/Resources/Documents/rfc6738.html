@@ -380,7 +380,7 @@ Table of Contents
    authorization decisions.  This document focuses on the IKEv2 server,
    as a Diameter client, communicating to the Diameter server, and it
    specifies the Diameter application needed for this communication.
-   Other protocols leveraging this Diameter application MAY specify
+   Other protocols leveraging this Diameter application <em>MAY</em> specify
    their own SK derivation scheme.  For example see [<a href="#ref-X.S0047" title="&quot;Mobile IPv6 Enhancements&quot;">X.S0047</a>] and
    [<a href="#ref-X.S0058" title="&quot;WiMAX-HRPD Interworking: Core Network Aspects&quot;">X.S0058</a>].  This document specifies the default procedure for
    derivation of the SK used in IKEv2 authentication when protocols
@@ -392,8 +392,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Abbreviations</span>
@@ -451,23 +451,23 @@ Table of Contents
    information received in IDi [<a href="./rfc5996.html" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">RFC5996</a>] to identify the IKEv2 peer and
    the SPI, if available, to determine the correct SK for this IKEv2
    peer.  If no SK associated with this IKEv2 peer is found, the IKEv2
-   server MUST send an Authorize-Only (Auth-Request-Type set to
+   server <em>MUST</em> send an Authorize-Only (Auth-Request-Type set to
    "Authorize-Only") Diameter IKEv2-SK-Request message to the HAAA to
    obtain the SK.  If the IDi payload extracted from the IKE_AUTH
    message contains an identity that is meaningful for the Diameter
-   infrastructure, such as a Network Access Identifier (NAI), it SHALL
+   infrastructure, such as a Network Access Identifier (NAI), it <em>SHALL</em>
    be used by the IKEv2 server to populate the User-Name AVP in the
    Diameter message.  Otherwise, it is out of scope of this document how
    the IKEv2 server maps the value received in the IDi payload to the
    User-Name AVP and whether or not the User-Name AVP is included in the
    IKEv2-SK-Request message.  In the same Diameter message, the IKEv2
-   server SHALL also include the IKEv2-Nonces AVP with the initiator and
+   server <em>SHALL</em> also include the IKEv2-Nonces AVP with the initiator and
    responder nonces (Ni and Nr) exchanged during initial IKEv2 exchange.
-   Finally, the IKEv2 server SHALL include the IKEv2-Identity AVP in the
-   IKEv2-SK-Request message.  The Initiator-Identity AVP SHALL be
+   Finally, the IKEv2 server <em>SHALL</em> include the IKEv2-Identity AVP in the
+   IKEv2-SK-Request message.  The Initiator-Identity AVP <em>SHALL</em> be
    populated with the IDi field extracted from the IKE_AUTH message.  If
    the IDr payload was included in the IKE_AUTH message received from
-   the IKEv2 peer, the IKEv2 server SHALL also include a Responder-
+   the IKEv2 peer, the IKEv2 server <em>SHALL</em> also include a Responder-
    Identity AVP populated with the received IDr.
 
 
@@ -482,11 +482,11 @@ Table of Contents
    [<a href="./rfc6733.html" title="&quot;Diameter Base Protocol&quot;">RFC6733</a>].
 
    Upon receiving a Diameter IKEv2-SK-Request message from the IKEv2
-   server, the HAAA SHALL use the User-Name AVP (if present) and/or
+   server, the HAAA <em>SHALL</em> use the User-Name AVP (if present) and/or
    Initiator-Identity AVP to retrieve the associated keying material.
    When the default SK-generation procedure specified in this document
    is used, the peer side that provides the SK to the IKEv2 peer, as
-   well as the Diameter server, SHALL use the same SK derivation that
+   well as the Diameter server, <em>SHALL</em> use the same SK derivation that
    follows the methodology similar to that specified in <a href="./rfc5295.html#section-3.1">Section&nbsp;3.1 of
    [RFC5295]</a>, specifically:
 
@@ -513,9 +513,9 @@ Table of Contents
       output key length, in octets.
 
    When applications using this protocol define their own SK-generation
-   algorithm, it is strongly RECOMMENDED that the nonces Ni and Nr be
-   used in the computation.  It is also RECOMMENDED that IDi be used.
-   IDr SHOULD NOT be used in the SK generation algorithm.  Applications
+   algorithm, it is strongly <em>RECOMMENDED</em> that the nonces Ni and Nr be
+   used in the computation.  It is also <em>RECOMMENDED</em> that IDi be used.
+   IDr <em>SHOULD NOT</em> be used in the SK generation algorithm.  Applications
    that want to use IDr in the computation should take into
    consideration that the IDr asserted by the IKEv2 peer may not be the
    same as the IDr returned by the IKEv2 responder.  This mismatch will
@@ -542,13 +542,13 @@ Table of Contents
 
    The HAAA may maintain Diameter session state or may be stateless.
    This is indicated by the presence or absence of the Auth-Session-
-   State AVP included in the answer message.  The IKEv2 server MUST
+   State AVP included in the answer message.  The IKEv2 server <em>MUST</em>
    support the Authorization Session State Machine defined in [<a href="./rfc6733.html" title="&quot;Diameter Base Protocol&quot;">RFC6733</a>].
 
 <span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  Session-Termination-Request/Answer</span>
 
    In the case where the HAAA is maintaining session state, when the
-   IKEv2 server terminates the SA, it SHALL send a Session-Termination-
+   IKEv2 server terminates the SA, it <em>SHALL</em> send a Session-Termination-
    Request (STR) message [<a href="./rfc6733.html" title="&quot;Diameter Base Protocol&quot;">RFC6733</a>] to inform the HAAA that the
    authorized session has been terminated.
 
@@ -560,7 +560,7 @@ Table of Contents
 
    The Abort-Session-Request (ASR) message [<a href="./rfc6733.html" title="&quot;Diameter Base Protocol&quot;">RFC6733</a>] is sent by the HAAA
    to the IKEv2 server to terminate the authorized session.  When the
-   IKEv2 server receives the ASR message, it MUST delete the
+   IKEv2 server receives the ASR message, it <em>MUST</em> delete the
    corresponding IKE_SA and all CHILD_SAs set up through it.
 
    The Abort-Session-Answer (ASA) message [<a href="./rfc6733.html" title="&quot;Diameter Base Protocol&quot;">RFC6733</a>] is sent by the IKEv2
@@ -568,7 +568,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Command Codes for Diameter IKEv2 with SK</span>
 
-   This section defines new Command Code values that MUST be supported
+   This section defines new Command Code values that <em>MUST</em> be supported
    by all Diameter implementations conforming to this specification.
 
    +------------------+---------+------+-----------------+-------------+
@@ -594,7 +594,7 @@ Table of Contents
    The IKEv2-SK-Request message, indicated with the Command Code set to
    329 and the 'R' bit set in the Command Flags field, is sent from the
    IKEv2 server to the HAAA to initiate IKEv2 with SK authorization.  In
-   this case, the Application-Id field of the Diameter header MUST be
+   this case, the Application-Id field of the Diameter header <em>MUST</em> be
    set to the Diameter IKE SK Application-Id (11).
 
    Message format
@@ -622,15 +622,15 @@ Table of Contents
                                  ...
                                * [ AVP ]
 
-   The IKEv2-SK-Request message MUST include an IKEv2-Nonces AVP
+   The IKEv2-SK-Request message <em>MUST</em> include an IKEv2-Nonces AVP
    containing the Ni and Nr nonces swapped during initial IKEv2
-   exchange.  The IKEv2-SK-Request message MAY contain a Key-SPI AVP
+   exchange.  The IKEv2-SK-Request message <em>MAY</em> contain a Key-SPI AVP
    (Key-SPI AVP is specified in [<a href="./rfc6734.html" title="&quot;Diameter Attribute- Value Pairs for Cryptographic Key Transport&quot;">RFC6734</a>]).  If included, it contains
-   the SPI that HAAA SHALL use, in addition to the other parameters
+   the SPI that HAAA <em>SHALL</em> use, in addition to the other parameters
    (e.g., Initiator-Identity), to identify the appropriate SK.  The
-   IKEv2-SK-Request message MUST include IKEv2-Identity AVP.  The
-   Initiator-Identity AVP SHALL contain IDi as received in IKE_AUTH
-   message.  The Responder-Identity AVP SHALL be included in the IKEv2-
+   IKEv2-SK-Request message <em>MUST</em> include IKEv2-Identity AVP.  The
+   Initiator-Identity AVP <em>SHALL</em> contain IDi as received in IKE_AUTH
+   message.  The Responder-Identity AVP <em>SHALL</em> be included in the IKEv2-
    SK-Request message, if IDr payload was included in the IKE_AUTH
    message received from the IKEv2 peer.  If included, the Responder-
    Identity AVP contains the received IDr.
@@ -651,7 +651,7 @@ Table of Contents
    field set to 329 and the 'R' bit cleared in the Command Flags field,
    is sent by the HAAA to the IKEv2 server in response to the IKESKR
    command.  In this case, the Application-Id field of the Diameter
-   header MUST be set to the Diameter IKE SK Application-Id (11).
+   header <em>MUST</em> be set to the Diameter IKE SK Application-Id (11).
 
    Message format
 
@@ -679,12 +679,12 @@ Table of Contents
                                 * [ AVP ]
 
    If the authorization procedure is successful, then the IKEv2-SK-
-   Answer message SHALL include the Key AVP as specified in [<a href="./rfc6734.html" title="&quot;Diameter Attribute- Value Pairs for Cryptographic Key Transport&quot;">RFC6734</a>].
-   The value of the Key-Type AVP SHALL be set to IKEv2 SK (3).  The
-   Keying-Material AVP SHALL contain the SK.  If the Key-SPI AVP is
-   received in IKEv2-SK-Request, the Key-SPI AVP SHALL be included in
+   Answer message <em>SHALL</em> include the Key AVP as specified in [<a href="./rfc6734.html" title="&quot;Diameter Attribute- Value Pairs for Cryptographic Key Transport&quot;">RFC6734</a>].
+   The value of the Key-Type AVP <em>SHALL</em> be set to IKEv2 SK (3).  The
+   Keying-Material AVP <em>SHALL</em> contain the SK.  If the Key-SPI AVP is
+   received in IKEv2-SK-Request, the Key-SPI AVP <em>SHALL</em> be included in
    the Key AVP.  The Key-Lifetime AVP may be included; if so, then the
-   associated key SHALL NOT be used by the receiver of the answer if the
+   associated key <em>SHALL NOT</em> be used by the receiver of the answer if the
    lifetime has expired.  Finally, the Responder-Identity AVP may be
    included.
 
@@ -822,15 +822,15 @@ Table of Contents
 
    The table uses the following symbols:
 
-   0:       The AVP MUST NOT be present in the message.
+   0:       The AVP <em>MUST NOT</em> be present in the message.
 
-   0+:      Zero or more instances of the AVP MAY be present in the
+   0+:      Zero or more instances of the AVP <em>MAY</em> be present in the
             message.
 
-   0-1:     Zero or one instance of the AVP MAY be present in the
+   0-1:     Zero or one instance of the AVP <em>MAY</em> be present in the
             message.
 
-   1:       One instance of the AVP MUST be present in the message.
+   1:       One instance of the AVP <em>MUST</em> be present in the message.
 
                                      +-------------------+
                                      |   Command Code    |
@@ -879,8 +879,8 @@ Table of Contents
                                                  |AVP Flag |
                                                  |  Rules  |
                                                  +----+----+
-                       AVP  Section              |    |MUST|
-    Attribute Name     Code Defined   Value Type |MUST| NOT|
+                       AVP  Section              |    |<em>MUST</em>|
+    Attribute Name     Code Defined   Value Type |<em>MUST</em>| NOT|
    +---------------------------------------------+----+----+
    |Key                 581  Note 1   Grouped    |  M | V  |
    +---------------------------------------------+----+----+

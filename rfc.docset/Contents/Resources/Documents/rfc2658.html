@@ -220,8 +220,8 @@ ABSTRACT
    on the importance of low end-to-end delay versus greater tolerance
    for lost packets.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>",  "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-3" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">3</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a> Background</span>
@@ -274,17 +274,17 @@ ABSTRACT
    following meaning:
 
    Reserved (RR): 2 bits
-      MUST be set to zero by sender, SHOULD be ignored by receiver.
+      <em>MUST</em> be set to zero by sender, <em>SHOULD</em> be ignored by receiver.
 
    Interleave (LLL): 3 bits
-      MUST have a value between 0 and 5 inclusive.  The remaining two
-      values (6 and 7) MUST not be used by senders.  If this field is
-      non-zero, interleaving is enabled.  All receivers MUST support
-      interleaving.  Senders MAY support interleaving.  Senders that do
-      not support interleaving MUST set field LLL and NNN to zero.
+      <em>MUST</em> have a value between 0 and 5 inclusive.  The remaining two
+      values (6 and 7) <em>MUST</em> not be used by senders.  If this field is
+      non-zero, interleaving is enabled.  All receivers <em>MUST</em> support
+      interleaving.  Senders <em>MAY</em> support interleaving.  Senders that do
+      not support interleaving <em>MUST</em> set field LLL and NNN to zero.
 
    Interleave Index (NNN): 3 bits
-      MUST have a value less than or equal to the value of LLL.  Values
+      <em>MUST</em> have a value less than or equal to the value of LLL.  Values
       of NNN greater than the value of LLL are invalid.
 
 
@@ -300,7 +300,7 @@ ABSTRACT
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a> Receiving Invalid Values</span>
 
    On receipt of an RTP packet with an invalid value of the LLL or NNN
-   field, the RTP packet MUST be treated as lost by the receiver for the
+   field, the RTP packet <em>MUST</em> be treated as lost by the receiver for the
    purpose of generating erasure frames as described in <a href="#section-4">section 4</a>.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> CODEC data frame format</span>
@@ -318,12 +318,12 @@ ABSTRACT
         2       1/4       8
         3       1/2       17
         4       1         35
-        5       reserved  8 (SHOULD be treated as a reserved value)
-       14       Erasure   1 (SHOULD NOT be transmitted by sender)
+        5       reserved  8 (<em>SHOULD</em> be treated as a reserved value)
+       14       Erasure   1 (<em>SHOULD NOT</em> be transmitted by sender)
        other    n/a       reserved
 
       Receipt of a CODEC data frame with a reserved value in octet 0
-      MUST be considered invalid data as described in 3.1.
+      <em>MUST</em> be considered invalid data as described in 3.1.
 
    b. The bits as numbered in the standard [<a href="#ref-1">1</a>] from highest to lowest
       are packed into octets.  The highest numbered bit (265 for Rate 1,
@@ -337,7 +337,7 @@ ABSTRACT
       in the most significant bit of octet 2 and so on until bit 0 from
       the standard Rate 1 frame is placed in Internet bit 1 of octet 34
       of the CODEC data frame.  The remaining unused bits of the last
-      octet of the CODEC data frame MUST be set to zero.
+      octet of the CODEC data frame <em>MUST</em> be set to zero.
 
 
 
@@ -372,26 +372,26 @@ ABSTRACT
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a> Bundling CODEC data frames</span>
 
-   As indicated in <a href="#section-3">section 3</a>, more than one CODEC data frame MAY be
-   included in a single RTP packet by a sender.  Receivers MUST handle
+   As indicated in <a href="#section-3">section 3</a>, more than one CODEC data frame <em>MAY</em> be
+   included in a single RTP packet by a sender.  Receivers <em>MUST</em> handle
    bundles of up to 10 CODEC data frames in a single RTP packet.
 
    Furthermore, senders have the following additional restrictions:
 
-   o  MUST not bundle more CODEC data frames in a single RTP packet than
+   o  <em>MUST</em> not bundle more CODEC data frames in a single RTP packet than
       will fit in the MTU of the RTP transport protocol.  For the
       purpose of computing the maximum bundling value, all CODEC data
       frames should be assumed to have the Rate 1 size.
 
-   o  MUST never bundle more than 10 CODEC data frames in a single RTP
+   o  <em>MUST</em> never bundle more than 10 CODEC data frames in a single RTP
       packet.
 
    o  Once beginning transmission with a given SSRC and given bundling
-      value, MUST NOT increase the bundling value.  If the bundling
-      value needs to be increased, a new SSRC number MUST be used.
+      value, <em>MUST NOT</em> increase the bundling value.  If the bundling
+      value needs to be increased, a new SSRC number <em>MUST</em> be used.
 
-   o  MAY decrease the bundling value only between interleave groups
-      (see <a href="#section-3.4">section 3.4</a>).  If the bundling value is decreased, it MUST
+   o  <em>MAY</em> decrease the bundling value only between interleave groups
+      (see <a href="#section-3.4">section 3.4</a>).  If the bundling value is decreased, it <em>MUST</em>
       NOT be increased (even to the original value), although it may be
       decreased again at a later time.
 
@@ -422,7 +422,7 @@ ABSTRACT
    Interleaving is meaningful only when more than one CODEC data frame
    is bundled into a single RTP packet.
 
-   All receivers MUST support interleaving.  Senders MAY support
+   All receivers <em>MUST</em> support interleaving.  Senders <em>MAY</em> support
    interleaving.
 
    Given a time-ordered sequence of output frames from the Qcelp CODEC
@@ -448,9 +448,9 @@ ABSTRACT
       Frame L, Frame L+L+1, Frame L+2(L+1), Frame L+3(L+1), ... for a
       total of B frames
 
-   Senders MUST transmit in timestamp-increasing order.  Furthermore,
+   Senders <em>MUST</em> transmit in timestamp-increasing order.  Furthermore,
    within each interleave group, the RTP packets making up the
-   interleave group MUST be transmitted in value-increasing order of the
+   interleave group <em>MUST</em> be transmitted in value-increasing order of the
    NNN field.  While this does not guarantee reduced end-to-end delay on
    the receiving end, when packets are delivered in order by the
    underlying transport, delay will be reduced to the minimum possible.
@@ -468,11 +468,11 @@ ABSTRACT
    Additionally, senders have the following restrictions:
 
    o  Once beginning transmission with a given SSRC and given interleave
-      value, MUST NOT increase the interleave value.  If the interleave
-      value needs to be increased, a new SSRC number MUST be used.
+      value, <em>MUST NOT</em> increase the interleave value.  If the interleave
+      value needs to be increased, a new SSRC number <em>MUST</em> be used.
 
-   o  MAY decrease the interleave value only between interleave groups.
-      If the interleave value is decreased, it MUST NOT be increased
+   o  <em>MAY</em> decrease the interleave value only between interleave groups.
+      If the interleave value is decreased, it <em>MUST NOT</em> be increased
       (even to the original value), although it may be decreased again
       at a later time.
 
@@ -483,7 +483,7 @@ ABSTRACT
    group consists of RTP packets with sequence numbers from S-N to S-N+L
    inclusive.  In other words, the Interleave group always consists of
    L+1 RTP packets with sequential sequence numbers.  The bundling value
-   for all RTP packets in an interleave group MUST be the same.
+   for all RTP packets in an interleave group <em>MUST</em> be the same.
 
    The receiver determines the expected bundling value for all RTP
    packets in an interleave group by the number of CODEC data frames
@@ -493,10 +493,10 @@ ABSTRACT
    transport.
 
    On receipt of an RTP packet in an interleave group with other than
-   the expected bundling value, the receiver MAY discard CODEC data
+   the expected bundling value, the receiver <em>MAY</em> discard CODEC data
    frames off the end of the RTP packet or add erasure CODEC data frames
    to the end of the packet in order to manufacture a substitute packet
-   with the expected bundling value.  The receiver MAY instead choose to
+   with the expected bundling value.  The receiver <em>MAY</em> instead choose to
    discard the whole interleave group and play silence.
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a> Reconstructing Interleaved Audio</span>
@@ -544,11 +544,11 @@ ABSTRACT
    frame will be sent to the Qcelp CODEC.
 
    Now, assume that packet n of the interleave group arrives before
-   frame x+1 of that packet is needed.  Receivers SHOULD use frame x+1
+   frame x+1 of that packet is needed.  Receivers <em>SHOULD</em> use frame x+1
    of the newly received packet n rather than substituting an erasure
    frame.  In other words, just because packet n wasn't available the
    first time it was needed to reconstruct the interleaved audio, the
-   receiver SHOULD NOT assume it's not available when it's subsequently
+   receiver <em>SHOULD NOT</em> assume it's not available when it's subsequently
    needed for interleaved audio reconstruction.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a> Handling lost RTP packets</span>
@@ -556,10 +556,10 @@ ABSTRACT
    The Qcelp CODEC supports the notion of erasure frames.  These are
    frames that for whatever reason are not available.  When
    reconstructing interleaved audio or playing back non-interleaved
-   audio, erasure frames MUST be fed to the Qcelp CODEC for all of the
+   audio, erasure frames <em>MUST</em> be fed to the Qcelp CODEC for all of the
    missing packets.
 
-   Receivers MUST use the timestamp clock to determine how many CODEC
+   Receivers <em>MUST</em> use the timestamp clock to determine how many CODEC
    data frames are missing.  Each CODEC data frame advances the
    timestamp clock EXACTLY 160 counts.
 

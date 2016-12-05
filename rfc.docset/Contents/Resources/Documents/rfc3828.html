@@ -282,7 +282,7 @@ Table of Contents
    packets.
 
    Second, all links that support IP transmission should use a strong
-   link layer integrity check (e.g., CRC-32 [<a href="./rfc3819.html" title="&quot;Advice for Internet Subnetwork Designers&quot;">RFC-3819</a>]), and this MUST
+   link layer integrity check (e.g., CRC-32 [<a href="./rfc3819.html" title="&quot;Advice for Internet Subnetwork Designers&quot;">RFC-3819</a>]), and this <em>MUST</em>
    be used by default for IP traffic.  When the under-lying link
    supports it, certain types of traffic (e.g., UDP-Lite) may benefit
    from a different link behavior that permits partially damaged IP
@@ -338,8 +338,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC-2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Protocol Description</span>
@@ -381,17 +381,17 @@ Table of Contents
 
    Checksum Coverage is the number of octets, counting from the first
    octet of the UDP-Lite header, that are covered by the checksum.  The
-   UDP-Lite header MUST always be covered by the checksum.  Despite this
+   UDP-Lite header <em>MUST</em> always be covered by the checksum.  Despite this
    requirement, the Checksum Coverage is expressed in octets from the
    beginning of the UDP-Lite header in the same way as for UDP.  A
    Checksum Coverage of zero indicates that the entire UDP-Lite packet
    is covered by the checksum.  This means that the value of the
-   Checksum Coverage field MUST be either 0 or at least 8.  A UDP-Lite
-   packet with a Checksum Coverage value of 1 to 7 MUST be discarded by
+   Checksum Coverage field <em>MUST</em> be either 0 or at least 8.  A UDP-Lite
+   packet with a Checksum Coverage value of 1 to 7 <em>MUST</em> be discarded by
    the receiver.  Irrespective of the Checksum Coverage, the computed
-   Checksum field MUST include a pseudo-header, based on the IP header
+   Checksum field <em>MUST</em> include a pseudo-header, based on the IP header
    (see below).  UDP-Lite packets with a Checksum Coverage greater than
-   the IP length MUST also be discarded.
+   the IP length <em>MUST</em> also be discarded.
 
    The Checksum field is the 16-bit one's complement of the one's
    complement sum of a pseudo-header of information collected from the
@@ -399,11 +399,11 @@ Table of Contents
    (starting at the first octet in the UDP-Lite header), virtually
    padded with a zero octet at the end (if necessary) to make a multiple
    of two octets [<a href="./rfc1071.html" title="&quot;Computing the Internet Checksum&quot;">RFC-1071</a>].  Prior to computation, the checksum field
-   MUST be set to zero.  If the computed checksum is 0, it is
+   <em>MUST</em> be set to zero.  If the computed checksum is 0, it is
    transmitted as all ones (the equivalent in one's complement
    arithmetic).
 
-   Since the transmitted checksum MUST NOT be all zeroes, an application
+   Since the transmitted checksum <em>MUST NOT</em> be all zeroes, an application
    using UDP-Lite that wishes to have no protection of the packet
    payload should use a Checksum Coverage value of 8.  This differs
 
@@ -440,7 +440,7 @@ Table of Contents
    application block delivery of packets with coverage values less than
    a value provided by the application.
 
-   It is RECOMMENDED that the default behavior of UDP-Lite be set to
+   It is <em>RECOMMENDED</em> that the default behavior of UDP-Lite be set to
    mimic UDP by having the Checksum Coverage field match the length of
    the UDP-Lite packet and verify the entire packet.  Applications that
    wish to define the payload as partially insensitive to bit errors
@@ -478,7 +478,7 @@ Table of Contents
    header, and also the length of the IP payload, which is derived from
    the Length field in the IP header.
 
-   The sender IP module MUST NOT pad the IP payload with extra octets,
+   The sender IP module <em>MUST NOT</em> pad the IP payload with extra octets,
    since the length of the UDP-Lite payload delivered to the receiver
    depends on the length of the IP payload.
 
@@ -498,8 +498,8 @@ Table of Contents
    packets need not be discarded by lower layer protocols when there are
    errors only in the insensitive part.  For a link that supports
    partial error detection, the Checksum Coverage field in the UDP-Lite
-   header MAY be used as a hint of where errors do not need to be
-   detected.  Lower layers MUST use a strong error detection mechanism
+   header <em>MAY</em> be used as a hint of where errors do not need to be
+   detected.  Lower layers <em>MUST</em> use a strong error detection mechanism
    [<a href="./rfc3819.html" title="&quot;Advice for Internet Subnetwork Designers&quot;">RFC-3819</a>] to detect at least errors that occur in the sensitive part
    of the packet, and discard damaged packets.  The sensitive part
    consists of the octets between the first octet of the IP header and
@@ -508,8 +508,8 @@ Table of Contents
    UDP packet.
 
    Link layers that do not support partial error detection suitable for
-   UDP-Lite, as described above, MUST detect errors in the entire UDP-
-   Lite packet, and MUST discard damaged packets [<a href="./rfc3819.html" title="&quot;Advice for Internet Subnetwork Designers&quot;">RFC-3819</a>].  The whole
+   UDP-Lite, as described above, <em>MUST</em> detect errors in the entire UDP-
+   Lite packet, and <em>MUST</em> discard damaged packets [<a href="./rfc3819.html" title="&quot;Advice for Internet Subnetwork Designers&quot;">RFC-3819</a>].  The whole
    UDP-Lite packet is thus treated in exactly the same way as a UDP
    packet.
 
@@ -602,7 +602,7 @@ Table of Contents
 
    When IPsec is used with ESP payload encryption, a link can not
    determine the specific transport protocol of a packet being forwarded
-   by inspecting the IP packet payload.  In this case, the link MUST
+   by inspecting the IP packet payload.  In this case, the link <em>MUST</em>
    provide a standard integrity check covering the entire IP packet and
    payload.  UDP-Lite provides no benefit in this case.
 

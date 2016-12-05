@@ -327,8 +327,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  CalDAV SRV Service Labels</span>
@@ -354,7 +354,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6764.html">RFC 6764</a>                SRV for CalDAV &amp; CardDAV           February 2013</span>
 
 
-   Clients MUST honor Priority and Weight values in the SRV RRs, as
+   Clients <em>MUST</em> honor Priority and Weight values in the SRV RRs, as
    described by [<a href="./rfc2782.html" title="&quot;A DNS RR for specifying the location of services (DNS SRV)&quot;">RFC2782</a>].
 
    Example: service record for server without TLS
@@ -372,11 +372,11 @@ Table of Contents
    be retrieved at the same time.  To enable that, this specification
    uses a TXT RR that follows the syntax defined in <a href="./rfc6763.html#section-6">Section&nbsp;6 of
    [RFC6763]</a> and defines a "path" key for use in that record.  The value
-   of the key MUST be the actual "context path" to the corresponding
+   of the key <em>MUST</em> be the actual "context path" to the corresponding
    service on the server.
 
    A site might provide TXT records in addition to SRV records for each
-   service.  When present, clients MUST use the "path" value as the
+   service.  When present, clients <em>MUST</em> use the "path" value as the
    "context path" for the service in HTTP requests.  When not present,
    clients use the ".well-known" URI approach described next.
 
@@ -390,14 +390,14 @@ Table of Contents
    CalDAV and CardDAV services, "caldav" and "carddav" respectively (see
    <a href="#section-9">Section 9</a>).  These URIs point to a resource that the client can use
    as the initial "context path" for the service they are trying to
-   connect to.  The server MUST redirect HTTP requests for that resource
+   connect to.  The server <em>MUST</em> redirect HTTP requests for that resource
    to the actual "context path" using one of the available mechanisms
    provided by HTTP (e.g., using a 301, 303, or 307 response).  Clients
-   MUST handle HTTP redirects on the ".well-known" URI.  Servers MUST
+   <em>MUST</em> handle HTTP redirects on the ".well-known" URI.  Servers <em>MUST</em>
    NOT locate the actual CalDAV or CardDAV service endpoint at the
    ".well-known" URI as per <a href="./rfc5785.html#section-1.1">Section&nbsp;1.1 of [RFC5785]</a>.
 
-   Servers SHOULD set an appropriate Cache-Control header value (as per
+   Servers <em>SHOULD</em> set an appropriate Cache-Control header value (as per
    <a href="./rfc2616.html#section-14.9">Section&nbsp;14.9 of [RFC2616]</a>) in the redirect response to ensure caching
    occurs or does not occur as needed or as required by the type of
    response generated.  For example, if it is anticipated that the
@@ -414,7 +414,7 @@ Table of Contents
    value would be used.
 
    To facilitate "context paths" that might differ from user to user,
-   the server MAY require authentication when a client tries to access
+   the server <em>MAY</em> require authentication when a client tries to access
    the ".well-known" URI (i.e., the server would return a 401 status
    response to the unauthenticated request from the client, then return
    the redirect response only after a successful authentication by the
@@ -436,7 +436,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Client "Bootstrapping" Procedures</span>
 
    This section describes a procedure that CalDAV or CardDAV clients
-   SHOULD use to do their initial configuration based on minimal user
+   <em>SHOULD</em> use to do their initial configuration based on minimal user
    input.  The goal is to determine an http: or https: URI that
    describes the full path to the user's principal-URL [<a href="./rfc3744.html" title="&quot;Web Distributed Authoring and Versioning (WebDAV) Access Control Protocol&quot;">RFC3744</a>].
 
@@ -486,20 +486,20 @@ Table of Contents
 
        *  If an SRV record is returned, the client extracts the target
           FQDN and port number.  If multiple SRV records are returned,
-          the client MUST use the Priority and Weight fields in the
+          the client <em>MUST</em> use the Priority and Weight fields in the
           record to determine which one to pick (as per [<a href="./rfc2782.html" title="&quot;A DNS RR for specifying the location of services (DNS SRV)&quot;">RFC2782</a>]).
 
        *  If an SRV record is not found, the client will need to prompt
           the user to enter the FQDN and port number information
           directly or use some other heuristic, for example, using the
           extracted "domain" as the FQDN and default HTTPS or HTTP port
-          numbers.  In this situation, clients MUST first attempt an
+          numbers.  In this situation, clients <em>MUST</em> first attempt an
           HTTP connection with TLS.
 
    3.  Determination of initial "context path":
 
        *  When an SRV lookup is done and a valid SRV record returned,
-          the client MUST also query for a corresponding TXT record and
+          the client <em>MUST</em> also query for a corresponding TXT record and
           check for the presence of a "path" key in its response.  If
           present, the value of the "path" key is used for the initial
           "context path".
@@ -511,7 +511,7 @@ Table of Contents
 
        *  If the initial "context path" derived from a TXT record
           generates HTTP errors when targeted by requests, the client
-          SHOULD repeat its "bootstrapping" procedure using the
+          <em>SHOULD</em> repeat its "bootstrapping" procedure using the
           appropriate ".well-known" URI instead.
 
 
@@ -527,37 +527,37 @@ Table of Contents
        *  The client will need to make authenticated HTTP requests to
           the service.  Typically, a "user identifier" is required for
           some form of user/password authentication.  When a user
-          identifier is required, clients MUST first use the "mailbox"
+          identifier is required, clients <em>MUST</em> first use the "mailbox"
           portion of the calendar user address provided by the user in
           the case of a "mailto:" address and, if that results in an
-          authentication failure, SHOULD fall back to using the "local-
+          authentication failure, <em>SHOULD</em> fall back to using the "local-
           part" extracted from the "mailto:" address.  For an "http:" or
           "https:" calendar user address, the "userinfo" portion is used
           as the user identifier for authentication.  This is in line
           with the guidance outlined in <a href="#section-7">Section 7</a>.  If these user
           identifiers result in authentication failure, the client
-          SHOULD prompt the user for a valid identifier.
+          <em>SHOULD</em> prompt the user for a valid identifier.
 
    5.  Connecting to the service:
 
        *  Subsequent to configuration, the client will make HTTP
           requests to the service.  When using "_caldavs" or "_carddavs"
           services, a TLS negotiation is done immediately upon
-          connection.  The client MUST do certificate verification using
+          connection.  The client <em>MUST</em> do certificate verification using
           the procedure outlined in <a href="./rfc6125.html#section-6">Section&nbsp;6 of [RFC6125]</a> in regard to
           verification with an SRV RR as the starting point.
 
        *  The client does a "PROPFIND" [<a href="./rfc4918.html" title="&quot;HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)&quot;">RFC4918</a>] request with the
           request URI set to the initial "context path".  The body of
-          the request SHOULD include the DAV:current-user-principal
+          the request <em>SHOULD</em> include the DAV:current-user-principal
           [<a href="./rfc5397.html" title="&quot;WebDAV Current Principal Extension&quot;">RFC5397</a>] property as one of the properties to return.  Note
-          that clients MUST properly handle HTTP redirect responses for
+          that clients <em>MUST</em> properly handle HTTP redirect responses for
           the request.  The server will use the HTTP authentication
           procedure outlined in [<a href="./rfc2617.html" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">RFC2617</a>] or use some other appropriate
           authentication schemes to authenticate the user.
 
        *  If the server returns a 404 ("Not Found") HTTP status response
-          to the request on the initial "context path", clients MAY try
+          to the request on the initial "context path", clients <em>MAY</em> try
           repeating the request on the "root" URI "/" or prompt the user
           for a suitable path.
 
@@ -583,12 +583,12 @@ Table of Contents
           from the user in order to continue with configuration.
 
    Once a successful account discovery step has been done, clients
-   SHOULD cache the service details that were successfully used (user
+   <em>SHOULD</em> cache the service details that were successfully used (user
    identity, principal-URL with full scheme/host/port details) and reuse
    those when connecting again at a later time.
 
    If a subsequent connection attempt fails, or authentication fails
-   persistently, clients SHOULD retry the SRV lookup and account
+   persistently, clients <em>SHOULD</em> retry the SRV lookup and account
    discovery to "refresh" the cached data.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Guidance for Service Providers</span>
@@ -597,25 +597,25 @@ Table of Contents
    can be configured by clients using SRV records need to follow certain
    procedures to ensure proper operation.
 
-   o  CalDAV or CardDAV servers SHOULD be configured to allow
+   o  CalDAV or CardDAV servers <em>SHOULD</em> be configured to allow
       authentication with calendar user addresses (just taking the
       "mailbox" portion of any "mailto:" URI) or email addresses
       respectively, or with "user identifiers" extracted from them.  In
-      the former case, the addresses MUST NOT conflict with other forms
+      the former case, the addresses <em>MUST NOT</em> conflict with other forms
       of a permitted user login name.  In the latter case, the extracted
-      "user identifiers" need to be unique across the server and MUST
+      "user identifiers" need to be unique across the server and <em>MUST</em>
       NOT conflict with any login name on the server.
 
-   o  Servers MUST force authentication for "PROPFIND" requests that
+   o  Servers <em>MUST</em> force authentication for "PROPFIND" requests that
       retrieve the DAV:current-user-principal property to ensure that
       the value of the DAV:current-user-principal property returned
       corresponds to the principal-URL of the user making the request.
 
-   o  If the service provider uses TLS, the service provider MUST ensure
+   o  If the service provider uses TLS, the service provider <em>MUST</em> ensure
       a certificate is installed that can be verified by clients using
       the procedure outlined in <a href="./rfc6125.html#section-6">Section&nbsp;6 of [RFC6125]</a> in regard to
       verification with an SRV RR as the starting point.  In particular,
-      certificates SHOULD include SRV-ID and DNS-ID identifiers as
+      certificates <em>SHOULD</em> include SRV-ID and DNS-ID identifiers as
       appropriate, as described in <a href="#section-8">Section 8</a>.
 
    o  Service providers should install the appropriate SRV records for
@@ -636,35 +636,35 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Security Considerations</span>
 
-   Clients that support TLS as defined by [<a href="./rfc2818.html" title="&quot;HTTP Over TLS&quot;">RFC2818</a>] SHOULD try the
+   Clients that support TLS as defined by [<a href="./rfc2818.html" title="&quot;HTTP Over TLS&quot;">RFC2818</a>] <em>SHOULD</em> try the
    "_caldavs" or "_carddavs" services first before trying the "_caldav"
    or "_carddav" services respectively.  If a user has explicitly
-   requested a connection with TLS, the client MUST NOT use any service
+   requested a connection with TLS, the client <em>MUST NOT</em> use any service
    information returned for the "_caldav" or "_carddav" services.
-   Clients MUST follow the certificate-verification process specified in
+   Clients <em>MUST</em> follow the certificate-verification process specified in
    [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>].
 
    A malicious attacker with access to the DNS server data, or that is
    able to get spoofed answers cached in a recursive resolver, can
    potentially cause clients to connect to any server chosen by the
-   attacker.  In the absence of a secure DNS option, clients SHOULD
+   attacker.  In the absence of a secure DNS option, clients <em>SHOULD</em>
    check that the target FQDN returned in the SRV record matches the
    original service domain that was queried.  If the target FQDN is not
-   in the queried domain, clients SHOULD verify with the user that the
+   in the queried domain, clients <em>SHOULD</em> verify with the user that the
    SRV target FQDN is suitable for use before executing any connections
    to the host.  Alternatively, if TLS is being used for the service,
-   clients MUST use the procedure outlined in <a href="./rfc6125.html#section-6">Section&nbsp;6 of [RFC6125]</a> to
+   clients <em>MUST</em> use the procedure outlined in <a href="./rfc6125.html#section-6">Section&nbsp;6 of [RFC6125]</a> to
    verify the service.  When the target FQDN does not match the original
-   service domain that was queried, clients MUST check the SRV-ID
+   service domain that was queried, clients <em>MUST</em> check the SRV-ID
    identifier in the server's certificate.  If the FQDN does match,
-   clients MUST check any SRV-ID identifiers in the server's certificate
-   or, if no SRV-ID identifiers are present, MUST check the DNS-ID
+   clients <em>MUST</em> check any SRV-ID identifiers in the server's certificate
+   or, if no SRV-ID identifiers are present, <em>MUST</em> check the DNS-ID
    identifiers in the server's certificate.
 
    Implementations of TLS [<a href="./rfc5246.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>], used as the basis for TLS
    ([<a href="./rfc2818.html" title="&quot;HTTP Over TLS&quot;">RFC2818</a>]), typically support multiple versions of the protocol as
    well as the older SSL (Secure Sockets Layer) protocol.  Because of
-   known security vulnerabilities, clients and servers MUST NOT request,
+   known security vulnerabilities, clients and servers <em>MUST NOT</em> request,
    offer, or use SSL 2.0.  See <a href="./rfc5246.html#appendix-E.2">Appendix&nbsp;E.2 of [RFC5246]</a> for further
    details.
 

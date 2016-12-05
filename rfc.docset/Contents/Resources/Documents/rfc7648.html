@@ -461,9 +461,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    "Key words for use in RFCs to Indicate Requirement Levels" [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -503,12 +503,12 @@ Table of Contents
    If the PCP proxy does already have a valid active mapping for this
    mapping-creation request and the lifetime remaining on the local
    mapping is at least 3/4 of the lifetime requested by the PCP client,
-   then the PCP proxy SHOULD send an immediate reply giving the
+   then the PCP proxy <em>SHOULD</em> send an immediate reply giving the
    outermost external address and port (previously learned using PCP
    recursively, as described below) and the actual lifetime remaining
    for this mapping.  If the lifetime remaining on the local mapping is
    less than 3/4 of the lifetime requested by the PCP client, then the
-   PCP proxy MUST generate an upstream request as described below.
+   PCP proxy <em>MUST</em> generate an upstream request as described below.
 
    For mapping-deletion requests (lifetime = 0), the local mapping, if
    any, is deleted, and then (regardless of whether or not a local
@@ -516,7 +516,7 @@ Table of Contents
 
    The PCP proxy knows the destination IP address for its upstream
    PCP request using the same means that are available for provisioning
-   a PCP client.  In particular, the PCP proxy MUST follow the procedure
+   a PCP client.  In particular, the PCP proxy <em>MUST</em> follow the procedure
    defined in <a href="#section-8.1">Section 8.1</a> of the PCP specification [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>] to discover
    its PCP server.  This does not preclude other means from being used
    in addition.
@@ -535,13 +535,13 @@ Table of Contents
       own external address and port just allocated for this mapping.
 
    o  The suggested external address and port in the upstream
-      PCP request SHOULD be copied from the original PCP request.  On a
+      PCP request <em>SHOULD</em> be copied from the original PCP request.  On a
       typical renewal request, this will be the outermost external
       address and port previously learned by the client.
 
    o  The requested lifetime is as requested by the client if it falls
       within the acceptable range for this PCP server; otherwise, it
-      SHOULD be capped to appropriate minimum and maximum values
+      <em>SHOULD</em> be capped to appropriate minimum and maximum values
       configured for this PCP server.
 
    o  The mapping nonce is copied from the original PCP request.
@@ -573,8 +573,8 @@ Table of Contents
       the granted lifetime exceeds the maximum lifetime this PCP server
       is configured to grant.  If the proxy chooses to grant a
       downstream lifetime greater than the lifetime granted by the
-      upstream PCP server (which is NOT RECOMMENDED), then this
-      PCP proxy MUST take responsibility for renewing the upstream
+      upstream PCP server (which is NOT <em>RECOMMENDED</em>), then this
+      PCP proxy <em>MUST</em> take responsibility for renewing the upstream
       mapping itself.
 
 
@@ -592,7 +592,7 @@ Table of Contents
       PCP server, the PCP proxy can either (1) recreate the lost
       mappings itself or (2) reset its own Epoch Time to cause its
       downstream clients to perform such state repairs themselves.  A
-      PCP proxy MUST NOT simply copy the upstream PCP server's
+      PCP proxy <em>MUST NOT</em> simply copy the upstream PCP server's
       Epoch Time into its downstream PCP replies, because if it suffers
       its own state loss it needs the ability to communicate that state
       loss to clients.  Thus, each PCP server has its own independent
@@ -619,13 +619,13 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Optimized Hairpin Routing</span>
 
-   A PCP proxy SHOULD implement optimized hairpin routing.  What this
+   A PCP proxy <em>SHOULD</em> implement optimized hairpin routing.  What this
    means is the following:
 
    o  If a PCP proxy observes an outgoing packet arriving on its
       internal interface that is addressed to an external address and
       port appearing in the NAT gateway's own mapping table, then the
-      NAT gateway SHOULD (after creating a new outbound mapping if one
+      NAT gateway <em>SHOULD</em> (after creating a new outbound mapping if one
       does not already exist) rewrite the packet appropriately and
       deliver it to the internal client to which that external address
       and port are currently allocated.
@@ -644,7 +644,7 @@ Table of Contents
    o  Similarly, if a PCP proxy observes an outgoing packet arriving on
       its internal interface that is addressed to an *outermost*
       external address and port appearing in the NAT gateway's own
-      mapping table, then the NAT gateway SHOULD do as described above:
+      mapping table, then the NAT gateway <em>SHOULD</em> do as described above:
       create a new outbound mapping if one does not already exist, and
       then rewrite the packet appropriately and deliver it to the
       internal client to which that outermost external address and port
@@ -718,7 +718,7 @@ Table of Contents
    o  When the mapping's external address does not belong to the proxy
       node, as would presumably be the case for a firewall, then the
       proxy's client side needs to install upstream mappings on behalf
-      of its downstream clients.  To do this, it MUST insert a
+      of its downstream clients.  To do this, it <em>MUST</em> insert a
       THIRD_PARTY option in its upstream PCP request carrying the
       mapping's external address.
 
@@ -739,7 +739,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.4.2" href="#section-3.4.2">3.4.2</a>.  PCP Proxy Co-located with a NAT Function</span>
 
-   By default, the proxy MUST relay unknown Opcodes and mandatory-to-
+   By default, the proxy <em>MUST</em> relay unknown Opcodes and mandatory-to-
    process unknown options.  Rejecting unknown options and Opcodes has
    the drawback of preventing a PCP client from making use of new
    capabilities offered by the PCP server but not supported by the
@@ -755,24 +755,24 @@ Table of Contents
 
    Because PCP messages with an unknown Opcode or mandatory-to-process
    unknown options can carry a hidden internal address or internal port
-   that will not be translated, a PCP proxy MUST be configurable to
+   that will not be translated, a PCP proxy <em>MUST</em> be configurable to
    disable relaying unknown Opcodes and mandatory-to-process unknown
    options.  If the PCP proxy is configured to disable relaying unknown
-   Opcodes and mandatory-to-process unknown options, the PCP proxy MUST
+   Opcodes and mandatory-to-process unknown options, the PCP proxy <em>MUST</em>
    behave as follows:
 
-   o  a PCP proxy co-located with a NAT MUST reject, via an
+   o  a PCP proxy co-located with a NAT <em>MUST</em> reject, via an
       UNSUPP_OPCODE error response, a received request with an unknown
       Opcode.
 
-   o  a PCP proxy co-located with a NAT MUST reject, via an
+   o  a PCP proxy co-located with a NAT <em>MUST</em> reject, via an
       UNSUPP_OPTION error response, a received request with a mandatory-
       to-process unknown option.
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Mapping Repair</span>
 
    ANNOUNCE requests received from PCP clients are handled locally; as
-   such, these requests MUST NOT be relayed to the provisioned
+   such, these requests <em>MUST NOT</em> be relayed to the provisioned
    PCP server.
 
    Upon receipt of an unsolicited ANNOUNCE response from a PCP server,
@@ -780,20 +780,20 @@ Table of Contents
    whether or not there are changes compared to a local cache if it is
    maintained by the PCP proxy.  If no change is detected, no
    unsolicited ANNOUNCE is generated towards PCP clients.  If a change
-   is detected, the PCP proxy MUST generate unsolicited ANNOUNCE
+   is detected, the PCP proxy <em>MUST</em> generate unsolicited ANNOUNCE
    message(s) to appropriate PCP clients.  If the PCP proxy does not
    maintain a local cache for the mappings, unsolicited multicast
    ANNOUNCE messages are sent to PCP clients.
 
-   Upon change of its external IP address, the PCP proxy SHOULD renew
+   Upon change of its external IP address, the PCP proxy <em>SHOULD</em> renew
    the mappings it maintained.  If the PCP server assigns a different
-   external port, the PCP proxy SHOULD follow the PCP mapping repair
+   external port, the PCP proxy <em>SHOULD</em> follow the PCP mapping repair
    procedure [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>].  This can be achieved only if a full state table
    is maintained by the PCP proxy.
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  Multiple PCP Servers</span>
 
-   A PCP proxy MAY handle multiple PCP servers at the same time.  Each
+   A PCP proxy <em>MAY</em> handle multiple PCP servers at the same time.  Each
    PCP server is associated with its own epoch value.  PCP clients are
    not aware of the presence of multiple PCP servers.
 
@@ -810,23 +810,23 @@ Table of Contents
 
 
    In some contexts (e.g., PCP-controlled Carrier-Grade NATs (CGNs)),
-   the PCP proxy MAY load-balance the PCP clients among available
-   PCP servers.  The PCP proxy MUST ensure that requests of a given
+   the PCP proxy <em>MAY</em> load-balance the PCP clients among available
+   PCP servers.  The PCP proxy <em>MUST</em> ensure that requests of a given
    PCP client are relayed to the same PCP server.
 
-   The PCP proxy MAY rely on some fields (e.g., Zone-ID [<a href="#ref-PCP-ZONES">PCP-ZONES</a>]) in
+   The PCP proxy <em>MAY</em> rely on some fields (e.g., Zone-ID [<a href="#ref-PCP-ZONES">PCP-ZONES</a>]) in
    the PCP request to redirect the request to a given PCP server.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Security Considerations</span>
 
-   The PCP proxy MUST follow the security considerations detailed in the
+   The PCP proxy <em>MUST</em> follow the security considerations detailed in the
    PCP specification [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>] for both the client and server side.
 
    <a href="#section-3.3">Section 3.3</a> specifies the cases where a THIRD_PARTY option is
    inserted by the PCP proxy.  In those cases, ways to prevent a
    malicious user from creating mappings on behalf of a third party must
    be employed as discussed in <a href="#section-13.1">Section 13.1</a> of the PCP specification
-   [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>].  In particular, THIRD_PARTY options MUST NOT be enabled
+   [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>].  In particular, THIRD_PARTY options <em>MUST NOT</em> be enabled
    unless the network on which the PCP messages are to be sent is fully
    trusted (via physical or cryptographic security, or both) -- for
    example, if access control lists (ACLs) are installed on the
@@ -834,12 +834,12 @@ Table of Contents
    ACLs allow only communications from a trusted PCP proxy to the
    PCP server.
 
-   A received request carrying an unknown Opcode or option SHOULD be
+   A received request carrying an unknown Opcode or option <em>SHOULD</em> be
    dropped (or, in the case of an unknown option that is not mandatory
-   to process, the option SHOULD be removed) if it is not compatible
+   to process, the option <em>SHOULD</em> be removed) if it is not compatible
    with security controls provisioned to the PCP proxy.
 
-   The device embedding the PCP proxy MAY block PCP requests directly
+   The device embedding the PCP proxy <em>MAY</em> block PCP requests directly
    sent to the upstream PCP server(s).  This can be enforced using ACLs.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  References</span>

@@ -245,11 +245,11 @@ Abstract
    such options should be concatenated together.  It does not, however,
    specify the order in which this concatenation should occur.
 
-   We specify here the ordering that MUST be used by DHCP protocol
+   We specify here the ordering that <em>MUST</em> be used by DHCP protocol
    agents when sending options with more than 255 bytes.  This method
-   also MUST be used for splitting options that are shorter than 255
+   also <em>MUST</em> be used for splitting options that are shorter than 255
    bytes, if for some reason the encoding agent needs to do so.  DHCP
-   protocol agents MUST use this method whenever they receive a DHCP
+   protocol agents <em>MUST</em> use this method whenever they receive a DHCP
    packet containing more than one occurrence of a certain type of
    option.
 
@@ -307,8 +307,8 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Requirements Language</span>
 
-   In this document, the key words "MAY", "MUST, "MUST NOT", "OPTIONAL",
-   "RECOMMENDED", "SHOULD", and "SHOULD NOT", are to be interpreted as
+   In this document, the key words "<em>MAY</em>", "<em>MUST</em>, "<em>MUST NOT</em>", "<em>OPTIONAL</em>",
+   "<em>RECOMMENDED</em>", "<em>SHOULD</em>", and "<em>SHOULD NOT</em>", are to be interpreted as
    described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to indicate requirement levels&quot;">2</a>].
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>. Applicability</span>
@@ -317,16 +317,16 @@ Abstract
    containing options, where some of those options must be broken into
    parts.  This need can occur for two reasons.  First, it can occur
    because the value of an option that needs to be sent is longer than
-   255 bytes.  In this case, the encoding agent MUST follow the
+   255 bytes.  In this case, the encoding agent <em>MUST</em> follow the
    algorithm specified here.  It can also occur because there is not
    sufficient space in the current output buffer to store the option,
    but there is space for part of the option, and there is space in
    another output buffer for the rest.  In this case, the encoding agent
-   MUST either use this algorithm or not send the option at all.
+   <em>MUST</em> either use this algorithm or not send the option at all.
 
    This specification also applies in any case where a DHCP protocol
    agent has received a DHCP packet that contains more than one instance
-   of an option of a given type.  In this case, the agent MUST
+   of an option of a given type.  In this case, the agent <em>MUST</em>
    concatenate these separate instances of the same option in the way
    that we specify here.
 
@@ -356,7 +356,7 @@ Abstract
    and option concatenation as described in this document, by
    specifically referencing this document.
 
-   A DHCP protocol agent SHOULD NOT split an option as described in this
+   A DHCP protocol agent <em>SHOULD NOT</em> split an option as described in this
    document unless it has no choice, or it knows that its peer can
    properly handle split options.  A peer is assumed to properly handle
    split options if it has provided or requested at least one
@@ -368,7 +368,7 @@ Abstract
    Some implementors may find it easiest to only split concatenation-
    requiring options, and never split non-concatenation-requiring
    options.  This is permissible.  However, an implementation which
-   supports any concatenation-requiring option MUST be capable of
+   supports any concatenation-requiring option <em>MUST</em> be capable of
    concatenating received options for both concatenation-requiring and
    non-concatenation-requiring options.
 
@@ -393,7 +393,7 @@ Abstract
 
    To simplify this discussion, we will talk about an aggregate option
    buffer, which will be the aggregate of the three buffers.  This is a
-   logical aggregation - the buffers MUST appear in the locations in the
+   logical aggregation - the buffers <em>MUST</em> appear in the locations in the
    DHCP packet described in <a href="./rfc2131.html">RFC 2131</a> [<a href="#ref-3" title="&quot;Dynamic Host Configuration Protocol&quot;">3</a>].
 
    The aggregate option buffer is made up of the optional parameters
@@ -410,13 +410,13 @@ Abstract
    WARNING: This is not the physical ordering of these fields in the
    DHCP packet.
 
-   Options MUST NOT be stored in the aggregate option buffer in such a
+   Options <em>MUST NOT</em> be stored in the aggregate option buffer in such a
    way that they cross either boundary between the three fields in the
    aggregate buffer.
 
    The encoding agent is free to choose to use either or both the sname
    field and file field.  If the encoding agent does not choose to use
-   either or both of these two fields, then they MUST NOT be considered
+   either or both of these two fields, then they <em>MUST NOT</em> be considered
    part of the aggregate option buffer in that case.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>. Encoding Agent Behavior</span>
@@ -426,10 +426,10 @@ Abstract
 
    Options can be split on any octet boundary.  No split portion of an
    option that has been split can contain more than 255 octets.  The
-   split portions of the option MUST be stored in the aggregate option
-   buffer in sequential order - the first split portion MUST be stored
+   split portions of the option <em>MUST</em> be stored in the aggregate option
+   buffer in sequential order - the first split portion <em>MUST</em> be stored
    first in the aggregate option buffer, then the second portion, and so
-   on.  The encoding agent MUST NOT attempt to specify any semantic
+   on.  The encoding agent <em>MUST NOT</em> attempt to specify any semantic
    information based on how the option is split.
 
    Note that because the aggregate option buffer does not represent the
@@ -440,18 +440,18 @@ Abstract
    would go into the sname field.  This maintains consistency with
    <a href="./rfc2131.html#section-4.1">section&nbsp;4.1 of RFC 2131</a> [<a href="#ref-3" title="&quot;Dynamic Host Configuration Protocol&quot;">3</a>].
 
-   Each split portion of an option MUST be stored in the aggregate
+   Each split portion of an option <em>MUST</em> be stored in the aggregate
    option buffer as if it were a normal variable-length option as
    described in <a href="./rfc2132.html">RFC 2132</a> [<a href="#ref-4" title="&quot;DHCP Options and BOOTP Vendor Extensions&quot;">4</a>].  The length fields of each split portion
-   of the option MUST add up to the total length of the option data.
+   of the option <em>MUST</em> add up to the total length of the option data.
    For any given option being split, the option code field in each split
-   portion MUST be the same.
+   portion <em>MUST</em> be the same.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>. Decoding Agent Behavior</span>
 
    When a decoding agent is scanning an incoming DHCP packet's option
    buffer and finds two or more options with the same option code, it
-   MUST consider them to be split portions of an option as described in
+   <em>MUST</em> consider them to be split portions of an option as described in
    the preceding section.
 
 
@@ -463,8 +463,8 @@ Abstract
 <span class="grey"><a href="./rfc3396.html">RFC 3396</a>            Encoding Long Options in DHCPv4        November 2002</span>
 
 
-   In the case that a decoding agent finds a split option, it MUST treat
-   the contents of that option as a single option, and the contents MUST
+   In the case that a decoding agent finds a split option, it <em>MUST</em> treat
+   the contents of that option as a single option, and the contents <em>MUST</em>
    be reassembled in the order that was described above under encoding
    agent behavior.
 
@@ -476,8 +476,8 @@ Abstract
 
    There is no semantic meaning to where an option is split - the
    encoding agent is free to split the option at any point, and the
-   decoding agent MUST reassemble the split option parts into a single
-   object, and MUST NOT treat each split portion of the option as a
+   decoding agent <em>MUST</em> reassemble the split option parts into a single
+   object, and <em>MUST NOT</em> treat each split portion of the option as a
    separate object.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>. Example</span>

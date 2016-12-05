@@ -461,7 +461,7 @@ Table of Contents
    For example, for a block-wise GET, if the resource changes while this
    proceeds, the entity-tag (ETag) for a further block obtained may be
    different.  To avoid this happening all the time for a fast-changing
-   resource, a server MAY try to keep a cache around for a specific
+   resource, a server <em>MAY</em> try to keep a cache around for a specific
    client for a short amount of time.  The expectation here is that the
    lifetime for such a cache can be kept short, on the order of a few
    expected round-trip times, counting from the previous block
@@ -507,9 +507,9 @@ Table of Contents
    larger than about a kilobyte, there is an expectation that they are
    very widely implemented.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
    <a href="./rfc2119.html">2119</a>, <a href="./bcp14.html">BCP 14</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>] and indicate requirement levels for compliant
    CoAP implementations.
 
@@ -614,9 +614,9 @@ Table of Contents
    processed ("control usage").
 
    Implementation of either Block option is intended to be optional.
-   However, when it is present in a CoAP message, it MUST be processed
+   However, when it is present in a CoAP message, it <em>MUST</em> be processed
    (or the message rejected); therefore, it is identified as a Critical
-   option.  Either Block option MUST NOT occur more than once in a
+   option.  Either Block option <em>MUST NOT</em> occur more than once in a
    single message.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Structure of a Block Option</span>
@@ -716,7 +716,7 @@ Table of Contents
       block in the body; when set, it indicates that there are one or
       more additional blocks available.  When a Block2 Option is used in
       a request to retrieve a specific block number ("control usage"),
-      the M bit MUST be sent as zero and ignored on reception.  (In a
+      the M bit <em>MUST</em> be sent as zero and ignored on reception.  (In a
       Block1 Option in a response, the M flag is used to indicate
       atomicity, see below.)
 
@@ -725,8 +725,8 @@ Table of Contents
       two.  Thus, block size = 2**(SZX + 4).  The allowed values of SZX
       are 0 to 6, i.e., the minimum block size is 2**(0+4) = 16 and the
       maximum is 2**(6+4) = 1024.  The value 7 for SZX (which would
-      indicate a block size of 2048) is reserved, i.e., MUST NOT be sent
-      and MUST lead to a 4.00 Bad Request response code upon reception
+      indicate a block size of 2048) is reserved, i.e., <em>MUST NOT</em> be sent
+      and <em>MUST</em> lead to a 4.00 Bad Request response code upon reception
       in a request.
 
    There is no default value for the Block1 and Block2 Options.  Absence
@@ -755,10 +755,10 @@ Table of Contents
       *  The M bit indicates whether further blocks need to be
          transferred to complete the transfer of that body.
 
-      *  The block size implied by SZX MUST match the size of the
+      *  The block size implied by SZX <em>MUST</em> match the size of the
          payload in bytes, if the M bit is set.  (SZX does not govern
          the payload size if M is unset).  For Block2, if the request
-         suggested a larger value of SZX, the next request MUST move SZX
+         suggested a larger value of SZX, the next request <em>MUST</em> move SZX
 
 
 
@@ -778,7 +778,7 @@ Table of Contents
          the payload that is being requested to be returned in the
          response.
 
-      *  In this case, the M bit has no function and MUST be set to
+      *  In this case, the M bit has no function and <em>MUST</em> be set to
          zero.
 
       *  The block size given (SZX) suggests a block size (in the case
@@ -801,7 +801,7 @@ Table of Contents
             request, i.e., the server collects further blocks from the
             same endpoint and plans to implement the request atomically
             (e.g., acts only upon reception of the last block of
-            payload).  In this case, the response MUST NOT carry a
+            payload).  In this case, the response <em>MUST NOT</em> carry a
             Block2 Option.
 
          +  Conversely, if the M bit is unset even though it was set in
@@ -830,7 +830,7 @@ Table of Contents
       *  Finally, the SZX block size given in a control Block1 Option
          indicates the largest block size preferred by the server for
          transfers toward the resource that is the same or smaller than
-         the one used in the initial exchange; the client SHOULD use
+         the one used in the initial exchange; the client <em>SHOULD</em> use
          this block size or a smaller one in all further requests in the
          transfer sequence, even if that means changing the block size
          (and possibly scaling the block number accordingly) from now
@@ -840,12 +840,12 @@ Table of Contents
    into multiple CoAP message exchanges.  As specified in [<a href="./rfc7252.html" title="&quot;The Constrained Application Protocol (CoAP)&quot;">RFC7252</a>],
    each of these message exchanges uses their own CoAP Message ID.
 
-   The Content-Format Option sent with the requests or responses MUST
+   The Content-Format Option sent with the requests or responses <em>MUST</em>
    reflect the Content-Format of the entire body.  If blocks of a
    response body arrive with different Content-Format Options, it is up
    to the client how to handle this error (it will typically abort any
    ongoing block-wise transfer).  If blocks of a request arrive at a
-   server with mismatching Content-Format Options, the server MUST NOT
+   server with mismatching Content-Format Options, the server <em>MUST NOT</em>
    assemble them into a single request; this usually leads to a 4.08
    (Request Entity Incomplete, <a href="#section-2.9.2">Section 2.9.2</a>) error response on the
    mismatching block.
@@ -856,15 +856,15 @@ Table of Contents
    with the M bit set, the requester may retrieve additional blocks of
    the resource representation by sending further requests with the same
    options as the initial request and a Block2 Option giving the block
-   number and block size desired.  In a request, the client MUST set the
-   M bit of a Block2 Option to zero and the server MUST ignore it on
+   number and block size desired.  In a request, the client <em>MUST</em> set the
+   M bit of a Block2 Option to zero and the server <em>MUST</em> ignore it on
    reception.
 
-   To influence the block size used in a response, the requester MAY
+   To influence the block size used in a response, the requester <em>MAY</em>
    also use the Block2 Option on the initial request, giving the desired
-   size, a block number of zero and an M bit of zero.  A server MUST use
+   size, a block number of zero and an M bit of zero.  A server <em>MUST</em> use
    the block size indicated or a smaller size.  Any further block-wise
-   requests for blocks beyond the first one MUST indicate the same block
+   requests for blocks beyond the first one <em>MUST</em> indicate the same block
    size that was used by the server in the response for the first
    request that gave a desired size using a Block2 Option.
 
@@ -884,10 +884,10 @@ Table of Contents
    that the client may start using the Block2 Option in a second request
    after a first request without a Block2 Option resulted in a Block2
    Option in the response.)  The server uses the block size indicated in
-   the request option or a smaller size, but the requester MUST take
+   the request option or a smaller size, but the requester <em>MUST</em> take
    note of the actual block size used in the response it receives to its
    initial request and proceed to use it in subsequent requests.  The
-   server behavior MUST ensure that this client behavior results in the
+   server behavior <em>MUST</em> ensure that this client behavior results in the
    same block size for all responses in a sequence (except for the last
    one with the M bit not set, and possibly the first one if the initial
    request did not contain a Block2 Option).
@@ -895,16 +895,16 @@ Table of Contents
    Block-wise transfers can be used to GET resources whose
    representations are entirely static (not changing over time at all,
    such as in a schema describing a device), or for dynamically changing
-   resources.  In the latter case, the Block2 Option SHOULD be used in
+   resources.  In the latter case, the Block2 Option <em>SHOULD</em> be used in
    conjunction with the ETag Option (<a href="./rfc7252.html#section-5.10.6">[RFC7252], Section&nbsp;5.10.6</a>), to
    ensure that the blocks being reassembled are from the same version of
-   the representation: The server SHOULD include an ETag Option in each
+   the representation: The server <em>SHOULD</em> include an ETag Option in each
    response.  If an ETag Option is available, the client, when
-   reassembling the representation from the blocks being exchanged, MUST
+   reassembling the representation from the blocks being exchanged, <em>MUST</em>
    compare ETag Options.  If the ETag Options do not match in a GET
    transfer, the requester has the option of attempting to retrieve
    fresh values for the blocks it retrieved first.  To minimize the
-   resulting inefficiency, the server MAY cache the current value of a
+   resulting inefficiency, the server <em>MAY</em> cache the current value of a
    representation for an ongoing sequence of requests.  (The server may
    identify the sequence by the combination of the requesting endpoint
    and the URI being the same in each block-wise request.)  Note well
@@ -912,7 +912,7 @@ Table of Contents
    establish any state; however, servers that offer quickly changing
    resources may thereby make it impossible for a client to ever
    retrieve a consistent set of blocks.  Clients that want to retrieve
-   all blocks of a resource SHOULD strive to do so without undue delay.
+   all blocks of a resource <em>SHOULD</em> strive to do so without undue delay.
    Servers can fully expect to be free to discard any cached state after
    a period of EXCHANGE_LIFETIME (<a href="./rfc7252.html#section-4.8.2">[RFC7252], Section&nbsp;4.8.2</a>) after the
    last access to the state, however, there is no requirement to always
@@ -945,7 +945,7 @@ Table of Contents
    block size preference of the server for this resource (control
    usage).  Obviously, at this point the first block has already been
    transferred by the client without benefit of this knowledge.  Still,
-   the client SHOULD heed the preference indicated and, for all further
+   the client <em>SHOULD</em> heed the preference indicated and, for all further
    blocks, use the block size preferred by the server or a smaller one.
    Note that any reduction in the block size may mean that the second
    request starts with a block number larger than one, as the first
@@ -970,15 +970,15 @@ Table of Contents
    carry the response code 2.31 (Continue, <a href="#section-2.9.1">Section 2.9.1</a>).  If not all
    previous blocks are available at the server at the time of processing
    the final block, the transfer fails and error code 4.08 (Request
-   Entity Incomplete, <a href="#section-2.9.2">Section 2.9.2</a>) MUST be returned.  A server MAY
+   Entity Incomplete, <a href="#section-2.9.2">Section 2.9.2</a>) <em>MUST</em> be returned.  A server <em>MAY</em>
    also return a 4.08 error code for any (final or non-final) Block1
    transfer that is not in sequence; therefore, clients that do not have
-   specific mechanisms to handle this case SHOULD always start with
+   specific mechanisms to handle this case <em>SHOULD</em> always start with
    block zero and send the following blocks in order.
 
    One reason that a client might encounter a 4.08 error code is that
    the server has already timed out and discarded the partial request
-   body being assembled.  Clients SHOULD strive to send all blocks of a
+   body being assembled.  Clients <em>SHOULD</em> strive to send all blocks of a
    request without undue delay.  Servers can fully expect to be free to
    discard any partial request body when a period of EXCHANGE_LIFETIME
 
@@ -1037,7 +1037,7 @@ Table of Contents
    As with basic GET transfers, the client can indicate its desired
    block size in a Block2 Option in the GET request establishing or
    renewing the observation relationship.  If the server supports block-
-   wise transfers, it SHOULD take note of the block size and apply it as
+   wise transfers, it <em>SHOULD</em> take note of the block size and apply it as
    a maximum size to all notifications/responses resulting from the GET
 
 
@@ -1061,11 +1061,11 @@ Table of Contents
 
    As with other dynamically changing resources, to ensure that the
    blocks being reassembled are from the same version of the
-   representation, the server SHOULD include an ETag Option in each
-   response, and the reassembling client MUST compare the ETag Options
+   representation, the server <em>SHOULD</em> include an ETag Option in each
+   response, and the reassembling client <em>MUST</em> compare the ETag Options
    (<a href="#section-2.4">Section 2.4</a>).  Even more so than for the general case of Block2,
    clients that want to retrieve all blocks of a resource they have been
-   notified about with a first block SHOULD strive to do so without
+   notified about with a first block <em>SHOULD</em> strive to do so without
    undue delay.
 
    See <a href="#section-3.4">Section 3.4</a> for examples.
@@ -1083,7 +1083,7 @@ Table of Contents
    request option with non-zero NUM.
 
    Block2 transfers that retrieve the response body for a request that
-   used Block1 MUST be performed in sequential order.
+   used Block1 <em>MUST</em> be performed in sequential order.
 
 <span class="h3"><a class="selflink" name="section-2.8" href="#section-2.8">2.8</a>.  Combining Block2 with Multicast</span>
 
@@ -1104,7 +1104,7 @@ Table of Contents
 
 
    In both cases, the client retrieves any further blocks using unicast
-   exchanges; in the unicast requests, the client SHOULD heed any block
+   exchanges; in the unicast requests, the client <em>SHOULD</em> heed any block
    size preferences indicated by the server in the response to the
    multicast request.
 
@@ -1147,7 +1147,7 @@ Table of Contents
 
    In <a href="./rfc7252.html#section-5.9.2.9">Section&nbsp;5.9.2.9 of [RFC7252]</a>, the response code 4.13 (Request
    Entity Too Large) is defined to be like HTTP 413 "Request Entity Too
-   Large".  [<a href="./rfc7252.html" title="&quot;The Constrained Application Protocol (CoAP)&quot;">RFC7252</a>] also recommends that this response SHOULD include
+   Large".  [<a href="./rfc7252.html" title="&quot;The Constrained Application Protocol (CoAP)&quot;">RFC7252</a>] also recommends that this response <em>SHOULD</em> include
    a Size1 Option (<a href="#section-4">Section 4</a>) to indicate the maximum size of request
    entity the server is able and willing to handle, unless the server is
    not in a position to make this information available.
@@ -1193,7 +1193,7 @@ Table of Contents
    transferred, which dominates any 2.04 responses for later blocks.
 
    If-None-Match only works correctly on Block1 requests with (NUM=0)
-   and MUST NOT be used on Block1 requests with NUM != 0.
+   and <em>MUST NOT</em> be used on Block1 requests with NUM != 0.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Examples</span>
 
@@ -1513,8 +1513,8 @@ Table of Contents
 
    Finally, a server receiving a block-wise PUT or POST may want to
    indicate a smaller block size preference (Figure 9).  In this case,
-   the client SHOULD continue with a smaller block size; if it does, it
-   MUST adjust the block number to properly count in that smaller size.
+   the client <em>SHOULD</em> continue with a smaller block size; if it does, it
+   <em>MUST</em> adjust the block number to properly count in that smaller size.
 
    CLIENT                                                     SERVER
      |                                                          |
@@ -1835,7 +1835,7 @@ Table of Contents
 
    o  In a request, to ask the server to provide a size estimate along
       with the usual response ("size request").  For this usage, the
-      value MUST be set to 0.
+      value <em>MUST</em> be set to 0.
 
    o  In a response carrying a Block2 Option, to indicate the current
       estimate the server has of the total size of the resource
@@ -1856,9 +1856,9 @@ Table of Contents
    resulting response, it should add a Block2 Option to the request with
    a small block size (e.g., setting SZX=0).
 
-   The Size options are "elective", i.e., a client MUST be prepared for
+   The Size options are "elective", i.e., a client <em>MUST</em> be prepared for
    the server to ignore the size estimate request.  Either Size option
-   MUST NOT occur more than once in a single message.
+   <em>MUST NOT</em> occur more than once in a single message.
 
         +-----+---+---+---+---+-------+--------+--------+---------+
         | No. | C | U | N | R | Name  | Format | Length | Default |
@@ -2006,7 +2006,7 @@ Table of Contents
    attacker may be able to exploit a race condition or confuse a server
    by inducing it to use a partially updated resource representation.
    Partial transfers may also make certain problematic data invisible to
-   Intrusion Detection Systems (IDSs); it is RECOMMENDED that an IDS
+   Intrusion Detection Systems (IDSs); it is <em>RECOMMENDED</em> that an IDS
    that analyzes resource representations transferred by CoAP implement
    the Block options to gain access to entire resource representations.
    Still, approaches such as transferring even-numbered blocks on one
@@ -2018,8 +2018,8 @@ Table of Contents
    segmentation; CoAP does not add fundamentally new considerations.
 
    Where access to a resource is only granted to clients making use of
-   specific security associations, all blocks of that resource MUST be
-   subject to the same security checks; it MUST NOT be possible for
+   specific security associations, all blocks of that resource <em>MUST</em> be
+   subject to the same security checks; it <em>MUST NOT</em> be possible for
    unprotected exchanges to influence blocks of an otherwise protected
    resource.  As a related consideration, where object security is
    employed, PUT/POST should be implemented in the atomic fashion,
@@ -2058,7 +2058,7 @@ Table of Contents
    representations that are collected until pressed into service by a
    final PUT or POST with the more bit unset.  All mechanisms that
    induce a server to create state that cannot simply be cleaned up
-   create opportunities for denial-of-service attacks.  Servers SHOULD
+   create opportunities for denial-of-service attacks.  Servers <em>SHOULD</em>
    avoid being subject to resource exhaustion based on state created by
    untrusted sources.  But even if this is done, the mitigation may
    cause a denial-of-service to a legitimate request when it is drowned
@@ -2073,8 +2073,8 @@ Table of Contents
    or because lower layers provide security associations that can
    prevent attacks.  However, it is less common to apply timeouts and
    keepalive mechanisms at the application layer than at lower layers.
-   Servers MAY want to clean up accumulated state by timing it out (cf.
-   response code 4.08), and clients SHOULD be prepared to run block-wise
+   Servers <em>MAY</em> want to clean up accumulated state by timing it out (cf.
+   response code 4.08), and clients <em>SHOULD</em> be prepared to run block-wise
    transfers in an expedient way to minimize the likelihood of running
    into such a timeout.
 
@@ -2193,8 +2193,8 @@ Acknowledgements
    The IESG reviewers provided very useful comments.  Spencer Dawkins
    even suggested new text.  He and Mirja Kuehlewind insisted on more
    explicit information about the layering of block-wise transfers on
-   top of the base protocol.  Ben Campbell helped untangle some MUST/
-   SHOULD soup.  Comments by Alexey Melnikov, as well as the Gen-ART
+   top of the base protocol.  Ben Campbell helped untangle some <em>MUST</em>/
+   <em>SHOULD</em> soup.  Comments by Alexey Melnikov, as well as the Gen-ART
    review by Jouni Korhonen, resulted in further improvements to the
    text.
 

@@ -363,8 +363,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology and Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    LOCATOR.  The name of a HIP parameter containing zero or more Locator
@@ -677,7 +677,7 @@ Table of Contents
    states are defined more formally in <a href="#section-5.1">Section 5.1</a>.
 
    Hosts that use link-local addresses as source addresses in their HIP
-   handshakes may not be reachable by a mobile peer.  Such hosts SHOULD
+   handshakes may not be reachable by a mobile peer.  Such hosts <em>SHOULD</em>
    provide a globally routable address either in the initial handshake
    or via the LOCATOR parameter.
 
@@ -733,14 +733,14 @@ Table of Contents
 
    2.  The peer host receives the UPDATE, validates it, and updates any
        local bindings between the HIP association and the mobile host's
-       destination address.  The peer host MUST perform an address
+       destination address.  The peer host <em>MUST</em> perform an address
        verification by placing a nonce in the ECHO_REQUEST parameter of
        the UPDATE message sent back to the mobile host.  It also
        includes an ESP_INFO parameter with the OLD SPI and NEW SPI
        parameters both set to the value of the preexisting incoming SPI,
        and sends this UPDATE (with piggybacked acknowledgment) to the
-       mobile host at its new address.  The peer MAY use the new address
-       immediately, but it MUST limit the amount of data it sends to the
+       mobile host at its new address.  The peer <em>MAY</em> use the new address
+       immediately, but it <em>MUST</em> limit the amount of data it sends to the
        address until address verification completes.
 
 
@@ -794,7 +794,7 @@ Table of Contents
    A (mobile or stationary) host may sometimes have more than one
    interface or global address.  The host may notify the peer host of
    the additional interface or address by using the LOCATOR parameter.
-   To avoid problems with the ESP anti-replay window, a host SHOULD use
+   To avoid problems with the ESP anti-replay window, a host <em>SHOULD</em> use
    a different SA for each interface or address used to receive packets
    from the peer host when multiple locator pairs are being used
    simultaneously rather than sequentially.
@@ -810,7 +810,7 @@ Table of Contents
 
 
    When more than one locator is provided to the peer host, the host
-   SHOULD indicate which locator is preferred (the locator on which the
+   <em>SHOULD</em> indicate which locator is preferred (the locator on which the
    host prefers to receive traffic).  By default, the addresses used in
    the base exchange are preferred until indicated otherwise.
 
@@ -824,7 +824,7 @@ Table of Contents
    Although the protocol may allow for configurations in which there is
    an asymmetric number of SAs between the hosts (e.g., one host has two
    interfaces and two inbound SAs, while the peer has one interface and
-   one inbound SA), it is RECOMMENDED that inbound and outbound SAs be
+   one inbound SA), it is <em>RECOMMENDED</em> that inbound and outbound SAs be
    created pairwise between hosts.  When an ESP_INFO arrives to rekey a
    particular outbound SA, the corresponding inbound SA should be also
    rekeyed at that time.  Although asymmetric SA configurations might be
@@ -837,7 +837,7 @@ Table of Contents
 
    Consider the case between two hosts, one single-homed and one
    multihomed.  The multihomed host may decide to inform the single-
-   homed host about its other address.  It is RECOMMENDED that the
+   homed host about its other address.  It is <em>RECOMMENDED</em> that the
    multihomed host set up a new SA pair for use on this new address.  To
    do this, the multihomed host sends a LOCATOR with an ESP_INFO,
    indicating the request for a new SA by setting the OLD SPI value to
@@ -846,7 +846,7 @@ Table of Contents
    SPI.  The LOCATOR parameter also contains a second Type "1" locator,
    that of the original address and SPI.  To simplify parameter
    processing and avoid explicit protocol extensions to remove locators,
-   each LOCATOR parameter MUST list all locators in use on a connection
+   each LOCATOR parameter <em>MUST</em> list all locators in use on a connection
    (a complete listing of inbound locators and SPIs for the host).  The
    multihomed host waits for an ESP_INFO (new outbound SA) from the peer
    and an ACK of its own UPDATE.  As in the mobility case, the peer host
@@ -995,12 +995,12 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.2.9" href="#section-3.2.9">3.2.9</a>.  Initiating the Protocol in R1 or I2</span>
 
-   A Responder host MAY include a LOCATOR parameter in the R1 packet
-   that it sends to the Initiator.  This parameter MUST be protected by
+   A Responder host <em>MAY</em> include a LOCATOR parameter in the R1 packet
+   that it sends to the Initiator.  This parameter <em>MUST</em> be protected by
    the R1 signature.  If the R1 packet contains LOCATOR parameters with
-   a new Preferred locator, the Initiator SHOULD directly set the new
+   a new Preferred locator, the Initiator <em>SHOULD</em> directly set the new
    Preferred locator to status ACTIVE without performing address
-   verification first, and MUST send the I2 packet to the new Preferred
+   verification first, and <em>MUST</em> send the I2 packet to the new Preferred
    locator.  The I1 destination address and the new Preferred locator
    may be identical.  All new non-preferred locators must still undergo
    address verification once the base exchange completes.
@@ -1020,10 +1020,10 @@ Table of Contents
 
                      Figure 7: LOCATOR Inclusion in R1
 
-   An Initiator MAY include one or more LOCATOR parameters in the I2
+   An Initiator <em>MAY</em> include one or more LOCATOR parameters in the I2
    packet, independent of whether or not there was a LOCATOR parameter
-   in the R1.  These parameters MUST be protected by the I2 signature.
-   Even if the I2 packet contains LOCATOR parameters, the Responder MUST
+   in the R1.  These parameters <em>MUST</em> be protected by the I2 signature.
+   Even if the I2 packet contains LOCATOR parameters, the Responder <em>MUST</em>
    still send the R2 packet to the source address of the I2.  The new
 
 
@@ -1033,7 +1033,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5206.html">RFC 5206</a>              HIP Mobility and Multihoming            April 2008</span>
 
 
-   Preferred locator SHOULD be identical to the I2 source address.  If
+   Preferred locator <em>SHOULD</em> be identical to the I2 source address.  If
    the I2 packet contains LOCATOR parameters, all new locators must
    undergo address verification as usual, and the ESP traffic that
    subsequently follows should use the Preferred locator.
@@ -1298,7 +1298,7 @@ Table of Contents
    when there is a concern that anti-replay windows might be violated.
    In this sense, we can say that a given inbound SPI has an "affinity"
    for certain inbound IP addresses, and this affinity is communicated
-   to the peer host.  Each physical interface SHOULD have a separate SA,
+   to the peer host.  Each physical interface <em>SHOULD</em> have a separate SA,
    unless the ESP anti-replay window is loose.
 
    Moreover, even when the destination addresses used for a particular
@@ -1314,7 +1314,7 @@ Table of Contents
 
 
    interface used.  A host has no way to influence the source interface
-   on which a peer sends its packets on a given SPI.  A host SHOULD
+   on which a peer sends its packets on a given SPI.  A host <em>SHOULD</em>
    consistently use the same source interface and address when sending
    to a particular destination IP address and SPI.  For this reason, a
    host may find it useful to change its SPI or at least reset its ESP
@@ -1329,7 +1329,7 @@ Table of Contents
    LOCATOR parameter is sent in an R1 or I2 packet, the base exchange
    retransmission mechanism will confirm its successful delivery.
    LOCATORs may experimentally be used in NOTIFY packets; in this case,
-   the recipient MUST consider the LOCATOR as informational and not
+   the recipient <em>MUST</em> consider the LOCATOR as informational and not
    immediately change the current preferred address, but can test the
    additional locators when the need arises.  The use of the LOCATOR in
    a NOTIFY message may not be compatible with middleboxes.
@@ -1436,9 +1436,9 @@ Table of Contents
 
    The Locator Lifetime indicates how long the following locator is
    expected to be valid.  The lifetime is expressed in seconds.  Each
-   locator MUST have a non-zero lifetime.  The address is expected to
+   locator <em>MUST</em> have a non-zero lifetime.  The address is expected to
    become deprecated when the specified number of seconds has passed
-   since the reception of the message.  A deprecated address SHOULD NOT
+   since the reception of the message.  A deprecated address <em>SHOULD NOT</em>
    be used as a destination address if an alternate (non-deprecated) is
    available and has sufficient scope.
 
@@ -1495,10 +1495,10 @@ Table of Contents
    A number of combinations of parameters in an UPDATE packet are
    possible (e.g., see <a href="#section-3.2">Section 3.2</a>).  In this document, procedures are
    defined only for the case in which one LOCATOR and one ESP_INFO
-   parameter is used in any HIP packet.  Furthermore, the LOCATOR SHOULD
+   parameter is used in any HIP packet.  Furthermore, the LOCATOR <em>SHOULD</em>
    list all of the locators that are active on the HIP association
    (including those on SAs not covered by the ESP_INFO parameter).  Any
-   UPDATE packet that includes a LOCATOR parameter SHOULD include both
+   UPDATE packet that includes a LOCATOR parameter <em>SHOULD</em> include both
    an HMAC and a HIP_SIGNATURE parameter.  The relationship between the
    announced Locators and any ESP_INFO parameters present in the packet
    is defined in <a href="#section-5.2">Section 5.2</a>.  The sending of multiple LOCATOR and/or
@@ -1567,7 +1567,7 @@ Table of Contents
    DEPRECATED to UNVERIFIED  The host receives a new lifetime for the
       locator.
 
-   A DEPRECATED address MUST NOT be changed to ACTIVE without first
+   A DEPRECATED address <em>MUST NOT</em> be changed to ACTIVE without first
    verifying its reachability.
 
    Note that the state of whether or not a locator is preferred is not
@@ -1580,11 +1580,11 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Sending LOCATORs</span>
 
    The decision of when to send LOCATORs is basically a local policy
-   issue.  However, it is RECOMMENDED that a host send a LOCATOR
+   issue.  However, it is <em>RECOMMENDED</em> that a host send a LOCATOR
    whenever it recognizes a change of its IP addresses in use on an
    active HIP association, and assumes that the change is going to last
    at least for a few seconds.  Rapidly sending LOCATORs that force the
-   peer to change the preferred address SHOULD be avoided.
+   peer to change the preferred address <em>SHOULD</em> be avoided.
 
 
 
@@ -1611,18 +1611,18 @@ Table of Contents
    Furthermore, it should be possible to replace most tunnels with HIP
    based "non-tunneling", therefore making most virtual interfaces
    fairly unnecessary in the future.  Therefore, virtual interfaces
-   SHOULD NOT be announced in general.  On the other hand, there are
+   <em>SHOULD NOT</em> be announced in general.  On the other hand, there are
    clearly situations where tunnels are used for diagnostic and/or
    testing purposes.  In such and other similar cases announcing the IP
    addresses of virtual interfaces may be appropriate.
 
-   Hosts MUST NOT announce broadcast or multicast addresses in LOCATORs.
-   Link-local addresses MAY be announced to peers that are known to be
+   Hosts <em>MUST NOT</em> announce broadcast or multicast addresses in LOCATORs.
+   Link-local addresses <em>MAY</em> be announced to peers that are known to be
    neighbors on the same link, such as when the IP destination address
    of a peer is also link-local.  The announcement of link-local
    addresses in this case is a policy decision; link-local addresses
    used as Preferred locators will create reachability problems when the
-   host moves to another link.  In any case, link-local addresses MUST
+   host moves to another link.  In any case, link-local addresses <em>MUST</em>
    NOT be announced to a peer unless that peer is known to be on the
    same link.
 
@@ -1650,7 +1650,7 @@ Table of Contents
 
 
        the SPI must match that of the ESP_INFO.  The Preferred bit
-       SHOULD be set and the "Locator Lifetime" is set according to
+       <em>SHOULD</em> be set and the "Locator Lifetime" is set according to
        local policy.  The UPDATE also contains a SEQ parameter as usual.
        This packet is retransmitted as defined in the HIP protocol
        specification [<a href="./rfc5201.html" title="&quot;Host Identity Protocol&quot;">RFC5201</a>].  The UPDATE should be sent to the peer's
@@ -1671,7 +1671,7 @@ Table of Contents
 
    3.  Host multihoming (addition of an address).  We only describe the
        simple case of adding an additional address to a (previously)
-       single-homed, non-mobile host.  The host SHOULD set up a new SA
+       single-homed, non-mobile host.  The host <em>SHOULD</em> set up a new SA
        pair between this new address and the preferred address of the
        peer host.  To do this, the multihomed host creates a new inbound
        SA and creates a new SPI.  For the outgoing UPDATE message, it
@@ -1681,12 +1681,12 @@ Table of Contents
        LOCATOR with two Type "1" Locators: the original address and SPI
        active on the association, and the new address and new SPI being
        added (with the SPI matching the NEW SPI contained in the
-       ESP_INFO).  The Preferred bit SHOULD be set depending on the
+       ESP_INFO).  The Preferred bit <em>SHOULD</em> be set depending on the
        policy to tell the peer host which of the two locators is
        preferred.  The UPDATE also contains a SEQ parameter and
        optionally a DIFFIE_HELLMAN parameter, and follows rekeying
        procedures with respect to this new address.  The UPDATE message
-       SHOULD be sent to the peer's Preferred address with a source
+       <em>SHOULD</em> be sent to the peer's Preferred address with a source
        address corresponding to the new locator.
 
    The sending of multiple LOCATORs, locators with Locator Type "0", and
@@ -1707,7 +1707,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  Handling Received LOCATORs</span>
 
-   A host SHOULD be prepared to receive a LOCATOR parameter in the
+   A host <em>SHOULD</em> be prepared to receive a LOCATOR parameter in the
    following HIP packets: R1, I2, UPDATE, and NOTIFY.
 
    This document describes sending both ESP_INFO and LOCATOR parameters
@@ -1725,7 +1725,7 @@ Table of Contents
 
    The processing of ESP_INFO and LOCATOR parameters is intended to be
    modular and support future generalization to the inclusion of
-   multiple ESP_INFO and/or multiple LOCATOR parameters.  A host SHOULD
+   multiple ESP_INFO and/or multiple LOCATOR parameters.  A host <em>SHOULD</em>
    first process the ESP_INFO before the LOCATOR, since the ESP_INFO may
    contain a new SPI value mapped to an existing SPI, while a Type "1"
    locator will only contain a reference to the new SPI.
@@ -1771,8 +1771,8 @@ Table of Contents
    Next, the locators in the LOCATOR parameter are processed.  For each
    locator listed in the LOCATOR parameter, check that the address
    therein is a legal unicast or anycast address.  That is, the address
-   MUST NOT be a broadcast or multicast address.  Note that some
-   implementations MAY accept addresses that indicate the local host,
+   <em>MUST NOT</em> be a broadcast or multicast address.  Note that some
+   implementations <em>MAY</em> accept addresses that indicate the local host,
    since it may be allowed that the host runs HIP with itself.
 
    The below assumes that all locators are of Type "1" with a Traffic
@@ -1792,17 +1792,17 @@ Table of Contents
    have a state of DEPRECATED.
 
    Once the host has processed the locators, if the LOCATOR parameter
-   contains a new Preferred locator, the host SHOULD initiate a change
+   contains a new Preferred locator, the host <em>SHOULD</em> initiate a change
    of the Preferred locator.  This requires that the host first verifies
    reachability of the associated address, and only then changes the
    Preferred locator; see <a href="#section-5.5">Section 5.5</a>.
 
    If a host receives a locator with an unsupported Locator Type, and
    when such a locator is also declared to be the Preferred locator for
-   the peer, the host SHOULD send a NOTIFY error with a Notify Message
+   the peer, the host <em>SHOULD</em> send a NOTIFY error with a Notify Message
    Type of LOCATOR_TYPE_UNSUPPORTED, with the Notification Data field
    containing the locator(s) that the receiver failed to process.
-   Otherwise, a host MAY send a NOTIFY error if a (non-preferred)
+   Otherwise, a host <em>MAY</em> send a NOTIFY error if a (non-preferred)
    locator with an unsupported Locator Type is received in a LOCATOR
    parameter.
 
@@ -1819,36 +1819,36 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a>.  Verifying Address Reachability</span>
 
-   A host MUST verify the reachability of an UNVERIFIED address.  The
-   status of a newly learned address MUST initially be set to UNVERIFIED
+   A host <em>MUST</em> verify the reachability of an UNVERIFIED address.  The
+   status of a newly learned address <em>MUST</em> initially be set to UNVERIFIED
    unless the new address is advertised in a R1 packet as a new
-   Preferred locator.  A host MAY also want to verify the reachability
+   Preferred locator.  A host <em>MAY</em> also want to verify the reachability
    of an ACTIVE address again after some time, in which case it would
    set the status of the address to UNVERIFIED and reinitiate address
    verification.
 
    A host typically starts the address-verification procedure by sending
    a nonce to the new address.  For example, when the host is changing
-   its SPI and sending an ESP_INFO to the peer, the NEW SPI value SHOULD
-   be random and the value MAY be copied into an ECHO_REQUEST sent in
+   its SPI and sending an ESP_INFO to the peer, the NEW SPI value <em>SHOULD</em>
+   be random and the value <em>MAY</em> be copied into an ECHO_REQUEST sent in
    the rekeying UPDATE.  However, if the host is not changing its SPI,
-   it MAY still use the ECHO_REQUEST parameter in an UPDATE message sent
-   to the new address.  A host MAY also use other message exchanges as
+   it <em>MAY</em> still use the ECHO_REQUEST parameter in an UPDATE message sent
+   to the new address.  A host <em>MAY</em> also use other message exchanges as
    confirmation of the address reachability.
 
    Note that in the case of receiving a LOCATOR in an R1 and replying
    with an I2 to the new address in the LOCATOR, receiving the
    corresponding R2 is sufficient proof of reachability for the
    Responder's preferred address.  Since further address verification of
-   such an address can impede the HIP-base exchange, a host MUST NOT
+   such an address can impede the HIP-base exchange, a host <em>MUST NOT</em>
    separately verify reachability of a new Preferred locator that was
    received on an R1.
 
-   In some cases, it MAY be sufficient to use the arrival of data on a
+   In some cases, it <em>MAY</em> be sufficient to use the arrival of data on a
    newly advertised SA as implicit address reachability verification as
    depicted in Figure 13, instead of waiting for the confirmation via a
    HIP packet.  In this case, a host advertising a new SPI as part of
-   its address reachability check SHOULD be prepared to receive traffic
+   its address reachability check <em>SHOULD</em> be prepared to receive traffic
    on the new SA.
 
      Mobile host                                   Peer host
@@ -1864,7 +1864,7 @@ Table of Contents
              Figure 13: Address Activation Via Use of a New SA
 
    When address verification is in progress for a new Preferred locator,
-   the host SHOULD select a different locator listed as ACTIVE, if one
+   the host <em>SHOULD</em> select a different locator listed as ACTIVE, if one
 
 
 
@@ -1874,7 +1874,7 @@ Table of Contents
 
 
    such locator is available, to continue communications until address
-   verification completes.  Alternatively, the host MAY use the new
+   verification completes.  Alternatively, the host <em>MAY</em> use the new
    Preferred locator while in UNVERIFIED status to the extent Credit-
    Based Authorization permits.  Credit-Based Authorization is explained
    in <a href="#section-5.6">Section 5.6</a>.  Once address verification succeeds, the status of
@@ -1882,7 +1882,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a>.  Changing the Preferred Locator</span>
 
-   A host MAY want to change the Preferred outgoing locator for
+   A host <em>MAY</em> want to change the Preferred outgoing locator for
    different reasons, e.g., because traffic information or ICMP error
    messages indicate that the currently used preferred address may have
    become unreachable.  Another reason may be due to receiving a LOCATOR
@@ -1895,10 +1895,10 @@ Table of Contents
        locator is changed and the procedure succeeds.
 
    2.  If the new Preferred locator has UNVERIFIED status, the host
-       starts to verify its reachability.  The host SHOULD use a
+       starts to verify its reachability.  The host <em>SHOULD</em> use a
        different locator listed as ACTIVE until address verification
        completes if one such locator is available.  Alternatively, the
-       host MAY use the new Preferred locator, even though in UNVERIFIED
+       host <em>MAY</em> use the new Preferred locator, even though in UNVERIFIED
        status, to the extent Credit-Based Authorization permits.  Once
        address verification succeeds, the status of the new Preferred
        locator changes to ACTIVE and its use is no longer governed by
@@ -1943,17 +1943,17 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.6.1" href="#section-5.6.1">5.6.1</a>.  Handling Payload Packets</span>
 
    A host maintains a "credit counter" for each of its peers.  Whenever
-   a packet arrives from a peer, the host SHOULD increase that peer's
+   a packet arrives from a peer, the host <em>SHOULD</em> increase that peer's
    credit counter by the size of the received packet.  When the host has
    a packet to be sent to the peer, and when the peer's Preferred
    locator is listed as UNVERIFIED and no alternative locator with
    status ACTIVE is available, the host checks whether it can send the
-   packet to the UNVERIFIED locator.  The packet SHOULD be sent if the
+   packet to the UNVERIFIED locator.  The packet <em>SHOULD</em> be sent if the
    value of the credit counter is higher than the size of the outbound
-   packet.  If the credit counter is too low, the packet MUST be
+   packet.  If the credit counter is too low, the packet <em>MUST</em> be
    discarded or buffered until address verification succeeds.  When a
    packet is sent to a peer at an UNVERIFIED locator, the peer's credit
-   counter MUST be reduced by the size of the packet.  The peer's credit
+   counter <em>MUST</em> be reduced by the size of the packet.  The peer's credit
    counter is not affected by packets that the host sends to an ACTIVE
    locator of that peer.
 
@@ -2196,7 +2196,7 @@ Table of Contents
    to send many UPDATE packets containing many IP addresses that are not
    flagged as preferred.  The attacker continues to send such packets
    until the number of IP addresses associated with the attacker's HI
-   crashes the system.  Therefore, there SHOULD be a limit to the number
+   crashes the system.  Therefore, there <em>SHOULD</em> be a limit to the number
    of IP addresses that can be associated with any HI.  Other forms of
    memory/computationally exhausting attacks via the HIP UPDATE packet
    are handled in the base HIP document [<a href="./rfc5201.html" title="&quot;Host Identity Protocol&quot;">RFC5201</a>].

@@ -362,8 +362,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  Terminology</span>
@@ -397,9 +397,9 @@ Table of Contents
 
    silently discard
         This means the implementation discards the packet without
-        further processing.  The implementation SHOULD provide the
+        further processing.  The implementation <em>SHOULD</em> provide the
         capability of logging the error, including the contents of the
-        silently discarded packet, and SHOULD record the event in a
+        silently discarded packet, and <em>SHOULD</em> record the event in a
         statistics counter.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Overview</span>
@@ -438,7 +438,7 @@ Table of Contents
    context is discarded and the user session(s) are no longer connected,
    or a Disconnect-NAK, if the NAS was unable to disconnect one or more
    sessions and discard all associated session context.  A Disconnect-
-   ACK MAY contain the Acct-Terminate-Cause (49) Attribute [<a href="./rfc2866.html" title="&quot;RADIUS Accounting&quot;">RFC2866</a>]
+   ACK <em>MAY</em> contain the Acct-Terminate-Cause (49) Attribute [<a href="./rfc2866.html" title="&quot;RADIUS Accounting&quot;">RFC2866</a>]
    with the value set to 6 for Admin-Reset.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Change-of-Authorization (CoA) Messages</span>
@@ -450,7 +450,7 @@ Table of Contents
    described in <a href="#section-3">Section 3</a>.  The port used and packet format (described
    in <a href="#section-2.3">Section 2.3</a>) are the same as those for Disconnect-Request packets.
 
-   The following attributes MAY be sent in a CoA-Request:
+   The following attributes <em>MAY</em> be sent in a CoA-Request:
 
    Filter-ID (11) -        Indicates the name of a data filter list
                            to be applied for the session(s) that the
@@ -483,10 +483,10 @@ Table of Contents
    The NAS responds to a CoA-Request sent by a Dynamic Authorization
    Client with a CoA-ACK if the NAS is able to successfully change the
    authorizations for the user session(s), or a CoA-NAK if the CoA-
-   Request is unsuccessful.  A NAS MUST respond to a CoA-Request
+   Request is unsuccessful.  A NAS <em>MUST</em> respond to a CoA-Request
    including a Service-Type Attribute with an unsupported value with a
    CoA-NAK; an Error-Cause Attribute with value "Unsupported Service"
-   SHOULD be included.
+   <em>SHOULD</em> be included.
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Packet Format</span>
 
@@ -501,7 +501,7 @@ Table of Contents
    The packet format consists of the following fields: Code, Identifier,
    Length, Authenticator, and Attributes in Type-Length-Value (TLV)
    format.  All fields hold the same meaning as those described in
-   RADIUS [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>].  The Authenticator field MUST be calculated in the
+   RADIUS [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>].  The Authenticator field <em>MUST</em> be calculated in the
    same way as is specified for an Accounting-Request in [<a href="./rfc2866.html" title="&quot;RADIUS Accounting&quot;">RFC2866</a>].
 
     0                   1                   2                   3
@@ -531,7 +531,7 @@ Table of Contents
    Code
 
       The Code field is one octet, and identifies the type of RADIUS
-      packet.  Packets received with an invalid Code field MUST be
+      packet.  Packets received with an invalid Code field <em>MUST</em> be
       silently discarded.  RADIUS codes (decimal) for this extension are
       assigned as follows:
 
@@ -546,7 +546,7 @@ Table of Contents
 
       The Identifier field is one octet, and aids in matching requests
       and replies.  A Dynamic Authorization Server implementing this
-      specification MUST be capable of detecting a duplicate request if
+      specification <em>MUST</em> be capable of detecting a duplicate request if
       it has the same source IP address, source UDP port, and Identifier
       within a short span of time.
 
@@ -555,23 +555,23 @@ Table of Contents
       If after sending these packets, the Dynamic Authorization Client
       does not receive a response, it will retransmit.
 
-      The Identifier field MUST be changed whenever the content of the
+      The Identifier field <em>MUST</em> be changed whenever the content of the
       Attributes field changes, or whenever a valid reply has been
       received for a previous request.  For retransmissions where the
-      contents are identical, the Identifier MUST remain unchanged.
+      contents are identical, the Identifier <em>MUST</em> remain unchanged.
 
       If the Dynamic Authorization Client is retransmitting a
       Disconnect-Request or CoA-Request to the same Dynamic
       Authorization Server as before, and the attributes haven't
       changed, the same Request Authenticator, Identifier, and source
-      port MUST be used.  If any attributes have changed, a new
-      Authenticator and Identifier MUST be used.
+      port <em>MUST</em> be used.  If any attributes have changed, a new
+      Authenticator and Identifier <em>MUST</em> be used.
 
       If the Request to a primary Dynamic Authorization Server fails, a
       secondary Dynamic Authorization Server must be queried, if
       available; issues relating to failover algorithms are described in
       [<a href="./rfc3539.html" title="&quot;Authentication, Authorization and Accounting Transport Profile&quot;">RFC3539</a>].  Since this represents a new request, a new Request
-      Authenticator and Identifier MUST be used.  However, where the
+      Authenticator and Identifier <em>MUST</em> be used.  However, where the
       Dynamic Authorization Client is sending directly to the NAS,
       failover typically does not make sense, since CoA-Request or
       Disconnect-Request packets need to be delivered to the NAS where
@@ -589,8 +589,8 @@ Table of Contents
       The Length field is two octets.  It indicates the length of the
       packet including the Code, Identifier, Length, Authenticator, and
       Attribute fields.  Octets outside the range of the Length field
-      MUST be treated as padding and ignored on reception.  If the
-      packet is shorter than the Length field indicates, it MUST be
+      <em>MUST</em> be treated as padding and ignored on reception.  If the
+      packet is shorter than the Length field indicates, it <em>MUST</em> be
       silently discarded.  The minimum length is 20 and maximum length
       is 4096.
 
@@ -628,7 +628,7 @@ Table of Contents
 
       Administrative note: As noted in <a href="./rfc2865.html#section-3">[RFC2865], Section&nbsp;3</a>, the secret
       (password shared between the Dynamic Authorization Client and the
-      Dynamic Authorization Server) SHOULD be at least as large and
+      Dynamic Authorization Server) <em>SHOULD</em> be at least as large and
       unguessable as a well-chosen password.  The Dynamic Authorization
 
 
@@ -640,43 +640,43 @@ Table of Contents
 <span class="grey"><a href="./rfc5176.html">RFC 5176</a>       Dynamic Authorization Extensions to RADIUS   January 2008</span>
 
 
-      Server MUST use the source IP address of the RADIUS UDP packet to
+      Server <em>MUST</em> use the source IP address of the RADIUS UDP packet to
       decide which shared secret to use, so that requests can be
       proxied.
 
    Attributes
 
-      In CoA-Request and Disconnect-Request packets, all attributes MUST
+      In CoA-Request and Disconnect-Request packets, all attributes <em>MUST</em>
       be treated as mandatory.  If one or more authorization changes
-      specified in a CoA-Request cannot be carried out, the NAS MUST
-      send a CoA-NAK.  A NAS MUST respond to a CoA-Request containing
+      specified in a CoA-Request cannot be carried out, the NAS <em>MUST</em>
+      send a CoA-NAK.  A NAS <em>MUST</em> respond to a CoA-Request containing
       one or more unsupported attributes or Attribute values with a
       CoA-NAK; an Error-Cause Attribute with value 401 (Unsupported
-      Attribute) or 407 (Invalid Attribute Value) MAY be included.  A
-      NAS MUST respond to a Disconnect-Request containing one or more
+      Attribute) or 407 (Invalid Attribute Value) <em>MAY</em> be included.  A
+      NAS <em>MUST</em> respond to a Disconnect-Request containing one or more
       unsupported attributes or Attribute values with a Disconnect-NAK;
       an Error-Cause Attribute with value 401 (Unsupported Attribute) or
-      407 (Invalid Attribute Value) MAY be included.
+      407 (Invalid Attribute Value) <em>MAY</em> be included.
 
-      State changes resulting from a CoA-Request MUST be atomic: if the
-      CoA-Request is successful for all matching sessions, the NAS MUST
+      State changes resulting from a CoA-Request <em>MUST</em> be atomic: if the
+      CoA-Request is successful for all matching sessions, the NAS <em>MUST</em>
       send a CoA-ACK in reply, and all requested authorization changes
-      MUST be made.  If the CoA-Request is unsuccessful for any matching
-      sessions, the NAS MUST send a CoA-NAK in reply, and the requested
-      authorization changes MUST NOT be made for any of the matching
-      sessions.  Similarly, a state change MUST NOT occur as a result of
+      <em>MUST</em> be made.  If the CoA-Request is unsuccessful for any matching
+      sessions, the NAS <em>MUST</em> send a CoA-NAK in reply, and the requested
+      authorization changes <em>MUST NOT</em> be made for any of the matching
+      sessions.  Similarly, a state change <em>MUST NOT</em> occur as a result of
       a Disconnect-Request that is unsuccessful with respect to any of
-      the matching sessions; a NAS MUST send a Disconnect-NAK in reply
+      the matching sessions; a NAS <em>MUST</em> send a Disconnect-NAK in reply
       if any of the matching sessions cannot be successfully terminated.
       A NAS that does not support dynamic authorization changes applying
-      to multiple sessions MUST send a CoA-NAK or Disconnect-NAK in
+      to multiple sessions <em>MUST</em> send a CoA-NAK or Disconnect-NAK in
       reply; an Error-Cause Attribute with value 508 (Multiple Session
-      Selection Unsupported) SHOULD be included.
+      Selection Unsupported) <em>SHOULD</em> be included.
 
       Within this specification, attributes can be used for
       identification, authorization, or other purposes.  RADIUS
       Attribute specifications created after publication of this
-      document SHOULD state whether an attribute can be included in CoA
+      document <em>SHOULD</em> state whether an attribute can be included in CoA
       or Disconnect messages, and if so, which messages it can be
       included in and whether it serves as an identification or
       authorization attribute.
@@ -705,12 +705,12 @@ Table of Contents
    In Disconnect-Request and CoA-Request packets, certain attributes are
    used to uniquely identify the NAS as well as user session(s) on the
    NAS.  The combination of NAS and session identification attributes
-   included in a CoA-Request or Disconnect-Request packet MUST match at
+   included in a CoA-Request or Disconnect-Request packet <em>MUST</em> match at
    least one session in order for a Request to be successful; otherwise
-   a Disconnect-NAK or CoA-NAK MUST be sent.  If all NAS identification
+   a Disconnect-NAK or CoA-NAK <em>MUST</em> be sent.  If all NAS identification
    attributes match, and more than one session matches all of the
    session identification attributes, then a CoA-Request or Disconnect-
-   Request MUST apply to all matching sessions.
+   Request <em>MUST</em> apply to all matching sessions.
 
    Identification attributes include NAS and session identification
    attributes, as described below.
@@ -773,17 +773,17 @@ Table of Contents
                                            with Framed-Interface-Id.
 
    To address security concerns described in <a href="#section-6.1">Section 6.1</a>, either the
-   User-Name or Chargeable-User-Identity attribute SHOULD be present in
+   User-Name or Chargeable-User-Identity attribute <em>SHOULD</em> be present in
    Disconnect-Request and CoA-Request packets.
 
    Where a Diameter client utilizes the same Session-Id for both
    authorization and accounting, inclusion of an Acct-Session-Id
    Attribute in a Disconnect-Request or CoA-Request can assist with
    Diameter/RADIUS translation, since Diameter RAR and ASR commands
-   include a Session-Id AVP.  An Acct-Session-Id Attribute SHOULD be
+   include a Session-Id AVP.  An Acct-Session-Id Attribute <em>SHOULD</em> be
    included in Disconnect-Request and CoA-Request packets.
 
-   A NAS implementing this specification SHOULD send an Acct-Session-Id
+   A NAS implementing this specification <em>SHOULD</em> send an Acct-Session-Id
    or Acct-Multi-Session-Id Attribute within an Access-Request.  Where
    an Acct-Session-Id or Acct-Multi-Session-Id Attribute is not included
    within an Access-Request, the Dynamic Authorization Client will not
@@ -797,7 +797,7 @@ Table of Contents
    sufficient to uniquely identify a single session (e.g., if the same
    user has multiple sessions on the NAS, or if the privacy NAI is
    used).  In this case, if it is desired to identify a single session,
-   session identification MAY be performed by using one or more of the
+   session identification <em>MAY</em> be performed by using one or more of the
    Framed-IP-Address, Framed-IPv6-Prefix/Framed-Interface-Id, Called-
    Station-Id, Calling-Station-Id, NAS-Port, and NAS-Port-Id attributes.
 
@@ -810,15 +810,15 @@ Table of Contents
 
    To assist RADIUS proxies in routing Request packets to their
    destination, one or more of the NAS-IP-Address or NAS-IPv6-Address
-   attributes SHOULD be present in CoA-Request and Disconnect-Request
-   packets; the NAS-Identifier Attribute MAY be present.  Impersonation
+   attributes <em>SHOULD</em> be present in CoA-Request and Disconnect-Request
+   packets; the NAS-Identifier Attribute <em>MAY</em> be present.  Impersonation
    issues with NAS Identification attributes are discussed in <a href="./rfc3579.html#section-4.3.7">[RFC3579],
    Section&nbsp;4.3.7</a>.
 
-   A Disconnect-Request MUST contain only NAS and session identification
+   A Disconnect-Request <em>MUST</em> contain only NAS and session identification
    attributes.  If other attributes are included in a Disconnect-
-   Request, implementations MUST send a Disconnect-NAK; an Error-Cause
-   Attribute with value "Unsupported Attribute" MAY be included.
+   Request, implementations <em>MUST</em> send a Disconnect-NAK; an Error-Cause
+   Attribute with value "Unsupported Attribute" <em>MAY</em> be included.
 
    The DAC may require access to data from RADIUS authentication or
    accounting packets.  It uses this data to compose compliant CoA-
@@ -837,12 +837,12 @@ Table of Contents
    the RADIUS server, so long as it has access to that common database.
 
    Where the DAC is not co-located with a RADIUS server, and does not
-   have access to a common database, the DAC SHOULD send CoA-Request or
+   have access to a common database, the DAC <em>SHOULD</em> send CoA-Request or
    Disconnect-Request packets to a RADIUS server acting as a proxy,
    rather than sending them directly to the NAS.
 
    A RADIUS server receiving a CoA-Request or Disconnect-Request packet
-   from the DAC MAY then add or update attributes (such as adding NAS or
+   from the DAC <em>MAY</em> then add or update attributes (such as adding NAS or
    session identification attributes or appending a State Attribute),
    prior to forwarding the packet.  Having CoA/Disconnect-Requests
    forwarded by a RADIUS server can also enable upstream RADIUS proxies
@@ -852,7 +852,7 @@ Table of Contents
 
    If there are any Proxy-State attributes in a Disconnect-Request or
    CoA-Request received from the Dynamic Authorization Client, the
-   Dynamic Authorization Server MUST include those Proxy-State
+   Dynamic Authorization Server <em>MUST</em> include those Proxy-State
    attributes in its response to the Dynamic Authorization Client.
 
 
@@ -864,32 +864,32 @@ Table of Contents
 <span class="grey"><a href="./rfc5176.html">RFC 5176</a>       Dynamic Authorization Extensions to RADIUS   January 2008</span>
 
 
-   A forwarding proxy or NAS MUST NOT modify existing Proxy-State,
+   A forwarding proxy or NAS <em>MUST NOT</em> modify existing Proxy-State,
    State, or Class attributes present in the packet.  The forwarding
-   proxy or NAS MUST treat any Proxy-State attributes already in the
-   packet as opaque data.  Its operation MUST NOT depend on the content
+   proxy or NAS <em>MUST</em> treat any Proxy-State attributes already in the
+   packet as opaque data.  Its operation <em>MUST NOT</em> depend on the content
    of Proxy-State attributes added by previous proxies.  The forwarding
-   proxy MUST NOT modify any other Proxy-State attributes that were in
-   the packet; it may choose not to forward them, but it MUST NOT change
+   proxy <em>MUST NOT</em> modify any other Proxy-State attributes that were in
+   the packet; it may choose not to forward them, but it <em>MUST NOT</em> change
    their contents.  If the forwarding proxy omits the Proxy-State
-   attributes in the request, it MUST attach them to the response before
+   attributes in the request, it <em>MUST</em> attach them to the response before
    sending it.
 
-   When the proxy forwards a Disconnect-Request or CoA-Request, it MAY
-   add a Proxy-State Attribute, but it MUST NOT add more than one.  If a
+   When the proxy forwards a Disconnect-Request or CoA-Request, it <em>MAY</em>
+   add a Proxy-State Attribute, but it <em>MUST NOT</em> add more than one.  If a
    Proxy-State Attribute is added to a packet when forwarding the
-   packet, the Proxy-State Attribute MUST be added after any existing
-   Proxy-State attributes.  The forwarding proxy MUST NOT change the
+   packet, the Proxy-State Attribute <em>MUST</em> be added after any existing
+   Proxy-State attributes.  The forwarding proxy <em>MUST NOT</em> change the
    order of any attributes of the same type, including Proxy-State.
    Other attributes can be placed before, after, or even between the
    Proxy-State attributes.
 
    When the proxy receives a response to a CoA-Request or Disconnect-
-   Request, it MUST remove its own Proxy-State Attribute (the last
+   Request, it <em>MUST</em> remove its own Proxy-State Attribute (the last
    Proxy-State in the packet) before forwarding the response.  Since
    Disconnect and CoA responses are authenticated on the entire packet
    contents, the stripping of the Proxy-State Attribute invalidates the
-   integrity check, so the proxy MUST recompute it.
+   integrity check, so the proxy <em>MUST</em> recompute it.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Authorize Only</span>
 
@@ -897,19 +897,19 @@ Table of Contents
    Authorization Clients can include a Service-Type Attribute with value
    "Authorize Only" within a CoA-Request; see <a href="#section-4">Section 4</a> for details on
    Diameter considerations.  Support for a CoA-Request including a
-   Service-Type Attribute with value "Authorize Only" is OPTIONAL on the
-   NAS and Dynamic Authorization Client.  A Service-Type Attribute MUST
+   Service-Type Attribute with value "Authorize Only" is <em>OPTIONAL</em> on the
+   NAS and Dynamic Authorization Client.  A Service-Type Attribute <em>MUST</em>
    NOT be included within a Disconnect-Request.
 
-   A NAS MUST respond to a CoA-Request including a Service-Type
-   Attribute with value "Authorize Only" with a CoA-NAK; a CoA-ACK MUST
+   A NAS <em>MUST</em> respond to a CoA-Request including a Service-Type
+   Attribute with value "Authorize Only" with a CoA-NAK; a CoA-ACK <em>MUST</em>
    NOT be sent.  If the NAS does not support a Service-Type value of
-   "Authorize Only", then it MUST respond with a CoA-NAK; an Error-Cause
-   Attribute with a value of 405 (Unsupported Service) SHOULD be
+   "Authorize Only", then it <em>MUST</em> respond with a CoA-NAK; an Error-Cause
+   Attribute with a value of 405 (Unsupported Service) <em>SHOULD</em> be
    included.
 
    A CoA-Request containing a Service-Type Attribute with value
-   "Authorize Only" MUST in addition contain only NAS or session
+   "Authorize Only" <em>MUST</em> in addition contain only NAS or session
    identification attributes, as well as a State Attribute.  If other
 
 
@@ -920,24 +920,24 @@ Table of Contents
 <span class="grey"><a href="./rfc5176.html">RFC 5176</a>       Dynamic Authorization Extensions to RADIUS   January 2008</span>
 
 
-   attributes are included in such a CoA-Request, a CoA-NAK MUST be
+   attributes are included in such a CoA-Request, a CoA-NAK <em>MUST</em> be
    sent; an Error-Cause Attribute with value 401 (Unsupported Attribute)
-   SHOULD be included.
+   <em>SHOULD</em> be included.
 
    If a CoA-Request packet including a Service-Type value of "Authorize
-   Only" is successfully processed, the NAS MUST respond with a CoA-NAK
+   Only" is successfully processed, the NAS <em>MUST</em> respond with a CoA-NAK
    containing a Service-Type Attribute with value "Authorize Only", and
    an Error-Cause Attribute with value 507 (Request Initiated).  The NAS
-   then MUST send an Access-Request to the RADIUS server including a
+   then <em>MUST</em> send an Access-Request to the RADIUS server including a
    Service-Type Attribute with value "Authorize Only", along with a
-   State Attribute.  This Access-Request SHOULD contain the NAS
+   State Attribute.  This Access-Request <em>SHOULD</em> contain the NAS
    identification attributes from the CoA-Request, as well as the
    session identification attributes from the CoA-Request permitted in
-   an Access-Request; it also MAY contain other attributes permitted in
+   an Access-Request; it also <em>MAY</em> contain other attributes permitted in
    an Access-Request.
 
    As noted in <a href="./rfc2869.html#section-5.19">[RFC2869], Section&nbsp;5.19</a>, a Message-Authenticator
-   attribute SHOULD be included in an Access-Request that does not
+   attribute <em>SHOULD</em> be included in an Access-Request that does not
    contain a User-Password, CHAP-Password, ARAP-Password, or EAP-Message
    Attribute.  The RADIUS server then will respond to the Access-Request
    with an Access-Accept to (re-)authorize the session or an Access-
@@ -946,14 +946,14 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  State</span>
 
    The State Attribute is available to be sent by the Dynamic
-   Authorization Client to the NAS in a CoA-Request packet and MUST be
+   Authorization Client to the NAS in a CoA-Request packet and <em>MUST</em> be
    sent unmodified from the NAS to the Dynamic Authorization Client in a
    subsequent ACK or NAK packet.
 
    <a href="./rfc2865.html#section-5.44">[RFC2865], Section&nbsp;5.44</a> states:
 
-      An Access-Request MUST contain either a User-Password or a
-      CHAP-Password or State.  An Access-Request MUST NOT contain both a
+      An Access-Request <em>MUST</em> contain either a User-Password or a
+      CHAP-Password or State.  An Access-Request <em>MUST NOT</em> contain both a
       User-Password and a CHAP-Password.  If future extensions allow
       other kinds of authentication information to be conveyed, the
       attribute for that can be used in an Access-Request instead of
@@ -961,12 +961,12 @@ Table of Contents
 
    In order to satisfy the requirements of <a href="./rfc2865.html#section-5.44">[RFC2865], Section&nbsp;5.44</a>, an
    Access-Request with Service-Type Attribute with value "Authorize
-   Only" MUST contain a State Attribute.
+   Only" <em>MUST</em> contain a State Attribute.
 
    In order to provide a State Attribute to the NAS, a Dynamic
    Authorization Client sending a CoA-Request with a Service-Type
-   Attribute with a value of "Authorize Only" MUST include a State
-   Attribute, and the NAS MUST send the State Attribute unmodified to
+   Attribute with a value of "Authorize Only" <em>MUST</em> include a State
+   Attribute, and the NAS <em>MUST</em> send the State Attribute unmodified to
    the RADIUS server in the resulting Access-Request, if any.  A NAS
 
 
@@ -977,34 +977,34 @@ Table of Contents
 
 
    receiving a CoA-Request containing a Service-Type Attribute with a
-   value of "Authorize Only" but lacking a State Attribute MUST send a
-   CoA-NAK and SHOULD include an Error-Cause Attribute with a value of
+   value of "Authorize Only" but lacking a State Attribute <em>MUST</em> send a
+   CoA-NAK and <em>SHOULD</em> include an Error-Cause Attribute with a value of
    402 (Missing Attribute).
 
    The State Attribute is also available to be sent by the Dynamic
    Authorization Client to the NAS in a CoA-Request that also includes a
    Termination-Action Attribute with the value of RADIUS-Request.  If
    the NAS performs the Termination-Action by sending a new Access-
-   Request upon termination of the current session, it MUST include the
+   Request upon termination of the current session, it <em>MUST</em> include the
    State Attribute unchanged in that Access-Request.  In either usage,
-   the Dynamic Authorization Server MUST NOT interpret the Attribute
-   locally.  A CoA-Request packet MUST have only zero or one State
+   the Dynamic Authorization Server <em>MUST NOT</em> interpret the Attribute
+   locally.  A CoA-Request packet <em>MUST</em> have only zero or one State
    Attribute.  Usage of the State Attribute is implementation dependent.
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Message-Authenticator</span>
 
-   The Message-Authenticator Attribute MAY be used to authenticate and
+   The Message-Authenticator Attribute <em>MAY</em> be used to authenticate and
    integrity-protect CoA-Request, CoA-ACK, CoA-NAK, Disconnect-Request,
    Disconnect-ACK, and Disconnect-NAK packets in order to prevent
    spoofing.
 
    A Dynamic Authorization Server receiving a CoA-Request or
    Disconnect-Request with a Message-Authenticator Attribute present
-   MUST calculate the correct value of the Message-Authenticator and
+   <em>MUST</em> calculate the correct value of the Message-Authenticator and
    silently discard the packet if it does not match the value sent.  A
    Dynamic Authorization Client receiving a CoA/Disconnect-ACK or
    CoA/Disconnect-NAK with a Message-Authenticator Attribute present
-   MUST calculate the correct value of the Message-Authenticator and
+   <em>MUST</em> calculate the correct value of the Message-Authenticator and
    silently discard the packet if it does not match the value sent.
 
    When a Message-Authenticator Attribute is included within a CoA-
@@ -1015,7 +1015,7 @@ Table of Contents
 
       When the HMAC-MD5 message integrity check is calculated the
       Request Authenticator field and Message-Authenticator Attribute
-      MUST each be considered to be sixteen octets of zero.  The
+      <em>MUST</em> each be considered to be sixteen octets of zero.  The
       Message-Authenticator Attribute is calculated and inserted in the
       packet before the Request Authenticator is calculated.
 
@@ -1040,7 +1040,7 @@ Table of Contents
          Request Authenticator, Attributes)
 
       When the HMAC-MD5 message integrity check is calculated, the
-      Message-Authenticator Attribute MUST be considered to be sixteen
+      Message-Authenticator Attribute <em>MUST</em> be considered to be sixteen
       octets of zero.  The Request Authenticator is taken from the
       corresponding CoA/Disconnect-Request.  The Message-Authenticator
       is calculated and inserted in the packet before the Response
@@ -1053,7 +1053,7 @@ Table of Contents
       It is possible that a Dynamic Authorization Server cannot honor
       Disconnect-Request or CoA-Request packets for some reason.  The
       Error-Cause Attribute provides more detail on the cause of the
-      problem.  It MAY be included within CoA-NAK and Disconnect-NAK
+      problem.  It <em>MAY</em> be included within CoA-NAK and Disconnect-NAK
       packets.
 
       A summary of the Error-Cause Attribute format is shown below.  The
@@ -1089,15 +1089,15 @@ Table of Contents
 
 
       values may only be sent within CoA-ACK or Disconnect-ACK packets
-      and MUST NOT be sent within a CoA-NAK or Disconnect-NAK packet.
+      and <em>MUST NOT</em> be sent within a CoA-NAK or Disconnect-NAK packet.
       Values 400-499 represent fatal errors committed by the Dynamic
-      Authorization Client, so that they MAY be sent within CoA-NAK or
-      Disconnect-NAK packets, and MUST NOT be sent within CoA-ACK or
+      Authorization Client, so that they <em>MAY</em> be sent within CoA-NAK or
+      Disconnect-NAK packets, and <em>MUST NOT</em> be sent within CoA-ACK or
       Disconnect-ACK packets.  Values 500-599 represent fatal errors
-      occurring on a Dynamic Authorization Server, so that they MAY be
-      sent within CoA-NAK and Disconnect-NAK packets, and MUST NOT be
+      occurring on a Dynamic Authorization Server, so that they <em>MAY</em> be
+      sent within CoA-NAK and Disconnect-NAK packets, and <em>MUST NOT</em> be
       sent within CoA-ACK or Disconnect-ACK packets.  Error-Cause values
-      SHOULD be logged by the Dynamic Authorization Client.  Error-Code
+      <em>SHOULD</em> be logged by the Dynamic Authorization Client.  Error-Code
       values (expressed in decimal) include:
 
        #     Value
@@ -1123,10 +1123,10 @@ Table of Contents
       "Residual Session Context Removed" is sent in response to a
       Disconnect-Request if one or more user sessions are no longer
       active, but residual session context was found and successfully
-      removed.  This value is only sent within a Disconnect-ACK and MUST
+      removed.  This value is only sent within a Disconnect-ACK and <em>MUST</em>
       NOT be sent within a CoA-ACK, Disconnect-NAK, or CoA-NAK.
 
-      "Invalid EAP Packet (Ignored)" is a non-fatal error that MUST NOT
+      "Invalid EAP Packet (Ignored)" is a non-fatal error that <em>MUST NOT</em>
       be sent by implementations of this specification.
 
       "Unsupported Attribute" is a fatal error sent if a Request
@@ -1171,8 +1171,8 @@ Table of Contents
       configured to prohibit honoring of CoA-Request or Disconnect-
       Request packets for the specified session.
 
-      "Request Not Routable" is a fatal error that MAY be sent by a
-      proxy and MUST NOT be sent by a NAS.  It indicates that the proxy
+      "Request Not Routable" is a fatal error that <em>MAY</em> be sent by a
+      proxy and <em>MUST NOT</em> be sent by a NAS.  It indicates that the proxy
       was unable to determine how to route a CoA-Request or Disconnect-
       Request to the NAS.  For example, this can occur if the required
       entries are not present in the proxy's realm routing table.
@@ -1183,7 +1183,7 @@ Table of Contents
 
       "Session Context Not Removable" is a fatal error sent in response
       to a Disconnect-Request if the NAS was able to locate the session
-      context, but could not remove it for some reason.  It MUST NOT be
+      context, but could not remove it for some reason.  It <em>MUST NOT</em> be
       sent within a CoA-ACK, CoA-NAK, or Disconnect-ACK, only within a
       Disconnect-NAK.
 
@@ -1407,11 +1407,11 @@ Table of Contents
 
    The following defines the meaning of the above table entries:
 
-   0    This attribute MUST NOT be present in packet.
-   0+   Zero or more instances of this attribute MAY be present in
+   0    This attribute <em>MUST NOT</em> be present in packet.
+   0+   Zero or more instances of this attribute <em>MAY</em> be present in
         packet.
-   0-1  Zero or one instance of this attribute MAY be present in packet.
-   1    Exactly one instance of this attribute MUST be present in
+   0-1  Zero or one instance of this attribute <em>MAY</em> be present in packet.
+   1    Exactly one instance of this attribute <em>MUST</em> be present in
         packet.
 
 
@@ -1426,7 +1426,7 @@ Table of Contents
 
    (Note 1) Where NAS or session identification attributes are included
    in Disconnect-Request or CoA-Request packets, they are used for
-   identification purposes only.  These attributes MUST NOT be used for
+   identification purposes only.  These attributes <em>MUST NOT</em> be used for
    purposes other than identification (e.g., within CoA-Request packets
    to request authorization changes).
 
@@ -1446,7 +1446,7 @@ Table of Contents
    CoA-Request replace all existing values of the same attribute(s).
 
    (Note 4) When included within a successful Disconnect-Request (where
-   a Disconnect-ACK is subsequently sent), the Class Attribute SHOULD be
+   a Disconnect-ACK is subsequently sent), the Class Attribute <em>SHOULD</em> be
    sent unmodified by the NAS to the RADIUS accounting server in the
    Accounting Stop packet.  If the Disconnect-Request is unsuccessful,
    then the Class Attribute is not processed.
@@ -1468,10 +1468,10 @@ Table of Contents
    supported by all PPP implementations.
 
    (Note 7) Within Disconnect-Request packets, Vendor-Specific
-   Attributes (VSAs) MAY be used for session identification.  Within
-   CoA-Request packets, VSAs MAY be used for either session
+   Attributes (VSAs) <em>MAY</em> be used for session identification.  Within
+   CoA-Request packets, VSAs <em>MAY</em> be used for either session
    identification or authorization change.  However, the same Attribute
-   MUST NOT be used for both purposes simultaneously.
+   <em>MUST NOT</em> be used for both purposes simultaneously.
 
 
 
@@ -1497,7 +1497,7 @@ Table of Contents
    ONLY".  Then the Diameter/RADIUS gateway will respond to the ensuing
    access request with a response including the authorization attributes
    gleaned from the CoA-Request.  To enable translation, the CoA-Request
-   SHOULD include a Acct-Session-Id Attribute.  If the Diameter client
+   <em>SHOULD</em> include a Acct-Session-Id Attribute.  If the Diameter client
    uses the same Session-Id for both authorization and accounting, then
    the Diameter/RADIUS gateway can copy the contents of the Acct-
    Session-Id Attribute into the Session-Id AVP;  otherwise, it will
@@ -1542,7 +1542,7 @@ Table of Contents
    the Session-ID AVP may be placed in the Acct-Session-Id Attribute;
    otherwise the value of the Session-ID AVP will need to be mapped to
    an appropriate Acct-Session-Id Attribute.  To enable translation of a
-   Disconnect-Request to an ASR, an Acct-Session-Id Attribute SHOULD be
+   Disconnect-Request to an ASR, an Acct-Session-Id Attribute <em>SHOULD</em> be
    present.
 
    If the Diameter client utilizes the same Session-Id in both
@@ -1597,7 +1597,7 @@ Table of Contents
    inclusion of an "Authorize Only" Service-Type within a Disconnect-
    Request is not needed to assist in Diameter/RADIUS translation, and
    may make translation more difficult.  As a result, as noted in
-   <a href="#section-3.2">Section 3.2</a>, the Service-Type Attribute MUST NOT be used within a
+   <a href="#section-3.2">Section 3.2</a>, the Service-Type Attribute <em>MUST NOT</em> be used within a
    Disconnect-Request.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  IANA Considerations</span>
@@ -1621,13 +1621,13 @@ Table of Contents
    one provider to be able to send Disconnect-Requests or CoA-Requests
    affecting the sessions of another provider.
 
-   A Dynamic Authorization Server MUST silently discard Disconnect-
+   A Dynamic Authorization Server <em>MUST</em> silently discard Disconnect-
    Request or CoA-Request packets from untrusted sources.  In situations
    where the Dynamic Authorization Client is co-resident with a RADIUS
-   authentication or accounting server, a proxy MAY perform a "reverse
+   authentication or accounting server, a proxy <em>MAY</em> perform a "reverse
    path forwarding" (RPF) check to verify that a Disconnect-Request or
    CoA-Request originates from an authorized Dynamic Authorization
-   Client.  In addition, it SHOULD be possible to explicitly authorize
+   Client.  In addition, it <em>SHOULD</em> be possible to explicitly authorize
    additional sources of Disconnect-Request or CoA-Request packets
    relating to certain classes of sessions.  For example, a particular
    source can be explicitly authorized to send CoA-Request packets
@@ -1639,7 +1639,7 @@ Table of Contents
    which an equivalent Access-Request could be routed.  If the source
    address of the Disconnect-Request or CoA-Request is within this set,
    then the CoA-Request or Disconnect-Request is forwarded; otherwise it
-   MUST be silently discarded.
+   <em>MUST</em> be silently discarded.
 
 
 
@@ -1653,7 +1653,7 @@ Table of Contents
    User-Name or Chargeable-User-Identity Attribute, and determine the
    corresponding RADIUS servers in the realm routing tables.  If the
    Dynamic Authorization Server maintains long-term session state, it
-   MAY perform the authorization check based on the session
+   <em>MAY</em> perform the authorization check based on the session
    identification attributes in the CoA-Request.  The session
    identification attributes can be used to tie a session to a
    particular proxy or set of proxies, as with the NAI realm.
@@ -1666,7 +1666,7 @@ Table of Contents
 
    Since authorization to send a Disconnect-Request or CoA-Request is
    determined based on the source address and the corresponding shared
-   secret, the Dynamic Authorization Server SHOULD configure a different
+   secret, the Dynamic Authorization Server <em>SHOULD</em> configure a different
    shared secret for each Dynamic Authorization Client.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  IPsec Usage Guidelines</span>
@@ -1674,7 +1674,7 @@ Table of Contents
    In addition to security vulnerabilities unique to Disconnect or CoA
    packets, the protocol exchanges described in this document are
    susceptible to the same vulnerabilities as RADIUS [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>].  It is
-   RECOMMENDED that IPsec be employed to afford better security,
+   <em>RECOMMENDED</em> that IPsec be employed to afford better security,
    utilizing the profile described in <a href="./rfc3579.html#section-4.2">[RFC3579], Section&nbsp;4.2</a>.
 
    For Dynamic Authorization Servers implementing this specification,
@@ -1707,32 +1707,32 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  Replay Protection</span>
 
    Where IPsec replay protection is not used, an Event-Timestamp (55)
-   [<a href="./rfc2869.html" title="&quot;RADIUS Extensions&quot;">RFC2869</a>] Attribute SHOULD be included within CoA-Request and
-   Disconnect-Request packets, and MAY be included within CoA-ACK, CoA-
+   [<a href="./rfc2869.html" title="&quot;RADIUS Extensions&quot;">RFC2869</a>] Attribute <em>SHOULD</em> be included within CoA-Request and
+   Disconnect-Request packets, and <em>MAY</em> be included within CoA-ACK, CoA-
    NAK, Disconnect-ACK, and Disconnect-NAK packets.
 
    When the Event-Timestamp Attribute is present, both the Dynamic
-   Authorization Server and the Dynamic Authorization Client MUST check
+   Authorization Server and the Dynamic Authorization Client <em>MUST</em> check
    that the Event-Timestamp Attribute is current within an acceptable
    time window.  If the Event-Timestamp Attribute is not current, then
-   the packet MUST be silently discarded.  This implies the need for
+   the packet <em>MUST</em> be silently discarded.  This implies the need for
    loose time synchronization within the network, which can be achieved
    by a variety of means, including Simple Network Time Protocol (SNTP),
-   as described in [<a href="./rfc4330.html" title="&quot;Simple Network Time Protocol (SNTP) Version 4 for IPv4, IPv6 and OSI&quot;">RFC4330</a>].  Implementations SHOULD be configurable to
+   as described in [<a href="./rfc4330.html" title="&quot;Simple Network Time Protocol (SNTP) Version 4 for IPv4, IPv6 and OSI&quot;">RFC4330</a>].  Implementations <em>SHOULD</em> be configurable to
    discard CoA-Request or Disconnect-Request packets not containing an
    Event-Timestamp Attribute.
 
    If the Event-Timestamp Attribute is included, it represents the time
-   at which the original packet was sent, and therefore it SHOULD NOT be
+   at which the original packet was sent, and therefore it <em>SHOULD NOT</em> be
    updated when the packet is retransmitted.  If the Event-Timestamp
    Attribute is not updated, this implies that the Identifier is not
    changed in retransmitted packets.  As a result, the ability to detect
    replay within the time window is dependent on support for duplicate
    detection within that same window.  As noted in <a href="#section-2.3">Section 2.3</a>,
-   duplicate detection is REQUIRED for Dynamic Authorization Servers
+   duplicate detection is <em>REQUIRED</em> for Dynamic Authorization Servers
    implementing this specification.
 
-   The time window used for duplicate detection MUST be the same as the
+   The time window used for duplicate detection <em>MUST</em> be the same as the
    window used to detect a stale Event-Timestamp Attribute.  Since the
    RADIUS Identifier cannot be repeated within the selected time window,
    no more than 256 Requests can be accepted within the time window.  As

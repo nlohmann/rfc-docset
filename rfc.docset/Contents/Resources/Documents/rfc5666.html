@@ -359,8 +359,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Abstract RDMA Requirements</span>
@@ -386,7 +386,7 @@ Table of Contents
    o Registered Memory
         All data moved via tagged RDMA operations is resident in
         registered memory at its destination.  This protocol assumes
-        that each segment of registered memory MUST be identified with a
+        that each segment of registered memory <em>MUST</em> be identified with a
         steering tag of no more than 32 bits and memory addresses of up
         to 64 bits in length.
 
@@ -548,21 +548,21 @@ Table of Contents
    Flow control for RDMA Send operations is implemented as a simple
    request/grant protocol in the RPC-over-RDMA header associated with
    each RPC message.  The RPC-over-RDMA header for RPC call messages
-   contains a requested credit value for the RPC server, which MAY be
+   contains a requested credit value for the RPC server, which <em>MAY</em> be
    dynamically adjusted by the caller to match its expected needs.  The
    RPC-over-RDMA header for the RPC reply messages provides the granted
-   result, which MAY have any value except it MUST NOT be zero when no
+   result, which <em>MAY</em> have any value except it <em>MUST NOT</em> be zero when no
    in-progress operations are present at the server, since such a value
-   would result in deadlock.  The value MAY be adjusted up or down at
+   would result in deadlock.  The value <em>MAY</em> be adjusted up or down at
    each opportunity to match the server's needs or policies.
 
-   The RPC client MUST NOT send unacknowledged requests in excess of
+   The RPC client <em>MUST NOT</em> send unacknowledged requests in excess of
    this granted RPC server credit limit.  If the limit is exceeded, the
    RDMA layer may signal an error, possibly terminating the connection.
-   Even if an error does not occur, it is OPTIONAL that the server
-   handle the excess request(s), and it MAY return an RPC error to the
+   Even if an error does not occur, it is <em>OPTIONAL</em> that the server
+   handle the excess request(s), and it <em>MAY</em> return an RPC error to the
    client.  Also note that the never-zero requirement implies that an
-   RPC server MUST always provide at least one credit to each connected
+   RPC server <em>MUST</em> always provide at least one credit to each connected
    RPC client from which no requests are outstanding.  The client would
    deadlock otherwise, unable to send another request.
 
@@ -584,7 +584,7 @@ Table of Contents
    Certain RDMA implementations may impose additional flow control
    restrictions, such as limits on RDMA Read operations in progress at
    the responder.  Because these operations are outside the scope of
-   this protocol, they are not addressed and SHOULD be provided for by
+   this protocol, they are not addressed and <em>SHOULD</em> be provided for by
    other layers.  For example, a simple upper-layer RPC consumer might
    perform single-issue RDMA Read requests, while a more sophisticated,
    multithreaded RPC consumer might implement its own First In, First
@@ -615,11 +615,11 @@ Table of Contents
    only those opaque and aggregate data types that may attain
    substantial size are considered to be eligible.  With today's
    hardware, this size may be a kilobyte or more.  However, any object
-   MAY be chosen for chunking in any given message.
+   <em>MAY</em> be chosen for chunking in any given message.
 
    The eligibility of XDR data items to be candidates for being moved as
    data chunks (as opposed to being marshaled inline) is not specified
-   by the RPC-over-RDMA protocol.  Chunk eligibility criteria MUST be
+   by the RPC-over-RDMA protocol.  Chunk eligibility criteria <em>MUST</em> be
    determined by each upper-layer in order to provide for an
    interoperable specification.  One such example with rationale, for
    the NFS protocol family, is provided in [<a href="./rfc5667.html" title="&quot;Network File System (NFS) Direct Data Placement&quot;">RFC5667</a>].
@@ -661,7 +661,7 @@ Table of Contents
    performed by any other specific local implementation.
 
    Additionally, when making an RPC call that can result in bulk data
-   transferred in the reply, write chunks MAY be provided to accept the
+   transferred in the reply, write chunks <em>MAY</em> be provided to accept the
    data directly via RDMA Write.  These write chunks will therefore be
    pre-filled by the RPC server prior to responding, and XDR decode of
    the data at the client will not be required.  These chunks undergo a
@@ -677,9 +677,9 @@ Table of Contents
    information at this earlier stage.
 
    Therefore, if the RPC client does not make a write chunk list
-   available to receive the result, then the RPC server MAY return data
+   available to receive the result, then the RPC server <em>MAY</em> return data
    inline in the reply, or if the upper-layer specification permits, it
-   MAY be returned via a read chunk list.  It is NOT RECOMMENDED that
+   <em>MAY</em> be returned via a read chunk list.  It is NOT <em>RECOMMENDED</em> that
    upper-layer RPC client protocol specifications omit write chunk lists
    for eligible replies, due to the lower performance of the additional
    handshaking to perform data transfer, and the requirement that the
@@ -708,7 +708,7 @@ Table of Contents
    and the data must be transferred as part of the logical XDR stream.
    While the chunk list processing results in the data being available
    to the upper-layer peer for XDR decoding, the length present in the
-   chunk list entries is not.  Any byte count in the XDR stream MUST
+   chunk list entries is not.  Any byte count in the XDR stream <em>MUST</em>
    match the sum of the byte counts present in the corresponding read or
    write chunk list.  If they do not agree, an RPC protocol encoding
    error results.
@@ -783,11 +783,11 @@ Table of Contents
    or result's position in the XDR stream.  Write chunks are encoded as
    a list of arrays of RDMA buffers, with each list element (an array)
    providing buffers for a separate result.  Individual write chunk list
-   elements MAY thereby result in being partially or fully filled, or in
+   elements <em>MAY</em> thereby result in being partially or fully filled, or in
    fact not being filled at all.  Unused write chunks, or unused bytes
    in write chunk buffer lists, are not returned as results, and their
    memory is returned to the upper layer as part of RPC completion.
-   However, the RPC layer MUST NOT assume that the buffers have not been
+   However, the RPC layer <em>MUST NOT</em> assume that the buffers have not been
    modified.
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  XDR Decoding with Read Chunks</span>
@@ -823,7 +823,7 @@ Table of Contents
    source buffers advertised by the request.
 
    When processing an RPC reply, after completing such a transfer, the
-   RPC receiver (client) MUST issue an RDMA_DONE message (described in
+   RPC receiver (client) <em>MUST</em> issue an RDMA_DONE message (described in
    <a href="#section-3.8">Section 3.8</a>) to notify the peer (server) that the source buffers can
    be freed.
 
@@ -835,7 +835,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  XDR Decoding with Write Chunks</span>
 
    When a write chunk list is provided for the results of the RPC call,
-   the RPC server MUST provide any corresponding data via RDMA Write to
+   the RPC server <em>MUST</em> provide any corresponding data via RDMA Write to
    the memory referenced in the chunk list entries.  The RPC reply
    conveys this by returning the write chunk list to the client with the
    lengths rewritten to match the actual transfer.  The XDR decode of
@@ -861,7 +861,7 @@ Table of Contents
 <span class="grey"><a href="./rfc5666.html">RFC 5666</a>                 RDMA Transport for RPC             January 2010</span>
 
 
-   write chunk list entries to procedure arguments MUST be determined
+   write chunk list entries to procedure arguments <em>MUST</em> be determined
    for each protocol.  An example of a mapping is described in
    [<a href="./rfc5667.html" title="&quot;Network File System (NFS) Direct Data Placement&quot;">RFC5667</a>].
 
@@ -897,7 +897,7 @@ Table of Contents
    chunk.  Because this position will not match (else roundup would not
    have occurred), the receiver decoding will fall back to inspecting
    the remaining inline portion.  If in turn, no data remains to be
-   decoded from the inline portion, then the receiver MUST conclude that
+   decoded from the inline portion, then the receiver <em>MUST</em> conclude that
    roundup is present, and therefore it advances the XDR decode position
    to that indicated by the next chunk (if any).  In this way, roundup
    is passed without ever actually transferring additional XDR bytes.
@@ -918,7 +918,7 @@ Table of Contents
 
 
    significant to both the sender to marshal them and even higher to the
-   receiver to which to transfer them.  Senders SHOULD therefore avoid
+   receiver to which to transfer them.  Senders <em>SHOULD</em> therefore avoid
    encoding individual RDMA Read Chunks for roundup whenever possible.
    It is acceptable, but not necessary, to include roundup data in an
    existing RDMA Read Chunk, but only if it is already present in the
@@ -1054,9 +1054,9 @@ Table of Contents
    free the memory holding the chunks.  A Done completion is not
    necessary for an RPC call, since the RPC reply Send is itself a
    receive completion notification.  In the event that the client fails
-   to return the Done message within some timeout period, the server MAY
+   to return the Done message within some timeout period, the server <em>MAY</em>
    conclude that a protocol violation has occurred and close the RPC
-   connection, or it MAY proceed with a de-register and free its chunk
+   connection, or it <em>MAY</em> proceed with a de-register and free its chunk
    buffers.  This may result in a fatal RDMA error if the client later
    attempts to perform an RDMA Read operation, which amounts to the same
    thing.
@@ -1067,16 +1067,16 @@ Table of Contents
    advertise buffers to the peer, the necessity of the server
    maintaining a timer for the purpose of recovery from misbehaving
    clients, and the need for additional memory registration.  Their use
-   is NOT RECOMMENDED by upper layers where efficiency is a primary
-   concern [<a href="./rfc5667.html" title="&quot;Network File System (NFS) Direct Data Placement&quot;">RFC5667</a>].  However, they MAY be employed by upper-layer
+   is NOT <em>RECOMMENDED</em> by upper layers where efficiency is a primary
+   concern [<a href="./rfc5667.html" title="&quot;Network File System (NFS) Direct Data Placement&quot;">RFC5667</a>].  However, they <em>MAY</em> be employed by upper-layer
    protocol bindings that are primarily concerned with transparency,
    since they can frequently be implemented completely within the RPC
    lower layers.
 
    It is important to note that the Done message consumes a credit at
-   the RPC server.  The RPC server SHOULD provide sufficient credits to
+   the RPC server.  The RPC server <em>SHOULD</em> provide sufficient credits to
    the client to allow the Done message to be sent without deadlock
-   (driving the outstanding credit count to zero).  The RPC client MUST
+   (driving the outstanding credit count to zero).  The RPC client <em>MUST</em>
 
 
 
@@ -1086,7 +1086,7 @@ Table of Contents
 
 
    account for its required Done messages to the server in its
-   accounting of available credits, and the server SHOULD replenish any
+   accounting of available credits, and the server <em>SHOULD</em> replenish any
    credit consumed by its use of such exchanges at its earliest
    opportunity.
 
@@ -1148,8 +1148,8 @@ Table of Contents
    above which padding is applied.  For instance, if the server is using
    chained 4 KB receive buffers, then up to (4 KB - 1) padding bytes
    could be used to achieve alignment of the data.  The XDR routine at
-   the peer MUST consult these values when decoding opaque values.
-   Where the decoded length exceeds the rdma_thresh, the XDR decode MUST
+   the peer <em>MUST</em> consult these values when decoding opaque values.
+   Where the decoded length exceeds the rdma_thresh, the XDR decode <em>MUST</em>
    skip over the appropriate padding as indicated by rdma_align and the
    current XDR stream position.
 
@@ -1164,7 +1164,7 @@ Table of Contents
    exclusion of large data chunks that will be moved by RDMA Read or
    Write operations.  If the RPC message (along with the RPC-over-RDMA
    header) is too long for the posted receive buffer (even after any
-   large chunks are removed), then the entire RPC message MAY be moved
+   large chunks are removed), then the entire RPC message <em>MAY</em> be moved
    separately as a chunk, leaving just the RPC-over-RDMA header in the
    RDMA Send.
 
@@ -1173,21 +1173,21 @@ Table of Contents
    The RPC-over-RDMA header begins with four 32-bit fields that are
    always present and that control the RDMA interaction including RDMA-
    specific flow control.  These are then followed by a number of items
-   such as chunk lists and padding that MAY or MUST NOT be present
+   such as chunk lists and padding that <em>MAY</em> or <em>MUST NOT</em> be present
    depending on the type of transmission.  The four fields that are
    always present are:
 
    1. Transaction ID (XID).
       The XID generated for the RPC call and reply.  Having the XID at
       the beginning of the message makes it easy to establish the
-      message context.  This XID MUST be the same as the XID in the RPC
-      header.  The receiver MAY perform its processing based solely on
+      message context.  This XID <em>MUST</em> be the same as the XID in the RPC
+      header.  The receiver <em>MAY</em> perform its processing based solely on
       the XID in the RPC-over-RDMA header, and thereby ignore the XID in
       the RPC header, if it so chooses.
 
    2. Version number.
       This version of the RPC RDMA message protocol is 1.  The version
-      number MUST be increased by 1 whenever the format of the RPC RDMA
+      number <em>MUST</em> be increased by 1 whenever the format of the RPC RDMA
       messages is changed.
 
 
@@ -1200,7 +1200,7 @@ Table of Contents
    3. Flow control credit value.
       When sent in an RPC call message, the requested value is provided.
       When sent in an RPC reply message, the granted value is returned.
-      RPC calls SHOULD NOT be sent in excess of the currently granted
+      RPC calls <em>SHOULD NOT</em> be sent in excess of the currently granted
       limit.
 
    4. Message type.
@@ -1223,7 +1223,7 @@ Table of Contents
 
    Because the version number is encoded as part of this header, and the
    RDMA_ERROR message type is used to indicate errors, these first four
-   fields and the start of the following message body MUST always remain
+   fields and the start of the following message body <em>MUST</em> always remain
    aligned at these fixed offsets for all versions of the RPC-over-RDMA
    header.
 
@@ -1239,9 +1239,9 @@ Table of Contents
    specify the padding alignment and threshold are inserted prior to the
    Read and Write chunk lists.
 
-   A header of message type RDMA_MSG or RDMA_MSGP MUST be followed by
+   A header of message type RDMA_MSG or RDMA_MSGP <em>MUST</em> be followed by
    the RPC call or RPC reply message body, beginning with the XID.  The
-   XID in the RDMA_MSG or RDMA_MSGP header MUST match this.
+   XID in the RDMA_MSG or RDMA_MSGP header <em>MUST</em> match this.
 
 
 
@@ -1266,9 +1266,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  RPC-over-RDMA Header Errors</span>
 
-   When a peer receives an RPC RDMA message, it MUST perform the
+   When a peer receives an RPC RDMA message, it <em>MUST</em> perform the
    following basic validity checks on the header and chunk contents.  If
-   such errors are detected in the request, an RDMA_ERROR reply MUST be
+   such errors are detected in the request, an RDMA_ERROR reply <em>MUST</em> be
    generated.
 
    Two types of errors are defined, version mismatch and invalid chunk
@@ -1276,10 +1276,10 @@ Table of Contents
    it does not support (currently this document defines only version 1),
    it replies with an error code of ERR_VERS, and provides the low and
    high inclusive version numbers it does, in fact, support.  The
-   version number in this reply MUST be any value otherwise valid at the
+   version number in this reply <em>MUST</em> be any value otherwise valid at the
    receiver.  When other decoding errors are detected in the header or
-   chunks, either an RPC decode error MAY be returned or the RPC/RDMA
-   error code ERR_CHUNK MUST be returned.
+   chunks, either an RPC decode error <em>MAY</em> be returned or the RPC/RDMA
+   error code ERR_CHUNK <em>MUST</em> be returned.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  XDR Language Description</span>
 
@@ -1521,7 +1521,7 @@ Table of Contents
    message if the large reply is returned as a Read chunk.
 
    This protocol supports direct return of a large reply via the
-   inclusion of an OPTIONAL rdma_reply write chunk after the read chunk
+   inclusion of an <em>OPTIONAL</em> rdma_reply write chunk after the read chunk
    list and the write chunk list.  The client allocates a buffer sized
    to receive a large reply and enters its steering tag, address and
    length in the rdma_reply write chunk.  If the reply message is too
@@ -1538,7 +1538,7 @@ Table of Contents
    the RPC server performs an RDMA Write of the RPC reply message into
    the buffer indicated by the rdma_reply chunk.  If the client doesn't
    provide an rdma_reply chunk, or if it's too small, then if the upper-
-   layer specification permits, the message MAY be returned as a Read
+   layer specification permits, the message <em>MAY</em> be returned as a Read
    chunk.
 
    An RPC with long reply returned via RDMA Write
@@ -1573,8 +1573,8 @@ Table of Contents
    at the RDMA connection endpoint, each large enough to receive the
    largest Send message.  Buffers are consumed as Send messages are
    received.  If a buffer is too small, or if there are no buffers
-   posted, the RDMA transport MAY return an error and break the RDMA
-   connection.  The receiver MUST post sufficient, adequately buffers to
+   posted, the RDMA transport <em>MAY</em> return an error and break the RDMA
+   connection.  The receiver <em>MUST</em> post sufficient, adequately buffers to
    avoid buffer overrun or capacity errors.
 
    The protocol described above includes only a mechanism for managing
@@ -1600,19 +1600,19 @@ Table of Contents
    inform the client of its connection limits.
 
    Use of the Connection Configuration Protocol by an upper layer is
-   OPTIONAL.
+   <em>OPTIONAL</em>.
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Initial Connection State</span>
 
-   This protocol MAY be used for connection setup prior to the use of
+   This protocol <em>MAY</em> be used for connection setup prior to the use of
    another RPC protocol that uses the RDMA transport.  It operates
    in-band, i.e., it uses the connection itself to negotiate the
    connection parameters.  To provide a basis for connection
    negotiation, the connection is assumed to provide a basic level of
    interoperability: the ability to exchange at least one RPC message at
-   a time that is at least 1 KB in size.  The server MAY exceed this
-   basic level of configuration, but the client MUST NOT assume more
-   than one, and MUST receive a valid reply from the server carrying the
+   a time that is at least 1 KB in size.  The server <em>MAY</em> exceed this
+   basic level of configuration, but the client <em>MUST NOT</em> assume more
+   than one, and <em>MUST</em> receive a valid reply from the server carrying the
    actual number of available receive messages, prior to sending its
    next request.
 
@@ -1624,9 +1624,9 @@ Table of Contents
    information to the client.
 
    The maxcall_sendsize argument is the maximum size of an RPC call
-   message that the client MAY send inline in an RDMA Send message to
-   the server.  The server MAY return a maxcall_sendsize value that is
-   smaller or larger than the client's request.  The client MUST NOT
+   message that the client <em>MAY</em> send inline in an RDMA Send message to
+   the server.  The server <em>MAY</em> return a maxcall_sendsize value that is
+   smaller or larger than the client's request.  The client <em>MUST NOT</em>
    send an inline call message larger than what the server will accept.
    The maxcall_sendsize limits only the size of inline RPC calls.  It
    does not limit the size of long RPC messages transferred as an
@@ -1650,13 +1650,13 @@ Table of Contents
    Read count ("IRD") configured into each originating endpoint by the
    client or server.  If more than this number of RDMA Read operations
    by the connected peer are issued simultaneously, connection loss or
-   suboptimal flow control may result; therefore, the value SHOULD be
+   suboptimal flow control may result; therefore, the value <em>SHOULD</em> be
    observed at all times.  The peers' values need not be equal.  If
-   zero, the peer MUST NOT issue requests that require RDMA Read to
+   zero, the peer <em>MUST NOT</em> issue requests that require RDMA Read to
    satisfy, as no transfer will be possible.
 
    The align value is the value recommended by the server for opaque
-   data values such as strings and counted byte arrays.  The client MAY
+   data values such as strings and counted byte arrays.  The client <em>MAY</em>
    use this value to compute the number of prepended pad bytes when XDR
    encoding opaque values in the RPC call message.
 
@@ -1712,7 +1712,7 @@ Table of Contents
    memory by allocating chunk list data and RPC headers in a reusable
    way from pre-registered pools.
 
-   The data chunks transferred via RDMA MAY occupy memory that persists
+   The data chunks transferred via RDMA <em>MAY</em> occupy memory that persists
    outside the bounds of the RPC transaction.  Hence, the default
    behavior of an RPC-over-RDMA transport is to register and de-register
    these chunks on every transaction.  However, this is not a limitation
@@ -1774,7 +1774,7 @@ Table of Contents
    assigned port 20049 by IANA, for both iWARP/TCP and iWARP/SCTP.
 
    When mapped atop InfiniBand [<a href="#ref-IB" title="InfiniBand Architecture Specifications">IB</a>], which uses a Group Identifier
-   (GID)-based service endpoint naming scheme, a translation MUST be
+   (GID)-based service endpoint naming scheme, a translation <em>MUST</em> be
    employed.  One such translation is defined in the InfiniBand Port
    Addressing Annex [<a href="#ref-IBPORT" title="&quot;IP Addressing Annex&quot;">IBPORT</a>], which is appropriate for translating IP
    port addressing to the InfiniBand network.  Therefore, in this case,
@@ -1821,8 +1821,8 @@ Table of Contents
    new "netid" values, to be used for registration of upper layers atop
    iWARP [RFC5040, <a href="./rfc5041.html">RFC5041</a>] and (when a suitable port translation
    service is available) InfiniBand [<a href="#ref-IB" title="InfiniBand Architecture Specifications">IB</a>].  Additional RDMA-capable
-   networks MAY define their own netids, or if they provide a port
-   translation, MAY share the one defined here.
+   networks <em>MAY</em> define their own netids, or if they provide a port
+   translation, <em>MAY</em> share the one defined here.
 
 <span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  Security Considerations</span>
 
@@ -1839,19 +1839,19 @@ Table of Contents
    For efficiency, a more appropriate security mechanism for RDMA links
    may be link-level protection, such as certain configurations of
    IPsec, which may be co-located in the RDMA hardware.  The use of
-   link-level protection MAY be negotiated through the use of the new
+   link-level protection <em>MAY</em> be negotiated through the use of the new
    RPCSEC_GSS mechanism defined in [<a href="./rfc5403.html" title="&quot;RPCSEC_GSS Version 2&quot;">RFC5403</a>] in conjunction with the
    Channel Binding mechanism [<a href="./rfc5056.html" title="&quot;On the Use of Channel Bindings to Secure Channels&quot;">RFC5056</a>] and IPsec Channel Connection
-   Latching [<a href="./rfc5660.html" title="&quot;IPsec Channels: Connection Latching&quot;">RFC5660</a>].  Use of such mechanisms is REQUIRED where
+   Latching [<a href="./rfc5660.html" title="&quot;IPsec Channels: Connection Latching&quot;">RFC5660</a>].  Use of such mechanisms is <em>REQUIRED</em> where
    integrity and/or privacy is desired, and where efficiency is
    required.
 
    An additional consideration is the protection of the integrity and
    privacy of local memory by the RDMA transport itself.  The use of
-   RDMA by RPC MUST NOT introduce any vulnerabilities to system memory
+   RDMA by RPC <em>MUST NOT</em> introduce any vulnerabilities to system memory
    contents, or to memory owned by user processes.  These protections
    are provided by the RDMA layer specifications, and specifically their
-   security models.  It is REQUIRED that any RDMA provider used for RPC
+   security models.  It is <em>REQUIRED</em> that any RDMA provider used for RPC
    transport be conformant to the requirements of [<a href="./rfc5042.html" title="&quot;Direct Data Placement Protocol (DDP) / Remote Direct Memory Access Protocol (RDMAP) Security&quot;">RFC5042</a>] in order to
    satisfy these protections.
 
@@ -1874,7 +1874,7 @@ Table of Contents
    does not promptly acknowledge their status via the RDMA_DONE message.
    This can potentially lead to a denial-of-service situation, with a
    single client unfairly (and unnecessarily) consuming server RDMA
-   resources.  Servers for such upper-layer protocols MUST protect
+   resources.  Servers for such upper-layer protocols <em>MUST</em> protect
    against this situation, originating from one or many clients.  For
    example, a time-based window of buffer availability may be offered,
    if the client fails to obtain the data within the window, it will
@@ -1884,7 +1884,7 @@ Table of Contents
    reclaim them.
 
    A fairer and more useful method is provided by the protocol itself.
-   The server MAY use the rdma_credit value to limit the number of
+   The server <em>MAY</em> use the rdma_credit value to limit the number of
    outstanding requests for each client.  By including the number of
    outstanding RDMA_DONE completions in the computation of available
    client credits, the server can limit its exposure to each client, and
@@ -1896,12 +1896,12 @@ Table of Contents
    outstanding RDMA_DONE messages, the client would deadlock since it
    would never obtain a new credit with which to continue.  Therefore,
    if the server adjusts credits to zero for outstanding RDMA_DONE, it
-   MUST withhold its reply to at least one message in order to provide
+   <em>MUST</em> withhold its reply to at least one message in order to provide
    the next credit.  The time-based window (or any other appropriate
-   method) SHOULD be used by the server to recover resources in the
+   method) <em>SHOULD</em> be used by the server to recover resources in the
    event that the client never returns.
 
-   The Connection Configuration Protocol, when used, MUST be protected
+   The Connection Configuration Protocol, when used, <em>MUST</em> be protected
    by an appropriate RPC security flavor, to ensure it is not attacked
    in the process of initiating an RPC/RDMA connection.
 
@@ -1935,7 +1935,7 @@ Table of Contents
       NC_RDMA "rdma"
       NC_RDMA6 "rdma6"
 
-   These netids MAY be used for any RDMA network satisfying the
+   These netids <em>MAY</em> be used for any RDMA network satisfying the
    requirements of <a href="#section-2">Section 2</a>, and able to identify service endpoints
    using IP port addressing, possibly through use of a translation
    service as described above in <a href="#section-10">Section 10</a>, "RPC Binding".  The "rdma"
@@ -1946,7 +1946,7 @@ Table of Contents
 
    As a new RPC transport, this protocol has no effect on RPC program
    numbers or existing registered port numbers.  However, new port
-   numbers MAY be registered for use by RPC/RDMA-enabled services, as
+   numbers <em>MAY</em> be registered for use by RPC/RDMA-enabled services, as
    appropriate to the new networks over which the services will operate.
 
    For example, the NFS/RDMA service defined in [<a href="./rfc5667.html" title="&quot;Network File System (NFS) Direct Data Placement&quot;">RFC5667</a>] has been
@@ -1956,7 +1956,7 @@ Table of Contents
       nfsrdma 20049/udp Network File System (NFS) over RDMA
       nfsrdma 20049/sctp Network File System (NFS) over RDMA
 
-   The OPTIONAL Connection Configuration Protocol described herein
+   The <em>OPTIONAL</em> Connection Configuration Protocol described herein
    requires an RPC program number assignment.  The value "100417" has
    been assigned:
 

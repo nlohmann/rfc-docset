@@ -224,8 +224,8 @@ Abstract
 
    The format of the messages are described in ASN.1 [<a href="#ref-ASN1">ASN1</a>].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT",
-   "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>",
+   "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this document are to be
    interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.
 
 
@@ -288,7 +288,7 @@ Abstract
       PasswordRecipientInfo ::= SEQUENCE {
         version CMSVersion,   -- Always set to 0
         keyDerivationAlgorithm
-                         [0] KeyDerivationAlgorithmIdentifier OPTIONAL,
+                         [0] KeyDerivationAlgorithmIdentifier <em>OPTIONAL</em>,
         keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
         encryptedKey EncryptedKey }
 
@@ -302,7 +302,7 @@ Abstract
 
    The fields of type PasswordRecipientInfo have the following meanings:
 
-      version is the syntax version number.  It MUST be 0.  Details of
+      version is the syntax version number.  It <em>MUST</em> be 0.  Details of
       the CMSVersion type are discussed in CMS [<a href="./rfc2630.html" title="&quot;Cryptographic Message Syntax&quot;">RFC2630</a>], <a href="#section-10.2.5">section</a>
       <a href="#section-10.2.5">10.2.5</a>.
 
@@ -363,7 +363,7 @@ Abstract
 
       KeyDerivationAlgorithmIdentifer ::= AlgorithmIdentifier
 
-   Conforming implementations MUST include PBKDF2 [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification, Version 2.0&quot;">RFC2898</a>].  <a href="#appendix-B">Appendix B</a>
+   Conforming implementations <em>MUST</em> include PBKDF2 [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification, Version 2.0&quot;">RFC2898</a>].  <a href="#appendix-B">Appendix B</a>
    contains a more precise definition of the allowed algorithm type than
    is possible using 1988 ASN.1.
 
@@ -389,13 +389,13 @@ Abstract
    security (for example wrapping a Triple-DES key with an RC2/40 key
    leads to a severe impedance mismatch in encryption strength).
 
-   Conforming implementations MUST implement the id-alg-PWRI-KEK key
+   Conforming implementations <em>MUST</em> implement the id-alg-PWRI-KEK key
    wrap algorithm.  For the KEK encryption algorithms used by id-alg-
-   PWRI-KEK, conforming implementations MUST include Triple-DES in CBC
-   mode and MAY include other algorithms such as AES, CAST-128, RC5,
+   PWRI-KEK, conforming implementations <em>MUST</em> include Triple-DES in CBC
+   mode and <em>MAY</em> include other algorithms such as AES, CAST-128, RC5,
    IDEA, Skipjack, Blowfish, and encryption modes as required.
-   Implementations SHOULD NOT include any KSG (keystream generator)
-   ciphers such as RC4 or a block cipher in OFB mode, and SHOULD NOT
+   Implementations <em>SHOULD NOT</em> include any KSG (keystream generator)
+   ciphers such as RC4 or a block cipher in OFB mode, and <em>SHOULD NOT</em>
    include a block cipher in ECB mode.
 
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a> Rationale</span>
@@ -783,7 +783,7 @@ Abstract
    when used with a password the security of this information type rests
    on the entropy of the user-selected password, which is typically
    quite low.  Pass phrases (as opposed to simple passwords) are
-   STRONGLY RECOMMENDED, although it should be recognized that even with
+   STRONGLY <em>RECOMMENDED</em>, although it should be recognized that even with
    pass phrases it will be difficult to use this recipient information
    type to derive a KEK with sufficient entropy to properly protect a
    128-bit (or higher) CEK.
@@ -890,7 +890,7 @@ IMPORTS
 PBKDF2-params ::= SEQUENCE {
   salt OCTET STRING,
   iterationCount INTEGER (1..MAX),
-  keyLength INTEGER (1..MAX) OPTIONAL,
+  keyLength INTEGER (1..MAX) <em>OPTIONAL</em>,
   prf AlgorithmIdentifier
             DEFAULT { algorithm id-hmacWithSHA1, parameters NULL } }
 
@@ -931,7 +931,7 @@ id-alg-PWRI-KEK OBJECT IDENTIFIER ::= { iso(1) member-body(2)
 PasswordRecipientInfo ::= SEQUENCE {
   version CMSVersion,       -- Always set to 0
   keyDerivationAlgorithm
-                    [0] KeyDerivationAlgorithmIdentifier OPTIONAL,
+                    [0] KeyDerivationAlgorithmIdentifier <em>OPTIONAL</em>,
   keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
   encryptedKey EncryptedKey }
 
@@ -978,7 +978,7 @@ id-alg-PWRI-KEK OBJECT IDENTIFIER ::= { iso(1) member-body(2)
 PasswordRecipientInfo ::= SEQUENCE {
   version CMSVersion,       -- Always set to 0
   keyDerivationAlgorithm
-                     [0] KeyDerivationAlgorithmIdentifier OPTIONAL,
+                     [0] KeyDerivationAlgorithmIdentifier <em>OPTIONAL</em>,
   keyEncryptionAlgorithm KeyEncryptionAlgorithmIdentifier,
   encryptedKey           EncryptedKey }
 
@@ -1001,7 +1001,7 @@ KeyEncryptionAlgorithms ALGORITHM ::= {
 
 -- Algorithm identifiers for algorithms used with the
 -- id-alg-PWRI-KEK key wrap algorithm.  Currently only 3DES is a
--- MUST, all others are optional
+-- <em>MUST</em>, all others are optional
 
 PWRIAlgorithms ALGORITHM ::= {
   { OID des-ede3-cbc PARMS CBCParameter },
@@ -1015,7 +1015,7 @@ PWRIAlgorithms ALGORITHM ::= {
 
 AlgorithmIdentifier { ALGORITHM:IOSet } ::= SEQUENCE {
   algorithm        ALGORITHM.&amp;id({IOSet}),
-  parameters       ALGORITHM.&amp;Type({IOSet}{@algorithm})  OPTIONAL
+  parameters       ALGORITHM.&amp;Type({IOSet}{@algorithm})  <em>OPTIONAL</em>
   }
 
 ALGORITHM ::= CLASS {
@@ -1028,7 +1028,7 @@ ALGORITHM ::= CLASS {
 <span class="grey"><a href="./rfc3211.html">RFC 3211</a>           Password-based Encryption for CMS       December 2001</span>
 
 
-  &amp;Type            OPTIONAL
+  &amp;Type            <em>OPTIONAL</em>
   }
   WITH SYNTAX { OID &amp;id [PARMS &amp;Type] }
 

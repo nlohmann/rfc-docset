@@ -365,7 +365,7 @@ Acknowledgments
    given SPKM implementation (note that a GSS-conformant mechanism need
    not support confidentiality).  Making a confidentiality algorithm
    mandatory may preclude exportability of the mechanism implementation;
-   this document therefore specifies certain algorithms as RECOMMENDED
+   this document therefore specifies certain algorithms as <em>RECOMMENDED</em>
    (that is, interoperability will be enhanced if these algorithms are
    included in all SPKM implementations for which exportability is not a
    concern).
@@ -418,7 +418,7 @@ Acknowledgments
          }                   -- an INTEGER parameter, constrained to
                              -- multiples of eight from 16 to 64
 
-            This algorithm (RECOMMENDED) provides integrity by computing
+            This algorithm (<em>RECOMMENDED</em>) provides integrity by computing
             a DES MAC (as specified by [FIPS-113]) on that data.
 
 
@@ -481,7 +481,7 @@ Acknowledgments
          }                 -- this (optional) parameter is unused in
                            -- SPKM due to the use of confounding
 
-            This algorithm is RECOMMENDED.
+            This algorithm is <em>RECOMMENDED</em>.
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a> Key Establishment Algorithm (K-ALG):</span>
 
@@ -839,14 +839,14 @@ Acknowledgments
 
    SPKM-REQ ::= SEQUENCE {
            requestToken      REQ-TOKEN,
-           certif-data [0]   CertificationData OPTIONAL,
-           auth-data [1]     AuthorizationData OPTIONAL
+           certif-data [0]   CertificationData <em>OPTIONAL</em>,
+           auth-data [1]     AuthorizationData <em>OPTIONAL</em>
               -- see [<a href="./rfc1510.html">RFC-1510</a>] for a discussion of auth-data
    }
 
    CertificationData ::= SEQUENCE {
-           certificationPath [0]          CertificationPath OPTIONAL,
-           certificateRevocationList [1]  CertificateList OPTIONAL
+           certificationPath [0]          CertificationPath <em>OPTIONAL</em>,
+           certificateRevocationList [1]  CertificateList <em>OPTIONAL</em>
    }  -- at least one of the above shall be present
 
 
@@ -859,15 +859,15 @@ Acknowledgments
 
 
    CertificationPath ::= SEQUENCE {
-           userKeyId [0]         OCTET STRING OPTIONAL,
+           userKeyId [0]         OCTET STRING <em>OPTIONAL</em>,
               -- identifier for user's public key
-           userCertif [1]        Certificate OPTIONAL,
+           userCertif [1]        Certificate <em>OPTIONAL</em>,
               -- certificate containing user's public key
-           verifKeyId [2]        OCTET STRING OPTIONAL,
+           verifKeyId [2]        OCTET STRING <em>OPTIONAL</em>,
               -- identifier for user's public verification key
-           userVerifCertif [3]   Certificate OPTIONAL,
+           userVerifCertif [3]   Certificate <em>OPTIONAL</em>,
               -- certificate containing user's public verification key
-           theCACertificates [4] SEQUENCE OF CertificatePair OPTIONAL
+           theCACertificates [4] SEQUENCE OF CertificatePair <em>OPTIONAL</em>
    }          -- certification path from target to source
 
    Having separate verification fields allows different key pairs
@@ -930,24 +930,24 @@ Acknowledgments
            tok-id           INTEGER (256),    -- shall contain 0100(hex)
            context-id       Random-Integer,   -- see <a href="#section-6.3">Section 6.3</a>
            pvno             BIT STRING,       -- protocol version number
-           timestamp        UTCTime OPTIONAL, -- mandatory for SPKM-2
+           timestamp        UTCTime <em>OPTIONAL</em>, -- mandatory for SPKM-2
            randSrc          Random-Integer,
            targ-name        Name,
-           src-name [0]     Name OPTIONAL,
+           src-name [0]     Name <em>OPTIONAL</em>,
               -- must be supplied unless originator is "anonymous"
            req-data         Context-Data,
-           validity [1]     Validity OPTIONAL,
+           validity [1]     Validity <em>OPTIONAL</em>,
               -- validity interval for key (may be used in the
               -- computation of security context lifetime)
            key-estb-set     Key-Estb-Algs,
               -- specifies set of key establishment algorithms
-           key-estb-req      BIT STRING OPTIONAL,
+           key-estb-req      BIT STRING <em>OPTIONAL</em>,
               -- key estb. parameter corresponding to first K-ALG in set
               -- (not used if initiator is unable or unwilling to
               -- generate and securely transmit key material to target).
               -- Established key must satisfy the key length constraints
               -- specified in <a href="#section-2.4">Section 2.4</a>.
-           key-src-bind      OCTET STRING OPTIONAL
+           key-src-bind      OCTET STRING <em>OPTIONAL</em>
               -- Used to bind the source name to the symmetric key.
               -- This field must be present for the case of SPKM-2
               -- unilateral authen. if the K-ALG in use does not provide
@@ -997,8 +997,8 @@ Acknowledgments
    -- (i.e., it need not be unpredictable, it simply needs to be fresh).
 
    Context-Data ::= SEQUENCE {
-           channelId       ChannelId OPTIONAL, -- channel bindings
-           seq-number      INTEGER OPTIONAL,   -- sequence number
+           channelId       ChannelId <em>OPTIONAL</em>, -- channel bindings
+           seq-number      INTEGER <em>OPTIONAL</em>,   -- sequence number
            options         Options,
            conf-alg        Conf-Algs,          -- confidentiality. algs.
            intg-alg        Intg-Algs,          -- integrity algorithm
@@ -1086,7 +1086,7 @@ Acknowledgments
 
    SPKM-REP-TI ::= SEQUENCE {
            responseToken    REP-TI-TOKEN,
-           certif-data      CertificationData OPTIONAL
+           certif-data      CertificationData <em>OPTIONAL</em>
              -- included if target-certif-data-required option was
              -- set to TRUE in SPKM-REQ
    }
@@ -1101,28 +1101,28 @@ Acknowledgments
    Rep-ti-contents ::= SEQUENCE {
            tok-id           INTEGER (512),   -- shall contain 0200 (hex)
            context-id       Random-Integer,  -- see <a href="#section-6.3">Section 6.3</a>
-           pvno [0]         BIT STRING OPTIONAL, -- prot. version number
-           timestamp        UTCTime OPTIONAL, -- mandatory for SPKM-2
+           pvno [0]         BIT STRING <em>OPTIONAL</em>, -- prot. version number
+           timestamp        UTCTime <em>OPTIONAL</em>, -- mandatory for SPKM-2
            randTarg         Random-Integer,
-           src-name [1]     Name OPTIONAL,
+           src-name [1]     Name <em>OPTIONAL</em>,
              -- must contain whatever value was supplied in REQ-TOKEN
            targ-name        Name,
            randSrc          Random-Integer,
            rep-data         Context-Data,
-           validity [2]     Validity  OPTIONAL,
+           validity [2]     Validity  <em>OPTIONAL</em>,
              -- validity interval for key (used if the target can only
              -- support a shorter context lifetime than was offered in
              -- REQ-TOKEN)
-           key-estb-id      AlgorithmIdentifier OPTIONAL,
+           key-estb-id      AlgorithmIdentifier <em>OPTIONAL</em>,
              -- used if target is changing key estb. algorithm (must be
              -- a member of initiators key-estb-set)
-           key-estb-str      BIT STRING OPTIONAL
+           key-estb-str      BIT STRING <em>OPTIONAL</em>
              -- contains (1) the response to the initiators
              -- key-estb-req (if init. used a 2-pass K-ALG), or (2) the
              -- key-estb-req corresponding to the K-ALG supplied in
              -- above key-estb-id, or (3) the key-estb-req corresponding
              -- to the first K-ALG supplied in initiator's key-estb-id,
-             -- if initiator's (OPTIONAL) key-estb-req was not used
+             -- if initiator's (<em>OPTIONAL</em>) key-estb-req was not used
              -- (target's key-estb-str must be present in this case).
              -- Established key must satisfy the key length constraints
              -- specified in <a href="#section-2.4">Section 2.4</a>.
@@ -1171,9 +1171,9 @@ Acknowledgments
            randSrc          Random-Integer,
            randTarg         Random-Integer,
            targ-name        Name,  -- the targ-name specified in REP-TI
-           src-name         Name OPTIONAL,
+           src-name         Name <em>OPTIONAL</em>,
              -- must contain whatever value was supplied in REQ-TOKEN
-           key-estb-rep     BIT STRING OPTIONAL
+           key-estb-rep     BIT STRING <em>OPTIONAL</em>
                  -- contains the response to targets key-estb-str
                  -- (if target selected a 2-pass K-ALG)
            }
@@ -1283,12 +1283,12 @@ Acknowledgments
            tok-id           INTEGER (257),
                                 -- shall contain 0101 (hex)
            context-id       Random-Integer,
-           int-alg [0]      AlgorithmIdentifier OPTIONAL,
+           int-alg [0]      AlgorithmIdentifier <em>OPTIONAL</em>,
                                 -- Integrity algorithm indicator (must
                                 -- be one of the agreed integrity
                                 -- algorithms for this context).
                                 -- field not present = default id.
-           snd-seq [1]      SeqNum OPTIONAL  -- sequence number field.
+           snd-seq [1]      SeqNum <em>OPTIONAL</em>  -- sequence number field.
    }
 
    SeqNum ::= SEQUENCE {
@@ -1403,7 +1403,7 @@ Acknowledgments
            tok-id           INTEGER (513),
                                 -- shall contain 0201 (hex)
            context-id       Random-Integer,
-           int-alg [0]      AlgorithmIdentifier OPTIONAL,
+           int-alg [0]      AlgorithmIdentifier <em>OPTIONAL</em>,
                                 -- Integrity algorithm indicator (must
                                 -- be one of the agreed integrity
                                 -- algorithms for this context).
@@ -1418,14 +1418,14 @@ Acknowledgments
 <span class="grey"><a href="./rfc2025.html">RFC 2025</a>                          SPKM                      October 1996</span>
 
 
-           conf-alg [1]     Conf-Alg OPTIONAL,
+           conf-alg [1]     Conf-Alg <em>OPTIONAL</em>,
                                 -- Confidentiality algorithm indicator
                                 -- (must be NULL or one of the agreed
                                 -- confidentiality algorithms for this
                                 -- context).
                                 -- field not present = default id.
                                 -- NULL = none (no conf. applied).
-           snd-seq [2]      SeqNum OPTIONAL
+           snd-seq [2]      SeqNum <em>OPTIONAL</em>
                                 -- sequence number field.
    }
 
@@ -1544,12 +1544,12 @@ Acknowledgments
            tok-id           INTEGER (769),
                                 -- shall contain 0301 (hex)
            context-id       Random-Integer,
-           int-alg [0]      AlgorithmIdentifier OPTIONAL,
+           int-alg [0]      AlgorithmIdentifier <em>OPTIONAL</em>,
                                 -- Integrity algorithm indicator (must
                                 -- be one of the agreed integrity
                                 -- algorithms for this context).
                                 -- field not present = default id.
-           snd-seq [1]      SeqNum OPTIONAL
+           snd-seq [1]      SeqNum <em>OPTIONAL</em>
                                 -- sequence number field.
    }
 
@@ -1927,7 +1927,7 @@ Acknowledgments
    signature, this integrity service must be available over the context
    so that the target can use it if desired.
 
-   Finally, in accordance with the MANDATORY and RECOMMENDED algorithms
+   Finally, in accordance with the MANDATORY and <em>RECOMMENDED</em> algorithms
    given in <a href="#section-2">Section 2</a>, the following QOP values are specified for SPKM.
 
    For the Confidentiality MA field:
@@ -2288,23 +2288,23 @@ IMPORTS
 
    SPKM-REQ ::= SEQUENCE {
            requestToken      REQ-TOKEN,
-           certif-data [0]   CertificationData OPTIONAL,
-           auth-data [1]     AuthorizationData OPTIONAL
+           certif-data [0]   CertificationData <em>OPTIONAL</em>,
+           auth-data [1]     AuthorizationData <em>OPTIONAL</em>
    }
 
 
    CertificationData ::= SEQUENCE {
-           certificationPath [0]          CertificationPath OPTIONAL,
-           certificateRevocationList [1]  CertificateList OPTIONAL
+           certificationPath [0]          CertificationPath <em>OPTIONAL</em>,
+           certificateRevocationList [1]  CertificateList <em>OPTIONAL</em>
    } -- at least one of the above shall be present
 
 
    CertificationPath ::= SEQUENCE {
-           userKeyId [0]         OCTET STRING OPTIONAL,
-           userCertif [1]        Certificate OPTIONAL,
-           verifKeyId [2]        OCTET STRING OPTIONAL,
-           userVerifCertif [3]   Certificate OPTIONAL,
-           theCACertificates [4] SEQUENCE OF CertificatePair OPTIONAL
+           userKeyId [0]         OCTET STRING <em>OPTIONAL</em>,
+           userCertif [1]        Certificate <em>OPTIONAL</em>,
+           verifKeyId [2]        OCTET STRING <em>OPTIONAL</em>,
+           userVerifCertif [3]   Certificate <em>OPTIONAL</em>,
+           theCACertificates [4] SEQUENCE OF CertificatePair <em>OPTIONAL</em>
    } -- Presence of [2] or [3] implies that [0] or [1] must also be
 
 
@@ -2338,15 +2338,15 @@ IMPORTS
            tok-id           INTEGER (256),  -- shall contain 0100 (hex)
            context-id       Random-Integer,
            pvno             BIT STRING,
-           timestamp        UTCTime OPTIONAL, -- mandatory for SPKM-2
+           timestamp        UTCTime <em>OPTIONAL</em>, -- mandatory for SPKM-2
            randSrc          Random-Integer,
            targ-name        Name,
-           src-name [0]     Name OPTIONAL,
+           src-name [0]     Name <em>OPTIONAL</em>,
            req-data         Context-Data,
-           validity [1]     Validity OPTIONAL,
+           validity [1]     Validity <em>OPTIONAL</em>,
            key-estb-set     Key-Estb-Algs,
-           key-estb-req     BIT STRING OPTIONAL,
-           key-src-bind     OCTET STRING OPTIONAL
+           key-estb-req     BIT STRING <em>OPTIONAL</em>,
+           key-src-bind     OCTET STRING <em>OPTIONAL</em>
               -- This field must be present for the case of SPKM-2
               -- unilateral authen. if the K-ALG in use does not provide
               -- such a binding (but is optional for all other cases).
@@ -2371,8 +2371,8 @@ IMPORTS
 
 
    Context-Data ::= SEQUENCE {
-           channelId       ChannelId OPTIONAL,
-           seq-number      INTEGER OPTIONAL,
+           channelId       ChannelId <em>OPTIONAL</em>,
+           seq-number      INTEGER <em>OPTIONAL</em>,
            options         Options,
            conf-alg        Conf-Algs,
            intg-alg        Intg-Algs,
@@ -2405,7 +2405,7 @@ IMPORTS
 
    SPKM-REP-TI ::= SEQUENCE {
            responseToken    REP-TI-TOKEN,
-           certif-data      CertificationData OPTIONAL
+           certif-data      CertificationData <em>OPTIONAL</em>
              -- present if target-certif-data-required option was
    }         -- set to TRUE in SPKM-REQ
 
@@ -2426,16 +2426,16 @@ IMPORTS
 <span class="grey"><a href="./rfc2025.html">RFC 2025</a>                          SPKM                      October 1996</span>
 
 
-           pvno [0]         BIT STRING OPTIONAL,
-           timestamp        UTCTime OPTIONAL, -- mandatory for SPKM-2
+           pvno [0]         BIT STRING <em>OPTIONAL</em>,
+           timestamp        UTCTime <em>OPTIONAL</em>, -- mandatory for SPKM-2
            randTarg         Random-Integer,
-           src-name [1]     Name OPTIONAL,
+           src-name [1]     Name <em>OPTIONAL</em>,
            targ-name        Name,
            randSrc          Random-Integer,
            rep-data         Context-Data,
-           validity [2]     Validity  OPTIONAL,
-           key-estb-id      AlgorithmIdentifier OPTIONAL,
-           key-estb-str     BIT STRING OPTIONAL
+           validity [2]     Validity  <em>OPTIONAL</em>,
+           key-estb-id      AlgorithmIdentifier <em>OPTIONAL</em>,
+           key-estb-str     BIT STRING <em>OPTIONAL</em>
    }
 
 
@@ -2451,8 +2451,8 @@ IMPORTS
            randSrc          Random-Integer,
            randTarg         Random-Integer,
            targ-name        Name,
-           src-name         Name OPTIONAL,
-           key-estb-rep     BIT STRING OPTIONAL
+           src-name         Name <em>OPTIONAL</em>,
+           key-estb-rep     BIT STRING <em>OPTIONAL</em>
    }
 
    SPKM-ERROR ::= SEQUENCE {
@@ -2482,8 +2482,8 @@ IMPORTS
 <span class="grey"><a href="./rfc2025.html">RFC 2025</a>                          SPKM                      October 1996</span>
 
 
-           int-alg [0]      AlgorithmIdentifier OPTIONAL,
-           snd-seq [1]      SeqNum OPTIONAL
+           int-alg [0]      AlgorithmIdentifier <em>OPTIONAL</em>,
+           snd-seq [1]      SeqNum <em>OPTIONAL</em>
    }
 
    SeqNum ::= SEQUENCE {
@@ -2499,9 +2499,9 @@ IMPORTS
    Wrap-Header ::= SEQUENCE {
            tok-id           INTEGER (513), -- shall contain 0201 (hex)
            context-id       Random-Integer,
-           int-alg [0]      AlgorithmIdentifier OPTIONAL,
-           conf-alg [1]     Conf-Alg OPTIONAL,
-           snd-seq [2]      SeqNum OPTIONAL
+           int-alg [0]      AlgorithmIdentifier <em>OPTIONAL</em>,
+           conf-alg [1]     Conf-Alg <em>OPTIONAL</em>,
+           snd-seq [2]      SeqNum <em>OPTIONAL</em>
    }
 
    Wrap-Body ::= SEQUENCE {
@@ -2523,8 +2523,8 @@ IMPORTS
    Del-Header ::= SEQUENCE {
            tok-id           INTEGER (769), -- shall contain 0301 (hex)
            context-id       Random-Integer,
-           int-alg [0]      AlgorithmIdentifier OPTIONAL,
-           snd-seq [1]      SeqNum OPTIONAL
+           int-alg [0]      AlgorithmIdentifier <em>OPTIONAL</em>,
+           snd-seq [1]      SeqNum <em>OPTIONAL</em>
    }
 
 
@@ -2629,8 +2629,8 @@ Appendix B:  Imported Types
            validity           Validity,
            subject            Name,
            subjectPublicKeyInfo     SubjectPublicKeyInfo,
-           issuerUID [1]      IMPLICIT UID OPTIONAL,  -- used in v2 only
-           subjectUID [2]     IMPLICIT UID OPTIONAL   -- used in v2 only
+           issuerUID [1]      IMPLICIT UID <em>OPTIONAL</em>,  -- used in v2 only
+           subjectUID [2]     IMPLICIT UID <em>OPTIONAL</em>   -- used in v2 only
    }
 
    Version ::= INTEGER {v1(0), v2(1)}
@@ -2656,8 +2656,8 @@ Appendix B:  Imported Types
    }
 
    CertificatePair ::= SEQUENCE {
-           forward [0]      Certificate OPTIONAL,
-           reverse [1]      Certificate OPTIONAL
+           forward [0]      Certificate <em>OPTIONAL</em>,
+           reverse [1]      Certificate <em>OPTIONAL</em>
    }         -- at least one of the pair shall be present
 
    CertificateList ::= SEQUENCE {
@@ -2673,15 +2673,15 @@ Appendix B:  Imported Types
            signature               AlgorithmIdentifier,
            issuer                  Name,
            thisUpdate              UTCTime,
-           nextUpdate              UTCTime OPTIONAL,
+           nextUpdate              UTCTime <em>OPTIONAL</em>,
            revokedCertificates     SEQUENCE OF SEQUENCE {
                 userCertificate       CertificateSerialNumber,
-                revocationDate        UTCTime           } OPTIONAL
+                revocationDate        UTCTime           } <em>OPTIONAL</em>
    }
 
    AlgorithmIdentifier ::= SEQUENCE {
            algorithm         OBJECT IDENTIFIER,
-           parameter         ANY DEFINED BY algorithm OPTIONAL
+           parameter         ANY DEFINED BY algorithm <em>OPTIONAL</em>
    }  -- note that the 1993 AuthenticationFramework module uses
       -- different syntax for this construct
 
@@ -2692,7 +2692,7 @@ Appendix B:  Imported Types
    DHParameter ::= SEQUENCE {
      prime              INTEGER,  -- p
      base               INTEGER,  -- g
-     privateValueLength INTEGER OPTIONAL
+     privateValueLength INTEGER <em>OPTIONAL</em>
    }
 
 

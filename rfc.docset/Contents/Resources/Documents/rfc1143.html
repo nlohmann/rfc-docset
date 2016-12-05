@@ -248,10 +248,10 @@ Status of This Memo
    NOTE: Reading This Document
 
       A TELNET implementation is not compliant with this RFC if it fails
-      to satisfy all rules marked MUST.  It is compliant if it satisfies
-      all rules marked MUST.  If it is compliant, it is unconditionally
-      compliant if it also satisfies all rules marked SHOULD and
-      conditionally compliant otherwise.  Rules marked MAY are optional.
+      to satisfy all rules marked <em>MUST</em>.  It is compliant if it satisfies
+      all rules marked <em>MUST</em>.  If it is compliant, it is unconditionally
+      compliant if it also satisfies all rules marked <em>SHOULD</em> and
+      conditionally compliant otherwise.  Rules marked <em>MAY</em> are optional.
 
       Options are in almost all cases negotiated separately for each
       side of the connection.  The option on one side is separate from
@@ -269,25 +269,25 @@ Status of This Memo
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. <a href="./rfc854.html">RFC 854</a> Option Negotiation Requirements</span>
 
-   As specified by <a href="./rfc854.html">RFC 854</a>: A TELNET implementation MUST obey a refusal
+   As specified by <a href="./rfc854.html">RFC 854</a>: A TELNET implementation <em>MUST</em> obey a refusal
    to enable an option; i.e., if it receives a DONT/WONT in response to
-   a WILL/DO, it MUST NOT enable the option.
+   a WILL/DO, it <em>MUST NOT</em> enable the option.
 
    DISCUSSION:
 
       Where <a href="./rfc854.html">RFC 854</a> implies that the other side may reject a request to
       enable an option, it means that you must accept such a rejection.
 
-   It MUST therefore remember that it is negotiating a WILL/DO, and this
-   negotiation state MUST be separate from the enabled state and from
+   It <em>MUST</em> therefore remember that it is negotiating a WILL/DO, and this
+   negotiation state <em>MUST</em> be separate from the enabled state and from
    the disabled state.  During the negotiation state, any effects of
-   having the option enabled MUST NOT be used.
+   having the option enabled <em>MUST NOT</em> be used.
 
-   If it receives WONT/DONT and the option is enabled, it MUST respond
-   DONT/WONT repectively and disable the option.  It MUST NOT initiate a
+   If it receives WONT/DONT and the option is enabled, it <em>MUST</em> respond
+   DONT/WONT repectively and disable the option.  It <em>MUST NOT</em> initiate a
    DO/WILL negotiation for an already enabled option or a DONT/WONT
-   negotiation for a disabled option.  It MUST NOT respond to receipt of
-   such a negotiation.  It MUST respond to receipt of a negotiation that
+   negotiation for a disabled option.  It <em>MUST NOT</em> respond to receipt of
+   such a negotiation.  It <em>MUST</em> respond to receipt of a negotiation that
    does propose to change the status quo.
 
 
@@ -310,13 +310,13 @@ Status of This Memo
       implementation compliant with this RFC will simply ignore the
       extra WONT if the other side sends it.
 
-   The implementation MUST NOT automatically respond to the rejection of
+   The implementation <em>MUST NOT</em> automatically respond to the rejection of
    a request by submitting a new request.  As a rule of thumb, new
    requests should be sent either at the beginning of a connection or in
    response to an external stimulus, i.e., input from the human user or
    from the process behind the server.
 
-   A TELNET implementation MUST refuse (DONT/WONT) a request to enable
+   A TELNET implementation <em>MUST</em> refuse (DONT/WONT) a request to enable
    an option for which it does not comply with the appropriate protocol
    specification.
 
@@ -329,7 +329,7 @@ Status of This Memo
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Rule: Remember DONT/WONT requests</span>
 
-   A TELNET implementation MUST remember starting a DONT/WONT
+   A TELNET implementation <em>MUST</em> remember starting a DONT/WONT
    negotiation.
 
    DISCUSSION:
@@ -400,7 +400,7 @@ Status of This Memo
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>. Rule: Prohibit new requests before completing old negotiation</span>
 
-   A TELNET implementation MUST NOT initiate a new WILL/WONT/DO/DONT
+   A TELNET implementation <em>MUST NOT</em> initiate a new WILL/WONT/DO/DONT
    request about an option that is under negotiation, i.e., for which it
    has already made such a request and not yet received a response.
 
@@ -512,7 +512,7 @@ Status of This Memo
       about automatic regeneration of requests, as these new requests
       are simply the delayed effects of user or process commands.
 
-   An implementation SHOULD support the queue, where support is defined
+   An implementation <em>SHOULD</em> support the queue, where support is defined
    by the rules following.
 
 
@@ -524,30 +524,30 @@ Status of This Memo
 
 
    If it does support the queue, and if an option is currently under
-   negotiation, it MUST NOT handle a new request from the user or
+   negotiation, it <em>MUST NOT</em> handle a new request from the user or
    process to switch the state of that option by sending a new request
-   through the network.  Instead, it MUST remember internally that the
+   through the network.  Instead, it <em>MUST</em> remember internally that the
    new request was made.
 
    If the user or process makes a second new request, for switching back
    again, while the original negotiation is still incomplete, the
-   implementation SHOULD handle the request simply by forgetting the
-   previous one.  The third request SHOULD be treated like the first,
-   etc.  In any case, these further requests MUST NOT generate immediate
+   implementation <em>SHOULD</em> handle the request simply by forgetting the
+   previous one.  The third request <em>SHOULD</em> be treated like the first,
+   etc.  In any case, these further requests <em>MUST NOT</em> generate immediate
    requests through the network.
 
    When the option negotiation completes, if the implementation is
    remembering a request internally, and that request is for the
    opposite state to the result of the completed negotiation, then the
-   implementation MUST act as if that request had been made after the
-   completion of the negotiation.  It SHOULD thus immediately generate a
+   implementation <em>MUST</em> act as if that request had been made after the
+   completion of the negotiation.  It <em>SHOULD</em> thus immediately generate a
    new request through the network.
 
-   The implementation MAY provide a method by which support for the
-   queue may be turned off and back on.  In this case, it MUST default
+   The implementation <em>MAY</em> provide a method by which support for the
+   queue may be turned off and back on.  In this case, it <em>MUST</em> default
    to having the support turned on.  Furthermore, when support is turned
    off, if the implementation is remembering a new request for an
-   outstanding negotiation, it SHOULD continue remembering and then deal
+   outstanding negotiation, it <em>SHOULD</em> continue remembering and then deal
    with it at the close of the outstanding negotiation, as if support
    were still turned on through that point.
 
@@ -564,7 +564,7 @@ Status of This Memo
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>. Rule: Separate WANTNO and WANTYES</span>
 
-   Implementations SHOULD separate any states of negotiating WILL/DO
+   Implementations <em>SHOULD</em> separate any states of negotiating WILL/DO
    from any states of negotiating WONT/DONT.
 
    DISCUSSION:
@@ -590,7 +590,7 @@ Status of This Memo
    To ease the task of writing TELNET implementations, the author
    presents here a precise example of the response that a compliant
    TELNET implementation could give in each possible situation.  All
-   TELNET implementations compliant with this RFC SHOULD follow the
+   TELNET implementations compliant with this RFC <em>SHOULD</em> follow the
    procedures shown here.
 
    EXAMPLE STATE MACHINE

@@ -253,8 +253,8 @@ Abstract
    <a href="#section-4">Section 4</a> outlines concerns related to the congestion control
    algorithms and finally, <a href="#section-5">section 5</a> outlines security considerations.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-Bra97" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Bra97</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>. Definitions</span>
@@ -286,7 +286,7 @@ Abstract
    RECEIVER WINDOW (rwnd) The most recently advertised receiver window.
 
    CONGESTION WINDOW (cwnd):  A TCP state variable that limits the
-      amount of data a TCP can send.  At any given time, a TCP MUST NOT
+      amount of data a TCP can send.  At any given time, a TCP <em>MUST NOT</em>
       send data with a sequence number higher than the sum of the
       highest acknowledged sequence number and the minimum of cwnd and
       rwnd.
@@ -321,14 +321,14 @@ Abstract
    start, congestion avoidance, fast retransmit and fast recovery,
    developed in [<a href="#ref-Jac88" title="&quot;Congestion Avoidance and Control&quot;">Jac88</a>] and [<a href="#ref-Jac90" title="&quot;Modified TCP Congestion Avoidance Algorithm&quot;">Jac90</a>].  In some situations it may be
    beneficial for a TCP sender to be more conservative than the
-   algorithms allow, however a TCP MUST NOT be more aggressive than the
-   following algorithms allow (that is, MUST NOT send data when the
+   algorithms allow, however a TCP <em>MUST NOT</em> be more aggressive than the
+   following algorithms allow (that is, <em>MUST NOT</em> send data when the
    value of cwnd computed by the following algorithms would not allow
    the data to be sent).
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a> Slow Start and Congestion Avoidance</span>
 
-   The slow start and congestion avoidance algorithms MUST be used by a
+   The slow start and congestion avoidance algorithms <em>MUST</em> be used by a
    TCP sender to control the amount of outstanding data being injected
    into the network.  To implement these algorithms, two variables are
    added to the TCP per-connection state.  The congestion window (cwnd)
@@ -359,16 +359,16 @@ Abstract
 <span class="grey"><a href="./rfc2581.html">RFC 2581</a>                 TCP Congestion Control               April 1999</span>
 
 
-   IW, the initial value of cwnd, MUST be less than or equal to 2*SMSS
-   bytes and MUST NOT be more than 2 segments.
+   IW, the initial value of cwnd, <em>MUST</em> be less than or equal to 2*SMSS
+   bytes and <em>MUST NOT</em> be more than 2 segments.
 
    We note that a non-standard, experimental TCP extension allows that a
-   TCP MAY use a larger initial window (IW), as defined in equation 1
+   TCP <em>MAY</em> use a larger initial window (IW), as defined in equation 1
    [<a href="#ref-AFP98" title="S. and C. Partridge">AFP98</a>]:
 
       IW = min (4*SMSS, max (2*SMSS, 4380 bytes))           (1)
 
-   With this extension, a TCP sender MAY use a 3 or 4 segment initial
+   With this extension, a TCP sender <em>MAY</em> use a 3 or 4 segment initial
    window, provided the combined size of the segments does not exceed
    4380 bytes.  We do NOT allow this change as part of the standard
    defined by this document.  However, we include discussion of (1) in
@@ -376,7 +376,7 @@ Abstract
    with the change, rather than conforming to the present standards for
    TCP congestion control.
 
-   The initial value of ssthresh MAY be arbitrarily high (for example,
+   The initial value of ssthresh <em>MAY</em> be arbitrarily high (for example,
    some implementations use the size of the advertised window), but it
    may be reduced in response to congestion.  The slow start algorithm
    is used when cwnd &lt; ssthresh, while the congestion avoidance
@@ -418,7 +418,7 @@ Abstract
    Implementation Note: Since integer arithmetic is usually used in TCP
    implementations, the formula given in equation 2 can fail to increase
    cwnd when the congestion window is very large (larger than
-   SMSS*SMSS).  If the above formula yields 0, the result SHOULD be
+   SMSS*SMSS).  If the above formula yields 0, the result <em>SHOULD</em> be
    rounded up to 1 byte.
 
    Implementation Note: older implementations have an additional
@@ -430,7 +430,7 @@ Abstract
    for new data.  (A drawback of this implementation is that it requires
    maintaining an additional state variable.)  When the number of bytes
    acknowledged reaches cwnd, then cwnd can be incremented by up to SMSS
-   bytes.  Note that during congestion avoidance, cwnd MUST NOT be
+   bytes.  Note that during congestion avoidance, cwnd <em>MUST NOT</em> be
    increased by more than the larger of either 1 full-sized segment per
    RTT, or the value computed using equation 2.
 
@@ -440,7 +440,7 @@ Abstract
    counting approach discussed in the previous paragraph.
 
    When a TCP sender detects segment loss using the retransmission
-   timer, the value of ssthresh MUST be set to no more than the value
+   timer, the value of ssthresh <em>MUST</em> be set to no more than the value
    given in equation 3:
 
       ssthresh = max (FlightSize / 2, 2*SMSS)            (3)
@@ -452,7 +452,7 @@ Abstract
    rather than FlightSize, which in some implementations may
    incidentally increase well beyond rwnd.
 
-   Furthermore, upon a timeout cwnd MUST be set to no more than the loss
+   Furthermore, upon a timeout cwnd <em>MUST</em> be set to no more than the loss
    window, LW, which equals 1 full-sized segment (regardless of the
    value of IW).  Therefore, after retransmitting the dropped segment
    the TCP sender uses the slow start algorithm to increase the window
@@ -473,7 +473,7 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> Fast Retransmit/Fast Recovery</span>
 
-   A TCP receiver SHOULD send an immediate duplicate ACK when an out-
+   A TCP receiver <em>SHOULD</em> send an immediate duplicate ACK when an out-
    of-order segment arrives.  The purpose of this ACK is to inform the
    sender that a segment was received out-of-order and which sequence
    number is expected.  From the sender's perspective, duplicate ACKs
@@ -483,14 +483,14 @@ Abstract
    can be caused by the re-ordering of data segments by the network (not
    a rare event along some network paths [<a href="#ref-Pax97" title="&quot;End-to-End Internet Packet Dynamics&quot;">Pax97</a>]).  Finally, duplicate
    ACKs can be caused by replication of ACK or data segments by the
-   network.  In addition, a TCP receiver SHOULD send an immediate ACK
+   network.  In addition, a TCP receiver <em>SHOULD</em> send an immediate ACK
    when the incoming segment fills in all or part of a gap in the
    sequence space.  This will generate more timely information for a
    sender recovering from a loss through a retransmission timeout, a
    fast retransmit, or an experimental loss recovery algorithm, such as
    NewReno [<a href="#ref-FH98" title="&quot;The NewReno Modification to TCP's Fast Recovery Algorithm&quot;">FH98</a>].
 
-   The TCP sender SHOULD use the "fast retransmit" algorithm to detect
+   The TCP sender <em>SHOULD</em> use the "fast retransmit" algorithm to detect
    and repair loss, based on incoming duplicate ACKs.  The fast
    retransmit algorithm uses the arrival of 3 duplicate ACKs (4
    identical ACKs without the arrival of any other intervening packets)
@@ -599,22 +599,22 @@ Abstract
    and allows the TCP to begin transmission with a possibly
    inappropriately large cwnd.
 
-   Therefore, a TCP SHOULD set cwnd to no more than RW before beginning
+   Therefore, a TCP <em>SHOULD</em> set cwnd to no more than RW before beginning
    transmission if the TCP has not sent data in an interval exceeding
    the retransmission timeout.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a> Generating Acknowledgments</span>
 
-   The delayed ACK algorithm specified in [<a href="#ref-Bra89" title="&quot;Requirements for Internet Hosts -- Communication Layers&quot;">Bra89</a>] SHOULD be used by a
-   TCP receiver.  When used, a TCP receiver MUST NOT excessively delay
-   acknowledgments.  Specifically, an ACK SHOULD be generated for at
-   least every second full-sized segment, and MUST be generated within
+   The delayed ACK algorithm specified in [<a href="#ref-Bra89" title="&quot;Requirements for Internet Hosts -- Communication Layers&quot;">Bra89</a>] <em>SHOULD</em> be used by a
+   TCP receiver.  When used, a TCP receiver <em>MUST NOT</em> excessively delay
+   acknowledgments.  Specifically, an ACK <em>SHOULD</em> be generated for at
+   least every second full-sized segment, and <em>MUST</em> be generated within
    500 ms of the arrival of the first unacknowledged packet.
 
-   The requirement that an ACK "SHOULD" be generated for at least every
+   The requirement that an ACK "<em>SHOULD</em>" be generated for at least every
    second full-sized segment is listed in [<a href="#ref-Bra89" title="&quot;Requirements for Internet Hosts -- Communication Layers&quot;">Bra89</a>] in one place as a
-   SHOULD and another as a MUST.  Here we unambiguously state it is a
-   SHOULD.  We also emphasize that this is a SHOULD, meaning that an
+   <em>SHOULD</em> and another as a <em>MUST</em>.  Here we unambiguously state it is a
+   <em>SHOULD</em>.  We also emphasize that this is a <em>SHOULD</em>, meaning that an
    implementor should indeed only deviate from this requirement after
    careful consideration of the implications.  See the discussion of
    "Stretch ACK violation" in [PAD+98] and the references therein for a
@@ -647,18 +647,18 @@ Abstract
    Therefore, while a specific algorithm is not defined, it is desirable
    for receivers to attempt to prevent this situation, for example by
    acknowledging at least every second segment, regardless of size.
-   Finally, we repeat that an ACK MUST NOT be delayed for more than 500
+   Finally, we repeat that an ACK <em>MUST NOT</em> be delayed for more than 500
    ms waiting on a second full-sized segment to arrive.
 
-   Out-of-order data segments SHOULD be acknowledged immediately, in
+   Out-of-order data segments <em>SHOULD</em> be acknowledged immediately, in
    order to accelerate loss recovery.  To trigger the fast retransmit
-   algorithm, the receiver SHOULD send an immediate duplicate ACK when
+   algorithm, the receiver <em>SHOULD</em> send an immediate duplicate ACK when
    it receives a data segment above a gap in the sequence space.  To
    provide feedback to senders recovering from losses, the receiver
-   SHOULD send an immediate ACK when it receives a data segment that
+   <em>SHOULD</em> send an immediate ACK when it receives a data segment that
    fills in all or part of a gap in the sequence space.
 
-   A TCP receiver MUST NOT generate more than one ACK for every incoming
+   A TCP receiver <em>MUST NOT</em> generate more than one ACK for every incoming
    segment, other than to update the offered window as the receiving
    application consumes new data [page 42, Pos81][<a href="#ref-Cla82" title="&quot;Window and Acknowledgment Strategy in TCP&quot;">Cla82</a>].
 
@@ -677,16 +677,16 @@ Abstract
    the general principles of the basic four algorithms outlined above.
 
    Therefore, when the first loss in a window of data is detected,
-   ssthresh MUST be set to no more than the value given by equation (3).
+   ssthresh <em>MUST</em> be set to no more than the value given by equation (3).
    Second, until all lost segments in the window of data in question are
-   repaired, the number of segments transmitted in each RTT MUST be no
+   repaired, the number of segments transmitted in each RTT <em>MUST</em> be no
    more than half the number of outstanding segments when the loss was
    detected.  Finally, after all loss in the given window of segments
-   has been successfully retransmitted, cwnd MUST be set to no more than
-   ssthresh and congestion avoidance MUST be used to further increase
+   has been successfully retransmitted, cwnd <em>MUST</em> be set to no more than
+   ssthresh and congestion avoidance <em>MUST</em> be used to further increase
    cwnd.  Loss in two successive windows of data, or the loss of a
    retransmission, should be taken as two indications of congestion and,
-   therefore, cwnd (and ssthresh) MUST be lowered twice in this case.
+   therefore, cwnd (and ssthresh) <em>MUST</em> be lowered twice in this case.
 
 
 

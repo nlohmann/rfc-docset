@@ -389,14 +389,14 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Requesting a Referral</span>
 
    In order to request referrals as defined in later sections, the
-   Kerberos client MUST explicitly request the "canonicalize" KDC option
+   Kerberos client <em>MUST</em> explicitly request the "canonicalize" KDC option
    (bit 15) [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>] for the AS-REQ or TGS-REQ.  This flag indicates to
    the KDC that the client is prepared to receive a reply that contains
    a principal name other than the one requested.
@@ -406,7 +406,7 @@ Table of Contents
                    -- other KDCOptions values omitted
 
    When sending names with the "canonicalize" KDC option, the client
-   should expect that names in the KDC's reply MAY be different than the
+   should expect that names in the KDC's reply <em>MAY</em> be different than the
    name in the request.  A referral TGT is a cross-realm TGT that is
    returned with the server name of the ticket being different from the
    server name in the request [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>].
@@ -553,14 +553,14 @@ Table of Contents
    alias is created, the KDC may provide the mapping information to the
    client in the credential acquisition process.
 
-   If the "canonicalize" KDC option is set, then the KDC MAY change the
+   If the "canonicalize" KDC option is set, then the KDC <em>MAY</em> change the
    client and server principal names and types in the AS response and
-   ticket returned from those in the request.  Names MUST NOT be changed
+   ticket returned from those in the request.  Names <em>MUST NOT</em> be changed
    in the response to a TGS request, although it is common for KDCs to
    maintain a set of aliases for service principals.  Regardless of
    which alias a client requests, the same service key is used.
    However, in the TGS request, the client receives a ticket for the
-   alias requested.  Services MUST NOT make distinctions based on which
+   alias requested.  Services <em>MUST NOT</em> make distinctions based on which
    alias is in the issued ticket, because the service name in a ticket
    is not cryptographically protected and can be changed by parties
    other than the KDC.
@@ -576,8 +576,8 @@ Table of Contents
    See <a href="#section-11">Section 11</a> for a mechanism to detect modification of the request
    between the client and KDC.  However, for the best protection,
    Flexible Authentication Secure Tunneling (FAST) [<a href="./rfc6113.html" title="&quot;A Generalized Framework for Kerberos Pre-Authentication&quot;">RFC6113</a>] or another
-   mechanism that protects the entire KDC exchange SHOULD be used.
-   Clients MAY reject responses from a KDC where the client or server
+   mechanism that protects the entire KDC exchange <em>SHOULD</em> be used.
+   Clients <em>MAY</em> reject responses from a KDC where the client or server
    name is changed if the KDC does not support such a mechanism.
 
 
@@ -587,7 +587,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6806.html">RFC 6806</a>                      KDC Referrals                November 2012</span>
 
 
-   Clients SHOULD reject an AS response that changes the server name
+   Clients <em>SHOULD</em> reject an AS response that changes the server name
    unless the response is protected by such a mechanism or the new
    server name is one explicitly expected by the client.  For example,
    many clients permit the realm name to be changed in an AS response,
@@ -596,7 +596,7 @@ Table of Contents
 
    In order to permit authorization decisions to be made based on
    aliases as well as the canonicalized form of a principal name, the
-   KDC MAY include the following authorization data element, wrapped in
+   KDC <em>MAY</em> include the following authorization data element, wrapped in
    AD-KDC-ISSUED, in the initial credentials and copy it from a ticket-
    granting ticket into additional credentials:
 
@@ -611,7 +611,7 @@ Table of Contents
    In addition to permitting authorization based on aliases, this
    permits user-to-user exchanges where the party receiving the
    authenticator knows the other party only by an alias.  The recipient
-   of such an authenticator SHOULD check the AD-LOGIN-ALIAS names, if
+   of such an authenticator <em>SHOULD</em> check the AD-LOGIN-ALIAS names, if
    present, in addition to the normal client name field, against the
    identity of the party with which it wishes to authenticate; either
    should be allowed to match.  (Note that this is not backwards
@@ -623,13 +623,13 @@ Table of Contents
    The use of AD-KDC-ISSUED authorization data elements in cross-realm
    cases has not been well explored at this writing; hence, we will only
    specify the inclusion of this data in the one-realm case.  The AD-
-   LOGIN-ALIAS information SHOULD be dropped in the general cross-realm
-   case.  However, a realm MAY implement a policy of accepting and
+   LOGIN-ALIAS information <em>SHOULD</em> be dropped in the general cross-realm
+   case.  However, a realm <em>MAY</em> implement a policy of accepting and
    re-signing (wrapping in a new AD-KDC-ISSUED element) alias
    information provided by certain trusted realms in the cross-realm
    ticket-granting service.
 
-   The canonical principal name for an alias MUST NOT be in the form of
+   The canonical principal name for an alias <em>MUST NOT</em> be in the form of
    a ticket-granting service name, as (in a case of server name
    canonicalization) that would be construed as a case of cross-realm
    referral, described below.
@@ -649,23 +649,23 @@ Table of Contents
    ticket using an AS-REQ.  In this case, the client machine will send
    the AS-REQ to a convenient realm trusted to map principals, for
    example, the realm of the client machine.  In the case of the name
-   alice@EXAMPLE.COM, the client MAY optimistically choose to send the
+   alice@EXAMPLE.COM, the client <em>MAY</em> optimistically choose to send the
    request to EXAMPLE.COM.  The realm in the AS-REQ is always the name
    of the realm that the request is for, as specified in [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>].
 
    The KDC will try to lookup the name in its local account database.
-   If the account is present in the realm of the request, it SHOULD
+   If the account is present in the realm of the request, it <em>SHOULD</em>
    return a KDC reply with the appropriate ticket.
 
    If the account is not present in the realm specified in the request
    and the "canonicalize" KDC option is set, the KDC may look up the
    client principal name using some kind of name service or directory
-   service.  If this lookup is unsuccessful, it MUST return the error
+   service.  If this lookup is unsuccessful, it <em>MUST</em> return the error
    KDC_ERR_C_PRINCIPAL_UNKNOWN [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>].  If the lookup is successful,
-   it MUST return an error KDC_ERR_WRONG_REALM [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>]; in the error
+   it <em>MUST</em> return an error KDC_ERR_WRONG_REALM [<a href="./rfc4120.html" title="&quot;The Kerberos Network Authentication Service (V5)&quot;">RFC4120</a>]; in the error
    message, the crealm field will contain either the true realm of the
-   client or another realm that MAY have better information about the
-   client's true realm.  The client MUST NOT use the cname returned in
+   client or another realm that <em>MAY</em> have better information about the
+   client's true realm.  The client <em>MUST NOT</em> use the cname returned in
    this error message.
 
    If the client receives a KDC_ERR_WRONG_REALM error, it will issue a
@@ -673,7 +673,7 @@ Table of Contents
    the first AS request to the realm specified by the realm field of the
    Kerberos error message corresponding to the first request.  (The
    client realm name will be updated in the new request to refer to this
-   new realm.)  The client SHOULD repeat these steps until it finds the
+   new realm.)  The client <em>SHOULD</em> repeat these steps until it finds the
    true realm of the client.  To avoid infinite referral loops, an
    implementation should limit the number of referrals.  A suggested
    limit is 5 referrals before giving up.
@@ -714,7 +714,7 @@ Table of Contents
    to the local machine have some reasonable level of mapping trust.
    Deployments involving more complex trust, for example, high
    probability of malicious realms, are likely to need more complex
-   policy and MAY need to prompt the user before accepting some
+   policy and <em>MAY</em> need to prompt the user before accepting some
    referrals.
 
    There is currently no provision for changing the client name in a
@@ -728,7 +728,7 @@ Table of Contents
 
    If the "canonicalize" flag in the KDC options is set and the KDC
    doesn't find the principal locally, either as a regular principal or
-   as an alias for another local principal, the KDC MAY return a cross-
+   as an alias for another local principal, the KDC <em>MAY</em> return a cross-
    realm ticket-granting ticket to the next hop on the trust path
    towards a realm that may be able to resolve the principal name.
 
@@ -778,7 +778,7 @@ Table of Contents
    <a href="./rfc4120.html">RFC 4120</a> permits a KDC to return a closer referral ticket when a
    cross-realm TGT is requested.  This specification extends this
    behavior when the canonicalize flag is set.  When this flag is set, a
-   KDC MAY return a TGT for a realm closer to the service for any
+   KDC <em>MAY</em> return a TGT for a realm closer to the service for any
    service as discussed in the previous section.  When a client follows
    such a referral, it includes the realm of the referred-to realm in
    the generated request.
@@ -811,7 +811,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6806.html">RFC 6806</a>                      KDC Referrals                November 2012</span>
 
 
-   information SHOULD be properly associated with the requested service
+   information <em>SHOULD</em> be properly associated with the requested service
    principal names.  Simply having another TGT for the same remote realm
    does not extend the validity of previously acquired information about
    one service principal name.)
@@ -822,16 +822,16 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  Negotiation of FAST and Detecting Modified Requests</span>
 
-   Implementations of this specification MUST support the FAST
+   Implementations of this specification <em>MUST</em> support the FAST
    negotiation mechanism described in this section.  This mechanism
    provides detection of KDC requests modified by an attacker when those
    requests result in a reply instead of an error.  In addition, this
    mechanism provides a secure way to detect if a KDC supports FAST.
 
-   Clients conforming to this specification MUST send new pre-
+   Clients conforming to this specification <em>MUST</em> send new pre-
    authentication data of type PA-REQ-ENC-PA-REP (149) in all AS
-   requests and MAY send this padata type in TGS requests.  The value of
-   this padata item SHOULD be empty and its value MUST be ignored by a
+   requests and <em>MAY</em> send this padata type in TGS requests.  The value of
+   this padata item <em>SHOULD</em> be empty and its value <em>MUST</em> be ignored by a
    receiving KDC.  Sending this padata item indicates support for this
    negotiation mechanism.  KDCs conforming to this specification must
    always set the ticket flag enc-pa-rep (15) in all the issued tickets.
@@ -844,19 +844,19 @@ Table of Contents
                  key                [0] EncryptionKey,
                  last-req           [1] LastReq,
                  nonce              [2] UInt32,
-                 key-expiration     [3] KerberosTime OPTIONAL,
+                 key-expiration     [3] KerberosTime <em>OPTIONAL</em>,
                  flags              [4] TicketFlags,
                  authtime           [5] KerberosTime,
-                 starttime          [6] KerberosTime OPTIONAL,
+                 starttime          [6] KerberosTime <em>OPTIONAL</em>,
                  endtime            [7] KerberosTime,
-                 renew-till         [8] KerberosTime OPTIONAL,
+                 renew-till         [8] KerberosTime <em>OPTIONAL</em>,
                  srealm             [9] Realm,
                  sname             [10] PrincipalName,
-                 caddr             [11] HostAddresses OPTIONAL,
-                 encrypted-pa-data [12] SEQUENCE OF PA-DATA OPTIONAL
+                 caddr             [11] HostAddresses <em>OPTIONAL</em>,
+                 encrypted-pa-data [12] SEQUENCE OF PA-DATA <em>OPTIONAL</em>
          }
 
-   The encrypted-pa-data element MUST be absent unless either the
+   The encrypted-pa-data element <em>MUST</em> be absent unless either the
    "canonicalize" KDC option is set or the PA-REQ-ENC-PA-REP padata item
    is sent.
 
@@ -868,18 +868,18 @@ Table of Contents
 
 
    If the PA-REQ-ENC-PA-REP padata item is sent in the request, then the
-   KDC MUST include a PA-REQ-ENC-PA-REP padata item in the encrypted-pa-
+   KDC <em>MUST</em> include a PA-REQ-ENC-PA-REP padata item in the encrypted-pa-
    data item of any generated KDC reply.  The PA-REQ-ENC-PA-REP pa-data
    value contains the checksum computed over the type AS-REQ or TGS-REQ
    in the request.  The checksum key is the reply key and the checksum
    type is the required checksum type for the encryption type of the
    reply key, and the key usage number is KEY_USAGE_AS_REQ (56).  If the
-   KDC supports FAST, then the KDC MUST include a padata of type PA-FX-
+   KDC supports FAST, then the KDC <em>MUST</em> include a padata of type PA-FX-
    FAST in any encrypted-pa-data sequence it generates.  The padata item
-   MUST be empty on sending, and the contents of the padata item MUST be
+   <em>MUST</em> be empty on sending, and the contents of the padata item <em>MUST</em> be
    ignored on receiving.
 
-   A client MUST reject a response for which it sent PA-REQ-ENC-PA-REP
+   A client <em>MUST</em> reject a response for which it sent PA-REQ-ENC-PA-REP
    if the ENC-PA-REP ticket flag is set and the PA-REQ-ENC-PA-REP padata
    item is absent or the checksum is not successfully verified.
 
@@ -900,12 +900,12 @@ Table of Contents
    name and client realm in the service ticket targeted at the
    workstation obtained using the user's initial TGT.  That is, rather
    than trusting the client name in the AS response, a workstation
-   SHOULD perform an AP-REQ authentication against itself as a service
+   <em>SHOULD</em> perform an AP-REQ authentication against itself as a service
    and use the client name in the ticket issued for its service by the
    KDC.
 
    How the client name and client realm are mapped into a local account
-   for logon is a local matter, but the client logon mechanism MUST use
+   for logon is a local matter, but the client logon mechanism <em>MUST</em> use
    additional information such as the client realm and/or authorization
    attributes from the service ticket presented to the workstation by
    the user when mapping the logon credentials to a local account on the
@@ -953,7 +953,7 @@ Table of Contents
    this is not a significant vulnerability.  The negotiation facility
    described in this document securely indicates the presence of FAST.
    So, if a client wishes to use FAST when it is available, an attacker
-   cannot force the client to downgrade away from FAST.  An attacker MAY
+   cannot force the client to downgrade away from FAST.  An attacker <em>MAY</em>
    be able to prevent a client from obtaining an armor ticket, for
    example, by responding to a request for anonymous Public Key
    Cryptography for Initial Authentication in Kerberos (PKINIT) with an
@@ -980,7 +980,7 @@ Table of Contents
 
 
    service (including the TGS), it constructs an AP-REQ message.  This
-   message includes a client name that MUST match the client name in the
+   message includes a client name that <em>MUST</em> match the client name in the
    ticket according to <a href="./rfc4120.html">RFC 4120</a>.  Thus, if the client name is changed,
    the resulting ticket will fail when used.  This is undesirable
    because the authentication is separated from the later failure, which
@@ -1017,11 +1017,11 @@ Table of Contents
    but not the one in the request.  Fortunately, users are typically
    authenticating to the "krbtgt" service in an AS exchange.  Clients
    that permit changes to the server name when no protection beyond <a href="./rfc4120.html">RFC</a>
-   <a href="./rfc4120.html">4120</a> is in use SHOULD carefully restrict what service names are
+   <a href="./rfc4120.html">4120</a> is in use <em>SHOULD</em> carefully restrict what service names are
    acceptable.  One critical case to consider is the password-changing
    service.  When a user authenticates to change their password, they
    use an AS authentication directly to the password-changing service.
-   Clients MUST restrict service name changes sufficiently that the
+   Clients <em>MUST</em> restrict service name changes sufficiently that the
    client ends up talking to the correct password-changing service.
 
 
@@ -1162,7 +1162,7 @@ Table of Contents
           PA-SVR-REFERRAL-INFO       20
 
           PA-SVR-REFERRAL-DATA ::= SEQUENCE {
-                 referred-name   [1] PrincipalName OPTIONAL,
+                 referred-name   [1] PrincipalName <em>OPTIONAL</em>,
                  referred-realm  [0] Realm
           }}
 

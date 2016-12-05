@@ -446,9 +446,9 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Requirements Language</span>
 
    In this document, several words are used to signify the requirements
-   of the specification.  The key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT
-   RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+   of the specification.  The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT
+   <em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this document are to be
    interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  Document Status</span>
@@ -532,7 +532,7 @@ Table of Contents
 
    The RADIUS packet format is unchanged from [<a href="./rfc2865.html" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RFC2865</a>], [<a href="./rfc2866.html" title="&quot;RADIUS Accounting&quot;">RFC2866</a>], and
    [<a href="./rfc5176.html" title="&quot;Dynamic Authorization Extensions to Remote Authentication Dial In User Service (RADIUS)&quot;">RFC5176</a>].  Specifically, all of the following portions of RADIUS
-   MUST be unchanged when using RADIUS/DTLS:
+   <em>MUST</em> be unchanged when using RADIUS/DTLS:
 
       * Packet format
       * Permitted codes
@@ -560,7 +560,7 @@ Table of Contents
 
    We note that the DTLS encapsulation of RADIUS means that RADIUS
    packets have an additional overhead due to DTLS.  Implementations
-   MUST support sending and receiving encapsulated RADIUS packets of
+   <em>MUST</em> support sending and receiving encapsulated RADIUS packets of
    4096 octets in length, with a corresponding increase in the maximum
    size of the encapsulated DTLS packets.  This larger packet size may
    cause the packet to be larger than the Path MTU (PMTU), where a
@@ -587,14 +587,14 @@ Table of Contents
    The only changes made from RADIUS/UDP to RADIUS/DTLS are the
    following two items:
 
-   (1) The Length checks defined in <a href="./rfc2865.html#section-3">[RFC2865], Section&nbsp;3</a>, MUST use the
+   (1) The Length checks defined in <a href="./rfc2865.html#section-3">[RFC2865], Section&nbsp;3</a>, <em>MUST</em> use the
        length of the decrypted DTLS data instead of the UDP packet
-       length.  They MUST treat any decrypted DTLS data octets outside
+       length.  They <em>MUST</em> treat any decrypted DTLS data octets outside
        the range of the Length field as padding and ignore it on
        reception.
 
    (2) The shared secret used to compute the MD5 integrity checks and
-       the attribute encryption MUST be "radius/dtls".
+       the attribute encryption <em>MUST</em> be "radius/dtls".
 
    All other aspects of RADIUS are unchanged.
 
@@ -643,13 +643,13 @@ Table of Contents
    Most of <a href="#section-2.3">Section 2.3</a> applies also to RADIUS/DTLS.  Item (1) should be
    interpreted as applying to DTLS session initiation, instead of TCP
    connection establishment.  Item (2) applies, except for the
-   recommendation that implementations "SHOULD" support
+   recommendation that implementations "<em>SHOULD</em>" support
    TLS_RSA_WITH_RC4_128_SHA.  This recommendation is a historical
    artifact of RADIUS/TLS, and it does not apply to RADIUS/DTLS.  Item
    (3) applies to RADIUS/DTLS.  Item (4) applies, except that the fixed
    shared secret is "radius/dtls", as described above.
 
-   <a href="#section-2.4">Section 2.4</a> applies to RADIUS/DTLS.  Client identities SHOULD be
+   <a href="#section-2.4">Section 2.4</a> applies to RADIUS/DTLS.  Client identities <em>SHOULD</em> be
    determined from DTLS parameters, instead of relying solely on the
    source IP address of the packet.
 
@@ -661,7 +661,7 @@ Table of Contents
 
    <a href="#section-3.4">Section 3.4</a> item (1) does not apply to RADIUS/DTLS.  Each RADIUS
    packet is encapsulated in one DTLS packet, and there is no "stream"
-   of RADIUS packets inside of a TLS session.  Implementors MUST enforce
+   of RADIUS packets inside of a TLS session.  Implementors <em>MUST</em> enforce
    the requirements of <a href="./rfc2865.html#section-3">[RFC2865], Section&nbsp;3</a>, for the RADIUS Length
    field, using the length of the decrypted DTLS data for the checks.
    This check replaces the RADIUS method of using the Length field from
@@ -716,16 +716,16 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Server Behavior</span>
 
-   When a server receives packets on UDP/2083, all packets MUST be
-   treated as being DTLS.  RADIUS/UDP packets MUST NOT be accepted on
+   When a server receives packets on UDP/2083, all packets <em>MUST</em> be
+   treated as being DTLS.  RADIUS/UDP packets <em>MUST NOT</em> be accepted on
    this port.
 
-   Servers MUST NOT accept DTLS packets on the old RADIUS/UDP ports.
+   Servers <em>MUST NOT</em> accept DTLS packets on the old RADIUS/UDP ports.
    Early versions of this specification permitted this behavior.  It is
    forbidden here, as it depended on behavior in DTLS that may change
    without notice.
 
-   Servers MUST authenticate clients.  RADIUS is designed to be used by
+   Servers <em>MUST</em> authenticate clients.  RADIUS is designed to be used by
    mutually trusted systems.  Allowing anonymous clients would ensure
    privacy for RADIUS/DTLS traffic, but would negate all other security
    aspects of the protocol.
@@ -739,7 +739,7 @@ Table of Contents
    Some servers maintain a list of allowed clients per destination port.
    Others maintain a global list of clients that are permitted to send
    packets to any port.  Where a client can send packets to multiple
-   ports, the server MUST maintain a "DTLS Required" flag per client.
+   ports, the server <em>MUST</em> maintain a "DTLS Required" flag per client.
 
    This flag indicates whether or not the client is required to use
    DTLS.  When set, the flag indicates that the only traffic accepted
@@ -752,16 +752,16 @@ Table of Contents
 <span class="grey"><a href="./rfc7360.html">RFC 7360</a>          DTLS as a Transport Layer for RADIUS    September 2014</span>
 
 
-   client on non-DTLS ports, for which DTLS is required, the server MUST
+   client on non-DTLS ports, for which DTLS is required, the server <em>MUST</em>
    silently discard these packets, as there is no RADIUS/UDP shared
    secret available.
 
    This flag will often be set by an administrator.  However, if a
-   server receives DTLS traffic from a client, it SHOULD notify the
-   administrator that DTLS is available for that client.  It MAY mark
+   server receives DTLS traffic from a client, it <em>SHOULD</em> notify the
+   administrator that DTLS is available for that client.  It <em>MAY</em> mark
    the client as "DTLS Required".
 
-   It is RECOMMENDED that servers support the following Perfect Forward
+   It is <em>RECOMMENDED</em> that servers support the following Perfect Forward
    Secrecy (PFS) ciphersuites:
 
       o  TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
@@ -769,36 +769,36 @@ Table of Contents
       o  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 
    Allowing RADIUS/UDP and RADIUS/DTLS from the same client exposes the
-   traffic to downbidding attacks and is NOT RECOMMENDED.
+   traffic to downbidding attacks and is NOT <em>RECOMMENDED</em>.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Client Behavior</span>
 
    When a client sends packets to the assigned RADIUS/DTLS port, all
-   packets MUST be DTLS.  RADIUS/UDP packets MUST NOT be sent to this
+   packets <em>MUST</em> be DTLS.  RADIUS/UDP packets <em>MUST NOT</em> be sent to this
    port.
 
-   Clients MUST authenticate themselves to servers via credentials that
+   Clients <em>MUST</em> authenticate themselves to servers via credentials that
    are unique to each client.
 
-   It is RECOMMENDED that clients support the following PFS
+   It is <em>RECOMMENDED</em> that clients support the following PFS
    ciphersuites:
 
       o  TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
 
       o  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 
-   RADIUS/DTLS clients SHOULD NOT probe servers to see if they support
-   DTLS transport.  Instead, clients SHOULD use DTLS as a transport
+   RADIUS/DTLS clients <em>SHOULD NOT</em> probe servers to see if they support
+   DTLS transport.  Instead, clients <em>SHOULD</em> use DTLS as a transport
    layer only when administratively configured.  If a client is
    configured to use DTLS and the server appears to be unresponsive, the
-   client MUST NOT fall back to using RADIUS/UDP.  Instead, the client
+   client <em>MUST NOT</em> fall back to using RADIUS/UDP.  Instead, the client
    should treat the server as being down.
 
    RADIUS clients often had multiple independent RADIUS implementations
    and/or processes that originate packets.  This practice was simple to
    implement, but the result is that each independent subsystem must
    independently discover network issues or server failures.  It is
-   therefore RECOMMENDED that clients with multiple internal RADIUS
+   therefore <em>RECOMMENDED</em> that clients with multiple internal RADIUS
    sources use a local proxy as described in <a href="#section-6.1">Section 6.1</a>, below.
 
 
@@ -809,7 +809,7 @@ Table of Contents
 
 
    Clients may implement "pools" of servers for fail-over or load-
-   balancing.  These pools SHOULD NOT mix RADIUS/UDP and RADIUS/DTLS
+   balancing.  These pools <em>SHOULD NOT</em> mix RADIUS/UDP and RADIUS/DTLS
    servers.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Session Management</span>
@@ -828,7 +828,7 @@ Table of Contents
 
    <a href="./rfc5080.html#section-2.2.2">[RFC5080], Section&nbsp;2.2.2</a>, describes how duplicate RADIUS/UDP requests
    result in the retransmission of a previously cached RADIUS/UDP
-   response.  Due to DTLS sequence window requirements, a server MUST
+   response.  Due to DTLS sequence window requirements, a server <em>MUST</em>
    NOT retransmit a previously sent DTLS packet.  Instead, it should
    cache the RADIUS response packet, and re-process it through DTLS to
    create a new RADIUS/DTLS packet, every time it is necessary to
@@ -836,7 +836,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Server Session Management</span>
 
-   A RADIUS/DTLS server MUST track ongoing DTLS sessions for each, based
+   A RADIUS/DTLS server <em>MUST</em> track ongoing DTLS sessions for each, based
    on the following 4-tuple:
 
       * source IP address
@@ -888,26 +888,26 @@ Table of Contents
 
    Session tracking is subject to Denial-of-Service (DoS) attacks due to
    the ability of an attacker to forge UDP traffic.  RADIUS/DTLS servers
-   SHOULD use the stateless cookie tracking technique described in
-   <a href="./rfc6347.html#section-4.2.1">[RFC6347], Section&nbsp;4.2.1</a>.  DTLS sessions SHOULD NOT be tracked until
+   <em>SHOULD</em> use the stateless cookie tracking technique described in
+   <a href="./rfc6347.html#section-4.2.1">[RFC6347], Section&nbsp;4.2.1</a>.  DTLS sessions <em>SHOULD NOT</em> be tracked until
    a ClientHello packet has been received with an appropriate Cookie
-   value.  Server implementation SHOULD have a way of tracking DTLS
-   sessions that are partially set up.  Servers MUST limit both the
+   value.  Server implementation <em>SHOULD</em> have a way of tracking DTLS
+   sessions that are partially set up.  Servers <em>MUST</em> limit both the
    number and impact on resources of partial sessions.
 
-   Sessions (both 4-tuple and entry) MUST be deleted when a TLS Closure
+   Sessions (both 4-tuple and entry) <em>MUST</em> be deleted when a TLS Closure
    Alert (<a href="./rfc5246.html#section-7.2.1">[RFC5246], Section&nbsp;7.2.1</a>) or a fatal TLS Error Alert
    (<a href="./rfc5246.html#section-7.2.2">[RFC5246], Section&nbsp;7.2.2</a>) is received.  When a session is deleted
-   due to it failing security requirements, the DTLS session MUST be
-   closed, any TLS session resumption parameters for that session MUST
-   be discarded, and all tracking information MUST be deleted.
+   due to it failing security requirements, the DTLS session <em>MUST</em> be
+   closed, any TLS session resumption parameters for that session <em>MUST</em>
+   be discarded, and all tracking information <em>MUST</em> be deleted.
 
-   Sessions MUST also be deleted when a RADIUS packet fails validation
+   Sessions <em>MUST</em> also be deleted when a RADIUS packet fails validation
    due to a packet being malformed, or when it has an invalid Message-
    Authenticator or invalid Request Authenticator.  There are other
    cases when the specifications require that a packet received via a
    DTLS session be "silently discarded".  In those cases,
-   implementations MAY delete the underlying session as described above.
+   implementations <em>MAY</em> delete the underlying session as described above.
    There are few reasons to communicate with a Network Access Server
    (NAS) that is not implementing RADIUS.
 
@@ -920,11 +920,11 @@ Table of Contents
 <span class="grey"><a href="./rfc7360.html">RFC 7360</a>          DTLS as a Transport Layer for RADIUS    September 2014</span>
 
 
-   A session MUST be deleted when non-RADIUS traffic is received over
+   A session <em>MUST</em> be deleted when non-RADIUS traffic is received over
    it.  This specification is for RADIUS, and there is no reason to
-   allow non-RADIUS traffic over a RADIUS/DTLS session.  A session MUST
+   allow non-RADIUS traffic over a RADIUS/DTLS session.  A session <em>MUST</em>
    be deleted when RADIUS traffic fails to pass security checks.  There
-   is no reason to permit insecure networks.  A session SHOULD NOT be
+   is no reason to permit insecure networks.  A session <em>SHOULD NOT</em> be
    deleted when a well-formed, but "unexpected", RADIUS packet is
    received over it.  Future specifications may extend RADIUS/DTLS, and
    we do not want to forbid those specifications.
@@ -936,35 +936,35 @@ Table of Contents
    cause a security issue.  There is no need to close the session for
    unexpected but valid traffic, and the session can safely remain open.
 
-   Once a DTLS session is established, a RADIUS/DTLS server SHOULD use
+   Once a DTLS session is established, a RADIUS/DTLS server <em>SHOULD</em> use
    DTLS Heartbeats [<a href="./rfc6520.html" title="&quot;Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) Heartbeat Extension&quot;">RFC6520</a>] to determine connectivity between the two
-   servers.  A server SHOULD also use watchdog packets from the client
+   servers.  A server <em>SHOULD</em> also use watchdog packets from the client
    to determine that the session is still active.
 
    As UDP does not guarantee delivery of messages, RADIUS/DTLS servers
-   that do not implement an application-layer watchdog MUST also
+   that do not implement an application-layer watchdog <em>MUST</em> also
    maintain a "Last Traffic" timestamp per DTLS session.  The
    granularity of this timestamp is not critical and could be limited to
-   one-second intervals.  The timestamp SHOULD be updated on reception
+   one-second intervals.  The timestamp <em>SHOULD</em> be updated on reception
    of a valid RADIUS/DTLS packet, or a DTLS Heartbeat, but no more than
-   once per interval.  The timestamp MUST NOT be updated in other
+   once per interval.  The timestamp <em>MUST NOT</em> be updated in other
    situations.
 
    When a session has not received a packet for a period of time, it is
-   labeled "idle".  The server SHOULD delete idle DTLS sessions after an
-   "idle timeout".  The server MAY cache the TLS session parameters, in
+   labeled "idle".  The server <em>SHOULD</em> delete idle DTLS sessions after an
+   "idle timeout".  The server <em>MAY</em> cache the TLS session parameters, in
    order to provide for fast session resumption.
 
-   This session "idle timeout" SHOULD be exposed to the administrator as
-   a configurable setting.  It SHOULD NOT be set to less than 60 seconds
-   and SHOULD NOT be set to more than 600 seconds (10 minutes).  The
+   This session "idle timeout" <em>SHOULD</em> be exposed to the administrator as
+   a configurable setting.  It <em>SHOULD NOT</em> be set to less than 60 seconds
+   and <em>SHOULD NOT</em> be set to more than 600 seconds (10 minutes).  The
    minimum useful value for this timer is determined by the application-
    layer watchdog mechanism defined in the following section.
 
-   RADIUS/DTLS servers SHOULD also monitor the total number of open
-   sessions.  They SHOULD have a "maximum sessions" setting exposed to
+   RADIUS/DTLS servers <em>SHOULD</em> also monitor the total number of open
+   sessions.  They <em>SHOULD</em> have a "maximum sessions" setting exposed to
    administrators as a configurable parameter.  When this maximum is
-   reached and a new session is started, the server MUST either drop an
+   reached and a new session is started, the server <em>MUST</em> either drop an
    old session in order to open the new one or not create a new session.
 
 
@@ -976,7 +976,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7360.html">RFC 7360</a>          DTLS as a Transport Layer for RADIUS    September 2014</span>
 
 
-   RADIUS/DTLS servers SHOULD implement session resumption, preferably
+   RADIUS/DTLS servers <em>SHOULD</em> implement session resumption, preferably
    stateless session resumption as given in [<a href="./rfc5077.html" title="&quot;Transport Layer Security (TLS) Session Resumption without Server-Side State&quot;">RFC5077</a>].  This practice
    lowers the time and effort required to start a DTLS session with a
    client and increases network responsiveness.
@@ -984,14 +984,14 @@ Table of Contents
    Since UDP is stateless, the potential exists for the client to
    initiate a new DTLS session using a particular 4-tuple, before the
    server has closed the old session.  For security reasons, the server
-   MUST keep the old session active until either it has received secure
+   <em>MUST</em> keep the old session active until either it has received secure
    notification from the client that the session is closed or the server
    decides to close the session based on idle timeouts.  Taking any
    other action would permit unauthenticated clients to perform a DoS
    attack, by reusing a 4-tuple and thus causing the server to close an
    active (and authenticated) DTLS session.
 
-   As a result, servers MUST ignore any attempts to reuse an existing
+   As a result, servers <em>MUST</em> ignore any attempts to reuse an existing
    4-tuple from an active session.  This requirement can likely be
    reached by simply processing the packet through the existing session,
    as with any other packet received via that 4-tuple.  Non-compliant,
@@ -1005,20 +1005,20 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Client Session Management</span>
 
-   Clients SHOULD use PMTU discovery [<a href="./rfc6520.html" title="&quot;Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) Heartbeat Extension&quot;">RFC6520</a>] to determine the PMTU
+   Clients <em>SHOULD</em> use PMTU discovery [<a href="./rfc6520.html" title="&quot;Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) Heartbeat Extension&quot;">RFC6520</a>] to determine the PMTU
    between the client and server, prior to sending any RADIUS traffic.
-   Once a DTLS session is established, a RADIUS/DTLS client SHOULD use
+   Once a DTLS session is established, a RADIUS/DTLS client <em>SHOULD</em> use
    DTLS Heartbeats [<a href="./rfc6520.html" title="&quot;Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) Heartbeat Extension&quot;">RFC6520</a>] to determine connectivity between the two
-   systems.  RADIUS/DTLS clients SHOULD also use the application-layer
+   systems.  RADIUS/DTLS clients <em>SHOULD</em> also use the application-layer
    watchdog algorithm defined in [<a href="./rfc3539.html" title="&quot;Authentication, Authorization and Accounting (AAA) Transport Profile&quot;">RFC3539</a>] to determine server
-   responsiveness.  The Status-Server packet defined in [<a href="./rfc5997.html" title="&quot;Use of Status-Server Packets in the Remote Authentication Dial In User Service (RADIUS) Protocol&quot;">RFC5997</a>] SHOULD
+   responsiveness.  The Status-Server packet defined in [<a href="./rfc5997.html" title="&quot;Use of Status-Server Packets in the Remote Authentication Dial In User Service (RADIUS) Protocol&quot;">RFC5997</a>] <em>SHOULD</em>
    be used as the "watchdog packet" in any application-layer watchdog
    algorithm.
 
-   RADIUS/DTLS clients SHOULD proactively close sessions when they have
-   been idle for a period of time.  Clients SHOULD close a session when
+   RADIUS/DTLS clients <em>SHOULD</em> proactively close sessions when they have
+   been idle for a period of time.  Clients <em>SHOULD</em> close a session when
    the DTLS Heartbeat algorithm indicates that the session is no longer
-   active.  Clients SHOULD close a session when no traffic other than
+   active.  Clients <em>SHOULD</em> close a session when no traffic other than
    watchdog packets and (possibly) watchdog responses has been sent for
    three watchdog timeouts.  This behavior ensures that clients do not
    waste resources on the server by causing it to track idle sessions.
@@ -1041,15 +1041,15 @@ Table of Contents
    those packets and then the session, leading to delays and network
    instabilities.
 
-   For these reasons, it is RECOMMENDED that all DTLS sessions be
+   For these reasons, it is <em>RECOMMENDED</em> that all DTLS sessions be
    configured to use DTLS Heartbeats and/or watchdog packets.
 
-   DTLS sessions MUST also be deleted when a RADIUS packet fails
+   DTLS sessions <em>MUST</em> also be deleted when a RADIUS packet fails
    validation due to a packet being malformed, or when it has an invalid
    Message-Authenticator or invalid Response Authenticator.  There are
    other cases when the specifications require that a packet received
    via a DTLS session be "silently discarded".  In those cases,
-   implementations MAY delete the underlying DTLS session.
+   implementations <em>MAY</em> delete the underlying DTLS session.
 
    RADIUS/DTLS clients should not send both RADIUS/UDP and RADIUS/DTLS
    packets to different servers from the same source socket.  This
@@ -1057,7 +1057,7 @@ Table of Contents
    increases the potential for security breaches due to implementation
    issues.
 
-   RADIUS/DTLS clients SHOULD implement session resumption, preferably
+   RADIUS/DTLS clients <em>SHOULD</em> implement session resumption, preferably
    stateless session resumption as given in [<a href="./rfc5077.html" title="&quot;Transport Layer Security (TLS) Session Resumption without Server-Side State&quot;">RFC5077</a>].  This practice
    lowers the time and effort required to start a DTLS session with a
    server and increases network responsiveness.
@@ -1069,12 +1069,12 @@ Table of Contents
    of the protocol, but they may help implementors create simple,
    secure, and interoperable implementations.
 
-   Where a TLS-PSK method is used, implementations MUST support keys of
-   at least 16 octets in length.  Implementations SHOULD support key
-   lengths of 32 octets and SHOULD allow for longer keys.  The key data
-   MUST be capable of being any value (0 through 255, inclusive).
-   Implementations MUST NOT limit themselves to using textual keys.  It
-   is RECOMMENDED that the administration interface allow for the keys
+   Where a TLS-PSK method is used, implementations <em>MUST</em> support keys of
+   at least 16 octets in length.  Implementations <em>SHOULD</em> support key
+   lengths of 32 octets and <em>SHOULD</em> allow for longer keys.  The key data
+   <em>MUST</em> be capable of being any value (0 through 255, inclusive).
+   Implementations <em>MUST NOT</em> limit themselves to using textual keys.  It
+   is <em>RECOMMENDED</em> that the administration interface allow for the keys
    to be entered as human-readable strings in hex format.
 
 
@@ -1088,11 +1088,11 @@ Table of Contents
 <span class="grey"><a href="./rfc7360.html">RFC 7360</a>          DTLS as a Transport Layer for RADIUS    September 2014</span>
 
 
-   When creating keys for use with PSK ciphersuites, it is RECOMMENDED
+   When creating keys for use with PSK ciphersuites, it is <em>RECOMMENDED</em>
    that keys be derived from a Cryptographically Secure Pseudorandom
    Number Generator (CSPRNG) instead of administrators inventing keys on
    their own.  If managing keys is too complicated, a certificate-based
-   TLS method SHOULD be used instead.
+   TLS method <em>SHOULD</em> be used instead.
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Client Implementations</span>
 
@@ -1131,7 +1131,7 @@ Table of Contents
    Each client subsystem can include a subsystem-specific NAS-Identifier
    in each request.  The format of this attribute is implementation-
    specific.  The proxy should verify that the request originated from
-   the local system, ideally via a loopback address.  The proxy MUST
+   the local system, ideally via a loopback address.  The proxy <em>MUST</em>
    then rewrite any subsystem-specific NAS-Identifier to a NAS-
    Identifier that identifies the client as a whole, or, remove the NAS-
    Identifier entirely and replace it with NAS-IP-Address or NAS-
@@ -1281,11 +1281,11 @@ Table of Contents
    only when DTLS is used with a non-null encryption method.  When a
    DTLS session uses a null encryption method due to misconfiguration or
    implementation error, all of the RADIUS traffic will be readable by
-   an observer.  Therefore, implementations MUST NOT use null encryption
+   an observer.  Therefore, implementations <em>MUST NOT</em> use null encryption
    methods for RADIUS/DTLS.
 
    For systems that perform protocol-based firewalling and/or filtering,
-   it is RECOMMENDED that they be configured to permit only DTLS over
+   it is <em>RECOMMENDED</em> that they be configured to permit only DTLS over
    the RADIUS/DTLS port.
 
 <span class="h3"><a class="selflink" name="section-10.1" href="#section-10.1">10.1</a>.  Crypto-Agility</span>
@@ -1339,15 +1339,15 @@ Table of Contents
    We also caution implementors (especially client implementors) about
    using RADIUS/DTLS.  It may be tempting to use the shared secret as
    the basis for a TLS-PSK method and to leave the user interface
-   otherwise unchanged.  This practice MUST NOT be used.  The
-   administrator MUST be given the option to use DTLS.  Any shared
-   secret used for RADIUS/UDP MUST NOT be used for DTLS.  Reusing a
+   otherwise unchanged.  This practice <em>MUST NOT</em> be used.  The
+   administrator <em>MUST</em> be given the option to use DTLS.  Any shared
+   secret used for RADIUS/UDP <em>MUST NOT</em> be used for DTLS.  Reusing a
    shared secret between RADIUS/UDP and RADIUS/DTLS would negate all of
    the benefits found by using DTLS.
 
-   RADIUS/DTLS client implementors MUST expose a configuration that
+   RADIUS/DTLS client implementors <em>MUST</em> expose a configuration that
    allows the administrator to choose the ciphersuite.  Where
-   certificates are used, RADIUS/DTLS client implementors MUST expose a
+   certificates are used, RADIUS/DTLS client implementors <em>MUST</em> expose a
    configuration that allows an administrator to configure all
    certificates necessary for certificate-based authentication.  These
    certificates include client, server, and root certificates.
@@ -1355,7 +1355,7 @@ Table of Contents
    TLS-PSK methods are susceptible to dictionary attacks.  <a href="#section-6">Section 6</a>,
    above, recommends deriving TLS-PSK keys from a Cryptographically
    Secure Pseudorandom Number Generator (CSPRNG), which makes dictionary
-   attacks significantly more difficult.  Servers SHOULD track failed
+   attacks significantly more difficult.  Servers <em>SHOULD</em> track failed
    client connections by TLS-PSK ID and block TLS-PSK IDs that seem to
    be attempting brute-force searches of the keyspace.
 
@@ -1369,7 +1369,7 @@ Table of Contents
 
 
    The historic RADIUS practice of using shared secrets (here, PSKs)
-   that are minor variations of words is NOT RECOMMENDED, as it would
+   that are minor variations of words is NOT <em>RECOMMENDED</em>, as it would
    negate all of the security of DTLS.
 
 <span class="h3"><a class="selflink" name="section-10.3" href="#section-10.3">10.3</a>.  Resource Exhaustion</span>
@@ -1379,15 +1379,15 @@ Table of Contents
    those described in <a href="./rfc6614.html#section-6">[RFC6614], Section&nbsp;6</a>, for TCP.
 
    Session tracking, as described in <a href="#section-5.1">Section 5.1</a>, can result in resource
-   exhaustion.  Therefore, servers MUST limit the absolute number of
+   exhaustion.  Therefore, servers <em>MUST</em> limit the absolute number of
    sessions that they track.  When the total number of sessions tracked
-   is going to exceed the configured limit, servers MAY free up
+   is going to exceed the configured limit, servers <em>MAY</em> free up
    resources by closing the session that has been idle for the longest
    time.  Doing so may free up idle resources that then allow the server
    to accept a new session.
 
-   Servers MUST limit the number of partially open DTLS sessions.  These
-   limits SHOULD be exposed to the administrator as configurable
+   Servers <em>MUST</em> limit the number of partially open DTLS sessions.  These
+   limits <em>SHOULD</em> be exposed to the administrator as configurable
    settings.
 
 <span class="h3"><a class="selflink" name="section-10.4" href="#section-10.4">10.4</a>.  Client-Server Authentication with DTLS</span>
@@ -1404,7 +1404,7 @@ Table of Contents
    to authenticate traffic from that address.  This model needs to be
    extended for RADIUS/DTLS.
 
-   Instead of a shared secret, TLS credentials MUST be used by each
+   Instead of a shared secret, TLS credentials <em>MUST</em> be used by each
    party to authenticate the other.  The issue of identity is more
    problematic.  As with RADIUS/UDP, IP addresses may be used as a key
    to determine the authentication credentials that a client will
@@ -1427,29 +1427,29 @@ Table of Contents
    There are, however, additional considerations with RADIUS/DTLS.  When
    a client is configured with a hostname for a server, the server may
    present to the client a certificate containing a hostname.  The
-   client MUST then verify that the hostnames match.  Any mismatch is a
-   security violation, and the connection MUST be closed.
+   client <em>MUST</em> then verify that the hostnames match.  Any mismatch is a
+   security violation, and the connection <em>MUST</em> be closed.
 
-   A RADIUS/DTLS server MAY be configured with a "wildcard" IP address
+   A RADIUS/DTLS server <em>MAY</em> be configured with a "wildcard" IP address
    match for clients, instead of a unique fixed IP address for each
-   client.  In that case, clients MUST be individually configured with a
+   client.  In that case, clients <em>MUST</em> be individually configured with a
    unique certificate.  When the server receives a connection from a
-   client, it MUST determine client identity from the client
-   certificate, and MUST authenticate (or not) the client based on that
+   client, it <em>MUST</em> determine client identity from the client
+   certificate, and <em>MUST</em> authenticate (or not) the client based on that
    certificate.  See <a href="./rfc6614.html#section-2.4">[RFC6614], Section&nbsp;2.4</a>, for a discussion of how to
    match a certificate to a client identity.
 
-   However, servers SHOULD use IP address filtering to minimize the
-   possibility of attacks.  That is, they SHOULD permit clients only
-   from a limited IP address range or ranges.  They SHOULD silently
+   However, servers <em>SHOULD</em> use IP address filtering to minimize the
+   possibility of attacks.  That is, they <em>SHOULD</em> permit clients only
+   from a limited IP address range or ranges.  They <em>SHOULD</em> silently
    discard all traffic from outside of those ranges.
 
    Since the client-server relationship is static, the authentication
    credentials for that relationship must also be statically configured.
-   That is, a client connecting to a DTLS server SHOULD be pre-
+   That is, a client connecting to a DTLS server <em>SHOULD</em> be pre-
    configured with the server's credentials (e.g., PSK or certificate).
    If the server fails to present the correct credentials, the DTLS
-   session MUST be closed.  Each server SHOULD be pre-configured with
+   session <em>MUST</em> be closed.  Each server <em>SHOULD</em> be pre-configured with
    sufficient information to authenticate connecting clients.
 
    The requirement for clients to be individually configured with a
@@ -1461,9 +1461,9 @@ Table of Contents
    unrestricted access to all of the RADIUS traffic, including all user
    credentials and passwords.
 
-   Therefore, clients SHOULD NOT be pre-configured with a list of known
+   Therefore, clients <em>SHOULD NOT</em> be pre-configured with a list of known
    public CAs by the vendor or manufacturer.  Instead, the clients
-   SHOULD start off with an empty CA list.  The addition of a CA SHOULD
+   <em>SHOULD</em> start off with an empty CA list.  The addition of a CA <em>SHOULD</em>
    be done only when manually configured by an administrator.
 
 
@@ -1493,7 +1493,7 @@ Table of Contents
    it means that the credentials for that server should be pre-
    configured on the client, and associated with that hostname.  This
    requirement does suggest that in the absence of a specification for
-   dynamic discovery, clients SHOULD use only those servers that have
+   dynamic discovery, clients <em>SHOULD</em> use only those servers that have
    been manually configured by an administrator.
 
 <span class="h3"><a class="selflink" name="section-10.5" href="#section-10.5">10.5</a>.  Network Address Translation</span>
@@ -1514,9 +1514,9 @@ Table of Contents
    most insecure method.
 
    If more than one client is located behind a NAT gateway, then every
-   client behind the NAT MUST use a secure transport such as TLS or
+   client behind the NAT <em>MUST</em> use a secure transport such as TLS or
    DTLS.  As discussed below, a method for uniquely identifying each
-   client MUST be used.
+   client <em>MUST</em> be used.
 
 <span class="h3"><a class="selflink" name="section-10.6" href="#section-10.6">10.6</a>.  Wildcard Clients</span>
 
@@ -1537,8 +1537,8 @@ Table of Contents
 
 
    The use of RADIUS/DTLS can allow for the safe usage of wildcards.
-   When RADIUS/DTLS is used with wildcards, clients MUST be uniquely
-   identified using TLS parameters, and any certificate or PSK used MUST
+   When RADIUS/DTLS is used with wildcards, clients <em>MUST</em> be uniquely
+   identified using TLS parameters, and any certificate or PSK used <em>MUST</em>
    be unique to each client.
 
 <span class="h3"><a class="selflink" name="section-10.7" href="#section-10.7">10.7</a>.  Session Closing</span>
@@ -1556,7 +1556,7 @@ Table of Contents
 
    We wish to avoid the situation where a third party can send well-
    formed RADIUS packets that cause a DTLS session to close.  Therefore,
-   in other situations, the session SHOULD remain open in the face of
+   in other situations, the session <em>SHOULD</em> remain open in the face of
    non-conformant packets.
 
 <span class="h3"><a class="selflink" name="section-10.8" href="#section-10.8">10.8</a>.  Client Subsystems</span>
@@ -1568,11 +1568,11 @@ Table of Contents
    and load-balancing are required.  They have even worse issues when
    DTLS is enabled.
 
-   As noted in <a href="#section-6.1">Section 6.1</a>, above, clients SHOULD use a local proxy that
+   As noted in <a href="#section-6.1">Section 6.1</a>, above, clients <em>SHOULD</em> use a local proxy that
    arbitrates all RADIUS traffic between the client and all servers.
    This proxy will encapsulate all knowledge about servers, including
    security policies, fail-over, and load-balancing.  All client
-   subsystems SHOULD communicate with this local proxy, ideally over a
+   subsystems <em>SHOULD</em> communicate with this local proxy, ideally over a
    loopback address.  The requirements on using strong shared secrets
    still apply.
 

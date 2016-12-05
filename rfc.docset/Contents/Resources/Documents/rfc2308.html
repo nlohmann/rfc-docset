@@ -246,8 +246,8 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a> - Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>",  "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html">RFC2119</a>].
 
    "Negative caching" - the storage of knowledge that something does not
@@ -587,7 +587,7 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a> - Negative Answers from Authoritative Servers</span>
 
-   Name servers authoritative for a zone MUST include the SOA record of
+   Name servers authoritative for a zone <em>MUST</em> include the SOA record of
    the zone in the authority section of the response when reporting an
    NXDOMAIN or indicating that no data of the requested type exists.
    This is required so that the response may be cached.  The TTL of this
@@ -597,7 +597,7 @@ Abstract
    SOA record should also be trimmed in line with the SOA's TTL.
 
    If the containing zone is signed [<a href="./rfc2065.html">RFC2065</a>] the SOA and appropriate
-   NXT and SIG records MUST be added.
+   NXT and SIG records <em>MUST</em> be added.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a> - SOA Minimum Field</span>
 
@@ -654,7 +654,7 @@ Abstract
    the reply.  When the authoritative server creates this record its TTL
    is taken from the minimum of the SOA.MINIMUM field and SOA's TTL.
    This TTL decrements in a similar manner to a normal cached answer and
-   upon reaching zero (0) indicates the cached negative answer MUST NOT
+   upon reaching zero (0) indicates the cached negative answer <em>MUST NOT</em>
    be used again.
 
    A negative answer that resulted from a name error (NXDOMAIN) should
@@ -668,14 +668,14 @@ Abstract
    the cached negative response.
 
    The NXT record, if it exists in the authority section of a negative
-   answer received, MUST be stored such that it can be be located and
+   answer received, <em>MUST</em> be stored such that it can be be located and
    returned with SOA record in the authority section, as should any SIG
    records in the authority section.  For NXDOMAIN answers there is no
    "necessary" obvious relationship between the NXT records and the
-   QNAME.  The NXT record MUST have the same owner name as the query
+   QNAME.  The NXT record <em>MUST</em> have the same owner name as the query
    name for NODATA responses.
 
-   Negative responses without SOA records SHOULD NOT be cached as there
+   Negative responses without SOA records <em>SHOULD NOT</em> be cached as there
    is no way to prevent the negative responses looping forever between a
    pair of servers even with a short TTL.
 
@@ -707,16 +707,16 @@ Abstract
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a> - Negative answers from the cache</span>
 
    When a server, in answering a query, encounters a cached negative
-   response it MUST add the cached SOA record to the authority section
+   response it <em>MUST</em> add the cached SOA record to the authority section
    of the response with the TTL decremented by the amount of time it was
    stored in the cache.  This allows the NXDOMAIN / NODATA response to
    time out correctly.
 
-   If a NXT record was cached along with SOA record it MUST be added to
+   If a NXT record was cached along with SOA record it <em>MUST</em> be added to
    the authority section.  If a SIG record was cached along with a NXT
-   record it SHOULD be added to the authority section.
+   record it <em>SHOULD</em> be added to the authority section.
 
-   As with all answers coming from the cache, negative answers SHOULD
+   As with all answers coming from the cache, negative answers <em>SHOULD</em>
    have an implicit referral built into the answer.  This enables the
    resolver to locate an authoritative source.  An implicit referral is
    characterised by NS records in the authority section referring the
@@ -729,7 +729,7 @@ Abstract
    RFC.  There is no way to indicate a desired TTL in these responses.
    Care needs to be taken to ensure that there are not forwarding loops.
 
-<span class="h3"><a class="selflink" name="section-7.1" href="#section-7.1">7.1</a> Server Failure (OPTIONAL)</span>
+<span class="h3"><a class="selflink" name="section-7.1" href="#section-7.1">7.1</a> Server Failure (<em>OPTIONAL</em>)</span>
 
    Server failures fall into two major classes.  The first is where a
    server can determine that it has been misconfigured for a zone.  This
@@ -753,12 +753,12 @@ Abstract
    servers that don't reply, or return server failure errors, or
    similar.
 
-   In either case a resolver MAY cache a server failure response.  If it
-   does so it MUST NOT cache it for longer than five (5) minutes, and it
-   MUST be cached against the specific query tuple &lt;query name, type,
+   In either case a resolver <em>MAY</em> cache a server failure response.  If it
+   does so it <em>MUST NOT</em> cache it for longer than five (5) minutes, and it
+   <em>MUST</em> be cached against the specific query tuple &lt;query name, type,
    class, server IP address&gt;.
 
-<span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a> Dead / Unreachable Server (OPTIONAL)</span>
+<span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a> Dead / Unreachable Server (<em>OPTIONAL</em>)</span>
 
    Dead / Unreachable servers are servers that fail to respond in any
    way to a query or where the transport layer has provided an
@@ -772,9 +772,9 @@ Abstract
       TCP resets
       IP stack error messages providing similar indications to those above.
 
-   A server MAY cache a dead server indication.  If it does so it MUST
+   A server <em>MAY</em> cache a dead server indication.  If it does so it <em>MUST</em>
    NOT be deemed dead for longer than five (5) minutes.  The indication
-   MUST be stored against query tuple &lt;query name, type, class, server
+   <em>MUST</em> be stored against query tuple &lt;query name, type, class, server
    IP address&gt; unless there was a transport layer indication that the
    server does not exist, in which case it applies to all queries to
    that specific IP address.
@@ -784,9 +784,9 @@ Abstract
    Negative caching in resolvers is no-longer optional, if a resolver
    caches anything it must also cache negative answers.
 
-   Non-authoritative negative answers MAY be cached.
+   Non-authoritative negative answers <em>MAY</em> be cached.
 
-   The SOA record from the authority section MUST be cached.  Name error
+   The SOA record from the authority section <em>MUST</em> be cached.  Name error
    indications must be cached against the tuple &lt;query name, QCLASS&gt;.
    No data indications must be cached against &lt;query name, QTYPE,
    QCLASS&gt; tuple.

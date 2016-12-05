@@ -422,8 +422,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Vocabulary</span>
@@ -449,7 +449,7 @@ Table of Contents
    curve" to "named group".
 
    Additionally, we explicitly relax the requirement about when the
-   Supported Groups extension can be sent.  This extension MAY be sent
+   Supported Groups extension can be sent.  This extension <em>MAY</em> be sent
    by the client when either FFDHE or ECDHE cipher suites are listed.
 
    Codepoints in the "Supported Groups Registry" with a high byte of
@@ -499,21 +499,21 @@ Table of Contents
    elliptic_curves(10) in [<a href="./rfc4492.html" title="&quot;Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)&quot;">RFC4492</a>]) in the ClientHello and includes a
    list of known FFDHE groups in the extension data, ordered from most
    preferred to least preferred.  If the client also supports and wants
-   to offer ECDHE key exchange, it MUST use a single Supported Groups
+   to offer ECDHE key exchange, it <em>MUST</em> use a single Supported Groups
    extension to include all supported groups (both ECDHE and FFDHE
-   groups).  The ordering SHOULD be based on client preference, but see
+   groups).  The ordering <em>SHOULD</em> be based on client preference, but see
    <a href="#section-6.1">Section 6.1</a> for more nuance.
 
    A client that offers a Supported Groups extension containing an FFDHE
-   group SHOULD also include at least one FFDHE cipher suite in the
+   group <em>SHOULD</em> also include at least one FFDHE cipher suite in the
    ClientHello.
 
-   A client that offers a group MUST be able and willing to perform a DH
+   A client that offers a group <em>MUST</em> be able and willing to perform a DH
    key exchange using that group.
 
    A client that offers one or more FFDHE groups in the Supported Groups
    extension and an FFDHE cipher suite and that receives an FFDHE cipher
-   suite from the server SHOULD take the following steps upon receiving
+   suite from the server <em>SHOULD</em> take the following steps upon receiving
    the ServerKeyExchange:
 
    o  For non-anonymous cipher suites where the offered certificate is
@@ -535,18 +535,18 @@ Table of Contents
    o  If the signature over ServerDHParams is valid, compare the
       selected dh_p and dh_g with the FFDHE groups offered by the
       client.  If none of the offered groups match, the server is not
-      compatible with this document.  The client MAY decide to continue
+      compatible with this document.  The client <em>MAY</em> decide to continue
       the connection if the selected group is acceptable under local
-      policy, or it MAY decide to terminate the connection with a fatal
+      policy, or it <em>MAY</em> decide to terminate the connection with a fatal
       insufficient_security(71) alert.
 
    o  If the client continues (either because the server offered a
       matching group or because local policy permits the offered custom
-      group), the client MUST verify that dh_Ys is in the range 1 &lt;
-      dh_Ys &lt; dh_p - 1.  If dh_Ys is not in this range, the client MUST
+      group), the client <em>MUST</em> verify that dh_Ys is in the range 1 &lt;
+      dh_Ys &lt; dh_p - 1.  If dh_Ys is not in this range, the client <em>MUST</em>
       terminate the connection with a fatal handshake_failure(40) alert.
 
-   o  If dh_Ys is in range, then the client SHOULD continue with the
+   o  If dh_Ys is in range, then the client <em>SHOULD</em> continue with the
       connection as usual.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Client Local Policy on Custom Groups</span>
@@ -559,17 +559,17 @@ Table of Contents
 
    This document cannot enumerate all possible safe local policy (the
    safest may be to simply reject all custom groups), but compatible
-   clients that accept some custom groups from the server MUST do at
+   clients that accept some custom groups from the server <em>MUST</em> do at
    least cursory checks on group size and may take other properties into
    consideration as well.
 
    A compatible client that accepts FFDHE cipher suites using custom
-   groups from non-compatible servers MUST reject any group with |dh_p|
-   &lt; 768 bits and SHOULD reject any group with |dh_p| &lt; 1024 bits.
+   groups from non-compatible servers <em>MUST</em> reject any group with |dh_p|
+   &lt; 768 bits and <em>SHOULD</em> reject any group with |dh_p| &lt; 1024 bits.
 
    A compatible client that rejects a non-compatible server's custom
    group may decide to retry the connection while omitting all FFDHE
-   cipher suites from the ClientHello.  A client SHOULD only use this
+   cipher suites from the ClientHello.  A client <em>SHOULD</em> only use this
    approach if it successfully verified the server's expected signature
    over the ServerDHParams, to avoid being forced by an active attacker
    into a non-preferred cipher suite.
@@ -594,12 +594,12 @@ Table of Contents
    a client that includes any FFDHE group (i.e., any codepoint between
    256 and 511, inclusive, even if unknown to the server), and if none
    of the client-proposed FFDHE groups are known and acceptable to the
-   server, then the server MUST NOT select an FFDHE cipher suite.  In
-   this case, the server SHOULD select an acceptable non-FFDHE cipher
+   server, then the server <em>MUST NOT</em> select an FFDHE cipher suite.  In
+   this case, the server <em>SHOULD</em> select an acceptable non-FFDHE cipher
    suite from the client's offered list.  If the extension is present
    with FFDHE groups, none of the client's offered groups are acceptable
    by the server, and none of the client's proposed non-FFDHE cipher
-   suites are acceptable to the server, the server MUST end the
+   suites are acceptable to the server, the server <em>MUST</em> end the
    connection with a fatal TLS alert of type insufficient_security(71).
 
    If at least one FFDHE cipher suite is present in the client cipher
@@ -607,30 +607,30 @@ Table of Contents
    the ClientHello entirely or contains no FFDHE groups (i.e., no
    codepoints between 256 and 511, inclusive), then the server knows
    that the client is not compatible with this document.  In this
-   scenario, a server MAY select a non-FFDHE cipher suite, or it MAY
+   scenario, a server <em>MAY</em> select a non-FFDHE cipher suite, or it <em>MAY</em>
    select an FFDHE cipher suite and offer an FFDHE group of its choice
    to the client as part of a traditional ServerKeyExchange.
 
    A compatible TLS server that receives the Supported Groups extension
    with FFDHE codepoints in it and that selects an FFDHE cipher suite
-   MUST select one of the client's offered groups.  The server indicates
+   <em>MUST</em> select one of the client's offered groups.  The server indicates
    the choice of group to the client by sending the group's parameters
    as usual in the ServerKeyExchange as described in <a href="./rfc5246.html#section-7.4.3">Section&nbsp;7.4.3 of
    [RFC5246]</a>.
 
-   A TLS server MUST NOT select a named FFDHE group that was not offered
+   A TLS server <em>MUST NOT</em> select a named FFDHE group that was not offered
    by a compatible client.
 
-   A TLS server MUST NOT select an FFDHE cipher suite if the client did
+   A TLS server <em>MUST NOT</em> select an FFDHE cipher suite if the client did
    not offer one, even if the client offered an FFDHE group in the
    Supported Groups extension.
 
    If a non-anonymous FFDHE cipher suite is selected and the TLS client
    has used this extension to offer an FFDHE group of comparable or
-   greater strength than the server's public key, the server SHOULD
+   greater strength than the server's public key, the server <em>SHOULD</em>
    select an FFDHE group at least as strong as the server's public key.
    For example, if the server has a 3072-bit RSA key and the client
-   offers only ffdhe2048 and ffdhe4096, the server SHOULD select
+   offers only ffdhe2048 and ffdhe4096, the server <em>SHOULD</em> select
    ffdhe4096.
 
 
@@ -645,8 +645,8 @@ Table of Contents
 
 
    When an FFDHE cipher suite is selected and the client sends a
-   ClientKeyExchange, the server MUST verify that 1 &lt; dh_Yc &lt; dh_p - 1.
-   If dh_Yc is out of range, the server MUST terminate the connection
+   ClientKeyExchange, the server <em>MUST</em> verify that 1 &lt; dh_Yc &lt; dh_p - 1.
+   If dh_Yc is out of range, the server <em>MUST</em> terminate the connection
    with a fatal handshake_failure(40) alert.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Optimizations</span>
@@ -659,7 +659,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Checking the Peer's Public Key</span>
 
-   Peers MUST validate each other's public key Y (dh_Ys offered by the
+   Peers <em>MUST</em> validate each other's public key Y (dh_Ys offered by the
    server or dh_Yc offered by the client) by ensuring that 1 &lt; Y &lt; p-1.
    This simple check ensures that the remote peer is properly behaved
    and isn't forcing the local system into the 2-element subgroup.
@@ -714,7 +714,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Preference Ordering</span>
 
    The ordering of named groups in the Supported Groups extension may
-   contain some ECDHE groups and some FFDHE groups.  These SHOULD be
+   contain some ECDHE groups and some FFDHE groups.  These <em>SHOULD</em> be
    ranked in the order preferred by the client.
 
    However, the ClientHello also contains a list of desired cipher
@@ -724,25 +724,25 @@ Table of Contents
    &lt;TLS_DHE_RSA_WITH_AES_128_CBC_SHA,
    TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA&gt; and the Supported Groups
    extension contains two choices in order &lt;secp256r1,ffdhe3072&gt;, then
-   there is a clear contradiction.  Clients SHOULD NOT present such a
+   there is a clear contradiction.  Clients <em>SHOULD NOT</em> present such a
    contradiction since it does not represent a sensible ordering.  A
    server that encounters such a contradiction when selecting between an
    ECDHE or FFDHE key exchange mechanism while trying to respect client
-   preferences SHOULD give priority to the Supported Groups extension
+   preferences <em>SHOULD</em> give priority to the Supported Groups extension
    (in the example case, it should select
-   TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA with secp256r1) but MAY resolve
+   TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA with secp256r1) but <em>MAY</em> resolve
    the contradiction any way it sees fit.
 
-   More subtly, clients MAY interleave preferences between ECDHE and
+   More subtly, clients <em>MAY</em> interleave preferences between ECDHE and
    FFDHE groups; for example, if stronger groups are preferred
    regardless of cost, but weaker groups are acceptable, the Supported
    Groups extension could consist of
    &lt;ffdhe8192,secp384p1,ffdhe3072,secp256r1&gt;.  In this example, with the
    same cipher_suite field offered as the previous example, a server
    configured to respect client preferences and with support for all
-   listed groups SHOULD select TLS_DHE_RSA_WITH_AES_128_CBC_SHA with
+   listed groups <em>SHOULD</em> select TLS_DHE_RSA_WITH_AES_128_CBC_SHA with
    ffdhe8192.  A server configured to respect client preferences and
-   with support for only secp384p1 and ffdhe3072 SHOULD select
+   with support for only secp384p1 and ffdhe3072 <em>SHOULD</em> select
    TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA with secp384p1.
 
 
@@ -1043,11 +1043,11 @@ Table of Contents
 
    Clients should have their own classification of FFDHE groups that are
    "cryptographically strong" in the same sense described in the
-   description of symmetric ciphers in [<a href="./rfc7918.html" title="&quot;Transport Layer Security (TLS) False Start&quot;">RFC7918</a>] and SHOULD offer at
+   description of symmetric ciphers in [<a href="./rfc7918.html" title="&quot;Transport Layer Security (TLS) False Start&quot;">RFC7918</a>] and <em>SHOULD</em> offer at
    least one of these in the initial handshake if they contemplate using
    the False Start protocol modification with an FFDHE cipher suite.
 
-   Compatible clients performing a full handshake MUST NOT use the False
+   Compatible clients performing a full handshake <em>MUST NOT</em> use the False
    Start protocol modification if the server selects an FFDHE cipher
    suite but sends a group that is not cryptographically strong from the
    client's perspective.
@@ -1059,8 +1059,8 @@ Table of Contents
    This extension provides a few additional bits of information to
    distinguish between classes of TLS clients (e.g., see
    [<a href="#ref-PANOPTICLICK">PANOPTICLICK</a>]).  To minimize this sort of fingerprinting, clients
-   SHOULD support all named groups at or above their minimum security
-   threshold.  New groups SHOULD NOT be added to the "Supported Groups
+   <em>SHOULD</em> support all named groups at or above their minimum security
+   threshold.  New groups <em>SHOULD NOT</em> be added to the "Supported Groups
    Registry" without consideration of the cost of browser
    fingerprinting.
 
@@ -1228,7 +1228,7 @@ Table of Contents
    parameters in a different way, but they must be clear about how the
    parameters were derived.
 
-   New additions of FFDHE groups MUST use a safe prime as the modulus to
+   New additions of FFDHE groups <em>MUST</em> use a safe prime as the modulus to
    enable the inexpensive peer verification described in <a href="#section-5.1">Section 5.1</a>.
 
 <span class="h3"><a class="selflink" name="appendix-A.1" href="#appendix-A.1">A.1</a>.  ffdhe2048</span>

@@ -323,8 +323,8 @@ TABLE OF CONTENTS
    On a particular LAN, multiple hot standby groups may coexist and
    overlap.  Each standby group emulates a single virtual router.  For
    each standby group, a single well-known MAC address is allocated to
-   the group, as well as an IP address.  The IP address SHOULD belong to
-   the primary subnet in use on the LAN, but MUST differ from the
+   the group, as well as an IP address.  The IP address <em>SHOULD</em> belong to
+   the primary subnet in use on the LAN, but <em>MUST</em> differ from the
    addresses allocated as interface addresses on all routers and hosts
    on the LAN, including virtual IP addresses assigned to other HSRP
    groups.
@@ -483,14 +483,14 @@ TABLE OF CONTENTS
       approximate period between the Hello messages that the router
       sends.  The time is given in seconds.
 
-      If the Hellotime is not configured on a router, then it MAY be
+      If the Hellotime is not configured on a router, then it <em>MAY</em> be
       learned from the Hello message from the active router.  The
-      Hellotime SHOULD only be learned if no Hellotime is configured and
+      Hellotime <em>SHOULD</em> only be learned if no Hellotime is configured and
       the Hello message is authenticated.  A router that sends a Hello
-      message MUST insert the Hellotime that it is using in the
+      message <em>MUST</em> insert the Hellotime that it is using in the
       Hellotime field in the Hello message.  If the Hellotime is not
       learned from a Hello message from the active router and it is not
-      manually configured, a default value of 3 seconds is RECOMMENDED.
+      manually configured, a default value of 3 seconds is <em>RECOMMENDED</em>.
 
    Holdtime:  1 octet
 
@@ -500,22 +500,22 @@ TABLE OF CONTENTS
 
       If a router sends a Hello message, then receivers should consider
       that Hello message to be valid for one Holdtime.  The Holdtime
-      SHOULD be at least three times the value of the Hellotime and MUST
+      <em>SHOULD</em> be at least three times the value of the Hellotime and <em>MUST</em>
       be greater than the Hellotime.  If the Holdtime is not configured
-      on a router, then it MAY be learned from the Hello message from
-      the active router.  The Holdtime SHOULD only be learned if the
+      on a router, then it <em>MAY</em> be learned from the Hello message from
+      the active router.  The Holdtime <em>SHOULD</em> only be learned if the
       Hello message is authenticated.  A router that sends a Hello
-      message MUST insert the Holdtime that it is using in the Holdtime
+      message <em>MUST</em> insert the Holdtime that it is using in the Holdtime
       field in the Hello message.
 
-      A router which is in active state MUST NOT learn new values for
+      A router which is in active state <em>MUST NOT</em> learn new values for
       the Hellotime and the Holdtime from other routers, although it may
       continue to use values which it learned from the previous active
-      router.  It MAY also use the Hellotime and Holdtime values learned
-      through manual configuration.  The active router MUST NOT use one
+      router.  It <em>MAY</em> also use the Hellotime and Holdtime values learned
+      through manual configuration.  The active router <em>MUST NOT</em> use one
       configured time and one learned time.  If the Holdtime is not
       learned and it is not manually configured, a default value of 10
-      seconds is RECOMMENDED.
+      seconds is <em>RECOMMENDED</em>.
 
 
 
@@ -543,7 +543,7 @@ TABLE OF CONTENTS
 
       This field contains a clear-text 8 character reused password.
 
-      If no authentication data is configured, the RECOMMENDED default
+      If no authentication data is configured, the <em>RECOMMENDED</em> default
       value is 0x63 0x69 0x73 0x63 0x6F 0x00 0x00 0x00.
 
    Virtual IP Address:     4 octets
@@ -551,13 +551,13 @@ TABLE OF CONTENTS
       The virtual IP address used by this group.
 
       If the virtual IP address is not configured on a router, then it
-      MAY be learned from the Hello message from the active router.  An
-      address SHOULD only be learned if no address was configured and
+      <em>MAY</em> be learned from the Hello message from the active router.  An
+      address <em>SHOULD</em> only be learned if no address was configured and
       the Hello message is authenticated.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>  Operational parameters</span>
 
-   The following information MUST be known to each router in the standby
+   The following information <em>MUST</em> be known to each router in the standby
    group.  The mechanisms used to determine this information are outside
    of the scope of this document.
 
@@ -582,25 +582,25 @@ TABLE OF CONTENTS
 <span class="grey"><a href="./rfc2281.html">RFC 2281</a>                       Cisco HSRP                     March 1998</span>
 
 
-   The following information MUST be known to at least one router in
-   each standby group and MAY be known by any of the other routers in
+   The following information <em>MUST</em> be known to at least one router in
+   each standby group and <em>MAY</em> be known by any of the other routers in
    the group.
 
       Virtual IP Address
 
-   The following information MAY be configured on any router:
+   The following information <em>MAY</em> be configured on any router:
 
       Preemption capability
 
          If a router has higher priority than the active router and
-         preemption is configured, it MAY take over as the active router
+         preemption is configured, it <em>MAY</em> take over as the active router
          using a Coup message.
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a> States</span>
 
    Each router in the group participates in the protocol by implementing
    a simple state machine.  This specification describes the externally
-   visible behavior of this state machine.  Implementations MAY vary
+   visible behavior of this state machine.  Implementations <em>MAY</em> vary
    their internal implementations within the functional description of
    the state machine.
 
@@ -649,13 +649,13 @@ TABLE OF CONTENTS
 
       The router is a candidate to become the next active router and
       sends periodic Hello messages.  Excluding transient conditions,
-      there MUST be at most one router in the group in Standby state.
+      there <em>MUST</em> be at most one router in the group in Standby state.
 
    6. Active
 
       The router is currently forwarding packets that are sent to the
       group's virtual MAC address.  The router sends periodic Hello
-      messages.  Excluding transient conditions, there MUST be at most
+      messages.  Excluding transient conditions, there <em>MUST</em> be at most
       one router in Active state in the group.
 
 <span class="h3"><a class="selflink" name="section-5.4" href="#section-5.4">5.4</a> Timers</span>
@@ -675,7 +675,7 @@ TABLE OF CONTENTS
 
    The Hello timer expires once per Hellotime period.  If the router is
    in Speak, Standby, or Active states, it should generate a Hello
-   message upon Hello timer expiry.  The Hello timer MUST be jittered.
+   message upon Hello timer expiry.  The Hello timer <em>MUST</em> be jittered.
 
 <span class="h3"><a class="selflink" name="section-5.5" href="#section-5.5">5.5</a> Events</span>
 
@@ -759,8 +759,8 @@ TABLE OF CONTENTS
       E  Learn Parameters
          This action is taken when an authenticated message is received
          from the active router.  If the virtual IP address for this
-         group was not manually configured, the virtual IP address MAY
-         be learned from the message.  The router MAY learn Hellotime
+         group was not manually configured, the virtual IP address <em>MAY</em>
+         be learned from the message.  The router <em>MAY</em> learn Hellotime
          and Holdtime values from the message.
 
       F  Send Hello Message
@@ -784,7 +784,7 @@ TABLE OF CONTENTS
 <span class="h3"><a class="selflink" name="section-5.7" href="#section-5.7">5.7</a> State Transitions</span>
 
    This table describes the state transitions of the state machine.  For
-   each event and current state of the router, the router MUST perform
+   each event and current state of the router, the router <em>MUST</em> perform
    the set of actions specified and transition to the designated state.
    If no action is specified, no action should be taken.  If no state
    change is specified, no state change should be performed.
@@ -874,14 +874,14 @@ TABLE OF CONTENTS
 
    On other media, the virtual MAC addresses are 0x00 0x00 0x0C 0x07
    0xAC XX where XX represents the HSRP group number.  Routers which
-   implement HSRP SHOULD use well-known HSRP MAC addresses as the
+   implement HSRP <em>SHOULD</em> use well-known HSRP MAC addresses as the
    group's virtual MAC address whenever possible.
 
-   The active router MUST accept and forward traffic that is destined
-   for the group's virtual MAC address.  It MUST stop accepting or
+   The active router <em>MUST</em> accept and forward traffic that is destined
+   for the group's virtual MAC address.  It <em>MUST</em> stop accepting or
    forwarding such traffic when the router leaves the Active state.
 
-   If and only if the router is in the Active state, the router MUST use
+   If and only if the router is in the Active state, the router <em>MUST</em> use
    the group's virtual MAC address as the source MAC address for its
    Hello messages.  This is necessary in order to allow learning bridges
    to be able to determine which LAN segment the virtual MAC address
@@ -895,7 +895,7 @@ TABLE OF CONTENTS
    Additionally, for HSRP to work in bridging environments, the bridges
    must be able to quickly update themselves as the virtual MAC address
    "moves".  Although learning bridges typically are able to do this,
-   some have been known to have problems with this.  It is RECOMMENDED
+   some have been known to have problems with this.  It is <em>RECOMMENDED</em>
    that only true learning bridges be used with HSRP.
 
    The movement of the virtual MAC address can cause further undesirable
@@ -918,7 +918,7 @@ TABLE OF CONTENTS
 <span class="grey"><a href="./rfc2281.html">RFC 2281</a>                       Cisco HSRP                     March 1998</span>
 
 
-   In such circumstances, a router MAY use its normal MAC addresses as
+   In such circumstances, a router <em>MAY</em> use its normal MAC addresses as
    the virtual MAC address.  This method of operation is strongly
    discouraged.  In this mode, the virtual IP address will map to a
    different MAC address over time.  This can create problems for end
@@ -945,7 +945,7 @@ TABLE OF CONTENTS
 
    This is potentially problematic because some traffic may otherwise
    wish to use the router's primary MAC address.  However, the problem
-   MAY be mitigated by having the router send out gratuitous ARP packets
+   <em>MAY</em> be mitigated by having the router send out gratuitous ARP packets
    regarding its non-HSRP IP addresses.  Through this, other network
    entities using IP should update their ARP tables to reflect that the
    router is now using a group virtual MAC address rather than its
@@ -962,7 +962,7 @@ TABLE OF CONTENTS
    discovering the primary MAC addresses of the routers in its standby
    group.  Thus, any protocol that informs a host of a router's primary
    address should be disabled.  Thus, routers participating in HSRP on
-   an interface MUST NOT send ICMP redirects on that interface.
+   an interface <em>MUST NOT</em> send ICMP redirects on that interface.
 
 
 
@@ -986,8 +986,8 @@ TABLE OF CONTENTS
    address.
 
    If an HSRP router is configured to support proxy ARP with HSRP, then
-   the router MUST specify the HSRP virtual MAC address in any proxy ARP
-   responses it generates.  These proxy ARP responses MUST not be
+   the router <em>MUST</em> specify the HSRP virtual MAC address in any proxy ARP
+   responses it generates.  These proxy ARP responses <em>MUST</em> not be
    suppressed based upon HSRP state.  Suppression based upon state could
    result in lack of any proxy ARP response being generated, since these
    proxy ARP responses may be suppressed due to other reasons, such as

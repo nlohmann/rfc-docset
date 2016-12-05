@@ -380,18 +380,18 @@ Table of Contents
    servers that do not support the extensions, and vice versa.
 
    Note that any messages associated with these extensions that are sent
-   during the TLS handshake MUST be included in the hash calculations
+   during the TLS handshake <em>MUST</em> be included in the hash calculations
    involved in "Finished" messages.
 
    Note also that all the extensions defined in this document are
    relevant only when a session is initiated.  A client that requests
    session resumption does not in general know whether the server will
-   accept this request, and therefore it SHOULD send the same extensions
+   accept this request, and therefore it <em>SHOULD</em> send the same extensions
    as it would send if it were not attempting resumption.  When a client
    includes one or more of the defined extension types in an extended
    client hello while requesting session resumption:
 
-   -  The server name indication extension MAY be used by the server
+   -  The server name indication extension <em>MAY</em> be used by the server
       when deciding whether or not to resume a session as described in
       <a href="#section-3">Section 3</a>.
 
@@ -399,7 +399,7 @@ Table of Contents
       negotiated as normal.
 
    -  If, on the other hand, the older session is resumed, then the
-      server MUST ignore the extensions and send a server hello
+      server <em>MUST</em> ignore the extensions and send a server hello
       containing none of the extension types.  In this case, the
       functionality of these extensions negotiated during the original
       session initiation is applied to the resumed session.
@@ -414,9 +414,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Extensions to the Handshake Protocol</span>
@@ -476,9 +476,9 @@ Table of Contents
    servers that host multiple 'virtual' servers at a single underlying
    network address.
 
-   In order to provide any of the server names, clients MAY include an
+   In order to provide any of the server names, clients <em>MAY</em> include an
    extension of type "server_name" in the (extended) client hello.  The
-   "extension_data" field of this extension SHALL contain
+   "extension_data" field of this extension <em>SHALL</em> contain
    "ServerNameList" where:
 
       struct {
@@ -498,12 +498,12 @@ Table of Contents
           ServerName server_name_list&lt;1..2^16-1&gt;
       } ServerNameList;
 
-   The ServerNameList MUST NOT contain more than one name of the same
+   The ServerNameList <em>MUST NOT</em> contain more than one name of the same
    name_type.  If the server understood the ClientHello extension but
-   does not recognize the server name, the server SHOULD take one of two
+   does not recognize the server name, the server <em>SHOULD</em> take one of two
    actions: either abort the handshake by sending a fatal-level
    unrecognized_name(112) alert or continue the handshake.  It is NOT
-   RECOMMENDED to send a warning-level unrecognized_name(112) alert,
+   <em>RECOMMENDED</em> to send a warning-level unrecognized_name(112) alert,
    because the client's behavior in response to warning-level alerts is
    unpredictable.  If there is a mismatch between the server name used
    by the client application and the server name of the credential
@@ -536,7 +536,7 @@ Table of Contents
    document).  The data structure associated with the host_name NameType
    is a variable-length vector that begins with a 16-bit length.  For
    backward compatibility, all future data structures associated with
-   new NameTypes MUST begin with a 16-bit length field.  TLS MAY treat
+   new NameTypes <em>MUST</em> begin with a 16-bit length field.  TLS <em>MAY</em> treat
    provided server names as opaque data and pass the names and types to
    the application.
 
@@ -550,27 +550,27 @@ Table of Contents
 
    Literal IPv4 and IPv6 addresses are not permitted in "HostName".
 
-   It is RECOMMENDED that clients include an extension of type
+   It is <em>RECOMMENDED</em> that clients include an extension of type
    "server_name" in the client hello whenever they locate a server by a
    supported name type.
 
    A server that receives a client hello containing the "server_name"
-   extension MAY use the information contained in the extension to guide
+   extension <em>MAY</em> use the information contained in the extension to guide
    its selection of an appropriate certificate to return to the client,
    and/or other aspects of security policy.  In this event, the server
-   SHALL include an extension of type "server_name" in the (extended)
-   server hello.  The "extension_data" field of this extension SHALL be
+   <em>SHALL</em> include an extension of type "server_name" in the (extended)
+   server hello.  The "extension_data" field of this extension <em>SHALL</em> be
    empty.
 
    When the server is deciding whether or not to accept a request to
-   resume a session, the contents of a server_name extension MAY be used
-   in the lookup of the session in the session cache.  The client SHOULD
+   resume a session, the contents of a server_name extension <em>MAY</em> be used
+   in the lookup of the session in the session cache.  The client <em>SHOULD</em>
    include the same server_name extension in the session resumption
    request as it did in the full handshake that established the session.
-   A server that implements this extension MUST NOT accept the request
+   A server that implements this extension <em>MUST NOT</em> accept the request
    to resume the session if the server_name extension contains a
    different name.  Instead, it proceeds with a full handshake to
-   establish a new session.  When resuming a session, the server MUST
+   establish a new session.  When resuming a session, the server <em>MUST</em>
    NOT include a server_name extension in the server hello.
 
 
@@ -582,9 +582,9 @@ Table of Contents
 
    If an application negotiates a server name using an application
    protocol and then upgrades to TLS, and if a server_name extension is
-   sent, then the extension SHOULD contain the same name that was
+   sent, then the extension <em>SHOULD</em> contain the same name that was
    negotiated in the application protocol.  If the server_name is
-   established in the TLS session handshake, the client SHOULD NOT
+   established in the TLS session handshake, the client <em>SHOULD NOT</em>
    attempt to request a different server name at the application layer.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Maximum Fragment Length Negotiation</span>
@@ -594,9 +594,9 @@ Table of Contents
    clients to negotiate a smaller maximum fragment length due to memory
    limitations or bandwidth limitations.
 
-   In order to negotiate smaller maximum fragment lengths, clients MAY
+   In order to negotiate smaller maximum fragment lengths, clients <em>MAY</em>
    include an extension of type "max_fragment_length" in the (extended)
-   client hello.  The "extension_data" field of this extension SHALL
+   client hello.  The "extension_data" field of this extension <em>SHALL</em>
    contain:
 
       enum{
@@ -607,22 +607,22 @@ Table of Contents
    values for this field are: 2^9, 2^10, 2^11, and 2^12.
 
    Servers that receive an extended client hello containing a
-   "max_fragment_length" extension MAY accept the requested maximum
+   "max_fragment_length" extension <em>MAY</em> accept the requested maximum
    fragment length by including an extension of type
    "max_fragment_length" in the (extended) server hello.  The
-   "extension_data" field of this extension SHALL contain a
+   "extension_data" field of this extension <em>SHALL</em> contain a
    "MaxFragmentLength" whose value is the same as the requested maximum
    fragment length.
 
    If a server receives a maximum fragment length negotiation request
-   for a value other than the allowed values, it MUST abort the
+   for a value other than the allowed values, it <em>MUST</em> abort the
    handshake with an "illegal_parameter" alert.  Similarly, if a client
    receives a maximum fragment length negotiation response that differs
-   from the length it requested, it MUST also abort the handshake with
+   from the length it requested, it <em>MUST</em> also abort the handshake with
    an "illegal_parameter" alert.
 
    Once a maximum fragment length other than 2^14 has been successfully
-   negotiated, the client and server MUST immediately begin fragmenting
+   negotiated, the client and server <em>MUST</em> immediately begin fragmenting
    messages (including handshake messages) to ensure that no fragment
    larger than the negotiated length is sent.  Note that TLS already
    requires clients and servers to support fragmentation of handshake
@@ -649,9 +649,9 @@ Table of Contents
    bytes of headers, 512 bytes of application data, 256 bytes of
    padding, and 32 bytes of MAC.  This means that in this event a TLS
    record-layer peer receiving a TLS record-layer message larger than
-   805 bytes MUST discard the message and send a "record_overflow"
+   805 bytes <em>MUST</em> discard the message and send a "record_overflow"
    alert, without decrypting the message.  When this extension is used
-   with Datagram Transport Layer Security (DTLS), implementations SHOULD
+   with Datagram Transport Layer Security (DTLS), implementations <em>SHOULD</em>
    NOT generate record_overflow alerts unless the packet passes message
    authentication.
 
@@ -665,22 +665,22 @@ Table of Contents
    memory.
 
    In order to negotiate sending certificate URLs to a server, clients
-   MAY include an extension of type "client_certificate_url" in the
+   <em>MAY</em> include an extension of type "client_certificate_url" in the
    (extended) client hello.  The "extension_data" field of this
-   extension SHALL be empty.
+   extension <em>SHALL</em> be empty.
 
    (Note that it is necessary to negotiate the use of client certificate
    URLs in order to avoid "breaking" existing TLS servers.)
 
    Servers that receive an extended client hello containing a
-   "client_certificate_url" extension MAY indicate that they are willing
+   "client_certificate_url" extension <em>MAY</em> indicate that they are willing
    to accept certificate URLs by including an extension of type
    "client_certificate_url" in the (extended) server hello.  The
-   "extension_data" field of this extension SHALL be empty.
+   "extension_data" field of this extension <em>SHALL</em> be empty.
 
    After negotiation of the use of client certificate URLs has been
    successfully completed (by exchanging hellos including
-   "client_certificate_url" extensions), clients MAY send a
+   "client_certificate_url" extensions), clients <em>MAY</em> send a
    "CertificateURL" message in place of a "Certificate" message as
    follows (see also <a href="#section-2">Section 2</a>):
 
@@ -708,7 +708,7 @@ Table of Contents
       } URLAndHash;
 
    Here, "url_and_hash_list" contains a sequence of URLs and hashes.
-   Each "url" MUST be an absolute URI reference according to [<a href="./rfc3986.html" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">RFC3986</a>]
+   Each "url" <em>MUST</em> be an absolute URI reference according to [<a href="./rfc3986.html" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">RFC3986</a>]
    that can be immediately used to fetch the certificate(s).
 
    When X.509 certificates are used, there are two possibilities:
@@ -726,7 +726,7 @@ Table of Contents
    of certificates or certificate chains, and any constraint on their
    ordering.
 
-   The "padding" byte MUST be 0x01.  It is present to make the structure
+   The "padding" byte <em>MUST</em> be 0x01.  It is present to make the structure
    backwards compatible.
 
    The hash corresponding to each URL is the SHA-1 hash of the
@@ -737,7 +737,7 @@ Table of Contents
    ordering of URLs is the same as that used in the TLS Certificate
    message (see <a href="./rfc5246.html#section-7.4.2">[RFC5246], Section&nbsp;7.4.2</a>), but opposite to the order in
    which certificates are encoded in PkiPath.  In either case, the self-
-   signed root certificate MAY be omitted from the chain, under the
+   signed root certificate <em>MAY</em> be omitted from the chain, under the
    assumption that the server must already possess it in order to
    validate it.
 
@@ -748,14 +748,14 @@ Table of Contents
 <span class="grey"><a href="./rfc6066.html">RFC 6066</a>                TLS Extension Definitions           January 2011</span>
 
 
-   Servers receiving "CertificateURL" SHALL attempt to retrieve the
+   Servers receiving "CertificateURL" <em>SHALL</em> attempt to retrieve the
    client's certificate chain from the URLs and then process the
    certificate chain as usual.  A cached copy of the content of any URL
-   in the chain MAY be used, provided that the SHA-1 hash matches the
+   in the chain <em>MAY</em> be used, provided that the SHA-1 hash matches the
    hash of the cached copy.
 
-   Servers that support this extension MUST support the 'http' URI
-   scheme for certificate URLs and MAY support other schemes.  Use of
+   Servers that support this extension <em>MUST</em> support the 'http' URI
+   scheme for certificate URLs and <em>MAY</em> support other schemes.  Use of
    other schemes than 'http', 'https', or 'ftp' may create unexpected
    problems.
 
@@ -764,21 +764,21 @@ Table of Contents
    [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>] to specify whether and for how long certificates or
    certificate chains should be cached.
 
-   The TLS server MUST NOT follow HTTP redirects when retrieving the
+   The TLS server <em>MUST NOT</em> follow HTTP redirects when retrieving the
    certificates or certificate chain.  The URLs used in this extension
-   MUST NOT be chosen to depend on such redirects.
+   <em>MUST NOT</em> be chosen to depend on such redirects.
 
    If the protocol used to retrieve certificates or certificate chains
    returns a MIME-formatted response (as HTTP does), then the following
-   MIME Content-Types SHALL be used: when a single X.509v3 certificate
+   MIME Content-Types <em>SHALL</em> be used: when a single X.509v3 certificate
    is returned, the Content-Type is "application/pkix-cert" [<a href="./rfc2585.html" title="&quot;Internet X.509 Public Key Infrastructure Operational Protocols: FTP and HTTP&quot;">RFC2585</a>],
    and when a chain of X.509v3 certificates is returned, the Content-
    Type is "application/pkix-pkipath" (<a href="#section-10.1">Section 10.1</a>).
 
-   The server MUST check that the SHA-1 hash of the contents of the
+   The server <em>MUST</em> check that the SHA-1 hash of the contents of the
    object retrieved from that URL (after decoding any MIME Content-
    Transfer-Encoding) matches the given hash.  If any retrieved object
-   does not have the correct SHA-1 hash, the server MUST abort the
+   does not have the correct SHA-1 hash, the server <em>MUST</em> abort the
    handshake with a bad_certificate_hash_value(114) alert.  This alert
    is always fatal.
 
@@ -788,11 +788,11 @@ Table of Contents
    to clients possessing multiple certificates.
 
    If a server is unable to obtain certificates in a given
-   CertificateURL, it MUST send a fatal certificate_unobtainable(111)
+   CertificateURL, it <em>MUST</em> send a fatal certificate_unobtainable(111)
    alert if it requires the certificates to complete the handshake.  If
    the server does not require the certificates, then the server
-   continues the handshake.  The server MAY send a warning-level alert
-   in this case.  Clients receiving such an alert SHOULD log the alert
+   continues the handshake.  The server <em>MAY</em> send a warning-level alert
+   in this case.  Clients receiving such an alert <em>SHOULD</em> log the alert
    and continue with the handshake if possible.
 
 
@@ -811,9 +811,9 @@ Table of Contents
    root keys they possess, in order to avoid repeated handshake
    failures.
 
-   In order to indicate which CA root keys they possess, clients MAY
+   In order to indicate which CA root keys they possess, clients <em>MAY</em>
    include an extension of type "trusted_ca_keys" in the (extended)
-   client hello.  The "extension_data" field of this extension SHALL
+   client hello.  The "extension_data" field of this extension <em>SHALL</em>
    contain "TrustedAuthorities" where:
 
       struct {
@@ -879,11 +879,11 @@ Table of Contents
    to indicate possession of some pre-defined set of CA root keys.
 
    Servers that receive a client hello containing the "trusted_ca_keys"
-   extension MAY use the information contained in the extension to guide
+   extension <em>MAY</em> use the information contained in the extension to guide
    their selection of an appropriate certificate chain to return to the
-   client.  In this event, the server SHALL include an extension of type
+   client.  In this event, the server <em>SHALL</em> include an extension of type
    "trusted_ca_keys" in the (extended) server hello.  The
-   "extension_data" field of this extension SHALL be empty.
+   "extension_data" field of this extension <em>SHALL</em> be empty.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Truncated HMAC</span>
 
@@ -894,12 +894,12 @@ Table of Contents
    truncating the output of the hash function to 80 bits when forming
    MAC tags.
 
-   In order to negotiate the use of 80-bit truncated HMAC, clients MAY
+   In order to negotiate the use of 80-bit truncated HMAC, clients <em>MAY</em>
    include an extension of type "truncated_hmac" in the extended client
-   hello.  The "extension_data" field of this extension SHALL be empty.
+   hello.  The "extension_data" field of this extension <em>SHALL</em> be empty.
 
    Servers that receive an extended hello containing a "truncated_hmac"
-   extension MAY agree to use a truncated HMAC by including an extension
+   extension <em>MAY</em> agree to use a truncated HMAC by including an extension
    of type "truncated_hmac", with empty "extension_data", in the
    extended server hello.
 
@@ -923,7 +923,7 @@ Table of Contents
    handshake, and the negotiated cipher suite uses HMAC, both the client
    and the server pass this fact to the TLS record layer along with the
    other negotiated security parameters.  Subsequently during the
-   session, clients and servers MUST use truncated HMACs, calculated as
+   session, clients and servers <em>MUST</em> use truncated HMACs, calculated as
    specified in [<a href="./rfc2104.html" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">RFC2104</a>].  That is, SecurityParameters.mac_length is 10
    bytes, and only the first 10 bytes of the HMAC output are transmitted
    and checked.  Note that this extension does not affect the
@@ -942,9 +942,9 @@ Table of Contents
    to be sent in the TLS handshake, saving roundtrips and resources.
 
    In order to indicate their desire to receive certificate status
-   information, clients MAY include an extension of type
+   information, clients <em>MAY</em> include an extension of type
    "status_request" in the (extended) client hello.  The
-   "extension_data" field of this extension SHALL contain
+   "extension_data" field of this extension <em>SHALL</em> contain
    "CertificateStatusRequest" where:
 
       struct {
@@ -985,23 +985,23 @@ Table of Contents
    valid for the "Extensions" type).
 
    In the case of the "id-pkix-ocsp-nonce" OCSP extension, [<a href="./rfc2560.html" title="&quot;X.509 Internet Public Key Infrastructure Online Certificate Status Protocol - OCSP&quot;">RFC2560</a>] is
-   unclear about its encoding; for clarification, the nonce MUST be a
+   unclear about its encoding; for clarification, the nonce <em>MUST</em> be a
    DER-encoded OCTET STRING, which is encapsulated as another OCTET
    STRING (note that implementations based on an existing OCSP client
    will need to be checked for conformance to this requirement).
 
    Servers that receive a client hello containing the "status_request"
-   extension MAY return a suitable certificate status response to the
+   extension <em>MAY</em> return a suitable certificate status response to the
    client along with their certificate.  If OCSP is requested, they
-   SHOULD use the information contained in the extension when selecting
-   an OCSP responder and SHOULD include request_extensions in the OCSP
+   <em>SHOULD</em> use the information contained in the extension when selecting
+   an OCSP responder and <em>SHOULD</em> include request_extensions in the OCSP
    request.
 
    Servers return a certificate response along with their certificate by
    sending a "CertificateStatus" message immediately after the
    "Certificate" message (and before any "ServerKeyExchange" or
    "CertificateRequest" messages).  If a server returns a
-   "CertificateStatus" message, then the server MUST have included an
+   "CertificateStatus" message, then the server <em>MUST</em> have included an
    extension of type "status_request" with empty "extension_data" in the
    extended server hello.  The "CertificateStatus" message is conveyed
    using the handshake message type "certificate_status" as follows (see
@@ -1028,18 +1028,18 @@ Table of Contents
 <span class="grey"><a href="./rfc6066.html">RFC 6066</a>                TLS Extension Definitions           January 2011</span>
 
 
-   Note that a server MAY also choose not to send a "CertificateStatus"
+   Note that a server <em>MAY</em> also choose not to send a "CertificateStatus"
    message, even if has received a "status_request" extension in the
    client hello message and has sent a "status_request" extension in the
    server hello message.
 
-   Note in addition that a server MUST NOT send the "CertificateStatus"
+   Note in addition that a server <em>MUST NOT</em> send the "CertificateStatus"
    message unless it received a "status_request" extension in the client
    hello message and sent a "status_request" extension in the server
    hello message.
 
    Clients requesting an OCSP response and receiving an OCSP response in
-   a "CertificateStatus" message MUST check the OCSP response and abort
+   a "CertificateStatus" message <em>MUST</em> check the OCSP response and abort
    the handshake if the response is not satisfactory with
    bad_certificate_status_response(113) alert.  This alert is always
    fatal.
@@ -1048,7 +1048,7 @@ Table of Contents
 
    Four new error alerts are defined for use with the TLS extensions
    defined in this document.  To avoid "breaking" existing clients and
-   servers, these alerts MUST NOT be sent unless the sending party has
+   servers, these alerts <em>MUST NOT</em> be sent unless the sending party has
    received an extended hello message from the party they are
    communicating with.  These error alerts are conveyed using the
    following syntax.  The new alerts are the last four, as indicated by
@@ -1129,7 +1129,7 @@ Table of Contents
       This is identical to the definition published in [<a href="#ref-X509-4th-TC1">X509-4th-TC1</a>];
       note that it is different from that in [<a href="#ref-X509-4th" title="&quot;Information Systems - Open Systems Interconnection - The Directory: Public key and attribute certificate frameworks&quot;">X509-4th</a>].
 
-      All Certificates MUST conform to [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>].  (This should be
+      All Certificates <em>MUST</em> conform to [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>].  (This should be
       interpreted as a requirement to encode only PKIX-conformant
       certificates using this type.  It does not necessarily require
 
@@ -1145,8 +1145,8 @@ Table of Contents
       of accepting any such certificates should be considered
       carefully.)
 
-      DER (as opposed to BER) encoding MUST be used.  If this type is
-      sent over a 7-bit transport, base64 encoding SHOULD be used.
+      DER (as opposed to BER) encoding <em>MUST</em> be used.  If this type is
+      sent over a 7-bit transport, base64 encoding <em>SHOULD</em> be used.
 
    Security considerations:
       The security considerations of [<a href="#ref-X509-4th" title="&quot;Information Systems - Open Systems Interconnection - The Directory: Public key and attribute certificate frameworks&quot;">X509-4th</a>] and [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>] (or any
@@ -1240,7 +1240,7 @@ Table of Contents
 
    Since it is possible for a client to present a different server_name
    in the application protocol, application server implementations that
-   rely upon these names being the same MUST check to make sure the
+   rely upon these names being the same <em>MUST</em> check to make sure the
    client did not present a different name in the application protocol.
 
 
@@ -1252,7 +1252,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6066.html">RFC 6066</a>                TLS Extension Definitions           January 2011</span>
 
 
-   Implementations MUST ensure that a buffer overflow does not occur,
+   Implementations <em>MUST</em> ensure that a buffer overflow does not occur,
    whatever the values of the length fields in server_name.
 
 <span class="h3"><a class="selflink" name="section-11.2" href="#section-11.2">11.2</a>.  Security Considerations for max_fragment_length</span>
@@ -1308,13 +1308,13 @@ Table of Contents
 <span class="grey"><a href="./rfc6066.html">RFC 6066</a>                TLS Extension Definitions           January 2011</span>
 
 
-   As a result of this issue, it is RECOMMENDED that the
+   As a result of this issue, it is <em>RECOMMENDED</em> that the
    client_certificate_url extension should have to be specifically
    enabled by a server administrator, rather than be enabled by default.
-   It is also RECOMMENDED that URI schemes be enabled by the
+   It is also <em>RECOMMENDED</em> that URI schemes be enabled by the
    administrator individually, and only a minimal set of schemes be
    enabled.  Unusual protocols that offer limited security or whose
-   security is not well understood SHOULD be avoided.
+   security is not well understood <em>SHOULD</em> be avoided.
 
    As discussed in [<a href="./rfc3986.html" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">RFC3986</a>], URLs that specify ports other than the
    default may cause problems, as may very long URLs (which are more
@@ -1379,7 +1379,7 @@ Table of Contents
    If a client requests an OCSP response, it must take into account that
    an attacker's server using a compromised key could (and probably
    would) pretend not to support the extension.  In this case, a client
-   that requires OCSP validation of certificates SHOULD either contact
+   that requires OCSP validation of certificates <em>SHOULD</em> either contact
    the OCSP server directly or abort the handshake.
 
    Use of the OCSP nonce request extension (id-pkix-ocsp-nonce) may

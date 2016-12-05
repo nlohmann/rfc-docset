@@ -341,8 +341,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Key Words</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-KEYWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KEYWORDS</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  GSS-API-Authenticated Diffie-Hellman Key Exchange</span>
@@ -353,7 +353,7 @@ Table of Contents
 
    Since the GSS-API key exchange methods described in this section do
    not require the use of public key signature or encryption algorithms,
-   they MAY be used with any host key algorithm, including the "null"
+   they <em>MAY</em> be used with any host key algorithm, including the "null"
    algorithm described in <a href="#section-5">Section 5</a>.
 
 
@@ -385,32 +385,32 @@ Table of Contents
 
    2.  C calls GSS_Init_sec_context(), using the most recent reply token
        received from S during this exchange, if any.  For this call, the
-       client MUST set mutual_req_flag to "true" to request that mutual
-       authentication be performed.  It also MUST set integ_req_flag to
+       client <em>MUST</em> set mutual_req_flag to "true" to request that mutual
+       authentication be performed.  It also <em>MUST</em> set integ_req_flag to
        "true" to request that per-message integrity protection be
-       supported for this context.  In addition, deleg_req_flag MAY be
+       supported for this context.  In addition, deleg_req_flag <em>MAY</em> be
        set to "true" to request access delegation, if requested by the
        user.  Since the key exchange process authenticates only the
        host, the setting of anon_req_flag is immaterial to this process.
        If the client does not support the "gssapi-keyex" user
        authentication method described in <a href="#section-4">Section 4</a>, or does not intend
        to use that method in conjunction with the GSS-API context
-       established during key exchange, then anon_req_flag SHOULD be set
-       to "true".  Otherwise, this flag MAY be set to true if the client
+       established during key exchange, then anon_req_flag <em>SHOULD</em> be set
+       to "true".  Otherwise, this flag <em>MAY</em> be set to true if the client
        wishes to hide its identity.  Since the key exchange process will
        involve the exchange of only a single token once the context has
        been established, it is not necessary that the GSS-API context
        support detection of replayed or out-of-sequence tokens.  Thus,
        replay_det_req_flag and sequence_req_flag need not be set for
-       this process.  These flags SHOULD be set to "false".
+       this process.  These flags <em>SHOULD</em> be set to "false".
 
        *  If the resulting major_status code is GSS_S_COMPLETE and the
           mutual_state flag is not true, then mutual authentication has
-          not been established, and the key exchange MUST fail.
+          not been established, and the key exchange <em>MUST</em> fail.
 
        *  If the resulting major_status code is GSS_S_COMPLETE and the
           integ_avail flag is not true, then per-message integrity
-          protection is not available, and the key exchange MUST fail.
+          protection is not available, and the key exchange <em>MUST</em> fail.
 
        *  If the resulting major_status code is GSS_S_COMPLETE and both
           the mutual_state and integ_avail flags are true, the resulting
@@ -427,25 +427,25 @@ Table of Contents
           the output_token is sent to S, which will reply with a new
           token to be provided to GSS_Init_sec_context().
 
-       *  The client MUST also include "e" with the first message it
+       *  The client <em>MUST</em> also include "e" with the first message it
           sends to the server during this process; if the server
           receives more than one "e" or none at all, the key exchange
           fails.
 
        *  It is an error if the call does not produce a token of non-
           zero length to be sent to the server.  In this case, the key
-          exchange MUST fail.
+          exchange <em>MUST</em> fail.
 
    3.  S calls GSS_Accept_sec_context(), using the token received from
        C.
 
        *  If the resulting major_status code is GSS_S_COMPLETE and the
           mutual_state flag is not true, then mutual authentication has
-          not been established, and the key exchange MUST fail.
+          not been established, and the key exchange <em>MUST</em> fail.
 
        *  If the resulting major_status code is GSS_S_COMPLETE and the
           integ_avail flag is not true, then per-message integrity
-          protection is not available, and the key exchange MUST fail.
+          protection is not available, and the key exchange <em>MUST</em> fail.
 
        *  If the resulting major_status code is GSS_S_COMPLETE and both
           the mutual_state and integ_avail flags are true, then the
@@ -483,14 +483,14 @@ Table of Contents
        reply token.  This call is made exactly as described above.
        However, if the resulting major_status is anything other than
        GSS_S_COMPLETE, or a non-zero-length token is returned, it is an
-       error and the key exchange MUST fail.
+       error and the key exchange <em>MUST</em> fail.
 
    6.  C computes K = f^x mod p, and H = hash(V_C || V_S || I_C || I_S
        || K_S || e || f || K).  It then calls GSS_VerifyMIC() to verify
        that the MIC sent by S matches H.  If the MIC is not successfully
-       verified, the key exchange MUST fail.
+       verified, the key exchange <em>MUST</em> fail.
 
-   Either side MUST NOT send or accept e or f values that are not in the
+   Either side <em>MUST NOT</em> send or accept e or f values that are not in the
    range [1, p-1].  If this condition is violated, the key exchange
    fails.
 
@@ -504,23 +504,23 @@ Table of Contents
 
    o  If the key exchange fails due to any GSS-API error on the server
       (including errors returned by GSS_Accept_sec_context()), the
-      server MAY send a message informing the client of the details of
+      server <em>MAY</em> send a message informing the client of the details of
       the error.  In this case, if an error token is also sent (see
-      below), then this message MUST be sent before the error token.
+      below), then this message <em>MUST</em> be sent before the error token.
 
    o  If the key exchange fails due to a GSS-API error returned from the
       server's call to GSS_Accept_sec_context(), and an "error token" is
-      also returned, then the server SHOULD send the error token to the
+      also returned, then the server <em>SHOULD</em> send the error token to the
       client to allow completion of the GSS security exchange.
 
    o  If the key exchange fails due to a GSS-API error returned from the
       client's call to GSS_Init_sec_context(), and an "error token" is
-      also returned, then the client SHOULD send the error token to the
+      also returned, then the client <em>SHOULD</em> send the error token to the
       server to allow completion of the GSS security exchange.
 
    As noted in <a href="#section-9">Section 9</a>, it may be desirable under site security policy
    to obscure information about the precise nature of the error; thus,
-   it is RECOMMENDED that implementations provide a method to suppress
+   it is <em>RECOMMENDED</em> that implementations provide a method to suppress
    these messages as a matter of policy.
 
    This is implemented with the following messages.  The hash algorithm
@@ -542,7 +542,7 @@ Table of Contents
            string    output_token (from GSS_Init_sec_context())
            mpint     e
 
-   Upon receiving the SSH_MSG_KEXGSS_INIT message, the server MAY send
+   Upon receiving the SSH_MSG_KEXGSS_INIT message, the server <em>MAY</em> send
    the following message, prior to any other messages, to inform the
    client of its host key.
 
@@ -550,9 +550,9 @@ Table of Contents
            string    server public host key and certificates (K_S)
 
    Since this key exchange method does not require the host key to be
-   used for any encryption operations, this message is OPTIONAL.  If the
+   used for any encryption operations, this message is <em>OPTIONAL</em>.  If the
    "null" host key algorithm described in <a href="#section-5">Section 5</a> is used, this
-   message MUST NOT be sent.  If this message is sent, the server public
+   message <em>MUST NOT</em> be sent.  If this message is sent, the server public
    host key(s) and/or certificate(s) in this message are encoded as a
    single string, in the format specified by the public key type in use
    (see [<a href="#ref-SSH-TRANSPORT" title="&quot;The Secure Shell (SSH) Transport Layer Protocol&quot;">SSH-TRANSPORT</a>], Section 6.6).
@@ -572,12 +572,12 @@ Table of Contents
    much more frequently and/or without advance warning.
 
    Therefore, when a new key for an already-known host is received via
-   the SSH_MSG_KEXGSS_HOSTKEY message, clients SHOULD NOT issue strong
+   the SSH_MSG_KEXGSS_HOSTKEY message, clients <em>SHOULD NOT</em> issue strong
    warnings or abort the connection, provided the GSS-API-based key
    exchange succeeds.
 
    In order to facilitate key re-exchange after the user's GSS-API
-   credentials have expired, client implementations SHOULD store host
+   credentials have expired, client implementations <em>SHOULD</em> store host
    keys received via SSH_MSG_KEXGSS_HOSTKEY for the duration of the
    session, even when such keys are not stored for long-term use.
 
@@ -601,7 +601,7 @@ Table of Contents
    If the client receives this message after a call to
    GSS_Init_sec_context() has returned a major_status code of
    GSS_S_COMPLETE, a protocol error has occurred and the key exchange
-   MUST fail.
+   <em>MUST</em> fail.
 
    Each time the client receives the message described above, it makes
    another call to GSS_Init_sec_context().  It then sends the following:
@@ -628,7 +628,7 @@ Table of Contents
    If the client receives this message after a call to
    GSS_Init_sec_context() has returned a major_status code of
    GSS_S_COMPLETE, a protocol error has occurred and the key exchange
-   MUST fail.
+   <em>MUST</em> fail.
 
    If the server's final call to GSS_Accept_sec_context() (resulting in
    a major_status code of GSS_S_COMPLETE) returns a zero-length token or
@@ -650,24 +650,24 @@ Table of Contents
    If the client receives this message when no call to
    GSS_Init_sec_context() has yet resulted in a major_status code of
    GSS_S_COMPLETE, a protocol error has occurred and the key exchange
-   MUST fail.
+   <em>MUST</em> fail.
 
    If either the client's call to GSS_Init_sec_context() or the server's
    call to GSS_Accept_sec_context() returns an error status and produces
-   an output token (called an "error token"), then the following SHOULD
+   an output token (called an "error token"), then the following <em>SHOULD</em>
    be sent to convey the error information to the peer:
 
            byte      SSH_MSG_KEXGSS_CONTINUE
            string    error_token
 
    If a server sends both this message and an SSH_MSG_KEXGSS_ERROR
-   message, the SSH_MSG_KEXGSS_ERROR message MUST be sent first, to
+   message, the SSH_MSG_KEXGSS_ERROR message <em>MUST</em> be sent first, to
    allow clients to record and/or display the error information before
    processing the error token.  This is important because a client
    processing an error token will likely disconnect without reading any
    further messages.
 
-   In the event of a GSS-API error on the server, the server MAY send
+   In the event of a GSS-API error on the server, the server <em>MAY</em> send
    the following message before terminating the connection:
 
            byte      SSH_MSG_KEXGSS_ERROR
@@ -676,7 +676,7 @@ Table of Contents
            string    message
            string    language tag
 
-   The message text MUST be encoded in the UTF-8 encoding described in
+   The message text <em>MUST</em> be encoded in the UTF-8 encoding described in
    [<a href="#ref-UTF8" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">UTF8</a>].  Language tags are those described in [<a href="#ref-LANGTAG" title="&quot;Tags for the Identification of Languages&quot;">LANGTAG</a>].  Note that
    the message text may contain multiple lines separated by carriage
    return-line feed (CRLF) sequences.  Application developers should
@@ -704,12 +704,12 @@ Table of Contents
 
 
    This value is called the exchange hash, and it is used to
-   authenticate the key exchange.  The exchange hash SHOULD be kept
+   authenticate the key exchange.  The exchange hash <em>SHOULD</em> be kept
    secret.  If no SSH_MSG_KEXGSS_HOSTKEY message has been sent by the
    server or received by the client, then the empty string is used in
    place of K_S when computing the exchange hash.
 
-   The GSS_GetMIC call MUST be applied over H, not the original data.
+   The GSS_GetMIC call <em>MUST</em> be applied over H, not the original data.
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Group Exchange</span>
 
@@ -745,7 +745,7 @@ Table of Contents
        beginning with step 1, except that the exchange hash is computed
        as described below.
 
-   Servers and clients SHOULD support groups with a modulus length of k
+   Servers and clients <em>SHOULD</em> support groups with a modulus length of k
    bits, where 1024 &lt;= k &lt;= 8192.  The recommended values for min and
    max are 1024 and 8192, respectively.
 
@@ -896,14 +896,14 @@ Table of Contents
 
    If at any time during the exchange the client sends a new
    SSH_MSG_USERAUTH_REQUEST packet, the GSS-API context is completely
-   discarded and destroyed, and any further GSS-API authentication MUST
+   discarded and destroyed, and any further GSS-API authentication <em>MUST</em>
    restart from the beginning.
 
    If the authentication succeeds and a non-empty user name is presented
    by the client, the SSH server implementation verifies that the user
    name is authorized based on the credentials exchanged in the GSS-API
    exchange.  If the user name is not authorized, then the
-   authentication MUST fail.
+   authentication <em>MUST</em> fail.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Initiating GSS-API Authentication</span>
 
@@ -927,11 +927,11 @@ Table of Contents
 <span class="grey"><a href="./rfc4462.html">RFC 4462</a>                  SSH GSS-API Methods                   May 2006</span>
 
 
-   [<a href="#ref-GSSAPI" title="&quot;Generic Security Service Application Program Interface Version 2, Update 1&quot;">GSSAPI</a>].  The mechanism OIDs MUST be listed in order of preference,
+   [<a href="#ref-GSSAPI" title="&quot;Generic Security Service Application Program Interface Version 2, Update 1&quot;">GSSAPI</a>].  The mechanism OIDs <em>MUST</em> be listed in order of preference,
    and the server must choose the first mechanism OID on the list that
    it supports.
 
-   The client SHOULD send GSS-API mechanism OIDs only for mechanisms
+   The client <em>SHOULD</em> send GSS-API mechanism OIDs only for mechanisms
    that are of the same priority, compared to non-GSS-API authentication
    methods.  Otherwise, authentication methods may be executed out of
    order.  Thus, the client could first send an SSH_MSG_USERAUTH_REQUEST
@@ -939,15 +939,15 @@ Table of Contents
    then try another GSS-API mechanism.
 
    If the server does not support any of the specified OIDs, the server
-   MUST fail the request by sending an SSH_MSG_USERAUTH_FAILURE packet.
+   <em>MUST</em> fail the request by sending an SSH_MSG_USERAUTH_FAILURE packet.
 
    The user name may be an empty string if it can be deduced from the
    results of the GSS-API authentication.  If the user name is not
-   empty, and the requested user does not exist, the server MAY
-   disconnect or MAY send a bogus list of acceptable authentications but
+   empty, and the requested user does not exist, the server <em>MAY</em>
+   disconnect or <em>MAY</em> send a bogus list of acceptable authentications but
    never accept any.  This makes it possible for the server to avoid
    disclosing information about which accounts exist.  In any case, if
-   the user does not exist, the authentication request MUST NOT be
+   the user does not exist, the authentication request <em>MUST NOT</em> be
    accepted.
 
    Note that the 'user name' value is encoded in ISO-10646 UTF-8.  It is
@@ -956,17 +956,17 @@ Table of Contents
    In particular, the encoding used by the system for user names is a
    matter for the ssh server implementation.  However, if the client
    reads the user name in some other encoding (e.g., ISO 8859-1 - ISO
-   Latin1), it MUST convert the user name to ISO-10646 UTF-8 before
-   transmitting, and the server MUST convert the user name to the
+   Latin1), it <em>MUST</em> convert the user name to ISO-10646 UTF-8 before
+   transmitting, and the server <em>MUST</em> convert the user name to the
    encoding used on that system for user names.
 
    Any normalization or other preparation of names is done by the ssh
    server based on the requirements of the system, and is outside the
    scope of SSH.  SSH implementations which maintain private user
-   databases SHOULD prepare user names as described by [<a href="#ref-SASLPREP" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLPREP</a>].
+   databases <em>SHOULD</em> prepare user names as described by [<a href="#ref-SASLPREP" title="&quot;SASLprep: Stringprep Profile for User Names and Passwords&quot;">SASLPREP</a>].
 
-   The client MAY at any time continue with a new
-   SSH_MSG_USERAUTH_REQUEST message, in which case the server MUST
+   The client <em>MAY</em> at any time continue with a new
+   SSH_MSG_USERAUTH_REQUEST message, in which case the server <em>MUST</em>
    abandon the previous authentication attempt and continue with the new
    one.
 
@@ -1007,29 +1007,29 @@ Table of Contents
    packet.  If an error occurs on client side, the client can terminate
    the method by sending a new SSH_MSG_USERAUTH_REQUEST packet.
 
-   When calling GSS_Init_sec_context(), the client MUST set
+   When calling GSS_Init_sec_context(), the client <em>MUST</em> set
    integ_req_flag to "true" to request that per-message integrity
    protection be supported for this context.  In addition,
-   deleg_req_flag MAY be set to "true" to request access delegation, if
+   deleg_req_flag <em>MAY</em> be set to "true" to request access delegation, if
    requested by the user.
 
    Since the user authentication process by its nature authenticates
    only the client, the setting of mutual_req_flag is not needed for
-   this process.  This flag SHOULD be set to "false".
+   this process.  This flag <em>SHOULD</em> be set to "false".
 
    Since the user authentication process will involve the exchange of
    only a single token once the context has been established, it is not
    necessary that the context support detection of replayed or out-of-
    sequence tokens.  Thus, the setting of replay_det_req_flag and
    sequence_req_flag are not needed for this process.  These flags
-   SHOULD be set to "false".
+   <em>SHOULD</em> be set to "false".
 
    Additional SSH_MSG_USERAUTH_GSSAPI_TOKEN messages are sent if and
    only if the calls to the GSS-API routines produce send tokens of non-
    zero length.
 
    Any major status code other than GSS_S_COMPLETE or
-   GSS_S_CONTINUE_NEEDED SHOULD be a failure.
+   GSS_S_CONTINUE_NEEDED <em>SHOULD</em> be a failure.
 
 
 
@@ -1054,16 +1054,16 @@ Table of Contents
    from GSS_Init_sec_context() or GSS_Accept_sec_context().
 
    When the client's call to GSS_Init_sec_context() returns
-   GSS_S_COMPLETE with the integ_avail flag set, the client MUST
+   GSS_S_COMPLETE with the integ_avail flag set, the client <em>MUST</em>
    conclude the user authentication exchange by sending the following
    message:
 
            byte      SSH_MSG_USERAUTH_GSSAPI_MIC
            string    MIC
 
-   This message MUST be sent only if GSS_Init_sec_context() returned
+   This message <em>MUST</em> be sent only if GSS_Init_sec_context() returned
    GSS_S_COMPLETE.  If a token is also returned, then the
-   SSH_MSG_USERAUTH_GSSAPI_TOKEN message MUST be sent before this one.
+   SSH_MSG_USERAUTH_GSSAPI_TOKEN message <em>MUST</em> be sent before this one.
 
    The contents of the MIC field are obtained by calling GSS_GetMIC()
    over the following, using the GSS-API context that was just
@@ -1076,11 +1076,11 @@ Table of Contents
            string    "gssapi-with-mic"
 
    If this message is received by the server before the GSS-API context
-   is fully established, the server MUST fail the authentication.
+   is fully established, the server <em>MUST</em> fail the authentication.
 
    If this message is received by the server when the negotiated GSS-API
    context does not support per-message integrity protection, the server
-   MUST fail the authentication.
+   <em>MUST</em> fail the authentication.
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a>.  Client Acknowledgement</span>
 
@@ -1105,26 +1105,26 @@ Table of Contents
    authentication.
 
    When the client's call to GSS_Init_sec_context() returns
-   GSS_S_COMPLETE with the integ_avail flag not set, the client MUST
+   GSS_S_COMPLETE with the integ_avail flag not set, the client <em>MUST</em>
    conclude the user authentication exchange by sending the following
    message:
 
            byte      SSH_MSG_USERAUTH_GSSAPI_EXCHANGE_COMPLETE
 
-   This message MUST be sent only if GSS_Init_sec_context() returned
+   This message <em>MUST</em> be sent only if GSS_Init_sec_context() returned
    GSS_S_COMPLETE.  If a token is also returned, then the
-   SSH_MSG_USERAUTH_GSSAPI_TOKEN message MUST be sent before this one.
+   SSH_MSG_USERAUTH_GSSAPI_TOKEN message <em>MUST</em> be sent before this one.
 
    If this message is received by the server before the GSS-API context
-   is fully established, the server MUST fail the authentication.
+   is fully established, the server <em>MUST</em> fail the authentication.
 
    If this message is received by the server when the negotiated GSS-API
-   context supports per-message integrity protection, the server MUST
+   context supports per-message integrity protection, the server <em>MUST</em>
    fail the authentication.
 
    It is a site policy decision for the server whether or not to permit
    authentication using GSS-API mechanisms and/or contexts that do not
-   support per-message integrity protection.  The server MAY fail the
+   support per-message integrity protection.  The server <em>MAY</em> fail the
    otherwise valid gssapi-with-mic authentication if per-message
    integrity protection is not supported.
 
@@ -1134,13 +1134,13 @@ Table of Contents
    indicated by an SSH_MSG_USERAUTH_SUCCESS if no other authentication
    is required, or an SSH_MSG_USERAUTH_FAILURE with the partial success
    flag set if the server requires further authentication.  This packet
-   SHOULD be sent immediately following receipt of the
+   <em>SHOULD</em> be sent immediately following receipt of the
    SSH_MSG_USERAUTH_GSSAPI_EXCHANGE_COMPLETE packet.
 
 <span class="h3"><a class="selflink" name="section-3.8" href="#section-3.8">3.8</a>.  Error Status</span>
 
    In the event that a GSS-API error occurs on the server during context
-   establishment, the server MAY send the following message to inform
+   establishment, the server <em>MAY</em> send the following message to inform
    the client of the details of the error before sending an
    SSH_MSG_USERAUTH_FAILURE message:
 
@@ -1157,14 +1157,14 @@ Table of Contents
            string    message
            string    language tag
 
-   The message text MUST be encoded in the UTF-8 encoding described in
+   The message text <em>MUST</em> be encoded in the UTF-8 encoding described in
    [<a href="#ref-UTF8" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">UTF8</a>].  Language tags are those described in [<a href="#ref-LANGTAG" title="&quot;Tags for the Identification of Languages&quot;">LANGTAG</a>].  Note that
    the message text may contain multiple lines separated by carriage
    return-line feed (CRLF) sequences.  Application developers should
    take this into account when displaying these messages.
 
-   Clients receiving this message MAY log the error details and/or
-   report them to the user.  Any server sending this message MUST ignore
+   Clients receiving this message <em>MAY</em> log the error details and/or
+   report them to the user.  Any server sending this message <em>MUST</em> ignore
    any SSH_MSG_UNIMPLEMENTED sent by the client in response.
 
 <span class="h3"><a class="selflink" name="section-3.9" href="#section-3.9">3.9</a>.  Error Token</span>
@@ -1172,7 +1172,7 @@ Table of Contents
    In the event that, during context establishment, a client's call to
    GSS_Init_sec_context() or a server's call to GSS_Accept_sec_context()
    returns a token along with an error status, the resulting "error
-   token" SHOULD be sent to the peer using the following message:
+   token" <em>SHOULD</em> be sent to the peer using the following message:
 
            byte        SSH_MSG_USERAUTH_GSSAPI_ERRTOK
            string      error token
@@ -1181,22 +1181,22 @@ Table of Contents
    defined to allow the error token to be communicated without losing
    synchronization.
 
-   When a server sends this message, it MUST be followed by an
+   When a server sends this message, it <em>MUST</em> be followed by an
    SSH_MSG_USERAUTH_FAILURE message, which is to be interpreted as
    applying to the same authentication request.  A client receiving this
-   message SHOULD wait for the following SSH_MSG_USERAUTH_FAILURE
+   message <em>SHOULD</em> wait for the following SSH_MSG_USERAUTH_FAILURE
    message before beginning another authentication attempt.
 
-   When a client sends this message, it MUST be followed by a new
+   When a client sends this message, it <em>MUST</em> be followed by a new
    authentication request or by terminating the connection.  A server
-   receiving this message MUST NOT send an SSH_MSG_USERAUTH_FAILURE in
+   receiving this message <em>MUST NOT</em> send an SSH_MSG_USERAUTH_FAILURE in
    reply, since such a message might otherwise be interpreted by a
    client as a response to the following authentication sequence.
 
-   Any server sending this message MUST ignore any SSH_MSG_UNIMPLEMENTED
+   Any server sending this message <em>MUST</em> ignore any SSH_MSG_UNIMPLEMENTED
    sent by the client in response.  If a server sends both this message
    and an SSH_MSG_USERAUTH_GSSAPI_ERROR message, the
-   SSH_MSG_USERAUTH_GSSAPI_ERROR message MUST be sent first, to allow
+   SSH_MSG_USERAUTH_GSSAPI_ERROR message <em>MUST</em> be sent first, to allow
    the client to store and/or display the error status before processing
    the error token.
 
@@ -1221,27 +1221,27 @@ Table of Contents
    accordance with <a href="#section-2">Section 2</a>.  The GSS-API context used with this method
    is always that established during an initial GSS-API-based key
    exchange.  Any context established during key exchange for the
-   purpose of rekeying MUST NOT be used with this method.
+   purpose of rekeying <em>MUST NOT</em> be used with this method.
 
-   The server SHOULD include this user authentication method in the list
+   The server <em>SHOULD</em> include this user authentication method in the list
    of methods that can continue (in an SSH_MSG_USERAUTH_FAILURE) if the
    initial key exchange was performed using a GSS-API-based key exchange
    method and provides information about the user's identity that is
-   useful to the server.  It MUST NOT include this method if the initial
+   useful to the server.  It <em>MUST NOT</em> include this method if the initial
    key exchange was not performed using a GSS-API-based key exchange
    method defined in accordance with <a href="#section-2">Section 2</a>.
 
-   The client SHOULD attempt to use this method if it is advertised by
+   The client <em>SHOULD</em> attempt to use this method if it is advertised by
    the server, initial key exchange was performed using a GSS-API-based
    key exchange method, and this method has not already been tried.  The
-   client SHOULD NOT try this method more than once per session.  It
-   MUST NOT try this method if initial key exchange was not performed
+   client <em>SHOULD NOT</em> try this method more than once per session.  It
+   <em>MUST NOT</em> try this method if initial key exchange was not performed
    using a GSS-API-based key exchange method defined in accordance with
    <a href="#section-2">Section 2</a>.
 
    If a server receives a request for this method when initial key
    exchange was not performed using a GSS-API-based key exchange method
-   defined in accordance with <a href="#section-2">Section 2</a>, it MUST return
+   defined in accordance with <a href="#section-2">Section 2</a>, it <em>MUST</em> return
    SSH_MSG_USERAUTH_FAILURE.
 
    This method is defined as a single message:
@@ -1272,11 +1272,11 @@ Table of Contents
    Upon receiving this message when initial key exchange was performed
    using a GSS-API-based key exchange method, the server uses
    GSS_VerifyMIC() to verify that the MIC received is valid.  If the MIC
-   is not valid, the user authentication fails, and the server MUST
+   is not valid, the user authentication fails, and the server <em>MUST</em>
    return SSH_MSG_USERAUTH_FAILURE.
 
    If the MIC is valid and the server is satisfied as to the user's
-   credentials, it MAY return either SSH_MSG_USERAUTH_SUCCESS or
+   credentials, it <em>MAY</em> return either SSH_MSG_USERAUTH_SUCCESS or
    SSH_MSG_USERAUTH_FAILURE with the partial success flag set, depending
    on whether additional authentications are needed.
 
@@ -1320,8 +1320,8 @@ Table of Contents
 
 
    Any implementation supporting at least one key exchange method that
-   conforms to <a href="#section-2">Section 2</a> MUST also support the "null" host key
-   algorithm.  Servers MUST NOT advertise the "null" host key algorithm
+   conforms to <a href="#section-2">Section 2</a> <em>MUST</em> also support the "null" host key
+   algorithm.  Servers <em>MUST NOT</em> advertise the "null" host key algorithm
    unless it is the only algorithm advertised.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Summary of Message Numbers</span>
@@ -1403,16 +1403,16 @@ Table of Contents
    hostname, since an attacker can modify the mapping and impersonate
    the server.
 
-   Implementations of mechanisms conforming to this document MUST NOT
+   Implementations of mechanisms conforming to this document <em>MUST NOT</em>
    use the results of insecure DNS queries to construct the targ_name.
-   Clients MAY make use of a mapping provided by local configuration or
+   Clients <em>MAY</em> make use of a mapping provided by local configuration or
    use other secure means to determine the targ_name to be used.  If a
    client system is unable to securely determine which targ_name to use,
-   then it SHOULD NOT use this mechanism.
+   then it <em>SHOULD NOT</em> use this mechanism.
 
 <span class="h3"><a class="selflink" name="section-7.2" href="#section-7.2">7.2</a>.  Channel Bindings</span>
 
-   This document recommends that channel bindings SHOULD NOT be
+   This document recommends that channel bindings <em>SHOULD NOT</em> be
    specified in the calls during context establishment.  This document
    does not specify any standard data to be used as channel bindings,
    and the use of network addresses as channel bindings may break SSH in
@@ -1437,7 +1437,7 @@ Table of Contents
    [<a href="#ref-SPNEGO" title="&quot;The Simple and Protected Generic Security Service Application Program Interface (GSS-API) Negotiation Mechanism&quot;">SPNEGO</a>] in conjunction with the authentication and key exchange
    methods described in this document is both unnecessary and
    undesirable.  As a result, mechanisms conforming to this document
-   MUST NOT use SPNEGO as the underlying GSS-API mechanism.
+   <em>MUST NOT</em> use SPNEGO as the underlying GSS-API mechanism.
 
    Since SSH performs its own negotiation of authentication and key
    exchange methods, the negotiation capability of SPNEGO alone does not
@@ -1548,18 +1548,18 @@ Table of Contents
    and per-message integrity services.  If either of these features is
    not supported by a particular GSS-API mechanism, or by a particular
    implementation of a GSS-API mechanism, then the key exchange is not
-   secure and MUST fail.
+   secure and <em>MUST</em> fail.
 
    In order for the "external-keyx" user authentication method to be
-   used, it MUST have access to user authentication information obtained
+   used, it <em>MUST</em> have access to user authentication information obtained
    as a side-effect of the key exchange.  If this information is
-   unavailable, the authentication MUST fail.
+   unavailable, the authentication <em>MUST</em> fail.
 
    Revealing information about the reason for an authentication failure
    may be considered by some sites to be an unacceptable security risk
    for a production environment.  However, having that information
    available can be invaluable for debugging purposes.  Thus, it is
-   RECOMMENDED that implementations provide a means for controlling, as
+   <em>RECOMMENDED</em> that implementations provide a means for controlling, as
    a matter of policy, whether to send SSH_MSG_USERAUTH_GSSAPI_ERROR,
    SSH_MSG_USERAUTH_GSSAPI_ERRTOK, and SSH_MSG_KEXGSS_ERROR messages,
    and SSH_MSG_KEXGSS_CONTINUE messages containing a GSS-API error

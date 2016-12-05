@@ -326,8 +326,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-KWORDS" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">KWORDS</a>].
 
    The terms "document" and "file" are used interchangeably.  The terms
@@ -367,17 +367,17 @@ Table of Contents
 
       TimeStampedData ::= SEQUENCE {
          version              INTEGER { v1(1) },
-         dataUri              IA5String OPTIONAL,
-         metaData             MetaData OPTIONAL,
-         content              OCTET STRING OPTIONAL,
+         dataUri              IA5String <em>OPTIONAL</em>,
+         metaData             MetaData <em>OPTIONAL</em>,
+         content              OCTET STRING <em>OPTIONAL</em>,
          temporalEvidence     Evidence
       }
 
       MetaData ::= SEQUENCE {
          hashProtected        BOOLEAN,
-         fileName             UTF8String OPTIONAL,
-         mediaType            IA5String OPTIONAL,
-         otherMetaData        Attributes OPTIONAL
+         fileName             UTF8String <em>OPTIONAL</em>,
+         mediaType            IA5String <em>OPTIONAL</em>,
+         otherMetaData        Attributes <em>OPTIONAL</em>
       }
 
       Attributes ::=
@@ -398,11 +398,11 @@ Table of Contents
 
       TimeStampAndCRL ::= SEQUENCE {
          timeStamp   TimeStampToken,          -- according to <a href="./rfc3161.html">RFC 3161</a>
-         crl         CertificateList OPTIONAL -- according to <a href="./rfc5280.html">RFC 5280</a>
+         crl         CertificateList <em>OPTIONAL</em> -- according to <a href="./rfc5280.html">RFC 5280</a>
       }
 
    The version field contains the version number of the TimeStampedData
-   syntax.  It SHALL be 1 for this version of the document.
+   syntax.  It <em>SHALL</em> be 1 for this version of the document.
 
 
 
@@ -415,10 +415,10 @@ Table of Contents
 
 
    The dataUri field contains a URI reference conforming to [<a href="#ref-URI" title="&quot;Uniform Resource Identifier (URI): Generic Syntax&quot;">URI</a>].  When
-   the content field is absent, dataUri MUST be present and contain a
+   the content field is absent, dataUri <em>MUST</em> be present and contain a
    URI allowing retrieval of the document that was time-stamped (unless
    the document is later moved).  When the content field is present,
-   this field MAY also be present.
+   this field <em>MAY</em> also be present.
 
    The metaData field contains metadata related to the document that was
    time-stamped, if applicable.  In particular:
@@ -440,12 +440,12 @@ Table of Contents
       stamped document (e.g., a description, claimed author, etc.),
       where each attribute is specified by an object identifier and a
       corresponding set of values, as described in [<a href="#ref-CMS" title="&quot;Cryptographic Message Syntax (CMS)&quot;">CMS</a>].  When this
-      field is present, it MUST contain at least one Attribute.
+      field is present, it <em>MUST</em> contain at least one Attribute.
 
    Within the metaData field (if present), at least one of the fileName,
-   mediaType, and otherMetaData sub-fields MUST be present.
+   mediaType, and otherMetaData sub-fields <em>MUST</em> be present.
 
-   The Attribute values within the otherMetaData field MUST be DER
+   The Attribute values within the otherMetaData field <em>MUST</em> be DER
    encoded, even if the rest of the structure is BER encoded.
 
    The content field, when present, carries the entire contents, in its
@@ -470,21 +470,21 @@ Table of Contents
 <span class="grey"><a href="./rfc5544.html">RFC 5544</a>                                                   February 2010</span>
 
 
-   The TimeStampTokenEvidence sequence MUST contain at least one element
+   The TimeStampTokenEvidence sequence <em>MUST</em> contain at least one element
    of type TimeStampAndCRL.
 
-   The elements of the TimeStampTokenEvidence sequence MUST conform to
+   The elements of the TimeStampTokenEvidence sequence <em>MUST</em> conform to
    the following rule:
 
    o  if the metaData field is absent or the value of its hashProtected
       field is FALSE, then the TimeStampToken within the first element
-      SHALL be computed over the value octets of the content field (if
+      <em>SHALL</em> be computed over the value octets of the content field (if
       this field is absent, use the octets retrieved via the dataUri
       field);
 
    o  otherwise (the metaData field is present and the value of its
       hashProtected field is TRUE), the TimeStampToken within the first
-      element SHALL be computed over the concatenation of the following
+      element <em>SHALL</em> be computed over the concatenation of the following
       fields:
 
       - the DER encoding of the metaData field;
@@ -492,10 +492,10 @@ Table of Contents
       - the value octets of the content field (if this field is absent,
         use the octets retrieved via the dataUri field);
 
-   o  the TimeStampToken within the second element SHALL be computed
+   o  the TimeStampToken within the second element <em>SHALL</em> be computed
       over the first element;
 
-   o  the TimeStampToken within each subsequent element SHALL be
+   o  the TimeStampToken within each subsequent element <em>SHALL</em> be
       computed over its preceding element in the sequence.
 
    Within the TimeStampAndCRL construct, the optional crl field carries
@@ -507,7 +507,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Compliance Requirements</span>
 
-   Compliant applications MUST support at least the <a href="./rfc3161.html">RFC 3161</a>-based type
+   Compliant applications <em>MUST</em> support at least the <a href="./rfc3161.html">RFC 3161</a>-based type
    of evidence (i.e., the tstEvidence CHOICE).
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Recommended Processing</span>
@@ -808,17 +808,17 @@ Table of Contents
 
       TimeStampedData ::= SEQUENCE {
          version              INTEGER { v1(1) },
-         dataUri              IA5String OPTIONAL,
-         metaData             MetaData OPTIONAL,
-         content              OCTET STRING OPTIONAL,
+         dataUri              IA5String <em>OPTIONAL</em>,
+         metaData             MetaData <em>OPTIONAL</em>,
+         content              OCTET STRING <em>OPTIONAL</em>,
          temporalEvidence     Evidence
       }
 
       MetaData ::= SEQUENCE {
          hashProtected        BOOLEAN,
-         fileName             UTF8String OPTIONAL,
-         mediaType            IA5String OPTIONAL,
-         otherMetaData        Attributes OPTIONAL
+         fileName             UTF8String <em>OPTIONAL</em>,
+         mediaType            IA5String <em>OPTIONAL</em>,
+         otherMetaData        Attributes <em>OPTIONAL</em>
       }
 
       Attributes ::=
@@ -839,7 +839,7 @@ Table of Contents
 
       TimeStampAndCRL ::= SEQUENCE {
          timeStamp   TimeStampToken,          -- according to <a href="./rfc3161.html">RFC 3161</a>
-         crl         CertificateList OPTIONAL -- according to <a href="./rfc5280.html">RFC 5280</a>
+         crl         CertificateList <em>OPTIONAL</em> -- according to <a href="./rfc5280.html">RFC 5280</a>
       }
 
       END

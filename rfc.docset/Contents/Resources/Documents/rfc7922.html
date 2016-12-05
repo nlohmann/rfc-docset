@@ -309,7 +309,7 @@ Table of Contents
 
    The architecture for the Interface to the Routing System [<a href="./rfc7921.html" title="&quot;An Architecture for the Interface to the Routing System&quot;">RFC7921</a>]
    specifies that I2RS clients wishing to retrieve or change the routing
-   state on a routing element MUST authenticate to an I2RS agent.  The
+   state on a routing element <em>MUST</em> authenticate to an I2RS agent.  The
    I2RS client will have a unique identity it provides for
    authentication, and should provide another opaque identity for
    applications communicating through it.  The programming of routing
@@ -330,8 +330,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology and Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The architecture specification for I2RS [<a href="./rfc7921.html" title="&quot;An Architecture for the Interface to the Routing System&quot;">RFC7921</a>] defines additional
@@ -536,9 +536,9 @@ Table of Contents
    that made the request at a specific point in time.
 
    The list below describes the fields captured in the I2RS trace log.
-   This list represents a common set of fields that MUST appear in all
+   This list represents a common set of fields that <em>MUST</em> appear in all
    I2RS trace logs.  In addition to these fields, I2RS agent
-   implementations MAY choose to log additional fields such as I2RS
+   implementations <em>MAY</em> choose to log additional fields such as I2RS
    client vendor or agent statistics like free memory, performance
    metrics, etc.
 
@@ -552,24 +552,24 @@ Table of Contents
       the same client at the same time, it is important to have an
       identifier that can be unambiguously associated to a specific
       entry.  If each state transition is logged for an operation, the
-      same ID MUST be used for each of the Request State log entries.
+      same ID <em>MUST</em> be used for each of the Request State log entries.
       In this way, the life of a request can be easily followed in the
-      I2RS trace log.  Beyond the requirement that the Event ID MUST be
+      I2RS trace log.  Beyond the requirement that the Event ID <em>MUST</em> be
       unique for each event, the specific type and value is left up to
       the implementation.
 
    Starting Timestamp:   The specific time at which the I2RS operation
       enters the specified Request State within the agent.  If the log
       entry covers the entire duration of the request, then this will be
-      the time that it was first received by the agent.  This field MUST
+      the time that it was first received by the agent.  This field <em>MUST</em>
       be present in all entries that specify the beginning of the state
       transition, as well as those entries that log the entire duration
       of the request.  The time is passed in the full timestamp format
       [<a href="./rfc3339.html" title="&quot;Date and Time on the Internet: Timestamps&quot;">RFC3339</a>], including the date and offset from Coordinated
       Universal Time (UTC).  Given that many I2RS operations can occur
       in rapid succession, the fractional seconds element of the
-      timestamp MUST be used to provide adequate granularity.
-      Fractional seconds SHOULD be expressed with at least three
+      timestamp <em>MUST</em> be used to provide adequate granularity.
+      Fractional seconds <em>SHOULD</em> be expressed with at least three
       significant digits in second.microsecond format.
 
 
@@ -587,7 +587,7 @@ Table of Contents
 
    Request State:   The state of the given operation within the I2RS
       agent state machine at the specified Starting or Ending
-      Timestamps.  The I2RS agent SHOULD generate a log entry at the
+      Timestamps.  The I2RS agent <em>SHOULD</em> generate a log entry at the
       moment a request enters and exits a state.  Upon entering a new
       state, the log entry will have a Starting Timestamp set to the
       time of entry and no Ending Timestamp.  Upon exiting a state, the
@@ -604,11 +604,11 @@ Table of Contents
 
          COMPLETED: The request has reached a terminal point.
 
-      Every state transition SHOULD be logged unless doing so will put
+      Every state transition <em>SHOULD</em> be logged unless doing so will put
       an undue performance burden on the I2RS agent.  However, an entry
-      with the Request State set to COMPLETED MUST be logged for all
+      with the Request State set to COMPLETED <em>MUST</em> be logged for all
       operations.  If the COMPLETED state is the only entry for a given
-      request, then it MUST have both Starting and Ending Timestamps
+      request, then it <em>MUST</em> have both Starting and Ending Timestamps
       that cover the entire duration of the request from ingress to the
       agent until completion.
 
@@ -625,7 +625,7 @@ Table of Contents
       to trace the network application driving the actions of the
       client.  The client may not provide this identity to the agent if
       there is no external network application driving the client.
-      However, this field MUST be logged even if the client does not
+      However, this field <em>MUST</em> be logged even if the client does not
       provide a Secondary Identity.  In that case, the field will be
       logged with an empty value.
 
@@ -647,8 +647,8 @@ Table of Contents
       be the operation that was actually applied to the agent.
 
       In the case of a client authenticating to the agent, the Requested
-      Operation MUST be "CLIENT AUTHENTICATE".  In the case of a client
-      disconnecting from the agent, the Requested Operation MUST be
+      Operation <em>MUST</em> be "CLIENT AUTHENTICATE".  In the case of a client
+      disconnecting from the agent, the Requested Operation <em>MUST</em> be
       "CLIENT DISCONNECT".
 
    Applied Operation:   This is the I2RS operation that was actually
@@ -665,15 +665,15 @@ Table of Contents
       include the route prefix, prefix length, and next-hop information
       to be inserted as well as the specific routing table to which the
       route will be added.  If Operation Data is provided, then the
-      Operation Data Present field MUST be set to TRUE.  Some operations
+      Operation Data Present field <em>MUST</em> be set to TRUE.  Some operations
       may not provide operation data.  In those cases, the Operation
-      Data Present field MUST be set to FALSE, and this field MUST be
+      Data Present field <em>MUST</em> be set to FALSE, and this field <em>MUST</em> be
       empty.  This may not represent the data that was used for the
       operation that was actually applied on the agent.
 
       When a client authenticates to the agent, the Requested Operation
-      Data MUST contain the client priority.  Other attributes such as
-      credentials used for authentication MAY be logged.
+      Data <em>MUST</em> contain the client priority.  Other attributes such as
+      credentials used for authentication <em>MAY</em> be logged.
 
    Applied Operation Data:   This field comprises the data that was
       actually applied as part of the Applied Operation.  If the agent
@@ -707,15 +707,15 @@ Table of Contents
 
    Result Code:   This field holds the result of the operation once the
       Request State is COMPLETED.  In the case of Routing Information
-      Base (RIB) operations, this MUST be the return code as specified
+      Base (RIB) operations, this <em>MUST</em> be the return code as specified
       in Section 4 of [<a href="#ref-RIBINFO" title="&quot;Routing Information Base Info Model&quot;">RIBINFO</a>].  The operation may not complete with a
       result code in the case of a timeout.  If the operation fails to
-      complete, it MUST still log the attempted operation with an
+      complete, it <em>MUST</em> still log the attempted operation with an
       appropriate result code.
 
    Timeout Occurred:   This is a Boolean field that indicates whether or
       not a timeout occurred in the operation.  When this is true, the
-      value of the Ending Timestamp MUST be set to the time the agent
+      value of the Ending Timestamp <em>MUST</em> be set to the time the agent
       recorded for the timeout occurrence.  This field may not be logged
       unless the Request State is COMPLETED.
 
@@ -723,7 +723,7 @@ Table of Contents
       exits the specified Request State within the I2RS agent.  If the
       log entry covers the entire duration of the request, then this
       will be the time that the request reached a terminal point within
-      the agent.  This field MUST be present in all entries that specify
+      the agent.  This field <em>MUST</em> be present in all entries that specify
       the ending of the state transition, as well as those entries that
       log the entire duration of the request.  The time is passed in the
       full timestamp format [<a href="./rfc3339.html" title="&quot;Date and Time on the Internet: Timestamps&quot;">RFC3339</a>], including the date and offset
@@ -731,7 +731,7 @@ Table of Contents
       Starting Timestamp above for the proper format of the Ending
       Timestamp.
 
-   End Of Message:   Each log entry SHOULD have an appropriate End Of
+   End Of Message:   Each log entry <em>SHOULD</em> have an appropriate End Of
       Message (EOM) indicator.  See <a href="#section-5.3">Section 5.3</a> below for more details.
 
 
@@ -756,9 +756,9 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  End of Message Marker</span>
 
    Because of variability within I2RS trace log fields, implementors
-   MUST use a format-appropriate End Of Message (EOM) indicator in order
+   <em>MUST</em> use a format-appropriate End Of Message (EOM) indicator in order
    to signify the end of a particular record.  That is, regardless of
-   format, the I2RS trace log MUST provide a distinct way of
+   format, the I2RS trace log <em>MUST</em> provide a distinct way of
    distinguishing between the end of one record and the beginning of
    another.  For example, in a linear-formatted log (similar to a
    syslog) the EOM marker may be a newline character.  In an XML-
@@ -868,7 +868,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-7.3" href="#section-7.3">7.3</a>.  Trace Log Rotation</span>
 
    In order to prevent the exhaustion of resources on the I2RS agent or
-   its associated network device, it is RECOMMENDED that the I2RS agent
+   its associated network device, it is <em>RECOMMENDED</em> that the I2RS agent
    implements trace log rotation.  The details on how this is achieved
    are left to the implementation and are outside the scope of this
    document.  However, it should be possible to do a file rotation based
@@ -889,7 +889,7 @@ Table of Contents
 
    Despite the fact that export of I2RS trace log information could be
    an invaluable diagnostic tool for off-box analysis, exporting this
-   information MUST NOT interfere with the ability of the agent to
+   information <em>MUST NOT</em> interfere with the ability of the agent to
    process new incoming operations.
 
    The following three sections describe potential ways the trace log
@@ -930,13 +930,13 @@ Table of Contents
    define their own format.  So, while the data contained within the
    syslog message would adhere to this information model, and may be
    consumable by a human operator, it would not be easily parseable by a
-   machine.  Syslog MAY be employed as a means of retrieving or
+   machine.  Syslog <em>MAY</em> be employed as a means of retrieving or
    disseminating the I2RS trace log contents.
 
    If syslog is used for trace log retrieval, then existing logging
    infrastructure and capabilities of syslog [<a href="./rfc5424.html" title="&quot;The Syslog Protocol&quot;">RFC5424</a>] should be
    leveraged without the need to define or extend existing formats.
-   That is, the various fields described in <a href="#section-5.2">Section 5.2</a> SHOULD be
+   That is, the various fields described in <a href="#section-5.2">Section 5.2</a> <em>SHOULD</em> be
    modeled and encoded as Structured Data Elements (referred to as
    "SD-ELEMENT"), as described in <a href="./rfc5424.html#section-6.3.1">Section&nbsp;6.3.1 of [RFC5424]</a>.
 
@@ -946,7 +946,7 @@ Table of Contents
    for information collection.  The information collected includes
    obtaining a snapshot of a large amount of data from the network
    element.  It is the intent of I2RS to make this data available in an
-   implementor-agnostic fashion.  Therefore, the I2RS trace log SHOULD
+   implementor-agnostic fashion.  Therefore, the I2RS trace log <em>SHOULD</em>
    be made available via the I2RS information collection mechanism
    either as a single snapshot or via a subscription stream.
 
@@ -955,7 +955,7 @@ Table of Contents
    <a href="#section-7.6">Section 7.6</a> of the I2RS architecture [<a href="./rfc7921.html" title="&quot;An Architecture for the Interface to the Routing System&quot;">RFC7921</a>] goes on to describe
    notification mechanisms for a feed of changes happening within the
    I2RS layer.  Specifically, the requirements for a publish-subscribe
-   system for I2RS are defined in [<a href="./rfc7923.html" title="&quot;Requirements for Subscription to YANG Datastores&quot;">RFC7923</a>].  I2RS agents MUST support
+   system for I2RS are defined in [<a href="./rfc7923.html" title="&quot;Requirements for Subscription to YANG Datastores&quot;">RFC7923</a>].  I2RS agents <em>MUST</em> support
    publishing I2RS trace log information to that feed as described in
    [<a href="./rfc7923.html" title="&quot;Requirements for Subscription to YANG Datastores&quot;">RFC7923</a>].  Subscribers would then receive a live stream of I2RS
    interactions in trace log format and could flexibly choose to do a
@@ -996,7 +996,7 @@ Table of Contents
    physical security of logging entities, mutual authentication,
    transport encryption, channel confidentiality, and channel integrity
    if transferring log files.  Additionally, the potentially sensitive
-   information contained in a log file SHOULD be adequately anonymized
+   information contained in a log file <em>SHOULD</em> be adequately anonymized
    or obfuscated by operators to ensure its privacy.
 
 

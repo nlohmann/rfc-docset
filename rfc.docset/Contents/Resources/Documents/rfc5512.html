@@ -376,7 +376,7 @@ Table of Contents
    reconfigured to support the new SAFI.
 
    For encapsulation protocols where no encapsulation information needs
-   to be signaled (such as GRE without key), the egress router MAY still
+   to be signaled (such as GRE without key), the egress router <em>MAY</em> still
    want to specify the protocol to use for transporting packets from the
    ingress router.  This document specifies a new BGP extended community
    that can be attached to UPDATE messages that carry payload prefixes
@@ -384,8 +384,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Encapsulation NLRI Format</span>
@@ -412,7 +412,7 @@ Table of Contents
      IPv6 address.
 
    An update message that carries the MP_REACH_NLRI or MP_UNREACH_NLRI
-   attribute with the Encapsulation SAFI MUST also carry the BGP
+   attribute with the Encapsulation SAFI <em>MUST</em> also carry the BGP
    mandatory attributes:  ORIGIN, AS_PATH, and LOCAL_PREF (for IBGP
    neighbors), as defined in [<a href="./rfc4271.html" title="&quot;A Border Gateway Protocol 4 (BGP-4)&quot;">RFC4271</a>].  In addition, such an update
    message can also contain any of the BGP optional attributes, like the
@@ -500,8 +500,8 @@ Table of Contents
      - Color: sub-TLV type = 4
 
      When the TLV is being processed by a BGP speaker that will be
-     performing encapsulation, any unknown sub-TLVs MUST be ignored and
-     skipped.  However, if the TLV is understood, the entire TLV MUST
+     performing encapsulation, any unknown sub-TLVs <em>MUST</em> be ignored and
+     skipped.  However, if the TLV is understood, the entire TLV <em>MUST</em>
      NOT be ignored just because it contains an unknown sub-TLV.
 
    * Sub-TLV Length (1 octet): the total number of octets of the sub-TLV
@@ -568,11 +568,11 @@ Table of Contents
      identifying extra context information about the received payload.
 
      Note that the key is optional.  Unless a key value is being
-     advertised, the GRE encapsulation sub-TLV MUST NOT be present.
+     advertised, the GRE encapsulation sub-TLV <em>MUST NOT</em> be present.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Protocol Type Sub-TLV</span>
 
-   The protocol type sub-TLV MAY be encoded to indicate the type of the
+   The protocol type sub-TLV <em>MAY</em> be encoded to indicate the type of the
    payload packets that will be encapsulated with the tunnel parameters
    that are being signaled in the TLV.  The value field of the sub-TLV
    contains a 2-octet protocol type that is one of the types defined in
@@ -598,13 +598,13 @@ Table of Contents
    Session ID at the ingress routers allows the egress to process the
    incoming packets correctly, according to their protocol type.
 
-   Inclusion of this sub-TLV depends on the tunnel type.  It MUST be
+   Inclusion of this sub-TLV depends on the tunnel type.  It <em>MUST</em> be
    encoded for L2TPv3 tunnel type.  On the other hand, the protocol type
    sub-TLV is not required for IP in IP or GRE tunnels.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Color Sub-TLV</span>
 
-   The color sub-TLV MAY be encoded as a way to color the corresponding
+   The color sub-TLV <em>MAY</em> be encoded as a way to color the corresponding
    tunnel TLV.  The value field of the sub-TLV contains an extended
    community that is defined as follows:
 
@@ -634,7 +634,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Tunnel Type Selection</span>
 
    A BGP speaker may include multiple tunnel TLVs in the tunnel
-   attribute.  The receiving speaker MAY have local policies defined to
+   attribute.  The receiving speaker <em>MAY</em> have local policies defined to
    choose different tunnel types for different sets/types of payload
    prefixes received from the same BGP speaker.  For instance, if a BGP
    speaker includes both L2TPv3 and GRE tunnel types in the tunnel
@@ -652,7 +652,7 @@ Table of Contents
 
    Additionally, the Encapsulation SAFI UPDATE message can contain a
    color sub-TLV for some or all of the tunnel TLVs.  The BGP speaker
-   SHOULD then attach a Color Extended Community to payload prefixes to
+   <em>SHOULD</em> then attach a Color Extended Community to payload prefixes to
    select the appropriate tunnel types.
 
    In a multi-vendor deployment that has routers supporting different
@@ -663,7 +663,7 @@ Table of Contents
    appropriately while sending packets to an egress router.
 
    If a BGP speaker originates an update for prefix P with color C and
-   with itself as the next hop, then it MUST also originate an
+   with itself as the next hop, then it <em>MUST</em> also originate an
    Encapsulation SAFI update that contains the color C.
 
    Suppose that a BGP speaker receives an update for prefix P with color
@@ -688,7 +688,7 @@ Table of Contents
    Here, we define a BGP opaque extended community that can be attached
    to BGP UPDATE messages to indicate the encapsulation protocol to be
    used for sending packets from an ingress router to an egress router.
-   Considering our example from the <a href="#section-1">Section 1</a>, R2 MAY include this
+   Considering our example from the <a href="#section-1">Section 1</a>, R2 <em>MAY</em> include this
    extended community, specifying a particular tunnel type to be used in
    the UPDATE message that carries route Q to R1.  This is useful if
    there is no explicit encapsulation information to be signaled using
@@ -721,7 +721,7 @@ Table of Contents
    The last two octets of the value field encode a tunnel type as
    defined in this document.
 
-   For interoperability, a speaker supporting Encapsulation SAFI MUST
+   For interoperability, a speaker supporting Encapsulation SAFI <em>MUST</em>
    implement the Encapsulation Extended Community.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Capability Advertisement</span>
@@ -733,7 +733,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Error Handling</span>
 
    When a BGP speaker encounters an error while parsing the tunnel
-   encapsulation attribute, the speaker MUST treat the UPDATE as a
+   encapsulation attribute, the speaker <em>MUST</em> treat the UPDATE as a
    withdrawal of existing routes to the included Encapsulation SAFI
    NLRIs, or discard the UPDATE if no such routes exist.  A log entry
    should be raised for local analysis.

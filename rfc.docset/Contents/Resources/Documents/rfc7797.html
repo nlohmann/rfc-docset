@@ -18,7 +18,7 @@
    use cases for which the use of JWS is a good fit.
 
    This specification updates RFC 7519 by stating that JSON Web Tokens
-   (JWTs) MUST NOT use the unencoded payload option defined by this
+   (JWTs) <em>MUST NOT</em> use the unencoded payload option defined by this
    specification.
 " />
 <meta name="DC.Creator" content="Michael B. Jones &lt;mbj@microsoft.com&gt;" />
@@ -218,7 +218,7 @@ Abstract
    use cases for which the use of JWS is a good fit.
 
    This specification updates <a href="./rfc7519.html">RFC 7519</a> by stating that JSON Web Tokens
-   (JWTs) MUST NOT use the unencoded payload option defined by this
+   (JWTs) <em>MUST NOT</em> use the unencoded payload option defined by this
    specification.
 
 Status of This Memo
@@ -339,9 +339,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Notational Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    "Key words for use in RFCs to Indicate Requirement Levels" [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
    The interpretation should only be applied when the terms appear in
    all capital letters.
@@ -387,11 +387,11 @@ Table of Contents
       "false", the payload is represented simply as the JWS Payload
       value; otherwise, it is represented as ASCII(BASE64URL(JWS
       Payload)).  The "b64" value is a JSON boolean, with a default
-      value of "true".  When used, this Header Parameter MUST be
-      integrity protected; therefore, it MUST occur only within the JWS
-      Protected Header.  Use of this Header Parameter is OPTIONAL.  If
+      value of "true".  When used, this Header Parameter <em>MUST</em> be
+      integrity protected; therefore, it <em>MUST</em> occur only within the JWS
+      Protected Header.  Use of this Header Parameter is <em>OPTIONAL</em>.  If
       the JWS has multiple signatures and/or MACs, the "b64" Header
-      Parameter value MUST be the same for all of them.  Note that
+      Parameter value <em>MUST</em> be the same for all of them.  Note that
       unless the payload is detached, many payload values would cause
       errors parsing the resulting JWSs, as described in <a href="#section-5">Section 5</a>.
 
@@ -594,7 +594,7 @@ Table of Contents
    representable by the application.  The payload value will not cause
    problems parsing the JWS, since it is not represented as part of the
    JWS.  If an application uses a content encoding when representing the
-   payload, then it MUST specify whether the signature or MAC is
+   payload, then it <em>MUST</em> specify whether the signature or MAC is
    performed over the content-encoded representation or over the
    unencoded content.
 
@@ -602,16 +602,16 @@ Table of Contents
 
    When using the JWS Compact Serialization, unencoded non-detached
    payloads using period ('.') characters would cause parsing errors;
-   such payloads MUST NOT be used with the JWS Compact Serialization.
+   such payloads <em>MUST NOT</em> be used with the JWS Compact Serialization.
    Similarly, if a JWS using the JWS Compact Serialization and a
    non-detached payload is to be transmitted in a context that requires
-   URL-safe characters, then the application MUST ensure that the
+   URL-safe characters, then the application <em>MUST</em> ensure that the
    payload contains only the URL-safe characters 'a'-'z', 'A'-'Z',
    '0'-'9', dash ('-'), underscore ('_'), and tilde ('~').  The payload
    value is the ASCII representation of the characters in the payload
    string.  The ASCII space character and all printable ASCII characters
    other than period ('.') (those characters in the ranges %x20-2D and
-   %x2F-7E) MAY be included in a non-detached payload using the JWS
+   %x2F-7E) <em>MAY</em> be included in a non-detached payload using the JWS
    Compact Serialization, provided that the application can transmit the
    resulting JWS without modification.
 
@@ -632,7 +632,7 @@ Table of Contents
    then UTF-8-encoding the resulting Unicode code points.  This means,
    for instance, that these payloads represented as JSON strings are
    equivalent ("$.02", "\u0024.02").  Unassigned Unicode code point
-   values MUST NOT be used to represent the payload.
+   values <em>MUST NOT</em> be used to represent the payload.
 
 
 
@@ -645,7 +645,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Using "crit" with "b64"</span>
 
-   The "crit" Header Parameter MUST be included with "b64" in its set of
+   The "crit" Header Parameter <em>MUST</em> be included with "b64" in its set of
    values when using the "b64" Header Parameter to cause implementations
    not implementing "b64" to reject the JWS (instead of it being
    misinterpreted).
@@ -657,14 +657,14 @@ Table of Contents
    not, with it then being consistently applied in each application
    context.  For instance, an application that uses detached payloads
    might specify that "b64" with a "false" value always be used.  It is
-   NOT RECOMMENDED that this parameter value be dynamically varied with
+   NOT <em>RECOMMENDED</em> that this parameter value be dynamically varied with
    different payloads in the same application context.
 
-   While it is legal to use "b64" with a "true" value, it is RECOMMENDED
+   While it is legal to use "b64" with a "true" value, it is <em>RECOMMENDED</em>
    that "b64" simply be omitted in this case, since it would be
    selecting the behavior already specified in [<a href="#ref-JWS" title="&quot;JSON Web Signature (JWS)&quot;">JWS</a>].
 
-   For interoperability reasons, JSON Web Tokens [<a href="#ref-JWT" title="&quot;JSON Web Token (JWT)&quot;">JWT</a>] MUST NOT use
+   For interoperability reasons, JSON Web Tokens [<a href="#ref-JWT" title="&quot;JSON Web Token (JWT)&quot;">JWT</a>] <em>MUST NOT</em> use
    "b64" with a "false" value.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Security Considerations</span>

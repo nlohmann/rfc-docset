@@ -473,12 +473,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a> Agent Operation</span>
 
-   Overall adding of the DHCP relay agent option SHOULD be configurable,
-   and SHOULD be disabled by default.  Relay agents SHOULD have separate
+   Overall adding of the DHCP relay agent option <em>SHOULD</em> be configurable,
+   and <em>SHOULD</em> be disabled by default.  Relay agents <em>SHOULD</em> have separate
    configurables for each sub-option to control whether it is added to
    client-to-server packets.
 
-   A DHCP relay agent adding a Relay Agent Information field SHALL add
+   A DHCP relay agent adding a Relay Agent Information field <em>SHALL</em> add
    it as the last option (but before 'End Option' 255, if present) in
    the DHCP options field of any recognized BOOTP or DHCP packet
    forwarded from a client to a server.
@@ -486,10 +486,10 @@ Table of Contents
    Relay agents receiving a DHCP packet from an untrusted circuit with
    giaddr set to zero (indicating that they are the first-hop router)
    but with a Relay Agent Information option already present in the
-   packet SHALL discard the packet and increment an error count.  A
+   packet <em>SHALL</em> discard the packet and increment an error count.  A
    trusted circuit may contain a trusted downstream (closer to client)
    network element (bridge) between the relay agent and the client that
-   MAY add a relay agent option but not set the giaddr field.  In this
+   <em>MAY</em> add a relay agent option but not set the giaddr field.  In this
    case, the relay agent does NOT add a "second" relay agent option, but
    forwards the DHCP packet per normal DHCP relay agent operations,
    setting the giaddr field as it deems appropriate.
@@ -502,16 +502,16 @@ Table of Contents
    through a DSLAM may consider such VCs as "trusted" and accept a relay
    agent option added by the DSLAM.
 
-   Relay agents MAY have a configurable for the maximum size of the DHCP
+   Relay agents <em>MAY</em> have a configurable for the maximum size of the DHCP
    packet to be created after appending the Agent Information option.
    Packets which, after appending the Relay Agent Information option,
    would exceed this configured maximum size shall be forwarded WITHOUT
-   adding the Agent Information option.  An error counter SHOULD be
+   adding the Agent Information option.  An error counter <em>SHOULD</em> be
    incremented in this case.  In the absence of this configurable, the
-   agent SHALL NOT increase a forwarded DHCP packet size to exceed the
+   agent <em>SHALL NOT</em> increase a forwarded DHCP packet size to exceed the
    MTU of the interface on which it is forwarded.
 
-   The Relay Agent Information option echoed by a server MUST be removed
+   The Relay Agent Information option echoed by a server <em>MUST</em> be removed
    by either the relay agent or the trusted downstream network element
    which added it when forwarding a server-to-client response back to
    the client.
@@ -527,9 +527,9 @@ Table of Contents
 <span class="grey"><a href="./rfc3046.html">RFC 3046</a>          DHCP Relay Agent Information Option       January 2001</span>
 
 
-   The agent SHALL NOT add an "Option Overload" option to the packet or
+   The agent <em>SHALL NOT</em> add an "Option Overload" option to the packet or
    use the "file" or "sname" fields for adding Relay Agent Information
-   option.  It SHALL NOT parse or remove Relay Agent Information options
+   option.  It <em>SHALL NOT</em> parse or remove Relay Agent Information options
    that may appear in the sname or file fields of a server-to-client
    packet forwarded through the agent.
 
@@ -540,7 +540,7 @@ Table of Contents
    DHCP packets addressed to a server unicast address.  This  includes
    the DHCP-REQUEST sent when entering the RENEWING state.
 
-   Relay agents MUST NOT modify DHCP packets that use the IPSEC
+   Relay agents <em>MUST NOT</em> modify DHCP packets that use the IPSEC
    Authentication Header or IPSEC Encapsulating Security Payload [<a href="#ref-6" title="&quot;Security Architecture for the Internet Protocol&quot;">6</a>].
 
 <span class="h4"><a class="selflink" name="section-2.1.1" href="#section-2.1.1">2.1.1</a> Reforwarded DHCP requests</span>
@@ -551,11 +551,11 @@ Table of Contents
    Agent option in it.
 
    Relay agents configured to add a Relay Agent option which receive a
-   client DHCP packet with a nonzero giaddr SHALL discard the packet if
+   client DHCP packet with a nonzero giaddr <em>SHALL</em> discard the packet if
    the giaddr spoofs a giaddr address implemented by the local agent
    itself.
 
-   Otherwise, the relay agent SHALL forward any received DHCP packet
+   Otherwise, the relay agent <em>SHALL</em> forward any received DHCP packet
    with a valid non-zero giaddr WITHOUT adding any relay agent options.
    Per <a href="./rfc2131.html">RFC 2131</a>, it shall also NOT modify the giaddr value.
 
@@ -567,13 +567,13 @@ Table of Contents
    options.
 
    DHCP servers claiming to support the Relay Agent Information option
-   SHALL echo the entire contents of the Relay Agent Information option
-   in all replies.  Servers SHOULD copy the Relay Agent Information
-   option as the last DHCP option in the response.  Servers SHALL NOT
+   <em>SHALL</em> echo the entire contents of the Relay Agent Information option
+   in all replies.  Servers <em>SHOULD</em> copy the Relay Agent Information
+   option as the last DHCP option in the response.  Servers <em>SHALL NOT</em>
    place the echoed Relay Agent Information option in the overloaded
    sname or file fields.  If a server is unable to copy a full Relay
-   Agent Information field into a response, it SHALL send the response
-   without the Relay Information Field, and SHOULD increment an error
+   Agent Information field into a response, it <em>SHALL</em> send the response
+   without the Relay Information Field, and <em>SHOULD</em> increment an error
    counter for the situation.
 
 
@@ -588,17 +588,17 @@ Table of Contents
 
    Note that DHCP relay agents are not required to monitor unicast DHCP
    messages sent directly between the client and server (i.e., those
-   that aren't sent via a relay agent).  However, some relay agents MAY
+   that aren't sent via a relay agent).  However, some relay agents <em>MAY</em>
    chose to do such monitoring and add relay agent options.
-   Consequently, servers SHOULD be prepared to handle relay agent
-   options in unicast messages, but MUST NOT expect them to always be
+   Consequently, servers <em>SHOULD</em> be prepared to handle relay agent
+   options in unicast messages, but <em>MUST NOT</em> expect them to always be
    there.
 
 <span class="h3"><a class="selflink" name="section-3.0" href="#section-3.0">3.0</a> Relay Agent Information Sub-options</span>
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a> Agent Circuit ID Sub-option</span>
 
-   This sub-option MAY be added by DHCP relay agents which terminate
+   This sub-option <em>MAY</em> be added by DHCP relay agents which terminate
    switched or permanent circuits.  It encodes an agent-local identifier
    of the circuit from which a DHCP client-to-server packet was
    received.  It is intended for use by agents in relaying DHCP
@@ -612,12 +612,12 @@ Table of Contents
        - ATM virtual circuit number
        - Cable Data virtual circuit number
 
-   Servers MAY use the Circuit ID for IP and other parameter assignment
-   policies.  The Circuit ID SHOULD be considered an opaque value, with
+   Servers <em>MAY</em> use the Circuit ID for IP and other parameter assignment
+   policies.  The Circuit ID <em>SHOULD</em> be considered an opaque value, with
    policies based on exact string match only; that is, the Circuit ID
-   SHOULD NOT be internally parsed by the server.
+   <em>SHOULD NOT</em> be internally parsed by the server.
 
-   The DHCP server SHOULD report the Agent Circuit ID value of current
+   The DHCP server <em>SHOULD</em> report the Agent Circuit ID value of current
    leases in statistical reports (including its MIB) and in logs.  Since
    the Circuit ID is local only to a particular relay agent, a circuit
    ID should be qualified with the giaddr value that identifies the
@@ -641,7 +641,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> Agent Remote ID Sub-option</span>
 
-   This sub-option MAY be added by DHCP relay agents which terminate
+   This sub-option <em>MAY</em> be added by DHCP relay agents which terminate
    switched or permanent circuits and have mechanisms to identify the
    remote host end of the circuit.  The Remote ID field may be used to
    encode, for instance:
@@ -653,17 +653,17 @@ Table of Contents
        -- the remote IP address of a point-to-point link
        -- a remote X.25 address for X.25 connections
 
-   The remote ID MUST be globally unique.
+   The remote ID <em>MUST</em> be globally unique.
 
-   DHCP servers MAY use this option to select parameters specific to
-   particular users, hosts, or subscriber modems.  The option SHOULD be
+   DHCP servers <em>MAY</em> use this option to select parameters specific to
+   particular users, hosts, or subscriber modems.  The option <em>SHOULD</em> be
    considered an opaque value, with policies based on exact string match
-   only; that is, the option SHOULD NOT be internally parsed by the
+   only; that is, the option <em>SHOULD NOT</em> be internally parsed by the
    server.
 
-   The relay agent MAY use this field in addition to or instead of the
+   The relay agent <em>MAY</em> use this field in addition to or instead of the
    Agent Circuit ID field to select the circuit on which to forward the
-   DHCP reply (e.g., Offer, Ack, or Nak).  DHCP servers SHOULD report
+   DHCP reply (e.g., Offer, Ack, or Nak).  DHCP servers <em>SHOULD</em> report
    this value in any reports or MIBs associated with a particular
    client.
 
@@ -702,7 +702,7 @@ Table of Contents
 
             (client IP address,  client MAC address,  client remote ID)
 
-      The DHCP server SHOULD implement policies that restrict the number
+      The DHCP server <em>SHOULD</em> implement policies that restrict the number
       of IP addresses to be assigned to a single remote ID.
 
    Static Assignment
@@ -716,7 +716,7 @@ Table of Contents
 
       The circuit access device may associate the IP address assigned by
       a DHCP server in a forwarded DHCP Ack packet with the circuit to
-      which it was forwarded.  The circuit access device MAY prevent
+      which it was forwarded.  The circuit access device <em>MAY</em> prevent
       forwarding of IP packets with source IP addresses -other than-
       those it has associated with the receiving circuit.  This prevents
       simple IP spoofing attacks on the Central LAN, and IP spoofing of

@@ -401,8 +401,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-3" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">3</a>].
 
    This document uses the MPTCP terminology introduced in [<a href="#ref-5" title="&quot;TCP Extensions for Multipath Operation with Multiple Addresses&quot;">5</a>].
@@ -783,7 +783,7 @@ Table of Contents
    or bind to INADDR_ANY.  Furthermore, on some systems other socket
    options (e.g., SO_BINDTODEVICE) can be used to bind to a specific
    interface.  If an application uses a specific address or binds to a
-   specific interface, then MPTCP MUST respect this and not interfere in
+   specific interface, then MPTCP <em>MUST</em> respect this and not interfere in
    the application's choices.  The binding to a specific address or
    interface implies that the application is not aware of MPTCP and will
    disable the use of MPTCP on this connection.  An application that
@@ -793,7 +793,7 @@ Table of Contents
 
    If an application binds to INADDR_ANY, it is assumed that the
    application does not care which addresses are used locally.  In this
-   case, a local policy MAY allow MPTCP to automatically set up multiple
+   case, a local policy <em>MAY</em> allow MPTCP to automatically set up multiple
    subflows on such a connection.
 
    The basic sockets API of MPTCP-aware applications allows the
@@ -827,23 +827,23 @@ Table of Contents
    constant during the connection's lifetime.
 
    This problem is addressed as follows: If used by a legacy
-   application, the MPTCP stack MUST always return the addresses and
+   application, the MPTCP stack <em>MUST</em> always return the addresses and
    port numbers of the first subflow of an MPTCP connection, in all
    circumstances, even if that particular subflow is no longer in use.
 
    As the addresses may not be valid any more if the first subflow is
-   closed, the MPTCP stack MAY close the whole MPTCP connection if the
+   closed, the MPTCP stack <em>MAY</em> close the whole MPTCP connection if the
    first subflow is closed (i.e., fate-sharing between the initial
    subflow and the MPTCP connection as a whole).  This fate-sharing
    avoids the reuse of the pair of IP addresses and ports while an MPTCP
    connection is still in progress, but at the cost of reducing the
    utility of MPTCP if IP addresses of the first subflow are not
    available any more (e.g., mobility events).  Whether to close the
-   whole MPTCP connection by default SHOULD be controlled by a local
+   whole MPTCP connection by default <em>SHOULD</em> be controlled by a local
    policy.  Further experiments are needed to investigate its
    implications.
 
-   The functions getpeername() and getsockname() SHOULD also always
+   The functions getpeername() and getsockname() <em>SHOULD</em> also always
    return the addresses of the first subflow if the socket is used by an
    MPTCP-aware application, in order to be consistent with MPTCP-unaware
    applications, and, e.g., also with the Stream Control Transmission
@@ -903,7 +903,7 @@ Table of Contents
    The getsockopt() function gets information.  In general, the existing
    sockets interface functions cannot configure each MPTCP subflow
    individually.  In order to be backward compatible, existing APIs
-   therefore SHOULD apply to all subflows within one connection, as far
+   therefore <em>SHOULD</em> apply to all subflows within one connection, as far
    as possible.
 
 <span class="h4"><a class="selflink" name="section-4.4.2" href="#section-4.4.2">4.4.2</a>.  Disabling of the Nagle Algorithm</span>
@@ -911,7 +911,7 @@ Table of Contents
    One commonly used TCP socket option (TCP_NODELAY) disables the Nagle
    algorithm as described in [<a href="#ref-2" title="&quot;Requirements for Internet Hosts - Communication Layers&quot;">2</a>].  This option is also specified in the
    POSIX standard [<a href="#ref-8" title="&quot;IEEE Standard for Information Technology -- Portable Operating System Interface (POSIX) Base Specifications, Issue 7&quot;">8</a>].  Applications can use this option in combination
-   with MPTCP in exactly the same way.  It then SHOULD disable the Nagle
+   with MPTCP in exactly the same way.  It then <em>SHOULD</em> disable the Nagle
    algorithm for the MPTCP connection, i.e., all subflows.
 
 
@@ -922,7 +922,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6897.html">RFC 6897</a>                        MPTCP API                     March 2013</span>
 
 
-   In addition, the MPTCP protocol instance MAY use a different path
+   In addition, the MPTCP protocol instance <em>MAY</em> use a different path
    scheduler algorithm if TCP_NODELAY is present.  For instance, it
    could use an algorithm that is optimized for latency-sensitive
    traffic (for instance, only transmitting on one path).  Specific
@@ -943,7 +943,7 @@ Table of Contents
    Therefore, it does not make sense to use MPTCP in combination with
    small send or receive buffers.
 
-   An MPTCP implementation MAY set a lower bound for send and receive
+   An MPTCP implementation <em>MAY</em> set a lower bound for send and receive
    buffers and treat a small buffer size request as an implicit request
    not to use MPTCP.
 
@@ -1158,7 +1158,7 @@ Table of Contents
    operation provides values to be read ("Get") or takes values to
    configure ("Set").  The fourth column lists the type of data
    associated with this operation.  The data types are listed for
-   information only.  In addition to IP addresses, an application MAY
+   information only.  In addition to IP addresses, an application <em>MAY</em>
    also indicate TCP port numbers, as further detailed below.
 
    +------------------------+-----+-----+------------------------------+
@@ -1212,7 +1212,7 @@ Table of Contents
 
    An application can explicitly indicate multipath capability by
    setting TCP_MULTIPATH_ENABLE to the value "true".  In this case, the
-   MPTCP implementation SHOULD try to negotiate MPTCP for that
+   MPTCP implementation <em>SHOULD</em> try to negotiate MPTCP for that
    connection.  Note that multipath transport will not necessarily be
    enabled, as it requires support at both end systems, no middleboxes
    on the path that would prevent any additional signaling, and at least
@@ -1220,7 +1220,7 @@ Table of Contents
 
    Building on the backward compatibility specified in <a href="#section-4.2.1">Section 4.2.1</a>, if
    an application enables MPTCP but binds to a specific address or
-   interface, MPTCP MUST be enabled, but MPTCP MUST respect the
+   interface, MPTCP <em>MUST</em> be enabled, but MPTCP <em>MUST</em> respect the
    application's choice and only use addresses that are explicitly
    provided by the application.  Note that it would be possible for an
    application to use the legacy bindings and then expand on them by
@@ -1230,7 +1230,7 @@ Table of Contents
    addresses.
 
    An application can disable MPTCP by setting TCP_MULTIPATH_ENABLE to a
-   value of "false".  In that case, MPTCP MUST NOT be used on that
+   value of "false".  In that case, MPTCP <em>MUST NOT</em> be used on that
    connection.
 
    After connection establishment, an application can get the value of
@@ -1248,7 +1248,7 @@ Table of Contents
 
    If an application binds to a specific address or interface, it is not
    required to use the TCP_MULTIPATH_ADD operation for that address.  As
-   explained in <a href="#section-5.3.2">Section 5.3.2</a>, MPTCP MUST only use the explicitly
+   explained in <a href="#section-5.3.2">Section 5.3.2</a>, MPTCP <em>MUST</em> only use the explicitly
    specified addresses in that case.
 
 
@@ -1258,11 +1258,11 @@ Table of Contents
 <span class="grey"><a href="./rfc6897.html">RFC 6897</a>                        MPTCP API                     March 2013</span>
 
 
-   An application MAY also indicate a TCP port number that, if
-   specified, MPTCP MUST attempt to bind to.  The port number MAY be
+   An application <em>MAY</em> also indicate a TCP port number that, if
+   specified, MPTCP <em>MUST</em> attempt to bind to.  The port number <em>MAY</em> be
    different than the one used by existing subflows.  If no port number
    is provided by the application, the port number is automatically
-   selected by the MPTCP implementation, and it is RECOMMENDED that it
+   selected by the MPTCP implementation, and it is <em>RECOMMENDED</em> that it
    is the same across all subflows.
 
    This operation can also be used to modify the address list in use
@@ -1270,18 +1270,18 @@ Table of Contents
    to indicate a set of additional local addresses that the MPTCP
    connection can make use of and that can be signaled to the peer.  It
    should be noted that this signal is only a hint, and an MPTCP
-   implementation MAY select only a subset of the addresses.
+   implementation <em>MAY</em> select only a subset of the addresses.
 
    The TCP_MULTIPATH_REMOVE operation can be used to remove a local
    address, or a set of local addresses, from an MPTCP connection.
-   MPTCP MUST close any corresponding subflows (i.e., those using the
+   MPTCP <em>MUST</em> close any corresponding subflows (i.e., those using the
    local address that is no longer present) and signal the removal of
    the address to the peer.  If alternative paths are available using
    the supplied address list but MPTCP is not currently using them, an
-   MPTCP implementation SHOULD establish alternative subflows before
+   MPTCP implementation <em>SHOULD</em> establish alternative subflows before
    undertaking the address removal.
 
-   It should be remembered that these operations SHOULD support both
+   It should be remembered that these operations <em>SHOULD</em> support both
    IPv4 and IPv6 addresses, potentially in the same call.
 
 <span class="h4"><a class="selflink" name="section-5.3.4" href="#section-5.3.4">5.3.4</a>.  Querying the MPTCP Subflow Addresses</span>
@@ -1293,8 +1293,8 @@ Table of Contents
    The return value is a list of pairs of tuples of IP address and TCP
    port number.  In one pair, the first tuple refers to the local IP
    address and the local TCP port, and the second one to the remote IP
-   address and remote TCP port used by the subflow.  The list MUST only
-   include established subflows.  Both addresses in each pair MUST be
+   address and remote TCP port used by the subflow.  The list <em>MUST</em> only
+   include established subflows.  Both addresses in each pair <em>MUST</em> be
    either IPv4 or IPv6.
 
 <span class="h4"><a class="selflink" name="section-5.3.5" href="#section-5.3.5">5.3.5</a>.  Getting a Unique Connection Identifier</span>
@@ -1304,7 +1304,7 @@ Table of Contents
    TCP_MULTIPATH_CONNID value to get a local connection identifier for
    the MPTCP connection.
 
-   This SHOULD be an integer number and SHOULD be locally unique (e.g.,
+   This <em>SHOULD</em> be an integer number and <em>SHOULD</em> be locally unique (e.g.,
    the MPTCP token).
 
 
@@ -1320,7 +1320,7 @@ Table of Contents
 
    Transport Layer Security (TLS) [<a href="#ref-17" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">17</a>] may be used over MPTCP's basic
    API.  When TLS compares any addresses used by MPTCP against names or
-   addresses present in X.509 certificates [<a href="#ref-18" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">18</a>] [<a href="#ref-19" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">19</a>], it MUST only
+   addresses present in X.509 certificates [<a href="#ref-18" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">18</a>] [<a href="#ref-19" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">19</a>], it <em>MUST</em> only
    compare them with the address that MPTCP used to start the initial
    subflow as presented to TLS.  The addresses used for subsequent
    subflows need not to be compared against any TLS certificate
@@ -1370,7 +1370,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6897.html">RFC 6897</a>                        MPTCP API                     March 2013</span>
 
 
-   In order to avoid any conflict, multiaddressed MPTCP SHOULD NOT be
+   In order to avoid any conflict, multiaddressed MPTCP <em>SHOULD NOT</em> be
    enabled if a network stack uses SHIM6, HIP, or Mobile IPv6.
    Furthermore, applications should not try to use both the MPTCP API
    and another multihoming or mobility layer API.
@@ -1387,7 +1387,7 @@ Table of Contents
 
    Specifically, there can be interactions with DNS.  Whilst it is
    expected that an application will iterate over the list of addresses
-   returned from a call such as getaddrinfo(), MPTCP itself MUST NOT
+   returned from a call such as getaddrinfo(), MPTCP itself <em>MUST NOT</em>
    make any assumptions about multiple A or AAAA records from the same
    DNS query referring to the same host, as it is possible that multiple
    addresses refer to multiple servers for load-balancing purposes.

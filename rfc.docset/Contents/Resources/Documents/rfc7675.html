@@ -336,8 +336,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Consent:  The mechanism of obtaining permission from the remote
@@ -422,7 +422,7 @@ Table of Contents
    endpoint sends application data on that pair consent is maintained
    following the procedure described in this document.
 
-   An endpoint MUST NOT send data other than the messages used to
+   An endpoint <em>MUST NOT</em> send data other than the messages used to
    establish consent unless the receiving endpoint has consented to
    receive data.  Connectivity checks that are paced as described in
    <a href="./rfc5245.html#section-16">Section&nbsp;16 of [RFC5245]</a>, and responses to connectivity checks are
@@ -444,19 +444,19 @@ Table of Contents
 
    Consent expires after 30 seconds.  That is, if a valid STUN binding
    response has not been received from the remote peer's transport
-   address in 30 seconds, the endpoint MUST cease transmission on that
+   address in 30 seconds, the endpoint <em>MUST</em> cease transmission on that
    5-tuple.  STUN consent responses received after consent expiry do not
    re-establish consent and may be discarded or cause an ICMP error.
 
    To prevent expiry of consent, a STUN binding request can be sent
    periodically.  To prevent synchronization of consent checks, each
-   interval MUST be randomized from between 0.8 and 1.2 times the basic
-   period.  Implementations SHOULD set a default interval of 5 seconds,
+   interval <em>MUST</em> be randomized from between 0.8 and 1.2 times the basic
+   period.  Implementations <em>SHOULD</em> set a default interval of 5 seconds,
    resulting in a period between checks of 4 to 6 seconds.
-   Implementations MUST NOT set the period between checks to less than 4
+   Implementations <em>MUST NOT</em> set the period between checks to less than 4
    seconds.  This timer is independent of the consent expiry timeout.
 
-   Each STUN binding request for consent MUST use a new STUN transaction
+   Each STUN binding request for consent <em>MUST</em> use a new STUN transaction
    identifier, as described in <a href="./rfc5389.html#section-6">Section&nbsp;6 of [RFC5389]</a>.  Each STUN
    binding request for consent is transmitted once only.  A sender
    therefore cannot assume that it will receive a response for every
@@ -471,33 +471,33 @@ Table of Contents
 <span class="grey"><a href="./rfc7675.html">RFC 7675</a>            STUN Usage for Consent Freshness        October 2015</span>
 
 
-   An endpoint SHOULD await a binding response for each request it sends
+   An endpoint <em>SHOULD</em> await a binding response for each request it sends
    for a time based on the estimated round-trip time (RTT) (see
    <a href="./rfc5389.html#section-7.2.1">Section&nbsp;7.2.1 of [RFC5389]</a>) with an allowance for variation in
    network delay.  The RTT value can be updated as described in
    [<a href="./rfc5389.html" title="&quot;Session Traversal Utilities for NAT (STUN)&quot;">RFC5389</a>].  All outstanding STUN consent transactions for a candidate
-   pair MUST be discarded when consent expires.
+   pair <em>MUST</em> be discarded when consent expires.
 
    To meet the security needs of consent, an untrusted application
-   (e.g., JavaScript or signaling servers) MUST NOT be able to obtain or
+   (e.g., JavaScript or signaling servers) <em>MUST NOT</em> be able to obtain or
    control the STUN transaction identifier, because that enables
    spoofing of STUN responses, falsifying consent.
 
    To prevent attacks on the peer during ICE restart, an endpoint that
    continues to send traffic on the previously validated candidate pair
-   during ICE restart MUST continue to perform consent freshness on that
+   during ICE restart <em>MUST</em> continue to perform consent freshness on that
    candidate pair as described earlier.
 
    While TCP affords some protection from off-path attackers ([<a href="./rfc5961.html" title="&quot;Improving TCP's Robustness to Blind In-Window Attacks&quot;">RFC5961</a>],
    [<a href="./rfc4953.html" title="&quot;Defending TCP Against Spoofing Attacks&quot;">RFC4953</a>]), there is still a risk an attacker could cause a TCP
    sender to send forever by spoofing ACKs.  To prevent such an attack,
-   consent checks MUST be performed over all transport connections,
+   consent checks <em>MUST</em> be performed over all transport connections,
    including TCP.  In this way, an off-path attacker spoofing TCP
    segments cannot cause a TCP sender to send once the consent timer
    expires (30 seconds).
 
    An endpoint does not need to maintain consent if it does not send
-   application data.  However, an endpoint MUST regain consent before it
+   application data.  However, an endpoint <em>MUST</em> regain consent before it
    resumes sending application data.  In the absence of any packets, any
    bindings in middleboxes for the flow might expire.  Furthermore,
    having one peer unable to send is detrimental to many protocols.
@@ -506,7 +506,7 @@ Table of Contents
    using keepalive or other techniques (see <a href="./rfc5245.html#section-10">Section&nbsp;10 of [RFC5245]</a> and
    see [<a href="./rfc6263.html" title="&quot;Application Mechanism for Keeping Alive the NAT Mappings Associated with RTP / RTP Control Protocol (RTCP) Flows&quot;">RFC6263</a>]).
 
-   After consent is lost, the same ICE credentials MUST NOT be used on
+   After consent is lost, the same ICE credentials <em>MUST NOT</em> be used on
    the affected 5-tuple again.  That means that a new session, or an ICE
    restart, is needed to obtain consent to send on the affected
    candidate pair.
@@ -534,7 +534,7 @@ Table of Contents
 
    Receipt of an unauthenticated message that closes a connection (e.g.,
    TCP FIN) does not indicate revocation of consent.  Thus, an endpoint
-   receiving an unauthenticated end-of-session message SHOULD continue
+   receiving an unauthenticated end-of-session message <em>SHOULD</em> continue
    sending media (over connectionless transport) or attempt to
    re-establish the connection (over connection-oriented transport)
    until consent expires or it receives an authenticated message
@@ -546,7 +546,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  DiffServ Treatment for Consent</span>
 
-   It is RECOMMENDED that STUN consent checks use the same Diffserv
+   It is <em>RECOMMENDED</em> that STUN consent checks use the same Diffserv
    Codepoint markings as the ICE connectivity checks described in
    <a href="./rfc5245.html#section-7.1.2.4">Section&nbsp;7.1.2.4 of [RFC5245]</a> for a given 5-tuple.
 

@@ -226,7 +226,7 @@ Abstract
    bit indicates in a response that all data included in the answer and
    authority sections of the response have been authenticated by the
    server according to the policies of that server.  This is not
-   especially useful in practice, since a conformant server SHOULD never
+   especially useful in practice, since a conformant server <em>SHOULD</em> never
    reply with data that failed its security policy.
 
    This document redefines the AD bit such that it is only set if all
@@ -259,15 +259,15 @@ Abstract
    The application in this context can be either a human using a DNS
    tool or a software application.
 
-   The AD bit SHOULD be used by the local resolver if and only if it has
+   The AD bit <em>SHOULD</em> be used by the local resolver if and only if it has
    been explicitly configured to trust the remote resolver.  The AD bit
-   SHOULD be ignored when the recursive name server is not trusted.
+   <em>SHOULD</em> be ignored when the recursive name server is not trusted.
 
    An alternate solution would be to embed a full DNSSEC resolver into
    every application, but this has several disadvantages.
 
    -  DNSSEC validation is both CPU and network intensive, and caching
-      SHOULD be used whenever possible.
+      <em>SHOULD</em> be used whenever possible.
 
    -  DNSSEC requires non-trivial configuration - the root key must be
       configured, as well as keys for any "islands of security" that
@@ -276,8 +276,8 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Requirements</span>
 
-   The key words "MAY", "MAY NOT" "MUST", "MUST NOT", "SHOULD", "SHOULD
-   NOT", "RECOMMENDED", in this document are to be interpreted as
+   The key words "<em>MAY</em>", "<em>MAY</em> NOT" "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHOULD</em>", "<em>SHOULD</em>
+   NOT", "<em>RECOMMENDED</em>", in this document are to be interpreted as
    described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  Updated documents and sections</span>
@@ -288,7 +288,7 @@ Abstract
 
    The presence of the CD (Checking Disabled) bit in a query does not
    affect the setting of the AD bit in the response.  If the CD bit is
-   set, the server will not perform checking, but SHOULD still set the
+   set, the server will not perform checking, but <em>SHOULD</em> still set the
    AD bit if the data has already been cryptographically verified or
 
 
@@ -300,7 +300,7 @@ Abstract
 <span class="grey"><a href="./rfc3655.html">RFC 3655</a>               Redefinition of DNS AD bit          November 2003</span>
 
 
-   complies with local policy.  The AD bit MUST only be set if DNSSEC
+   complies with local policy.  The AD bit <em>MUST</em> only be set if DNSSEC
    records have been requested via the DO bit [<a href="./rfc3225.html" title="&quot;Indicating Resolver Support of DNSSEC&quot;">RFC3225</a>] and relevant SIG
    records are returned.
 
@@ -308,16 +308,16 @@ Abstract
 
    <a href="./rfc2535.html#section-6.1">Section&nbsp;6.1 of RFC 2535</a> says:
 
-   "The AD bit MUST NOT be set on a response unless all of the RRs in
+   "The AD bit <em>MUST NOT</em> be set on a response unless all of the RRs in
    the answer and authority sections of the response are either
    Authenticated or Insecure."
 
    The replacement text reads:
 
-   "The AD bit MUST NOT be set on a response unless all of the RRsets in
+   "The AD bit <em>MUST NOT</em> be set on a response unless all of the RRsets in
    the answer and authority sections of the response are Authenticated."
 
-   "The AD bit SHOULD be set if and only if all RRs in the answer
+   "The AD bit <em>SHOULD</em> be set if and only if all RRs in the answer
    section and any relevant negative response RRs in the authority
    section are Authenticated."
 
@@ -327,13 +327,13 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Setting of AD bit by authoritative servers</span>
 
-   A primary server for a secure zone MAY have the policy of treating
-   authoritative secure zones as Authenticated.  Secondary servers MAY
-   have the same policy, but SHOULD NOT consider zone data Authenticated
+   A primary server for a secure zone <em>MAY</em> have the policy of treating
+   authoritative secure zones as Authenticated.  Secondary servers <em>MAY</em>
+   have the same policy, but <em>SHOULD NOT</em> consider zone data Authenticated
    unless the zone was transferred securely and/or the data was
-   verified.  An authoritative server MUST only set the AD bit for
+   verified.  An authoritative server <em>MUST</em> only set the AD bit for
    authoritative answers from a secure zone if it has been explicitly
-   configured to do so.  The default for this behavior SHOULD be off.
+   configured to do so.  The default for this behavior <em>SHOULD</em> be off.
 
    Note that having the AD bit clear on an authoritative answer is
    normal and expected behavior.
@@ -343,7 +343,7 @@ Abstract
    The setting of the AD bit by authoritative servers affects only the
    small set of resolvers that are configured to directly query and
    trust authoritative servers.  This only affects servers that function
-   as both recursive and authoritative.  Iterative resolvers SHOULD
+   as both recursive and authoritative.  Iterative resolvers <em>SHOULD</em>
    ignore the AD bit.
 
    The cost of verifying all signatures on load by an authoritative
@@ -369,11 +369,11 @@ Abstract
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Interpretation of the AD bit</span>
 
    A response containing data marked Insecure in the answer or authority
-   section MUST never have the AD bit set.  In this case, the resolver
-   SHOULD treat the data as Insecure whether or not SIG records are
+   section <em>MUST</em> never have the AD bit set.  In this case, the resolver
+   <em>SHOULD</em> treat the data as Insecure whether or not SIG records are
    present.
 
-   A resolver MUST NOT blindly trust the AD bit unless it communicates
+   A resolver <em>MUST NOT</em> blindly trust the AD bit unless it communicates
    with a recursive nameserver over a secure transport mechanism or
    using a message authentication such as TSIG [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>] or SIG(0)
    [<a href="./rfc2931.html" title="&quot;DNS Request and Transaction Signatures (SIG(0))&quot;">RFC2931</a>] and is explicitly configured to trust this recursive name
@@ -383,7 +383,7 @@ Abstract
 
    The AD bit is intended to allow the transmission of the indication
    that a resolver has verified the DNSSEC signatures accompanying the
-   records in the Answer and Authority section.  The AD bit MUST only be
+   records in the Answer and Authority section.  The AD bit <em>MUST</em> only be
    trusted when the end consumer of the DNS data has confidence that the
    intermediary resolver setting the AD bit is trustworthy.  This can
    only be accomplished via an out of band mechanism such as:
@@ -400,7 +400,7 @@ Abstract
       recursive nameserver is trustworthy.
 
    In the absence of one or more of these factors AD bit from a
-   recursive name server SHOULD NOT be trusted.  For example, home users
+   recursive name server <em>SHOULD NOT</em> be trusted.  For example, home users
    frequently depend on their ISP to provide recursive DNS service; it
 
 
@@ -413,7 +413,7 @@ Abstract
 
 
    is not advisable to trust these recursive nameservers.  A
-   roaming/traveling host SHOULD not use recursive DNS servers offered
+   roaming/traveling host <em>SHOULD</em> not use recursive DNS servers offered
    by DHCP when looking up information where security status matters.
 
    In the latter two cases, the end consumer must also completely trust
@@ -421,7 +421,7 @@ Abstract
    must be employed to protect the traffic.
 
    When faced with a situation where there are no satisfactory recursive
-   nameservers available, running one locally is RECOMMENDED.  This has
+   nameservers available, running one locally is <em>RECOMMENDED</em>.  This has
    the advantage that it can be trusted, and the AD bit can still be
    used to allow applications to use stub resolvers.
 
@@ -433,17 +433,17 @@ Abstract
    supporting the DO bit [<a href="./rfc3225.html" title="&quot;Indicating Resolver Support of DNSSEC&quot;">RFC3225</a>].
 
    Authoritative servers can be explicitly configured to set the AD bit
-   on answers without doing cryptographic checks.  This behavior MUST be
+   on answers without doing cryptographic checks.  This behavior <em>MUST</em> be
    off by default.  The only affected resolvers are those that directly
    query and trust the authoritative server, and this functionality
-   SHOULD only be used on servers that act both as authoritative and
+   <em>SHOULD</em> only be used on servers that act both as authoritative and
    recursive name servers.
 
    Resolvers (full or stub) that blindly trust the AD bit without
    knowing the security policy of the server generating the answer can
    not be considered security aware.
 
-   A resolver MUST NOT blindly trust the AD bit unless it communicates
+   A resolver <em>MUST NOT</em> blindly trust the AD bit unless it communicates
    such as IPsec, or using message authentication such as TSIG [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>]
    or SIG(0) [<a href="./rfc2931.html" title="&quot;DNS Request and Transaction Signatures (SIG(0))&quot;">RFC2931</a>].  In addition, the resolver must have been
    explicitly configured to trust this recursive name server.

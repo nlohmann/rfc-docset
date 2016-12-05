@@ -329,7 +329,7 @@ Table of Contents
    layer session, rather than classic IPv6.  This last function is
    particularly important for ensuring that ILNP is both incrementally
    deployable and backwards compatible with IPv6.  Consequently, this
-   option MUST NOT be used except by an ILNPv6-capable node.
+   option <em>MUST NOT</em> be used except by an ILNPv6-capable node.
 
    Further, each Nonce value is unidirectional.  Since packets often
    travel asymmetric paths between two correspondents, having separate
@@ -414,8 +414,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Syntax</span>
@@ -429,9 +429,9 @@ Table of Contents
    packet.
 
    A system that receives a packet containing more than one Nonce Option
-   SHOULD discard the packet as "Authentication Failed" (instead of
+   <em>SHOULD</em> discard the packet as "Authentication Failed" (instead of
    passing the packet up to the appropriate transport-layer protocol or
-   to ICMP) and SHOULD log the event, including the Source Locator,
+   to ICMP) and <em>SHOULD</em> log the event, including the Source Locator,
    Source Identifier, Destination Locator, Destination Identifier,
    upper-layer protocol (e.g., OSPF, TCP, UDP) if any, and transport-
    layer port numbers (if any), as a security fault in accordance with
@@ -443,8 +443,8 @@ Table of Contents
    be the only IPv6 Destination Option present in a given IPv6 packet.
    If a Common Architecture Label IPv6 Security Option (CALIPSO) label
    option [<a href="./rfc5570.html" title="&quot;Common Architecture Label IPv6 Security Option (CALIPSO)&quot;">RFC5570</a>] is also present in the same IPv6 Destination Options
-   header, the CALIPSO Option SHOULD precede the Nonce Option.  The
-   Nonce Option SHOULD precede other possible options in the same IPv6
+   header, the CALIPSO Option <em>SHOULD</em> precede the Nonce Option.  The
+   Nonce Option <em>SHOULD</em> precede other possible options in the same IPv6
    Destination Options header.
 
    In the diagram below, we show not only the Nonce Option but also the
@@ -493,8 +493,8 @@ Table of Contents
                       ILNP session.  This field has variable length,
                       with the length indicated by the Option Length
                       field preceding it.  Note that the overall IPv6
-                      IPv6 Destination Option MUST comply with IPv6
-                      header alignment rules.  Implementations MUST
+                      IPv6 Destination Option <em>MUST</em> comply with IPv6
+                      header alignment rules.  Implementations <em>MUST</em>
                       support sending and receiving 32-bit and 96-bit
                       Nonce values.
 
@@ -506,7 +506,7 @@ Table of Contents
    discussed in more detail in <a href="#section-6">Section 6</a> below.)
 
    When a network-layer session is using ILNPv6, the transport-layer
-   pseudo-header calculations MUST set to zero the high-order 64-bits
+   pseudo-header calculations <em>MUST</em> set to zero the high-order 64-bits
    ("Locator" or "Routing Prefix") of each IPv6 address.  This has the
    effect that the transport-layer is no longer aware of the topological
    network location of either node in that transport-layer session.
@@ -527,13 +527,13 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Location Changes</span>
 
    When a node has a change in its Locator set that causes all
-   previously valid Locators to become invalid, the node MUST send an
+   previously valid Locators to become invalid, the node <em>MUST</em> send an
    ICMP Locator Update message (containing the Nonce Option with the
    appropriate nonce value) to each of its correspondents [<a href="./rfc6740.html" title="&quot;Identifier-Locator Network Protocol (ILNP) Architectural Description&quot;">RFC6740</a>]
    [<a href="./rfc6743.html" title="&quot;ICMPv6 Locator Update Message&quot;">RFC6743</a>].
 
    In the deployed Internet, packets sometimes arrive at a destination
-   out of order.  A receiving node MUST drop a packet arriving from a
+   out of order.  A receiving node <em>MUST</em> drop a packet arriving from a
    correspondent if the Source Locator of the received packet is not in
    the receiving node's Identifier-Locator Communication Cache's
    (ILCC's) Set of Correspondent Locators UNLESS that packet contains a
@@ -543,7 +543,7 @@ Table of Contents
    attacks.
 
    Hence, the node that has had all previously valid Locators become
-   invalid MUST include the Nonce Option with the appropriate nonce
+   invalid <em>MUST</em> include the Nonce Option with the appropriate nonce
    value in all packets (data or otherwise) to all correspondents for at
    least three round-trip times (RTTs) for each correspondent.  (N.B. An
    implementation need not actually calculate RTT values; it could just
@@ -552,7 +552,7 @@ Table of Contents
    that the correspondent can authenticate any received packet, even if
    the ICMP Locator Update control message arrives and is processed
    AFTER some other packet using the new Source Locator(s).  If an ILNP
-   session is using IPsec, then, of course, IPsec SHOULD continue to be
+   session is using IPsec, then, of course, IPsec <em>SHOULD</em> continue to be
    used even if one or more participating nodes change location.
    Because IP Security for ILNP [<a href="./rfc6741.html" title="&quot;Identifier-Locator Network Protocol (ILNP) Engineering and Implementation Considerations&quot;">RFC6741</a>] binds only to the Identifiers,
    and not to the Locators in the packet, changes in Locator value have
@@ -609,8 +609,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.3" href="#section-5.3">5.3</a>.  IP Security</span>
 
-   Whether or not ILNP is in use, the IPsec subsystem MUST maintain an
-   IPsec Security Association Database (SAD) and MUST maintain
+   Whether or not ILNP is in use, the IPsec subsystem <em>MUST</em> maintain an
+   IPsec Security Association Database (SAD) and <em>MUST</em> maintain
    information about which IPsec Selectors apply to traffic received by
    or sent from the local node [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>].  By combining the information
    in the IPsec SAD, of what IPsec Selectors apply, and the information
@@ -619,15 +619,15 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Backwards Compatibility</span>
 
-   This option MUST NOT be present in an IPv6 packet unless the packet
+   This option <em>MUST NOT</em> be present in an IPv6 packet unless the packet
    is part of an ILNPv6 session.  As is explained below in more detail,
    the presence or absence of this option from the initial packets of a
    new IPv6 session is an important indication of whether the session is
    using classic IPv6 or ILNPv6.
 
-   ILNPv6 nodes MUST include this option in the first few packets of
-   each ILNPv6 session, MUST include this option in all ICMP messages
-   generated by endpoints participating in an ILNPv6 session, and MAY
+   ILNPv6 nodes <em>MUST</em> include this option in the first few packets of
+   each ILNPv6 session, <em>MUST</em> include this option in all ICMP messages
+   generated by endpoints participating in an ILNPv6 session, and <em>MAY</em>
 
 
 
@@ -642,7 +642,7 @@ Table of Contents
    much higher than normal.
 
    If a node supports ILNP and the node wishes to be able to receive
-   incoming new ILNP sessions, then that node's FQDN SHOULD have one or
+   incoming new ILNP sessions, then that node's FQDN <em>SHOULD</em> have one or
    more Node Identifier (NID) records and also one or more Locator
    (e.g., L64 or LP) records associated with it in the DNS [<a href="./rfc6742.html" title="&quot;DNS Resource Records for the Identifier-Locator Network Protocol (ILNP)&quot;">RFC6742</a>].
 
@@ -650,18 +650,18 @@ Table of Contents
    correspondent ("responder"), it normally will perform a DNS lookup to
    determine the address(es) of the responder.  A host that has been
    enhanced to support the Identifier/Locator Split operating mode
-   SHOULD look for Node Identifier ("NID") and Locator ("L64") records
+   <em>SHOULD</em> look for Node Identifier ("NID") and Locator ("L64") records
    in any received DNS replies.  DNS servers that support Identifier and
    Locator (i.e., L64 or LP) records might include them (when they
    exist) as additional data in all DNS replies to DNS queries for DNS A
    or AAAA records associated with a specified DNS FQDN.
 
    If the initiator supports ILNP, and from DNS data learns that the
-   responder also supports ILNP, then the initiator SHOULD attempt to
+   responder also supports ILNP, then the initiator <em>SHOULD</em> attempt to
    use ILNP for new sessions with that responder.  In such cases, the
-   initiator MUST generate an unpredictable, cryptographically random,
-   ILNP Nonce value, MUST store that ILNP Nonce value in the local ILCC,
-   and MUST include the ILNP Nonce Destination Option in its initial
+   initiator <em>MUST</em> generate an unpredictable, cryptographically random,
+   ILNP Nonce value, <em>MUST</em> store that ILNP Nonce value in the local ILCC,
+   and <em>MUST</em> include the ILNP Nonce Destination Option in its initial
    packet(s) to the responder.  The IETF has provided advice on
    generating cryptographically random numbers, such as this nonce value
    [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].
@@ -677,8 +677,8 @@ Table of Contents
    use classic IPv6 for this new IP session.
 
    If the responder does not support ILNP and receives initial packet(s)
-   containing the ILNP Nonce Destination Option, the responder MUST drop
-   the packet and MUST send an ICMP "Parameter Problem" error message
+   containing the ILNP Nonce Destination Option, the responder <em>MUST</em> drop
+   the packet and <em>MUST</em> send an ICMP "Parameter Problem" error message
    back to the initiator [<a href="./rfc4443.html" title="&quot;Internet Control Message Protocol (ICMPv6) for the Internet Protocol Version 6 (IPv6) Specification&quot;">RFC4443</a>].  Indeed, it is not expected that
    this behaviour will need to be coded into non-ILNP nodes, as this is
    the normal behaviour for nodes receiving unknown option headers.
@@ -699,14 +699,14 @@ Table of Contents
    message for that packet, then the initiator infers that the responder
    is not able to support ILNP.  In this case, the initiator should try
    again to create the new IP session, but this time use classic IPv6
-   and hence MUST NOT include the ILNP Nonce Destination Option.
+   and hence <em>MUST NOT</em> include the ILNP Nonce Destination Option.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Security Considerations</span>
 
    The ILNPv6 Nonce Destination Option is used ONLY for ILNPv6 sessions,
    because this option is part of the backwards compatibility and
    incremental-deployment approach for the Identifier-Locator Network
-   Protocol (ILNP).  This option MUST NOT be used with classic IPv6
+   Protocol (ILNP).  This option <em>MUST NOT</em> be used with classic IPv6
    sessions.
 
    The ILNPv6 Nonce Destination Option only seeks to provide protection
@@ -716,7 +716,7 @@ Table of Contents
    protection for ILNP sessions, protection equivalent to the security
    of IP sessions that do NOT use IPsec.
 
-   When ILNPv6 is in use, the ILNP Nonce Destination Option MUST be
+   When ILNPv6 is in use, the ILNP Nonce Destination Option <em>MUST</em> be
    included in any ICMP control messages (e.g., ICMP Unreachable, ICMP
    Locator Update) sent by participants in that ILNPv6 session, even if
    IPsec also is in use for that ILNPv6 session.  Note that certain ICMP
@@ -728,7 +728,7 @@ Table of Contents
 
    For ILNPv6 sessions, any ICMP control messages received from a
    participant in that ILNPv6 session that lack a Nonce Destination
-   Option MUST be discarded as forgeries.  This security event SHOULD be
+   Option <em>MUST</em> be discarded as forgeries.  This security event <em>SHOULD</em> be
    logged in accordance with local security logging policies, including
    details of the received packet (i.e., Source Locator, Source
    Identifier, Destination Locator, Destination Identifier, upper-layer
@@ -738,8 +738,8 @@ Table of Contents
    For ILNPv6 sessions, ICMP control messages received from a
    participant in that ILNPv6 session that have a Nonce Destination
    Option, but do NOT have the correct nonce value inside the Nonce
-   Destination Option, MUST be discarded as forgeries.  This security
-   event SHOULD be logged as described above.
+   Destination Option, <em>MUST</em> be discarded as forgeries.  This security
+   event <em>SHOULD</em> be logged as described above.
 
 
 
@@ -750,7 +750,7 @@ Table of Contents
 
    Of course, longer nonce values provide greater resistance to random
    guessing of the nonce value.  However, ILNPv6 sessions operating in
-   higher risk environments SHOULD also use the cryptographic
+   higher risk environments <em>SHOULD</em> also use the cryptographic
    authentication provided by IP Security for ILNP [<a href="./rfc6741.html" title="&quot;Identifier-Locator Network Protocol (ILNP) Engineering and Implementation Considerations&quot;">RFC6741</a>] [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>].
    Use of IP Security for ILNP for an ILNPv6 session does not eliminate
    the need for the ILNPv6 Nonce Option to be included as described here
@@ -770,15 +770,15 @@ Table of Contents
    channel bandwidth potential created by the Nonce Option and to
    prevent a node at one Sensitivity Level from attacking an ILNP
    session at a different Sensitivity Level [<a href="./rfc5570.html" title="&quot;Common Architecture Label IPv6 Security Option (CALIPSO)&quot;">RFC5570</a>].  Further, Multi-
-   Level Secure (MLS) systems SHOULD use different nonce values for ILNP
+   Level Secure (MLS) systems <em>SHOULD</em> use different nonce values for ILNP
    sessions having different Sensitivity Levels [<a href="./rfc5570.html" title="&quot;Common Architecture Label IPv6 Security Option (CALIPSO)&quot;">RFC5570</a>].  Also, an MLS
    implementation of ILNP will also store the Sensitivity Label
    information associated with each ILNP session in the implementation's
    ILCC.  When the Nonce Option and the CALIPSO Option are present in
-   the same IPv6 Destination Options header, the CALIPSO Option SHOULD
+   the same IPv6 Destination Options header, the CALIPSO Option <em>SHOULD</em>
    appear before the Nonce Option.
 
-   In all cases, the ILNP Nonce Value MUST be unpredictable and
+   In all cases, the ILNP Nonce Value <em>MUST</em> be unpredictable and
    cryptographically random.  [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>] provides concrete advice on how
    to generate a suitable nonce value.
 
@@ -814,11 +814,11 @@ Table of Contents
    Consistent with the procedures of [<a href="./rfc2780.html" title="&quot;IANA Allocation Guidelines For Values In the Internet Protocol and Related Headers&quot;">RFC2780</a>], IANA has assigned a new
    IPv6 Destination Option Type value of 0x8B.
 
-   The Nonce Option MUST NOT change in transit and MUST be included in
+   The Nonce Option <em>MUST NOT</em> change in transit and <em>MUST</em> be included in
    IP Authentication Header calculations.
 
    Further, if an end system receives an IPv6 packet containing this
-   option, but does not recognise this option, the end system MUST
+   option, but does not recognise this option, the end system <em>MUST</em>
    discard the packet and, regardless of whether or not the received
    packet's Destination Address was a multicast address, send an ICMPv6
    Parameter Problem, Code 2 ("Unrecognised IPv6 Option Encountered"),

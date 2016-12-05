@@ -454,7 +454,7 @@ Table of Contents
    Connect Discovery (OIDCD) [<a href="#ref-OpenID.Discovery">OpenID.Discovery</a>] or WebFinger using host-
    meta [<a href="./rfc7033.html" title="&quot;WebFinger&quot;">RFC7033</a>].  Once credentials are obtained, the client proceeds
    to steps (E) and (F) defined in this specification.  Authorization
-   endpoints MAY require client registration, and generic clients SHOULD
+   endpoints <em>MAY</em> require client registration, and generic clients <em>SHOULD</em>
    support the Dynamic Client Registration protocol [<a href="./rfc7591.html" title="&quot;OAuth 2.0 Dynamic Client Registration Protocol&quot;">RFC7591</a>].
 
    OAuth 1.0a follows a similar model but uses a different terminology
@@ -463,9 +463,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The reader is assumed to be familiar with the terms used in the OAuth
@@ -512,9 +512,9 @@ Table of Contents
    or confidentiality protection for application messages after the
    initial authentication.  If such protection is needed, TLS or some
    similar solution should be used.  Additionally, for the two
-   mechanisms specified in this document, TLS MUST be used for
+   mechanisms specified in this document, TLS <em>MUST</em> be used for
    OAUTHBEARER to protect the bearer token; for OAUTH10A, the use of TLS
-   is RECOMMENDED.
+   is <em>RECOMMENDED</em>.
 
    These mechanisms are client initiated and in lockstep, with the
    server always replying to a client message.  In the case where the
@@ -525,7 +525,7 @@ Table of Contents
    2.  Server responds with a successful authentication.
 
    In the case where authentication fails, the server sends an error
-   result; the client MUST then send an additional message to the server
+   result; the client <em>MUST</em> then send an additional message to the server
    in order to allow the server to finish the exchange.  Some protocols
    and common SASL implementations do not support both sending a SASL
 
@@ -555,7 +555,7 @@ Table of Contents
    is formally defined, but this document does not define one.  The key/
    value pairs take the place of the corresponding HTTP headers and
    values to convey the information necessary to complete an OAuth-style
-   HTTP authorization.  Unknown key/value pairs MUST be ignored by the
+   HTTP authorization.  Unknown key/value pairs <em>MUST</em> be ignored by the
    server.  The ABNF [<a href="./rfc5234.html" title="&quot;Augmented BNF for Syntax Specifications: ABNF&quot;">RFC5234</a>] syntax is:
 
      kvsep          = %x01
@@ -565,21 +565,21 @@ Table of Contents
    ;;gs2-header     = See <a href="./rfc5801.html">RFC 5801</a>
      client-resp    = (gs2-header kvsep *kvpair kvsep) / kvsep
 
-   The GS2 header MAY include the username associated with the resource
+   The GS2 header <em>MAY</em> include the username associated with the resource
    being accessed, the "authzid".  It is worth noting that application
    protocols are allowed to require an authzid, as are specific server
    implementations.
 
    The client response consisting of only a single kvsep is used only
    when authentication fails and is only valid in that context.  If sent
-   as the first message from the client, the server MAY simply fail the
+   as the first message from the client, the server <em>MAY</em> simply fail the
    authentication without returning discovery information since there is
    no user or server name indication.
 
    The following keys and corresponding values are defined in the client
    response:
 
-      auth (REQUIRED):  The payload that would be in the HTTP
+      auth (<em>REQUIRED</em>):  The payload that would be in the HTTP
          Authorization header if this OAuth exchange was being carried
          out over HTTP.
 
@@ -600,8 +600,8 @@ Table of Contents
          leading zeros.
 
    For OAuth token types such as OAuth 1.0a that use keyed message
-   digests, the client MUST send host and port number key/values, and
-   the server MUST fail an authorization request requiring keyed message
+   digests, the client <em>MUST</em> send host and port number key/values, and
+   the server <em>MUST</em> fail an authorization request requiring keyed message
    digests that are not accompanied by host and port values.  In OAuth
    1.0a, for example, the so-called "signature base string calculation"
    includes the reconstructed HTTP URL.
@@ -609,10 +609,10 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.1.1" href="#section-3.1.1">3.1.1</a>.  Reserved Key/Values</span>
 
    In these mechanisms, values for path, query string and post body are
-   assigned default values.  OAuth authorization schemes MAY define
+   assigned default values.  OAuth authorization schemes <em>MAY</em> define
    usage of these in the SASL context and extend this specification.
    For OAuth Access Token Types that include a keyed message digest of
-   the request, the default values MUST be used unless explicit values
+   the request, the default values <em>MUST</em> be used unless explicit values
    are provided in the client response.  The following key values are
    reserved for future use:
 
@@ -650,7 +650,7 @@ Table of Contents
 
    port) that correspond to values known to the application server by
    some other mechanism (such as an application protocol data unit or
-   preconfigured values) MUST be validated to match between the initial
+   preconfigured values) <em>MUST</em> be validated to match between the initial
    client response and the other source(s) of such information.  As a
    concrete example, when SASL is used over IMAP to an IMAP server for a
    single domain, the hostname can be available via configuration; this
@@ -685,17 +685,17 @@ Table of Contents
    JSON [<a href="./rfc7159.html" title="&quot;The JavaScript Object Notation (JSON) Data Interchange Format&quot;">RFC7159</a>] format and fails the authentication.  The error result
    consists of the following values:
 
-      status (REQUIRED):  The authorization error code.  Valid error
+      status (<em>REQUIRED</em>):  The authorization error code.  Valid error
          codes are defined in the IANA "OAuth Extensions Error Registry"
          as specified in the OAuth 2.0 core specification.
 
-      scope (OPTIONAL):  An OAuth scope that is valid to access the
+      scope (<em>OPTIONAL</em>):  An OAuth scope that is valid to access the
          service.  This may be omitted, which implies that unscoped
          tokens are required.  If a scope is specified, then a single
          scope is preferred.  At the time this document was written,
          there are several implementations that do not properly support
          space-separated lists of scopes, so the use of a space-
-         separated list of scopes is NOT RECOMMENDED.
+         separated list of scopes is NOT <em>RECOMMENDED</em>.
 
 
 
@@ -704,31 +704,31 @@ Table of Contents
 <span class="grey"><a href="./rfc7628.html">RFC 7628</a>                       SASL OAuth                    August 2015</span>
 
 
-      openid-configuration (OPTIONAL):  The URL for a document following
+      openid-configuration (<em>OPTIONAL</em>):  The URL for a document following
          the OpenID Provider Configuration Information schema as
          described in OIDCD [<a href="#ref-OpenID.Discovery">OpenID.Discovery</a>], Section 3 that is
          appropriate for the user.  As specified in OIDCD, this will
-         have the "https" URL scheme.  This document MUST have all
-         OAuth-related data elements populated.  The server MAY return
+         have the "https" URL scheme.  This document <em>MUST</em> have all
+         OAuth-related data elements populated.  The server <em>MAY</em> return
          different URLs for users in different domains, and the client
-         SHOULD NOT cache a single returned value and assume it applies
+         <em>SHOULD NOT</em> cache a single returned value and assume it applies
          for all users/domains that the server supports.  The returned
-         discovery document SHOULD have all data elements required by
+         discovery document <em>SHOULD</em> have all data elements required by
          the OpenID Connect Discovery specification populated.  In
-         addition, the discovery document SHOULD contain the
+         addition, the discovery document <em>SHOULD</em> contain the
          'registration_endpoint' element to identify the endpoint to be
          used with the Dynamic Client Registration protocol [<a href="./rfc7591.html" title="&quot;OAuth 2.0 Dynamic Client Registration Protocol&quot;">RFC7591</a>] to
          obtain the minimum number of parameters necessary for the OAuth
          protocol exchange to function.  Another comparable discovery or
-         client registration mechanism MAY be used if available.
+         client registration mechanism <em>MAY</em> be used if available.
 
          The use of the 'offline_access' scope, as defined in
-         [<a href="#ref-OpenID.Core">OpenID.Core</a>], is RECOMMENDED to give clients the capability to
+         [<a href="#ref-OpenID.Core">OpenID.Core</a>], is <em>RECOMMENDED</em> to give clients the capability to
          explicitly request a refresh token.
 
-   If the resource server provides a scope, then the client MUST always
+   If the resource server provides a scope, then the client <em>MUST</em> always
    request scoped tokens from the token endpoint.  If the resource
-   server does not return a scope, the client SHOULD presume an unscoped
+   server does not return a scope, the client <em>SHOULD</em> presume an unscoped
    token is required to access the resource.
 
    Since clients may interact with a number of application servers, such
@@ -745,7 +745,7 @@ Table of Contents
 
    <a href="#section-3.6">Section 3.6</a> of SASL [<a href="./rfc4422.html" title="&quot;Simple Authentication and Security Layer (SASL)&quot;">RFC4422</a>] explicitly prohibits additional
    information in an unsuccessful authentication outcome.  Therefore,
-   the error message is sent in a normal message.  The client MUST then
+   the error message is sent in a normal message.  The client <em>MUST</em> then
    send either an additional client response consisting of a single %x01
    (control A) character to the server in order to allow the server to
    finish the exchange or a SASL abort message as generally defined in
@@ -829,7 +829,7 @@ Table of Contents
    servers.  All IMAP examples use SASL-IR [<a href="./rfc4959.html" title="&quot;IMAP Extension for Simple Authentication and Security Layer (SASL) Initial Client Response&quot;">RFC4959</a>] and send payload in
    the initial client response.  The bearer token examples assume
    encrypted transport; if the underlying connection is not already TLS,
-   then STARTTLS MUST be used as TLS is required in the bearer token
+   then STARTTLS <em>MUST</em> be used as TLS is required in the bearer token
    specification.
 
    Note to implementers: The SASL OAuth method names are case
@@ -1070,7 +1070,7 @@ S: 535 5.7.1 http://support.example.com/mail/oauth
       [<a href="./rfc6750.html" title="&quot;The OAuth 2.0 Authorization Framework: Bearer Token Usage&quot;">RFC6750</a>].  It relies on the application using TLS to protect the
       OAuth 2.0 bearer token exchange; without TLS usage at the
       application layer, this method is completely insecure.
-      Consequently, TLS MUST be provided by the application when
+      Consequently, TLS <em>MUST</em> be provided by the application when
       choosing this authentication mechanism.
 
    OAUTH10A:  This mechanism reuses OAuth 1.0a MAC tokens (using the
@@ -1080,7 +1080,7 @@ S: 535 5.7.1 http://support.example.com/mail/oauth
       between the client and the server.  This SASL mechanism only
       supports client authentication.  If server-side authentication is
       desirable, then it must be provided by the application underneath
-      the SASL layer.  The use of TLS is strongly RECOMMENDED.
+      the SASL layer.  The use of TLS is strongly <em>RECOMMENDED</em>.
 
 
 
@@ -1122,9 +1122,9 @@ S: 535 5.7.1 http://support.example.com/mail/oauth
       benefits, and OAuth 2.0 introduces refresh tokens to obtain new
       access tokens on the fly without any need for human interaction.
       Additionally, a previously obtained access token might be revoked
-      or rendered invalid at any time.  The client MAY request a new
+      or rendered invalid at any time.  The client <em>MAY</em> request a new
       access token for each connection to a resource server, but it
-      SHOULD cache and reuse valid credentials.
+      <em>SHOULD</em> cache and reuse valid credentials.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Internationalization Considerations</span>
 

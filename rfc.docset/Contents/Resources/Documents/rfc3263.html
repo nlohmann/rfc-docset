@@ -416,9 +416,9 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a> Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-4" title="&quot;Key Words for Use in RFCs to Indicate Requirement Levels&quot;">4</a>] and
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-4" title="&quot;Key Words for Use in RFCs to Indicate Requirement Levels&quot;">4</a>] and
    indicate requirement levels for compliant SIP implementations.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a> Client Usage</span>
@@ -449,12 +449,12 @@ Table of Contents
    determine the IP address, port, and transport of the host to which
    the request is to be sent.
 
-   The procedures here MUST be done exactly once per transaction, where
+   The procedures here <em>MUST</em> be done exactly once per transaction, where
    transaction is as defined in [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>].  That is, once a SIP server has
    successfully been contacted (success is defined below), all
    retransmissions of the SIP request and the ACK for non-2xx SIP
-   responses to INVITE MUST be sent to the same host.  Furthermore, a
-   CANCEL for a particular SIP request MUST be sent to the same SIP
+   responses to INVITE <em>MUST</em> be sent to the same host.  Furthermore, a
+   CANCEL for a particular SIP request <em>MUST</em> be sent to the same SIP
    server that the SIP request was delivered to.
 
    Because the ACK request for 2xx responses to INVITE constitutes a
@@ -484,23 +484,23 @@ Table of Contents
    First, the client selects a transport protocol.
 
    If the URI specifies a transport protocol in the transport parameter,
-   that transport protocol SHOULD be used.
+   that transport protocol <em>SHOULD</em> be used.
 
    Otherwise, if no transport protocol is specified, but the TARGET is a
-   numeric IP address, the client SHOULD use UDP for a SIP URI, and TCP
+   numeric IP address, the client <em>SHOULD</em> use UDP for a SIP URI, and TCP
    for a SIPS URI.  Similarly, if no transport protocol is specified,
    and the TARGET is not numeric, but an explicit port is provided, the
-   client SHOULD use UDP for a SIP URI, and TCP for a SIPS URI.  This is
+   client <em>SHOULD</em> use UDP for a SIP URI, and TCP for a SIPS URI.  This is
    because UDP is the only mandatory transport in <a href="./rfc2543.html">RFC 2543</a> [<a href="#ref-6" title="&quot;SIP: Session Initiation Protocol&quot;">6</a>], and thus
    the only one guaranteed to be interoperable for a SIP URI.  It was
    also specified as the default transport in <a href="./rfc2543.html">RFC 2543</a> when no transport
    was present in the SIP URI.  However, another transport, such as TCP,
-   MAY be used if the guidelines of SIP mandate it for this particular
+   <em>MAY</em> be used if the guidelines of SIP mandate it for this particular
    request.  That is the case, for example, for requests that exceed the
    path MTU.
 
    Otherwise, if no transport protocol or port is specified, and the
-   target is not a numeric IP address, the client SHOULD perform a NAPTR
+   target is not a numeric IP address, the client <em>SHOULD</em> perform a NAPTR
    query for the domain in the URI.  The services relevant for the task
    of transport protocol selection are those with NAPTR service fields
    with values "SIP+D2X" and "SIPS+D2X", where X is a letter that
@@ -526,11 +526,11 @@ Table of Contents
 <span class="grey"><a href="./rfc3263.html">RFC 3263</a>               SIP: Locating SIP Servers               June 2002</span>
 
 
-   First, a client resolving a SIPS URI MUST discard any services that
+   First, a client resolving a SIPS URI <em>MUST</em> discard any services that
    do not contain "SIPS" as the protocol in the service field.  The
-   converse is not true, however.  A client resolving a SIP URI SHOULD
+   converse is not true, however.  A client resolving a SIP URI <em>SHOULD</em>
    retain records with "SIPS" as the protocol, if the client supports
-   TLS.  Second, a client MUST discard any service fields that identify
+   TLS.  Second, a client <em>MUST</em> discard any service fields that identify
    a resolution service whose value is not "D2X", for values of X that
    indicate transport protocols supported by the client.  The NAPTR
    processing as described in <a href="./rfc2915.html">RFC 2915</a> will result in the discovery of
@@ -558,21 +558,21 @@ Table of Contents
        IN SRV  0        2      5060   server2.example.com
 
    If a SIP proxy, redirect server, or registrar is to be contacted
-   through the lookup of NAPTR records, there MUST be at least three
+   through the lookup of NAPTR records, there <em>MUST</em> be at least three
    records - one with a "SIP+D2T" service field, one with a "SIP+D2U"
    service field, and one with a "SIPS+D2T" service field.  The records
-   with SIPS as the protocol in the service field SHOULD be preferred
+   with SIPS as the protocol in the service field <em>SHOULD</em> be preferred
    (i.e., have a lower value of the order field) above records with SIP
    as the protocol in the service field.  A record with a "SIPS+D2U"
-   service field SHOULD NOT be placed into the DNS, since it is not
+   service field <em>SHOULD NOT</em> be placed into the DNS, since it is not
    possible to use TLS over UDP.
 
    It is not necessary for the domain suffixes in the NAPTR replacement
    field to match the domain of the original query (i.e., example.com
    above).  However, for backwards compatibility with <a href="./rfc2543.html">RFC 2543</a>, a domain
-   MUST maintain SRV records for the domain of the original query, even
+   <em>MUST</em> maintain SRV records for the domain of the original query, even
    if the NAPTR record is in a different domain.  As an example, even
-   though the SRV record for TCP is _sip._tcp.school.edu, there MUST
+   though the SRV record for TCP is _sip._tcp.school.edu, there <em>MUST</em>
    also be an SRV record at _sip._tcp.example.com.
 
 
@@ -588,10 +588,10 @@ Table of Contents
 
    For NAPTR records with SIPS protocol fields, (if the server is using
    a site certificate), the domain name in the query and the domain name
-   in the replacement field MUST both be valid based on the site
+   in the replacement field <em>MUST</em> both be valid based on the site
    certificate handed out by the server in the TLS exchange.  Similarly,
    the domain name in the SRV query and the domain name in the target in
-   the SRV record MUST both be valid based on the same site certificate.
+   the SRV record <em>MUST</em> both be valid based on the same site certificate.
    Otherwise, an attacker could modify the DNS records to contain
    replacement values in a different domain, and the client could not
    validate that this was the desired behavior or the result of an
@@ -601,7 +601,7 @@ Table of Contents
    those transport protocols it supports, and does a query for each.
    Queries are done using the service identifier "_sip" for SIP URIs and
    "_sips" for SIPS URIs.  A particular transport is supported if the
-   query is successful.  The client MAY use any transport protocol it
+   query is successful.  The client <em>MAY</em> use any transport protocol it
    desires which is supported by the server.
 
       This is a change from <a href="./rfc2543.html">RFC 2543</a>.  It specified that a client would
@@ -609,9 +609,9 @@ Table of Contents
       priority values across those records.  Then, it would choose the
       most preferred record.
 
-   If no SRV records are found, the client SHOULD use TCP for a SIPS
+   If no SRV records are found, the client <em>SHOULD</em> use TCP for a SIPS
    URI, and UDP for a SIP URI.  However, another transport protocol,
-   such as TCP, MAY be used if the guidelines of SIP mandate it for this
+   such as TCP, <em>MAY</em> be used if the guidelines of SIP mandate it for this
    particular request.  That is the case, for example, for requests that
    exceed the path MTU.
 
@@ -638,10 +638,10 @@ Table of Contents
 <span class="grey"><a href="./rfc3263.html">RFC 3263</a>               SIP: Locating SIP Servers               June 2002</span>
 
 
-   determined previously.  The client SHOULD try the first record.  If
+   determined previously.  The client <em>SHOULD</em> try the first record.  If
    an attempt should fail, based on the definition of failure in <a href="#section-4.3">Section</a>
-   <a href="#section-4.3">4.3</a>, the next SHOULD be tried, and if that should fail, the next
-   SHOULD be tried, and so on.
+   <a href="#section-4.3">4.3</a>, the next <em>SHOULD</em> be tried, and if that should fail, the next
+   <em>SHOULD</em> be tried, and so on.
 
       This is a change from <a href="./rfc2543.html">RFC 2543</a>.  Previously, if the port was
       explicit, but with a value of 5060, SRV records were used.  Now, A
@@ -684,7 +684,7 @@ Table of Contents
    Failure also occurs if the transaction layer times out without ever
    having received any response, provisional or final (i.e., timer B or
    timer F in <a href="./rfc3261.html">RFC 3261</a> [<a href="#ref-1" title="&quot;SIP: Session Initiation Protocol&quot;">1</a>] fires).  If a failure occurs, the client
-   SHOULD create a new request, which is identical to the previous, but
+   <em>SHOULD</em> create a new request, which is identical to the previous, but
 
 
 
@@ -703,7 +703,7 @@ Table of Contents
    The process of the previous sections is highly stateful.  When a
    server is contacted successfully, all retransmissions of the request
    for the transaction, as well as ACK for a non-2xx final response, and
-   CANCEL requests for that transaction, MUST go to the same server.
+   CANCEL requests for that transaction, <em>MUST</em> go to the same server.
 
    The identity of the successfully contacted server is a form of
    transaction state.  This presents a challenge for stateless proxies,
@@ -733,11 +733,11 @@ Table of Contents
    DNS queries as described above.  However, the procedures of <a href="./rfc2782.html">RFC 2782</a>
    are not guaranteed to be deterministic.  This is because records that
    contain the same priority have no specified order.  The stateless
-   proxy MUST define a deterministic order to the records in that case,
+   proxy <em>MUST</em> define a deterministic order to the records in that case,
    using any algorithm at its disposal.  One suggestion is to
    alphabetize them, or, more generally, sort them by ASCII-compatible
    encoding.  To make processing easier for stateless proxies, it is
-   RECOMMENDED that domain administrators make the weights of SRV
+   <em>RECOMMENDED</em> that domain administrators make the weights of SRV
    records with equal priority different (for example, using weights of
    1000 and 1001 if two servers are equivalent, rather than assigning
    both a weight of 1000), and similarly for NAPTR records.  If the
@@ -755,7 +755,7 @@ Table of Contents
    stateless for this transaction.  If it were stateless, a
    retransmission could very well go to a different server if the failed
    one recovers between retransmissions.  As such, whenever a proxy does
-   not successfully contact the first server, it SHOULD act as a
+   not successfully contact the first server, it <em>SHOULD</em> act as a
    stateful proxy.
 
    Unfortunately, it is still possible for a stateless proxy to deliver
@@ -793,7 +793,7 @@ Table of Contents
    using the transport protocol from the Via header, and the port from
    sent-by, if present, else the default for that transport protocol.
    The transport protocol in the Via header can indicate "TLS", which
-   refers to TLS over TCP.  When this value is present, the server MUST
+   refers to TLS over TCP.  When this value is present, the server <em>MUST</em>
    use TLS over TCP to send the response.
 
 
@@ -881,11 +881,11 @@ Table of Contents
    a SIP URI to allow security that is better than no TLS at all.
 
    The bid down attack can also be mitigated through caching.  A client
-   which frequently contacts the same domain SHOULD cache whether or not
+   which frequently contacts the same domain <em>SHOULD</em> cache whether or not
    its NAPTR records contain SIPS in the services field.  If such
    records were present, but in later queries cease to appear, it is a
-   sign of a potential attack.  In this case, the client SHOULD generate
-   some kind of alert or alarm, and MAY reject the request.
+   sign of a potential attack.  In this case, the client <em>SHOULD</em> generate
+   some kind of alert or alarm, and <em>MAY</em> reject the request.
 
    An additional problem is that proxies, which are intermediaries
    between the users of the system, are frequently the clients that
@@ -940,18 +940,18 @@ Table of Contents
    The usage of NAPTR records described here requires well known values
    for the service fields for each transport supported by SIP.  The
    table of mappings from service field values to transport protocols is
-   to be maintained by IANA.  New entries in the table MAY be added
+   to be maintained by IANA.  New entries in the table <em>MAY</em> be added
    through the publication of standards track RFCs, as described in <a href="./rfc2434.html">RFC</a>
    <a href="./rfc2434.html">2434</a> [<a href="#ref-5" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">5</a>].
 
-   The registration in the RFC MUST include the following information:
+   The registration in the RFC <em>MUST</em> include the following information:
 
       Service Field: The service field being registered.  An example for
          a new fictitious transport protocol called NCTP might be
          "SIP+D2N".
 
       Protocol: The specific transport protocol associated with that
-         service field.  This MUST include the name and acronym for the
+         service field.  This <em>MUST</em> include the name and acronym for the
          protocol, along with reference to a document that describes the
          transport protocol.  For example - "New Connectionless
          Transport Protocol (NCTP), <a href="./rfc5766.html">RFC 5766</a>".

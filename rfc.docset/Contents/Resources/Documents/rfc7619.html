@@ -362,8 +362,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Using the NULL Authentication Method</span>
@@ -373,9 +373,9 @@ Table of Contents
    authentication by using the NULL Authentication method.  If a host's
    local policy requires that the identity of its peer be (non-null)
    authenticated, and if that host receives an AUTH payload containing
-   the NULL Authentication method type, it MUST return an
+   the NULL Authentication method type, it <em>MUST</em> return an
    AUTHENTICATION_FAILED notification.  If an initiator uses the
-   Extensible Authentication Protocol (EAP), the responder MUST NOT use
+   Extensible Authentication Protocol (EAP), the responder <em>MUST NOT</em> use
    the NULL Authentication method (in conformance with <a href="./rfc7296.html#section-2.16">Section&nbsp;2.16 of
    [RFC7296]</a>).
 
@@ -407,7 +407,7 @@ Table of Contents
    Identification Data field of the ID payload cannot be validated.  To
    avoid the need of sending a bogus ID Type with placeholder data, this
    specification defines a new ID Type, ID_NULL.  The Identification
-   Data field of the ID payload for this ID Type MUST be empty.
+   Data field of the ID payload for this ID Type <em>MUST</em> be empty.
 
 
 
@@ -417,12 +417,12 @@ Table of Contents
 
 
    If NULL authentication is in use and anonymity is a concern, then
-   ID_NULL SHOULD be used in the Identification payload.  Some examples
+   ID_NULL <em>SHOULD</em> be used in the Identification payload.  Some examples
    of cases where a non-null identity type and value with NULL
    authentication can be used are logging, troubleshooting, and in
    scenarios where authentication takes place out of band after the IKE
    SA is created (like in [<a href="#ref-AUTOVPN" title="&quot;The AutoVPN Architecture&quot;">AUTOVPN</a>]).  The content of the Identification
-   payload MUST NOT be used for any trust and policy checking in
+   payload <em>MUST NOT</em> be used for any trust and policy checking in
    IKE_AUTH exchange when NULL authentication is employed (see
    <a href="#section-2.4">Section 2.4</a> for details).
 
@@ -440,7 +440,7 @@ Table of Contents
    The identity of a peer using NULL authentication cannot be used to
    find existing IKE SAs created by the same peer, as the peer identity
    is not authenticated.  For that reason, the INITIAL_CONTACT
-   notifications MUST NOT be used to delete any other IKE SAs based on
+   notifications <em>MUST NOT</em> be used to delete any other IKE SAs based on
    the same peer identity without additional verification that the
    existing IKE SAs with matching identity are actually stale.
 
@@ -489,7 +489,7 @@ Table of Contents
    ID_NULL consists only of whether this type is used, i.e., no actual
    ID matching is done as ID_NULL contains no identity data.
 
-   When using the NULL Authentication method, those matching rules MUST
+   When using the NULL Authentication method, those matching rules <em>MUST</em>
    include matching of a new flag in the SPD entry specifying whether
    unauthenticated users are allowed to use that entry.  That is, each
    SPD entry needs to be augmented to have a flag specifying whether it
@@ -514,7 +514,7 @@ Table of Contents
    For example, if the remote host uses 192.0.2.1 as the DNS server, a
    rogue IKE peer could set its Traffic Selector to 192.0.2.1 in an
    attempt to receive the remote peer's DNS traffic.  Implementations
-   SHOULD restrict and isolate all anonymous IKE peers from each other
+   <em>SHOULD</em> restrict and isolate all anonymous IKE peers from each other
    and itself and only allow it access to itself and possibly its
    intended network ranges.
 
@@ -533,15 +533,15 @@ Table of Contents
    [RFC7296]</a>.  Implementations may also use other techniques such as
    internal NAT and connection tracking.
 
-   Implementations MAY force unauthenticated IKE peers to single host-
+   Implementations <em>MAY</em> force unauthenticated IKE peers to single host-
    to-host IPsec SAs.  When using IPv6, this is not always possible, so
-   implementations MUST be able to assign a full /64 address block to
+   implementations <em>MUST</em> be able to assign a full /64 address block to
    the peer as described in [<a href="./rfc5739.html" title="&quot;IPv6 Configuration in Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">RFC5739</a>], even if it is not authenticated.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Security Considerations</span>
 
    If authenticated IKE sessions are possible for a certain Traffic
-   Selector range between the peers, then unauthenticated IKE SHOULD NOT
+   Selector range between the peers, then unauthenticated IKE <em>SHOULD NOT</em>
    be allowed for that Traffic Selector range.  When mixing
    authenticated and unauthenticated IKE with the same peer, policy
    rules should ensure the highest level of security will be used to
@@ -614,9 +614,9 @@ Table of Contents
    Combining authenticated and unauthenticated IKE peers on a single
    host can be dangerous, assuming the authenticated IKE peer gains more
    or different access from unauthenticated peers (otherwise, why not
-   only allow unauthenticated peers).  An unauthenticated IKE peer MUST
+   only allow unauthenticated peers).  An unauthenticated IKE peer <em>MUST</em>
    NOT be able to reach resources only meant for authenticated IKE peers
-   and MUST NOT be able to replace the Child SAs of an authenticated IKE
+   and <em>MUST NOT</em> be able to replace the Child SAs of an authenticated IKE
    peer.
 
 <span class="h3"><a class="selflink" name="section-3.4" href="#section-3.4">3.4</a>.  Networking Topology Changes</span>
@@ -627,7 +627,7 @@ Table of Contents
    restrictions, as the Encapsulating Security Payload (ESP, protocol
    50) or ESPinUDP (UDP port 4500) packets of the encrypted traffic do
    not match the packet filters defined for unencrypted traffic.  IKE
-   peers supporting unauthenticated IKE MUST pass all decrypted traffic
+   peers supporting unauthenticated IKE <em>MUST</em> pass all decrypted traffic
    through the same packet filters and security mechanisms as incoming
    plaintext traffic.
 
@@ -792,7 +792,7 @@ Table of Contents
    <a href="./rfc4301.html#section-4.4.3.4">Section&nbsp;4.4.3.4 of [RFC4301]</a>:
 
    Added text:
-      When using the NULL Authentication method, implementations MUST
+      When using the NULL Authentication method, implementations <em>MUST</em>
       make sure that they do not mix authenticated and unauthenticated
       SPD rules, i.e., implementations need to keep them separately; for
       example, by adding a flag in the SPD to tell whether NULL

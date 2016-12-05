@@ -213,15 +213,15 @@ Conventions
    The following language conventions are used in the items of
    specification in this document:
 
-   o  MUST -- the item is an absolute requirement of the specification.
-      MUST is only used where it is actually required for interopera-
+   o  <em>MUST</em> -- the item is an absolute requirement of the specification.
+      <em>MUST</em> is only used where it is actually required for interopera-
       tion, not to try to impose a particular method on implementors
       where not required for interoperability.
 
-   o  SHOULD -- the item should be followed for all but exceptional cir-
+   o  <em>SHOULD</em> -- the item should be followed for all but exceptional cir-
       cumstances.
 
-   o  MAY or optional -- the item is truly optional and may be followed
+   o  <em>MAY</em> or optional -- the item is truly optional and may be followed
       or ignored according to the needs of the implementor.
 
       The words "should" and "may" are also used, in lower case, in
@@ -323,9 +323,9 @@ Table of Contents
          Determination to finish before timing out waiting for a
          Configure-Ack or other response.
 
-         An implementation MUST NOT transmit data until ECP negotiation
+         An implementation <em>MUST NOT</em> transmit data until ECP negotiation
          has completed successfully.  If ECP negotiation is not
-         successful the link SHOULD be brought down.
+         successful the link <em>SHOULD</em> be brought down.
 
       Configuration Option Types
 
@@ -355,13 +355,13 @@ Table of Contents
    o  The first method is to encrypt the data prior to sending it out
       through the multiple links.
 
-      The PPP Protocol field MUST indicate type hex 0053.
+      The PPP Protocol field <em>MUST</em> indicate type hex 0053.
 
    o  The second is to treat each link as a separate connection, that
       may or may not have encryption enabled.
 
       On links which have negotiated encryption, the PPP Protocol field
-      MUST be type hex 0055 (Individual link encrypted datagram).
+      <em>MUST</em> be type hex 0055 (Individual link encrypted datagram).
 
    Only one encryption algorithm in each direction is in use at a time,
    and that is negotiated prior to sending the first encrypted frame.
@@ -382,7 +382,7 @@ Table of Contents
    transport such as LAPB [<a href="#ref-3" title="&quot;PPP Reliable Transmission&quot;">3</a>].
 
    Compression may also be negotiated using the Compression Control
-   Protocol [<a href="#ref-5" title="&quot;The PPP Compression Control Protocol (CCP)&quot;">5</a>].  To ensure interoperability, plain text MUST be:
+   Protocol [<a href="#ref-5" title="&quot;The PPP Compression Control Protocol (CCP)&quot;">5</a>].  To ensure interoperability, plain text <em>MUST</em> be:
 
    o  First compressed.
 
@@ -423,12 +423,12 @@ Table of Contents
 
       Individual algorithms need to specify a mechanism for determining
       how to detect a decryption failure.  On initial detection of a
-      decryption failure, an ECP implementation SHOULD transmit an ECP
+      decryption failure, an ECP implementation <em>SHOULD</em> transmit an ECP
       packet with the Code field set to 14 (Reset-Request).  The Data
       field may be filled with any desired data.
 
       Once a Reset-Request has been sent, any encrypted packets received
-      are discarded.  Further Reset-Requests MAY be sent with the same
+      are discarded.  Further Reset-Requests <em>MAY</em> be sent with the same
       Identifier, until a valid Reset-Ack is received.
 
       When the link is busy, one decryption error is usually followed by
@@ -436,18 +436,18 @@ Table of Contents
       undesirable to transmit Reset-Requests more frequently than the
       round-trip-time of the link, since this will result in redundant
       Reset-Requests and Reset-Acks being transmitted and processed.
-      The receiver MAY elect to limit transmission of Reset-Requests (to
+      The receiver <em>MAY</em> elect to limit transmission of Reset-Requests (to
       say one per second) while a Reset-Ack is outstanding.
 
       Upon reception of a Reset-Request, the transmitting encrypter is
-      reset to an initial state.  An ECP packet MUST be transmitted with
+      reset to an initial state.  An ECP packet <em>MUST</em> be transmitted with
       the Code field set to 15 (Reset-Ack), the Identifier field copied
       from the Reset-Request packet, and the Data field filled with any
       desired data.
 
       On receipt of a Reset-Ack, the receiving decrypter is reset to an
       initial state.  Since there may be several Reset-Acks in the pipe,
-      the decrypter MUST be reset for each Reset-Ack which matches the
+      the decrypter <em>MUST</em> be reset for each Reset-Ack which matches the
       currently expected identifier.
 
       A summary of the Reset-Request and Reset-Ack packet formats is
@@ -481,10 +481,10 @@ Table of Contents
 
    Identifier
 
-      On transmission, the Identifier field MUST be changed whenever the
+      On transmission, the Identifier field <em>MUST</em> be changed whenever the
       content of the Data field changes, and whenever a valid reply has
       been received for a previous request.  For retransmissions, the
-      Identifier SHOULD remain unchanged.
+      Identifier <em>SHOULD</em> remain unchanged.
 
       On reception, the Identifier field of the Reset-Request is copied
       into the Identifier field of the Reset-Ack packet.
@@ -526,10 +526,10 @@ Table of Contents
          1               DESE
 
 
-   All compliant ECP implementations SHOULD implement ECP option 1 - the
+   All compliant ECP implementations <em>SHOULD</em> implement ECP option 1 - the
    PPP DES Encryption Protocol (DESE) [<a href="#ref-6" title="&quot;The PPP DES Encryption Protocol (DESE)&quot;">6</a>].
 
-   Vendors who want to use proprietary encryption MAY use the OUI
+   Vendors who want to use proprietary encryption <em>MAY</em> use the OUI
    mechanism to negotiate these without recourse to requesting an
    assigned option number from the Internet Assigned Numbers Authority.
    All other encryption options are registered by IANA.  At the time of
@@ -663,8 +663,8 @@ Table of Contents
    algorithms.  In contrast with most other LCP or NCP negotiation of
    multiple options, ECP negotiation is expected to converge on a single
    mutually agreeable option (encryption algorithm) - or none.
-   Encryption SHOULD be negotiated in both directions, but the
-   algorithms MAY be different.
+   Encryption <em>SHOULD</em> be negotiated in both directions, but the
+   algorithms <em>MAY</em> be different.
 
    An implementation willing to decrypt using a particular encryption
    algorithm (or one of a set of algorithms) offers the algorithm(s) as
@@ -688,24 +688,24 @@ Table of Contents
 <span class="grey"><a href="./rfc1968.html">RFC 1968</a>                     PPP Encryption                    June 1996</span>
 
 
-   An Encrypter wishing to accept the first option (of several) MAY
+   An Encrypter wishing to accept the first option (of several) <em>MAY</em>
    Configure-Ack ALL Options to indicate complete acceptance of the
    first-listed, preferred, algorithm.
 
    Otherwise, if the Encrypter does not recognise - or is unwilling to
-   support - an option it MUST send a Configure-Reject for that option.
-   Where more than one option is offered, the Encrypter SHOULD
+   support - an option it <em>MUST</em> send a Configure-Reject for that option.
+   Where more than one option is offered, the Encrypter <em>SHOULD</em>
    Configure-Reject all but a single preferred option.
 
    If the Encrypter Configure-Rejects all offered ECP options - and the
    Decrypter has no further (non-rejected) options it can offer in a
-   Configure-Request - the Encrypter SHOULD take the link down.
+   Configure-Request - the Encrypter <em>SHOULD</em> take the link down.
 
    If the Encrypter recognises an option, but it is not acceptable due
    to values in the request (or optional parameters not in the request),
-   it MUST send a Configure-Nak with the option modified appropriately.
-   The Configure-Nak MUST contain only those options that will be
-   acceptable.  The Decrypter SHOULD send a new Configure-Request with
+   it <em>MUST</em> send a Configure-Nak with the option modified appropriately.
+   The Configure-Nak <em>MUST</em> contain only those options that will be
+   acceptable.  The Decrypter <em>SHOULD</em> send a new Configure-Request with
    only the single preferred option, adjusted as specified in the
    Configure-Nak.
 

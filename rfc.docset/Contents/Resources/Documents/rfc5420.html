@@ -328,7 +328,7 @@ Table of Contents
       <a href="#section-4.1">4.1</a>. Format .....................................................<a href="#page-9">9</a>
       <a href="#section-4.2">4.2</a>. Generic Processing Rules for Path Messages .................<a href="#page-9">9</a>
       <a href="#section-4.3">4.3</a>. Generic Processing Rules for Resv Messages .................<a href="#page-9">9</a>
-   <a href="#section-5">5</a>. LSP_REQUIRED_ATTRIBUTES Object .................................<a href="#page-10">10</a>
+   <a href="#section-5">5</a>. LSP_<em>REQUIRED</em>_ATTRIBUTES Object .................................<a href="#page-10">10</a>
       <a href="#section-5.1">5.1</a>. Format ....................................................<a href="#page-11">11</a>
       <a href="#section-5.2">5.2</a>. Generic Processing Rules ..................................<a href="#page-11">11</a>
    <a href="#section-6">6</a>. Inheritance Rules ..............................................<a href="#page-11">11</a>
@@ -503,8 +503,8 @@ Table of Contents
    use of the Generalized MPLS RSVP-TE terminology introduced in
    [<a href="./rfc3471.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Functional Description&quot;">RFC3471</a>] and [<a href="./rfc3473.html" title="&quot;Generalized Multi-Protocol Label Switching (GMPLS) Signaling Resource ReserVation Protocol-Traffic Engineering (RSVP-TE) Extensions&quot;">RFC3473</a>].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Attributes TLVs</span>
@@ -546,7 +546,7 @@ Table of Contents
          combined length of the Type, Length, and Value fields, i.e.,
          four plus the length of the Value field in octets.
 
-         The entire TLV MUST be padded with between zero and three
+         The entire TLV <em>MUST</em> be padded with between zero and three
          trailing zeros to make it four-octet aligned.  The Length field
          does not count any padding.
 
@@ -561,10 +561,10 @@ Table of Contents
    with type values assigned by IANA (see <a href="#section-11.2">Section 11.2</a>).
 
    The Attribute Flags TLV may be present in an LSP_ATTRIBUTES object
-   and/or an LSP_REQUIRED_ATTRIBUTES object, defined in Sections <a href="#section-4">4</a> and
+   and/or an LSP_<em>REQUIRED</em>_ATTRIBUTES object, defined in Sections <a href="#section-4">4</a> and
    5.  The bits in the TLV represent the same attributes regardless of
    which object carries the TLV.  Documents that define individual bits
-   MUST specify whether the bit may be set in one object, the other, or
+   <em>MUST</em> specify whether the bit may be set in one object, the other, or
    both.  It is not expected that a bit will be set in both objects on a
    single Path message at the same time, but this is not ruled out by
    this document.
@@ -574,15 +574,15 @@ Table of Contents
    for this TLV is therefore always a multiple of four bytes, regardless
    of the number of bits carried, and no padding is required.
 
-   Unassigned bits are considered as reserved and MUST be set to zero on
+   Unassigned bits are considered as reserved and <em>MUST</em> be set to zero on
    transmission by the originator of the object.  Bits not contained in
-   the TLV MUST be assumed to be set to zero.  If the TLV is absent
+   the TLV <em>MUST</em> be assumed to be set to zero.  If the TLV is absent
    either because it is not contained in the LSP_ATTRIBUTES or
-   LSP_REQUIRED_ATTRIBUTES object, or because those objects are
-   themselves absent, all processing MUST be performed as though the
+   LSP_<em>REQUIRED</em>_ATTRIBUTES object, or because those objects are
+   themselves absent, all processing <em>MUST</em> be performed as though the
    bits were present and set to zero.  That is to say, assigned bits
    that are not present either because the TLV is deliberately
-   foreshortened or because the TLV is not included MUST be treated as
+   foreshortened or because the TLV is not included <em>MUST</em> be treated as
    though they are present and are set to zero.
 
    No bits are defined in this document.  The assignment of bits is
@@ -612,11 +612,11 @@ Table of Contents
 
    Note that some function may require an LSR to inspect both the
    SESSION_ATTRIBUTE object and the LSP_ATTRIBUTES or
-   LSP_REQUIRED_ATTRIBUTES object.
+   LSP_<em>REQUIRED</em>_ATTRIBUTES object.
 
    The LSP_ATTRIBUTES object may also be used to report LSP operational
    state on a Resv message even when no LSP_ATTRIBUTES or
-   LSP_REQUIRED_ATTRIBUTES object was carried on the corresponding Path
+   LSP_<em>REQUIRED</em>_ATTRIBUTES object was carried on the corresponding Path
    message.  The object is added or updated by LSRs that support the
    object.  LSRs that do not understand the object or have nothing to
    report do not add the object and forward it unchanged on Resv
@@ -673,19 +673,19 @@ Table of Contents
    [<a href="./rfc2205.html" title="&quot;Resource ReSerVation Protocol (RSVP) -- Version 1 Functional Specification&quot;">RFC2205</a>].
 
    An LSR that does support this object but does not recognize a TLV
-   type code carried in this object MUST pass the TLV on unaltered in
+   type code carried in this object <em>MUST</em> pass the TLV on unaltered in
    the LSP_ATTRIBUTES object that it places in the Path message that it
    sends downstream.
 
    An LSR that does support this object and recognizes a TLV but does
-   not support the attribute defined by the TLV MUST act as specified in
+   not support the attribute defined by the TLV <em>MUST</em> act as specified in
    the document that defines the TLV.
 
    An LSR that supports the Attribute Flags TLV but does not recognize a
-   bit set in the Attribute Flags TLV MUST forward the TLV unchanged.
+   bit set in the Attribute Flags TLV <em>MUST</em> forward the TLV unchanged.
 
    An LSR that supports the Attribute Flags TLV and recognizes a bit
-   that is set but does not support the indicated attribute MUST act as
+   that is set but does not support the indicated attribute <em>MUST</em> act as
    specified in the document that defines the bit.
 
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Generic Processing Rules for Resv Messages</span>
@@ -727,13 +727,13 @@ Table of Contents
    An LSR that does not support this object will pass it on unaltered
    because of the C-Num.
 
-<span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  LSP_REQUIRED_ATTRIBUTES Object</span>
+<span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  LSP_<em>REQUIRED</em>_ATTRIBUTES Object</span>
 
-   The LSP_REQUIRED_ATTRIBUTES object is used to signal attributes
+   The LSP_<em>REQUIRED</em>_ATTRIBUTES object is used to signal attributes
    required in support of an LSP, or to indicate the nature or use of an
-   LSP where that information MUST be inspected at each transit LSR.
-   Specifically, each transit LSR MUST examine the attributes in the
-   LSP_REQUIRED_ATTRIBUTES object and MUST NOT forward the object
+   LSP where that information <em>MUST</em> be inspected at each transit LSR.
+   Specifically, each transit LSR <em>MUST</em> examine the attributes in the
+   LSP_<em>REQUIRED</em>_ATTRIBUTES object and <em>MUST NOT</em> forward the object
    without acting on its contents.
 
    This object effectively extends the Flags field in the
@@ -741,10 +741,10 @@ Table of Contents
    complex objects through TLVs.  It complements the LSP_ATTRIBUTES
    object.
 
-   The LSP_REQUIRED_ATTRIBUTES object class is 67 of the form 0bbbbbbb.
+   The LSP_<em>REQUIRED</em>_ATTRIBUTES object class is 67 of the form 0bbbbbbb.
    This C-Num value ensures that LSRs that do not recognize the object
    reject the LSP setup, effectively saying that they do not support the
-   attributes requested.  This means that this object SHOULD only be
+   attributes requested.  This means that this object <em>SHOULD</em> only be
    used for attributes that require support at some transit LSRs and so
    require examination at all transit LSRs.  See <a href="#section-4">Section 4</a> for how end-
    to-end and selective attributes are signaled.
@@ -766,7 +766,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Format</span>
 
-   LSP_REQUIRED_ATTRIBUTES class = 67, C-Type = 1
+   LSP_<em>REQUIRED</em>_ATTRIBUTES class = 67, C-Type = 1
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -785,17 +785,17 @@ Table of Contents
    Object Class".
 
    An LSR that does not recognize a TLV type code carried in this object
-   MUST reject the Path message using a PathErr with Error Code "Unknown
+   <em>MUST</em> reject the Path message using a PathErr with Error Code "Unknown
    Attributes TLV" and Error Value set to the value of the unknown TLV
    type code.
 
    An LSR that does not recognize a bit set in the Attribute Flags TLV
-   MUST reject the Path message using a PathErr with Error Code "Unknown
+   <em>MUST</em> reject the Path message using a PathErr with Error Code "Unknown
    Attributes Bit" and Error Value set to the bit number of the unknown
    bit in the Attribute Flags.
 
    An LSR that recognizes an attribute (however encoded) but does not
-   support that attribute MUST act according to the behavior specified
+   support that attribute <em>MUST</em> act according to the behavior specified
    in the document that defines that specific attribute.
 
    Note that this object is not used on a Resv.  In order to report the
@@ -808,7 +808,7 @@ Table of Contents
    In certain circumstances, when reaching an LSP region boundary, a
    forwarding adjacency LSP (FA-LSP; see [<a href="./rfc4206.html" title="&quot;Label Switched Paths (LSP) Hierarchy with Generalized Multi-Protocol Label Switching (GMPLS) Traffic Engineering (TE)&quot;">RFC4206</a>]) is initially set up
    to allow the establishment of the LSP carrying the LSP_ATTRIBUTES
-   and/or LSP_REQUIRED_ATTRIBUTES objects.  In this case, when the
+   and/or LSP_<em>REQUIRED</em>_ATTRIBUTES objects.  In this case, when the
 
 
 
@@ -820,13 +820,13 @@ Table of Contents
 <span class="grey"><a href="./rfc5420.html">RFC 5420</a>        Attributes for MPLS LSPs Using RSVP-TE     February 2009</span>
 
 
-   boundary LSR supports LSP_ATTRIBUTES and LSP_REQUIRED_ATTRIBUTES
-   processing, the FA-LSP MAY, upon local policy, inherit a subset of
+   boundary LSR supports LSP_ATTRIBUTES and LSP_<em>REQUIRED</em>_ATTRIBUTES
+   processing, the FA-LSP <em>MAY</em>, upon local policy, inherit a subset of
    the Attributes TLVs, in particular when the FA-LSP belongs to the
    same switching capability class as the triggering LSP.
 
    When these conditions are met, the LSP_ATTRIBUTES and/or
-   LSP_REQUIRED_ATTRIBUTES objects are simply copied with the inherited
+   LSP_<em>REQUIRED</em>_ATTRIBUTES objects are simply copied with the inherited
    Attributes TLVs in the Path message used to establish the FA-LSP.  By
    default (and in order to simplify deployment), none of the incoming
    LSP Attributes TLVs are considered as inheritable.  Note that when
@@ -834,7 +834,7 @@ Table of Contents
    an 'OR' operation is performed with the inherited set of values.
 
    Documents that define individual bits for the LSP Attribute Flags TLV
-   MUST specify whether or not these bits MAY be inherited (including
+   <em>MUST</em> specify whether or not these bits <em>MAY</em> be inherited (including
    the condition to be met in order for this inheritance to occur).  The
    same applies for any other TLV that will be defined following the
    rules specified in <a href="#section-3">Section 3</a>.
@@ -914,10 +914,10 @@ Table of Contents
    object.  The Attributes subobject is pushed onto the RECORD_ROUTE
    object immediately prior to pushing the node's IP address or link
    identifier.  Thus, if label recording is being used, the Attributes
-   subobject SHOULD be pushed onto the RECORD_ROUTE object after the
+   subobject <em>SHOULD</em> be pushed onto the RECORD_ROUTE object after the
    Record Label subobject(s).
 
-   A node MUST NOT push an Attributes subobject onto the RECORD_ROUTE
+   A node <em>MUST NOT</em> push an Attributes subobject onto the RECORD_ROUTE
    object without also pushing an IPv4, IPv6, or Unnumbered Interface ID
    subobject.
 
@@ -933,23 +933,23 @@ Table of Contents
 
 
    If the new subobject causes the RRO to be too big to fit in a Path
-   (or Resv) message, the processing MUST be as described in <a href="#section-4.4.3">Section</a>
+   (or Resv) message, the processing <em>MUST</em> be as described in <a href="#section-4.4.3">Section</a>
    <a href="#section-4.4.3">4.4.3</a> of [<a href="./rfc3209.html" title="&quot;RSVP-TE: Extensions to RSVP for LSP Tunnels&quot;">RFC3209</a>].
 
    If more than one Attributes subobject is found between a pair of
    subobjects that identify LSRs, only the first one found (that is, the
-   nearest to the top of the stack) SHALL have any meaning within the
-   context of this document.  All such subobjects MUST be forwarded
+   nearest to the top of the stack) <em>SHALL</em> have any meaning within the
+   context of this document.  All such subobjects <em>MUST</em> be forwarded
    unmodified by transit LSRs.
 
 <span class="h4"><a class="selflink" name="section-7.3.2" href="#section-7.3.2">7.3.2</a>.  Reporting Compliance with LSP Attributes</span>
 
    To report compliance with an attribute requested in the Attribute
-   Flags TLV, an LSR MAY set the corresponding bit (see <a href="#section-8">Section 8</a>) in
-   the Attributes subobject.  To report non-compliance, an LSR MAY clear
+   Flags TLV, an LSR <em>MAY</em> set the corresponding bit (see <a href="#section-8">Section 8</a>) in
+   the Attributes subobject.  To report non-compliance, an LSR <em>MAY</em> clear
    the corresponding bit in the Attributes subobject.
 
-   The requirement to report compliance MUST be specified in the
+   The requirement to report compliance <em>MUST</em> be specified in the
    document that defines the usage of any bit.  This will reduce to a
    statement of whether hop-by-hop acknowledgement is required.
 
@@ -958,20 +958,20 @@ Table of Contents
    To report a per-hop attribute, an LSR sets the appropriate bit in the
    Attributes subobject.
 
-   The requirement to report a per-hop attribute MUST be specified in
+   The requirement to report a per-hop attribute <em>MUST</em> be specified in
    the document that defines the usage of the bit.
 
 <span class="h4"><a class="selflink" name="section-7.3.4" href="#section-7.3.4">7.3.4</a>.  Default Behavior</span>
 
-   By default, all bits in an Attributes subobject SHOULD be set to
+   By default, all bits in an Attributes subobject <em>SHOULD</em> be set to
    zero.
 
    If a received Attributes subobject is not long enough to include a
-   specific numbered bit, that bit MUST be treated as though present and
+   specific numbered bit, that bit <em>MUST</em> be treated as though present and
    as if set to zero.
 
    If the RRO subobject is not present for a hop in the LSP, all bits
-   MUST be assumed to be set to zero.
+   <em>MUST</em> be assumed to be set to zero.
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Summary of Attribute Bit Allocation</span>
 
@@ -1003,13 +1003,13 @@ Table of Contents
    Attribute Flags TLV and the RRO Attributes subobject, even though the
    bit may be irrelevant in either the Attribute Flags or the RRO
    Attributes subobject.  The document that defines the usage of the new
-   bit MUST state in which places it is used and MUST handle a default
+   bit <em>MUST</em> state in which places it is used and <em>MUST</em> handle a default
    setting of zero.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Message Formats</span>
 
-   The LSP_ATTRIBUTES object and the LSP_REQUIRED_ATTRIBUTES object MAY
-   be carried in a Path message.  The LSP_ATTRIBUTES object MAY be
+   The LSP_ATTRIBUTES object and the LSP_<em>REQUIRED</em>_ATTRIBUTES object <em>MAY</em>
+   be carried in a Path message.  The LSP_ATTRIBUTES object <em>MAY</em> be
    carried in a Resv message.
 
    The order of objects in RSVP-TE messages is recommended, but
@@ -1017,22 +1017,22 @@ Table of Contents
    meaningful order.
 
    On a Path message, the LSP_ATTRIBUTES object and
-   LSP_REQUIRED_ATTRIBUTES objects are RECOMMENDED to be placed
+   LSP_<em>REQUIRED</em>_ATTRIBUTES objects are <em>RECOMMENDED</em> to be placed
    immediately after the SESSION_ATTRIBUTE object if it is present, or
    otherwise immediately after the LABEL_REQUEST object.
 
-   If both the LSP_ATTRIBUTES object and the LSP_REQUIRED_ATTRIBUTES
-   object are present, the LSP_REQUIRED_ATTRIBUTES object is RECOMMENDED
+   If both the LSP_ATTRIBUTES object and the LSP_<em>REQUIRED</em>_ATTRIBUTES
+   object are present, the LSP_<em>REQUIRED</em>_ATTRIBUTES object is <em>RECOMMENDED</em>
    to be placed first.
 
-   LSRs MUST be prepared to receive these objects in any order in any
+   LSRs <em>MUST</em> be prepared to receive these objects in any order in any
    position within a Path message.  Subsequent instances of these
-   objects within a Path message SHOULD be ignored and MUST be forwarded
+   objects within a Path message <em>SHOULD</em> be ignored and <em>MUST</em> be forwarded
    unchanged.
 
    On a Resv message, the LSP_ATTRIBUTES object is placed in the flow
    descriptor and is associated with the FILTER_SPEC object that
-   precedes it.  It is RECOMMENDED that the LSP_ATTRIBUTES object be
+   precedes it.  It is <em>RECOMMENDED</em> that the LSP_ATTRIBUTES object be
    placed immediately after the LABEL object.
 
 
@@ -1044,11 +1044,11 @@ Table of Contents
 <span class="grey"><a href="./rfc5420.html">RFC 5420</a>        Attributes for MPLS LSPs Using RSVP-TE     February 2009</span>
 
 
-   LSRs MUST be prepared to receive this object in any order in any
+   LSRs <em>MUST</em> be prepared to receive this object in any order in any
    position within a Resv message, subject to the previous note.  Only
    one instance of the LSP_ATTRIBUTES object is meaningful within the
    context of a FILTER_SPEC object.  Subsequent instances of the object
-   SHOULD be ignored and MUST be forwarded unchanged.
+   <em>SHOULD</em> be ignored and <em>MUST</em> be forwarded unchanged.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Guidance for Key Application Scenarios</span>
 
@@ -1116,11 +1116,11 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-10.3" href="#section-10.3">10.3</a>.  Communicating to All LSRs</span>
 
    In order to force all LSRs to examine the LSP attributes, the
-   LSP_REQUIRED_ATTRIBUTES object is used.  The C-Num of this object is
+   LSP_<em>REQUIRED</em>_ATTRIBUTES object is used.  The C-Num of this object is
    such that any LSR that does not recognize the object must reject a
    received Path message containing the object.
 
-   An LSR that recognizes the LSP_REQUIRED_ATTRIBUTES object but does
+   An LSR that recognizes the LSP_<em>REQUIRED</em>_ATTRIBUTES object but does
    not recognize an attribute will reject the Path message.
 
    An LSR that recognizes an attribute but does not wish to support the
@@ -1170,7 +1170,7 @@ Table of Contents
 
        C-Type value 1.
 
-   o LSP_REQUIRED_ATTRIBUTES object
+   o LSP_<em>REQUIRED</em>_ATTRIBUTES object
 
      The C-Num (value 67) is of the form 0bbbbbbb so that LSRs that do
      not recognize the object will reject the message that carries it
@@ -1195,14 +1195,14 @@ Table of Contents
    - TLV Type (T-field value)
    - TLV Name
    - Whether allowed on LSP_ATTRIBUTES object
-   - Whether allowed on LSP_REQUIRED_ATTRIBUTES object
+   - Whether allowed on LSP_<em>REQUIRED</em>_ATTRIBUTES object
 
    This document defines one TLV type as follows:
 
    - TLV Type = 1
    - TLV Name = Attribute Flags TLV
    - allowed on LSP_ATTRIBUTES object
-   - allowed on LSP_REQUIRED_ATTRIBUTES object
+   - allowed on LSP_<em>REQUIRED</em>_ATTRIBUTES object
 
 
 

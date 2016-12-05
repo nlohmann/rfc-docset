@@ -338,9 +338,9 @@ Table of Contents
    functional examples, with key lengths and inner contents chosen to be
    as small as practicable.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "NOT <em>RECOMMENDED</em>", "<em>MAY</em>", and
+   "<em>OPTIONAL</em>" in this document are to be interpreted as described in <a href="./rfc2119.html">RFC</a>
    <a href="./rfc2119.html">2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  General Considerations</span>
@@ -359,20 +359,20 @@ Table of Contents
 
 
    text portion".)  Data before the encapsulation boundaries are
-   permitted, and parsers MUST NOT malfunction when processing such
-   data.  Furthermore, parsers SHOULD ignore whitespace and other non-
-   base64 characters and MUST handle different newline conventions.
+   permitted, and parsers <em>MUST NOT</em> malfunction when processing such
+   data.  Furthermore, parsers <em>SHOULD</em> ignore whitespace and other non-
+   base64 characters and <em>MUST</em> handle different newline conventions.
 
    The type of data encoded is labeled depending on the type label in
    the "-----BEGIN " line (pre-encapsulation boundary).  For example,
    the line may be "-----BEGIN CERTIFICATE-----" to indicate that the
-   content is a PKIX certificate (see further below).  Generators MUST
+   content is a PKIX certificate (see further below).  Generators <em>MUST</em>
    put the same label on the "-----END " line (post-encapsulation
    boundary) as the corresponding "-----BEGIN " line.  Labels are
    formally case-sensitive, uppercase, and comprised of zero or more
    characters; they do not contain consecutive spaces or hyphen-minuses,
    nor do they contain spaces or hyphen-minuses at either end.  Parsers
-   MAY disregard the label in the post-encapsulation boundary instead of
+   <em>MAY</em> disregard the label in the post-encapsulation boundary instead of
    signaling an error if there is a label mismatch: some extant
    implementations require the labels to match; others do not.
 
@@ -382,9 +382,9 @@ Table of Contents
    boundaries, no more, no less.
 
    The label type implies that the encoded data follows the specified
-   syntax.  Parsers MUST handle non-conforming data gracefully.
+   syntax.  Parsers <em>MUST</em> handle non-conforming data gracefully.
    However, not all parsers or generators prior to this document behave
-   consistently.  A conforming parser MAY interpret the contents as
+   consistently.  A conforming parser <em>MAY</em> interpret the contents as
    another label type but ought to be aware of the security implications
    discussed in the Security Considerations section.  The labels
    described in this document identify container formats that are not
@@ -397,7 +397,7 @@ Table of Contents
    OpenSSH key file format, textual encoding does *not* define or permit
    headers to be encoded alongside the data.  Empty space can appear
    between the pre-encapsulation boundary and the base64, but generators
-   SHOULD NOT emit such any such spacing.  (The provision for this empty
+   <em>SHOULD NOT</em> emit such any such spacing.  (The provision for this empty
    area is a throwback to PEM, which defined an "encapsulated header
    portion".)
 
@@ -433,14 +433,14 @@ Table of Contents
    accepting text that was not intended to be accepted in the first
    place (e.g., because the text was a snippet or sample).
 
-   Generators MUST wrap the base64-encoded lines so that each line
+   Generators <em>MUST</em> wrap the base64-encoded lines so that each line
    consists of exactly 64 characters except for the final line, which
    will encode the remainder of the data (within the 64-character line
-   boundary), and they MUST NOT emit extraneous whitespace.  Parsers MAY
+   boundary), and they <em>MUST NOT</em> emit extraneous whitespace.  Parsers <em>MAY</em>
    handle other line sizes.  These requirements are consistent with PEM
    [<a href="./rfc1421.html" title="&quot;Privacy Enhancement for Internet Electronic Mail: Part I: Message Encryption and Authentication Procedures&quot;">RFC1421</a>].
 
-   Files MAY contain multiple textual encoding instances.  This is used,
+   Files <em>MAY</em> contain multiple textual encoding instances.  This is used,
    for example, when a file contains several certificates.  Whether the
    instances are ordered or unordered depends on the context.
 
@@ -513,7 +513,7 @@ Table of Contents
 
                           Figure 3: ABNF (Strict)
 
-   New implementations SHOULD emit the strict format (Figure 3)
+   New implementations <em>SHOULD</em> emit the strict format (Figure 3)
    specified above.  The choice of parsing strategy depends on the
    context of use.
 
@@ -587,7 +587,7 @@ Sec. Label                  ASN.1 Type              Reference Module
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Encoding</span>
 
    Public-key certificates are encoded using the "CERTIFICATE" label.
-   The encoded data MUST be a BER (DER strongly preferred; see
+   The encoded data <em>MUST</em> be a BER (DER strongly preferred; see
    <a href="#appendix-B">Appendix B</a>) encoded ASN.1 Certificate structure as described in
    <a href="./rfc5280.html#section-4">Section&nbsp;4 of [RFC5280]</a>.
 
@@ -610,8 +610,8 @@ l4wOuDwKQa+upc8GftXE2C//4mKANBC6It01gUaTIpo=
 
    Historically, the label "X509 CERTIFICATE" and also less commonly
    "X.509 CERTIFICATE" have been used.  Generators conforming to this
-   document MUST generate "CERTIFICATE" labels and MUST NOT generate
-   "X509 CERTIFICATE" or "X.509 CERTIFICATE" labels.  Parsers SHOULD NOT
+   document <em>MUST</em> generate "CERTIFICATE" labels and <em>MUST NOT</em> generate
+   "X509 CERTIFICATE" or "X.509 CERTIFICATE" labels.  Parsers <em>SHOULD NOT</em>
    treat "X509 CERTIFICATE" or "X.509 CERTIFICATE" as equivalent to
    "CERTIFICATE", but a valid exception may be for backwards
    compatibility (potentially together with a warning).
@@ -642,7 +642,7 @@ l4wOuDwKQa+upc8GftXE2C//4mKANBC6It01gUaTIpo=
 
    Many tools are known to emit explanatory text before the BEGIN and
    after the END lines for PKIX certificates, more than any other type.
-   If emitted, such text SHOULD be related to the certificate, such as
+   If emitted, such text <em>SHOULD</em> be related to the certificate, such as
    providing a textual representation of key data elements in the
    certificate.
 
@@ -669,7 +669,7 @@ ILwpnZ1izL4MlI9eCSHhVQBHEp2uQdXJB+d5Byg=
    many tools are known to offer an option to output this encoding when
    serializing PKIX structures.  To promote interoperability and to
    separate DER encodings from textual encodings, the extension ".crt"
-   SHOULD be used for the textual encoding of a certificate.
+   <em>SHOULD</em> be used for the textual encoding of a certificate.
    Implementations should be aware that in spite of this recommendation,
    many tools still default to encode certificates in this textual
    encoding with the extension ".cer".
@@ -697,7 +697,7 @@ ILwpnZ1izL4MlI9eCSHhVQBHEp2uQdXJB+d5Byg=
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Textual Encoding of Certificate Revocation Lists</span>
 
    Certificate Revocation Lists (CRLs) are encoded using the "X509 CRL"
-   label.  The encoded data MUST be a BER (DER strongly preferred; see
+   label.  The encoded data <em>MUST</em> be a BER (DER strongly preferred; see
    <a href="#appendix-B">Appendix B</a>) encoded ASN.1 CertificateList structure as described in
    <a href="./rfc5280.html#section-5">Section&nbsp;5 of [RFC5280]</a>.
 
@@ -721,8 +721,8 @@ c3DGMNR+oUmSjKZ0jIhAYmeLxaPHfQwR
    common and many popular tools do not understand the label.
    Therefore, this document standardizes "X509 CRL" in order to promote
    interoperability and backwards-compatibility.  Generators conforming
-   to this document MUST generate "X509 CRL" labels and MUST NOT
-   generate "CRL" labels.  Parsers SHOULD NOT treat "CRL" as equivalent
+   to this document <em>MUST</em> generate "X509 CRL" labels and <em>MUST NOT</em>
+   generate "CRL" labels.  Parsers <em>SHOULD NOT</em> treat "CRL" as equivalent
    to "X509 CRL".
 
 
@@ -753,7 +753,7 @@ c3DGMNR+oUmSjKZ0jIhAYmeLxaPHfQwR
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Textual Encoding of PKCS #10 Certification Request Syntax</span>
 
    PKCS #10 Certification Requests are encoded using the
-   "CERTIFICATE REQUEST" label.  The encoded data MUST be a BER (DER
+   "CERTIFICATE REQUEST" label.  The encoded data <em>MUST</em> be a BER (DER
    strongly preferred; see <a href="#appendix-B">Appendix B</a>) encoded ASN.1
    CertificationRequest structure as described in [<a href="./rfc2986.html" title="&quot;PKCS #10: Certification Request Syntax Specification Version 1.7&quot;">RFC2986</a>].
 
@@ -771,14 +771,14 @@ dEQc8B8jAcnuOrfU
                         Figure 9: PKCS #10 Example
 
    The label "NEW CERTIFICATE REQUEST" is also in wide use.  Generators
-   conforming to this document MUST generate "CERTIFICATE REQUEST"
-   labels.  Parsers MAY treat "NEW CERTIFICATE REQUEST" as equivalent to
+   conforming to this document <em>MUST</em> generate "CERTIFICATE REQUEST"
+   labels.  Parsers <em>MAY</em> treat "NEW CERTIFICATE REQUEST" as equivalent to
    "CERTIFICATE REQUEST".
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Textual Encoding of PKCS #7 Cryptographic Message Syntax</span>
 
    PKCS #7 Cryptographic Message Syntax structures are encoded using the
-   "PKCS7" label.  The encoded data MUST be a BER-encoded ASN.1
+   "PKCS7" label.  The encoded data <em>MUST</em> be a BER-encoded ASN.1
    ContentInfo structure as described in [<a href="./rfc2315.html" title="&quot;PKCS #7: Cryptographic Message Syntax Version 1.5&quot;">RFC2315</a>].
 
 -----BEGIN PKCS7-----
@@ -794,8 +794,8 @@ OsYGYUFdAH0RNc1p4VbKEAQUM2Xo8PMHBoYdqEcsbTodlCFAZH4=
    The label "CERTIFICATE CHAIN" has been in use to denote a degenerate
    PKCS #7 structure that contains only a list of certificates (see
    <a href="./rfc2315.html#section-9">Section&nbsp;9 of [RFC2315]</a>).  Several modern tools do not support this
-   label.  Generators MUST NOT generate the "CERTIFICATE CHAIN" label.
-   Parsers SHOULD NOT treat "CERTIFICATE CHAIN" as equivalent to
+   label.  Generators <em>MUST NOT</em> generate the "CERTIFICATE CHAIN" label.
+   Parsers <em>SHOULD NOT</em> treat "CERTIFICATE CHAIN" as equivalent to
    "PKCS7".
 
 
@@ -807,13 +807,13 @@ OsYGYUFdAH0RNc1p4VbKEAQUM2Xo8PMHBoYdqEcsbTodlCFAZH4=
 
 
    PKCS #7 is an old specification that has long been superseded by CMS
-   [<a href="./rfc5652.html" title="&quot;Cryptographic Message Syntax (CMS)&quot;">RFC5652</a>].  Implementations SHOULD NOT generate PKCS #7 when CMS is
+   [<a href="./rfc5652.html" title="&quot;Cryptographic Message Syntax (CMS)&quot;">RFC5652</a>].  Implementations <em>SHOULD NOT</em> generate PKCS #7 when CMS is
    an alternative.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Textual Encoding of Cryptographic Message Syntax</span>
 
    Cryptographic Message Syntax structures are encoded using the "CMS"
-   label.  The encoded data MUST be a BER-encoded ASN.1 ContentInfo
+   label.  The encoded data <em>MUST</em> be a BER-encoded ASN.1 ContentInfo
    structure as described in [<a href="./rfc5652.html" title="&quot;Cryptographic Message Syntax (CMS)&quot;">RFC5652</a>].
 
 -----BEGIN CMS-----
@@ -825,7 +825,7 @@ dvb05OXi5XLPLEtViMwvLVLwSE0sKlFIVHAqSk3MBkkBAJv0Fx0=
                           Figure 11: CMS Example
 
    CMS is the IETF successor to PKCS #7.  <a href="./rfc5652.html#section-1.1.1">Section&nbsp;1.1.1 of [RFC5652]</a>
-   describes the changes since PKCS #7 v1.5.  Implementations SHOULD
+   describes the changes since PKCS #7 v1.5.  Implementations <em>SHOULD</em>
    generate CMS when it is an alternative, promoting interoperability
    and forwards-compatibility.
 
@@ -835,7 +835,7 @@ dvb05OXi5XLPLEtViMwvLVLwSE0sKlFIVHAqSk3MBkkBAJv0Fx0=
    Unencrypted PKCS #8 Private Key Information Syntax structures
    (PrivateKeyInfo), renamed to Asymmetric Key Packages
    (OneAsymmetricKey), are encoded using the "PRIVATE KEY" label.  The
-   encoded data MUST be a BER (DER preferred; see <a href="#appendix-B">Appendix B</a>) encoded
+   encoded data <em>MUST</em> be a BER (DER preferred; see <a href="#appendix-B">Appendix B</a>) encoded
    ASN.1 PrivateKeyInfo structure as described in PKCS #8 [<a href="./rfc5208.html" title="&quot;Public-Key Cryptography Standards (PKCS) #8: Private-Key Information Syntax Specification Version 1.2&quot;">RFC5208</a>], or
    a OneAsymmetricKey structure as described in [<a href="./rfc5958.html" title="&quot;Asymmetric Key Packages&quot;">RFC5958</a>].  The two are
    semantically identical and can be distinguished by version number.
@@ -866,7 +866,7 @@ H0M6xpM2q+53wmsN/eYLdgtjgBd3DBmHtPilCkiFICXyaA8z9LkJ
 
    Encrypted PKCS #8 Private Key Information Syntax structures
    (EncryptedPrivateKeyInfo), called the same in [<a href="./rfc5958.html" title="&quot;Asymmetric Key Packages&quot;">RFC5958</a>], are encoded
-   using the "ENCRYPTED PRIVATE KEY" label.  The encoded data MUST be a
+   using the "ENCRYPTED PRIVATE KEY" label.  The encoded data <em>MUST</em> be a
    BER (DER preferred; see <a href="#appendix-B">Appendix B</a>) encoded ASN.1
    EncryptedPrivateKeyInfo structure as described in PKCS #8 [<a href="./rfc5208.html" title="&quot;Public-Key Cryptography Standards (PKCS) #8: Private-Key Information Syntax Specification Version 1.2&quot;">RFC5208</a>]
    and [<a href="./rfc5958.html" title="&quot;Asymmetric Key Packages&quot;">RFC5958</a>].
@@ -884,7 +884,7 @@ QC7k0NNzUHTV9yGDwfqMbw==
 <span class="h2"><a class="selflink" name="section-12" href="#section-12">12</a>.  Textual Encoding of Attribute Certificates</span>
 
    Attribute certificates are encoded using the "ATTRIBUTE CERTIFICATE"
-   label.  The encoded data MUST be a BER (DER strongly preferred; see
+   label.  The encoded data <em>MUST</em> be a BER (DER strongly preferred; see
    <a href="#appendix-B">Appendix B</a>) encoded ASN.1 AttributeCertificate structure as described
    in [<a href="./rfc5755.html" title="&quot;An Internet Attribute Certificate Profile for Authorization&quot;">RFC5755</a>].
 
@@ -921,7 +921,7 @@ Smluak1aZIttePeTAHeJJs8izNJ5aR3Wcd3A5gLztQ==
 <span class="h2"><a class="selflink" name="section-13" href="#section-13">13</a>.  Textual Encoding of Subject Public Key Info</span>
 
    Public keys are encoded using the "PUBLIC KEY" label.  The encoded
-   data MUST be a BER (DER preferred; see <a href="#appendix-B">Appendix B</a>) encoded ASN.1
+   data <em>MUST</em> be a BER (DER preferred; see <a href="#appendix-B">Appendix B</a>) encoded ASN.1
    SubjectPublicKeyInfo structure as described in <a href="./rfc5280.html#section-4.1.2.7">Section&nbsp;4.1.2.7 of
    [RFC5280]</a>.
 

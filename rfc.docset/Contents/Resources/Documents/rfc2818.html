@@ -251,8 +251,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Terminology</span>
 
-   Keywords "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT" and
-   "MAY" that appear in this document are to be interpreted as described
+   Keywords "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>" and
+   "<em>MAY</em>" that appear in this document are to be interpreted as described
    in [<a href="./rfc2119.html" title="&quot;Key Words for use in RFCs to indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  HTTP Over TLS</span>
@@ -266,7 +266,7 @@ Table of Contents
    client.  It should initiate a connection to the server on the
    appropriate port and then send the TLS ClientHello to begin the TLS
    handshake. When the TLS handshake has finished. The client may then
-   initiate the first HTTP request.  All HTTP data MUST be sent as TLS
+   initiate the first HTTP request.  All HTTP data <em>MUST</em> be sent as TLS
    "application data".  Normal HTTP behavior, including retained
    connections should be followed.
 
@@ -275,18 +275,18 @@ Table of Contents
    TLS provides a facility for secure connection closure. When a valid
    closure alert is received, an implementation can be assured that no
    further data will be received on that connection.  TLS
-   implementations MUST initiate an exchange of closure alerts before
-   closing a connection. A TLS implementation MAY, after sending a
+   implementations <em>MUST</em> initiate an exchange of closure alerts before
+   closing a connection. A TLS implementation <em>MAY</em>, after sending a
    closure alert, close the connection without waiting for the peer to
    send its closure alert, generating an "incomplete close".  Note that
-   an implementation which does this MAY choose to reuse the session.
-   This SHOULD only be done when the application knows (typically
+   an implementation which does this <em>MAY</em> choose to reuse the session.
+   This <em>SHOULD</em> only be done when the application knows (typically
    through detecting HTTP message boundaries) that it has received all
    the message data that it cares about.
 
    As specified in [<a href="./rfc2246.html" title="&quot;The TLS Protocol&quot;">RFC2246</a>], any implementation which receives a
    connection close without first receiving a valid closure alert (a
-   "premature close") MUST NOT reuse that session.  Note that a
+   "premature close") <em>MUST NOT</em> reuse that session.  Note that a
    premature close does not call into question the security of the data
    already received, but simply indicates that subsequent data might
 
@@ -305,7 +305,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-2.2.1" href="#section-2.2.1">2.2.1</a>.  Client Behavior</span>
 
    Because HTTP uses connection closure to signal end of server data,
-   client implementations MUST treat any premature closes as errors and
+   client implementations <em>MUST</em> treat any premature closes as errors and
    the data received as potentially truncated.  While in some cases the
    HTTP protocol allows the client to find out whether truncation took
    place so that, if it received the complete reply, it may tolerate
@@ -325,15 +325,15 @@ Table of Contents
      truncated the connection.
 
    There is one exception to the above rule. When encountering a
-   premature close, a client SHOULD treat as completed all requests for
+   premature close, a client <em>SHOULD</em> treat as completed all requests for
    which it has received as much data as specified in the Content-Length
    header.
 
-   A client detecting an incomplete close SHOULD recover gracefully.  It
-   MAY resume a TLS session closed in this fashion.
+   A client detecting an incomplete close <em>SHOULD</em> recover gracefully.  It
+   <em>MAY</em> resume a TLS session closed in this fashion.
 
-   Clients MUST send a closure alert before closing the connection.
-   Clients which are unprepared to receive any more data MAY choose not
+   Clients <em>MUST</em> send a closure alert before closing the connection.
+   Clients which are unprepared to receive any more data <em>MAY</em> choose not
    to wait for the server's closure alert and simply close the
    connection, thus generating an incomplete close on the server side.
 
@@ -341,9 +341,9 @@ Table of Contents
 
    <a href="./rfc2616.html">RFC 2616</a> permits an HTTP client to close the connection at any time,
    and requires servers to recover gracefully.  In particular, servers
-   SHOULD be prepared to receive an incomplete close from the client,
+   <em>SHOULD</em> be prepared to receive an incomplete close from the client,
    since the client can often determine when the end of server data is.
-   Servers SHOULD be willing to resume TLS sessions closed in this
+   Servers <em>SHOULD</em> be willing to resume TLS sessions closed in this
    fashion.
 
 
@@ -359,8 +359,8 @@ Table of Contents
    used, however, the client may have already sent the closure alert and
    dropped the connection.
 
-   Servers MUST attempt to initiate an exchange of closure alerts with
-   the client before closing the connection. Servers MAY close the
+   Servers <em>MUST</em> attempt to initiate an exchange of closure alerts with
+   the client before closing the connection. Servers <em>MAY</em> close the
    connection after sending the closure alert, thus generating an
    incomplete close on the client side.
 
@@ -390,12 +390,12 @@ Table of Contents
 
    In general, HTTP/TLS requests are generated by dereferencing a URI.
    As a consequence, the hostname for the server is known to the client.
-   If the hostname is available, the client MUST check it against the
+   If the hostname is available, the client <em>MUST</em> check it against the
    server's identity as presented in the server's Certificate message,
    in order to prevent man-in-the-middle attacks.
 
    If the client has external information as to the expected identity of
-   the server, the hostname check MAY be omitted. (For instance, a
+   the server, the hostname check <em>MAY</em> be omitted. (For instance, a
    client may be connecting to a machine whose address and hostname are
    dynamic but the client knows the certificate that the server will
    present.) In such cases, it is important to narrow the scope of
@@ -413,9 +413,9 @@ Table of Contents
    the client to simply ignore the server's identity, but it must be
    understood that this leaves the connection open to active attack.
 
-   If a subjectAltName extension of type dNSName is present, that MUST
+   If a subjectAltName extension of type dNSName is present, that <em>MUST</em>
    be used as the identity. Otherwise, the (most specific) Common Name
-   field in the Subject field of the certificate MUST be used. Although
+   field in the Subject field of the certificate <em>MUST</em> be used. Although
    the use of the Common Name is existing practice, it is deprecated and
    Certification Authorities are encouraged to use the dNSName instead.
 
@@ -432,13 +432,13 @@ Table of Contents
    in the certificate and must exactly match the IP in the URI.
 
    If the hostname does not match the identity in the certificate, user
-   oriented clients MUST either notify the user (clients MAY give the
+   oriented clients <em>MUST</em> either notify the user (clients <em>MAY</em> give the
    user the opportunity to continue with the connection in any case) or
    terminate the connection with a bad certificate error. Automated
-   clients MUST log the error to an appropriate audit log (if available)
-   and SHOULD terminate the connection (with a bad certificate error).
-   Automated clients MAY provide a configuration setting that disables
-   this check, but MUST provide a setting which enables it.
+   clients <em>MUST</em> log the error to an appropriate audit log (if available)
+   and <em>SHOULD</em> terminate the connection (with a bad certificate error).
+   Automated clients <em>MAY</em> provide a configuration setting that disables
+   this check, but <em>MUST</em> provide a setting which enables it.
 
    Note that in many cases the URI itself comes from an untrusted
    source. The above-described check provides no protection against
@@ -455,7 +455,7 @@ Table of Contents
    identity ought to be and so checks (other than that the client has a
    certificate chain rooted in an appropriate CA) are not possible. If a
    server has such knowledge (typically from some source external to
-   HTTP or TLS) it SHOULD check the identity as described above.
+   HTTP or TLS) it <em>SHOULD</em> check the identity as described above.
 
 
 

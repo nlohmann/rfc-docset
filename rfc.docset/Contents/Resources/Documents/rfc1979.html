@@ -366,17 +366,17 @@ zlib[4] library source code, has the following features:
       to be checked before decoding the packet.
 
       Instead of transmitting a Reset-Request packet when detecting a
-      sequence error, the receiver MAY momentarily force CCP to drop out
+      sequence error, the receiver <em>MAY</em> momentarily force CCP to drop out
       of the Opened state by transmitting a new CCP Configure-Request.
       This method is more expensive than using Reset-Requests.
 
       When the receiver first encounters an unexpected sequence number
-      it SHOULD send a Reset-Request LCP packet as defined in the
+      it <em>SHOULD</em> send a Reset-Request LCP packet as defined in the
       Compression Control Protocol.  When the transmitter sends the
       Reset-Ack or when the receiver receives a Reset-ACK, they must
       reset the sequence number to zero, clear the compression
       dictionary, and resume sending and receiving compressed packets.
-      The receiver MUST discard all compressed packets after detecting
+      The receiver <em>MUST</em> discard all compressed packets after detecting
       an error and until it receives a Reset-Ack.  This strategy can be
       thought of as abandoning the transmission of one "file" and
       starting the transmission of a new "file."
@@ -393,11 +393,11 @@ zlib[4] library source code, has the following features:
       undesirable to transmit Reset-Requests more frequently than the
       round-trip-time of the link, because redundant Reset-Requests
       cause unnecessary compression dictionary clearing.  The receiver
-      MAY transmit an additional Reset-Request each time it receives a
+      <em>MAY</em> transmit an additional Reset-Request each time it receives a
       compressed or uncompressed packet until it finally receives a
       Reset-Ack, but the receiver ought not transmit another Reset-
       Request until the Reset-Ack for the previous one is late.  The
-      receiver MUST transmit enough Reset-Request packets to ensure that
+      receiver <em>MUST</em> transmit enough Reset-Request packets to ensure that
       the transmitter receives at least one.  For example, the receiver
       might choose to not transmit another Reset-Request until after one
       second (or, of course, a Reset-Ack has been received and
@@ -426,9 +426,9 @@ zlib[4] library source code, has the following features:
       (and much of the text of its description) is used here as well.
 
       If an incompressible data packet does not fit within the MRU of
-      the link, the packet MUST be sent in its original form without CCP
+      the link, the packet <em>MUST</em> be sent in its original form without CCP
       encapsulation; PPP packets with significant data expansion that do
-      not exceed the MRU of the link SHOULD be sent in their original
+      not exceed the MRU of the link <em>SHOULD</em> be sent in their original
       form without CCP encapsulation.  In both of these cases, the
       transmitter must increment the sequence number, as future
       encapsulated packets will depend on the correct reception of some
@@ -497,7 +497,7 @@ zlib[4] library source code, has the following features:
 
       When the PPP Deflate compression protocol is successfully
       negotiated by the PPP Compression Control Protocol [<a href="#ref-2" title="&quot;The PPP Compression Control Protocol (CCP)&quot;">2</a>], the value
-      of the protocol field is 0xFD or 0xFB.  This value MAY be
+      of the protocol field is 0xFD or 0xFB.  This value <em>MAY</em> be
       compressed when Protocol-Field-Compression is negotiated.
 
    Sequence
@@ -527,7 +527,7 @@ zlib[4] library source code, has the following features:
       The compressed PPP encapsulated packet, consisting of the Protocol
       and Data fields of the original, uncompressed packet follows.
 
-      The Protocol field compression MUST be applied to the protocol
+      The Protocol field compression <em>MUST</em> be applied to the protocol
       field in the original packet before the sequence number is
       computed or the entire packet is compressed, regardless of whether
       the PPP protocol field compression has been negotiated.  Thus, if
@@ -541,7 +541,7 @@ zlib[4] library source code, has the following features:
       transmitter's state; to ensure this, each transmitted packet must
       be terminated with a zero-length 'deflate' non-compressed block
       (BTYPE of 00).  This means that the last four bytes of the
-      compressed format must be 0x00 0x00 0xFF 0xFF.  These bytes MUST
+      compressed format must be 0x00 0x00 0xFF 0xFF.  These bytes <em>MUST</em>
       be removed before transmission; the receiver can reinsert them if
       required by the implementation.
 
@@ -612,7 +612,7 @@ zlib[4] library source code, has the following features:
       size, minus 8.  'Deflate' compliant decompressors must be willing
       to accept the maximum 32KB window size, represented by a value of
       7.  A 'deflate' compliant compressor is at liberty to use a
-      reduced window size, so a PPP Deflate compressor MUST either honor
+      reduced window size, so a PPP Deflate compressor <em>MUST</em> either honor
       the restriction requested or reject the option.
 
    Method

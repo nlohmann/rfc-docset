@@ -277,8 +277,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-N1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">N1</a>].
 
    The syntax for the TLS User Mapping extension is defined using the
@@ -312,7 +312,7 @@ Table of Contents
            user_mapping(6), (65535)
       } ExtensionType;
 
-   The "extension_data" field of this extension SHALL contain
+   The "extension_data" field of this extension <em>SHALL</em> contain
    "UserMappingTypeList" with a list of supported hint types where:
 
       struct {
@@ -322,17 +322,17 @@ Table of Contents
    Enumeration of hint types (user_mapping_types) defined in this
    document is provided in <a href="#section-3">Section 3</a>.
 
-   The list of user_mapping_types included in a client hello SHALL
+   The list of user_mapping_types included in a client hello <em>SHALL</em>
    signal the hint types supported by the client.  The list of
-   user_mapping_types included in the server hello SHALL signal the hint
+   user_mapping_types included in the server hello <em>SHALL</em> signal the hint
    types preferred by the server.
 
    If none of the hint types listed by the client is supported by the
-   server, the server SHALL omit the user_mapping extension in the
+   server, the server <em>SHALL</em> omit the user_mapping extension in the
    server hello.
 
    When the user_mapping extension is included in the server hello, the
-   list of hint types in "UserMappingTypeList" SHALL be either equal to,
+   list of hint types in "UserMappingTypeList" <em>SHALL</em> be either equal to,
    or a subset of, the list provided by the client.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  User Mapping Handshake Exchange</span>
@@ -358,8 +358,8 @@ Table of Contents
 <span class="grey"><a href="./rfc4681.html">RFC 4681</a>               TLS User Mapping Extension           October 2006</span>
 
 
-   MAY use this hint to locate the user's account from which user
-   information and credentials MAY be retrieved to support
+   <em>MAY</em> use this hint to locate the user's account from which user
+   information and credentials <em>MAY</em> be retrieved to support
    authentication based on the client certificate.
 
       struct {
@@ -397,13 +397,13 @@ Table of Contents
 
    The UserMappingData structure contains a single mapping of type
    UserMappingType.  This structure can be leveraged to define new types
-   of user mapping hints in the future.  The UserMappingDataList MAY
+   of user mapping hints in the future.  The UserMappingDataList <em>MAY</em>
    carry multiple hints; it is defined as a vector of UserMappingData
    structures.
 
    No preference is given to the order in which hints are specified in
    this vector.  If the client sends more than one hint, then the Server
-   SHOULD use the applicable mapping supported by the server.
+   <em>SHOULD</em> use the applicable mapping supported by the server.
 
 
 
@@ -414,8 +414,8 @@ Table of Contents
 <span class="grey"><a href="./rfc4681.html">RFC 4681</a>               TLS User Mapping Extension           October 2006</span>
 
 
-   Implementations MAY support the UPN domain hint as specified in
-   <a href="#section-6">Section 6</a> of this document.  Implementations MAY also support other
+   Implementations <em>MAY</em> support the UPN domain hint as specified in
+   <a href="#section-6">Section 6</a> of this document.  Implementations <em>MAY</em> also support other
    user mapping types as they are defined.  Definitions of standards-
    track user mapping types must include a discussion of
    internationalization considerations.
@@ -423,19 +423,19 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Message Flow</span>
 
    In order to negotiate sending user mapping data to a server in
-   accordance with this specification, clients MUST include an extension
-   of type "user_mapping" in the (extended) client hello, which SHALL
+   accordance with this specification, clients <em>MUST</em> include an extension
+   of type "user_mapping" in the (extended) client hello, which <em>SHALL</em>
    contain a list of supported hint types.
 
    Servers that receive an extended client hello containing a
-   "user_mapping" extension MAY indicate that they are willing to accept
+   "user_mapping" extension <em>MAY</em> indicate that they are willing to accept
    user mapping data by including an extension of type "user_mapping" in
-   the (extended) server hello, which SHALL contain a list of preferred
+   the (extended) server hello, which <em>SHALL</em> contain a list of preferred
    hint types.
 
    After negotiation of the use of user mapping has been successfully
    completed (by exchanging hello messages including "user_mapping"
-   extensions), clients MAY send a "SupplementalData" message containing
+   extensions), clients <em>MAY</em> send a "SupplementalData" message containing
    the "UserMappingDataList" before the "Certificate" message.  The
    message flow is illustrated in Figure 1 below.
 
@@ -497,9 +497,9 @@ Table of Contents
 
               Figure 1.  Message Flow with User Mapping Data
 
-   The server MUST expect and gracefully handle the case where the
+   The server <em>MUST</em> expect and gracefully handle the case where the
    client chooses not to send any supplementalData handshake message
-   even after successful negotiation of extensions.  The client MAY at
+   even after successful negotiation of extensions.  The client <em>MAY</em> at
    its own discretion decide that the user mapping hint it initially
    intended to send no longer is relevant for this session.  One such
    reason could be that the server certificate fails to meet certain
@@ -508,9 +508,9 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Security Considerations</span>
 
    The user mapping hint sent in the UserMappingDataList is
-   unauthenticated data that MUST NOT be treated as a trusted
+   unauthenticated data that <em>MUST NOT</em> be treated as a trusted
    identifier.  Authentication of the user represented by that user
-   mapping hint MUST rely solely on validation of the client
+   mapping hint <em>MUST</em> rely solely on validation of the client
    certificate.  One way to do this is to use the user mapping hint to
    locate and extract a certificate of the claimed user from the trusted
    directory and subsequently match this certificate against the
@@ -531,7 +531,7 @@ Table of Contents
    Information.  It may not be prudent to broadcast a user mapping hint
    to just any server at any time.
 
-   To avoid superfluously sending user mapping hints, clients SHOULD
+   To avoid superfluously sending user mapping hints, clients <em>SHOULD</em>
    only send this information if it recognizes the server as a
    legitimate recipient.  Recognition of the server can be done in many
    ways.  One way to do this could be to recognize the name and address
@@ -563,11 +563,11 @@ Table of Contents
    the user and does not require the certificate to contain a
    proprietary UPN.
 
-   The domain_name field MAY be used when only domain information is
+   The domain_name field <em>MAY</em> be used when only domain information is
    needed, e.g., where a user have accounts in multiple domains using
    the same username name, where that user name is known from another
    source (e.g., from the client certificate).  When the user name is
-   also needed, the user_principal_name field MAY be used to indicate
+   also needed, the user_principal_name field <em>MAY</em> be used to indicate
    both username and domain name.  If both fields are present, then the
    server can make use of whichever one it chooses.
 
@@ -595,12 +595,12 @@ Table of Contents
              }
       } UserMappingData;
 
-   The user_principal_name field, when specified, SHALL be of the form
+   The user_principal_name field, when specified, <em>SHALL</em> be of the form
    "user@domain", where "user" is a UTF-8 encoded Unicode string that
    does not contain the "@" character, and "domain" is a domain name
    meeting the requirements in the following paragraph.
 
-   The domain_name field, when specified, SHALL contain a domain name
+   The domain_name field, when specified, <em>SHALL</em> contain a domain name
    [<a href="#ref-N5" title="&quot;Domain names - concepts and facilities&quot;">N5</a>] in the usual text form; in other words, a sequence of one or
    more domain labels separated by ".", each domain label starting and
    ending with an alphanumeric character and possibly also containing
@@ -609,9 +609,9 @@ Table of Contents
    non-ASCII characters have to be processed as described in <a href="./rfc3490.html">RFC 3490</a>
    before being stored in this field.
 
-   The UpnDomainHint MUST at least contain a non-empty
+   The UpnDomainHint <em>MUST</em> at least contain a non-empty
    user_principal_name or a non-empty domain_name.  The UpnDomainHint
-   MAY contain both user_principal_name and domain_name.
+   <em>MAY</em> contain both user_principal_name and domain_name.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  IANA Considerations</span>
 

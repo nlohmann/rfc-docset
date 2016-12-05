@@ -379,8 +379,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Motivations</span>
@@ -447,7 +447,7 @@ Table of Contents
    Error-value               Meaning                    Reference
      1            Reroute Request Soft Preemption     This document
 
-   Upon (soft) preemption, the preempting node MUST issue a PathErr
+   Upon (soft) preemption, the preempting node <em>MUST</em> issue a PathErr
    message with the Error Code=34 ("Reroute") and a value=1 ("Reroute
    Request Soft Preemption").
 
@@ -600,31 +600,31 @@ Table of Contents
    these soft preemption PathErr notification messages may be bundled
    together.
 
-   The preempting node MUST immediately send a PathErr with error code
+   The preempting node <em>MUST</em> immediately send a PathErr with error code
    "Reroute" and a error value "Reroute Request Soft Preemption" for
-   each soft preempted TE LSP.  The node MAY use the occurrence of soft
+   each soft preempted TE LSP.  The node <em>MAY</em> use the occurrence of soft
    preemption to trigger an immediate IGP update or influence the
    scheduling of an IGP update.
 
    To guard against a situation where bandwidth under-provisioning will
-   last forever, a local timer (named the "Soft preemption timer") MUST
+   last forever, a local timer (named the "Soft preemption timer") <em>MUST</em>
    be started on the preemption node upon soft preemption.  If this
-   timer expires, the preempting node SHOULD send an RSVP PathTear and
+   timer expires, the preempting node <em>SHOULD</em> send an RSVP PathTear and
    either a ResvTear message or a PathErr with the 'Path_State_Removed'
    flag set.
 
    Should a refresh event for a soft preempted TE LSP arrive before the
-   soft preemption timer expires, the soft preempting node MUST continue
+   soft preemption timer expires, the soft preempting node <em>MUST</em> continue
    to refresh the TE LSP.
 
    When the MESSAGE-ID extensions defined in [<a href="./rfc2961.html" title="&quot;RSVP Refresh Overhead Reduction Extensions&quot;">RFC2961</a>] are available and
    enabled, PathErr messages with the error code "Reroute" and error
-   value "Reroute Request Soft Preemption" SHOULD be sent in reliable
+   value "Reroute Request Soft Preemption" <em>SHOULD</em> be sent in reliable
    mode.
 
-   The preempting node MAY preempt TE LSPs that have a numerically
+   The preempting node <em>MAY</em> preempt TE LSPs that have a numerically
    higher Holding priority than the Setup priority of the newly admitted
-   LSP.  Within the same priority, first it SHOULD attempt to preempt
+   LSP.  Within the same priority, first it <em>SHOULD</em> attempt to preempt
    LSPs with the "Soft Preemption Desired" bit of the SESSION ATTRIBUTE
    object cleared, i.e., the TE LSPs that are considered as Hard
    Preemptable.
@@ -647,39 +647,39 @@ Table of Contents
 
 
    LSRs.  In order to reduce this under-provisioning exposure, a soft
-   preempting LSR MAY check first if there exists soft preemptable TE
+   preempting LSR <em>MAY</em> check first if there exists soft preemptable TE
    LSP bandwidth that is flagged by another node but still available for
    soft preemption locally.  If sufficient overlap bandwidth exists, the
-   LSR MAY attempt to soft preempt the same TE LSP.  This would help
+   LSR <em>MAY</em> attempt to soft preempt the same TE LSP.  This would help
    reduce the temporarily elevated under-provisioning ratio on the links
    where soft preemption occurs and reduce the number of preempted TE
    LSPs.  Optionally, a midpoint LSR upstream or downstream from a soft
-   preempting node MAY choose to flag the TE LSPs in soft preempted
+   preempting node <em>MAY</em> choose to flag the TE LSPs in soft preempted
    state.  In the event a local preemption is needed, the LSPs that are
    in the cache and of the relevant priority level are soft preempted
    first, followed by the normal soft and hard preemption selection
    process for the given priority.
 
    Under specific circumstances such as unacceptable link congestion, a
-   node MAY decide to hard preempt a TE LSP (by sending a fatal Path
+   node <em>MAY</em> decide to hard preempt a TE LSP (by sending a fatal Path
    Error message, a PathTear, and either a ResvTear or a Path Error
    message with the 'Path_State_Removed' flag set) even if its head-end
    LSR explicitly requested soft preemption (by setting the "Soft
    Preemption Desired" flag of the corresponding SESSION-ATTRIBUTE
-   object).  Note that such a decision MAY also be made for TE LSPs
+   object).  Note that such a decision <em>MAY</em> also be made for TE LSPs
    under soft preemption state.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  On Head-end LSR of a Soft Preempted TE LSP</span>
 
    Upon reception of a PathErr message with error code "Reroute" and an
-   error value "Reroute request soft preemption", the head-end LSR MAY
+   error value "Reroute request soft preemption", the head-end LSR <em>MAY</em>
    first update the working copy of the TE-DB before computing a new
    path (e.g., by running CSPF) for the new LSP.  In the case that
    Diffserv [<a href="./rfc3270.html" title="&quot;Multi- Protocol Label Switching (MPLS) Support of Differentiated Services&quot;">RFC3270</a>] and MPLS Traffic Engineering [<a href="./rfc3209.html" title="&quot;RSVP-TE: Extensions to RSVP for LSP Tunnels&quot;">RFC3209</a>] are
    deployed, receiving "preemption pending" may imply to a head-end LSR
    that the available bandwidth for the affected priority level and
    numerically greater priority levels has been exhausted for the
-   indicated node interface.  A head-end LSR MAY choose to reduce or
+   indicated node interface.  A head-end LSR <em>MAY</em> choose to reduce or
    zero the available bandwidth for the implied priority range until
    more accurate information is available (i.e., a new IGP TE update is
    received).
@@ -715,14 +715,14 @@ Table of Contents
 
    As mentioned previously, to guard against a situation where bandwidth
    under-provisioning will last forever, a local timer (soft preemption
-   timer) MUST be started on the preemption node upon soft preemption.
-   When this timer expires, the soft preempted TE LSP SHOULD be hard
+   timer) <em>MUST</em> be started on the preemption node upon soft preemption.
+   When this timer expires, the soft preempted TE LSP <em>SHOULD</em> be hard
    preempted by sending a fatal Path Error message, a PathTear message,
    and either a ResvTear message or a PathErr message with the
-   'Path_State_Removed' flag set.  This timer SHOULD be configurable,
-   and a default value of 30 seconds is RECOMMENDED.
+   'Path_State_Removed' flag set.  This timer <em>SHOULD</em> be configurable,
+   and a default value of 30 seconds is <em>RECOMMENDED</em>.
 
-   It is RECOMMENDED that configuring the default preemption timer to 0
+   It is <em>RECOMMENDED</em> that configuring the default preemption timer to 0
    will cause the implementation to use hard-preemption.
 
    Soft preemption as defined in this document is designed for use in
@@ -733,7 +733,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Management</span>
 
-   Both the point of preemption and the ingress LER SHOULD provide some
+   Both the point of preemption and the ingress LER <em>SHOULD</em> provide some
    form of accounting internally and to the network operator interface
    with regard to which TE LSPs and how much capacity is under-
    provisioned due to soft preemption.  Displays of under-provisioning

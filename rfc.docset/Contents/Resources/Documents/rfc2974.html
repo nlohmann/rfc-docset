@@ -261,8 +261,8 @@ Abstract
    In this manner, it will eventually learn of all the sessions being
    announced, allowing those sessions to be joined.
 
-   The key words `MUST', `MUST NOT', `REQUIRED', `SHALL', `SHALL NOT',
-   `SHOULD', `SHOULD NOT', `RECOMMENDED', `MAY', and `OPTIONAL' in this
+   The key words `<em>MUST</em>', `<em>MUST NOT</em>', `<em>REQUIRED</em>', `<em>SHALL</em>', `<em>SHALL NOT</em>',
+   `<em>SHOULD</em>', `<em>SHOULD NOT</em>', `<em>RECOMMENDED</em>', `<em>MAY</em>', and `<em>OPTIONAL</em>' in this
    document are to be interpreted as described in [<a href="#ref-1" title="&quot;Key words for use in RFCs to indicate requirement levels&quot;">1</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>  Session Announcement</span>
@@ -274,9 +274,9 @@ Abstract
    reliability is provided over the standard best-effort UDP/IP
    semantics.
 
-   That announcement contains a session description and SHOULD contain
-   an authentication header.  The session description MAY be encrypted
-   although this is NOT RECOMMENDED (see <a href="#section-7">section 7</a>).
+   That announcement contains a session description and <em>SHOULD</em> contain
+   an authentication header.  The session description <em>MAY</em> be encrypted
+   although this is NOT <em>RECOMMENDED</em> (see <a href="#section-7">section 7</a>).
 
    A SAP announcement is multicast with the same scope as the session it
    is announcing, ensuring that the recipients of the announcement are
@@ -286,7 +286,7 @@ Abstract
    IPv4 global scope sessions use multicast addresses in the range
       224.2.128.0 - 224.2.255.255 with SAP announcements being sent to
       224.2.127.254 (note that 224.2.127.255 is used by the obsolete
-      SAPv0 and MUST NOT be used).
+      SAPv0 and <em>MUST NOT</em> be used).
 
 
 
@@ -317,7 +317,7 @@ Abstract
    Ensuring that a description is not used by a potential participant
    outside the session scope is not addressed in this memo.
 
-   SAP announcements MUST be sent on port 9875 and SHOULD be sent with
+   SAP announcements <em>MUST</em> be sent on port 9875 and <em>SHOULD</em> be sent with
    an IP time-to-live of 255 (the use of TTL scoping for multicast is
    discouraged [<a href="#ref-7" title="&quot;Administratively scoped IP multicast&quot;">7</a>]).
 
@@ -326,28 +326,28 @@ Abstract
    announcement to each administrative scope range.  It is up to the
    listeners to parse such multiple announcements as the same session
    (as identified by the SDP origin field, for example).  The
-   announcement rate for each administrative scope range MUST be
+   announcement rate for each administrative scope range <em>MUST</em> be
    calculated separately, as if the multiple announcements were
    separate.
 
    Multiple announcers may announce a single session, as an aid to
    robustness in the face of packet loss and failure of one or more
    announcers.  The rate at which each announcer repeats its
-   announcement MUST be scaled back such that the total announcement
+   announcement <em>MUST</em> be scaled back such that the total announcement
    rate is equal to that which a single server would choose.
-   Announcements made in this manner MUST be identical.
+   Announcements made in this manner <em>MUST</em> be identical.
 
    If multiple announcements are being made for a session, then each
-   announcement MUST carry an authentication header signed by the same
+   announcement <em>MUST</em> carry an authentication header signed by the same
    key, or be treated as a completely separate announcement by
    listeners.
 
-   An IPv4 SAP listener SHOULD listen on the IPv4 global scope SAP
+   An IPv4 SAP listener <em>SHOULD</em> listen on the IPv4 global scope SAP
    address and on the SAP addresses for each IPv4 administrative scope
    zone it is within.  The discovery of administrative scope zones is
    outside the scope of this memo, but it is assumed that each SAP
    listener within a particular scope zone is aware of that scope zone.
-   A SAP listener which supports IPv6 SHOULD also listen to the IPv6 SAP
+   A SAP listener which supports IPv6 <em>SHOULD</em> also listen to the IPv6 SAP
    addresses.
 
 
@@ -362,7 +362,7 @@ Abstract
    The time period between repetitions of an announcement is chosen such
    that the total bandwidth used by all announcements on a single SAP
    group remains below a preconfigured limit.  If not otherwise
-   specified, the bandwidth limit SHOULD be assumed to be 4000 bits per
+   specified, the bandwidth limit <em>SHOULD</em> be assumed to be 4000 bits per
    second.
 
    Each announcer is expected to listen to other announcements in order
@@ -371,7 +371,7 @@ Abstract
    combination of the message identifier hash and originating source
    fields of the SAP header (note that SAP v0 announcers always set the
    message identifier hash to zero, and if such an announcement is
-   received the entire message MUST be compared to determine
+   received the entire message <em>MUST</em> be compared to determine
    uniqueness).
 
    Announcements are made by periodic multicast to the group.  The base
@@ -399,7 +399,7 @@ Abstract
                 tn =tp+ interval+ offset
 
    The announcer then sets a timer to expire at tn and waits.  At time
-   tn the announcer SHOULD recalculate the next transmission time.  If
+   tn the announcer <em>SHOULD</em> recalculate the next transmission time.  If
    the new value of tn is before the current time, the announcement is
    sent immediately.  Otherwise the transmission is rescheduled for the
    new tn.  This reconsideration prevents transient packet bursts on
@@ -420,7 +420,7 @@ Abstract
    Explicit Timeout The session description payload may contain
       timestamp information specifying the start- and end-times of the
       session.  If the current time is later than the end-time of the
-      session, then the session SHOULD be deleted from the receiver's
+      session, then the session <em>SHOULD</em> be deleted from the receiver's
       session cache.
 
    Implicit Timeout A session announcement message should be received
@@ -433,16 +433,16 @@ Abstract
       hour minimum is to allow for transient network partitionings.
 
    Explicit Deletion A session deletion packet is received specifying
-      the session to be deleted.  Session deletion packets SHOULD have a
+      the session to be deleted.  Session deletion packets <em>SHOULD</em> have a
       valid authentication header, matching that used to authenticate
       previous announcement packets.  If this authentication is missing,
-      the deletion message SHOULD be ignored.
+      the deletion message <em>SHOULD</em> be ignored.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>  Session Modification</span>
 
    A pre-announced session can be modified by simply announcing the
    modified session description.  In this case, the version hash in the
-   SAP header MUST be changed to indicate to receivers that the packet
+   SAP header <em>MUST</em> be changed to indicate to receivers that the packet
    contents should be parsed (or decrypted and parsed if it is
    encrypted).  The session itself, as distinct from the session
    announcement, is uniquely identified by the payload and not by the
@@ -472,7 +472,7 @@ Abstract
    If an announcement is received containing an authentication header
    and the cached announcement did not contain an authentication header,
    or it contained a different authentication header, then the modified
-   announcement MUST be treated as a new and different announcement, and
+   announcement <em>MUST</em> be treated as a new and different announcement, and
    displayed in addition to the un-authenticated announcement.  The same
    should happen if a modified packet without an authentication header
    is received from a different source than the original announcement.
@@ -512,7 +512,7 @@ Abstract
 
    SAP data packets have the format described in figure 1.
 
-   V: Version Number. The version number field MUST be set to 1 (SAPv2
+   V: Version Number. The version number field <em>MUST</em> be set to 1 (SAPv2
       announcements which use only SAPv1 features are backwards
       compatible, those which use new features can be detected by other
       means, so the SAP version number doesn't need to change).
@@ -529,7 +529,7 @@ Abstract
       contains a 32-bit IPv4 address.  If the A bit is 1, the
       originating source contains a 128-bit IPv6 address.
 
-   R: Reserved. SAP announcers MUST set this to 0, SAP listeners MUST
+   R: Reserved. SAP announcers <em>MUST</em> set this to 0, SAP listeners <em>MUST</em>
       ignore the contents of this field.
 
    T: Message Type. If the T field is set to 0 this is a session
@@ -541,7 +541,7 @@ Abstract
 
    C: Compressed bit. If the compressed bit is set to 1, the payload is
       compressed using the zlib compression algorithm [<a href="#ref-3" title="&quot;Zlib compressed data format specification version 3.3&quot;">3</a>].  If the
-      payload is to be compressed and encrypted, the compression MUST be
+      payload is to be compressed and encrypted, the compression <em>MUST</em> be
       performed first.
 
    Authentication Length. An 8 bit unsigned quantity giving the number
@@ -556,10 +556,10 @@ Abstract
    Message Identifier Hash. A 16 bit quantity that, used in combination
       with the originating source, provides a globally unique identifier
       indicating the precise version of this announcement.  The choice
-      of value for this field is not specified here, except that it MUST
+      of value for this field is not specified here, except that it <em>MUST</em>
       be unique for each session announced by a particular SAP announcer
-      and it MUST be changed if the session description is modified (and
-      a session deletion message SHOULD be sent for the old version of
+      and it <em>MUST</em> be changed if the session description is modified (and
+      a session deletion message <em>SHOULD</em> be sent for the old version of
       the session).
 
       Earlier versions of SAP used a value of zero to mean that the hash
@@ -569,9 +569,9 @@ Abstract
       advertised, making the calculation of the announcement interval
       more complex that necessary.  In order to decouple the session
       announcement process from the contents of those announcements, SAP
-      announcers SHOULD NOT set the message identifier hash to zero.
+      announcers <em>SHOULD NOT</em> set the message identifier hash to zero.
 
-      SAP listeners MAY silently discard messages if the message
+      SAP listeners <em>MAY</em> silently discard messages if the message
       identifier hash is set to zero.
 
 
@@ -588,8 +588,8 @@ Abstract
 
       SAPv0 permitted the originating source to be zero if the message
       identifier hash was also zero.  This practise is no longer legal,
-      and SAP announcers SHOULD NOT set the originating source to zero.
-      SAP listeners MAY silently discard packets with the originating
+      and SAP announcers <em>SHOULD NOT</em> set the originating source to zero.
+      SAP listeners <em>MAY</em> silently discard packets with the originating
       source set to zero.
 
    The header is followed by an optional payload type field and the
@@ -599,23 +599,23 @@ Abstract
    The payload type field is a MIME content type specifier, describing
    the format of the payload.  This is a variable length ASCII text
    string, followed by a single zero byte (ASCII NUL).  The payload type
-   SHOULD be included in all packets.  If the payload type is
+   <em>SHOULD</em> be included in all packets.  If the payload type is
    `application/sdp' both the payload type and its terminating zero byte
-   MAY be omitted, although this is intended for backwards compatibility
+   <em>MAY</em> be omitted, although this is intended for backwards compatibility
    with SAP v1 listeners only.
 
    The absence of a payload type field may be noted since the payload
    section of such a packet will start with an SDP `v=0' field, which is
    not a legal MIME content type specifier.
 
-   All implementations MUST support payloads of type `application/sdp'
-   [<a href="#ref-4" title="&quot;SDP: Session Description Protocol&quot;">4</a>].  Other formats MAY be supported although since there is no
+   All implementations <em>MUST</em> support payloads of type `application/sdp'
+   [<a href="#ref-4" title="&quot;SDP: Session Description Protocol&quot;">4</a>].  Other formats <em>MAY</em> be supported although since there is no
    negotiation in SAP an announcer which chooses to use a session
    description format other than SDP cannot know that the listeners are
    able to understand the announcement.  A proliferation of payload
    types in announcements has the potential to lead to severe
    interoperability problems, and for this reason, the use of non-SDP
-   payloads is NOT RECOMMENDED.
+   payloads is NOT <em>RECOMMENDED</em>.
 
    If the packet is an announcement packet, the payload contains a
    session description.
@@ -637,9 +637,9 @@ Abstract
 <span class="grey"><a href="./rfc2974.html">RFC 2974</a>             Session Announcement Protocol          October 2000</span>
 
 
-   RECOMMENDED that SAP packets are smaller than 1kByte in length,
+   <em>RECOMMENDED</em> that SAP packets are smaller than 1kByte in length,
    although if it is known that announcements will use a network with a
-   smaller MTU than this, then that SHOULD be used as the maximum
+   smaller MTU than this, then that <em>SHOULD</em> be used as the maximum
    recommended packet size.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>  Encrypted Announcements</span>
@@ -649,7 +649,7 @@ Abstract
    do not have the encryption key, there is a considerable waste of
    bandwidth since those receivers cannot use the announcement they have
    received.  For this reason, the use of encrypted SAP announcements is
-   NOT RECOMMENDED on the global scope SAP group or on administrative
+   NOT <em>RECOMMENDED</em> on the global scope SAP group or on administrative
    scope groups which may have many receivers which cannot decrypt those
    announcements.
 
@@ -781,15 +781,15 @@ Abstract
       sender expects the recipients to use to check the authenticity and
       integrity of the information.  This defines the format of the
       authentication subheader and can take the values:  0 = PGP format,
-      1 = CMS format.  All other values are undefined and SHOULD be
+      1 = CMS format.  All other values are undefined and <em>SHOULD</em> be
       ignored.
 
-   If a SAP packet is to be compressed or encrypted, this MUST be done
+   If a SAP packet is to be compressed or encrypted, this <em>MUST</em> be done
    before the authentication is added.
 
-   The digital signature in the authentication data MUST be calculated
+   The digital signature in the authentication data <em>MUST</em> be calculated
    over the entire packet, including the header.  The authentication
-   length MUST be set to zero and the authentication data excluded when
+   length <em>MUST</em> be set to zero and the authentication data excluded when
    calculating the digital signature.
 
    It is to be expected that sessions may be announced by a number of
@@ -814,7 +814,7 @@ Abstract
    A full description of the PGP protocol can be found in [<a href="#ref-2" title="&quot;OpenPGP message format&quot;">2</a>].  When
    using PGP for SAP authentication the basic format specific
    authentication subheader comprises a digital signature packet as
-   described in [<a href="#ref-2" title="&quot;OpenPGP message format&quot;">2</a>].  The signature type MUST be 0x01 which means the
+   described in [<a href="#ref-2" title="&quot;OpenPGP message format&quot;">2</a>].  The signature type <em>MUST</em> be 0x01 which means the
    signature is that of a canonical text document.
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a> CMS Authentication</span>
@@ -832,10 +832,10 @@ Abstract
    or with no mechanism for checking it, to more easily skip the
    authentication information.
 
-   There SHOULD be only one signerInfo and related fields corresponding
-   to the originator of the SAP announcement.  The signingTime SHOULD be
+   There <em>SHOULD</em> be only one signerInfo and related fields corresponding
+   to the originator of the SAP announcement.  The signingTime <em>SHOULD</em> be
    present as a signedAttribute.  However, due to the strict size
-   limitations on the size of SAP packets, certificates and CRLs SHOULD
+   limitations on the size of SAP packets, certificates and CRLs <em>SHOULD</em>
    NOT be included in the signedData structure.  It is expected that
    users of the protocol will have other methods for certificate and CRL
    distribution.

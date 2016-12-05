@@ -376,8 +376,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Reserved Words</span>
 
-   The key words "MAY", "MAY NOT", "MUST", "MUST NOT", "REQUIRED",
-   "RECOMMENDED", "SHOULD", and "SHOULD NOT" in this document are to be
+   The key words "<em>MAY</em>", "<em>MAY</em> NOT", "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>RECOMMENDED</em>", "<em>SHOULD</em>", and "<em>SHOULD NOT</em>" in this document are to be
    interpreted as described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Specification of the Delegation key Signer</span>
@@ -441,11 +441,11 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  Protocol Change</span>
 
-   All DNS servers and resolvers that support DS MUST support the OK bit
+   All DNS servers and resolvers that support DS <em>MUST</em> support the OK bit
    [<a href="./rfc3225.html" title="&quot;Indicating Resolver Support of DNSSEC&quot;">RFC3225</a>] and a larger message size [<a href="./rfc3226.html" title="&quot;DNSSEC and IPv6 A6 aware server/resolver message size requirements&quot;">RFC3226</a>].  In order for a
-   delegation to be considered secure the delegation MUST contain a DS
+   delegation to be considered secure the delegation <em>MUST</em> contain a DS
    RRset.  If a query contains the OK bit, a nameserver returning a
-   referral for the delegation MUST include the following RRsets in the
+   referral for the delegation <em>MUST</em> include the following RRsets in the
    authority section in this order:
 
    If DS RRset is present:
@@ -458,12 +458,12 @@ Table of Contents
 
    This increases the size of referral messages, possibly causing some
    or all glue to be omitted.  If the DS or NXT RRsets with signatures
-   do not fit in the DNS message, the TC bit MUST be set.  Additional
+   do not fit in the DNS message, the TC bit <em>MUST</em> be set.  Additional
    section processing is not changed.
 
    A DS RRset accompanying a NS RRset indicates that the child zone is
    secure.  If a NS RRset exists without a DS RRset, the child zone is
-   unsecure (from the parents point of view).  DS RRsets MUST NOT appear
+   unsecure (from the parents point of view).  DS RRsets <em>MUST NOT</em> appear
    at non-delegation points or at a zone's apex.
 
 
@@ -492,30 +492,30 @@ Table of Contents
    since one nameserver could be serving both the zone above and below a
    delegation point [<a href="./rfc2181.html" title="&quot;Clarifications to the DNS Specification&quot;">RFC2181</a>].
 
-   Each DS RRset stored in the parent zone MUST be signed by at least
-   one of the parent zone's private keys.  The parent zone MUST NOT
+   Each DS RRset stored in the parent zone <em>MUST</em> be signed by at least
+   one of the parent zone's private keys.  The parent zone <em>MUST NOT</em>
    contain a KEY RRset at any delegation point.  Delegations in the
-   parent MAY contain only the following RR types: NS, DS, NXT and SIG.
-   The NS RRset MUST NOT be signed.  The NXT RRset is the exceptional
+   parent <em>MAY</em> contain only the following RR types: NS, DS, NXT and SIG.
+   The NS RRset <em>MUST NOT</em> be signed.  The NXT RRset is the exceptional
    case: it will always appear differently and authoritatively in both
    the parent and child zones, if both are secure.
 
-   A secure zone MUST contain a self-signed KEY RRset at its apex.  Upon
-   verifying the DS RRset from the parent, a resolver MAY trust any KEY
+   A secure zone <em>MUST</em> contain a self-signed KEY RRset at its apex.  Upon
+   verifying the DS RRset from the parent, a resolver <em>MAY</em> trust any KEY
    identified in the DS RRset as a valid signer of the child's apex KEY
    RRset.  Resolvers configured to trust one of the keys signing the KEY
-   RRset MAY now treat any data signed by the zone keys in the KEY RRset
-   as secure.  In all other cases, resolvers MUST consider the zone
+   RRset <em>MAY</em> now treat any data signed by the zone keys in the KEY RRset
+   as secure.  In all other cases, resolvers <em>MUST</em> consider the zone
    unsecure.
 
-   An authoritative nameserver queried for type DS MUST return the DS
+   An authoritative nameserver queried for type DS <em>MUST</em> return the DS
    RRset in the answer section.
 
 <span class="h5"><a class="selflink" name="section-2.2.1.1" href="#section-2.2.1.1">2.2.1.1</a>.  Special processing for DS queries</span>
 
    When a nameserver is authoritative for the parent zone at a
    delegation point and receives a query for the DS record at that name,
-   it MUST answer based on data in the parent zone, return DS or
+   it <em>MUST</em> answer based on data in the parent zone, return DS or
    negative answer.  This is true whether or not it is also
    authoritative for the child zone.
 
@@ -534,7 +534,7 @@ Table of Contents
    response, since the child zone is not authoritative for the DS record
    at the zone's apex.  As these queries are only expected to originate
    from recursive nameservers which are not DS-aware, the authoritative
-   nameserver MUST answer with:
+   nameserver <em>MUST</em> answer with:
 
       RCODE:             NOERROR
       AA bit:            set
@@ -546,9 +546,9 @@ Table of Contents
    at delegation points, so will not be affected by this.
 
    A nameserver authoritative for only the child zone, that is also a
-   caching server MAY (if the RD bit is set in the query) perform
-   recursion to find the DS record at the delegation point, or MAY
-   return the DS record from its cache.  In this case, the AA bit MUST
+   caching server <em>MAY</em> (if the RD bit is set in the query) perform
+   recursion to find the DS record at the delegation point, or <em>MAY</em>
+   return the DS record from its cache.  In this case, the AA bit <em>MUST</em>
    NOT be set in the response.
 
 <span class="h5"><a class="selflink" name="section-2.2.1.2" href="#section-2.2.1.2">2.2.1.2</a>.  Special processing when child and an ancestor share</span>
@@ -565,7 +565,7 @@ Table of Contents
    4 of the 13, but "net." is severed on different nameservers.
 
    When a nameserver receives a query for (&lt;QNAME&gt;, DS, &lt;QCLASS&gt;), the
-   response MUST be determined from reading these rules in order:
+   response <em>MUST</em> be determined from reading these rules in order:
 
    1) If the nameserver is authoritative for the zone that holds the DS
       RR set (i.e., the zone that delegates &lt;QNAME&gt;, a.k.a. the "parent"
@@ -641,11 +641,11 @@ Table of Contents
 <span class="grey"><a href="./rfc3658.html">RFC 3658</a>      Delegation Signer (DS) Resource Record (RR)  December 2003</span>
 
 
-   A query for KEY RR MUST NOT trigger any additional section
+   A query for KEY RR <em>MUST NOT</em> trigger any additional section
    processing.  Security aware resolvers will include corresponding SIG
    records in the answer section.
 
-   KEY records SHOULD NOT be added to the additional records section in
+   KEY records <em>SHOULD NOT</em> be added to the additional records section in
    response to any query.
 
    <a href="./rfc2535.html">RFC 2535</a> specified that KEY records be added to the additional
@@ -663,14 +663,14 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.2.2" href="#section-2.2.2">2.2.2</a>.  Signer's Name (replaces <a href="./rfc3008.html#section-2.7">RFC 3008 section&nbsp;2.7</a>)</span>
 
-   The signer's name field of a SIG RR MUST contain the name of the zone
+   The signer's name field of a SIG RR <em>MUST</em> contain the name of the zone
    to which the data and signature belong.  The combination of signer's
-   name, key tag, and algorithm MUST identify a zone key if the SIG is
+   name, key tag, and algorithm <em>MUST</em> identify a zone key if the SIG is
    to be considered material.  This document defines a standard policy
-   for DNSSEC validation; local policy MAY override the standard policy.
+   for DNSSEC validation; local policy <em>MAY</em> override the standard policy.
 
    There are no restrictions on the signer field of a SIG(0) record. The
-   combination of signer's name, key tag, and algorithm MUST identify a
+   combination of signer's name, key tag, and algorithm <em>MUST</em> identify a
    key if this SIG(0) is to be processed.
 
 <span class="h4"><a class="selflink" name="section-2.2.3" href="#section-2.2.3">2.2.3</a>.  Changes to <a href="./rfc3090.html">RFC 3090</a></span>
@@ -701,10 +701,10 @@ Table of Contents
 
    Rule 2.1.b is replaced by the following rule:
 
-   2.1.b. The KEY RRset at a zone's apex MUST be self-signed by a
-   private key whose public counterpart MUST appear in a zone signing
+   2.1.b. The KEY RRset at a zone's apex <em>MUST</em> be self-signed by a
+   private key whose public counterpart <em>MUST</em> appear in a zone signing
    KEY RR (2.a) owned by the zone's apex and specifying a mandatory-to-
-   implement algorithm.  This KEY RR MUST be identified by a DS RR in a
+   implement algorithm.  This KEY RR <em>MUST</em> be identified by a DS RR in a
    signed DS RRset in the parent zone.
 
    If a zone cannot get its parent to advertise a DS record for it, the
@@ -739,7 +739,7 @@ Table of Contents
    The DS record is a major change to DNS: it is the first resource
    record that can appear only on the upper side of a delegation.
    Adding it will cause interoperability problems and requires a flag
-   day for DNSSEC.  Many old nameservers and resolvers MUST be upgraded
+   day for DNSSEC.  Many old nameservers and resolvers <em>MUST</em> be upgraded
    to take advantage of DS.  Some old nameservers will be able to be
    authoritative for zones with DS records but will not add the NXT or
    DS records to the authority section.  The same is true for caching
@@ -758,7 +758,7 @@ Table of Contents
    The DS (type=43) record contains these fields: key tag, algorithm,
    digest type, and the digest of a public key KEY record that is
    allowed and/or used to sign the child's apex KEY RRset.  Other keys
-   MAY sign the child's apex KEY RRset.
+   <em>MAY</em> sign the child's apex KEY RRset.
 
                         1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -776,7 +776,7 @@ Table of Contents
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   The key tag is calculated as specified in <a href="./rfc2535.html">RFC 2535</a>.  Algorithm MUST
+   The key tag is calculated as specified in <a href="./rfc2535.html">RFC 2535</a>.  Algorithm <em>MUST</em>
    be allowed to sign DNS data.  The digest type is an identifier for
    the digest algorithm used.  The digest is calculated over the
    canonical name of the delegated domain name followed by the whole
@@ -789,12 +789,12 @@ Table of Contents
    Digest type value 0 is reserved, value 1 is SHA-1, and reserving
    other types requires IETF standards action.  For interoperability
    reasons, keeping number of digest algorithms low is strongly
-   RECOMMENDED.  The only reason to reserve additional digest types is
+   <em>RECOMMENDED</em>.  The only reason to reserve additional digest types is
    to increase security.
 
-   DS records MUST point to zone KEY records that are allowed to
-   authenticate DNS data.  The indicated KEY records protocol field MUST
-   be set to 3; flag field bit 7 MUST be set to 1.  The value of other
+   DS records <em>MUST</em> point to zone KEY records that are allowed to
+   authenticate DNS data.  The indicated KEY records protocol field <em>MUST</em>
+   be set to 3; flag field bit 7 <em>MUST</em> be set to 1.  The value of other
    flag bits is not significant for the purposes of this document.
 
    The size of the DS RDATA for type 1 (SHA-1) is 24 bytes, regardless
@@ -965,7 +965,7 @@ Table of Contents
    the KEY identified in the DS RRset, thus the KEY RRset is validated
    and trusted.
 
-   This example has only one DS record for the child, but parents MUST
+   This example has only one DS record for the child, but parents <em>MUST</em>
    allow multiple DS records to facilitate key roll-over and multiple
    KEY algorithms.
 
@@ -980,7 +980,7 @@ Table of Contents
    The resolver determines the security status of "unsecure.example." by
    examining the parent zone's NXT record for this name.  The absence of
    the DS bit indicates an unsecure delegation.  Note the NXT record
-   SHOULD only be examined after verifying the corresponding signature.
+   <em>SHOULD</em> only be examined after verifying the corresponding signature.
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Resolver Cost Estimates for DS Records</span>
 

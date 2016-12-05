@@ -213,7 +213,7 @@ Abstract
    Control Protocol (TCP) senders are required to use to compute and
    manage their retransmission timer.  It expands on the discussion in
    <a href="./rfc1122.html#section-4.2.3.1">section&nbsp;4.2.3.1 of RFC 1122</a> and upgrades the requirement of
-   supporting the algorithm from a SHOULD to a MUST.
+   supporting the algorithm from a <em>SHOULD</em> to a <em>MUST</em>.
 
 <span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>   Introduction</span>
 
@@ -226,7 +226,7 @@ Abstract
    This document codifies the algorithm for setting the RTO.  In
    addition, this document expands on the discussion in <a href="./rfc1122.html#section-4.2.3.1">section&nbsp;4.2.3.1
    of RFC 1122</a> and upgrades the requirement of supporting the algorithm
-   from a SHOULD to a MUST.  <a href="./rfc2581.html">RFC 2581</a> [<a href="#ref-APS99" title="&quot;TCP Congestion Control&quot;">APS99</a>] outlines the algorithm TCP
+   from a <em>SHOULD</em> to a <em>MUST</em>.  <a href="./rfc2581.html">RFC 2581</a> [<a href="#ref-APS99" title="&quot;TCP Congestion Control&quot;">APS99</a>] outlines the algorithm TCP
    uses to begin sending after the RTO expires and a retransmission is
    sent.  This document does not alter the behavior outlined in <a href="./rfc2581.html">RFC 2581</a>
    [<a href="#ref-APS99" title="&quot;TCP Congestion Control&quot;">APS99</a>].
@@ -244,11 +244,11 @@ Abstract
 
    In some situations it may be beneficial for a TCP sender to be more
    conservative than the algorithms detailed in this document allow.
-   However, a TCP MUST NOT be more aggressive than the following
+   However, a TCP <em>MUST NOT</em> be more aggressive than the following
    algorithms allow.
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-Bra97" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">Bra97</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>   The Basic Algorithm</span>
@@ -262,7 +262,7 @@ Abstract
    follows:
 
    (2.1) Until a round-trip time (RTT) measurement has been made for a
-         segment sent between the sender and receiver, the sender SHOULD
+         segment sent between the sender and receiver, the sender <em>SHOULD</em>
          set RTO &lt;- 3 seconds (per <a href="./rfc1122.html">RFC 1122</a> [<a href="#ref-Bra89" title="&quot;Requirements for Internet Hosts -- Communication Layers&quot;">Bra89</a>]), though the
          "backing off" on repeated retransmission discussed in (5.5)
          still applies.
@@ -272,10 +272,10 @@ Abstract
             seconds.  Accordingly, a lower bound of 2.5 seconds is also
             acceptable, providing that the timer will never expire
             faster than 2.5 seconds.  Implementations using a heartbeat
-            timer with a granularity of G SHOULD not set the timer below
+            timer with a granularity of G <em>SHOULD</em> not set the timer below
             2.5 + G seconds.
 
-   (2.2) When the first RTT measurement R is made, the host MUST set
+   (2.2) When the first RTT measurement R is made, the host <em>MUST</em> set
 
             SRTT &lt;- R
             RTTVAR &lt;- R/2
@@ -283,7 +283,7 @@ Abstract
 
          where K = 4.
 
-   (2.3) When a subsequent RTT measurement R' is made, a host MUST set
+   (2.3) When a subsequent RTT measurement R' is made, a host <em>MUST</em> set
 
             RTTVAR &lt;- (1 - beta) * RTTVAR + beta * |SRTT - R'|
             SRTT &lt;- (1 - alpha) * SRTT + alpha * R'
@@ -300,17 +300,17 @@ Abstract
 
          The value of SRTT used in the update to RTTVAR is its value
          before updating SRTT itself using the second assignment.  That
-         is, updating RTTVAR and SRTT MUST be computed in the above
+         is, updating RTTVAR and SRTT <em>MUST</em> be computed in the above
          order.
 
-         The above SHOULD be computed using alpha=1/8 and beta=1/4 (as
+         The above <em>SHOULD</em> be computed using alpha=1/8 and beta=1/4 (as
          suggested in [<a href="#ref-JK88" title="&quot;Congestion Avoidance and Control&quot;">JK88</a>]).
 
-         After the computation, a host MUST update
+         After the computation, a host <em>MUST</em> update
          RTO &lt;- SRTT + max (G, K*RTTVAR)
 
    (2.4) Whenever RTO is computed, if it is less than 1 second then the
-         RTO SHOULD be rounded up to 1 second.
+         RTO <em>SHOULD</em> be rounded up to 1 second.
 
          Traditionally, TCP implementations use coarse grain clocks to
          measure the RTT and trigger the RTO, which imposes a large
@@ -322,13 +322,13 @@ Abstract
          future point, research may show that a smaller minimum RTO is
          acceptable or superior.
 
-   (2.5) A maximum value MAY be placed on RTO provided it is at least 60
+   (2.5) A maximum value <em>MAY</em> be placed on RTO provided it is at least 60
          seconds.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>   Taking RTT Samples</span>
 
-   TCP MUST use Karn's algorithm [<a href="#ref-KP87" title="&quot;Improving Round-Trip Time Estimates in Reliable Transport Protocols&quot;">KP87</a>] for taking RTT samples.  That
-   is, RTT samples MUST NOT be made using segments that were
+   TCP <em>MUST</em> use Karn's algorithm [<a href="#ref-KP87" title="&quot;Improving Round-Trip Time Estimates in Reliable Transport Protocols&quot;">KP87</a>] for taking RTT samples.  That
+   is, RTT samples <em>MUST NOT</em> be made using segments that were
    retransmitted (and thus for which it is ambiguous whether the reply
    was for the first instance of the packet or a later instance).  The
    only case when TCP can safely take RTT samples from retransmitted
@@ -341,7 +341,7 @@ Abstract
    option, each ACK can be used as an RTT sample.  <a href="./rfc1323.html">RFC 1323</a> [JBB92]
    suggests that TCP connections utilizing large congestion windows
    should take many RTT samples per window of data to avoid aliasing
-   effects in the estimated RTT.  A TCP implementation MUST take at
+   effects in the estimated RTT.  A TCP implementation <em>MUST</em> take at
    least one RTT measurement per RTT (unless that is not possible per
    Karn's algorithm).
 
@@ -366,7 +366,7 @@ Abstract
    There is no requirement for the clock granularity G used for
    computing RTT measurements and the different state variables.
    However, if the K*RTTVAR term in the RTO calculation equals zero,
-   the variance term MUST be rounded to G seconds (i.e., use the
+   the variance term <em>MUST</em> be rounded to G seconds (i.e., use the
    equation given in step 2.3).
 
        RTO &lt;- SRTT + max (G, K*RTTVAR)
@@ -380,11 +380,11 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>   Managing the RTO Timer</span>
 
-   An implementation MUST manage the retransmission timer(s) in such a
+   An implementation <em>MUST</em> manage the retransmission timer(s) in such a
    way that a segment is never retransmitted too early, i.e. less than
    one RTO after the previous transmission of that segment.
 
-   The following is the RECOMMENDED algorithm for managing the
+   The following is the <em>RECOMMENDED</em> algorithm for managing the
    retransmission timer:
 
    (5.1) Every time a packet containing data is sent (including a
@@ -415,7 +415,7 @@ Abstract
    (5.4) Retransmit the earliest segment that has not been acknowledged
          by the TCP receiver.
 
-   (5.5) The host MUST set RTO &lt;- RTO * 2 ("back off the timer").  The
+   (5.5) The host <em>MUST</em> set RTO &lt;- RTO * 2 ("back off the timer").  The
          maximum value discussed in (2.5) above may be used to provide an
          upper bound to this doubling operation.
 
@@ -430,7 +430,7 @@ Abstract
    RTO back down after it has been subject to exponential backoff
    (rule 5.5).
 
-   Note that a TCP implementation MAY clear SRTT and RTTVAR after
+   Note that a TCP implementation <em>MAY</em> clear SRTT and RTTVAR after
    backing off the timer multiple times as it is likely that the
    current SRTT and RTTVAR are bogus in this situation.  Once SRTT and
    RTTVAR are cleared they should be initialized with the next RTT

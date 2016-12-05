@@ -310,8 +310,8 @@ Table of Contents
    Universal Label Key, length, and value triplet encoded as described
    in [<a href="#ref-SMPTE-ST336" title="&quot;SMPTE ST 336:2007 Data Encoding Protocol Using Key- Length-Value&quot;">SMPTE-ST336</a>].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Media Format Background</span>
@@ -424,15 +424,15 @@ Table of Contents
    |           | presentation timeline that the entire KLVunit encoded |
    |           | in the packet payload is to be presented.  When one   |
    |           | KLVunit is placed in multiple RTP packets, the RTP    |
-   |           | timestamp of all packets comprising that KLVunit MUST |
+   |           | timestamp of all packets comprising that KLVunit <em>MUST</em> |
    |           | be the same.  The timestamp clock frequency is        |
    |           | defined as a parameter to the payload format          |
    |           | (<a href="#section-6">Section 6</a>).                                          |
    |           |                                                       |
    | M-bit     | The RTP header marker bit (M) is used to demarcate    |
-   |           | KLVunits.  Senders MUST set the marker bit to '1' for |
+   |           | KLVunits.  Senders <em>MUST</em> set the marker bit to '1' for |
    |           | any RTP packet that contains the final byte of a      |
-   |           | KLVunit.  For all other packets, senders MUST set the |
+   |           | KLVunit.  For all other packets, senders <em>MUST</em> set the |
    |           | RTP header marker bit to '0'.  This allows receivers  |
    |           | to pass a KLVunit for parsing/decoding immediately    |
    |           | upon receipt of the last RTP packet comprising the    |
@@ -451,7 +451,7 @@ Table of Contents
    A KLVunit is a logical collection of all KLV items that are to be
    presented at a specific time.  A KLVunit is comprised of one or more
    KLV items.  Compound items (sets, packs) are allowed as per
-   [<a href="#ref-SMPTE-ST336" title="&quot;SMPTE ST 336:2007 Data Encoding Protocol Using Key- Length-Value&quot;">SMPTE-ST336</a>], but the contents of a compound item MUST NOT be split
+   [<a href="#ref-SMPTE-ST336" title="&quot;SMPTE ST 336:2007 Data Encoding Protocol Using Key- Length-Value&quot;">SMPTE-ST336</a>], but the contents of a compound item <em>MUST NOT</em> be split
    across two KLVunits.  Multiple KLV items in a KLVunit occur one after
    another with no padding or stuffing between items.
 
@@ -470,7 +470,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  KLVunit Mapping to RTP Packet Payload</span>
 
-   An RTP packet payload SHALL contain one, and only one, KLVunit or a
+   An RTP packet payload <em>SHALL</em> contain one, and only one, KLVunit or a
    fragment thereof.  KLVunits small enough to fit into a single RTP
    packet (RTP packet size is up to the implementation but should
    consider underlying transport/network factors such as MTU
@@ -478,15 +478,15 @@ Table of Contents
    with the first byte of the KLVunit (which is the first byte of a KLV
    Universal Label Key) being the first byte of the RTP packet payload.
 
-   KLVunits too large to fit into a single RTP packet payload MAY span
+   KLVunits too large to fit into a single RTP packet payload <em>MAY</em> span
    multiple RTP packet payloads.  When this is done, the KLVunit data
-   MUST be sent in sequential byte order, such that when all RTP packets
+   <em>MUST</em> be sent in sequential byte order, such that when all RTP packets
    comprising the KLVunit are arranged in sequence number order,
    concatenating the payload data together exactly reproduces the
    original KLVunit.
 
    Additionally, when a KLVunit is fragmented across multiple RTP
-   packets, all RTP packets transporting the fragments of a KLVunit MUST
+   packets, all RTP packets transporting the fragments of a KLVunit <em>MUST</em>
    have the same timestamp.
 
    KLVunits are bounded with changes in RTP packet timestamps.  The
@@ -530,13 +530,13 @@ Table of Contents
    packets that have been lost.  When a lost packet is detected (through
    use of the sequence number header field), the receiver
 
-   o  MUST consider the KLVunit partially received before a lost packet
+   o  <em>MUST</em> consider the KLVunit partially received before a lost packet
       as damaged.  This damaged KLVunit includes all packets prior to
       the lost one (in sequence number order) back to, but not
       including, the most recent packet in which the M-bit in the RTP
       header was set to '1'.
 
-   o  MUST consider the first KLVunit received after a lost packet as
+   o  <em>MUST</em> consider the first KLVunit received after a lost packet as
       damaged.  This damaged KLVunit includes the first packet after the
       lost one (in sequence number order) and, if the first packet has
       its M-bit in the RTP header set to '0', all subsequent packets up
@@ -644,7 +644,7 @@ Table of Contents
    to each implementation, as different implementations can have
    differing capabilities and robustness in their downstream KLV payload
    processing.  Because some implementations can be particularly limited
-   in their capacity to handle damaged KLVunits, receivers MAY drop
+   in their capacity to handle damaged KLVunits, receivers <em>MAY</em> drop
    damaged KLVunits entirely.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Congestion Control</span>
@@ -729,7 +729,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Mapping to SDP</span>
 
    The mapping of the above defined payload format media type and its
-   parameters SHALL be done according to <a href="./rfc4855.html#section-3">Section&nbsp;3 of [RFC4855]</a>.
+   parameters <em>SHALL</em> be done according to <a href="./rfc4855.html#section-3">Section&nbsp;3 of [RFC4855]</a>.
 
 <span class="h4"><a class="selflink" name="section-6.2.1" href="#section-6.2.1">6.2.1</a>.  Offer/Answer Model and Declarative Considerations</span>
 
@@ -787,7 +787,7 @@ Table of Contents
    take care when allocating resources used in processing.  It is easy
    to construct pathological data that would cause a naive decoder to
    allocate large amounts of resources, resulting in denial-of-service
-   threats.  Receivers SHOULD place limits on resource allocation that
+   threats.  Receivers <em>SHOULD</em> place limits on resource allocation that
    are within the bounds set forth by any application profile in use.
 
    This RTP payload format does not contain any inherently active

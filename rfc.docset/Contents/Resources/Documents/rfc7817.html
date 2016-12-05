@@ -301,8 +301,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The following terms or concepts are used through the document:
@@ -338,7 +338,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Email Server Certificate Verification Rules</span>
 
    During a TLS negotiation, an email client (i.e., an SMTP, IMAP, POP3,
-   or ManageSieve client) MUST check its understanding of the server
+   or ManageSieve client) <em>MUST</em> check its understanding of the server
    identity (client's reference identifiers) against the server's
    identity as presented in the server Certificate message in order to
    prevent man-in-the-middle attacks.  This check is only performed
@@ -358,16 +358,16 @@ Table of Contents
    following inputs are used by the verification procedure used in
    [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>]:
 
-   1.  For DNS-ID and CN-ID identifier types, the client MUST use one or
+   1.  For DNS-ID and CN-ID identifier types, the client <em>MUST</em> use one or
        more of the following as "reference identifiers": (a) the domain
        portion of the user's email address, (b) the hostname it used to
        open the connection (without CNAME canonicalization).  The client
-       MAY also use (c) a value securely derived from (a) or (b), such
+       <em>MAY</em> also use (c) a value securely derived from (a) or (b), such
        as using "secure" DNSSEC [<a href="./rfc4033.html" title="&quot;DNS Security Introduction and Requirements&quot;">RFC4033</a>] [<a href="./rfc4034.html" title="&quot;Resource Records for the DNS Security Extensions&quot;">RFC4034</a>] [<a href="./rfc4035.html" title="&quot;Protocol Modifications for the DNS Security Extensions&quot;">RFC4035</a>] validated
        lookup.
 
    2.  When using email service discovery procedure specified in
-       [<a href="./rfc6186.html" title="&quot;Use of SRV Records for Locating Email Submission/Access Services&quot;">RFC6186</a>], the client MUST also use the domain portion of the
+       [<a href="./rfc6186.html" title="&quot;Use of SRV Records for Locating Email Submission/Access Services&quot;">RFC6186</a>], the client <em>MUST</em> also use the domain portion of the
        user's email address as another "reference identifier" to compare
        against an SRV-ID identifier in the server certificate.
 
@@ -375,30 +375,30 @@ Table of Contents
    server certificate with the following supplemental rules:
 
    1.  Support for the DNS-ID identifier type (subjectAltName of dNSName
-       type [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>]) is REQUIRED in email client software
+       type [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>]) is <em>REQUIRED</em> in email client software
        implementations.
 
    2.  Support for the SRV-ID identifier type (subjectAltName of SRVName
-       type [<a href="./rfc4985.html" title="&quot;Internet X.509 Public Key Infrastructure Subject Alternative Name for Expression of Service Name&quot;">RFC4985</a>]) is REQUIRED for email client software
+       type [<a href="./rfc4985.html" title="&quot;Internet X.509 Public Key Infrastructure Subject Alternative Name for Expression of Service Name&quot;">RFC4985</a>]) is <em>REQUIRED</em> for email client software
        implementations that support [<a href="./rfc6186.html" title="&quot;Use of SRV Records for Locating Email Submission/Access Services&quot;">RFC6186</a>].  A list of SRV-ID types
        for email services is specified in [<a href="./rfc6186.html" title="&quot;Use of SRV Records for Locating Email Submission/Access Services&quot;">RFC6186</a>].  For the
        ManageSieve protocol, the service name "sieve" is used.
 
    3.  A URI-ID identifier type (subjectAltName of
-       uniformResourceIdentifier type [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>]) MUST NOT be used by
+       uniformResourceIdentifier type [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>]) <em>MUST NOT</em> be used by
        clients for server verification, as URI-IDs were not historically
        used for email.
 
    4.  For backward compatibility with deployed software, a CN-ID
        identifier type (CN attribute from the subject name, see
-       [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>]) MAY be used for server identity verification.
+       [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>]) <em>MAY</em> be used for server identity verification.
 
    5.  Email protocols allow use of certain wildcards in identifiers
-       presented by email servers.  The "*" wildcard character MAY be
+       presented by email servers.  The "*" wildcard character <em>MAY</em> be
        used as the left-most name component of a DNS-ID or CN-ID in the
        certificate.  For example, a DNS-ID of "*.example.com" would
        match "a.example.com", "foo.example.com", etc., but would not
-       match "example.com".  Note that the wildcard character MUST NOT
+       match "example.com".  Note that the wildcard character <em>MUST NOT</em>
        be used as a fragment of the left-most name component (e.g.,
        "*oo.example.com", "f*o.example.com", or "foo*.example.com").
 
@@ -413,22 +413,22 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Compliance Checklist for Certification Authorities</span>
 
-   1.  CAs MUST support issuance of server certificates with a DNS-ID
+   1.  CAs <em>MUST</em> support issuance of server certificates with a DNS-ID
        identifier type (subjectAltName of dNSName type [<a href="./rfc5280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC5280</a>]).
        (Note that some DNS-IDs may refer to domain portions of email
        addresses, so they might not have corresponding A/AAAA DNS
        records.)
 
-   2.  CAs MUST support issuance of server certificates with an SRV-ID
+   2.  CAs <em>MUST</em> support issuance of server certificates with an SRV-ID
        identifier type (subjectAltName of SRVName type [<a href="./rfc4985.html" title="&quot;Internet X.509 Public Key Infrastructure Subject Alternative Name for Expression of Service Name&quot;">RFC4985</a>]) for
        each type of email service.  See <a href="#section-4.1">Section 4.1</a> for more discussion
        on what this means for CAs.
 
-   3.  For backward compatibility with a deployed client base, CAs MUST
+   3.  For backward compatibility with a deployed client base, CAs <em>MUST</em>
        support issuance of server certificates with a CN-ID identifier
        type (CN attribute from the subject name, see [<a href="./rfc6125.html" title="&quot;Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)&quot;">RFC6125</a>]).
 
-   4.  CAs MAY allow "*" (wildcard) as the left-most name component of a
+   4.  CAs <em>MAY</em> allow "*" (wildcard) as the left-most name component of a
        DNS-ID or CN-ID in server certificates it issues.
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Notes on Handling of Delegated Email Services by Certification</span>
@@ -471,14 +471,14 @@ Table of Contents
    for the domain part of email addresses) implies the ability to verify
    that entities requesting them are authorized to run email service for
    these SRV-IDs/DNS-IDs.  In particular, CAs that can't verify such
-   authorization (whether for a particular domain or in general) MUST
+   authorization (whether for a particular domain or in general) <em>MUST</em>
    NOT include such email SRV-IDs/DNS-IDs in certificates they issue.
    This document doesn't specify exact mechanism(s) that can be used to
    achieve this.  However, a few special case recommendations are listed
    below.
 
    A CA willing to sign a certificate containing a particular DNS-ID
-   SHOULD also support signing a certificate containing one or more of
+   <em>SHOULD</em> also support signing a certificate containing one or more of
    the email SRV-IDs for the same domain because the SRV-ID effectively
    provides more restricted access to an email service for the domain
    (as opposed to unrestricted use of any services for the same domain,
@@ -496,18 +496,18 @@ Table of Contents
    Mail Service Providers and Certificate Signing Request generation
    tools:
 
-   1.  MUST include the DNS-ID identifier type in Certificate Signing
+   1.  <em>MUST</em> include the DNS-ID identifier type in Certificate Signing
        Requests for the host name(s) where the email server(s) are
-       running.  They SHOULD include the DNS-ID identifier type in
+       running.  They <em>SHOULD</em> include the DNS-ID identifier type in
        Certificate Signing Requests for the domain portion of served
        email addresses.
 
-   2.  MUST include the SRV-ID identifier type for each type of email
+   2.  <em>MUST</em> include the SRV-ID identifier type for each type of email
        service in Certificate Signing Requests if the email services
        provided are discoverable using DNS SRV as specified in
        [<a href="./rfc6186.html" title="&quot;Use of SRV Records for Locating Email Submission/Access Services&quot;">RFC6186</a>].
 
-   3.  SHOULD include the CN-ID identifier type for the host name where
+   3.  <em>SHOULD</em> include the CN-ID identifier type for the host name where
        the email server(s) is running in Certificate Signing Requests
        for backward compatibility with deployed email clients.  (Note, a
        certificate can only include a single CN-ID, so if a mail service
@@ -523,7 +523,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7817.html">RFC 7817</a>           TLS Server Identity Check for Email        March 2016</span>
 
 
-   4.  MAY include "*" (wildcard) as the left-most name component of a
+   4.  <em>MAY</em> include "*" (wildcard) as the left-most name component of a
        DNS-ID or CN-ID in Certificate Signing Requests.
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Notes on Hosting Multiple Domains</span>
@@ -835,7 +835,7 @@ Table of Contents
       During the TLS negotiation, the ManageSieve client checks its
       understanding of the server identity against the server's identity
       as specified in <a href="./rfc7817.html#section-3">Section&nbsp;3 of [RFC7817]</a>.  When the reference
-      identity is an IP address, the iPAddress subjectAltName SHOULD be
+      identity is an IP address, the iPAddress subjectAltName <em>SHOULD</em> be
       used by the client for comparison.  The comparison is performed as
       described in <a href="./rfc5804.html#section-2.2.1.2">Section&nbsp;2.2.1.2 of RFC 5804</a>.
 

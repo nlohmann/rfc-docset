@@ -268,19 +268,19 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2119" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Payload Design</span>
 
    Each scan line of digital video is packetized into one or more RTP
    packets.  If the data for a complete scan line exceeds the network
-   MTU, the scan line SHOULD be fragmented into multiple RTP packets,
-   each smaller than the MTU.  A single RTP packet MAY contain data for
+   MTU, the scan line <em>SHOULD</em> be fragmented into multiple RTP packets,
+   each smaller than the MTU.  A single RTP packet <em>MAY</em> contain data for
    more than one scan line.  Only the active samples are included in the
    RTP payload: inactive samples and the contents of horizontal and
-   vertical blanking SHOULD NOT be transported.  In instances where
+   vertical blanking <em>SHOULD NOT</em> be transported.  In instances where
    ancillary data is being transmitted, the sender and receiver can
    disambiguate between ancillary and video data via scan line numbers.
    That is, the ancillary data will use scan line numbers that are not
@@ -331,10 +331,10 @@ Abstract
    done in the YCbCr color space for the purpose of reducing the size of
    the image data.
 
-   Pixels that share sample values MUST be transported together as a
+   Pixels that share sample values <em>MUST</em> be transported together as a
    "pixel group".  If 10-bit or 12-bit samples are used, each pixel may
    also comprise a non-integer number of octets.  In this case, several
-   pixels MUST be combined into an octet-aligned pixel group for
+   pixels <em>MUST</em> be combined into an octet-aligned pixel group for
    transmission.  These restrictions simplify the operation of receivers
    by ensuring that the complete payload is octet aligned, and that
    samples relating to a single pixel are not fragmented across multiple
@@ -364,7 +364,7 @@ Abstract
    smallest grouping of pixels such that 1) the grouping comprises an
    integer number of octets; and 2) if color sub-sampling is used,
    samples are only shared within the grouping.  When packetizing
-   digital active line content, video data MUST NOT be fragmented within
+   digital active line content, video data <em>MUST NOT</em> be fragmented within
    a pgroup.
 
    Video content is almost always associated with additional information
@@ -373,9 +373,9 @@ Abstract
    of the video stream (horizontal and vertical blanking periods) so
    that precise and robust synchronization is maintained.  This payload
    format requires that applications using such synchronized ancillary
-   data SHOULD deliver it in separate RTP sessions that operate
+   data <em>SHOULD</em> deliver it in separate RTP sessions that operate
    concurrently with the video session.  The normal RTP mechanisms
-   SHOULD be used to synchronize the media.
+   <em>SHOULD</em> be used to synchronize the media.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  RTP Packetization</span>
 
@@ -453,14 +453,14 @@ Abstract
    Timestamp: 32 bits
 
      For progressive scan video, the timestamp denotes the sampling
-     instant of the frame to which the RTP packet belongs.  Packets MUST
+     instant of the frame to which the RTP packet belongs.  Packets <em>MUST</em>
      NOT include data from multiple frames, and all packets belonging to
-     the same frame MUST have the same timestamp.
+     the same frame <em>MUST</em> have the same timestamp.
 
      For interlaced video, the timestamp denotes the sampling instant of
-     the field to which the RTP packet belongs.  Packets MUST NOT
+     the field to which the RTP packet belongs.  Packets <em>MUST NOT</em>
      include data from multiple fields, and all packets belonging to the
-     same field MUST have the same timestamp.  Use of field timestamps,
+     same field <em>MUST</em> have the same timestamp.  Use of field timestamps,
      rather than a frame timestamp and field indicator bit, is needed to
      support reverse 3-2 pulldown.
 
@@ -472,17 +472,17 @@ Abstract
 <span class="grey"><a href="./rfc4175.html">RFC 4175</a>       RTP Payload Format for Uncompressed Video  September 2005</span>
 
 
-     A 90-kHz timestamp SHOULD be used in both cases.  If the sampling
+     A 90-kHz timestamp <em>SHOULD</em> be used in both cases.  If the sampling
      instant does not correspond to an integer value of the clock (as
-     may be the case when interleaving), the value SHALL be truncated to
+     may be the case when interleaving), the value <em>SHALL</em> be truncated to
      the next lowest integer, with no ambiguity.
 
    Marker bit (M): 1 bit
 
      If progressive scan video is being transmitted, the marker bit
      denotes the end of a video frame.  If interlaced video is being
-     transmitted, it denotes the end of the field.  The marker bit MUST
-     be set to 1 for the last packet of the video frame/field.  It MUST
+     transmitted, it denotes the end of the field.  The marker bit <em>MUST</em>
+     be set to 1 for the last packet of the video frame/field.  It <em>MUST</em>
      be set to 0 for other packets.
 
    Sequence Number: 16 bits
@@ -502,12 +502,12 @@ Abstract
    Length: 16 bits
 
      Number of octets of data included from this scan line, in network
-     byte order.  This MUST be a multiple of the pgroup value.
+     byte order.  This <em>MUST</em> be a multiple of the pgroup value.
 
    Line No.: 15 bits
 
      Scan line number of encapsulated data, in network byte order.
-     Successive RTP packets MAY contains parts of the same scan line
+     Successive RTP packets <em>MAY</em> contains parts of the same scan line
      (with an incremented RTP sequence number, but the same timestamp),
      if it is necessary to fragment a line.
 
@@ -536,7 +536,7 @@ Abstract
 
      Identifies which field the scan line belongs to, for interlaced
      data.  F=0 identifies the first field and F=1 the second field.
-     For progressive scan data (e.g., SMPTE 296M format video), F MUST
+     For progressive scan data (e.g., SMPTE 296M format video), F <em>MUST</em>
      always be set to zero.
 
    Continuation (C): 1 bit
@@ -545,7 +545,7 @@ Abstract
      scan line header in the RTP packet.  Set to 1 if an additional
      header follows, implying that the RTP packet is carrying data for
      more than one scan line.  Set to 0 otherwise.  Several scan lines
-     MAY be included in a single packet, up to the path MTU limit.  The
+     <em>MAY</em> be included in a single packet, up to the path MTU limit.  The
      only way to determine the number of scan lines included per packet
      is to parse the payload headers.
 
@@ -554,16 +554,16 @@ Abstract
    Depending on the video format, each RTP packet can include either a
    single complete scan line, a single fragment of a scan line, or one
    (or more) complete scan lines and scan line fragments.  The length of
-   each scan line or scan line fragment MUST be an integer multiple of
-   the pgroup size in octets.  Scan lines SHOULD be fragmented so that
+   each scan line or scan line fragment <em>MUST</em> be an integer multiple of
+   the pgroup size in octets.  Scan lines <em>SHOULD</em> be fragmented so that
    the resulting RTP packet is smaller than the path MTU.
 
    It is possible that the scan line length is not evenly divisible by
    the number of pixels in a pgroup, so the final pixel data of a scan
    line does not align to either an octet or a pgroup boundary.
-   Nonetheless, the payload MUST contain a whole number of pgroups; the
-   sender MUST fill the remaining bits of the final pgroup with zero and
-   the receiver MUST ignore the fill data. (In effect, the trailing edge
+   Nonetheless, the payload <em>MUST</em> contain a whole number of pgroups; the
+   sender <em>MUST</em> fill the remaining bits of the final pgroup with zero and
+   the receiver <em>MUST</em> ignore the fill data. (In effect, the trailing edge
    of the image is black-filled to a pgroup boundary.)
 
    For RGB format video, samples are packed in order Red-Green-Blue.
@@ -770,14 +770,14 @@ Abstract
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  RTCP Considerations</span>
 
-   RTCP SHOULD be used as specified in <a href="./rfc3550.html">RFC 3550</a> [<a href="#ref-RTP" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RTP</a>].  It is to be
+   RTCP <em>SHOULD</em> be used as specified in <a href="./rfc3550.html">RFC 3550</a> [<a href="#ref-RTP" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RTP</a>].  It is to be
    noted that the sender's octet count in SR packets and the cumulative
    number of packets lost will wrap around quickly for high data rate
    streams.  This means that these two fields may not accurately
    represent octet count and number of packets lost since the beginning
    of transmission, as defined in <a href="./rfc3550.html">RFC 3550</a>.  Therefore, for network
    monitoring purposes, other means of keeping track of these variables
-   SHOULD be used.
+   <em>SHOULD</em> be used.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  IANA Considerations</span>
 
@@ -794,7 +794,7 @@ Abstract
    Required parameters:
 
      rate: The RTP timestamp clock rate.  Applications using this
-     payload format SHOULD use a value of 90000.
+     payload format <em>SHOULD</em> use a value of 90000.
 
      sampling: Determines the color (sub-)sampling mode of the video
      stream.  Currently defined values are RGB, RGBA, BGR, BGRA,
@@ -832,16 +832,16 @@ Abstract
 
    Optional parameters:
 
-     Interlace: If this OPTIONAL parameter is present, it indicates that
+     Interlace: If this <em>OPTIONAL</em> parameter is present, it indicates that
      the video stream is interlaced.  If absent, progressive scan is
      implied.
 
-     Top-field-first: If this OPTIONAL parameter is present, it
+     Top-field-first: If this <em>OPTIONAL</em> parameter is present, it
      indicates that chrominance samples are packetized starting with the
      first line of field 0.  Its absence implies that chrominance
      samples are packetized starting with the first line of field 1.
 
-     chroma-position: This OPTIONAL parameter defines the position of
+     chroma-position: This <em>OPTIONAL</em> parameter defines the position of
      chrominance samples relative to luminance samples.  It is either a
      single integer or a comma separated pair of integers.  Integer
      values range from 0 to 8, as specified in Figures 6-8 of <a href="./rfc4175.html">RFC 4175</a>.
@@ -850,7 +850,7 @@ Abstract
      samples, respectively.  In its absence, a single value of zero is
      assumed for color-subsampled video (chroma-position=0).
 
-     gamma: An OPTIONAL floating point gamma correction value.
+     gamma: An <em>OPTIONAL</em> floating point gamma correction value.
 
 
 
@@ -893,13 +893,13 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Parameter Registration</span>
 
-   New values of the "sampling" parameter MAY be registered with the
+   New values of the "sampling" parameter <em>MAY</em> be registered with the
    IANA provided they reference an RFC or other permanent and readily
    available specification (the Specification Required policy of <a href="./rfc2434.html">RFC</a>
-   <a href="./rfc2434.html">2434</a> [<a href="#ref-2434" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">2434</a>]).  A new registration MUST define the packing order of
+   <a href="./rfc2434.html">2434</a> [<a href="#ref-2434" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">2434</a>]).  A new registration <em>MUST</em> define the packing order of
    samples and a valid combinations of color and sub-sampling modes.
 
-   New values of the "colorimetry" parameter MAY be registered with the
+   New values of the "colorimetry" parameter <em>MAY</em> be registered with the
    IANA provided they reference an RFC or other permanent and readily
    available specification if colorimetric parameters and other
    applicable transfer characteristics (the Specification Required
@@ -959,7 +959,7 @@ Abstract
    onto most currently available Internet paths.
 
    Accordingly, if best-effort service is being used, users of this
-   payload format MUST monitor packet loss to ensure that the packet
+   payload format <em>MUST</em> monitor packet loss to ensure that the packet
    loss rate is within acceptable parameters.  Packet loss is considered
    acceptable if a TCP flow across the same network path, and
    experiencing the same network conditions, would achieve an average
@@ -982,9 +982,9 @@ Abstract
 
    This payload format may also be used in networks that provide
    quality-of-service guarantees.  If enhanced service is being used,
-   receivers SHOULD monitor packet loss to ensure that the service that
+   receivers <em>SHOULD</em> monitor packet loss to ensure that the service that
    was requested is actually being delivered.  If it is not, then they
-   SHOULD assume that they are receiving best-effort service and behave
+   <em>SHOULD</em> assume that they are receiving best-effort service and behave
    accordingly.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Relation to <a href="./rfc2431.html">RFC 2431</a></span>

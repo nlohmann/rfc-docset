@@ -343,8 +343,8 @@ Table of Contents
    Definitions of the primitive terms in this document (such as Security
    Association or SA) can be found in [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>].
 
-   Keywords "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT" and
-   "MAY" that appear in this document are to be interpreted as described
+   Keywords "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>" and
+   "<em>MAY</em>" that appear in this document are to be interpreted as described
    in [<a href="#ref-Bra97" title="&quot;Key Words for use in RFCs to indicate Requirement Levels&quot;">Bra97</a>].
 
    The term "Expert Review" is to be interpreted as defined in
@@ -381,12 +381,12 @@ Table of Contents
    exchange and a single IKE_AUTH exchange (a total of four messages) to
    establish the IKE_SA and the first CHILD_SA.  In exceptional cases,
    there may be more than one of each of these exchanges.  In all cases,
-   all IKE_SA_INIT exchanges MUST complete before any other exchange
-   type, then all IKE_AUTH exchanges MUST complete, and following that
+   all IKE_SA_INIT exchanges <em>MUST</em> complete before any other exchange
+   type, then all IKE_AUTH exchanges <em>MUST</em> complete, and following that
    any number of CREATE_CHILD_SA and INFORMATIONAL exchanges may occur
    in any order.  In some scenarios, only a single CHILD_SA is needed
    between the IPsec endpoints, and therefore there would be no
-   additional exchanges.  Subsequent exchanges MAY be used to establish
+   additional exchanges.  Subsequent exchanges <em>MAY</em> be used to establish
    additional CHILD_SAs between the same authenticated pair of endpoints
    and to perform housekeeping functions.
 
@@ -465,7 +465,7 @@ Table of Contents
    commonly be used with no inner IP header.  If there is an inner IP
    header, the inner addresses will be the same as the outer addresses.
    A single pair of addresses will be negotiated for packets to be
-   protected by this SA.  These endpoints MAY implement application
+   protected by this SA.  These endpoints <em>MAY</em> implement application
    layer access controls based on the IPsec authenticated identities of
    the participants.  This scenario enables the end-to-end security that
    has been a guiding principle for the Internet since [<a href="./rfc1958.html" title="&quot;Architectural Principles of the Internet&quot;">RFC1958</a>],
@@ -653,7 +653,7 @@ Table of Contents
    the contents of the first message using the AUTH payload (see <a href="#section-2.15">section</a>
    <a href="#section-2.15">2.15</a>).  It might also send its certificate(s) in CERT payload(s) and
    a list of its trust anchors in CERTREQ payload(s).  If any CERT
-   payloads are included, the first certificate provided MUST contain
+   payloads are included, the first certificate provided <em>MUST</em> contain
    the public key used to verify the AUTH field.  The optional payload
    IDr enables the initiator to specify which of the responder's
    identities it wants to talk to.  This is useful when the machine on
@@ -672,14 +672,14 @@ Table of Contents
    AUTH payload, and completes negotiation of a CHILD_SA with the
    additional fields described below in the CREATE_CHILD_SA exchange.
 
-   The recipients of messages 3 and 4 MUST verify that all signatures
+   The recipients of messages 3 and 4 <em>MUST</em> verify that all signatures
    and MACs are computed correctly and that the names in the ID payloads
    correspond to the keys used to generate the AUTH payload.
 
 <span class="h3"><a class="selflink" name="section-1.3" href="#section-1.3">1.3</a>.  The CREATE_CHILD_SA Exchange</span>
 
    This exchange consists of a single request/response pair, and was
-   referred to as a phase 2 exchange in IKEv1.  It MAY be initiated by
+   referred to as a phase 2 exchange in IKEv1.  It <em>MAY</em> be initiated by
    either end of the IKE_SA after the initial exchanges are completed.
 
    All messages following the initial exchange are cryptographically
@@ -702,7 +702,7 @@ Table of Contents
 
 
    A CHILD_SA is created by sending a CREATE_CHILD_SA request.  The
-   CREATE_CHILD_SA request MAY optionally contain a KE payload for an
+   CREATE_CHILD_SA request <em>MAY</em> optionally contain a KE payload for an
    additional Diffie-Hellman exchange to enable stronger guarantees of
    forward secrecy for the CHILD_SA.  The keying material for the
    CHILD_SA is a function of SK_d established during the establishment
@@ -711,7 +711,7 @@ Table of Contents
    in the CREATE_CHILD_SA exchange).
 
    In the CHILD_SA created as part of the initial exchange, a second KE
-   payload and nonce MUST NOT be sent.  The nonces from the initial
+   payload and nonce <em>MUST NOT</em> be sent.  The nonces from the initial
    exchange are used in computing the keys for the CHILD_SA.
 
    The CREATE_CHILD_SA request contains:
@@ -725,10 +725,10 @@ Table of Contents
    payload, optionally a Diffie-Hellman value in the KEi payload, and
    the proposed traffic selectors in the TSi and TSr payloads.  If this
    CREATE_CHILD_SA exchange is rekeying an existing SA other than the
-   IKE_SA, the leading N payload of type REKEY_SA MUST identify the SA
+   IKE_SA, the leading N payload of type REKEY_SA <em>MUST</em> identify the SA
    being rekeyed.  If this CREATE_CHILD_SA exchange is not rekeying an
-   existing SA, the N payload MUST be omitted.  If the SA offers include
-   different Diffie-Hellman groups, KEi MUST be an element of the group
+   existing SA, the N payload <em>MUST</em> be omitted.  If the SA offers include
+   different Diffie-Hellman groups, KEi <em>MUST</em> be an element of the group
    the initiator expects the responder to accept.  If it guesses wrong,
    the CREATE_CHILD_SA exchange will fail, and it will have to retry
    with a different KEi.
@@ -746,8 +746,8 @@ Table of Contents
    accepted offer in an SA payload, and a Diffie-Hellman value in the
    KEr payload if KEi was included in the request and the selected
    cryptographic suite includes that group.  If the responder chooses a
-   cryptographic suite with a different group, it MUST reject the
-   request.  The initiator SHOULD repeat the request, but now with a KEi
+   cryptographic suite with a different group, it <em>MUST</em> reject the
+   request.  The initiator <em>SHOULD</em> repeat the request, but now with a KEi
    payload from the group the responder selected.
 
 
@@ -768,41 +768,41 @@ Table of Contents
    At various points during the operation of an IKE_SA, peers may desire
    to convey control messages to each other regarding errors or
    notifications of certain events.  To accomplish this, IKE defines an
-   INFORMATIONAL exchange.  INFORMATIONAL exchanges MUST ONLY occur
+   INFORMATIONAL exchange.  INFORMATIONAL exchanges <em>MUST</em> ONLY occur
    after the initial exchanges and are cryptographically protected with
    the negotiated keys.
 
-   Control messages that pertain to an IKE_SA MUST be sent under that
-   IKE_SA.  Control messages that pertain to CHILD_SAs MUST be sent
+   Control messages that pertain to an IKE_SA <em>MUST</em> be sent under that
+   IKE_SA.  Control messages that pertain to CHILD_SAs <em>MUST</em> be sent
    under the protection of the IKE_SA which generated them (or its
    successor if the IKE_SA was replaced for the purpose of rekeying).
 
    Messages in an INFORMATIONAL exchange contain zero or more
    Notification, Delete, and Configuration payloads.  The Recipient of
-   an INFORMATIONAL exchange request MUST send some response (else the
+   an INFORMATIONAL exchange request <em>MUST</em> send some response (else the
    Sender will assume the message was lost in the network and will
-   retransmit it).  That response MAY be a message with no payloads.
-   The request message in an INFORMATIONAL exchange MAY also contain no
+   retransmit it).  That response <em>MAY</em> be a message with no payloads.
+   The request message in an INFORMATIONAL exchange <em>MAY</em> also contain no
    payloads.  This is the expected way an endpoint can ask the other
    endpoint to verify that it is alive.
 
    ESP and AH SAs always exist in pairs, with one SA in each direction.
-   When an SA is closed, both members of the pair MUST be closed.  When
+   When an SA is closed, both members of the pair <em>MUST</em> be closed.  When
    SAs are nested, as when data (and IP headers if in tunnel mode) are
    encapsulated first with IPComp, then with ESP, and finally with AH
-   between the same pair of endpoints, all of the SAs MUST be deleted
-   together.  Each endpoint MUST close its incoming SAs and allow the
+   between the same pair of endpoints, all of the SAs <em>MUST</em> be deleted
+   together.  Each endpoint <em>MUST</em> close its incoming SAs and allow the
    other endpoint to close the other SA in each pair.  To delete an SA,
    an INFORMATIONAL exchange with one or more delete payloads is sent
    listing the SPIs (as they would be expected in the headers of inbound
-   packets) of the SAs to be deleted.  The recipient MUST close the
+   packets) of the SAs to be deleted.  The recipient <em>MUST</em> close the
    designated SAs.  Normally, the reply in the INFORMATIONAL exchange
    will contain delete payloads for the paired SAs going in the other
    direction.  There is one exception.  If by chance both ends of a set
    of SAs independently decide to close them, each may send a delete
    payload and the two requests may cross in the network.  If a node
    receives a delete request for SAs for which it has already issued a
-   delete request, it MUST delete the outgoing SAs while processing the
+   delete request, it <em>MUST</em> delete the outgoing SAs while processing the
    request and the incoming SAs while processing the response.  In that
 
 
@@ -813,17 +813,17 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   case, the responses MUST NOT include delete payloads for the deleted
+   case, the responses <em>MUST NOT</em> include delete payloads for the deleted
    SAs, since that would result in duplicate deletion and could in
    theory delete the wrong SA.
 
-   A node SHOULD regard half-closed connections as anomalous and audit
+   A node <em>SHOULD</em> regard half-closed connections as anomalous and audit
    their existence should they persist.  Note that this specification
    nowhere specifies time periods, so it is up to individual endpoints
-   to decide how long to wait.  A node MAY refuse to accept incoming
-   data on half-closed connections but MUST NOT unilaterally close them
+   to decide how long to wait.  A node <em>MAY</em> refuse to accept incoming
+   data on half-closed connections but <em>MUST NOT</em> unilaterally close them
    and reuse the SPIs.  If connection state becomes sufficiently messed
-   up, a node MAY close the IKE_SA; doing so will implicitly close all
+   up, a node <em>MAY</em> close the IKE_SA; doing so will implicitly close all
    SAs negotiated under it.  It can then rebuild the SAs it needs on a
    clean base under a new IKE_SA.
 
@@ -843,12 +843,12 @@ Table of Contents
    unrecognized SPI, it could be because the receiving node has recently
    crashed and lost state or because of some other system malfunction or
    attack.  If the receiving node has an active IKE_SA to the IP address
-   from whence the packet came, it MAY send a notification of the
+   from whence the packet came, it <em>MAY</em> send a notification of the
    wayward packet over that IKE_SA in an INFORMATIONAL exchange.  If it
-   does not have such an IKE_SA, it MAY send an Informational message
+   does not have such an IKE_SA, it <em>MAY</em> send an Informational message
    without cryptographic protection to the source IP address.  Such a
    message is not part of an informational exchange, and the receiving
-   node MUST NOT respond to it.  Doing so could cause a message loop.
+   node <em>MUST NOT</em> respond to it.  Doing so could cause a message loop.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  IKE Protocol Details and Variations</span>
 
@@ -882,11 +882,11 @@ Table of Contents
    an implementation to denial of service attacks [<a href="#ref-KPS03" title="&quot;DoS protection for UDP-based protocols&quot;">KPS03</a>].  Finally,
    some NAT and/or firewall implementations may block IP fragments.
 
-   All IKEv2 implementations MUST be able to send, receive, and process
-   IKE messages that are up to 1280 bytes long, and they SHOULD be able
+   All IKEv2 implementations <em>MUST</em> be able to send, receive, and process
+   IKE messages that are up to 1280 bytes long, and they <em>SHOULD</em> be able
    to send, receive, and process messages that are up to 3000 bytes
-   long.  IKEv2 implementations SHOULD be aware of the maximum UDP
-   message size supported and MAY shorten messages by leaving out some
+   long.  IKEv2 implementations <em>SHOULD</em> be aware of the maximum UDP
+   message size supported and <em>MAY</em> shorten messages by leaving out some
    certificates or cryptographic suite proposals if that will keep
    messages below the maximum.  Use of the "Hash and URL" formats rather
    than including certificates in exchanges where possible can avoid
@@ -907,12 +907,12 @@ Table of Contents
    initiator and the other is the responder.
 
    For every pair of IKE messages, the initiator is responsible for
-   retransmission in the event of a timeout.  The responder MUST never
+   retransmission in the event of a timeout.  The responder <em>MUST</em> never
    retransmit a response unless it receives a retransmission of the
-   request.  In that event, the responder MUST ignore the retransmitted
+   request.  In that event, the responder <em>MUST</em> ignore the retransmitted
    request except insofar as it triggers a retransmission of the
-   response.  The initiator MUST remember each request until it receives
-   the corresponding response.  The responder MUST remember each
+   response.  The initiator <em>MUST</em> remember each request until it receives
+   the corresponding response.  The responder <em>MUST</em> remember each
    response until it receives a request whose sequence number is larger
    than the sequence number in the response plus its window size (see
    <a href="#section-2.3">section 2.3</a>).
@@ -925,7 +925,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   IKE is a reliable protocol, in the sense that the initiator MUST
+   IKE is a reliable protocol, in the sense that the initiator <em>MUST</em>
    retransmit a request until either it receives a corresponding reply
    OR it deems the IKE security association to have failed and it
    discards all state associated with the IKE_SA and any CHILD_SAs
@@ -956,22 +956,22 @@ Table of Contents
 
    Note that Message IDs are cryptographically protected and provide
    protection against message replays.  In the unlikely event that
-   Message IDs grow too large to fit in 32 bits, the IKE_SA MUST be
+   Message IDs grow too large to fit in 32 bits, the IKE_SA <em>MUST</em> be
    closed.  Rekeying an IKE_SA resets the sequence numbers.
 
 <span class="h3"><a class="selflink" name="section-2.3" href="#section-2.3">2.3</a>.  Window Size for Overlapping Requests</span>
 
-   In order to maximize IKE throughput, an IKE endpoint MAY issue
+   In order to maximize IKE throughput, an IKE endpoint <em>MAY</em> issue
    multiple requests before getting a response to any of them if the
    other endpoint has indicated its ability to handle such requests.
-   For simplicity, an IKE implementation MAY choose to process requests
+   For simplicity, an IKE implementation <em>MAY</em> choose to process requests
    strictly in order and/or wait for a response to one request before
    issuing another.  Certain rules must be followed to ensure
    interoperability between implementations using different strategies.
 
    After an IKE_SA is set up, either end can initiate one or more
    requests.  These requests may pass one another over the network.  An
-   IKE endpoint MUST be prepared to accept and process a request while
+   IKE endpoint <em>MUST</em> be prepared to accept and process a request while
 
 
 
@@ -982,27 +982,27 @@ Table of Contents
 
 
    it has a request outstanding in order to avoid a deadlock in this
-   situation.  An IKE endpoint SHOULD be prepared to accept and process
+   situation.  An IKE endpoint <em>SHOULD</em> be prepared to accept and process
    multiple requests while it has a request outstanding.
 
-   An IKE endpoint MUST wait for a response to each of its messages
+   An IKE endpoint <em>MUST</em> wait for a response to each of its messages
    before sending a subsequent message unless it has received a
    SET_WINDOW_SIZE Notify message from its peer informing it that the
    peer is prepared to maintain state for multiple outstanding messages
    in order to allow greater throughput.
 
-   An IKE endpoint MUST NOT exceed the peer's stated window size for
+   An IKE endpoint <em>MUST NOT</em> exceed the peer's stated window size for
    transmitted IKE requests.  In other words, if the responder stated
    its window size is N, then when the initiator needs to make a request
-   X, it MUST wait until it has received responses to all requests up
-   through request X-N.  An IKE endpoint MUST keep a copy of (or be able
+   X, it <em>MUST</em> wait until it has received responses to all requests up
+   through request X-N.  An IKE endpoint <em>MUST</em> keep a copy of (or be able
    to regenerate exactly) each request it has sent until it receives the
-   corresponding response.  An IKE endpoint MUST keep a copy of (or be
+   corresponding response.  An IKE endpoint <em>MUST</em> keep a copy of (or be
    able to regenerate exactly) the number of previous responses equal to
    its declared window size in case its response was lost and the
    initiator requests its retransmission by retransmitting the request.
 
-   An IKE endpoint supporting a window size greater than one SHOULD be
+   An IKE endpoint supporting a window size greater than one <em>SHOULD</em> be
    capable of processing incoming requests out of order to maximize
    performance in the event of network failures or packet reordering.
 
@@ -1017,15 +1017,15 @@ Table of Contents
    packets over discarded SAs and having them fall into a black hole.
 
    Since IKE is designed to operate in spite of Denial of Service (DoS)
-   attacks from the network, an endpoint MUST NOT conclude that the
+   attacks from the network, an endpoint <em>MUST NOT</em> conclude that the
    other endpoint has failed based on any routing information (e.g.,
    ICMP messages) or IKE messages that arrive without cryptographic
    protection (e.g., Notify messages complaining about unknown SPIs).
-   An endpoint MUST conclude that the other endpoint has failed only
+   An endpoint <em>MUST</em> conclude that the other endpoint has failed only
    when repeated attempts to contact it have gone unanswered for a
    timeout period or when a cryptographically protected INITIAL_CONTACT
    notification is received on a different IKE_SA to the same
-   authenticated identity.  An endpoint SHOULD suspect that the other
+   authenticated identity.  An endpoint <em>SHOULD</em> suspect that the other
    endpoint has failed based on routing information and initiate a
    request to see whether the other endpoint is alive.  To check whether
    the other side is alive, IKE specifies an empty INFORMATIONAL message
@@ -1041,8 +1041,8 @@ Table of Contents
    within the context of an IKE_SA, an "empty" message consists of an
    IKE header followed by an Encrypted payload that contains no
    payloads).  If a cryptographically protected message has been
-   received from the other side recently, unprotected notifications MAY
-   be ignored.  Implementations MUST limit the rate at which they take
+   received from the other side recently, unprotected notifications <em>MAY</em>
+   be ignored.  Implementations <em>MUST</em> limit the rate at which they take
    actions based on unprotected messages.
 
    Numbers of retries and lengths of timeouts are not covered in this
@@ -1050,7 +1050,7 @@ Table of Contents
    suggested that messages be retransmitted at least a dozen times over
    a period of at least several minutes before giving up on an SA, but
    different environments may require different rules.  To be a good
-   network citizen, retranmission times MUST increase exponentially to
+   network citizen, retranmission times <em>MUST</em> increase exponentially to
    avoid flooding the network and making an existing congestion
    situation worse.  If there has only been outgoing traffic on all of
    the SAs associated with an IKE_SA, it is essential to confirm
@@ -1061,18 +1061,18 @@ Table of Contents
    Receipt of a fresh cryptographically protected message on an IKE_SA
    or any of its CHILD_SAs ensures liveness of the IKE_SA and all of its
    CHILD_SAs.  Note that this places requirements on the failure modes
-   of an IKE endpoint.  An implementation MUST NOT continue sending on
+   of an IKE endpoint.  An implementation <em>MUST NOT</em> continue sending on
    any SA if some failure prevents it from receiving on all of the
    associated SAs.  If CHILD_SAs can fail independently from one another
    without the associated IKE_SA being able to send a delete message,
-   then they MUST be negotiated by separate IKE_SAs.
+   then they <em>MUST</em> be negotiated by separate IKE_SAs.
 
    There is a Denial of Service attack on the initiator of an IKE_SA
    that can be avoided if the initiator takes the proper care.  Since
    the first two messages of an SA setup are not cryptographically
    protected, an attacker could respond to the initiator's message
    before the genuine responder and poison the connection setup attempt.
-   To prevent this, the initiator MAY be willing to accept multiple
+   To prevent this, the initiator <em>MAY</em> be willing to accept multiple
    responses to its first message, treat each as potentially legitimate,
    respond to it, and then discard all the invalid half-open connections
    when it receives a valid cryptographically protected response to any
@@ -1095,10 +1095,10 @@ Table of Contents
 
    An IKE endpoint may at any time delete inactive CHILD_SAs to recover
    resources used to hold their state.  If an IKE endpoint chooses to
-   delete CHILD_SAs, it MUST send Delete payloads to the other end
-   notifying it of the deletion.  It MAY similarly time out the IKE_SA.
+   delete CHILD_SAs, it <em>MUST</em> send Delete payloads to the other end
+   notifying it of the deletion.  It <em>MAY</em> similarly time out the IKE_SA.
    Closing the IKE_SA implicitly closes all associated CHILD_SAs.  In
-   this case, an IKE endpoint SHOULD send a Delete payload indicating
+   this case, an IKE endpoint <em>SHOULD</em> send a Delete payload indicating
    that it has closed the IKE_SA.
 
 <span class="h3"><a class="selflink" name="section-2.5" href="#section-2.5">2.5</a>.  Version Numbers and Forward Compatibility</span>
@@ -1113,7 +1113,7 @@ Table of Contents
    older version node would not be able to interoperate with a newer
    version node if it simply ignored the fields it did not understand
    and took the actions specified in the older specification.  The minor
-   version number indicates new capabilities, and MUST be ignored by a
+   version number indicates new capabilities, and <em>MUST</em> be ignored by a
    node with a smaller minor version number, but used for informational
    purposes by the node with the larger minor version number.  For
    example, it might indicate the ability to process a newly defined
@@ -1122,11 +1122,11 @@ Table of Contents
    understand that message and therefore would not send it.
 
    If an endpoint receives a message with a higher major version number,
-   it MUST drop the message and SHOULD send an unauthenticated
+   it <em>MUST</em> drop the message and <em>SHOULD</em> send an unauthenticated
    notification message containing the highest version number it
    supports.  If an endpoint supports major version n, and major version
-   m, it MUST support all versions between n and m.  If it receives a
-   message with a major version that it supports, it MUST respond with
+   m, it <em>MUST</em> support all versions between n and m.  If it receives a
+   message with a major version that it supports, it <em>MUST</em> respond with
    that version number.  In order to prevent two nodes from being
    tricked into corresponding with a lower major version number than the
    maximum that they both support, IKE has a flag that indicates that
@@ -1151,38 +1151,38 @@ Table of Contents
 
    sending error messages) negotiate to version n, then both will notice
    that the other side can support a higher version number, and they
-   MUST break the connection and reconnect using version n+1.
+   <em>MUST</em> break the connection and reconnect using version n+1.
 
    Note that IKEv1 does not follow these rules, because there is no way
    in v1 of noting that you are capable of speaking a higher version
    number.  So an active attacker can trick two v2-capable nodes into
-   speaking v1.  When a v2-capable node negotiates down to v1, it SHOULD
+   speaking v1.  When a v2-capable node negotiates down to v1, it <em>SHOULD</em>
    note that fact in its logs.
 
-   Also for forward compatibility, all fields marked RESERVED MUST be
-   set to zero by a version 2.0 implementation and their content MUST be
+   Also for forward compatibility, all fields marked RESERVED <em>MUST</em> be
+   set to zero by a version 2.0 implementation and their content <em>MUST</em> be
    ignored by a version 2.0 implementation ("Be conservative in what you
    send and liberal in what you receive").  In this way, future versions
    of the protocol can use those fields in a way that is guaranteed to
    be ignored by implementations that do not understand them.
    Similarly, payload types that are not defined are reserved for future
-   use; implementations of version 2.0 MUST skip over those payloads and
+   use; implementations of version 2.0 <em>MUST</em> skip over those payloads and
    ignore their contents.
 
    IKEv2 adds a "critical" flag to each payload header for further
    flexibility for forward compatibility.  If the critical flag is set
-   and the payload type is unrecognized, the message MUST be rejected
-   and the response to the IKE request containing that payload MUST
+   and the payload type is unrecognized, the message <em>MUST</em> be rejected
+   and the response to the IKE request containing that payload <em>MUST</em>
    include a Notify payload UNSUPPORTED_CRITICAL_PAYLOAD, indicating an
    unsupported critical payload was included.  If the critical flag is
-   not set and the payload type is unsupported, that payload MUST be
+   not set and the payload type is unsupported, that payload <em>MUST</em> be
    ignored.
 
    Although new payload types may be added in the future and may appear
    interleaved with the fields defined in this specification,
-   implementations MUST send the payloads defined in this specification
+   implementations <em>MUST</em> send the payloads defined in this specification
    in the order shown in the figures in <a href="#section-2">section 2</a> and implementations
-   SHOULD reject as invalid a message with those payloads in any other
+   <em>SHOULD</em> reject as invalid a message with those payloads in any other
    order.
 
 <span class="h3"><a class="selflink" name="section-2.6" href="#section-2.6">2.6</a>.  Cookies</span>
@@ -1205,7 +1205,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   chooses one of the two SPIs and SHOULD choose them so as to be unique
+   chooses one of the two SPIs and <em>SHOULD</em> choose them so as to be unique
    identifiers of an IKE_SA.  An SPI value of zero is special and
    indicates that the remote SPI value is not yet known by the sender.
 
@@ -1227,12 +1227,12 @@ Table of Contents
    implementation of a responder uses minimal CPU and commits no state
    to an SA until it knows the initiator can receive packets at the
    address from which it claims to be sending them.  To accomplish this,
-   a responder SHOULD -- when it detects a large number of half-open
+   a responder <em>SHOULD</em> -- when it detects a large number of half-open
    IKE_SAs -- reject initial IKE messages unless they contain a Notify
-   payload of type COOKIE.  It SHOULD instead send an unprotected IKE
+   payload of type COOKIE.  It <em>SHOULD</em> instead send an unprotected IKE
    message as a response and include COOKIE Notify payload with the
    cookie data to be returned.  Initiators who receive such responses
-   MUST retry the IKE_SA_INIT with a Notify payload of type COOKIE
+   <em>MUST</em> retry the IKE_SA_INIT with a Notify payload of type COOKIE
    containing the responder supplied cookie data as the first payload
    and all other payloads unchanged.  The initial exchange will then be
    as follows:
@@ -1268,7 +1268,7 @@ Table of Contents
    the SPI assigned by the initiator, while 'B' is the SPI assigned by
    the responder.
 
-   An IKE implementation SHOULD implement its responder cookie
+   An IKE implementation <em>SHOULD</em> implement its responder cookie
    generation in such a way as to not require any saved state to
    recognize its valid cookie when the second IKE_SA_INIT message
    arrives.  The exact algorithms and syntax they use to generate
@@ -1297,12 +1297,12 @@ Table of Contents
    If a new value for &lt;secret&gt; is chosen while there are connections in
    the process of being initialized, an IKE_SA_INIT might be returned
    with other than the current &lt;VersionIDofSecret&gt;.  The responder in
-   that case MAY reject the message by sending another response with a
-   new cookie or it MAY keep the old value of &lt;secret&gt; around for a
+   that case <em>MAY</em> reject the message by sending another response with a
+   new cookie or it <em>MAY</em> keep the old value of &lt;secret&gt; around for a
    short time and accept cookies computed from either one.  The
-   responder SHOULD NOT accept cookies indefinitely after &lt;secret&gt; is
+   responder <em>SHOULD NOT</em> accept cookies indefinitely after &lt;secret&gt; is
    changed, since that would defeat part of the denial of service
-   protection.  The responder SHOULD change the value of &lt;secret&gt;
+   protection.  The responder <em>SHOULD</em> change the value of &lt;secret&gt;
    frequently, especially if under attack.
 
 
@@ -1333,24 +1333,24 @@ Table of Contents
    This hierarchical structure was designed to efficiently encode
    proposals for cryptographic suites when the number of supported
    suites is large because multiple values are acceptable for multiple
-   transforms.  The responder MUST choose a single suite, which MAY be
+   transforms.  The responder <em>MUST</em> choose a single suite, which <em>MAY</em> be
    any subset of the SA proposal following the rules below:
 
       Each proposal contains one or more protocols.  If a proposal is
-      accepted, the SA response MUST contain the same protocols in the
-      same order as the proposal.  The responder MUST accept a single
+      accepted, the SA response <em>MUST</em> contain the same protocols in the
+      same order as the proposal.  The responder <em>MUST</em> accept a single
       proposal or reject them all and return an error. (Example: if a
       single proposal contains ESP and AH and that proposal is accepted,
-      both ESP and AH MUST be accepted.  If ESP and AH are included in
-      separate proposals, the responder MUST accept only one of them).
+      both ESP and AH <em>MUST</em> be accepted.  If ESP and AH are included in
+      separate proposals, the responder <em>MUST</em> accept only one of them).
 
       Each IPsec protocol proposal contains one or more transforms.
       Each transform contains a transform type.  The accepted
-      cryptographic suite MUST contain exactly one transform of each
+      cryptographic suite <em>MUST</em> contain exactly one transform of each
       type included in the proposal.  For example: if an ESP proposal
       includes transforms ENCR_3DES, ENCR_AES w/keysize 128, ENCR_AES
       w/keysize 256, AUTH_HMAC_MD5, and AUTH_HMAC_SHA, the accepted
-      suite MUST contain one of the ENCR_ transforms and one of the
+      suite <em>MUST</em> contain one of the ENCR_ transforms and one of the
       AUTH_ transforms.  Thus, six combinations are acceptable.
 
    Since the initiator sends its Diffie-Hellman value in the
@@ -1358,8 +1358,8 @@ Table of Contents
    responder will select from its list of supported groups.  If the
    initiator guesses wrong, the responder will respond with a Notify
    payload of type INVALID_KE_PAYLOAD indicating the selected group.  In
-   this case, the initiator MUST retry the IKE_SA_INIT with the
-   corrected Diffie-Hellman group.  The initiator MUST again propose its
+   this case, the initiator <em>MUST</em> retry the IKE_SA_INIT with the
+   corrected Diffie-Hellman group.  The initiator <em>MUST</em> again propose its
    full set of acceptable cryptographic suites because the rejection
    message was unauthenticated and otherwise an active attacker could
    trick the endpoints into negotiating a weaker suite than a stronger
@@ -1375,22 +1375,22 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.8" href="#section-2.8">2.8</a>.  Rekeying</span>
 
-   IKE, ESP, and AH security associations use secret keys that SHOULD be
+   IKE, ESP, and AH security associations use secret keys that <em>SHOULD</em> be
    used only for a limited amount of time and to protect a limited
    amount of data.  This limits the lifetime of the entire security
    association.  When the lifetime of a security association expires,
-   the security association MUST NOT be used.  If there is demand, new
-   security associations MAY be established.  Reestablishment of
+   the security association <em>MUST NOT</em> be used.  If there is demand, new
+   security associations <em>MAY</em> be established.  Reestablishment of
    security associations to take the place of ones that expire is
    referred to as "rekeying".
 
    To allow for minimal IPsec implementations, the ability to rekey SAs
    without restarting the entire IKE_SA is optional.  An implementation
-   MAY refuse all CREATE_CHILD_SA requests within an IKE_SA.  If an SA
+   <em>MAY</em> refuse all CREATE_CHILD_SA requests within an IKE_SA.  If an SA
    has expired or is about to expire and rekeying attempts using the
-   mechanisms described here fail, an implementation MUST close the
-   IKE_SA and any associated CHILD_SAs and then MAY start new ones.
-   Implementations SHOULD support in-place rekeying of SAs, since doing
+   mechanisms described here fail, an implementation <em>MUST</em> close the
+   IKE_SA and any associated CHILD_SAs and then <em>MAY</em> start new ones.
+   Implementations <em>SHOULD</em> support in-place rekeying of SAs, since doing
    so offers better performance and is likely to reduce the number of
    packets lost during the transition.
 
@@ -1402,10 +1402,10 @@ Table of Contents
    IKE_SA.  An IKE_SA so created inherits all of the original IKE_SA's
    CHILD_SAs.  Use the new IKE_SA for all control messages needed to
    maintain the CHILD_SAs created by the old IKE_SA, and delete the old
-   IKE_SA.  The Delete payload to delete itself MUST be the last request
+   IKE_SA.  The Delete payload to delete itself <em>MUST</em> be the last request
    sent over an IKE_SA.
 
-   SAs SHOULD be rekeyed proactively, i.e., the new SA should be
+   SAs <em>SHOULD</em> be rekeyed proactively, i.e., the new SA should be
    established before the old one expires and becomes unusable.  Enough
    time should elapse between the time the new SA is established and the
    old one becomes unusable so that traffic can be switched over to the
@@ -1418,8 +1418,8 @@ Table of Contents
    with the shorter lifetime will end up always being the one to request
    the rekeying.  If an SA bundle has been inactive for a long time and
    if an endpoint would not initiate the SA in the absence of traffic,
-   the endpoint MAY choose to close the SA instead of rekeying it when
-   its lifetime expires.  It SHOULD do so if there has been no traffic
+   the endpoint <em>MAY</em> choose to close the SA instead of rekeying it when
+   its lifetime expires.  It <em>SHOULD</em> do so if there has been no traffic
    since the last time the SA was rekeyed.
 
 
@@ -1432,15 +1432,15 @@ Table of Contents
    If the two ends have the same lifetime policies, it is possible that
    both will initiate a rekeying at the same time (which will result in
    redundant SAs).  To reduce the probability of this happening, the
-   timing of rekeying requests SHOULD be jittered (delayed by a random
+   timing of rekeying requests <em>SHOULD</em> be jittered (delayed by a random
    amount of time after the need for rekeying is noticed).
 
    This form of rekeying may temporarily result in multiple similar SAs
    between the same pairs of nodes.  When there are two SAs eligible to
-   receive packets, a node MUST accept incoming packets through either
+   receive packets, a node <em>MUST</em> accept incoming packets through either
    SA.  If redundant SAs are created though such a collision, the SA
    created with the lowest of the four nonces used in the two exchanges
-   SHOULD be closed by the endpoint that created it.
+   <em>SHOULD</em> be closed by the endpoint that created it.
 
    Note that IKEv2 deliberately allows parallel SAs with the same
    traffic selectors between common endpoints.  One of the purposes of
@@ -1449,34 +1449,34 @@ Table of Contents
    Hence unlike IKEv1, the combination of the endpoints and the traffic
    selectors may not uniquely identify an SA between those endpoints, so
    the IKEv1 rekeying heuristic of deleting SAs on the basis of
-   duplicate traffic selectors SHOULD NOT be used.
+   duplicate traffic selectors <em>SHOULD NOT</em> be used.
 
-   The node that initiated the surviving rekeyed SA SHOULD delete the
+   The node that initiated the surviving rekeyed SA <em>SHOULD</em> delete the
    replaced SA after the new one is established.
 
    There are timing windows -- particularly in the presence of lost
    packets -- where endpoints may not agree on the state of an SA.  The
-   responder to a CREATE_CHILD_SA MUST be prepared to accept messages on
+   responder to a CREATE_CHILD_SA <em>MUST</em> be prepared to accept messages on
    an SA before sending its response to the creation request, so there
-   is no ambiguity for the initiator.  The initiator MAY begin sending
+   is no ambiguity for the initiator.  The initiator <em>MAY</em> begin sending
    on an SA as soon as it processes the response.  The initiator,
    however, cannot receive on a newly created SA until it receives and
    processes the response to its CREATE_CHILD_SA request.  How, then, is
    the responder to know when it is OK to send on the newly created SA?
 
    From a technical correctness and interoperability perspective, the
-   responder MAY begin sending on an SA as soon as it sends its response
+   responder <em>MAY</em> begin sending on an SA as soon as it sends its response
    to the CREATE_CHILD_SA request.  In some situations, however, this
    could result in packets unnecessarily being dropped, so an
-   implementation MAY want to defer such sending.
+   implementation <em>MAY</em> want to defer such sending.
 
    The responder can be assured that the initiator is prepared to
    receive messages on an SA if either (1) it has received a
    cryptographically valid message on the new SA, or (2) the new SA
    rekeys an existing SA and it receives an IKE request to close the
-   replaced SA.  When rekeying an SA, the responder SHOULD continue to
+   replaced SA.  When rekeying an SA, the responder <em>SHOULD</em> continue to
    send messages on the old SA until one of those events occurs.  When
-   establishing a new SA, the responder MAY defer sending messages on a
+   establishing a new SA, the responder <em>MAY</em> defer sending messages on a
 
 
 
@@ -1487,9 +1487,9 @@ Table of Contents
 
    new SA until either it receives one or a timeout has occurred.  If an
    initiator receives a message on an SA for which it has not received a
-   response to its CREATE_CHILD_SA request, it SHOULD interpret that as
+   response to its CREATE_CHILD_SA request, it <em>SHOULD</em> interpret that as
    a likely packet loss and retransmit the CREATE_CHILD_SA request.  An
-   initiator MAY send a dummy message on a newly created SA if it has no
+   initiator <em>MAY</em> send a dummy message on a newly created SA if it has no
    messages queued in order to assure the responder that the initiator
    is ready to receive messages.
 
@@ -1497,7 +1497,7 @@ Table of Contents
 
    When an IP packet is received by an <a href="./rfc4301.html">RFC4301</a>-compliant IPsec subsystem
    and matches a "protect" selector in its Security Policy Database
-   (SPD), the subsystem MUST protect that packet with IPsec.  When no SA
+   (SPD), the subsystem <em>MUST</em> protect that packet with IPsec.  When no SA
    exists yet, it is the task of IKE to create it.  Maintenance of a
    system's SPD is outside the scope of IKE (see [<a href="#ref-PFKEY" title="&quot;PF_KEY Key Management API, Version 2&quot;">PFKEY</a>] for an example
    protocol), though some implementations might update their SPD in
@@ -1571,11 +1571,11 @@ Table of Contents
    192.0.2.123, there would be no way for the responder to determine
    which pair of addresses should be included in this tunnel, and it
    would have to make a guess or reject the request with a status of
-   SINGLE_PAIR_REQUIRED.
+   SINGLE_PAIR_<em>REQUIRED</em>.
 
    To enable the responder to choose the appropriate range in this case,
    if the initiator has requested the SA due to a data packet, the
-   initiator SHOULD include as the first traffic selector in each of TSi
+   initiator <em>SHOULD</em> include as the first traffic selector in each of TSi
    and TSr a very specific traffic selector including the addresses in
    the packet triggering the request.  In the example, the initiator
    would include in TSi two traffic selectors: the first containing the
@@ -1586,7 +1586,7 @@ Table of Contents
 
    If the responder's policy does not allow it to accept the entire set
    of traffic selectors in the initiator's request, but does allow him
-   to accept the first selector of TSi and TSr, then the responder MUST
+   to accept the first selector of TSi and TSr, then the responder <em>MUST</em>
    narrow the traffic selectors to a subset that includes the
 
 
@@ -1604,17 +1604,17 @@ Table of Contents
    If the initiator creates the CHILD_SA pair not in response to an
    arriving packet, but rather, say, upon startup, then there may be no
    specific addresses the initiator prefers for the initial tunnel over
-   any other.  In that case, the first values in TSi and TSr MAY be
+   any other.  In that case, the first values in TSi and TSr <em>MAY</em> be
    ranges rather than specific values, and the responder chooses a
    subset of the initiator's TSi and TSr that are acceptable.  If more
    than one subset is acceptable but their union is not, the responder
-   MUST accept some subset and MAY include a Notify payload of type
+   <em>MUST</em> accept some subset and <em>MAY</em> include a Notify payload of type
    ADDITIONAL_TS_POSSIBLE to indicate that the initiator might want to
    try again.  This case will occur only when the initiator and
    responder are configured differently from one another.  If the
    initiator and responder agree on the granularity of tunnels, the
    initiator will never request a tunnel wider than the responder will
-   accept.  Such misconfigurations SHOULD be recorded in error logs.
+   accept.  Such misconfigurations <em>SHOULD</em> be recorded in error logs.
 
 <span class="h3"><a class="selflink" name="section-2.10" href="#section-2.10">2.10</a>.  Nonces</span>
 
@@ -1623,8 +1623,8 @@ Table of Contents
    and the CREATE_CHILD_SA response also contain nonces.  These nonces
    are used to add freshness to the key derivation technique used to
    obtain keys for CHILD_SA, and to ensure creation of strong pseudo-
-   random bits from the Diffie-Hellman key.  Nonces used in IKEv2 MUST
-   be randomly chosen, MUST be at least 128 bits in size, and MUST be at
+   random bits from the Diffie-Hellman key.  Nonces used in IKEv2 <em>MUST</em>
+   be randomly chosen, <em>MUST</em> be at least 128 bits in size, and <em>MUST</em> be at
    least half the key size of the negotiated prf. ("prf" refers to
    "pseudo-random function", one of the cryptographic algorithms
    negotiated in the IKE exchange.)  If the same random number source is
@@ -1637,10 +1637,10 @@ Table of Contents
    AH associations for the same IP addresses it runs over.  The IP
    addresses and ports in the outer header are, however, not themselves
    cryptographically protected, and IKE is designed to work even through
-   Network Address Translation (NAT) boxes.  An implementation MUST
+   Network Address Translation (NAT) boxes.  An implementation <em>MUST</em>
    accept incoming requests even if the source port is not 500 or 4500,
-   and MUST respond to the address and port from which the request was
-   received.  It MUST specify the address and port at which the request
+   and <em>MUST</em> respond to the address and port from which the request was
+   received.  It <em>MUST</em> specify the address and port at which the request
    was received as the source address and port in the response.  IKE
    functions identically over IPv4 or IPv6.
 
@@ -1665,9 +1665,9 @@ Table of Contents
    space.
 
    Achieving perfect forward secrecy requires that when a connection is
-   closed, each endpoint MUST forget not only the keys used by the
+   closed, each endpoint <em>MUST</em> forget not only the keys used by the
    connection but also any information that could be used to recompute
-   those keys.  In particular, it MUST forget the secrets used in the
+   those keys.  In particular, it <em>MUST</em> forget the secrets used in the
    Diffie-Hellman calculation and any state that may persist in the
    state of a pseudo-random number generator that could be used to
    recompute the Diffie-Hellman secrets.
@@ -1687,7 +1687,7 @@ Table of Contents
 
    Decisions as to whether and when to reuse Diffie-Hellman exponentials
    is a private decision in the sense that it will not affect
-   interoperability.  An implementation that reuses exponentials MAY
+   interoperability.  An implementation that reuses exponentials <em>MAY</em>
    choose to remember the exponential used by the other endpoint on past
    exchanges and if one is reused to avoid the second half of the
    calculation.
@@ -1712,11 +1712,11 @@ Table of Contents
    We assume that each encryption algorithm and integrity protection
    algorithm uses a fixed-size key and that any randomly chosen value of
    that fixed size can serve as an appropriate key.  For algorithms that
-   accept a variable length key, a fixed key size MUST be specified as
+   accept a variable length key, a fixed key size <em>MUST</em> be specified as
    part of the cryptographic transform negotiated.  For algorithms for
    which not all values are valid keys (such as DES or 3DES with key
    parity), the algorithm by which keys are derived from arbitrary
-   values MUST be specified by the cryptographic transform.  For
+   values <em>MUST</em> be specified by the cryptographic transform.  For
    integrity protection functions based on Hashed Message Authentication
    Code (HMAC), the fixed key size is the size of the output of the
    underlying hash function.  When the prf function takes a variable
@@ -1832,7 +1832,7 @@ Table of Contents
    responder cookie and/or a different Diffie-Hellman group), it is the
    second version of the message that is signed.
 
-   Optionally, messages 3 and 4 MAY include a certificate, or
+   Optionally, messages 3 and 4 <em>MAY</em> include a certificate, or
    certificate chain providing evidence that the key used to compute a
    digital signature belongs to the name in the ID payload.  The
    signature or MAC will be computed using algorithms dictated by the
@@ -1854,7 +1854,7 @@ Table of Contents
    (Applications using password-based authentication for bootstrapping
    and IKE_SA should use the authentication method in <a href="#section-2.16">section 2.16</a>,
    which is designed to prevent off-line dictionary attacks.)  The pre-
-   shared key SHOULD contain as much unpredictability as the strongest
+   shared key <em>SHOULD</em> contain as much unpredictability as the strongest
    key being negotiated.  In the case of a pre-shared key, the AUTH
    value is computed as:
 
@@ -1877,13 +1877,13 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   management interface by which the Shared Secret is provided MUST
-   accept ASCII strings of at least 64 octets and MUST NOT add a null
-   terminator before using them as shared secrets.  It MUST also accept
-   a HEX encoding of the Shared Secret.  The management interface MAY
+   management interface by which the Shared Secret is provided <em>MUST</em>
+   accept ASCII strings of at least 64 octets and <em>MUST NOT</em> add a null
+   terminator before using them as shared secrets.  It <em>MUST</em> also accept
+   a HEX encoding of the Shared Secret.  The management interface <em>MAY</em>
    accept other encodings if the algorithm for translating the encoding
    to a binary string is specified.  If the negotiated prf takes a
-   fixed-size key, the shared secret MUST be of that fixed size.
+   fixed-size key, the shared secret <em>MUST</em> be of that fixed size.
 
 <span class="h3"><a class="selflink" name="section-2.16" href="#section-2.16">2.16</a>.  Extensible Authentication Protocol Methods</span>
 
@@ -1892,7 +1892,7 @@ Table of Contents
    <a href="./rfc3748.html">3748</a> [<a href="#ref-EAP" title="&quot;Extensible Authentication Protocol (EAP)&quot;">EAP</a>].  Typically, these methods are asymmetric (designed for a
    user authenticating to a server), and they may not be mutual.  For
    this reason, these protocols are typically used to authenticate the
-   initiator to the responder and MUST be used in conjunction with a
+   initiator to the responder and <em>MUST</em> be used in conjunction with a
    public key signature based authentication of the responder to the
    initiator.  These methods are often associated with mechanisms
    referred to as "Legacy Authentication" mechanisms.
@@ -1902,7 +1902,7 @@ Table of Contents
    simpler variations are documented here and in <a href="#section-3.16">section 3.16</a>.  [<a href="#ref-EAP" title="&quot;Extensible Authentication Protocol (EAP)&quot;">EAP</a>]
    defines an authentication protocol requiring a variable number of
    messages.  Extensible Authentication is implemented in IKE as
-   additional IKE_AUTH exchanges that MUST be completed in order to
+   additional IKE_AUTH exchanges that <em>MUST</em> be completed in order to
    initialize the IKE_SA.
 
    An initiator indicates a desire to use extensible authentication by
@@ -1954,30 +1954,30 @@ Table of Contents
                                   &lt;--    HDR, SK {AUTH, SAr2, TSi, TSr }
 
    For EAP methods that create a shared key as a side effect of
-   authentication, that shared key MUST be used by both the initiator
+   authentication, that shared key <em>MUST</em> be used by both the initiator
    and responder to generate AUTH payloads in messages 7 and 8 using the
    syntax for shared secrets specified in <a href="#section-2.15">section 2.15</a>.  The shared key
    from EAP is the field from the EAP specification named MSK.  The
-   shared key generated during an IKE exchange MUST NOT be used for any
+   shared key generated during an IKE exchange <em>MUST NOT</em> be used for any
    other purpose.
 
-   EAP methods that do not establish a shared key SHOULD NOT be used, as
+   EAP methods that do not establish a shared key <em>SHOULD NOT</em> be used, as
    they are subject to a number of man-in-the-middle attacks [<a href="#ref-EAPMITM" title="&quot;Man-in-the-Middle in Tunneled Authentication Protocols&quot;">EAPMITM</a>]
    if these EAP methods are used in other protocols that do not use a
    server-authenticated tunnel.  Please see the Security Considerations
    section for more details.  If EAP methods that do not generate a
-   shared key are used, the AUTH payloads in messages 7 and 8 MUST be
+   shared key are used, the AUTH payloads in messages 7 and 8 <em>MUST</em> be
    generated using SK_pi and SK_pr, respectively.
 
-   The initiator of an IKE_SA using EAP SHOULD be capable of extending
+   The initiator of an IKE_SA using EAP <em>SHOULD</em> be capable of extending
    the initial protocol exchange to at least ten IKE_AUTH exchanges in
    the event the responder sends notification messages and/or retries
    the authentication prompt.  Once the protocol exchange defined by the
    chosen EAP authentication method has successfully terminated, the
-   responder MUST send an EAP payload containing the Success message.
+   responder <em>MUST</em> send an EAP payload containing the Success message.
    Similarly, if the authentication method has failed, the responder
-   MUST send an EAP payload containing the Failure message.  The
-   responder MAY at any time terminate the IKE exchange by sending an
+   <em>MUST</em> send an EAP payload containing the Failure message.  The
+   responder <em>MAY</em> at any time terminate the IKE exchange by sending an
    EAP payload containing the Failure message.
 
 
@@ -1989,7 +1989,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   Following such an extended exchange, the EAP AUTH payloads MUST be
+   Following such an extended exchange, the EAP AUTH payloads <em>MUST</em> be
    included in the two messages following the one containing the EAP
    Success message.
 
@@ -2020,7 +2020,7 @@ Table of Contents
    and four SAs could be created in a single CHILD_SA negotiation if a
    combination of ESP and AH is being negotiated.
 
-   Keying material MUST be taken from the expanded KEYMAT in the
+   Keying material <em>MUST</em> be taken from the expanded KEYMAT in the
    following order:
 
       All keys for SAs carrying data from the initiator to the responder
@@ -2061,7 +2061,7 @@ Table of Contents
    make it the length of the modulus) and Ni and Nr are the two nonces
    stripped of any headers.
 
-   The new IKE_SA MUST reset its message counters to 0.
+   The new IKE_SA <em>MUST</em> reset its message counters to 0.
 
    SK_d, SK_ai, SK_ar, SK_ei, and SK_er are computed from SKEYSEED as
    specified in <a href="#section-2.14">section 2.14</a>.
@@ -2078,7 +2078,7 @@ Table of Contents
    This function provides address allocation to an IPsec Remote Access
    Client (IRAC) trying to tunnel into a network protected by an IPsec
    Remote Access Server (IRAS).  Since the IKE_AUTH exchange creates an
-   IKE_SA and a CHILD_SA, the IRAC MUST request the IRAS-controlled
+   IKE_SA and a CHILD_SA, the IRAC <em>MUST</em> request the IRAS-controlled
    address (and optionally other information concerning the protected
    network) in the IKE_AUTH exchange.  The IRAS may procure an address
    for the IRAC from any number of sources such as a DHCP/BOOTP server
@@ -2101,13 +2101,13 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   In all cases, the CP payload MUST be inserted before the SA payload.
+   In all cases, the CP payload <em>MUST</em> be inserted before the SA payload.
    In variations of the protocol where there are multiple IKE_AUTH
-   exchanges, the CP payloads MUST be inserted in the messages
+   exchanges, the CP payloads <em>MUST</em> be inserted in the messages
    containing the SA payloads.
 
-   CP(CFG_REQUEST) MUST contain at least an INTERNAL_ADDRESS attribute
-   (either IPv4 or IPv6) but MAY contain any number of additional
+   CP(CFG_REQUEST) <em>MUST</em> contain at least an INTERNAL_ADDRESS attribute
+   (either IPv4 or IPv6) but <em>MAY</em> contain any number of additional
    attributes the initiator wants returned in the response.
 
    For example, message from initiator to responder:
@@ -2131,22 +2131,22 @@ Table of Contents
       TSr = (0, 0-65535,192.0.2.0-192.0.2.255)
 
    All returned values will be implementation dependent.  As can be seen
-   in the above example, the IRAS MAY also send other attributes that
-   were not included in CP(CFG_REQUEST) and MAY ignore the non-mandatory
+   in the above example, the IRAS <em>MAY</em> also send other attributes that
+   were not included in CP(CFG_REQUEST) and <em>MAY</em> ignore the non-mandatory
    attributes that it does not support.
 
-   The responder MUST NOT send a CFG_REPLY without having first received
+   The responder <em>MUST NOT</em> send a CFG_REPLY without having first received
    a CP(CFG_REQUEST) from the initiator, because we do not want the IRAS
    to perform an unnecessary configuration lookup if the IRAC cannot
    process the REPLY.  In the case where the IRAS's configuration
    requires that CP be used for a given identity IDi, but IRAC has
-   failed to send a CP(CFG_REQUEST), IRAS MUST fail the request, and
-   terminate the IKE exchange with a FAILED_CP_REQUIRED error.
+   failed to send a CP(CFG_REQUEST), IRAS <em>MUST</em> fail the request, and
+   terminate the IKE exchange with a FAILED_CP_<em>REQUIRED</em> error.
 
 <span class="h3"><a class="selflink" name="section-2.20" href="#section-2.20">2.20</a>.  Requesting the Peer's Version</span>
 
    An IKE peer wishing to inquire about the other peer's IKE software
-   version information MAY use the method below.  This is an example of
+   version information <em>MAY</em> use the method below.  This is an example of
    a configuration request within an INFORMATIONAL exchange, after the
    IKE_SA and first CHILD_SA have been created.
 
@@ -2157,10 +2157,10 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   An IKE implementation MAY decline to give out version information
+   An IKE implementation <em>MAY</em> decline to give out version information
    prior to authentication or even after authentication to prevent
    trolling in case some implementation is known to have some security
-   weakness.  In that case, it MUST either return an empty string or no
+   weakness.  In that case, it <em>MUST</em> either return an empty string or no
    CP payload if CP is not supported.
 
        Initiator                           Responder
@@ -2179,9 +2179,9 @@ Table of Contents
    There are many kinds of errors that can occur during IKE processing.
    If a request is received that is badly formatted or unacceptable for
    reasons of policy (e.g., no matching cryptographic algorithms), the
-   response MUST contain a Notify payload indicating the error.  If an
+   response <em>MUST</em> contain a Notify payload indicating the error.  If an
    error occurs outside the context of an IKE request (e.g., the node is
-   getting ESP messages on a nonexistent SPI), the node SHOULD initiate
+   getting ESP messages on a nonexistent SPI), the node <em>SHOULD</em> initiate
    an INFORMATIONAL exchange with a Notify payload describing the
    problem.
 
@@ -2194,16 +2194,16 @@ Table of Contents
    If a node receives a message on UDP port 500 or 4500 outside the
    context of an IKE_SA known to it (and not a request to start one), it
    may be the result of a recent crash of the node.  If the message is
-   marked as a response, the node MAY audit the suspicious event but
-   MUST NOT respond.  If the message is marked as a request, the node
-   MAY audit the suspicious event and MAY send a response.  If a
-   response is sent, the response MUST be sent to the IP address and
+   marked as a response, the node <em>MAY</em> audit the suspicious event but
+   <em>MUST NOT</em> respond.  If the message is marked as a request, the node
+   <em>MAY</em> audit the suspicious event and <em>MAY</em> send a response.  If a
+   response is sent, the response <em>MUST</em> be sent to the IP address and
    port from whence it came with the same IKE SPIs and the Message ID
-   copied.  The response MUST NOT be cryptographically protected and
-   MUST contain a Notify payload indicating INVALID_IKE_SPI.
+   copied.  The response <em>MUST NOT</em> be cryptographically protected and
+   <em>MUST</em> contain a Notify payload indicating INVALID_IKE_SPI.
 
-   A node receiving such an unprotected Notify payload MUST NOT respond
-   and MUST NOT change the state of any existing SAs.  The message might
+   A node receiving such an unprotected Notify payload <em>MUST NOT</em> respond
+   and <em>MUST NOT</em> change the state of any existing SAs.  The message might
    be a forgery or might be a response the genuine correspondent was
 
 
@@ -2213,18 +2213,18 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   tricked into sending.  A node SHOULD treat such a message (and also a
+   tricked into sending.  A node <em>SHOULD</em> treat such a message (and also a
    network message like ICMP destination unreachable) as a hint that
-   there might be problems with SAs to that IP address and SHOULD
+   there might be problems with SAs to that IP address and <em>SHOULD</em>
    initiate a liveness test for any such IKE_SA.  An implementation
-   SHOULD limit the frequency of such tests to avoid being tricked into
+   <em>SHOULD</em> limit the frequency of such tests to avoid being tricked into
    participating in a denial of service attack.
 
    A node receiving a suspicious message from an IP address with which
-   it has an IKE_SA MAY send an IKE Notify payload in an IKE
-   INFORMATIONAL exchange over that SA.  The recipient MUST NOT change
-   the state of any SA's as a result but SHOULD audit the event to aid
-   in diagnosing malfunctions.  A node MUST limit the rate at which it
+   it has an IKE_SA <em>MAY</em> send an IKE Notify payload in an IKE
+   INFORMATIONAL exchange over that SA.  The recipient <em>MUST NOT</em> change
+   the state of any SA's as a result but <em>SHOULD</em> audit the event to aid
+   in diagnosing malfunctions.  A node <em>MUST</em> limit the rate at which it
    will send messages in response to unprotected messages.
 
 <span class="h3"><a class="selflink" name="section-2.22" href="#section-2.22">2.22</a>.  IPComp</span>
@@ -2239,19 +2239,19 @@ Table of Contents
 
    Negotiation of IP compression is separate from the negotiation of
    cryptographic parameters associated with a CHILD_SA.  A node
-   requesting a CHILD_SA MAY advertise its support for one or more
+   requesting a CHILD_SA <em>MAY</em> advertise its support for one or more
    compression algorithms through one or more Notify payloads of type
-   IPCOMP_SUPPORTED.  The response MAY indicate acceptance of a single
+   IPCOMP_SUPPORTED.  The response <em>MAY</em> indicate acceptance of a single
    compression algorithm with a Notify payload of type IPCOMP_SUPPORTED.
-   These payloads MUST NOT occur in messages that do not contain SA
+   These payloads <em>MUST NOT</em> occur in messages that do not contain SA
    payloads.
 
    Although there has been discussion of allowing multiple compression
    algorithms to be accepted and to have different compression
    algorithms available for the two directions of a CHILD_SA,
-   implementations of this specification MUST NOT accept an IPComp
-   algorithm that was not proposed, MUST NOT accept more than one, and
-   MUST NOT compress using an algorithm other than one proposed and
+   implementations of this specification <em>MUST NOT</em> accept an IPComp
+   algorithm that was not proposed, <em>MUST NOT</em> accept more than one, and
+   <em>MUST NOT</em> compress using an algorithm other than one proposed and
    accepted in the setup of the CHILD_SA.
 
    A side effect of separating the negotiation of IPComp from
@@ -2328,8 +2328,8 @@ Table of Contents
    It is a common practice of NATs to translate TCP and UDP port numbers
    as well as addresses and use the port numbers of inbound packets to
    decide which internal node should get a given packet.  For this
-   reason, even though IKE packets MUST be sent from and to UDP port
-   500, they MUST be accepted coming from any port and responses MUST be
+   reason, even though IKE packets <em>MUST</em> be sent from and to UDP port
+   500, they <em>MUST</em> be accepted coming from any port and responses <em>MUST</em> be
    sent to the port from whence they came.  This is because the ports
    may be modified as the packets pass through NATs.  Similarly, IP
    addresses of the IKE endpoints are generally not included in the IKE
@@ -2343,19 +2343,19 @@ Table of Contents
    endpoints that don't handle NAT traversal themselves.  Such NATs may
    interfere with the straightforward NAT traversal envisioned by this
    document, so an IPsec endpoint that discovers a NAT between it and
-   its correspondent MUST send all subsequent traffic to and from port
+   its correspondent <em>MUST</em> send all subsequent traffic to and from port
    4500, which NATs should not treat specially (as they might with port
    500).
 
    The specific requirements for supporting NAT traversal [<a href="./rfc3715.html" title="&quot;IPsec-Network Address Translation (NAT) Compatibility Requirements&quot;">RFC3715</a>] are
    listed below.  Support for NAT traversal is optional.  In this
-   section only, requirements listed as MUST apply only to
+   section only, requirements listed as <em>MUST</em> apply only to
    implementations supporting NAT traversal.
 
-      IKE MUST listen on port 4500 as well as port 500.  IKE MUST
+      IKE <em>MUST</em> listen on port 4500 as well as port 500.  IKE <em>MUST</em>
       respond to the IP address and port from which packets arrived.
 
-      Both IKE initiator and responder MUST include in their IKE_SA_INIT
+      Both IKE initiator and responder <em>MUST</em> include in their IKE_SA_INIT
       packets Notify payloads of type NAT_DETECTION_SOURCE_IP and
       NAT_DETECTION_DESTINATION_IP.  Those payloads can be used to
       detect if there is NAT between the hosts, and which end is behind
@@ -2384,11 +2384,11 @@ Table of Contents
       If the NAT_DETECTION_DESTINATION_IP payload received does not
       match the hash of the destination IP and port found from the IP
       header of the packet containing the payload, it means that this
-      end is behind a NAT.  In this case, this end SHOULD start sending
+      end is behind a NAT.  In this case, this end <em>SHOULD</em> start sending
       keepalive packets as explained in [<a href="#ref-Hutt05" title="&quot;UDP Encapsulation of IPsec ESP Packets&quot;">Hutt05</a>].
 
-      The IKE initiator MUST check these payloads if present and if they
-      do not match the addresses in the outer packet MUST tunnel all
+      The IKE initiator <em>MUST</em> check these payloads if present and if they
+      do not match the addresses in the outer packet <em>MUST</em> tunnel all
       future IKE and ESP packets associated with this IKE_SA over UDP
       port 4500.
 
@@ -2404,16 +2404,16 @@ Table of Contents
       transport mode TCP and UDP packet checksum fixup (see [<a href="#ref-Hutt05" title="&quot;UDP Encapsulation of IPsec ESP Packets&quot;">Hutt05</a>])
       are obtained from the Traffic Selectors associated with the
       exchange.  In the case of NAT traversal, the Traffic Selectors
-      MUST contain exactly one IP address, which is then used as the
+      <em>MUST</em> contain exactly one IP address, which is then used as the
       original IP address.
 
       There are cases where a NAT box decides to remove mappings that
       are still alive (for example, the keepalive interval is too long,
       or the NAT box is rebooted).  To recover in these cases, hosts
-      that are not behind a NAT SHOULD send all packets (including
+      that are not behind a NAT <em>SHOULD</em> send all packets (including
       retransmission packets) to the IP address and port from the last
       valid authenticated packet from the other end (i.e., dynamically
-      update the address).  A host behind a NAT SHOULD NOT do this
+      update the address).  A host behind a NAT <em>SHOULD NOT</em> do this
       because it opens a DoS attack possibility.  Any authenticated IKE
       packet or any authenticated UDP-encapsulated ESP packet can be
       used to detect that the IP address or the port has changed.
@@ -2440,8 +2440,8 @@ Table of Contents
    [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>]).  IKEv2 simplifies this situation by requiring that ECN be
    usable in the outer IP headers of all tunnel-mode IPsec SAs created
    by IKEv2.  Specifically, tunnel encapsulators and decapsulators for
-   all tunnel-mode SAs created by IKEv2 MUST support the ECN full-
-   functionality option for tunnels specified in [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>] and MUST
+   all tunnel-mode SAs created by IKEv2 <em>MUST</em> support the ECN full-
+   functionality option for tunnels specified in [<a href="./rfc3168.html" title="&quot;The Addition of Explicit Congestion Notification (ECN) to IP&quot;">RFC3168</a>] and <em>MUST</em>
    implement the tunnel encapsulation and decapsulation processing
    specified in [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>] to prevent discarding of ECN congestion
    indications.
@@ -2468,8 +2468,8 @@ Table of Contents
    itself until a "Next Payload" field of zero indicates that no
    payloads follow.  If a payload of type "Encrypted" is found, that
    payload is decrypted and its contents parsed as additional payloads.
-   An Encrypted payload MUST be the last payload in a packet and an
-   Encrypted payload MUST NOT contain another Encrypted payload.
+   An Encrypted payload <em>MUST</em> be the last payload in a packet and an
+   Encrypted payload <em>MUST NOT</em> contain another Encrypted payload.
 
    The Recipient SPI in the header identifies an instance of an IKE
    security association.  It is therefore possible for a single instance
@@ -2513,13 +2513,13 @@ Table of Contents
 
       o  Initiator's SPI (8 octets) - A value chosen by the
          initiator to identify a unique IKE security association.  This
-         value MUST NOT be zero.
+         value <em>MUST NOT</em> be zero.
 
       o  Responder's SPI (8 octets) - A value chosen by the
          responder to identify a unique IKE security association.  This
-         value MUST be zero in the first message of an IKE Initial
+         value <em>MUST</em> be zero in the first message of an IKE Initial
          Exchange (including repeats of that message including a
-         cookie) and MUST NOT be zero in any other message.
+         cookie) and <em>MUST NOT</em> be zero in any other message.
 
       o  Next Payload (1 octet) - Indicates the type of payload that
          immediately follows the header.  The format and value of each
@@ -2527,15 +2527,15 @@ Table of Contents
 
       o  Major Version (4 bits) - Indicates the major version of the IKE
          protocol in use.  Implementations based on this version of IKE
-         MUST set the Major Version to 2.  Implementations based on
-         previous versions of IKE and ISAKMP MUST set the Major Version
-         to 1.  Implementations based on this version of IKE MUST reject
+         <em>MUST</em> set the Major Version to 2.  Implementations based on
+         previous versions of IKE and ISAKMP <em>MUST</em> set the Major Version
+         to 1.  Implementations based on this version of IKE <em>MUST</em> reject
          or ignore messages containing a version number greater than
          2.
 
       o  Minor Version (4 bits) - Indicates the minor version of the
          IKE protocol in use.  Implementations based on this version of
-         IKE MUST set the Minor Version to 0.  They MUST ignore the
+         IKE <em>MUST</em> set the Minor Version to 0.  They <em>MUST</em> ignore the
          minor version number of received messages.
 
       o  Exchange Type (1 octet) - Indicates the type of exchange being
@@ -2567,12 +2567,12 @@ Table of Contents
          being 'set' means its value is '1', while 'cleared' means
          its value is '0'.
 
-       --  X(reserved) (bits 0-2) - These bits MUST be cleared
-           when sending and MUST be ignored on receipt.
+       --  X(reserved) (bits 0-2) - These bits <em>MUST</em> be cleared
+           when sending and <em>MUST</em> be ignored on receipt.
 
-       --  I(nitiator) (bit 3 of Flags) - This bit MUST be set in
+       --  I(nitiator) (bit 3 of Flags) - This bit <em>MUST</em> be set in
            messages sent by the original initiator of the IKE_SA
-           and MUST be cleared in messages sent by the original
+           and <em>MUST</em> be cleared in messages sent by the original
            responder.  It is used by the recipient to determine
            which eight octets of the SPI were generated by the
            recipient.
@@ -2581,18 +2581,18 @@ Table of Contents
            the transmitter is capable of speaking a higher major
            version number of the protocol than the one indicated
            in the major version number field.  Implementations of
-           IKEv2 must clear this bit when sending and MUST ignore
+           IKEv2 must clear this bit when sending and <em>MUST</em> ignore
            it in incoming messages.
 
        --  R(esponse) (bit 5 of Flags) - This bit indicates that
            this message is a response to a message containing
-           the same message ID.  This bit MUST be cleared in all
-           request messages and MUST be set in all responses.
-           An IKE endpoint MUST NOT generate a response to a
+           the same message ID.  This bit <em>MUST</em> be cleared in all
+           request messages and <em>MUST</em> be set in all responses.
+           An IKE endpoint <em>MUST NOT</em> generate a response to a
            message that is marked as being a response.
 
-       --  X(reserved) (bits 6-7 of Flags) - These bits MUST be
-           cleared when sending and MUST be ignored on receipt.
+       --  X(reserved) (bits 6-7 of Flags) - These bits <em>MUST</em> be
+           cleared when sending and <em>MUST</em> be ignored on receipt.
 
 
 
@@ -2683,23 +2683,23 @@ Table of Contents
       <a href="#section-6">section 6</a>).  Payload type values 128-255 are for private use among
       mutually consenting parties.
 
-   o  Critical (1 bit) - MUST be set to zero if the sender wants the
+   o  Critical (1 bit) - <em>MUST</em> be set to zero if the sender wants the
       recipient to skip this payload if it does not understand the
       payload type code in the Next Payload field of the previous
-      payload.  MUST be set to one if the sender wants the recipient to
+      payload.  <em>MUST</em> be set to one if the sender wants the recipient to
       reject this entire message if it does not understand the payload
-      type.  MUST be ignored by the recipient if the recipient
-      understands the payload type code.  MUST be set to zero for
+      type.  <em>MUST</em> be ignored by the recipient if the recipient
+      understands the payload type code.  <em>MUST</em> be set to zero for
       payload types defined in this document.  Note that the critical
       bit applies to the current payload rather than the "next" payload
       whose type code appears in the first octet.  The reasoning behind
       not setting the critical bit for payloads defined in this document
-      is that all implementations MUST understand all payload types
+      is that all implementations <em>MUST</em> understand all payload types
       defined in this document and therefore must ignore the Critical
       bit's value.  Skipped payloads are expected to have valid Next
       Payload and Payload Length fields.
 
-   o  RESERVED (7 bits) - MUST be sent as zero; MUST be ignored on
+   o  RESERVED (7 bits) - <em>MUST</em> be sent as zero; <em>MUST</em> be ignored on
       receipt.
 
    o  Payload Length (2 octets) - Length in octets of the current
@@ -2721,13 +2721,13 @@ Table of Contents
 
    The Security Association Payload, denoted SA in this memo, is used to
    negotiate attributes of a security association.  Assembly of Security
-   Association Payloads requires great peace of mind.  An SA payload MAY
-   contain multiple proposals.  If there is more than one, they MUST be
+   Association Payloads requires great peace of mind.  An SA payload <em>MAY</em>
+   contain multiple proposals.  If there is more than one, they <em>MUST</em> be
    ordered from most preferred to least preferred.  Each proposal may
    contain multiple IPsec protocols (where a protocol is IKE, ESP, or
-   AH), each protocol MAY contain multiple transforms, and each
-   transform MAY contain multiple attributes.  When parsing an SA, an
-   implementation MUST check that the total Payload Length is consistent
+   AH), each protocol <em>MAY</em> contain multiple transforms, and each
+   transform <em>MAY</em> contain multiple attributes.  When parsing an SA, an
+   implementation <em>MUST</em> check that the total Payload Length is consistent
    with the payload's internal lengths and counts.  Proposals,
    Transforms, and Attributes each have their own variable length
    encodings.  They are nested such that the Payload Length of an SA
@@ -2750,8 +2750,8 @@ Table of Contents
    cases.
 
    The Proposal structure contains within it a Proposal # and an IPsec
-   protocol ID.  Each structure MUST have the same Proposal # as the
-   previous one or be one (1) greater.  The first Proposal MUST have a
+   protocol ID.  Each structure <em>MUST</em> have the same Proposal # as the
+   previous one or be one (1) greater.  The first Proposal <em>MUST</em> have a
    Proposal # of one (1).  If two successive structures have the same
    Proposal number, it means that the proposal consists of the first
    structure AND the second.  So a proposal of AH AND ESP would have two
@@ -2775,9 +2775,9 @@ Table of Contents
 
    transforms: a Diffie-Hellman group, an integrity check algorithm, a
    prf algorithm, and an encryption algorithm.  If an algorithm that
-   combines encryption and integrity protection is proposed, it MUST be
+   combines encryption and integrity protection is proposed, it <em>MUST</em> be
    proposed as an encryption algorithm and an integrity protection
-   algorithm MUST NOT be proposed.  For each Protocol, the set of
+   algorithm <em>MUST NOT</em> be proposed.  For each Protocol, the set of
    permissible transforms is assigned transform ID numbers, which appear
    in the header of each transform.
 
@@ -2795,14 +2795,14 @@ Table of Contents
    initiator would have to construct two different Proposals, each with
    two transforms.
 
-   A given transform MAY have one or more Attributes.  Attributes are
+   A given transform <em>MAY</em> have one or more Attributes.  Attributes are
    necessary when the transform can be used in more than one way, as
    when an encryption algorithm has a variable key size.  The transform
    would specify the algorithm and the attribute would specify the key
-   size.  Most transforms do not have attributes.  A transform MUST NOT
+   size.  Most transforms do not have attributes.  A transform <em>MUST NOT</em>
    have multiple attributes of the same type.  To propose alternate
    values for an attribute (for example, multiple key sizes for the AES
-   encryption algorithm), and implementation MUST include multiple
+   encryption algorithm), and implementation <em>MUST</em> include multiple
    Transforms with the same Transform Type each with a single Attribute.
 
    Note that the semantics of Transforms and Attributes are quite
@@ -2860,19 +2860,19 @@ Table of Contents
          first 4 octets of the Proposal structure are designed to look
          somewhat like the header of a Payload.
 
-      o  RESERVED (1 octet) - MUST be sent as zero; MUST be ignored on
+      o  RESERVED (1 octet) - <em>MUST</em> be sent as zero; <em>MUST</em> be ignored on
          receipt.
 
       o  Proposal Length (2 octets) - Length of this proposal, including
          all transforms and attributes that follow.
 
       o  Proposal # (1 octet) - When a proposal is made, the first
-         proposal in an SA payload MUST be #1, and subsequent proposals
-         MUST either be the same as the previous proposal (indicating an
+         proposal in an SA payload <em>MUST</em> be #1, and subsequent proposals
+         <em>MUST</em> either be the same as the previous proposal (indicating an
          AND of the two proposals) or one more than the previous
          proposal (indicating an OR of the two proposals).  When a
          proposal is accepted, all of the proposal numbers in the SA
-         payload MUST be the same and MUST match the number on the
+         payload <em>MUST</em> be the same and <em>MUST</em> match the number on the
          proposal sent that was accepted.
 
 
@@ -2897,7 +2897,7 @@ Table of Contents
           PRIVATE USE             201-255
 
       o  SPI Size (1 octet) - For an initial IKE_SA negotiation, this
-         field MUST be zero; the SPI is obtained from the outer header.
+         field <em>MUST</em> be zero; the SPI is obtained from the outer header.
          During subsequent negotiations, it is equal to the size, in
          octets, of the SPI of the corresponding protocol (8 for IKE, 4
          for ESP and AH).
@@ -2945,7 +2945,7 @@ Table of Contents
          and the first 4 octets of the Transform structure are designed
          to look somewhat like the header of a Payload.
 
-      o  RESERVED - MUST be sent as zero; MUST be ignored on receipt.
+      o  RESERVED - <em>MUST</em> be sent as zero; <em>MUST</em> be ignored on receipt.
 
       o  Transform Length - The length (in octets) of the Transform
          Substructure including Header and Attributes.
@@ -3066,9 +3066,9 @@ Table of Contents
    The number and type of transforms that accompany an SA payload are
    dependent on the protocol in the SA itself.  An SA payload proposing
    the establishment of an SA has the following mandatory and optional
-   transform types.  A compliant implementation MUST understand all
+   transform types.  A compliant implementation <em>MUST</em> understand all
    mandatory and optional types for each protocol it supports (though it
-   need not accept proposals with unacceptable suites).  A proposal MAY
+   need not accept proposals with unacceptable suites).  A proposal <em>MAY</em>
    omit the optional types if the only value for them it will accept is
    NONE.
 
@@ -3079,7 +3079,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.3.4" href="#section-3.3.4">3.3.4</a>.  Mandatory Transform IDs</span>
 
-   The specification of suites that MUST and SHOULD be supported for
+   The specification of suites that <em>MUST</em> and <em>SHOULD</em> be supported for
    interoperability has been removed from this document because they are
    likely to change more rapidly than this document evolves.
 
@@ -3097,10 +3097,10 @@ Table of Contents
    and some users may want to use private suites, especially for IKE
    where implementations should be capable of supporting different
    parameters, up to certain size limits.  In support of this goal, all
-   implementations of IKEv2 SHOULD include a management facility that
+   implementations of IKEv2 <em>SHOULD</em> include a management facility that
    allows specification (by a user or system administrator) of Diffie-
    Hellman (DH) parameters (the generator, modulus, and exponent lengths
-   and values) for new DH groups.  Implementations SHOULD provide a
+   and values) for new DH groups.  Implementations <em>SHOULD</em> provide a
 
 
 
@@ -3113,15 +3113,15 @@ Table of Contents
    transform IDs may be entered (by a user or system administrator), to
    enable negotiating such groups.
 
-   All implementations of IKEv2 MUST include a management facility that
+   All implementations of IKEv2 <em>MUST</em> include a management facility that
    enables a user or system administrator to specify the suites that are
    acceptable for use with IKE.  Upon receipt of a payload with a set of
-   transform IDs, the implementation MUST compare the transmitted
+   transform IDs, the implementation <em>MUST</em> compare the transmitted
    transform IDs against those locally configured via the management
    controls, to verify that the proposed suite is acceptable based on
-   local policy.  The implementation MUST reject SA proposals that are
+   local policy.  The implementation <em>MUST</em> reject SA proposals that are
    not authorized by these IKE suite controls.  Note that cryptographic
-   suites that MUST be implemented need not be configured as acceptable
+   suites that <em>MUST</em> be implemented need not be configured as acceptable
    to local policy.
 
 <span class="h4"><a class="selflink" name="section-3.3.5" href="#section-3.3.5">3.3.5</a>.  Transform Attributes</span>
@@ -3182,8 +3182,8 @@ Table of Contents
    integrity, and pseudo-random functions, which require a single
    attribute specifying key width.
 
-   Attributes described as basic MUST NOT be encoded using the
-   variable-length encoding.  Variable-length attributes MUST NOT be
+   Attributes described as basic <em>MUST NOT</em> be encoded using the
+   variable-length encoding.  Variable-length attributes <em>MUST NOT</em> be
    encoded as basic even if their value can fit into two octets.  NOTE:
    This is a change from IKEv1, where increased flexibility may have
    simplified the composer of messages but certainly complicated the
@@ -3204,8 +3204,8 @@ Table of Contents
    - Key Length
 
       When using an Encryption Algorithm that has a variable-length key,
-      this attribute specifies the key length in bits (MUST use network
-      byte order).  This attribute MUST NOT be used when the specified
+      this attribute specifies the key length in bits (<em>MUST</em> use network
+      byte order).  This attribute <em>MUST NOT</em> be used when the specified
       Encryption Algorithm uses a fixed-length key.
 
 
@@ -3224,26 +3224,26 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.3.6" href="#section-3.3.6">3.3.6</a>.  Attribute Negotiation</span>
 
    During security association negotiation, initiators present offers to
-   responders.  Responders MUST select a single complete set of
+   responders.  Responders <em>MUST</em> select a single complete set of
    parameters from the offers (or reject all offers if none are
-   acceptable).  If there are multiple proposals, the responder MUST
+   acceptable).  If there are multiple proposals, the responder <em>MUST</em>
    choose a single proposal number and return all of the Proposal
    substructures with that Proposal number.  If there are multiple
-   Transforms with the same type, the responder MUST choose a single
-   one.  Any attributes of a selected transform MUST be returned
-   unmodified.  The initiator of an exchange MUST check that the
+   Transforms with the same type, the responder <em>MUST</em> choose a single
+   one.  Any attributes of a selected transform <em>MUST</em> be returned
+   unmodified.  The initiator of an exchange <em>MUST</em> check that the
    accepted offer is consistent with one of its proposals, and if not
-   that response MUST be rejected.
+   that response <em>MUST</em> be rejected.
 
    Negotiating Diffie-Hellman groups presents some special challenges.
    SA offers include proposed attributes and a Diffie-Hellman public
    number (KE) in the same message.  If in the initial exchange the
    initiator offers to use one of several Diffie-Hellman groups, it
-   SHOULD pick the one the responder is most likely to accept and
+   <em>SHOULD</em> pick the one the responder is most likely to accept and
    include a KE corresponding to that group.  If the guess turns out to
    be wrong, the responder will indicate the correct group in the
-   response and the initiator SHOULD pick an element of that group for
-   its KE value when retrying the first message.  It SHOULD, however,
+   response and the initiator <em>SHOULD</em> pick an element of that group for
+   its KE value when retrying the first message.  It <em>SHOULD</em>, however,
    continue to propose its full supported set of groups in order to
    prevent a man-in-the-middle downgrade attack.
 
@@ -3253,11 +3253,11 @@ Table of Contents
       multiple acceptable values.  These include the key length of a
       variable key length symmetric cipher.  To further interoperability
       and to support upgrading endpoints independently, implementers of
-      this protocol SHOULD accept values that they deem to supply
+      this protocol <em>SHOULD</em> accept values that they deem to supply
       greater security.  For instance, if a peer is configured to accept
       a variable-length cipher with a key length of X bits and is
       offered that cipher with a larger key length, the implementation
-      SHOULD accept the offer if it supports use of the longer key.
+      <em>SHOULD</em> accept the offer if it supports use of the longer key.
 
    Support of this capability allows an implementation to express a
    concept of "at least" a certain level of security -- "a key length of
@@ -3300,13 +3300,13 @@ Table of Contents
 
    A key exchange payload is constructed by copying one's Diffie-Hellman
    public value into the "Key Exchange Data" portion of the payload.
-   The length of the Diffie-Hellman public value MUST be equal to the
+   The length of the Diffie-Hellman public value <em>MUST</em> be equal to the
    length of the prime modulus over which the exponentiation was
    performed, prepending zero bits to the value if necessary.
 
    The DH Group # identifies the Diffie-Hellman group in which the Key
    Exchange Data was computed (see <a href="#section-3.3.2">section 3.3.2</a>).  If the selected
-   proposal uses a different Diffie-Hellman group, the message MUST be
+   proposal uses a different Diffie-Hellman group, the message <em>MUST</em> be
    rejected with a Notify payload of type INVALID_KE_PAYLOAD.
 
    The payload type for the Key Exchange payload is thirty four (34).
@@ -3353,7 +3353,7 @@ Table of Contents
    o  ID Type (1 octet) - Specifies the type of Identification being
       used.
 
-   o  RESERVED - MUST be sent as zero; MUST be ignored on receipt.
+   o  RESERVED - <em>MUST</em> be sent as zero; <em>MUST</em> be ignored on receipt.
 
    o  Identification Data (variable length) - Value, as indicated by the
       Identification Type.  The length of the Identification Data is
@@ -3377,7 +3377,7 @@ Table of Contents
       ID_FQDN                             2
 
             A fully-qualified domain name string.  An example of a
-            ID_FQDN is, "example.com".  The string MUST not contain any
+            ID_FQDN is, "example.com".  The string <em>MUST</em> not contain any
             terminators (e.g., NULL, CR, etc.).
 
 
@@ -3392,7 +3392,7 @@ Table of Contents
       ID_RFC822_ADDR                      3
 
             A fully-qualified <a href="./rfc822.html">RFC822</a> email address string, An example of
-            a ID_RFC822_ADDR is, "jsmith@example.com".  The string MUST
+            a ID_RFC822_ADDR is, "jsmith@example.com".  The string <em>MUST</em>
             not contain any terminators.
 
       Reserved to IANA                    4
@@ -3425,12 +3425,12 @@ Table of Contents
 
    Two implementations will interoperate only if each can generate a
    type of ID acceptable to the other.  To assure maximum
-   interoperability, implementations MUST be configurable to send at
+   interoperability, implementations <em>MUST</em> be configurable to send at
    least one of ID_IPV4_ADDR, ID_FQDN, ID_RFC822_ADDR, or ID_KEY_ID, and
-   MUST be configurable to accept all of these types.  Implementations
-   SHOULD be capable of generating and accepting all of these types.
-   IPv6-capable implementations MUST additionally be configurable to
-   accept ID_IPV6_ADDR.  IPv6-only implementations MAY be configurable
+   <em>MUST</em> be configurable to accept all of these types.  Implementations
+   <em>SHOULD</em> be capable of generating and accepting all of these types.
+   IPv6-capable implementations <em>MUST</em> additionally be configurable to
+   accept ID_IPV6_ADDR.  IPv6-only implementations <em>MAY</em> be configurable
    to send only ID_IPV6_ADDR.
 
 
@@ -3449,7 +3449,7 @@ Table of Contents
 
    The Certificate Payload, denoted CERT in this memo, provides a means
    to transport certificates or other authentication-related information
-   via IKE.  Certificate payloads SHOULD be included in an exchange if
+   via IKE.  Certificate payloads <em>SHOULD</em> be included in an exchange if
    certificates are available to the sender unless the peer has
    indicated an ability to retrieve this information from elsewhere
    using an HTTP_CERT_LOOKUP_SUPPORTED Notify payload.  Note that the
@@ -3565,12 +3565,12 @@ Table of Contents
 
            END
 
-   Implementations MUST be capable of being configured to send and
+   Implementations <em>MUST</em> be capable of being configured to send and
    accept up to four X.509 certificates in support of authentication,
-   and also MUST be capable of being configured to send and accept the
+   and also <em>MUST</em> be capable of being configured to send and accept the
    first two Hash and URL formats (with HTTP URLs).  Implementations
-   SHOULD be capable of being configured to send and accept Raw RSA
-   keys.  If multiple certificates are sent, the first certificate MUST
+   <em>SHOULD</em> be capable of being configured to send and accept Raw RSA
+   keys.  If multiple certificates are sent, the first certificate <em>MUST</em>
    contain the public key used to sign the AUTH payload.  The other
    certificates may be sent in any order.
 
@@ -3579,10 +3579,10 @@ Table of Contents
    The Certificate Request Payload, denoted CERTREQ in this memo,
    provides a means to request preferred certificates via IKE and can
    appear in the IKE_INIT_SA response and/or the IKE_AUTH request.
-   Certificate Request payloads MAY be included in an exchange when the
+   Certificate Request payloads <em>MAY</em> be included in an exchange when the
    sender needs to get the certificate of the receiver.  If multiple CAs
    are trusted and the cert encoding does not allow a list, then
-   multiple Certificate Request payloads SHOULD be transmitted.
+   multiple Certificate Request payloads <em>SHOULD</em> be transmitted.
 
    The Certificate Request Payload is defined as follows:
 
@@ -3644,7 +3644,7 @@ Table of Contents
    authorities.  This can be a chain of certificates.
 
    If an end-entity certificate exists that satisfies the criteria
-   specified in the CERTREQ, a certificate or certificate chain SHOULD
+   specified in the CERTREQ, a certificate or certificate chain <em>SHOULD</em>
    be sent back to the certificate requestor if the recipient of the
    CERTREQ:
 
@@ -3758,8 +3758,8 @@ Table of Contents
 
    The payload type for the Nonce Payload is forty (40).
 
-   The size of a Nonce MUST be between 16 and 256 octets inclusive.
-   Nonce values MUST NOT be reused.
+   The size of a Nonce <em>MUST</em> be between 16 and 256 octets inclusive.
+   Nonce values <em>MUST NOT</em> be reused.
 
 <span class="h3"><a class="selflink" name="section-3.10" href="#section-3.10">3.10</a>.  Notify Payload</span>
 
@@ -3803,16 +3803,16 @@ Table of Contents
 
    o  Protocol ID (1 octet) - If this notification concerns an existing
       SA, this field indicates the type of that SA.  For IKE_SA
-      notifications, this field MUST be one (1).  For notifications
-      concerning IPsec SAs this field MUST contain either (2) to
+      notifications, this field <em>MUST</em> be one (1).  For notifications
+      concerning IPsec SAs this field <em>MUST</em> contain either (2) to
       indicate AH or (3) to indicate ESP.  For notifications that do not
-      relate to an existing SA, this field MUST be sent as zero and MUST
+      relate to an existing SA, this field <em>MUST</em> be sent as zero and <em>MUST</em>
       be ignored on receipt.  All other values for this field are
       reserved to IANA for future assignment.
 
    o  SPI Size (1 octet) - Length in octets of the SPI as defined by the
       IPsec protocol ID or zero if no SPI is applicable.  For a
-      notification concerning the IKE_SA, the SPI Size MUST be zero.
+      notification concerning the IKE_SA, the SPI Size <em>MUST</em> be zero.
 
    o  Notify Message Type (2 octets) - Specifies the type of
       notification message.
@@ -3849,13 +3849,13 @@ Table of Contents
 
    Types in the range 0 - 16383 are intended for reporting errors.  An
    implementation receiving a Notify payload with one of these types
-   that it does not recognize in a response MUST assume that the
+   that it does not recognize in a response <em>MUST</em> assume that the
    corresponding request has failed entirely.  Unrecognized error types
-   in a request and status types in a request or response MUST be
-   ignored except that they SHOULD be logged.
+   in a request and status types in a request or response <em>MUST</em> be
+   ignored except that they <em>SHOULD</em> be logged.
 
-   Notify payloads with status types MAY be added to any message and
-   MUST be ignored if not recognized.  They are intended to indicate
+   Notify payloads with status types <em>MAY</em> be added to any message and
+   <em>MUST</em> be ignored if not recognized.  They are intended to indicate
    capabilities, and as part of SA negotiation are used to negotiate
    non-cryptographic parameters.
 
@@ -3898,24 +3898,24 @@ Table of Contents
             status may only be returned for and in an encrypted packet
             if the message ID and cryptographic checksum were valid.  To
             avoid leaking information to someone probing a node, this
-            status MUST be sent in response to any error not covered by
+            status <em>MUST</em> be sent in response to any error not covered by
             one of the other status types.  To aid debugging, more
-            detailed error information SHOULD be written to a console or
+            detailed error information <em>SHOULD</em> be written to a console or
             log.
 
         INVALID_MESSAGE_ID                        9
 
             Sent when an IKE message ID outside the supported window is
-            received.  This Notify MUST NOT be sent in a response; the
-            invalid request MUST NOT be acknowledged.  Instead, inform
+            received.  This Notify <em>MUST NOT</em> be sent in a response; the
+            invalid request <em>MUST NOT</em> be acknowledged.  Instead, inform
             the other side by initiating an INFORMATIONAL exchange with
             Notification data containing the four octet invalid message
             ID.  Sending this notification is optional, and
-            notifications of this type MUST be rate limited.
+            notifications of this type <em>MUST</em> be rate limited.
 
         INVALID_SPI                              11
 
-            MAY be sent in an IKE INFORMATIONAL exchange when a node
+            <em>MAY</em> be sent in an IKE INFORMATIONAL exchange when a node
             receives an ESP or AH packet with an invalid SPI.  The
             Notification Data contains the SPI of the invalid packet.
             This usually indicates a node has rebooted and forgotten an
@@ -3949,7 +3949,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-        SINGLE_PAIR_REQUIRED                     34
+        SINGLE_PAIR_<em>REQUIRED</em>                     34
 
         This error indicates that a CREATE_CHILD_SA request is
         unacceptable because its sender is only willing to accept
@@ -3973,7 +3973,7 @@ Table of Contents
         error is generated within an IKE_AUTH exchange, no CHILD_SA will
         be created.
 
-        FAILED_CP_REQUIRED                       37
+        FAILED_CP_<em>REQUIRED</em>                       37
 
         Sent by responder in the case where CP(CFG_REQUEST) was expected
         but not received, and so is a conflict with locally configured
@@ -3986,7 +3986,7 @@ Table of Contents
 
         INVALID_SELECTORS                        39
 
-            MAY be sent in an IKE INFORMATIONAL exchange when a node
+            <em>MAY</em> be sent in an IKE INFORMATIONAL exchange when a node
             receives an ESP or AH packet whose selectors do not match
             those of the SA on which it was delivered (and that caused
             the packet to be dropped).  The Notification Data contains
@@ -4012,11 +4012,11 @@ Table of Contents
 
             This notification asserts that this IKE_SA is the only
             IKE_SA currently active between the authenticated
-            identities.  It MAY be sent when an IKE_SA is established
-            after a crash, and the recipient MAY use this information to
+            identities.  It <em>MAY</em> be sent when an IKE_SA is established
+            after a crash, and the recipient <em>MAY</em> use this information to
             delete any other IKE_SAs it has to the same authenticated
             identity without waiting for a timeout.  This notification
-            MUST NOT be sent by an entity that may be replicated (e.g.,
+            <em>MUST NOT</em> be sent by an entity that may be replicated (e.g.,
             a roaming user's credentials where the user is allowed to
             connect to the corporate firewall from two remote systems at
             the same time).
@@ -4027,7 +4027,7 @@ Table of Contents
             capable of keeping state for multiple outstanding exchanges,
             permitting the recipient to send multiple requests before
             getting a response to the first.  The data associated with a
-            SET_WINDOW_SIZE notification MUST be 4 octets long and
+            SET_WINDOW_SIZE notification <em>MUST</em> be 4 octets long and
             contain the big endian representation of the number of
             messages the sender promises to keep.  Window size is always
             one until the initial exchanges complete.
@@ -4080,14 +4080,14 @@ Table of Contents
             whether the source is behind a NAT box.  The data associated
             with this notification is a SHA-1 digest of the SPIs (in the
             order they appear in the header), IP address, and port on
-            which this packet was sent.  There MAY be multiple Notify
+            which this packet was sent.  There <em>MAY</em> be multiple Notify
             payloads of this type in a message if the sender does not
             know which of several network attachments will be used to
-            send the packet.  The recipient of this notification MAY
+            send the packet.  The recipient of this notification <em>MAY</em>
             compare the supplied value to a SHA-1 hash of the SPIs,
             source IP address, and port, and if they don't match it
-            SHOULD enable NAT traversal (see <a href="#section-2.23">section 2.23</a>).
-            Alternately, it MAY reject the connection attempt if NAT
+            <em>SHOULD</em> enable NAT traversal (see <a href="#section-2.23">section 2.23</a>).
+            Alternately, it <em>MAY</em> reject the connection attempt if NAT
             traversal is not supported.
 
         NAT_DETECTION_DESTINATION_IP             16389
@@ -4097,12 +4097,12 @@ Table of Contents
             this notification is a SHA-1 digest of the SPIs (in the
             order they appear in the header), IP address, and port to
             which this packet was sent.  The recipient of this
-            notification MAY compare the supplied value to a hash of the
+            notification <em>MAY</em> compare the supplied value to a hash of the
             SPIs, destination IP address, and port, and if they don't
-            match it SHOULD invoke NAT traversal (see <a href="#section-2.23">section 2.23</a>).  If
+            match it <em>SHOULD</em> invoke NAT traversal (see <a href="#section-2.23">section 2.23</a>).  If
             they don't match, it means that this end is behind a NAT and
-            this end SHOULD start sending keepalive packets as defined
-            in [<a href="#ref-Hutt05" title="&quot;UDP Encapsulation of IPsec ESP Packets&quot;">Hutt05</a>].  Alternately, it MAY reject the connection
+            this end <em>SHOULD</em> start sending keepalive packets as defined
+            in [<a href="#ref-Hutt05" title="&quot;UDP Encapsulation of IPsec ESP Packets&quot;">Hutt05</a>].  Alternately, it <em>MAY</em> reject the connection
             attempt if NAT traversal is not supported.
 
 
@@ -4119,34 +4119,34 @@ Table of Contents
 
         COOKIE                                   16390
 
-            This notification MAY be included in an IKE_SA_INIT
+            This notification <em>MAY</em> be included in an IKE_SA_INIT
             response.  It indicates that the request should be retried
             with a copy of this notification as the first payload.  This
-            notification MUST be included in an IKE_SA_INIT request
+            notification <em>MUST</em> be included in an IKE_SA_INIT request
             retry if a COOKIE notification was included in the initial
-            response.  The data associated with this notification MUST
+            response.  The data associated with this notification <em>MUST</em>
             be between 1 and 64 octets in length (inclusive).
 
         USE_TRANSPORT_MODE                       16391
 
-            This notification MAY be included in a request message that
+            This notification <em>MAY</em> be included in a request message that
             also includes an SA payload requesting a CHILD_SA.  It
             requests that the CHILD_SA use transport mode rather than
             tunnel mode for the SA created.  If the request is accepted,
-            the response MUST also include a notification of type
+            the response <em>MUST</em> also include a notification of type
             USE_TRANSPORT_MODE.  If the responder declines the request,
             the CHILD_SA will be established in tunnel mode.  If this is
-            unacceptable to the initiator, the initiator MUST delete the
+            unacceptable to the initiator, the initiator <em>MUST</em> delete the
             SA.  Note: Except when using this option to negotiate
             transport mode, all CHILD_SAs will use tunnel mode.
 
             Note: The ECN decapsulation modifications specified in
-            [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>] MUST be performed for every tunnel mode SA created
+            [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>] <em>MUST</em> be performed for every tunnel mode SA created
             by IKEv2.
 
         HTTP_CERT_LOOKUP_SUPPORTED               16392
 
-            This notification MAY be included in any message that can
+            This notification <em>MAY</em> be included in any message that can
             include a CERTREQ payload and indicates that the sender is
             capable of looking up certificates based on an HTTP-based
             URL (and hence presumably would prefer to receive
@@ -4154,7 +4154,7 @@ Table of Contents
 
         REKEY_SA                                 16393
 
-            This notification MUST be included in a CREATE_CHILD_SA
+            This notification <em>MUST</em> be included in a CREATE_CHILD_SA
             exchange if the purpose of the exchange is to replace an
             existing ESP or AH SA.  The SPI field identifies the SA
             being rekeyed.  There is no data.
@@ -4189,7 +4189,7 @@ Table of Contents
    from its security association database and is, therefore, no longer
    valid.  Figure 17 shows the format of the Delete Payload.  It is
    possible to send multiple SPIs in a Delete payload; however, each SPI
-   MUST be for the same protocol.  Mixing of protocol identifiers MUST
+   <em>MUST</em> be for the same protocol.  Mixing of protocol identifiers <em>MUST</em>
    NOT be performed in a Delete payload.  It is permitted, however, to
    include multiple Delete payloads in a single INFORMATIONAL exchange
    where each Delete payload lists SPIs for a different protocol.
@@ -4230,7 +4230,7 @@ Table of Contents
 
 
    o  SPI Size (1 octet) - Length in octets of the SPI as defined by the
-      protocol ID.  It MUST be zero for IKE (SPI is in message header)
+      protocol ID.  It <em>MUST</em> be zero for IKE (SPI is in message header)
       or four for AH and ESP.
 
    o  # of SPIs (2 octets) - The number of SPIs contained in the Delete
@@ -4250,21 +4250,21 @@ Table of Contents
    allows a vendor to experiment with new features while maintaining
    backward compatibility.
 
-   A Vendor ID payload MAY announce that the sender is capable to
-   accepting certain extensions to the protocol, or it MAY simply
+   A Vendor ID payload <em>MAY</em> announce that the sender is capable to
+   accepting certain extensions to the protocol, or it <em>MAY</em> simply
    identify the implementation as an aid in debugging.  A Vendor ID
-   payload MUST NOT change the interpretation of any information defined
-   in this specification (i.e., the critical bit MUST be set to 0).
-   Multiple Vendor ID payloads MAY be sent.  An implementation is NOT
-   REQUIRED to send any Vendor ID payload at all.
+   payload <em>MUST NOT</em> change the interpretation of any information defined
+   in this specification (i.e., the critical bit <em>MUST</em> be set to 0).
+   Multiple Vendor ID payloads <em>MAY</em> be sent.  An implementation is NOT
+   <em>REQUIRED</em> to send any Vendor ID payload at all.
 
    A Vendor ID payload may be sent as part of any message.  Reception of
    a familiar Vendor ID payload allows an implementation to make use of
    Private USE numbers described throughout this memo -- private
    payloads, private exchanges, private notifications, etc.  Unfamiliar
-   Vendor IDs MUST be ignored.
+   Vendor IDs <em>MUST</em> be ignored.
 
-   Writers of Internet-Drafts who wish to extend this protocol MUST
+   Writers of Internet-Drafts who wish to extend this protocol <em>MUST</em>
    define a Vendor ID payload to announce the ability to implement the
    extension in the Internet-Draft.  It is expected that Internet-Drafts
    that gain acceptance and are standardized will be given "magic
@@ -4341,7 +4341,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   o  RESERVED - This field MUST be sent as zero and MUST be ignored on
+   o  RESERVED - This field <em>MUST</em> be sent as zero and <em>MUST</em> be ignored on
       receipt.
 
    o  Traffic Selectors (variable length) - One or more individual
@@ -4399,7 +4399,7 @@ Table of Contents
 
    o  Start Port (2 octets) - Value specifying the smallest port number
       allowed by this Traffic Selector.  For protocols for which port is
-      undefined, or if all ports are allowed, this field MUST be zero.
+      undefined, or if all ports are allowed, this field <em>MUST</em> be zero.
       For the ICMP protocol, the two one-octet fields Type and Code are
       treated as a single 16-bit integer (with Type in the most
       significant eight bits and Code in the least significant eight
@@ -4408,7 +4408,7 @@ Table of Contents
 
    o  End Port (2 octets) - Value specifying the largest port number
       allowed by this Traffic Selector.  For protocols for which port is
-      undefined, or if all ports are allowed, this field MUST be 65535.
+      undefined, or if all ports are allowed, this field <em>MUST</em> be 65535.
       For the ICMP protocol, the two one-octet fields Type and Code are
       treated as a single 16-bit integer (with Type in the most
       significant eight bits and Code in the least significant eight
@@ -4422,10 +4422,10 @@ Table of Contents
       Selector (length determined by TS type).
 
    Systems that are complying with [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>] that wish to indicate "ANY"
-   ports MUST set the start port to 0 and the end port to 65535; note
+   ports <em>MUST</em> set the start port to 0 and the end port to 65535; note
    that according to [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>], "ANY" includes "OPAQUE".  Systems
    working with [<a href="./rfc4301.html" title="&quot;Security Architecture for the Internet Protocol&quot;">RFC4301</a>] that wish to indicate "OPAQUE" ports, but not
-   "ANY" ports, MUST set the start port to 65535 and the end port to 0.
+   "ANY" ports, <em>MUST</em> set the start port to 65535 and the end port to 0.
 
    The following table lists the assigned values for the Traffic
    Selector Type field and the corresponding Address Selector Data.
@@ -4468,7 +4468,7 @@ Table of Contents
 
    The Encrypted Payload, denoted SK{...} or E in this memo, contains
    other payloads in encrypted form.  The Encrypted Payload, if present
-   in a message, MUST be the last payload in the message.  Often, it is
+   in a message, <em>MUST</em> be the last payload in the message.  Often, it is
    the only payload in the message.
 
    The algorithms for encryption and integrity protection are negotiated
@@ -4541,17 +4541,17 @@ Table of Contents
 
    o  Initialization Vector - A randomly chosen value whose length is
       equal to the block length of the underlying encryption algorithm.
-      Recipients MUST accept any value.  Senders SHOULD either pick this
+      Recipients <em>MUST</em> accept any value.  Senders <em>SHOULD</em> either pick this
       value pseudo-randomly and independently for each message or use
       the final ciphertext block of the previous message sent.  Senders
-      MUST NOT use the same value for each message, use a sequence of
+      <em>MUST NOT</em> use the same value for each message, use a sequence of
       values with low hamming distance (e.g., a sequence number), or use
       ciphertext from a received message.
 
    o  IKE Payloads are as specified earlier in this section. This field
       is encrypted with the negotiated cipher.
 
-   o  Padding MAY contain any value chosen by the sender, and MUST have
+   o  Padding <em>MAY</em> contain any value chosen by the sender, and <em>MUST</em> have
       a length that makes the combination of the Payloads, the Padding,
       and the Pad Length to be a multiple of the encryption block size.
       This field is encrypted with the negotiated cipher.
@@ -4565,16 +4565,16 @@ Table of Contents
 <span class="grey"><a href="./rfc4306.html">RFC 4306</a>                         IKEv2                     December 2005</span>
 
 
-   o  Pad Length is the length of the Padding field. The sender SHOULD
+   o  Pad Length is the length of the Padding field. The sender <em>SHOULD</em>
       set the Pad Length to the minimum value that makes the combination
       of the Payloads, the Padding, and the Pad Length a multiple of the
-      block size, but the recipient MUST accept any length that results
+      block size, but the recipient <em>MUST</em> accept any length that results
       in proper alignment.  This field is encrypted with the negotiated
       cipher.
 
    o  Integrity Checksum Data is the cryptographic checksum of the
       entire message starting with the Fixed IKE Header through the Pad
-      Length.  The checksum MUST be computed over the encrypted message.
+      Length.  The checksum <em>MUST</em> be computed over the encrypted message.
       Its length is determined by the integrity algorithm negotiated.
 
 <span class="h3"><a class="selflink" name="section-3.15" href="#section-3.15">3.15</a>.  Configuration Payload</span>
@@ -4589,29 +4589,29 @@ Table of Contents
    Configuration payloads are of type CFG_REQUEST/CFG_REPLY or
    CFG_SET/CFG_ACK (see CFG Type in the payload description below).
    CFG_REQUEST and CFG_SET payloads may optionally be added to any IKE
-   request.  The IKE response MUST include either a corresponding
+   request.  The IKE response <em>MUST</em> include either a corresponding
    CFG_REPLY or CFG_ACK or a Notify payload with an error type
    indicating why the request could not be honored.  An exception is
-   that a minimal implementation MAY ignore all CFG_REQUEST and CFG_SET
+   that a minimal implementation <em>MAY</em> ignore all CFG_REQUEST and CFG_SET
    payloads, so a response message without a corresponding CFG_REPLY or
-   CFG_ACK MUST be accepted as an indication that the request was not
+   CFG_ACK <em>MUST</em> be accepted as an indication that the request was not
    supported.
 
    "CFG_REQUEST/CFG_REPLY" allows an IKE endpoint to request information
    from its peer.  If an attribute in the CFG_REQUEST Configuration
    Payload is not zero-length, it is taken as a suggestion for that
-   attribute.  The CFG_REPLY Configuration Payload MAY return that
-   value, or a new one.  It MAY also add new attributes and not include
-   some requested ones.  Requestors MUST ignore returned attributes that
+   attribute.  The CFG_REPLY Configuration Payload <em>MAY</em> return that
+   value, or a new one.  It <em>MAY</em> also add new attributes and not include
+   some requested ones.  Requestors <em>MUST</em> ignore returned attributes that
    they do not recognize.
 
-   Some attributes MAY be multi-valued, in which case multiple attribute
+   Some attributes <em>MAY</em> be multi-valued, in which case multiple attribute
    values of the same type are sent and/or returned.  Generally, all
    values of an attribute are returned when the attribute is requested.
    For some attributes (in this version of the specification only
    internal addresses), multiple requests indicates a request that
    multiple values be assigned.  For these attributes, the number of
-   values returned SHOULD NOT exceed the number requested.
+   values returned <em>SHOULD NOT</em> exceed the number requested.
 
 
 
@@ -4622,8 +4622,8 @@ Table of Contents
 
 
    If the data type requested in a CFG_REQUEST is not recognized or not
-   supported, the responder MUST NOT return an error type but rather
-   MUST either send a CFG_REPLY that MAY be empty or a reply not
+   supported, the responder <em>MUST NOT</em> return an error type but rather
+   <em>MUST</em> either send a CFG_REPLY that <em>MAY</em> be empty or a reply not
    containing a CFG_REPLY payload at all.  Error returns are reserved
    for cases where the request is recognized but cannot be performed as
    requested or the request is badly formatted.
@@ -4631,20 +4631,20 @@ Table of Contents
    "CFG_SET/CFG_ACK" allows an IKE endpoint to push configuration data
    to its peer.  In this case, the CFG_SET Configuration Payload
    contains attributes the initiator wants its peer to alter.  The
-   responder MUST return a Configuration Payload if it accepted any of
-   the configuration data and it MUST contain the attributes that the
+   responder <em>MUST</em> return a Configuration Payload if it accepted any of
+   the configuration data and it <em>MUST</em> contain the attributes that the
    responder accepted with zero-length data.  Those attributes that it
-   did not accept MUST NOT be in the CFG_ACK Configuration Payload.  If
-   no attributes were accepted, the responder MUST return either an
+   did not accept <em>MUST NOT</em> be in the CFG_ACK Configuration Payload.  If
+   no attributes were accepted, the responder <em>MUST</em> return either an
    empty CFG_ACK payload or a response message without a CFG_ACK
    payload.  There are currently no defined uses for the CFG_SET/CFG_ACK
    exchange, though they may be used in connection with extensions based
-   on Vendor IDs.  An minimal implementation of this specification MAY
+   on Vendor IDs.  An minimal implementation of this specification <em>MAY</em>
    ignore CFG_SET payloads.
 
-   Extensions via the CP payload SHOULD NOT be used for general purpose
+   Extensions via the CP payload <em>SHOULD NOT</em> be used for general purpose
    management.  Its main intent is to provide a bootstrap mechanism to
-   exchange information within IPsec from IRAS to IRAC.  While it MAY be
+   exchange information within IPsec from IRAS to IRAC.  While it <em>MAY</em> be
    useful to use such a method to exchange information between some
    Security Gateways (SGW) or small networks, existing management
    protocols such as DHCP [<a href="#ref-DHCP" title="&quot;Dynamic Host Configuration Protocol&quot;">DHCP</a>], RADIUS [<a href="#ref-RADIUS" title="&quot;Remote Authentication Dial In User Service (RADIUS)&quot;">RADIUS</a>], SNMP, or LDAP [<a href="#ref-LDAP" title="&quot;Lightweight Directory Access Protocol (v3)&quot;">LDAP</a>]
@@ -4691,7 +4691,7 @@ Table of Contents
       values 5-127 are reserved to IANA.  Values 128-255 are for private
       use among mutually consenting parties.
 
-   o  RESERVED (3 octets)  - MUST be sent as zero; MUST be ignored on
+   o  RESERVED (3 octets)  - <em>MUST</em> be sent as zero; <em>MUST</em> be ignored on
       receipt.
 
    o  Configuration Attributes (variable length) - These are type length
@@ -4713,7 +4713,7 @@ Table of Contents
 
                Figure 23:  Configuration Attribute Format
 
-   o  Reserved (1 bit) - This bit MUST be set to zero and MUST be
+   o  Reserved (1 bit) - This bit <em>MUST</em> be set to zero and <em>MUST</em> be
       ignored on receipt.
 
    o  Attribute Type (15 bits) - A unique identifier for each of the
@@ -4763,15 +4763,15 @@ Table of Contents
 
       o  INTERNAL_IP4_ADDRESS, INTERNAL_IP6_ADDRESS - An address on the
          internal network, sometimes called a red node address or
-         private address and MAY be a private address on the Internet.
+         private address and <em>MAY</em> be a private address on the Internet.
          In a request message, the address specified is a requested
          address (or zero if no specific address is requested).  If a
          specific address is requested, it likely indicates that a
          previous connection existed with this address and the requestor
-         would like to reuse that address.  With IPv6, a requestor MAY
+         would like to reuse that address.  With IPv6, a requestor <em>MAY</em>
          supply the low-order address bytes it wants to use.  Multiple
-         internal addresses MAY be requested by requesting multiple
-         internal address attributes.  The responder MAY only send up to
+         internal addresses <em>MAY</em> be requested by requesting multiple
+         internal address attributes.  The responder <em>MAY</em> only send up to
          the number of addresses requested.  The INTERNAL_IP6_ADDRESS is
          made up of two fields: the first is a sixteen-octet IPv6
          address and the second is a one-octet prefix-length as defined
@@ -4791,28 +4791,28 @@ Table of Contents
 
       o  INTERNAL_IP4_NETMASK - The internal network's netmask.  Only
          one netmask is allowed in the request and reply messages (e.g.,
-         255.255.255.0), and it MUST be used only with an
+         255.255.255.0), and it <em>MUST</em> be used only with an
          INTERNAL_IP4_ADDRESS attribute.
 
       o  INTERNAL_IP4_DNS, INTERNAL_IP6_DNS - Specifies an address of a
-         DNS server within the network.  Multiple DNS servers MAY be
-         requested.  The responder MAY respond with zero or more DNS
+         DNS server within the network.  Multiple DNS servers <em>MAY</em> be
+         requested.  The responder <em>MAY</em> respond with zero or more DNS
          server attributes.
 
       o  INTERNAL_IP4_NBNS, INTERNAL_IP6_NBNS - Specifies an address of
          a NetBios Name Server (WINS) within the network.  Multiple NBNS
-         servers MAY be requested.  The responder MAY respond with zero
+         servers <em>MAY</em> be requested.  The responder <em>MAY</em> respond with zero
          or more NBNS server attributes.
 
       o  INTERNAL_ADDRESS_EXPIRY - Specifies the number of seconds that
-         the host can use the internal IP address.  The host MUST renew
+         the host can use the internal IP address.  The host <em>MUST</em> renew
          the IP address before this expiry time.  Only one of these
-         attributes MAY be present in the reply.
+         attributes <em>MAY</em> be present in the reply.
 
       o  INTERNAL_IP4_DHCP, INTERNAL_IP6_DHCP - Instructs the host to
          send any internal DHCP requests to the address contained within
-         the attribute.  Multiple DHCP servers MAY be requested.  The
-         responder MAY respond with zero or more DHCP server attributes.
+         the attribute.  Multiple DHCP servers <em>MAY</em> be requested.  The
+         responder <em>MAY</em> respond with zero or more DHCP server attributes.
 
       o  APPLICATION_VERSION - The version or application information of
          the IPsec host.  This is a string of printable ASCII characters
@@ -4821,11 +4821,11 @@ Table of Contents
       o  INTERNAL_IP4_SUBNET - The protected sub-networks that this
          edge-device protects.  This attribute is made up of two fields:
          the first is an IP address and the second is a netmask.
-         Multiple sub-networks MAY be requested.  The responder MAY
+         Multiple sub-networks <em>MAY</em> be requested.  The responder <em>MAY</em>
          respond with zero or more sub-network attributes.
 
       o  SUPPORTED_ATTRIBUTES - When used within a Request, this
-         attribute MUST be zero-length and specifies a query to the
+         attribute <em>MUST</em> be zero-length and specifies a query to the
          responder to reply back with all of the attributes that it
          supports.  The response contains an attribute that contains a
          set of attribute identifiers each in 2 octets.  The length
@@ -4849,7 +4849,7 @@ Table of Contents
          edge-device protects.  This attribute is made up of two fields:
          the first is a sixteen-octet IPv6 address and the second is a
          one-octet prefix-length as defined in [<a href="#ref-ADDRIPV6" title="&quot;Internet Protocol Version 6 (IPv6) Addressing Architecture&quot;">ADDRIPV6</a>].  Multiple
-         sub-networks MAY be requested.  The responder MAY respond with
+         sub-networks <em>MAY</em> be requested.  The responder <em>MAY</em> respond with
          zero or more sub-network attributes.
 
       Note that no recommendations are made in this document as to how
@@ -4904,18 +4904,18 @@ Table of Contents
    o  Identifier (1 octet) is used in PPP to distinguish replayed
       messages from repeated ones.  Since in IKE, EAP runs over a
       reliable protocol, it serves no function here.  In a response
-      message, this octet MUST be set to match the identifier in the
-      corresponding request.  In other messages, this field MAY be set
+      message, this octet <em>MUST</em> be set to match the identifier in the
+      corresponding request.  In other messages, this field <em>MAY</em> be set
       to any value.
 
-   o  Length (2 octets) is the length of the EAP message and MUST be
+   o  Length (2 octets) is the length of the EAP message and <em>MUST</em> be
       four less than the Payload Length of the encapsulating payload.
 
    o  Type (1 octet) is present only if the Code field is Request (1) or
-      Response (2).  For other codes, the EAP message length MUST be
-      four octets and the Type and Type_Data fields MUST NOT be present.
+      Response (2).  For other codes, the EAP message length <em>MUST</em> be
+      four octets and the Type and Type_Data fields <em>MUST NOT</em> be present.
       In a Request (1) message, Type indicates the data being requested.
-      In a Response (2) message, Type MUST either be Nak or match the
+      In a Response (2) message, Type <em>MUST</em> either be Nak or match the
       type of the data requested.  The following types are defined in
       <a href="./rfc3748.html">RFC 3748</a>:
 
@@ -4931,14 +4931,14 @@ Table of Contents
       methods, see [<a href="#ref-EAP" title="&quot;Extensible Authentication Protocol (EAP)&quot;">EAP</a>].
 
    Note that since IKE passes an indication of initiator identity in
-   message 3 of the protocol, the responder SHOULD NOT send EAP Identity
-   requests.  The initiator SHOULD, however, respond to such requests if
+   message 3 of the protocol, the responder <em>SHOULD NOT</em> send EAP Identity
+   requests.  The initiator <em>SHOULD</em>, however, respond to such requests if
    it receives them.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Conformance Requirements</span>
 
    In order to assure that all implementations of IKEv2 can
-   interoperate, there are "MUST support" requirements in addition to
+   interoperate, there are "<em>MUST</em> support" requirements in addition to
    those listed elsewhere.  Of course, IKEv2 is a security protocol, and
    one of its major functions is to allow only authorized parties to
    successfully complete establishment of SAs.  So a particular
@@ -4978,32 +4978,32 @@ Table of Contents
 
       Ability to rekey SAs.
 
-   To assure interoperability, all implementations MUST be capable of
+   To assure interoperability, all implementations <em>MUST</em> be capable of
    parsing all payload types (if only to skip over them) and to ignore
    payload types that it does not support unless the critical bit is set
    in the payload header.  If the critical bit is set in an unsupported
-   payload header, all implementations MUST reject the messages
+   payload header, all implementations <em>MUST</em> reject the messages
    containing those payloads.
 
-   Every implementation MUST be capable of doing four-message
+   Every implementation <em>MUST</em> be capable of doing four-message
    IKE_SA_INIT and IKE_AUTH exchanges establishing two SAs (one for IKE,
-   one for ESP and/or AH).  Implementations MAY be initiate-only or
+   one for ESP and/or AH).  Implementations <em>MAY</em> be initiate-only or
    respond-only if appropriate for their platform.  Every implementation
-   MUST be capable of responding to an INFORMATIONAL exchange, but a
-   minimal implementation MAY respond to any INFORMATIONAL message with
+   <em>MUST</em> be capable of responding to an INFORMATIONAL exchange, but a
+   minimal implementation <em>MAY</em> respond to any INFORMATIONAL message with
    an empty INFORMATIONAL reply (note that within the context of an
    IKE_SA, an "empty" message consists of an IKE header followed by an
    Encrypted payload with no payloads contained in it).  A minimal
-   implementation MAY support the CREATE_CHILD_SA exchange only in so
+   implementation <em>MAY</em> support the CREATE_CHILD_SA exchange only in so
    far as to recognize requests and reject them with a Notify payload of
    type NO_ADDITIONAL_SAS.  A minimal implementation need not be able to
    initiate CREATE_CHILD_SA or INFORMATIONAL exchanges.  When an SA
    expires (based on locally configured values of either lifetime or
-   octets passed), and implementation MAY either try to renew it with a
-   CREATE_CHILD_SA exchange or it MAY delete (close) the old SA and
+   octets passed), and implementation <em>MAY</em> either try to renew it with a
+   CREATE_CHILD_SA exchange or it <em>MAY</em> delete (close) the old SA and
    create a new one.  If the responder rejects the CREATE_CHILD_SA
    request with a NO_ADDITIONAL_SAS notification, the implementation
-   MUST be capable of instead closing the old SA and creating a new one.
+   <em>MUST</em> be capable of instead closing the old SA and creating a new one.
 
 
 
@@ -5015,15 +5015,15 @@ Table of Contents
 
    Implementations are not required to support requesting temporary IP
    addresses or responding to such requests.  If an implementation does
-   support issuing such requests, it MUST include a CP payload in
+   support issuing such requests, it <em>MUST</em> include a CP payload in
    message 3 containing at least a field of type INTERNAL_IP4_ADDRESS or
    INTERNAL_IP6_ADDRESS.  All other fields are optional.  If an
-   implementation supports responding to such requests, it MUST parse
+   implementation supports responding to such requests, it <em>MUST</em> parse
    the CP payload of type CFG_REQUEST in message 3 and recognize a field
    of type INTERNAL_IP4_ADDRESS or INTERNAL_IP6_ADDRESS.  If it supports
-   leasing an address of the appropriate type, it MUST return a CP
+   leasing an address of the appropriate type, it <em>MUST</em> return a CP
    payload of type CFG_REPLY containing an address of the requested
-   type.  The responder SHOULD include all of the other related
+   type.  The responder <em>SHOULD</em> include all of the other related
    attributes if it has them.
 
    A minimal IPv4 responder implementation will ignore the contents of
@@ -5035,14 +5035,14 @@ Table of Contents
    A minimal IPv4 initiator will generate a CP payload containing only
    an INTERNAL_IP4_ADDRESS attribute and will parse the response
    ignoring attributes it does not know how to use.  The only attribute
-   it MUST be able to process is INTERNAL_ADDRESS_EXPIRY, which it must
+   it <em>MUST</em> be able to process is INTERNAL_ADDRESS_EXPIRY, which it must
    use to bound the lifetime of the SA unless it successfully renews the
    lease before it expires.  Minimal initiators need not be able to
    request lease renewals and minimal responders need not respond to
    them.
 
    For an implementation to be called conforming to this specification,
-   it MUST be possible to configure it to accept the following:
+   it <em>MUST</em> be possible to configure it to accept the following:
 
    PKIX Certificates containing and signed by RSA keys of size 1024 or
    2048 bits, where the ID passed is any of ID_KEY_ID, ID_FQDN,
@@ -5126,13 +5126,13 @@ Table of Contents
 
 
    It is assumed that all Diffie-Hellman exponents are erased from
-   memory after use.  In particular, these exponents MUST NOT be derived
+   memory after use.  In particular, these exponents <em>MUST NOT</em> be derived
    from long-lived secrets like the seed to a pseudo-random generator
    that is not erased after use.
 
    The strength of all keys is limited by the size of the output of the
    negotiated prf function.  For this reason, a prf function whose
-   output is less than 128 bits (e.g., 3DES-CBC) MUST NOT be used with
+   output is less than 128 bits (e.g., 3DES-CBC) <em>MUST NOT</em> be used with
    this protocol.
 
    The security of this protocol is critically dependent on the
@@ -5146,7 +5146,7 @@ Table of Contents
    choices in this protocol, see [<a href="#ref-SIGMA" title="&quot;SIGMA: the `SIGn-and-MAc' Approach to Authenticated Diffie-Hellman and its Use in the IKE Protocols&quot;">SIGMA</a>] and [<a href="#ref-SKEME" title="&quot;SKEME: A Versatile Secure Key Exchange Mechanism for Internet&quot;">SKEME</a>].  Though the
    security of negotiated CHILD_SAs does not depend on the strength of
    the encryption and integrity protection negotiated in the IKE_SA,
-   implementations MUST NOT negotiate NONE as the IKE integrity
+   implementations <em>MUST NOT</em> negotiate NONE as the IKE integrity
    protection algorithm or ENCR_NULL as the IKE encryption algorithm.
 
    When using pre-shared keys, a critical consideration is how to assure
@@ -5193,16 +5193,16 @@ Table of Contents
    IKEv2 utilizes a token authenticator, a man-in-the-middle attacker
    could impersonate the web server, intercept the token authentication
    exchange, and use it to initiate an IKEv2 connection.  For this
-   reason, use of non-key-generating EAP methods SHOULD be avoided where
+   reason, use of non-key-generating EAP methods <em>SHOULD</em> be avoided where
    possible.  Where they are used, it is extremely important that all
-   usages of these EAP methods SHOULD utilize a protected tunnel, where
+   usages of these EAP methods <em>SHOULD</em> utilize a protected tunnel, where
    the initiator validates the responder's certificate before initiating
-   the EAP exchange.  Implementers SHOULD describe the vulnerabilities
+   the EAP exchange.  Implementers <em>SHOULD</em> describe the vulnerabilities
    of using non-key-generating EAP methods in the documentation of their
    implementations so that the administrators deploying IPsec solutions
    are aware of these dangers.
 
-   An implementation using EAP MUST also use a public-key-based
+   An implementation using EAP <em>MUST</em> also use a public-key-based
    authentication of the server to the client before the EAP exchange
    begins, even if the EAP method offers mutual authentication.  This
    avoids having additional IKEv2 protocol variations and protects the

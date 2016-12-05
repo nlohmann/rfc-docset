@@ -499,7 +499,7 @@ Table of Contents
    <a href="./rfc5348.html#section-5.2">[RFC5348], Section&nbsp;5.2</a>), the receiver needs accurate RTT estimates to
    validate and accurately separate loss events.  Moreover, <a href="./rfc5348.html#section-5.2">Section&nbsp;5.2
    of [RFC5348]</a> expressly indicates the sender RTT estimate is
-   RECOMMENDED for this purpose.
+   <em>RECOMMENDED</em> for this purpose.
 
    Having the sender RTT Estimate available further increases the
    accuracy of the information reported by the receiver.  The definition
@@ -554,8 +554,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Conventions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    This document uses the conventions of [<a href="./rfc5348.html" title="&quot;TCP Friendly Rate Control (TFRC): Protocol Specification&quot;">RFC5348</a>], [<a href="./rfc4340.html" title="&quot;Datagram Congestion Control Protocol (DCCP)&quot;">RFC4340</a>],
@@ -596,7 +596,7 @@ Table of Contents
          Table 1: The RTT Estimate Option Defined by This Document
 
    Column meanings are as per <a href="./rfc4340.html#section-5.8">[RFC4340], Section&nbsp;5.8</a> (Table 3).  This
-   option MAY be placed in any DCCP packet, has option number 128 and a
+   option <em>MAY</em> be placed in any DCCP packet, has option number 128 and a
    length of 3..5 bytes.
 
    A Sender RTT Estimate Option is valid if it satisfies one of the
@@ -624,7 +624,7 @@ Table of Contents
    allows values up to 16.7 seconds (corresponding to 0xFFFFFE) to be
    communicated.
 
-   A sender capable of sampling at sub-microsecond granularity SHOULD
+   A sender capable of sampling at sub-microsecond granularity <em>SHOULD</em>
    round up RTT samples to the next microsecond, to avoid under-
    estimating the RTT.
 
@@ -648,17 +648,17 @@ Table of Contents
    the sender would then always report 0xFFFFFF).
 
    A value of 0 indicates the absence of a valid RTT sample.  The sender
-   MUST set the value to 0 if it does not yet have an RTT estimate.  RTT
-   estimates of less than 1 microsecond MUST be reported as 1
+   <em>MUST</em> set the value to 0 if it does not yet have an RTT estimate.  RTT
+   estimates of less than 1 microsecond <em>MUST</em> be reported as 1
    microsecond.
 
-   The sender SHOULD select the smallest format suitable to carry the
+   The sender <em>SHOULD</em> select the smallest format suitable to carry the
    RTT estimate (i.e., less than 1 byte of leading zeroes).
 
 <span class="h4"><a class="selflink" name="section-3.2.2" href="#section-3.2.2">3.2.2</a>.  Send RTT Estimate Feature</span>
 
    The Send RTT Estimate feature lets endpoints negotiate whether the
-   sender MUST provide RTT Estimate options on its data packets.
+   sender <em>MUST</em> provide RTT Estimate options on its data packets.
 
    Send RTT Estimate has feature number 128 and is server-priority.  It
    takes 1-byte Boolean values; values greater than 1 are reserved.
@@ -673,7 +673,7 @@ Table of Contents
 
    The column meanings are described in <a href="./rfc4340.html#section-6.4">[RFC4340], Section&nbsp;6.4</a>.
 
-   The Send RTT Estimate feature is OPTIONAL.  An extension may
+   The Send RTT Estimate feature is <em>OPTIONAL</em>.  An extension may
    implement it, but this specification does not require the feature to
    be understood by every DCCP implementation (see [<a href="./rfc4340.html" title="&quot;Datagram Congestion Control Protocol (DCCP)&quot;">RFC4340</a>], <a href="#section-15">Section</a>
    <a href="#section-15">15</a>).  The feature is off by default (initial value of 0).
@@ -684,11 +684,11 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Basic Usage</span>
 
-   When the Send RTT Estimate Feature is enabled, the sender MUST
+   When the Send RTT Estimate Feature is enabled, the sender <em>MUST</em>
    provide an RTT Estimate Option on all of its Data, DataAck, Sync, and
-   SyncAck packets.  It MAY in addition provide the RTT Estimate Option
+   SyncAck packets.  It <em>MAY</em> in addition provide the RTT Estimate Option
    on other packet types, such as DCCP-Ack.  If the RTT is larger than
-   the maximum representable value (0xFFFFFE), the sender MUST set the
+   the maximum representable value (0xFFFFFE), the sender <em>MUST</em> set the
    value of the RTT Estimate Option to 0xFFFFFF.
 
 
@@ -699,23 +699,23 @@ Table of Contents
 <span class="grey"><a href="./rfc6323.html">RFC 6323</a>           Sender RTT Estimate Option for DCCP         July 2011</span>
 
 
-   The sender MUST implement and continue to update the CCVal window
+   The sender <em>MUST</em> implement and continue to update the CCVal window
    counter as specified in <a href="./rfc4342.html#section-8.1">[RFC4342], Section&nbsp;8.1</a>, even when the Send
    RTT Estimate Feature is on.
 
-   When the Send RTT Estimate Feature is enabled, the receiver MUST use
+   When the Send RTT Estimate Feature is enabled, the receiver <em>MUST</em> use
    the value reported by the RTT Estimate Option in all places that
    require an RTT (listed at the begin of <a href="#section-2">Section 2</a>).  If the receiver
-   encounters an invalid RTT Estimate Option (<a href="#section-3.2.1">Section 3.2.1</a>), it MUST
+   encounters an invalid RTT Estimate Option (<a href="#section-3.2.1">Section 3.2.1</a>), it <em>MUST</em>
    reset the connection with Reset Code 5, "Option Error", where the
    Data 1..3 fields are set to the first 3 bytes of the offending RTT
    Estimate Option.
 
-   The receiver SHOULD track the long-term RTT estimate using a moving
+   The receiver <em>SHOULD</em> track the long-term RTT estimate using a moving
    average, such as the one specified in <a href="./rfc5348.html#section-4.3">[RFC5348], Section&nbsp;4.3</a>.  This
    long-term estimate is referred to as "receiver_RTT" below.
 
-   When the Send RTT Estimate Feature is disabled, the receiver MUST
+   When the Send RTT Estimate Feature is disabled, the receiver <em>MUST</em>
    estimate the RTT as previously specified in [<a href="./rfc4340.html" title="&quot;Datagram Congestion Control Protocol (DCCP)&quot;">RFC4340</a>], [<a href="./rfc4342.html" title="&quot;Profile for Datagram Congestion Control Protocol (DCCP) Congestion Control ID 3: TCP-Friendly Rate Control (TFRC)&quot;">RFC4342</a>], and
    [<a href="./rfc5622.html" title="&quot;Profile for Datagram Congestion Control Protocol (DCCP) Congestion ID 4: TCP-Friendly Rate Control for Small Packets (TFRC-SP)&quot;">RFC5622</a>].
 
@@ -729,20 +729,20 @@ Table of Contents
    values in the range of 1..0xFFFFFE are analogously called "numeric
    RTT options".
 
-   Until the first numeric RTT option arrives, the receiver MUST use a
+   Until the first numeric RTT option arrives, the receiver <em>MUST</em> use a
    value of 0.5 seconds for receiver_RTT (to match the initial 2-second
    timeout of the TFRC nofeedback timer; see <a href="./rfc5348.html#section-4.2">[RFC5348], Section&nbsp;4.2</a>).
 
    If the path RTT is known, e.g., from a previous connection [<a href="./rfc2140.html" title="&quot;TCP Control Block Interdependence&quot;">RFC2140</a>],
-   the receiver MAY reuse the previously known path RTT value to seed
+   the receiver <em>MAY</em> reuse the previously known path RTT value to seed
    its long-term RTT estimate.
 
-   The sender MAY occasionally send no-number RTT options, covering for
+   The sender <em>MAY</em> occasionally send no-number RTT options, covering for
    transient changes and spurious disruptions.  During these times, the
-   receiver SHOULD continue to use its long-term receiver_RTT value.
+   receiver <em>SHOULD</em> continue to use its long-term receiver_RTT value.
 
    To avoid under-estimating the RTT in the absence of numeric options,
-   the receiver MUST back off receiver_RTT in the following manner: if
+   the receiver <em>MUST</em> back off receiver_RTT in the following manner: if
    the sender supplies no-number RTT options for longer than
    receiver_RTT units of time, the receiver sets
 
@@ -763,7 +763,7 @@ Table of Contents
    have a lasting impact, whereas long-term problems will result in
    asymptotically high receiver_RTT values.
 
-   To bail out from a hanging session, the receiver MAY close the
+   To bail out from a hanging session, the receiver <em>MAY</em> close the
    connection when receiver_RTT has reached the value MAX_RTT.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Security Considerations</span>

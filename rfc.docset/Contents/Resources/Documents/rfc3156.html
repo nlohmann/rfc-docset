@@ -250,8 +250,8 @@ Abstract
 <span class="grey"><a href="./rfc3156.html">RFC 3156</a>               MIME Security with OpenPGP            August 2001</span>
 
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a>.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  OpenPGP data formats</span>
@@ -259,13 +259,13 @@ Abstract
    OpenPGP implementations can generate either ASCII armor (described in
    [<a href="#ref-1" title="&quot;OpenPGP Message Format&quot;">1</a>]) or 8-bit binary output when encrypting data, generating a
    digital signature, or extracting public key data.  The ASCII armor
-   output is the REQUIRED method for data transfer.  This allows those
+   output is the <em>REQUIRED</em> method for data transfer.  This allows those
    users who do not have the means to interpret the formats described in
    this document to be able to extract and use the OpenPGP information
    in the message.
 
    When the amount of data to be transmitted requires that it be sent in
-   many parts, the MIME message/partial mechanism SHOULD be used rather
+   many parts, the MIME message/partial mechanism <em>SHOULD</em> be used rather
    than the multi-part ASCII armor OpenPGP format.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Content-Transfer-Encoding restrictions</span>
@@ -277,13 +277,13 @@ Abstract
    either Quoted-Printable or Base64.  This presents serious problems
    for multipart/signed, in particular, where the signature is
    invalidated when such an operation occurs.  For this reason all data
-   signed according to this protocol MUST be constrained to 7 bits (8-
-   bit data MUST be encoded using either Quoted-Printable or Base64).
+   signed according to this protocol <em>MUST</em> be constrained to 7 bits (8-
+   bit data <em>MUST</em> be encoded using either Quoted-Printable or Base64).
    Note that this also includes the case where a signed object is also
    encrypted (see <a href="#section-6">section 6</a>).  This restriction will increase the
    likelihood that the signature will be valid upon receipt.
 
-   Additionally, implementations MUST make sure that no trailing
+   Additionally, implementations <em>MUST</em> make sure that no trailing
    whitespace is present after the MIME encoding has been applied.
 
       Note: In most cases, trailing whitespace can either be removed, or
@@ -335,19 +335,19 @@ Abstract
    format (body and headers).
 
    OpenPGP encrypted data is denoted by the "multipart/encrypted"
-   content type, described in [<a href="#ref-2" title="&quot;Security Multiparts for MIME: Multipart/Signed and Multipart/Encrypted&quot;">2</a>], and MUST have a "protocol" parameter
+   content type, described in [<a href="#ref-2" title="&quot;Security Multiparts for MIME: Multipart/Signed and Multipart/Encrypted&quot;">2</a>], and <em>MUST</em> have a "protocol" parameter
    value of "application/pgp-encrypted".  Note that the value of the
-   parameter MUST be enclosed in quotes.
+   parameter <em>MUST</em> be enclosed in quotes.
 
-   The multipart/encrypted MIME body MUST consist of exactly two body
+   The multipart/encrypted MIME body <em>MUST</em> consist of exactly two body
    parts, the first with content type "application/pgp-encrypted".  This
    body contains the control information.  A message complying with this
-   standard MUST contain a "Version: 1" field in this body.  Since the
+   standard <em>MUST</em> contain a "Version: 1" field in this body.  Since the
    OpenPGP packet format contains all other information necessary for
    decrypting, no other information is required here.
 
-   The second MIME body part MUST contain the actual encrypted data.  It
-   MUST be labeled with a content type of "application/octet-stream".
+   The second MIME body part <em>MUST</em> contain the actual encrypted data.  It
+   <em>MUST</em> be labeled with a content type of "application/octet-stream".
 
    Example message:
 
@@ -389,11 +389,11 @@ Abstract
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  OpenPGP signed data</span>
 
    OpenPGP signed messages are denoted by the "multipart/signed" content
-   type, described in [<a href="#ref-2" title="&quot;Security Multiparts for MIME: Multipart/Signed and Multipart/Encrypted&quot;">2</a>], with a "protocol" parameter which MUST have a
-   value of "application/pgp-signature" (MUST be quoted).
+   type, described in [<a href="#ref-2" title="&quot;Security Multiparts for MIME: Multipart/Signed and Multipart/Encrypted&quot;">2</a>], with a "protocol" parameter which <em>MUST</em> have a
+   value of "application/pgp-signature" (<em>MUST</em> be quoted).
 
    The "micalg" parameter for the "application/pgp-signature" protocol
-   MUST contain exactly one hash-symbol of the format "pgp-&lt;hash-
+   <em>MUST</em> contain exactly one hash-symbol of the format "pgp-&lt;hash-
    identifier&gt;", where &lt;hash-identifier&gt; identifies the Message
    Integrity Check (MIC) algorithm used to generate the signature.
    Hash-symbols are constructed from the text names registered in [<a href="#ref-1" title="&quot;OpenPGP Message Format&quot;">1</a>] or
@@ -404,11 +404,11 @@ Abstract
    Currently defined values are "pgp-md5", "pgp-sha1", "pgp-ripemd160",
    "pgp-md2", "pgp-tiger192", and "pgp-haval-5-160".
 
-   The multipart/signed body MUST consist of exactly two parts.  The
+   The multipart/signed body <em>MUST</em> consist of exactly two parts.  The
    first part contains the signed data in MIME canonical format,
    including a set of appropriate content headers describing the data.
 
-   The second body MUST contain the OpenPGP digital signature.  It MUST
+   The second body <em>MUST</em> contain the OpenPGP digital signature.  It <em>MUST</em>
    be labeled with a content type of "application/pgp-signature".
 
 
@@ -427,28 +427,28 @@ Abstract
 
    When the OpenPGP digital signature is generated:
 
-   (1)   The data to be signed MUST first be converted to its content-
+   (1)   The data to be signed <em>MUST</em> first be converted to its content-
          type specific canonical form.  For text/plain, this means
          conversion to an appropriate character set and conversion of
          line endings to the canonical &lt;CR&gt;&lt;LF&gt; sequence.
 
    (2)   An appropriate Content-Transfer-Encoding is then applied; see
          <a href="#section-3">section 3</a>.  In particular, line endings in the encoded data
-         MUST use the canonical &lt;CR&gt;&lt;LF&gt; sequence where appropriate
+         <em>MUST</em> use the canonical &lt;CR&gt;&lt;LF&gt; sequence where appropriate
          (note that the canonical line ending may or may not be present
-         on the last line of encoded data and MUST NOT be included in
+         on the last line of encoded data and <em>MUST NOT</em> be included in
          the signature if absent).
 
    (3)   MIME content headers are then added to the body, each ending
          with the canonical &lt;CR&gt;&lt;LF&gt; sequence.
 
    (4)   As described in <a href="#section-3">section 3</a> of this document, any trailing
-         whitespace MUST then be removed from the signed material.
+         whitespace <em>MUST</em> then be removed from the signed material.
 
-   (5)   As described in [<a href="#ref-2" title="&quot;Security Multiparts for MIME: Multipart/Signed and Multipart/Encrypted&quot;">2</a>], the digital signature MUST be calculated
+   (5)   As described in [<a href="#ref-2" title="&quot;Security Multiparts for MIME: Multipart/Signed and Multipart/Encrypted&quot;">2</a>], the digital signature <em>MUST</em> be calculated
          over both the data to be signed and its set of content headers.
 
-   (6)   The signature MUST be generated detached from the signed data
+   (6)   The signature <em>MUST</em> be generated detached from the signed data
          so that the process does not alter the signed data in any way.
 
       Note: The accepted OpenPGP convention is for signed data to end
@@ -459,7 +459,7 @@ Abstract
       which elects to adhere to the OpenPGP convention has to make sure
       it inserts a &lt;CR&gt;&lt;LF&gt; pair on the last line of the data to be
       signed and transmitted (signed message and transmitted message
-      MUST be identical).
+      <em>MUST</em> be identical).
 
    Example message:
 
@@ -515,7 +515,7 @@ Abstract
    The "&amp;"s in the previous example indicate the portion of the data
    over which the signature was calculated.
 
-   Upon receipt of a signed message, an application MUST:
+   Upon receipt of a signed message, an application <em>MUST</em>:
 
    (1)   Convert line endings to the canonical &lt;CR&gt;&lt;LF&gt; sequence before
          the signature can be verified.  This is necessary since the
@@ -608,7 +608,7 @@ Abstract
    <a href="#section-4">4</a>.
 
    Messages which are encrypted and signed in this combined fashion are
-   REQUIRED to follow the same canonicalization rules as
+   <em>REQUIRED</em> to follow the same canonicalization rules as
    multipart/signed objects.
 
    It is explicitly allowed for an agent to decrypt a combined message

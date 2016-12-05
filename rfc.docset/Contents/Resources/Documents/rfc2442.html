@@ -226,11 +226,11 @@ Abstract
 Requirements Notation
 
    This document occasionally uses terms that appear in capital letters.
-   When the terms "MUST", "MUST NOT", "SHOULD", "SHOULD NOT", and "MAY"
+   When the terms "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", and "<em>MAY</em>"
    appear capitalized, they are being used to indicate particular
    requirements of this specification. A discussion of the meanings of
-   the terms "MUST", "SHOULD", and "MAY" appears in [<a href="./rfc1123.html" title="&quot;Requirements for Internet Hosts -- Application and Support&quot;">RFC-1123</a>]; the
-   terms "MUST NOT" and "SHOULD NOT" are logical extensions of this
+   the terms "<em>MUST</em>", "<em>SHOULD</em>", and "<em>MAY</em>" appears in [<a href="./rfc1123.html" title="&quot;Requirements for Internet Hosts -- Application and Support&quot;">RFC-1123</a>]; the
+   terms "<em>MUST NOT</em>" and "<em>SHOULD NOT</em>" are logical extensions of this
    usage.
 
 
@@ -248,7 +248,7 @@ The Application/batch-SMTP Content Type
    The "application/batch-SMTP" MIME content type is a container for the
    client side of an SMTP or ESMTP transaction. In keeping with
    traditional SMTP, the contents are line oriented and CRLF line
-   terminators MUST be used.
+   terminators <em>MUST</em> be used.
 
    The "application/batch-SMTP" type is defined as follows:
 
@@ -311,7 +311,7 @@ Honoring SMTP restrictions
 
    Most batch SMTP processors will be constructed by modifying and
    extending existing SMTP servers. As such, all of the restrictions on
-   SMTP constructs imposed by <a href="./rfc821.html">RFC 821</a>, <a href="./rfc1123.html">RFC 1123</a>, and <a href="./rfc1869.html">RFC 1869</a> MUST be
+   SMTP constructs imposed by <a href="./rfc821.html">RFC 821</a>, <a href="./rfc1123.html">RFC 1123</a>, and <a href="./rfc1869.html">RFC 1869</a> <em>MUST</em> be
    observed. In particular, restrictions on command and data line
    lengths, number of recipients, and so on still exist and apply to
    batch SMTP.
@@ -320,23 +320,23 @@ Use of SMTP Extensions
 
    Since no SMTP server is present the client must be prepared to make
    certain assumptions about which SMTP extensions can be used. The
-   generator MAY assume that ESMTP [<a href="./rfc1869.html" title="&quot;SMTP Service Extensions&quot;">RFC-1869</a>] facilities are available,
+   generator <em>MAY</em> assume that ESMTP [<a href="./rfc1869.html" title="&quot;SMTP Service Extensions&quot;">RFC-1869</a>] facilities are available,
    that is, it is acceptable to use the EHLO command and additional
-   parameters on MAIL FROM and RCPT TO.  If EHLO is used MAY assume that
+   parameters on MAIL FROM and RCPT TO.  If EHLO is used <em>MAY</em> assume that
    the 8bitMIME [<a href="./rfc1652.html" title="&quot;SMTP Service Extension for 8bit-MIMEtransport&quot;">RFC-1652</a>], SIZE [<a href="./rfc1870.html" title="&quot;SMTP Service Extension for Message Size Declaration&quot;">RFC-1870</a>], and NOTARY [<a href="./rfc1891.html">RFC-1891</a>]
-   extensions are available. In particular, NOTARY SHOULD be used.  MAY
+   extensions are available. In particular, NOTARY <em>SHOULD</em> be used.  <em>MAY</em>
    create private bilateral agreements which specify the availability of
-   additional SMTP extensions. Additional SMTP extensions MUST NOT be
+   additional SMTP extensions. Additional SMTP extensions <em>MUST NOT</em> be
    used in the absence of such an agreement, and, perhaps more
    importantly, a conformant generation of application/batch-SMTP
-   objects MUST be able to produce objects restricted to use of the
+   objects <em>MUST</em> be able to produce objects restricted to use of the
    extensions listed above.
 
-   The "required-extensions" content type parameter MAY be used to
+   The "required-extensions" content type parameter <em>MAY</em> be used to
    communicate a list of the extensions actually used, specified as a
    comma-separated list of EHLO responses. If absent it defaults to the
    list "8bitMIME,SIZE,NOTARY".  Any use by private bilateral agreement
-   of additional or different extensions MUST be noted in the
+   of additional or different extensions <em>MUST</em> be noted in the
    "required-extensions" parameter.
 
    Note that many SMTP extensions simply do not make sense in the
@@ -357,7 +357,7 @@ Use of SMTP Extensions
 
 Handling Multiple Messages
 
-   Generators SHOULD attempt to minimize the number of messages placed
+   Generators <em>SHOULD</em> attempt to minimize the number of messages placed
    in a single application/batch-SMTP object. Ideally a single
    application/batch-SMTP object will be created for each message. Note,
    however, that some uses of application/batch-SMTP (e.g., mail
@@ -389,7 +389,7 @@ Transport of application/batch-SMTP objects
    Application/batch-SMTP objects may be transported by any transport
    capable of preserving their MIME labelling, e.g., HTTP or SMTP.
 
-   Transports MUST remain cognizant of the special nature of
+   Transports <em>MUST</em> remain cognizant of the special nature of
    application/batch-SMTP. An application/batch-SMTP object contains one
    or more "frozen" SMTP message transactions. SMTP message transactions
    typically carry with them various assumptions about quality of
@@ -421,33 +421,33 @@ Processing of application/batch-SMTP material
    responsibilities of a traditional SMTP server as well as part of the
    responsibilities of a traditional SMTP client.
 
-   As such, a conforming processor:  MUST check MIME content type
+   As such, a conforming processor:  <em>MUST</em> check MIME content type
    information to insure that the material it has been presented with is
    labelled as application/batch-SMTP and doesn't specify any extensions
    the processor doesn't support in the "required-extensions" parameter.
    Application/batch-SMTP objects that employ an unsupported extension
-   SHOULD be forwarded to the local postmaster for manual inspection and
-   handling.  MUST accept any syntactically valid EHLO or HELO command.
-   MUST accept any syntactically valid MAIL FROM command. A conforming
-   processor, MAY, if it so desires, note the unacceptability of some
+   <em>SHOULD</em> be forwarded to the local postmaster for manual inspection and
+   handling.  <em>MUST</em> accept any syntactically valid EHLO or HELO command.
+   <em>MUST</em> accept any syntactically valid MAIL FROM command. A conforming
+   processor, <em>MAY</em>, if it so desires, note the unacceptability of some
    part of a given MAIL FROM command and use this information to
    subsequently generate non-delivery notifications for any or all
-   recipients.  MUST accept any syntactically valid RCPT TO command. A
-   conforming processor SHOULD note the unacceptability of some part of
+   recipients.  <em>MUST</em> accept any syntactically valid RCPT TO command. A
+   conforming processor <em>SHOULD</em> note the unacceptability of some part of
    a given RCPT TO command and subsequently use this information to
    generate a non-delivery notification for this recipient in lieu of
-   actually delivering the message.  MUST accept any of the additional
+   actually delivering the message.  <em>MUST</em> accept any of the additional
    parameters defined by the 8bitMIME, SIZE, and NOTARY SMTP extensions
-   on the MAIL FROM and RCPT TO commands.  MUST accept the DATA command
-   even when no valid recipients are present. 8bit MIME messages MUST be
-   accepted.  MUST accept the RSET command and handle multiple messages
-   in a single application/batch-SMTP object. Processors MUST process
-   each message in an application/batch-SMTP object once and SHOULD take
+   on the MAIL FROM and RCPT TO commands.  <em>MUST</em> accept the DATA command
+   even when no valid recipients are present. 8bit MIME messages <em>MUST</em> be
+   accepted.  <em>MUST</em> accept the RSET command and handle multiple messages
+   in a single application/batch-SMTP object. Processors <em>MUST</em> process
+   each message in an application/batch-SMTP object once and <em>SHOULD</em> take
    whatever steps are necessary to avoid processing a message more than
    once. For example, if processing of an application/batch-SMTP object
    containing multiple messages is interrupted at an intermediate point
    it should subsequently be restarted at the end of the last message
-   that was completely processed.  SHOULD forward any syntactically
+   that was completely processed.  <em>SHOULD</em> forward any syntactically
    invalid application/batch-SMTP message to the local postmaster for
    manual inspection and handling.
 
@@ -467,7 +467,7 @@ Security Considerations
 <span class="grey"><a href="./rfc2442.html">RFC 2442</a>                 Batch SMTP Media Type             November 1998</span>
 
 
-   Application/batch-SMTP processors SHOULD implement access
+   Application/batch-SMTP processors <em>SHOULD</em> implement access
    restrictions designed to limit access to the processor to authorized
    generators only. (Note that this facility may be provided
    automatically if application/batch-SMTP is being used to secure

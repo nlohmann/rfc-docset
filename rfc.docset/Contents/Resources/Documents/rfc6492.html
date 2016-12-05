@@ -350,8 +350,8 @@ Table of Contents
    "client"  in the context of this client/server protocol
       specification, the subject assumes the role of the "client".
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -425,19 +425,19 @@ Table of Contents
    format to sign the message object.  The CMS message includes an end-
    entity (EE) certificate that is to be used to validate the CMS
    digital signature  (see <a href="#section-3.1.1.4">Section 3.1.1.4</a>); the certificate chain that
-   is used to validate the EE certificate MAY be included in the CMS
+   is used to validate the EE certificate <em>MAY</em> be included in the CMS
    message, and if it is not present it is assumed to have been
    communicated between the two entities, through mechanisms not defined
    in this specification.
 
    The protocol's request/response interaction is assumed to be
-   reliable, in that all requests MUST generate a matching response.
+   reliable, in that all requests <em>MUST</em> generate a matching response.
    The protocol requires sequential operation for each distinct client,
-   where the server MUST NOT accept a client's request unless it has
+   where the server <em>MUST NOT</em> accept a client's request unless it has
    generated and sent a response to the client's previous request.
    Attempts by the client to initiate multiple requests in parallel
    (i.e., multiple concurrent requests with a common sender attribute
-   (see <a href="#section-3.2">Section 3.2</a>) in the request) MUST be detected by the server and
+   (see <a href="#section-3.2">Section 3.2</a>) in the request) <em>MUST</em> be detected by the server and
    rejected with an error response (i.e., an error code 1101 response).
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  CMS Profile</span>
@@ -462,8 +462,8 @@ Table of Contents
         version CMSVersion,
         digestAlgorithms DigestAlgorithmIdentifiers,
         encapContentInfo EncapsulatedContentInfo,
-        certificates [0] IMPLICIT CertificateSet OPTIONAL,
-        crls [1] IMPLICIT RevocationInfoChoices OPTIONAL,
+        certificates [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+        crls [1] IMPLICIT RevocationInfoChoices <em>OPTIONAL</em>,
         signerInfos SignerInfos }
 
       DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
@@ -476,20 +476,20 @@ Table of Contents
 <span class="grey"><a href="./rfc6492.html">RFC 6492</a>                  ResCert Provisioning             February 2012</span>
 
 
-   Additionally, the SignerInfos set MUST contain only a single
+   Additionally, the SignerInfos set <em>MUST</em> contain only a single
    SignerInfo object.
 
 <span class="h5"><a class="selflink" name="section-3.1.1.1" href="#section-3.1.1.1">3.1.1.1</a>.  version</span>
 
-   The version is the syntax version number.  It MUST be 3,
+   The version is the syntax version number.  It <em>MUST</em> be 3,
    corresponding to the signerInfo structure having version number 3.
 
 <span class="h5"><a class="selflink" name="section-3.1.1.2" href="#section-3.1.1.2">3.1.1.2</a>.  digestAlgorithms</span>
 
    The digestAlgorithms set contains the Object Identifiers (OID)s of
    the digest algorithm(s) used in signing the encapsulated content.
-   This set MUST contain exactly one digest algorithm OID, and the OID
-   MUST be selected from those specified in [<a href="./rfc6485.html" title="&quot;The Profile for Algorithms and Key Sizes for Use in the Resource Public Key Infrastructure (RPKI)&quot;">RFC6485</a>].
+   This set <em>MUST</em> contain exactly one digest algorithm OID, and the OID
+   <em>MUST</em> be selected from those specified in [<a href="./rfc6485.html" title="&quot;The Profile for Algorithms and Key Sizes for Use in the Resource Public Key Infrastructure (RPKI)&quot;">RFC6485</a>].
 
 <span class="h5"><a class="selflink" name="section-3.1.1.3" href="#section-3.1.1.3">3.1.1.3</a>.  encapContentInfo</span>
 
@@ -499,7 +499,7 @@ Table of Contents
 
    EncapsulatedContentInfo ::= SEQUENCE {
       eContentType ContentType,
-      eContent [0] EXPLICIT OCTET STRING OPTIONAL }
+      eContent [0] EXPLICIT OCTET STRING <em>OPTIONAL</em> }
 
    ContentType ::= OBJECT IDENTIFIER
 
@@ -534,24 +534,24 @@ Table of Contents
 
 <span class="h5"><a class="selflink" name="section-3.1.1.4" href="#section-3.1.1.4">3.1.1.4</a>.  certificates</span>
 
-   This field MUST be present and MUST contain the single EE certificate
+   This field <em>MUST</em> be present and <em>MUST</em> contain the single EE certificate
    of the key pair whose private key value was used to sign the CMS.
-   This MUST NOT be an RPKI certificate, and SHOULD be a certificate
+   This <em>MUST NOT</em> be an RPKI certificate, and <em>SHOULD</em> be a certificate
    that is recognized to attest to the identity of the party that
    created the CMS object.
 
-   This field MAY contain CA certificates that a relying party MAY use
+   This field <em>MAY</em> contain CA certificates that a relying party <em>MAY</em> use
    to validate the EE certificate.
 
 <span class="h5"><a class="selflink" name="section-3.1.1.5" href="#section-3.1.1.5">3.1.1.5</a>.  crls</span>
 
-   This field MUST be present.  The contents of the field are specified
+   This field <em>MUST</em> be present.  The contents of the field are specified
    in [<a href="./rfc5652.html" title="&quot;Cryptographic Message Syntax (CMS)&quot;">RFC5652</a>].  The current Certificate Revocation List (CRL) issued
    by the same CA that issued the EE certificate of the key pair whose
-   private key value was used to sign the CMS MUST be present in this
-   field.  This field MAY contain CRLs issued by other CAs covering CA
+   private key value was used to sign the CMS <em>MUST</em> be present in this
+   field.  This field <em>MAY</em> contain CRLs issued by other CAs covering CA
    certificates included in the certificates field of the CMS object
-   (see <a href="#section-3.1.1.4">Section 3.1.1.4</a>).  This field MUST NOT contain any other CRLs.
+   (see <a href="#section-3.1.1.4">Section 3.1.1.4</a>).  This field <em>MUST NOT</em> contain any other CRLs.
 
 <span class="h5"><a class="selflink" name="section-3.1.1.6" href="#section-3.1.1.6">3.1.1.6</a>.  SignerInfo</span>
 
@@ -561,14 +561,14 @@ Table of Contents
      version CMSVersion,
      sid SignerIdentifier,
      digestAlgorithm DigestAlgorithmIdentifier,
-     signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+     signedAttrs [0] IMPLICIT SignedAttributes <em>OPTIONAL</em>,
      signatureAlgorithm SignatureAlgorithmIdentifier,
      signature SignatureValue,
-     unsignedAttrs [1] IMPLICIT UnsignedAttributes OPTIONAL }
+     unsignedAttrs [1] IMPLICIT UnsignedAttributes <em>OPTIONAL</em> }
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.1" href="#section-3.1.1.6.1">3.1.1.6.1</a>.  version</span>
 
-   The version number MUST be 3, corresponding with the choice of
+   The version number <em>MUST</em> be 3, corresponding with the choice of
    SubjectKeyIdentifier for the sid.
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.2" href="#section-3.1.1.6.2">3.1.1.6.2</a>.  sid</span>
@@ -588,12 +588,12 @@ Table of Contents
 <span class="grey"><a href="./rfc6492.html">RFC 6492</a>                  ResCert Provisioning             February 2012</span>
 
 
-   In this profile, the sid MUST be the SubjectKeyIdentifier that
+   In this profile, the sid <em>MUST</em> be the SubjectKeyIdentifier that
    appears in the EE certificate carried in the CMS certificates field.
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.3" href="#section-3.1.1.6.3">3.1.1.6.3</a>.  digestAlgorithm</span>
 
-   The digestAlgorithm MUST consist of the OID of a digest algorithm
+   The digestAlgorithm <em>MUST</em> consist of the OID of a digest algorithm
    that conforms to the RPKI Algorithms and Key Size Profile
    specification [<a href="./rfc6485.html" title="&quot;The Profile for Algorithms and Key Sizes for Use in the Resource Public Key Infrastructure (RPKI)&quot;">RFC6485</a>].
 
@@ -611,21 +611,21 @@ Table of Contents
 
       AttributeValue ::= ANY
 
-   The signedAttr element MUST be present and MUST include the content-
+   The signedAttr element <em>MUST</em> be present and <em>MUST</em> include the content-
    type and message-digest attributes [<a href="./rfc5652.html" title="&quot;Cryptographic Message Syntax (CMS)&quot;">RFC5652</a>].  If either the signing-
    time [<a href="./rfc5652.html" title="&quot;Cryptographic Message Syntax (CMS)&quot;">RFC5652</a>] attribute or the binary-signing-time attribute
-   [<a href="./rfc6019.html" title="&quot;BinaryTime: An Alternate Format for Representing Date and Time in ASN.1&quot;">RFC6019</a>], or both attributes, are present, they MUST also be
-   included as the SignedAttributes.  Other signed attributes MUST NOT
+   [<a href="./rfc6019.html" title="&quot;BinaryTime: An Alternate Format for Representing Date and Time in ASN.1&quot;">RFC6019</a>], or both attributes, are present, they <em>MUST</em> also be
+   included as the SignedAttributes.  Other signed attributes <em>MUST NOT</em>
    be included.
 
-   The signedAttr MUST include only a single instance of any particular
+   The signedAttr <em>MUST</em> include only a single instance of any particular
    attribute.  Additionally, even though the syntax allows for a SET OF
-   AttributeValue, in this profile, the attrValues MUST consist of only
+   AttributeValue, in this profile, the attrValues <em>MUST</em> consist of only
    a single AttributeValue.
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.4.1" href="#section-3.1.1.6.4.1">3.1.1.6.4.1</a>.  Content-Type Attribute</span>
 
-   The content-type attribute MUST be present.  The attrType OID for the
+   The content-type attribute <em>MUST</em> be present.  The attrType OID for the
    content-type attribute is 1.2.840.113549.1.9.3.
 
       id-contentType OBJECT IDENTIFIER ::= { iso(1) member-body(2)
@@ -644,14 +644,14 @@ Table of Contents
 <span class="grey"><a href="./rfc6492.html">RFC 6492</a>                  ResCert Provisioning             February 2012</span>
 
 
-   The attrValues for the content-type attribute MUST match the
+   The attrValues for the content-type attribute <em>MUST</em> match the
    eContentType in the EncapsulatedContentInfo.  This OID value is
    defined as id-ct-xml and has the numerical value of
    1.2.840.113549.1.9.16.1.28.
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.4.2" href="#section-3.1.1.6.4.2">3.1.1.6.4.2</a>.  Message-Digest Attribute</span>
 
-   The message-digest attribute MUST be present.  The attrType OID for
+   The message-digest attribute <em>MUST</em> be present.  The attrType OID for
    the message-digest attribute is 1.2.840.113549.1.9.4.
 
       id-messageDigest OBJECT IDENTIFIER ::= { iso(1) member-body(2)
@@ -665,7 +665,7 @@ Table of Contents
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.4.3" href="#section-3.1.1.6.4.3">3.1.1.6.4.3</a>.  Signing-Time Attribute</span>
 
-   The signing-time attribute MAY be present.  The attrType OID for the
+   The signing-time attribute <em>MAY</em> be present.  The attrType OID for the
    signing-time attribute is 1.2.840.113549.1.9.5.
 
       id-signingTime OBJECT IDENTIFIER ::= { iso(1) member-body(2)
@@ -684,8 +684,8 @@ Table of Contents
    signing-time attribute can be found in <a href="./rfc5652.html#section-11.3">Section&nbsp;11.3 of [RFC5652]</a>.
 
    Either one of the signing-time attribute or the binary-signing-time
-   attribute, or both attributes, MUST be present.  If both the signing-
-   time and binary-signing-time attributes are present, they MUST both
+   attribute, or both attributes, <em>MUST</em> be present.  If both the signing-
+   time and binary-signing-time attributes are present, they <em>MUST</em> both
    represent the same underlying time value.
 
 
@@ -702,7 +702,7 @@ Table of Contents
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.4.4" href="#section-3.1.1.6.4.4">3.1.1.6.4.4</a>.  Binary-Signing-Time Attribute</span>
 
-   The binary-signing-time attribute MAY be present.  The attrType OID
+   The binary-signing-time attribute <em>MAY</em> be present.  The attrType OID
    for the binary-signing-time attribute is 1.2.840.113549.1.9.16.2.46.
 
       id-aa-binarySigningTime OBJECT IDENTIFIER ::= { iso(1)
@@ -719,13 +719,13 @@ Table of Contents
    can be found at [<a href="./rfc6019.html" title="&quot;BinaryTime: An Alternate Format for Representing Date and Time in ASN.1&quot;">RFC6019</a>].
 
    Either one of the signing-time or the binary-signing-time attributes,
-   or both attributes, MUST be present.  If both the signing-time and
-   binary-signing-time attributes are present, they MUST both represent
+   or both attributes, <em>MUST</em> be present.  If both the signing-time and
+   binary-signing-time attributes are present, they <em>MUST</em> both represent
    the same underlying time value.
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.5" href="#section-3.1.1.6.5">3.1.1.6.5</a>.  signatureAlgorithm Attribute</span>
 
-   The signatureAlgorithm MUST conform to the RPKI Algorithms and Key
+   The signatureAlgorithm <em>MUST</em> conform to the RPKI Algorithms and Key
    Size Profile specification [<a href="./rfc6485.html" title="&quot;The Profile for Algorithms and Key Sizes for Use in the Resource Public Key Infrastructure (RPKI)&quot;">RFC6485</a>].
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.6" href="#section-3.1.1.6.6">3.1.1.6.6</a>.  signature Attribute</span>
@@ -739,12 +739,12 @@ Table of Contents
 
 <span class="h6"><a class="selflink" name="section-3.1.1.6.7" href="#section-3.1.1.6.7">3.1.1.6.7</a>.  UnsignedAttributes Attribute</span>
 
-   unsignedAttrs MUST be omitted.
+   unsignedAttrs <em>MUST</em> be omitted.
 
 <span class="h4"><a class="selflink" name="section-3.1.2" href="#section-3.1.2">3.1.2</a>.  CMS Object Validation</span>
 
    Before a recipient of a CMS signed object can use the content of the
-   object, the recipient MUST validate the signed object by verifying
+   object, the recipient <em>MUST</em> validate the signed object by verifying
    that all of the following conditions hold.  A recipient may perform
    these checks in any order.
 
@@ -830,9 +830,9 @@ Table of Contents
    5.  The time represented by the signing-time attribute or the binary-
        signing-time attribute is greater than or equal to the time value
        passed in previously valid CMS objects that were passed from the
-       same originator to this recipient.  This signing time value MAY
+       same originator to this recipient.  This signing time value <em>MAY</em>
        lie within the Validity Time of the EE certificate, but the EE
-       certificate SHOULD NOT be considered invalid if this is not the
+       certificate <em>SHOULD NOT</em> be considered invalid if this is not the
        case when all other checks listed here are passed.
 
 <span class="h4"><a class="selflink" name="section-3.1.3" href="#section-3.1.3">3.1.3</a>.  ASN.1 Specification of the CMS Signed Object</span>
@@ -872,8 +872,8 @@ Table of Contents
         version CMSVersion,
         digestAlgorithms DigestAlgorithmIdentifiers,
         encapContentInfo EncapsulatedContentInfo,
-        certificates [0] IMPLICIT CertificateSet OPTIONAL,
-        crls [1] IMPLICIT RevocationInfoChoices OPTIONAL,
+        certificates [0] IMPLICIT CertificateSet <em>OPTIONAL</em>,
+        crls [1] IMPLICIT RevocationInfoChoices <em>OPTIONAL</em>,
         signerInfos SignerInfos }
 
       DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
@@ -884,10 +884,10 @@ Table of Contents
         version CMSVersion,
         sid SignerIdentifier,
         digestAlgorithm DigestAlgorithmIdentifier,
-        signedAttrs [0] IMPLICIT SignedAttributes OPTIONAL,
+        signedAttrs [0] IMPLICIT SignedAttributes <em>OPTIONAL</em>,
         signatureAlgorithm SignatureAlgorithmIdentifier,
         signature SignatureValue,
-        unsignedAttrs [1] IMPLICIT UnsignedAttributes OPTIONAL }
+        unsignedAttrs [1] IMPLICIT UnsignedAttributes <em>OPTIONAL</em> }
 
       SignerIdentifier ::= CHOICE {
         issuerAndSerialNumber IssuerAndSerialNumber,
@@ -990,7 +990,7 @@ Table of Contents
       "issue", "issue_response", "revoke", "revoke_response", and
       "error_response".
 
-   Conforming parsers MUST reject any document with a version number
+   Conforming parsers <em>MUST</em> reject any document with a version number
    they do not understand or with any elements or attributes they do not
    understand.  Servers must generate an error response when receiving
    such a request.  Clients should generate an error when receiving such
@@ -1026,7 +1026,7 @@ Table of Contents
 
    7.  Check that the value of the version number of the message is 1.
 
-   These checks SHOULD be applied in the order specified here.
+   These checks <em>SHOULD</em> be applied in the order specified here.
 
 
 
@@ -1036,16 +1036,16 @@ Table of Contents
 <span class="grey"><a href="./rfc6492.html">RFC 6492</a>                  ResCert Provisioning             February 2012</span>
 
 
-   Any errors encountered while checking items 1 through 7 MUST cause a
+   Any errors encountered while checking items 1 through 7 <em>MUST</em> cause a
    server to generate an "HTTP 400 Bad Request" response to the HTTP
-   POST operation.  An error in step 7 MUST cause the server to generate
+   POST operation.  An error in step 7 <em>MUST</em> cause the server to generate
    a "Request-Not-Performed" error response.  Any errors encountered in
-   these tests by a client SHOULD cause the client to generate an error.
+   these tests by a client <em>SHOULD</em> cause the client to generate an error.
 
-   A server MAY perform flow control on the rate of processed requests.
-   Requests not processed due to such a flow control constraint MAY
+   A server <em>MAY</em> perform flow control on the rate of processed requests.
+   Requests not processed due to such a flow control constraint <em>MAY</em>
    cause the server to generate an "HTTP 503 Service Unavailable"
-   response.  An HTTP 503 response MAY include an HTTP Retry-After:
+   response.  An HTTP 503 response <em>MAY</em> include an HTTP Retry-After:
    header as a hint to the client.
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  Control - Resource Class Query</span>
@@ -1132,10 +1132,10 @@ Table of Contents
    ---------------------------------------------------------------
 
    Where the client has been allocated resources from multiple resource
-   classes, the response MUST contain multiple class elements that
+   classes, the response <em>MUST</em> contain multiple class elements that
    correspond to the complete set of the issuer's resource classes where
    the client holds allocated resources.  Those issuer's resource
-   classes where the client holds no allocated resources MUST NOT be
+   classes where the client holds no allocated resources <em>MUST NOT</em> be
    included in the response.
 
    Where the issuer has issued multiple certificates in a resource class
@@ -1164,8 +1164,8 @@ Table of Contents
       a pointer to the issuer's CA certificate (i.e., a reference to the
       immediate superior certificate, being the CA-enabled certificate
       where the issuer is the certificate's subject).  Its value is a
-      comma-separated list of URIs, of which at least one MUST be an
-      rsync URI [<a href="./rfc5781.html" title="&quot;The rsync URI Scheme&quot;">RFC5781</a>].  Any comma values within a URI MUST be
+      comma-separated list of URIs, of which at least one <em>MUST</em> be an
+      rsync URI [<a href="./rfc5781.html" title="&quot;The rsync URI Scheme&quot;">RFC5781</a>].  Any comma values within a URI <em>MUST</em> be
       escaped ("%2C").  The ordering of the list may be interpreted by
       the client as a relative preference for access methods as
       expressed by the publisher of this certificate.
@@ -1237,13 +1237,13 @@ Table of Contents
       for this particular client within the scope of this resource
       class, should the client request a new certificate.  The time
       format used for the value of this attribute is specified as
-      defined in ISO 8601 [ISO.8601:2004], and MUST use UTC time
+      defined in ISO 8601 [ISO.8601:2004], and <em>MUST</em> use UTC time
       represented as YYYY-MM-DDThh:mm:ssZ (e.g., 2007-11-29T04:40:00Z).
       If the client's certificate has a validity notAfter time that is
-      different from this time, then the client SHOULD request a new
+      different from this time, then the client <em>SHOULD</em> request a new
       certificate to be issued for this resource class.
 
-   suggested_sia_head:  (OPTIONAL)
+   suggested_sia_head:  (<em>OPTIONAL</em>)
       If this field is present, then its value is a directory URI that
       indicates a repository publication point that the server has made
       available to the client to use for the client's collection of
@@ -1280,28 +1280,28 @@ Table of Contents
       subordinate certificates that are issued by the subject.
       According to the Resource Certificate Profile [<a href="./rfc6487.html" title="&quot;A Profile for X.509 PKIX Resource Certificates&quot;">RFC6487</a>], the AIA
       field is a non-empty (contains a minimum of 1 element) list of
-      URI's, one of which MUST be an rsync URI [<a href="./rfc5781.html" title="&quot;The rsync URI Scheme&quot;">RFC5781</a>].  The order of
+      URI's, one of which <em>MUST</em> be an rsync URI [<a href="./rfc5781.html" title="&quot;The rsync URI Scheme&quot;">RFC5781</a>].  The order of
       URI's in the AIA field may be interpreted as the publisher's
       relative preference for access methods for this certificate.  The
       cert_url conforms to this AIA specification.  Its value is a
-      comma-separated list of URIs, one of which MUST be an rsync URI.
-      Any comma values within a URI MUST be escaped ("%2C").
+      comma-separated list of URIs, one of which <em>MUST</em> be an rsync URI.
+      Any comma values within a URI <em>MUST</em> be escaped ("%2C").
 
    req_resource_set_as:
       the set of AS numbers that were specified in the corresponding
       original certificate request that defined the maximal requested
       span of the certified AS number set, following the syntax
       described above.  If this attribute was present in the certificate
-      request, then the attribute MUST be present in this response;
-      otherwise, it MUST NOT be present.
+      request, then the attribute <em>MUST</em> be present in this response;
+      otherwise, it <em>MUST NOT</em> be present.
 
    req_resource_set_ipv4:
       the set of IPv4 addresses that were specified in the corresponding
       original certificate request that defined the maximal requested
       span of the certified IPv4 address set, following the syntax
       described above.  If this attribute was present in the certificate
-      request, then the attribute MUST be present in this response;
-      otherwise, it MUST NOT be present.
+      request, then the attribute <em>MUST</em> be present in this response;
+      otherwise, it <em>MUST NOT</em> be present.
 
    req_resource_set_ipv6:
       the set of IPv6 addresses that were specified in the corresponding
@@ -1316,8 +1316,8 @@ Table of Contents
 <span class="grey"><a href="./rfc6492.html">RFC 6492</a>                  ResCert Provisioning             February 2012</span>
 
 
-      request, then the attribute MUST be present in this response;
-      otherwise, it MUST NOT be present.
+      request, then the attribute <em>MUST</em> be present in this response;
+      otherwise, it <em>MUST NOT</em> be present.
 
    [<a name="ref-certificate" id="ref-certificate">certificate</a>]
       value is the Base64 encoding of the DER-encoded certificate.
@@ -1350,7 +1350,7 @@ Table of Contents
 
    ---------------------------------------------------------------
 
-   The client MUST use different key pairs for each distinct resource
+   The client <em>MUST</em> use different key pairs for each distinct resource
    class.
 
    The req_resource_set attributes are optional in the request.
@@ -1389,17 +1389,17 @@ Table of Contents
    class_name:
       value is the server's identifier of a resource class.
 
-   req_resource_set_as:  (OPTIONAL)
+   req_resource_set_as:  (<em>OPTIONAL</em>)
       the set of AS numbers that define the maximal requested span of
       the certified AS number set, formatted as per the resource_set_as
       attribute of the resource class list response.
 
-   req_resource_set_ipv4:  (OPTIONAL)
+   req_resource_set_ipv4:  (<em>OPTIONAL</em>)
       the set of IPv4 addresses that define the maximal requested span
       of the certified IPv4 address set, formatted as per the
       resource_set_ipv4 attribute of the resource class list response.
 
-   req_resource_set_ipv6:  (OPTIONAL)
+   req_resource_set_ipv6:  (<em>OPTIONAL</em>)
       the set of IPv6 addresses that define the maximal requested span
       of the certified IPv6 address set, formatted as per the
       resource_set_ipv6 attribute of the resource class list response.
@@ -1415,11 +1415,11 @@ Table of Contents
 
    The response to this request is a Certificate Issuance Response if
    the request can be processed online.  If the request cannot be
-   undertaken immediately, then the server MUST respond with a "Request-
+   undertaken immediately, then the server <em>MUST</em> respond with a "Request-
    Not-Performed" message, using the appropriate error code:
 
    o  If the resource class is not defined by the server, then the
-      server MUST return error code 1201.
+      server <em>MUST</em> return error code 1201.
 
 
 
@@ -1429,24 +1429,24 @@ Table of Contents
 
 
    o  If the client holds no resources in a defined resource class, then
-      the server MUST return error code 1202 and not proceed with the
+      the server <em>MUST</em> return error code 1202 and not proceed with the
       request.
 
    o  If the certificate request payload is badly formed, then the
-      server MUST return error code 1203.
+      server <em>MUST</em> return error code 1203.
 
    o  If the public key used in the certificate request implies that the
       client is attempting to use identical key pairs for multiple
-      resource classes, then the server MUST respond with a 1204 error
+      resource classes, then the server <em>MUST</em> respond with a 1204 error
       code.
 
    o  If the certificate issuer uses an off-line process to undertake
       certificate issuance, and the server cannot directly respond to
       the certificate issuance request with an issued certificate, then
-      the certificate issuer MUST respond to the first instance of this
+      the certificate issuer <em>MUST</em> respond to the first instance of this
       request with an error code 1104 to indicate that the request is
       being processed asynchronously.  Subsequent repetitions of this
-      request while the off-line actions are being undertaken SHOULD
+      request while the off-line actions are being undertaken <em>SHOULD</em>
       cause a response with error code 1101.  In this context, where
       off-line processes are invoked for certificate issuance, if the
       certificate issuer determines in processing the request that the
@@ -1458,11 +1458,11 @@ Table of Contents
       request.
 
    Note that a client, when receiving a 1104 response to a certificate
-   issuance request, MAY periodically resubmit the request, in which
-   case the client MUST receive an error code 1101 response while the
+   issuance request, <em>MAY</em> periodically resubmit the request, in which
+   case the client <em>MUST</em> receive an error code 1101 response while the
    request is being processed, and a Certificate Issuance Response when
    the certificate issuance process has completed.  In such
-   circumstances, a client SHOULD limit the frequency of such repeated
+   circumstances, a client <em>SHOULD</em> limit the frequency of such repeated
    requests to no more than 1 request in each 24-hour interval.
 
 
@@ -1560,7 +1560,7 @@ Table of Contents
    class with this client's subject name and the provided SKI value to
    be marked as revoked, causing the issued certificates to be withdrawn
    from the publication repository and to be listed in the server's
-   subsequent CRLs within this resource class.  The issuer MUST ensure
+   subsequent CRLs within this resource class.  The issuer <em>MUST</em> ensure
    that all certificates to be revoked were issued with the requesting
    client as the certificate's subject.
 
@@ -1653,14 +1653,14 @@ Table of Contents
 
 
    description:
-      value is a text field.  This element MAY be present.  It's value
+      value is a text field.  This element <em>MAY</em> be present.  It's value
       has no defined meaning within the scope of this protocol, and
       implementations may assume that some form of human-readable text
       may be used here.  If the HTTP request that triggered this error
       response includes an Accept-Language header as defined in <a href="#section-14.4">Section</a>
-      <a href="#section-14.4">14.4</a> of the HTTP/1.1 specification [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>], then the server MAY
+      <a href="#section-14.4">14.4</a> of the HTTP/1.1 specification [<a href="./rfc2616.html" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>], then the server <em>MAY</em>
       include a second description element using the highest ranked
-      preferred language of the client.  The en-US description MUST
+      preferred language of the client.  The en-US description <em>MUST</em>
       always be included if the element is present.
 
    The error code set is:
@@ -1684,7 +1684,7 @@ Table of Contents
    of this protocol.
 
       Note: As discussed in [<a href="#ref-XML" title="&quot;Namespaces in XML 1.0 (Third Edition)&quot;">XML</a>], "the namespace name, to serve its
-      intended purpose, SHOULD have the characteristics of uniqueness
+      intended purpose, <em>SHOULD</em> have the characteristics of uniqueness
       and persistence.  It is not a goal that it be directly usable for
       retrieval of a schema (if any exists)".
 

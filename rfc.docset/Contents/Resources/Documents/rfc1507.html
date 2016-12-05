@@ -1813,9 +1813,9 @@ Table of Contents
         ReadPrinCertRequest ::= [4] IMPLICIT SEQUENCE {
              flags [0] BIT STRING DEFAULT {},
              index [1] IMPLICIT INTEGER DEFAULT 0,
-             resolveFrom [2] Name OPTIONAL,
+             resolveFrom [2] Name <em>OPTIONAL</em>,
              principal Name,
-             crossCertIssuers ListOfIssuers OPTIONAL
+             crossCertIssuers ListOfIssuers <em>OPTIONAL</em>
              }
         ListOfIssuers ::= SEQUENCE OF Name
 
@@ -1851,11 +1851,11 @@ Table of Contents
 
         ReadPrinCertResponse ::= [5] IMPLICIT SEQUENCE {
              status [0] IMPLICIT CDCstatus DEFAULT success,
-             index [1] INTEGER OPTIONAL,
-             resolveTo [2] Name OPTIONAL,
+             index [1] INTEGER <em>OPTIONAL</em>,
+             resolveTo [2] Name <em>OPTIONAL</em>,
              certSequence [3] IMPLICIT CertSequence,
-             indexInvalidator [4] OCTET STRING (SIZE(8)) OPTIONAL,
-             flags [5] BIT STRING OPTIONAL
+             indexInvalidator [4] OCTET STRING (SIZE(8)) <em>OPTIONAL</em>,
+             flags [5] BIT STRING <em>OPTIONAL</em>
              }
         CertSequence ::= SEQUENCE OF Certificate
 
@@ -1931,11 +1931,11 @@ Table of Contents
 
         ReadOutgoingCertResponse::= [7] IMPLICIT SEQUENCE {
              status [0] IMPLICIT CDCStatus DEFAULT success,
-             index [1] INTEGER OPTIONAL,
+             index [1] INTEGER <em>OPTIONAL</em>,
              certSequence [2] IMPLICIT CertSequence,
              indexInvalidator [3] OCTET STRING (SIZE(8))
-        OPTIONAL,
-             flags [4] BIT STRING OPTIONAL
+        <em>OPTIONAL</em>,
+             flags [4] BIT STRING <em>OPTIONAL</em>
              }
 
         CertSequence ::= SEQUENCE OF Certificate
@@ -1967,7 +1967,7 @@ Table of Contents
              flags [0] BIT STRING DEFAULT {}
              principal Name,
              logindata [2] BIT STRING DEFAULT {},
-             token [3] BIT STRING OPTIONAL
+             token [3] BIT STRING <em>OPTIONAL</em>
              }
 
 
@@ -2050,7 +2050,7 @@ Table of Contents
    ReadCredentialProtectedResponse::=[16] IMPLICIT SEQUENCE {
            status [0] IMPLICIT CDCStatus DEFAULT success,
            encryptedCredential [1] BIT STRING,
-           flags [2] BIT STRING OPTIONAL
+           flags [2] BIT STRING <em>OPTIONAL</em>
            }
 
    status indicates that the request succeeded or the cause of the
@@ -2075,7 +2075,7 @@ Table of Contents
 
         WriteCredentialRequest ::= [17] IMPLICIT SEQUENCE {
              flags [0] BIT STRING DEFAULT {},
-             authtoken [2] BIT STRING OPTIONAL,
+             authtoken [2] BIT STRING <em>OPTIONAL</em>,
              principal [3] Name,
              logindata [4] BIT STRING DEFAULT {},
              furtherSensitiveStuff [5] BIT STRING
@@ -5269,8 +5269,8 @@ Table of Contents
            valid           Validity,
            subject         Name,
            subjectPublicKey        SubjectPublicKeyInfo,
-           issuerUID [1]   IMPLICIT UID OPTIONAL,  -- v1992
-           subjectUID [2]  IMPLICIT UID OPTIONAL   -- v1992
+           issuerUID [1]   IMPLICIT UID <em>OPTIONAL</em>,  -- v1992
+           subjectUID [2]  IMPLICIT UID <em>OPTIONAL</em>   -- v1992
            }
 
            --The Algorithm Identifier for both the signature field
@@ -5297,7 +5297,7 @@ Table of Contents
 
    AlgorithmIdentifier ::= SEQUENCE {
            algorithm       OBJECT IDENTIFIER,
-           parameter       ANY DEFINED BY algorithm OPTIONAL
+           parameter       ANY DEFINED BY algorithm <em>OPTIONAL</em>
            }
 
    --The algorithms we support in one context or another are:
@@ -5366,15 +5366,15 @@ Table of Contents
 
    DASSPrivateKey ::= SEQUENCE {
            p       INTEGER ,                      -- prime p
-           q [0]   IMPLICIT INTEGER OPTIONAL ,    -- prime q
-           mod[1]  IMPLICIT INTEGER OPTIONAL,     -- modulus
-           exp [2] IMPLICIT INTEGER OPTIONAL,     -- public exponent
-           dp [3]  IMPLICIT INTEGER OPTIONAL ,    -- exponent mod p
-           dq [4]  IMPLICIT INTEGER OPTIONAL ,    -- exponent mod q
-           cr [5]  IMPLICIT INTEGER OPTIONAL ,    -- Chinese
+           q [0]   IMPLICIT INTEGER <em>OPTIONAL</em> ,    -- prime q
+           mod[1]  IMPLICIT INTEGER <em>OPTIONAL</em>,     -- modulus
+           exp [2] IMPLICIT INTEGER <em>OPTIONAL</em>,     -- public exponent
+           dp [3]  IMPLICIT INTEGER <em>OPTIONAL</em> ,    -- exponent mod p
+           dq [4]  IMPLICIT INTEGER <em>OPTIONAL</em> ,    -- exponent mod q
+           cr [5]  IMPLICIT INTEGER <em>OPTIONAL</em> ,    -- Chinese
                                               --remainder coefficient
-           uid[6]  IMPLICIT UID OPTIONAL,
-           more[7] IMPLICIT BIT STRING OPTIONAL   --Reserved for
+           uid[6]  IMPLICIT UID <em>OPTIONAL</em>,
+           more[7] IMPLICIT BIT STRING <em>OPTIONAL</em>   --Reserved for
                                                   --future use
            }
 
@@ -5399,7 +5399,7 @@ Table of Contents
                     -- first bit `delegation required'
                     -- second bit `Mutual Authentication Requested'
            whenSigned      LongPosixTime ,
-           channelId  [3]  IMPLICIT ChannelId OPTIONAL
+           channelId  [3]  IMPLICIT ChannelId <em>OPTIONAL</em>
                    -- channel bindings are included when doing the
                    -- signature, but excluded when transmitting the
                    -- Authenticator
@@ -5453,7 +5453,7 @@ Table of Contents
                            IMPLICIT SignatureOnEncryptedKey
                                 -- present if not delegating
                    } ,
-           userName [3]    IMPLICIT Name OPTIONAL
+           userName [3]    IMPLICIT Name <em>OPTIONAL</em>
                                 -- name of user principal
            }
 
@@ -5474,19 +5474,19 @@ Table of Contents
    NodeClaimant ::= SEQUENCE {
            nodeTicket Signature[0] IMPLICIT
                    SignatureOnEncryptedKeyandUserName,
-           nodeName  [1]   IMPLICIT Name OPTIONAL,
-           username  [2]   IMPLICIT LocalUserName OPTIONAL
+           nodeName  [1]   IMPLICIT Name <em>OPTIONAL</em>,
+           username  [2]   IMPLICIT LocalUserName <em>OPTIONAL</em>
            }
 
    AuthenticationToken ::= SEQUENCE {
            version [0]    IMPLICIT VersionNumber DEFAULT versionZero,
            authenticator [1]       IMPLICIT Authenticator ,
-           encryptedKey  [2]       IMPLICIT EncryptedKey OPTIONAL ,
+           encryptedKey  [2]       IMPLICIT EncryptedKey <em>OPTIONAL</em> ,
                     -- required if initiating token
-           userclaimant  [3]       IMPLICIT UserClaimant OPTIONAL ,
+           userclaimant  [3]       IMPLICIT UserClaimant <em>OPTIONAL</em> ,
                     -- missing if only doing node authentication
                     -- required if not doing node authentication
-           nodeclaimant [4]        IMPLICIT NodeClaimant OPTIONAL
+           nodeclaimant [4]        IMPLICIT NodeClaimant <em>OPTIONAL</em>
                     -- missing if only doing principal authentication
                     -- required if not doing principal authentication
            }
@@ -6486,7 +6486,7 @@ Imported ASN.1 definitions
 
    AlgorithmIdentifier ::= SEQUENCE {
            algorithm       OBJECT IDENTIFIER ,
-                       parameters ANY DEFINED BY algorithm OPTIONAL}
+                       parameters ANY DEFINED BY algorithm <em>OPTIONAL</em>}
 
    ALGORITHM MACRO BEGIN TYPE NOTATION   ::= "PARAMETER" type VALUE
    NOTATION  ::= value (VALUE OBJECT IDENTIFIER) END -- of ALGORITHM

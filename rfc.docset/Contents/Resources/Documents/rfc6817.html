@@ -403,8 +403,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Design Goals</span>
@@ -504,7 +504,7 @@ Table of Contents
 
    A LEDBAT sender uses a congestion window (cwnd) to gate the amount of
    data that the sender can send into the network in one round-trip time
-   (RTT).  A sender MAY maintain its cwnd in bytes or in packets; this
+   (RTT).  A sender <em>MAY</em> maintain its cwnd in bytes or in packets; this
    document uses cwnd in bytes.  LEDBAT requires that each data segment
    carries a "timestamp" from the sender, based on which the receiver
    computes the one-way delay from the sender and sends this computed
@@ -550,8 +550,8 @@ Table of Contents
    A receiver may choose to delay sending an ACK and may combine
    acknowledgements for more than one data packet into a single ACK
    packet, as with delayed ACKs in standard TCP, for example.  In such
-   cases, the receiver MAY bundle all the delay samples into one ACK
-   packet and MUST transmit the samples in the order generated.  When
+   cases, the receiver <em>MAY</em> bundle all the delay samples into one ACK
+   packet and <em>MUST</em> transmit the samples in the order generated.  When
    multiple delay samples are bundled within a single ACK, the sender
    applies these bundled delay samples at once during its cwnd
    adjustment (discussed in the next section).  Since the sender's
@@ -649,7 +649,7 @@ Table of Contents
        # flightsize is the amount of data outstanding before this ACK
        #    was received and is updated later;
        # bytes_newly_acked is the number of bytes that this ACK
-       #    newly acknowledges, and it MAY be set to MSS.
+       #    newly acknowledges, and it <em>MAY</em> be set to MSS.
 
        for each delay sample in the acknowledgement:
            delay = acknowledgement.delay
@@ -681,7 +681,7 @@ update_CTO()
     # implements an RTT estimation mechanism using data
     # transmission times and ACK reception times,
     # which is used to implement a congestion timeout (CTO).
-    # If implementing LEDBAT in TCP, sender SHOULD use
+    # If implementing LEDBAT in TCP, sender <em>SHOULD</em> use
     # mechanisms described in <a href="./rfc6298.html">RFC 6298</a> [<a href="./rfc6298.html" title="&quot;Computing TCP's Retransmission Timer&quot;">RFC6298</a>],
     # and the CTO would be the same as the retransmission timeout (RTO).
 
@@ -714,7 +714,7 @@ update_CTO()
 
    The LEDBAT sender seeks to extract the actual delay estimate from the
    current_delay samples by implementing FILTER() to eliminate any
-   outliers.  Different types of filters MAY be used for FILTER() -- a
+   outliers.  Different types of filters <em>MAY</em> be used for FILTER() -- a
    NULL filter, that does not filter at all, is a reasonable candidate
    as well, since LEDBAT's use of a linear controller for cwnd increase
    and decrease may allow it to recover quickly from errors induced by
@@ -781,12 +781,12 @@ update_CTO()
    or without a timer.  An implementation choosing to avoid timers may
    consider using a "next-time-to-send" variable, set based on the CTO,
    to control the earliest time a sender may transmit without receiving
-   any ACKs.  A maximum value MAY be placed on the CTO, and if placed,
-   it MUST be at least 60 seconds.
+   any ACKs.  A maximum value <em>MAY</em> be placed on the CTO, and if placed,
+   it <em>MUST</em> be at least 60 seconds.
 
 <span class="h3"><a class="selflink" name="section-2.5" href="#section-2.5">2.5</a>.  Parameter Values</span>
 
-   TARGET MUST be 100 milliseconds or less, and this choice of value is
+   TARGET <em>MUST</em> be 100 milliseconds or less, and this choice of value is
    explained further in <a href="#section-3.3">Section 3.3</a>.  Note that using the same TARGET
    value across LEDBAT flows enables equitable sharing of the bottleneck
    bandwidth.  A flow with a higher TARGET value than other competing
@@ -795,14 +795,14 @@ update_CTO()
    implementing a relative priority between two competing LEDBAT flows
    by setting a higher TARGET value for the higher-priority flow.
 
-   ALLOWED_INCREASE SHOULD be 1, and it MUST be greater than 0.  An
+   ALLOWED_INCREASE <em>SHOULD</em> be 1, and it <em>MUST</em> be greater than 0.  An
    ALLOWED_INCREASE of 0 results in no cwnd growth at all, and an
    ALLOWED_INCREASE of 1 allows and limits the cwnd increase based on
    flightsize in the previous RTT.  An ALLOWED_INCREASE greater than 1
-   MAY be used when interactions between LEDBAT and the framing protocol
+   <em>MAY</em> be used when interactions between LEDBAT and the framing protocol
    provide a clear reason for doing so.
 
-   GAIN MUST be set to 1 or less.  A GAIN of 1 limits the maximum cwnd
+   GAIN <em>MUST</em> be set to 1 or less.  A GAIN of 1 limits the maximum cwnd
    ramp-up to the same rate as TCP Reno in Congestion Avoidance.  While
    this document specifies the use of the same GAIN for both cwnd
 
@@ -814,17 +814,17 @@ update_CTO()
 
 
    increase (when off_target is greater than zero) and decrease (when
-   off_target is less than zero), implementations MAY use a higher GAIN
+   off_target is less than zero), implementations <em>MAY</em> use a higher GAIN
    for cwnd decrease than for the increase; our justification follows.
    When a competing non-LEDBAT flow increases its sending rate, the
    LEDBAT sender may only measure a small amount of additional delay and
    decrease the sending rate slowly.  To ensure no impact on a competing
    non-LEDBAT flow, the LEDBAT flow should decrease its sending rate at
    least as quickly as the competing flow increases its sending rate.  A
-   higher decrease-GAIN MAY be used to allow the LEDBAT flow to decrease
+   higher decrease-GAIN <em>MAY</em> be used to allow the LEDBAT flow to decrease
    its sending rate faster than the competing flow's increase rate.
 
-   The size of the base_delays list, BASE_HISTORY, SHOULD be 10.  If the
+   The size of the base_delays list, BASE_HISTORY, <em>SHOULD</em> be 10.  If the
    actual base delay decreases, due to a route change, for instance, a
    LEDBAT sender adapts immediately, irrespective of the value of
    BASE_HISTORY.  If the actual base delay increases, however, a LEDBAT
@@ -845,19 +845,19 @@ update_CTO()
    samples in each RTT so as to have statistical confidence in the
    measurements.  While the number of delay samples required for such
    confidence will vary depending on network conditions, the sender
-   SHOULD use at least 4 delay samples in each RTT, unless the number of
+   <em>SHOULD</em> use at least 4 delay samples in each RTT, unless the number of
    samples is lower due to a small congestion window.  The value of
    CURRENT_FILTER will depend on the filter being employed, but
-   CURRENT_FILTER MUST be limited such that samples in the list are not
+   CURRENT_FILTER <em>MUST</em> be limited such that samples in the list are not
    older than an RTT in the past.
 
-   INIT_CWND and MIN_CWND SHOULD both be 2.  An INIT_CWND of 2 should
+   INIT_CWND and MIN_CWND <em>SHOULD</em> both be 2.  An INIT_CWND of 2 should
    help seed FILTER() at the sender when there are no samples at the
    beginning of a flow, and a MIN_CWND of 2 allows FILTER() to use more
    than a single instantaneous delay estimate while not being too
    aggressive.  Slight deviations may be warranted, for example, when
    these values of INIT_CWND and MIN_CWND interact poorly with the
-   framing protocol.  However, INIT_CWND and MIN_CWND MUST be no larger
+   framing protocol.  However, INIT_CWND and MIN_CWND <em>MUST</em> be no larger
    than the corresponding values specified for TCP [<a href="./rfc5681.html" title="&quot;TCP Congestion Control&quot;">RFC5681</a>].
 
 
@@ -1018,7 +1018,7 @@ update_CTO()
 
    A LEDBAT receiver may send an ACK as frequently as one for every data
    packet received or less frequently; LEDBAT does require that the
-   receiver MUST transmit at least one ACK in every RTT.
+   receiver <em>MUST</em> transmit at least one ACK in every RTT.
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Competing with TCP Flows</span>
 

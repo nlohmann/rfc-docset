@@ -367,8 +367,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions and Definitions</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-9" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">9</a>].
 
    Below we list several definitions important to MSRP:
@@ -786,7 +786,7 @@ Table of Contents
 
    Note that URIs returned to the client are effectively secret tokens
    that should be shared only with the other MSRP client in a session.
-   For that reason, the client MUST NOT reuse the same URI for multiple
+   For that reason, the client <em>MUST NOT</em> reuse the same URI for multiple
    sessions, and needs to protect these URIs from eavesdropping.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  New Protocol Elements</span>
@@ -815,7 +815,7 @@ Table of Contents
    response to a successful AUTH request.  This list of URIs can be used
    by the MSRP client that sent the AUTH request to receive MSRP
    requests and to advertise this list of URIs, for example, in a
-   session description.  URIs in the Use-Path header MUST include a
+   session description.  URIs in the Use-Path header <em>MUST</em> include a
    fully qualified domain name (as opposed to a numeric IP address) and
    an explicit port number.
 
@@ -889,16 +889,16 @@ Table of Contents
    authenticates the next relay.
 
    Clients can be configured (typically, through discovery or manual
-   provisioning) with a list of relays they need to use.  They MUST be
+   provisioning) with a list of relays they need to use.  They <em>MUST</em> be
    able to form a connection to the first relay and send an AUTH command
    to get a URI that can be used in a To-Path header.  The client can
    authenticate its first relay by looking at the relay's TLS
-   certificate.  The client MUST authenticate itself to each of its
+   certificate.  The client <em>MUST</em> authenticate itself to each of its
    relays using HTTP Digest authentication [<a href="#ref-1" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">1</a>] (see <a href="#section-9.1">Section 9.1</a> for
    details).
 
    The relay returns a URI, or list of URIs, in the "Use-Path" header of
-   a success response.  Each URI SHOULD be used for only one unique
+   a success response.  Each URI <em>SHOULD</em> be used for only one unique
    session.  These URIs are used by the client in the path attribute
    that is sent in the SDP to set up the session, and in the To-Path
    header of outgoing requests.  To form the To-Path header for outgoing
@@ -941,7 +941,7 @@ Table of Contents
    The initial AUTH request sent to a relay by a client will generally
    not contain an Authorization header, since the client has no
    challenge to which it can respond.  In response to an AUTH request
-   that does not contain an Authorization header, a relay MUST respond
+   that does not contain an Authorization header, a relay <em>MUST</em> respond
    with a "401 Unauthorized" response containing a WWW-Authenticate
    header.  The WWW-Authenticate header is formed as described in <a href="./rfc2617.html">RFC</a>
    <a href="./rfc2617.html">2617</a> [<a href="#ref-1" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">1</a>], with the restrictions and modifications described in
@@ -950,14 +950,14 @@ Table of Contents
    not have multiple protection spaces in MSRP, it is not unreasonable
    to always use the relay's hostname as the realm.
 
-   Upon receiving a 401 response to a request, the client SHOULD fetch
+   Upon receiving a 401 response to a request, the client <em>SHOULD</em> fetch
    the realm from the WWW-Authenticate header in the response and retry
    the request, including an Authorization header with the correct
    credentials for the realm.  The Authorization header is formed as
    described in <a href="./rfc2617.html">RFC 2617</a> [<a href="#ref-1" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">1</a>], with the restrictions and modifications
    described in <a href="#section-9.1">Section 9.1</a>.
 
-   When a client wishes to use more than one relay, it MUST send an AUTH
+   When a client wishes to use more than one relay, it <em>MUST</em> send an AUTH
    request to each relay it wishes to use.  Consider a client A, that
    wishes messages to flow from A to the first relay, R1, then on to a
    second relay, R2.  This client will do a normal AUTH with R1.  It
@@ -966,7 +966,7 @@ Table of Contents
    msrps://R1;tcp msrps://R2;tcp.  R1 will forward this request onward
    to R2.
 
-   When sending an AUTH request, the client MAY add an Expires header to
+   When sending an AUTH request, the client <em>MAY</em> add an Expires header to
    request a MSRP URI that is valid for no longer than the provided
    interval (a whole number of seconds).  The server will include an
 
@@ -1151,11 +1151,11 @@ Table of Contents
    clients whether or not relays are involved.  The specific procedures
    are described in <a href="#section-7">Section 7</a> of the core MSRP protocol.
 
-   As usual, once the next-hop URI is determined, the client MUST find
+   As usual, once the next-hop URI is determined, the client <em>MUST</em> find
    the appropriate address, port, and transport to use and then check if
    there is already a suitable existing connection to the next-hop
-   target.  If so, the client MUST send the request over the most
-   suitable connection.  Suitability MAY be determined by a variety of
+   target.  If so, the client <em>MUST</em> send the request over the most
+   suitable connection.  Suitability <em>MAY</em> be determined by a variety of
    factors such as measured load and local policy, but in most simple
    implementations a connection will be suitable if it exists and is
    active.
@@ -1190,7 +1190,7 @@ Table of Contents
    requests are sent during this probationary period, the server closes
    the connection.  Likewise, if several unsuccessful requests are sent
    during the probation period and no requests are sent successfully,
-   the server SHOULD close the connection.
+   the server <em>SHOULD</em> close the connection.
 
 
 
@@ -1244,9 +1244,9 @@ Table of Contents
 
    Next the relay will generate an MSRP URI that allows messages to be
    forwarded to or from this previous hop.  If the previous hop was a
-   relay authenticated by mutual TLS, then the URI MUST be valid to
+   relay authenticated by mutual TLS, then the URI <em>MUST</em> be valid to
    route across any connection the relay has to the previous hop relay.
-   If the previous hop is a client, then the URI MUST only be valid to
+   If the previous hop is a client, then the URI <em>MUST</em> only be valid to
 
 
 
@@ -1259,14 +1259,14 @@ Table of Contents
 
    route across the same connection over which the AUTH request was
    received.  If the client's connection is closed and then reopened,
-   the URI MUST be invalidated.
+   the URI <em>MUST</em> be invalidated.
 
-   If the AUTH request contains an Expires header, the relay MUST ensure
-   that the URI is invalidated after the expiry time.  The URI MUST
+   If the AUTH request contains an Expires header, the relay <em>MUST</em> ensure
+   that the URI is invalidated after the expiry time.  The URI <em>MUST</em>
    contain at least 64 bits of cryptographically random material so that
    it is not guessable by attackers.  If a relay is requested to forward
-   a message for which the URI is not valid, the relay MUST discard the
-   message and MAY send a REPORT indicating that the AUTH URI was bad.
+   a message for which the URI is not valid, the relay <em>MUST</em> discard the
+   message and <em>MAY</em> send a REPORT indicating that the AUTH URI was bad.
 
    A successful AUTH response returns a Use-Path header that contains an
    MSRP URI that the client can use.  It also returns an Expires header
@@ -1274,21 +1274,21 @@ Table of Contents
    number of seconds).
 
    If a relay receives several unsuccessful AUTH requests from a client
-   that is directly connected to it via TLS, the relay SHOULD terminate
+   that is directly connected to it via TLS, the relay <em>SHOULD</em> terminate
    the corresponding connection.  Similarly, if a relay forwards several
    failed AUTH requests to the same destination that originate from a
-   client that is directly connected to it via TLS, the relay SHOULD
+   client that is directly connected to it via TLS, the relay <em>SHOULD</em>
    terminate the corresponding connection.  Determination of a remote
    AUTH failure can be made by observing an AUTH request containing an
    Authorization header that triggers a 401 response without a
    "stale=TRUE" indication.  These preventive measures apply only to a
-   connection between a relay and a client; a relay SHOULD NOT use
+   connection between a relay and a client; a relay <em>SHOULD NOT</em> use
    excessive AUTH request failures as a reason to terminate a connection
    with another relay.
 
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a>.  Forwarding</span>
 
-   Before any request is forwarded, the relay MUST check that the first
+   Before any request is forwarded, the relay <em>MUST</em> check that the first
    URI in the To-Path header corresponds to a URI that this relay has
    created and handed out in the Use-Path header of an AUTH request.
    Next it verifies that either 1) the next hop is the next hop back
@@ -1316,47 +1316,47 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-6.4.1" href="#section-6.4.1">6.4.1</a>.  Forwarding SEND Requests</span>
 
    If an incoming SEND request contains a Failure-Report header with a
-   value of "yes", an MSRP relay that receives that SEND request MUST
+   value of "yes", an MSRP relay that receives that SEND request <em>MUST</em>
    respond with a final response immediately.  A 200-class response
    indicates the successful receipt of a message fragment but does not
    mean that the message has been forwarded on to the next hop.  The
-   final response to the SEND MUST be sent only to the previous hop,
+   final response to the SEND <em>MUST</em> be sent only to the previous hop,
    which could be an MSRP relay or the original sender of the SEND
    request.
 
-   If the Failure-Report header is "yes", then the relay MUST run a
+   If the Failure-Report header is "yes", then the relay <em>MUST</em> run a
    timer to detect if transmission to the next hop fails.  The timer
    starts when the last byte of the message has been sent to the next
    hop.  If after 30 seconds the next hop has not sent any response,
-   then the relay MUST construct a REPORT with a status code of 408 to
+   then the relay <em>MUST</em> construct a REPORT with a status code of 408 to
    indicate a timeout error happened sending the message, and send the
    REPORT to the original sender of the message.
 
    If the Failure-Report header is "yes" or "partial", and if there is a
    problem processing the SEND request or if an error response is
-   received for that SEND request, then the relay MUST respond with an
+   received for that SEND request, then the relay <em>MUST</em> respond with an
    appropriate error response in a REPORT back to the original source of
    the message.
 
-   The MSRP relay MAY further break up the message fragment received in
+   The MSRP relay <em>MAY</em> further break up the message fragment received in
    the SEND request into smaller fragments and forward them to the next
-   hop in separate SEND requests.  It MAY also combine message fragments
+   hop in separate SEND requests.  It <em>MAY</em> also combine message fragments
    received before or after this SEND request, and forward them out in a
    single SEND request to the next hop identified in the To-Path header.
-   The MSRP relay MUST NOT combine message fragments from SEND requests
+   The MSRP relay <em>MUST NOT</em> combine message fragments from SEND requests
    with different values in the Message-ID header.
 
-   The MSRP relay MAY choose whether to further fragment the message, or
+   The MSRP relay <em>MAY</em> choose whether to further fragment the message, or
    combine message fragments, or send the message as is, based on some
    policy that is administered, or based on the network speed to the
    next hop, or any other mechanism.
 
    If the MSRP relay has knowledge of the byte range that it will
-   transmit to the next hop, it SHOULD update the Byte-Range header in
+   transmit to the next hop, it <em>SHOULD</em> update the Byte-Range header in
    the SEND request appropriately.
 
    Before forwarding the SEND request to the next hop, the MSRP relay
-   MUST inspect the first URI in the To-Path header.  If it indicates
+   <em>MUST</em> inspect the first URI in the To-Path header.  If it indicates
    this relay, the relay removes this URI from the To-Path header and
    inserts this URI in the From-Path header before any other URIs.  If
    it does not indicate this relay, there has been an error in
@@ -1369,9 +1369,9 @@ Table of Contents
 <span class="grey"><a href="./rfc4976.html">RFC 4976</a>                      MSRP Relays                 September 2007</span>
 
 
-   forwarding at a previous hop.  In this case, the relay SHOULD discard
+   forwarding at a previous hop.  In this case, the relay <em>SHOULD</em> discard
    the message, and if the Failure-Report header is set to "yes", the
-   relay SHOULD generate a failure report.
+   relay <em>SHOULD</em> generate a failure report.
 
 <span class="h4"><a class="selflink" name="section-6.4.2" href="#section-6.4.2">6.4.2</a>.  Forwarding Non-SEND Requests</span>
 
@@ -1380,19 +1380,19 @@ Table of Contents
    validation and authorization rules for all requests.  Then the relay
    moves its URI from the beginning of the To-Path headers to the
    beginning of the From-Path header and forwards the request on to the
-   next hop.  If it already has a connection to the next hop, it SHOULD
+   next hop.  If it already has a connection to the next hop, it <em>SHOULD</em>
    use this connection and not form a new connection.  If no suitable
    connection exists, the relay opens a new connection.
 
    Requests with an unknown method are forwarded as if they were REPORT
-   requests.  An MSRP node MAY be configured to block unknown methods
+   requests.  An MSRP node <em>MAY</em> be configured to block unknown methods
    for security reasons.
 
 <span class="h4"><a class="selflink" name="section-6.4.3" href="#section-6.4.3">6.4.3</a>.  Handling Responses</span>
 
    Relays receiving a response first verify that the first URI in the
-   To-Path corresponds to itself; if not, the response SHOULD be
-   dropped.  Likewise, if the message cannot be parsed, the relay MUST
+   To-Path corresponds to itself; if not, the response <em>SHOULD</em> be
+   dropped.  Likewise, if the message cannot be parsed, the relay <em>MUST</em>
    drop the response.  Next the relay determines if there are additional
    URIs in the To-Path.  (For responses to SEND requests there will be
    no additional URIs, whereas responses to AUTH requests have
@@ -1402,11 +1402,11 @@ Table of Contents
    transaction is completed and any timers running on it can be removed.
    If the response is a non 200 response, and the original request was a
    SEND request that had a Failure-Report header with a value other than
-   "no", then the relay MUST send a REPORT indicating the nature of the
+   "no", then the relay <em>MUST</em> send a REPORT indicating the nature of the
    failure.  The response code received by the relay is used to form the
    status line in the REPORT that the relay sends.
 
-   If there are additional URIs in the To-Path header, the relay MUST
+   If there are additional URIs in the To-Path header, the relay <em>MUST</em>
    then move its URI from the To-Path header, insert its URI in front of
    any other URIs in the From-Path header, and forward the response to
    the next URI in the To-Path header.  The relay sends the request over
@@ -1429,9 +1429,9 @@ Table of Contents
 
    Relays should keep connections open as long as possible.  If a
    connection has not been used in a significant time (more than one
-   hour), it MAY be closed.  If the relay runs out of resources and can
-   no longer establish new connections, it SHOULD start closing existing
-   connections.  It MAY choose to close the connections based on a least
+   hour), it <em>MAY</em> be closed.  If the relay runs out of resources and can
+   no longer establish new connections, it <em>SHOULD</em> start closing existing
+   connections.  It <em>MAY</em> choose to close the connections based on a least
    recently used basis.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Formal Syntax</span>
@@ -1516,11 +1516,11 @@ Table of Contents
    When resolving an MSRP URI that contains an explicit port number, an
    MSRP node follows the rules in <a href="#section-6">Section 6</a> of the MSRP base
    specification.  MSRP URIs exchanged in SDP and in To-Path and From-
-   Path headers in non-AUTH requests MUST have an explicit port number.
+   Path headers in non-AUTH requests <em>MUST</em> have an explicit port number.
    (The only message in this specification that can have an MSRP URI
    without an explicit port number is in the To-Path header in an AUTH
    request.)  Similarly, if the authority component of an msrps: URI
-   contains an IPv4 address or an IPv6 reference, a port number MUST be
+   contains an IPv4 address or an IPv6 reference, a port number <em>MUST</em> be
    present.
 
    The following rules allow MSRP clients to discover MSRP relays more
@@ -1544,7 +1544,7 @@ Table of Contents
    service is not defined, since AUTH requests are only sent over TLS.)
    If no SRVs are found, try an address lookup (A or AAAA) for the
    domain name.  Connect using TLS over the default transport (TCP) with
-   the default port number (2855).  Note that AUTH requests MUST only be
+   the default port number (2855).  Note that AUTH requests <em>MUST</em> only be
    sent over a TLS-protected channel.  An SRV lookup in the example.com
    domain might return:
 
@@ -1552,10 +1552,10 @@ Table of Contents
    _msrps._tcp   IN SRV    0   1    9000 server1.example.com.
    _msrps._tcp   IN SRV    0   2    9000 server2.example.com.
 
-   If implementing a relay farm, it is RECOMMENDED that each member of
+   If implementing a relay farm, it is <em>RECOMMENDED</em> that each member of
    the relay farm have an SRV entry.  If any members of the farm have
    multiple IP addresses (for example, an IPv4 and an IPv6 address),
-   each of these addresses SHOULD be registered in DNS as separate A or
+   each of these addresses <em>SHOULD</em> be registered in DNS as separate A or
    AAAA records corresponding to a single target.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Security Considerations</span>
@@ -1566,23 +1566,23 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  Using HTTP Authentication</span>
 
-   AUTH requests MUST be authenticated.  The authentication mechanism
+   AUTH requests <em>MUST</em> be authenticated.  The authentication mechanism
    described in this specification uses HTTP Digest authentication.
    HTTP Digest authentication is performed as described in <a href="./rfc2617.html">RFC 2617</a> [<a href="#ref-1" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">1</a>],
    with the following restrictions and modifications:
 
-   o  Clients MUST NOT attempt to use Basic authentication, and relays
-      MUST NOT request or accept Basic authentication.
+   o  Clients <em>MUST NOT</em> attempt to use Basic authentication, and relays
+      <em>MUST NOT</em> request or accept Basic authentication.
 
    o  The use of a qop value of auth-int makes no sense for MSRP.
       Integrity protection is provided by the use of TLS.  Consequently,
-      MSRP relays MUST NOT indicate a qop of auth-int in a challenge.
+      MSRP relays <em>MUST NOT</em> indicate a qop of auth-int in a challenge.
 
    o  The interaction between the MD5-sess algorithm and the nextnonce
       mechanism is underspecified in <a href="./rfc2617.html">RFC 2617</a> [<a href="#ref-1" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">1</a>]; consequently, MSRP
-      relays MUST NOT send challenges indicating the MD5-sess algorithm.
+      relays <em>MUST NOT</em> send challenges indicating the MD5-sess algorithm.
 
-   o  Clients SHOULD consider the protection space within a realm to be
+   o  Clients <em>SHOULD</em> consider the protection space within a realm to be
       scoped to the authority portion of the URI, without regard to the
       contents of the path portion of the URI.  Accordingly, relays
 
@@ -1593,28 +1593,28 @@ Table of Contents
 <span class="grey"><a href="./rfc4976.html">RFC 4976</a>                      MSRP Relays                 September 2007</span>
 
 
-      SHOULD NOT send the "domain" parameter on the "WWW-Authenticate"
-      header, and clients MUST ignore it if present.
+      <em>SHOULD NOT</em> send the "domain" parameter on the "WWW-Authenticate"
+      header, and clients <em>MUST</em> ignore it if present.
 
-   o  Clients and relays MUST include a qop parameter in all "WWW-
+   o  Clients and relays <em>MUST</em> include a qop parameter in all "WWW-
       Authenticate" and "Authorization" headers.  Note that the value of
       the qop parameter in a "WWW-Authenticate" header is quoted, but
       the value of the qop parameter in an "Authorization" header or
       "Authentication-Info" header is not quoted.
 
-   o  Clients MUST send cnonce and nonce-count parameters in all
+   o  Clients <em>MUST</em> send cnonce and nonce-count parameters in all
       "Authorization" headers.
 
    o  The request-URI to be used in calculating H(A2) is the rightmost
       URI in the To-Path header.
 
-   o  Relays MUST include rspauth, cnonce, nc, and qop parameters in a
+   o  Relays <em>MUST</em> include rspauth, cnonce, nc, and qop parameters in a
       "Authentication-Info" header for all "200 OK" responses to an AUTH
       request.
 
    Note that the BNF in <a href="./rfc2617.html">RFC 2617</a> has a number of errors.  In particular,
-   the value of the uri parameter MUST be in quotes; further, the
-   parameters in the Authentication-Info header MUST be separated by
+   the value of the uri parameter <em>MUST</em> be in quotes; further, the
+   parameters in the Authentication-Info header <em>MUST</em> be separated by
    commas.  The BNF in this document is correct, as are the examples in
    <a href="./rfc2617.html">RFC 2617</a> [<a href="#ref-1" title="&quot;HTTP Authentication: Basic and Digest Access Authentication&quot;">1</a>].
 
@@ -1632,14 +1632,14 @@ Table of Contents
 
    TLS is used to authenticate relays to senders and to provide
    integrity and confidentiality for the headers being transported.
-   MSRP clients and relays MUST implement TLS.  Clients MUST send the
+   MSRP clients and relays <em>MUST</em> implement TLS.  Clients <em>MUST</em> send the
    TLS ClientExtendedHello extended hello information for server name
    indication as described in <a href="./rfc4366.html">RFC 4366</a> [<a href="#ref-5" title="&quot;Transport Layer Security (TLS) Extensions&quot;">5</a>].  A TLS cipher-suite of
-   TLS_RSA_WITH_AES_128_CBC_SHA [<a href="#ref-6" title="&quot;Advanced Encryption Standard (AES) Ciphersuites for Transport Layer Security (TLS)&quot;">6</a>] MUST be supported (other cipher-
-   suites MAY also be supported).  A relay MUST act as a TLS server and
+   TLS_RSA_WITH_AES_128_CBC_SHA [<a href="#ref-6" title="&quot;Advanced Encryption Standard (AES) Ciphersuites for Transport Layer Security (TLS)&quot;">6</a>] <em>MUST</em> be supported (other cipher-
+   suites <em>MAY</em> also be supported).  A relay <em>MUST</em> act as a TLS server and
    present a certificate with its identity in the SubjectAltName using
-   the choice type of dnsName.  Relay-to-relay connections MUST use TLS
-   with mutual authentication.  Client-to-relay communications MUST use
+   the choice type of dnsName.  Relay-to-relay connections <em>MUST</em> use TLS
+   with mutual authentication.  Client-to-relay communications <em>MUST</em> use
    TLS for AUTH requests and responses.
 
 
@@ -1649,8 +1649,8 @@ Table of Contents
 <span class="grey"><a href="./rfc4976.html">RFC 4976</a>                      MSRP Relays                 September 2007</span>
 
 
-   The SubjectAltName in the certificate received from a relay MUST
-   match the hostname part of the URI, and the certificate MUST be valid
+   The SubjectAltName in the certificate received from a relay <em>MUST</em>
+   match the hostname part of the URI, and the certificate <em>MUST</em> be valid
    according to <a href="./rfc3280.html">RFC 3280</a> [<a href="#ref-12" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">12</a>], including having a date that is valid and
    being signed by an acceptable certification authority.  After
    validating that such is the case, the device that initiated the TLS
@@ -1662,9 +1662,9 @@ Table of Contents
    procedures described in <a href="#section-5.1">Section 5.1</a> and <a href="#section-6.3">Section 6.3</a>.  Other
    specifications may define the use of TLS mutual authentication for
    the purpose of authenticating users associated with MSRP clients.
-   Unless operating under such other specifications, MSRP clients SHOULD
+   Unless operating under such other specifications, MSRP clients <em>SHOULD</em>
    present an empty certificate list (if one is requested by the MSRP
-   relay), and MSRP relays SHOULD ignore any certificates presented by
+   relay), and MSRP relays <em>SHOULD</em> ignore any certificates presented by
    the client.
 
       This behavior is defined specifically to allow forward-
@@ -1772,7 +1772,7 @@ Table of Contents
    Confidentiality and privacy from elements not in the route set is
    provided by using TLS on all the transports.  Relays always use TLS.
    A client can use unprotected TCP for peer-to-peer MSRP, but any time
-   a client communicates with its relay, it MUST use TLS.
+   a client communicates with its relay, it <em>MUST</em> use TLS.
 
    The relays authenticate to the clients using TLS (but don't have to
    do mutual TLS).  Further, the use of the rspauth parameter in the

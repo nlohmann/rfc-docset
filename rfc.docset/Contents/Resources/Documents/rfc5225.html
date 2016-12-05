@@ -409,8 +409,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -1242,9 +1242,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-6.1" href="#section-6.1">6.1</a>.  Channel Parameters, Segmentation, and Reordering</span>
 
-   The compressor MUST NOT use ROHC segmentation (see <a href="./rfc4995.html#section-5.2.5">Section&nbsp;5.2.5 of
+   The compressor <em>MUST NOT</em> use ROHC segmentation (see <a href="./rfc4995.html#section-5.2.5">Section&nbsp;5.2.5 of
    [RFC4995]</a>), i.e., the Maximum Reconstructed Reception Unit (MRRU)
-   MUST be set to 0, if the configuration of the ROHC channel contains
+   <em>MUST</em> be set to 0, if the configuration of the ROHC channel contains
    at least one ROHCv2 profile in the list of supported profiles (i.e.,
    the PROFILES parameter) and if the channel cannot guarantee in-order
    delivery of packets between compression endpoints.
@@ -1277,7 +1277,7 @@ Table of Contents
    decompression failure is still possible because the decompressor may
    not have received sufficient information to correctly decompress the
    packets; therefore, until the decompressor has established a feedback
-   channel, the compressor SHOULD periodically send IR packets.  The
+   channel, the compressor <em>SHOULD</em> periodically send IR packets.  The
    periodicity can be based on timeouts, on the number of compressed
    packets sent for the flow, or any other strategy the implementer
    chooses.
@@ -1295,11 +1295,11 @@ Table of Contents
    entirely on the optimistic approach and feedback from the
    decompressor.
 
-   The decompressor MAY send positive feedback (ACKs) to initially
+   The decompressor <em>MAY</em> send positive feedback (ACKs) to initially
    establish the feedback channel for a particular flow.  Either
    positive feedback (ACKs) or negative feedback (NACKs or STATIC-NACKs)
    establishes this channel.  Once it has established a feedback channel
-   for a CID, the decompressor is REQUIRED to continue sending feedback
+   for a CID, the decompressor is <em>REQUIRED</em> to continue sending feedback
    for the lifetime of the context (i.e., until it receives an IR packet
    that associates the CID to a different profile), to send error
    recovery requests and (optionally) acknowledgments of significant
@@ -1358,7 +1358,7 @@ Table of Contents
 
    o  When the MSN is initialized, it is initialized to a random value;
 
-   o  The value of the MSN SHOULD be incremented by one for each packet
+   o  The value of the MSN <em>SHOULD</em> be incremented by one for each packet
       that the compressor sends for a specific CID.
 
 <span class="h4"><a class="selflink" name="section-6.3.2" href="#section-6.3.2">6.3.2</a>.  Reordering Ratio</span>
@@ -1391,12 +1391,12 @@ Table of Contents
    used to determine the contents of the irregular chain item, for each
    IP header.
 
-   ROHCv2 profiles MUST NOT assign a sequential behavior (network byte
+   ROHCv2 profiles <em>MUST NOT</em> assign a sequential behavior (network byte
    order or byte-swapped) to any IP-ID but the one in the innermost IP
    header when compressing more than one level of IP headers.  This is
    because only the IP-ID of the innermost IP header is likely to have a
    sufficiently close correlation with the MSN to compress it as a
-   sequentially changing field.  Therefore, a compressor MUST assign
+   sequentially changing field.  Therefore, a compressor <em>MUST</em> assign
    either the constant zero IP-ID or the random IP-ID behavior to
    tunneling headers.
 
@@ -1436,7 +1436,7 @@ Table of Contents
    fields.  This 3-bit CRC protecting the control fields is present in
    the header format for the co_common and co_repair header types.
 
-   The decompressor MUST always validate the integrity of the control
+   The decompressor <em>MUST</em> always validate the integrity of the control
    fields covered by this 3-bit CRC when processing a co_common or a
    co_repair compressed header.
 
@@ -1444,7 +1444,7 @@ Table of Contents
    considered as a decompression failure by the decompressor in the
    algorithm that assesses the validity of the context.  However, if the
    decompression attempt can be verified using either the CRC-3 or the
-   CRC-7 calculated over the uncompressed header, the decompressor MAY
+   CRC-7 calculated over the uncompressed header, the decompressor <em>MAY</em>
    still forward the decompressed header to upper layers.  This is
    because the protected control fields are not always used to
    decompress the header (i.e., co_common or co_repair) that updates
@@ -1457,24 +1457,24 @@ Table of Contents
 
    Validation of the IR header (8-bit CRC)
 
-      The decompressor MUST always validate the integrity of the IR
+      The decompressor <em>MUST</em> always validate the integrity of the IR
       header using the 8-bit CRC carried within the IR header.  When the
       header is validated, the decompressor updates the context with the
       information in the IR header.  Otherwise, if the IR cannot be
-      validated, the context MUST NOT be updated and the IR header MUST
+      validated, the context <em>MUST NOT</em> be updated and the IR header <em>MUST</em>
       NOT be delivered to upper layers.
 
    Verification of CO headers (3-bit CRC or 7-bit CRC)
 
-      The decompressor MUST always verify the decompression of a CO
+      The decompressor <em>MUST</em> always verify the decompression of a CO
       header using the CRC carried within the compressed header.  When
       the decompression is verified and successful, the decompressor
       updates the context with the information received in the CO
       header; otherwise, if the reconstructed header fails the CRC
-      verification, these updates MUST NOT be performed.
+      verification, these updates <em>MUST NOT</em> be performed.
 
       A packet for which the decompression attempt cannot be verified
-      using the CRC MUST NOT be delivered to upper layers.
+      using the CRC <em>MUST NOT</em> be delivered to upper layers.
 
 
 
@@ -1488,7 +1488,7 @@ Table of Contents
 
       Decompressor implementations may attempt corrective or repair
       measures on CO headers prior to performing the above actions, and
-      the result of any decompression attempt MUST be verified using the
+      the result of any decompression attempt <em>MUST</em> be verified using the
       CRC.
 
 <span class="h3"><a class="selflink" name="section-6.5" href="#section-6.5">6.5</a>.  Compressed Header Chains</span>
@@ -1680,7 +1680,7 @@ Table of Contents
    field.  Using this encoding method, the decompressor infers the value
    of this field using the computation above.
 
-   The compressor MAY use the header checksum to validate the
+   The compressor <em>MAY</em> use the header checksum to validate the
    correctness of the header before compressing it, to avoid processing
    a corrupted header.
 
@@ -1713,7 +1713,7 @@ Table of Contents
    The motivations for inferring this checksum are similar to the ones
    explained above in <a href="#section-6.6.4">Section 6.6.4</a>.
 
-   The compressor MAY use the minimal encapsulation header checksum to
+   The compressor <em>MAY</em> use the minimal encapsulation header checksum to
    validate the correctness of the header before compressing it, to
    avoid processing a corrupted header.
 
@@ -1791,7 +1791,7 @@ Table of Contents
    calculated the residue (ts_offset) of the scaling function for the
    timestamp.  The compressor achieves this by sending unscaled
    timestamp values, to allow the decompressor to establish the residue
-   based on the current ts_stride.  The compressor MAY send the unscaled
+   based on the current ts_stride.  The compressor <em>MAY</em> send the unscaled
    timestamp in the same compressed header(s) used to establish the
    value of ts_stride.
 
@@ -1801,7 +1801,7 @@ Table of Contents
    packets using the new scaling factor.
 
    When the compressor detects that the residue (ts_offset) value has
-   changed, it MUST NOT select a compressed header format that uses the
+   changed, it <em>MUST NOT</em> select a compressed header format that uses the
    scaled timestamp encoding before it has re-established the residue as
    described above.
 
@@ -1811,8 +1811,8 @@ Table of Contents
    described above.
 
    If the decompressor receives a compressed header containing scaled
-   timestamp bits while the ts_stride equals zero, it MUST NOT deliver
-   the packet to upper layers and it SHOULD treat this as a CRC
+   timestamp bits while the ts_stride equals zero, it <em>MUST NOT</em> deliver
+   the packet to upper layers and it <em>SHOULD</em> treat this as a CRC
    verification failure.
 
 
@@ -1823,7 +1823,7 @@ Table of Contents
 
 
    Whether or not the scaling is applied to the RTP TS field is up to
-   the compressor implementation (i.e., the use of scaling is OPTIONAL),
+   the compressor implementation (i.e., the use of scaling is <em>OPTIONAL</em>),
    and is indicated by the tsc_indicator control field.  In case scaling
    is applied to the RTP TS field, the value of ts_stride used by the
    compressor is up to the implementation.  A value of ts_stride that is
@@ -1896,7 +1896,7 @@ Table of Contents
 
    The control field time_stride controls whether or not the
    timer_based_lsb method is used in the CO header.  The decompressor
-   SHOULD send the CLOCK_RESOLUTION option with a zero value, if:
+   <em>SHOULD</em> send the CLOCK_RESOLUTION option with a zero value, if:
 
    o  it receives a non-zero time_stride value, and
 
@@ -1906,7 +1906,7 @@ Table of Contents
    This is to allow compression to recover from the case where a
    compressor erroneously activates timer-based compression.
 
-   The support and usage of timer-based compression is OPTIONAL for both
+   The support and usage of timer-based compression is <em>OPTIONAL</em> for both
    the compressor and the decompressor; the compressor is not required
    to set the time_stride control field to a non-zero value when it has
    received a non-zero value for the CLOCK_RESOLUTION option.
@@ -2121,10 +2121,10 @@ Table of Contents
       lists to indicate the presence of the item corresponding to this
       index.
 
-      The compressor MAY reset its item table upon receiving a negative
+      The compressor <em>MAY</em> reset its item table upon receiving a negative
       acknowledgement.
 
-      The compressor MAY reassign an existing index to a new item by re-
+      The compressor <em>MAY</em> reassign an existing index to a new item by re-
       establishing the mapping using the procedure described above.
 
    Decompressor Logic
@@ -2138,7 +2138,7 @@ Table of Contents
 
       If an index is received without an accompanying Item and the
       decompressor does not have any context for this index, the
-      decompressor MUST NOT deliver the packet to upper layers.
+      decompressor <em>MUST NOT</em> deliver the packet to upper layers.
 
 <span class="h5"><a class="selflink" name="section-6.6.13.3" href="#section-6.6.13.3">6.6.13.3</a>.  Encoding of Compressed Lists</span>
 
@@ -2176,7 +2176,7 @@ Table of Contents
       |                               |
       +---+---+---+---+---+---+---+---+
 
-      Reserved: MUST be set to zero; otherwise, the decompressor MUST
+      Reserved: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em>
       discard the packet.
 
       PS: Indicates size of XI fields:
@@ -2220,7 +2220,7 @@ Table of Contents
             X = 0 indicates that the item corresponding to the Index is
             not sent.
 
-         Reserved: MUST be set to zero; otherwise, the decompressor MUST
+         Reserved: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em>
          discard the packet.
 
          Index: An index into the item table.  See <a href="#section-6.6.13.4">Section 6.6.13.4</a>
@@ -2234,8 +2234,8 @@ Table of Contents
          +---+---+---+---+---+---+---+---+
 
       Padding: A 4-bit Padding field is present when PS = 0 and the
-      number of XIs is odd.  The Padding field MUST be set to zero;
-      otherwise, the decompressor MUST discard the packet.
+      number of XIs is odd.  The Padding field <em>MUST</em> be set to zero;
+      otherwise, the decompressor <em>MUST</em> discard the packet.
 
       Item 1, ..., item n: Each item corresponds to an XI with X = 1 in
       XI 1, ..., XI m.  Each entry in the Item list is the uncompressed
@@ -2252,9 +2252,9 @@ Table of Contents
 <span class="h5"><a class="selflink" name="section-6.6.13.5" href="#section-6.6.13.5">6.6.13.5</a>.  Compressed Lists in Dynamic Chain</span>
 
    A compressed list that is part of the dynamic chain must have all of
-   its list items present, i.e., all X-bits in the XI list MUST be set.
+   its list items present, i.e., all X-bits in the XI list <em>MUST</em> be set.
    All items previously established in the item table that are not
-   present in the list decompressed from this packet MUST also be
+   present in the list decompressed from this packet <em>MUST</em> also be
    retained in the decompressor context.
 
 
@@ -2394,7 +2394,7 @@ Table of Contents
          The value of this parameter should be set to the expected
          inter-arrival time between consecutive packets for the flow.
          The value selected is implementation-specific.  This parameter
-         MUST be set to zero, unless the compressor has received a
+         <em>MUST</em> be set to zero, unless the compressor has received a
          feedback message with the CLOCK_RESOLUTION option set to a non-
          zero value.  See also <a href="#section-6.6.9">Section 6.6.9</a>.
 
@@ -2629,7 +2629,7 @@ Table of Contents
       |                               |
        - - - - - - - - - - - - - - - -
 
-      r1: MUST be set to zero; otherwise, the decompressor MUST discard
+      r1: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em> discard
       the packet.
 
       CRC-7: A 7-bit CRC over the entire uncompressed header, computed
@@ -2638,7 +2638,7 @@ Table of Contents
       uncompressed header chain and where data_length corresponds to the
       length of this header chain.
 
-      r2: MUST be set to zero; otherwise, the decompressor MUST discard
+      r2: <em>MUST</em> be set to zero; otherwise, the decompressor <em>MUST</em> discard
       the packet.
 
       CRC-3: Encoded using the control_crc3_encoding method defined in
@@ -5784,7 +5784,7 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
    corresponds to the reference header that is being acknowledged.  A
    reference header is a header that has been successfully CRC-8
    validated or CRC verified.  If there is no reference header
-   available, the feedback MUST carry an ACKNUMBER-NOT-VALID option.
+   available, the feedback <em>MUST</em> carry an ACKNUMBER-NOT-VALID option.
    FEEDBACK-1
 
 
@@ -5830,7 +5830,7 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
 
          2 = STATIC-NACK
 
-         3 is reserved (MUST NOT be used for parsability)
+         3 is reserved (<em>MUST NOT</em> be used for parsability)
 
       Acknowledgment Number: The least significant bits of the MSN.
 
@@ -5862,9 +5862,9 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
 
    The FEEDBACK-2 format always carries a CRC and is thus more robust
    than the FEEDBACK-1 format.  When receiving FEEDBACK-2, the
-   compressor MUST verify the information by computing the CRC and
+   compressor <em>MUST</em> verify the information by computing the CRC and
    comparing the result with the CRC carried in the feedback format.  If
-   the two are not identical, the feedback element MUST be discarded.
+   the two are not identical, the feedback element <em>MUST</em> be discarded.
 
 <span class="h4"><a class="selflink" name="section-6.9.2" href="#section-6.9.2">6.9.2</a>.  Feedback Options</span>
 
@@ -5898,8 +5898,8 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
       |  Opt Type = 2 |  Opt Len = 0  |
       +---+---+---+---+---+---+---+---+
 
-   When receiving a REJECT option, the compressor MUST stop compressing
-   the packet flow, and SHOULD refrain from attempting to increase the
+   When receiving a REJECT option, the compressor <em>MUST</em> stop compressing
+   the packet flow, and <em>SHOULD</em> refrain from attempting to increase the
    number of compressed packet flows for some time.  The REJECT option
 
 
@@ -5910,8 +5910,8 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
 <span class="grey"><a href="./rfc5225.html">RFC 5225</a>                    ROHCv2 Profiles                   April 2008</span>
 
 
-   MUST NOT appear more than once in the FEEDBACK-2 format; otherwise,
-   the compressor MUST discard the entire feedback element.
+   <em>MUST NOT</em> appear more than once in the FEEDBACK-2 format; otherwise,
+   the compressor <em>MUST</em> discard the entire feedback element.
 
 <span class="h5"><a class="selflink" name="section-6.9.2.2" href="#section-6.9.2.2">6.9.2.2</a>.  The ACKNUMBER-NOT-VALID Option</span>
 
@@ -5923,7 +5923,7 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
       |  Opt Type = 3 |  Opt Len = 0  |
       +---+---+---+---+---+---+---+---+
 
-   A compressor MUST NOT use the Acknowledgment Number of the feedback
+   A compressor <em>MUST NOT</em> use the Acknowledgment Number of the feedback
    to find the corresponding sent header when this option is present.
    When this option is used, the Acknowledgment Number field of the
    FEEDBACK-2 format is set to zero.  Consequently, a NACK or a STATIC-
@@ -5931,8 +5931,8 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
    equivalent to a STATIC-NACK with respect to the type of context
    repair requested by the decompressor.
 
-   The ACKNUMBER-NOT-VALID option MUST NOT appear more than once in the
-   FEEDBACK-2 format; otherwise, the compressor MUST discard the entire
+   The ACKNUMBER-NOT-VALID option <em>MUST NOT</em> appear more than once in the
+   FEEDBACK-2 format; otherwise, the compressor <em>MUST</em> discard the entire
    feedback element.
 
 <span class="h5"><a class="selflink" name="section-6.9.2.3" href="#section-6.9.2.3">6.9.2.3</a>.  The CONTEXT_MEMORY Option</span>
@@ -5946,11 +5946,11 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
       |  Opt Type = 9 |  Opt Len = 0  |
       +---+---+---+---+---+---+---+---+
 
-   When receiving a CONTEXT_MEMORY option, the compressor SHOULD take
+   When receiving a CONTEXT_MEMORY option, the compressor <em>SHOULD</em> take
    actions to compress the packet flow in a way that requires less
    decompressor memory resources or stop compressing the packet flow.
-   The CONTEXT_MEMORY option MUST NOT appear more than once in the
-   FEEDBACK-2 format; otherwise, the compressor MUST discard the entire
+   The CONTEXT_MEMORY option <em>MUST NOT</em> appear more than once in the
+   FEEDBACK-2 format; otherwise, the compressor <em>MUST</em> discard the entire
    feedback element.
 
 <span class="h5"><a class="selflink" name="section-6.9.2.4" href="#section-6.9.2.4">6.9.2.4</a>.  The CLOCK_RESOLUTION Option</span>
@@ -5984,14 +5984,14 @@ udplite_baseheader(profile_value, outer_ip_flag, ip_id_behavior_value,
    The smallest clock resolution that can be indicated is 1 millisecond.
    The value zero has a special meaning: it indicates that the
    decompressor cannot do timer-based compression of the RTP Timestamp.
-   The CLOCK_RESOLUTION option MUST NOT appear more than once in the
-   FEEDBACK-2 format; otherwise, the compressor MUST discard the entire
+   The CLOCK_RESOLUTION option <em>MUST NOT</em> appear more than once in the
+   FEEDBACK-2 format; otherwise, the compressor <em>MUST</em> discard the entire
    feedback element.
 
 <span class="h5"><a class="selflink" name="section-6.9.2.5" href="#section-6.9.2.5">6.9.2.5</a>.  Unknown Option Types</span>
 
    If an option type other than those defined in this document is
-   encountered, the compressor MUST discard the entire feedback element.
+   encountered, the compressor <em>MUST</em> discard the entire feedback element.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Security Considerations</span>
 

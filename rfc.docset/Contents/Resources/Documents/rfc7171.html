@@ -331,10 +331,10 @@ Table of Contents
 
    This specification defines the syntax of PT-EAP messages using
    diagrams.  Each diagram depicts the format and size of each field in
-   bits.  Implementations MUST send the bits in each diagram as they are
+   bits.  Implementations <em>MUST</em> send the bits in each diagram as they are
    shown, traversing the diagram from top to bottom and then from left
    to right within each line (which represents a 32-bit quantity).
-   Multi-byte fields representing numeric values MUST be sent in network
+   Multi-byte fields representing numeric values <em>MUST</em> be sent in network
    (big-endian) byte order.
 
    Descriptions of bit field (e.g., flag) values are described referring
@@ -369,8 +369,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.4" href="#section-1.4">1.4</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.5" href="#section-1.5">1.5</a>.  Compatibility with Other Specifications</span>
@@ -387,7 +387,7 @@ Table of Contents
    PT-EAP is designed to encapsulate PB-TNC batches in a simple EAP
    method that can be carried within EAP tunnel methods.  The EAP tunnel
    methods provide confidentiality and message integrity, so PT-EAP does
-   not have to do so.  Therefore, PT-EAP MUST be used inside a TLS-based
+   not have to do so.  Therefore, PT-EAP <em>MUST</em> be used inside a TLS-based
    EAP tunnel method that provides strong cryptographic authentication
    (possibly server only), message integrity, and confidentiality
    services.
@@ -474,29 +474,29 @@ Table of Contents
    PT-EAP version negotiation takes place in the first PT-EAP message
    sent by the NEA Server (the Start message) and the first PT-EAP
    message sent by the NEA Client (the response to the Start message).
-   The NEA Server MUST set the Version field in the Start message to the
+   The NEA Server <em>MUST</em> set the Version field in the Start message to the
    maximum PT-EAP version that the NEA Server supports and is willing to
    accept.
 
    The NEA Client chooses the PT-EAP version to be used for the exchange
    and places this value in the Version field in its response to the
-   Start message.  The NEA Client SHOULD choose the value sent by the
+   Start message.  The NEA Client <em>SHOULD</em> choose the value sent by the
    NEA Server if the NEA Client supports it.  However, the NEA Client
-   MAY set the Version field to a value less than the value sent by the
+   <em>MAY</em> set the Version field to a value less than the value sent by the
    NEA Server (for example, if the NEA Client only supports lesser
    PT-EAP versions).  If the NEA Client only supports PT-EAP versions
-   greater than the value sent by the NEA Server, the NEA Client MUST
+   greater than the value sent by the NEA Server, the NEA Client <em>MUST</em>
    abnormally terminate the EAP negotiation.
 
    If the version sent by the NEA Client is not acceptable to the NEA
-   Server, the NEA Server MUST terminate the PT-EAP session immediately.
+   Server, the NEA Server <em>MUST</em> terminate the PT-EAP session immediately.
    Otherwise, the version sent by the NEA Client is the version of
-   PT-EAP that MUST be used.  Both the NEA Client and the NEA Server
-   MUST set the Version field to the chosen version number in all
+   PT-EAP that <em>MUST</em> be used.  Both the NEA Client and the NEA Server
+   <em>MUST</em> set the Version field to the chosen version number in all
    subsequent PT-EAP messages in this exchange.
 
    This specification defines version 1 of PT-EAP.  Version 0 is
-   reserved and MUST never be sent.  New versions of PT-EAP (values 2-7)
+   reserved and <em>MUST</em> never be sent.  New versions of PT-EAP (values 2-7)
    may be defined by Standards Action, as defined in [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].
 
 <span class="h3"><a class="selflink" name="section-3.3" href="#section-3.3">3.3</a>.  PT-EAP Message Format</span>
@@ -556,13 +556,13 @@ Table of Contents
 
    S: Start
 
-      Indicates the beginning of a PT-EAP exchange.  This flag MUST be
+      Indicates the beginning of a PT-EAP exchange.  This flag <em>MUST</em> be
       set only for the first message from the NEA Server.  If the S flag
-      is set, the EAP message MUST NOT contain Data.
+      is set, the EAP message <em>MUST NOT</em> contain Data.
 
    R: Reserved
 
-      This flag MUST be set to 0 and ignored upon receipt.
+      This flag <em>MUST</em> be set to 0 and ignored upon receipt.
 
    Version
 
@@ -584,7 +584,7 @@ Table of Contents
    Data
 
       Variable length data.  This field is processed by the PB layer and
-      MUST include PB-TNC messages.  For more information see PB-TNC
+      <em>MUST</em> include PB-TNC messages.  For more information see PB-TNC
       [<a href="./rfc5793.html" title="&quot;PB-TNC: A Posture Broker (PB) Protocol Compatible with Trusted Network Connect (TNC)&quot;">RFC5793</a>].
 
       The length of the Data field in a particular PT-EAP message may be
@@ -614,7 +614,7 @@ Table of Contents
    thus the NEA Client) is from the same endpoint as the client side of
    the TLS connection (since the endpoint knows the tls-unique value) so
    no MITM is forwarding posture.  If they differ, an attack has been
-   detected, and the Posture Validator SHOULD fail its verification.
+   detected, and the Posture Validator <em>SHOULD</em> fail its verification.
 
    Note that tls-unique, as opposed to invoking a mutual cryptographic
    binding, is used as there is no keying material being generated by
@@ -627,7 +627,7 @@ Table of Contents
    from being used in another context.  This prevents a poorly
    configured client from unintentionally compromising the NEA system.
    Strong mutual authentication of the NEA Server and Client is still
-   REQUIRED to prevent the disclosure of possibly sensitive NEA Client
+   <em>REQUIRED</em> to prevent the disclosure of possibly sensitive NEA Client
    information to an attacker.
 
 
@@ -881,7 +881,7 @@ Table of Contents
    use of an External Measurement Agent (EMA), countermeasures against
    an Asokan attack are not necessary unless an EMA is in use.  However,
    PT-EAP implementers may not know whether an EMA will be used with
-   their implementation.  Therefore, PT-EAP implementers SHOULD support
+   their implementation.  Therefore, PT-EAP implementers <em>SHOULD</em> support
    these countermeasures by providing the value of the tls-unique
    channel binding to higher layers in the NEA reference model: Posture
    Broker Clients, Posture Broker Servers, Posture Collectors, and
@@ -960,7 +960,7 @@ Table of Contents
 
    Because the PT-EAP inner method described in this specification
    relies on the outer EAP tunnel method for a majority of its security
-   protections, this section reiterates the PT requirements that MUST be
+   protections, this section reiterates the PT requirements that <em>MUST</em> be
    met by the IETF standard EAP tunnel method for use with PT-EAP.
 
 
@@ -977,7 +977,7 @@ Table of Contents
    NEA's requirements and is the mandatory-to-implement EAP tunnel
    method.
 
-   The security requirements described in this specification MUST be
+   The security requirements described in this specification <em>MUST</em> be
    implemented in any product claiming to be PT-EAP compliant.  The
    decision of whether a particular deployment chooses to use these
    protections is a deployment issue.  A customer may choose to avoid
@@ -985,7 +985,7 @@ Table of Contents
    the use of cryptography when the required protection has been
    achieved through other mechanisms (e.g., physical isolation).  If
    security mechanisms may be deactivated by policy, an implementation
-   SHOULD offer an interface to query how a message will be (or was)
+   <em>SHOULD</em> offer an interface to query how a message will be (or was)
    protected by PT so higher-layer NEA protocols can factor this into
    their decisions.
 
@@ -993,7 +993,7 @@ Table of Contents
    applied during the selection of the EAP tunnel method(s) used in
    conjunction with PT-EAP:
 
-      PT-2: The PT protocol MUST be capable of supporting mutual
+      PT-2: The PT protocol <em>MUST</em> be capable of supporting mutual
       authentication, integrity, confidentiality, and replay protection
       of the PB messages between the Posture Transport Client and the
       Posture Transport Server.
@@ -1029,7 +1029,7 @@ Table of Contents
 <span class="grey"><a href="./rfc7171.html">RFC 7171</a>                       NEA PT-EAP                       May 2014</span>
 
 
-   The EAP tunnel method carrying PT-EAP MUST provide strong
+   The EAP tunnel method carrying PT-EAP <em>MUST</em> provide strong
    cryptographic authentication, integrity, and confidentiality
    protection to protect against NEA assessment message theft as
    described in <a href="#section-4.2.1">Section 4.2.1</a>.  The cryptographically protected EAP

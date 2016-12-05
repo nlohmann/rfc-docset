@@ -437,8 +437,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "SHALL", "SHALL NOT", "SHOULD",
-   "SHOULD NOT", "RECOMMENDED", and "MAY", in this document are to be
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>",
+   "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", and "<em>MAY</em>", in this document are to be
    interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Authentication Model</span>
@@ -677,10 +677,10 @@ Table of Contents
    versions of the protocol.  This specification documents the EAP-POTP
    protocol version 1.  Version negotiation proceeds as follows:
 
-   a.  In the first EAP-Request of type POTP-X, the EAP server MUST send
+   a.  In the first EAP-Request of type POTP-X, the EAP server <em>MUST</em> send
        a Version TLV in which it sets the "Highest" field to its highest
        supported version number, and the "Lowest" field to its lowest
-       supported version number.  The EAP server MAY include other TLV
+       supported version number.  The EAP server <em>MAY</em> include other TLV
        triplets, as described below, that are compatible with the
        "Highest" supported version number to optimize the number of
        round-trips in the case of a peer supporting the server's
@@ -695,15 +695,15 @@ Table of Contents
 
 
    b.  If the peer supports a version of the protocol that falls within
-       the range of versions indicated by the EAP server, it MUST
+       the range of versions indicated by the EAP server, it <em>MUST</em>
        respond with an EAP-Response of type POTP-X that contains a
        Version TLV with the "Highest" field set to the highest version
-       supported by the peer.  The peer MUST also respond to any TLV
+       supported by the peer.  The peer <em>MUST</em> also respond to any TLV
        triplets included in the EAP-Request, if it supported the
        "Highest" supported version indicated in the server's Version
        TLV.
 
-       The EAP peer MUST respond with an EAP-Response of type Nak (3) if
+       The EAP peer <em>MUST</em> respond with an EAP-Response of type Nak (3) if
        it does not support a version that falls within the range of
        versions indicated by the EAP server.  This will allow the EAP
        server to use another EAP method for peer authentication.
@@ -732,13 +732,13 @@ Table of Contents
    Cryptographic algorithms are negotiated through the use of the Crypto
    Algorithm TLV.  EAP-POTP provides a default digest algorithm
    (SHA-256) [<a href="#ref-3" title="&quot;Secure Hash Standard&quot;">3</a>], a default encryption algorithm (AES-CBC) [<a href="#ref-4" title="&quot;Specification for the Advanced Encryption Standard (AES)&quot;">4</a>] , and a
-   default MAC algorithm (HMAC) [<a href="#ref-5" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">5</a>], and these algorithms MUST be
+   default MAC algorithm (HMAC) [<a href="#ref-5" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">5</a>], and these algorithms <em>MUST</em> be
    supported by all EAP-POTP implementations.  An EAP server that does
    not want to make use of any other algorithms than the default ones
    need not send a Crypto Algorithm TLV.  An EAP server that does want
-   to negotiate use of some other algorithms MUST send the Crypto
+   to negotiate use of some other algorithms <em>MUST</em> send the Crypto
    Algorithm TLV in the initial EAP-Request of type POTP-X that also
-   contains an OTP TLV with the P bit set.  The TLV MUST NOT be present
+   contains an OTP TLV with the P bit set.  The TLV <em>MUST NOT</em> be present
    in any other EAP-Request in the session. (The two exceptions to this
    are 1) if the client attempted a session resumption that failed and
    therefore did not evaluate a sent Crypto Algorithm TLV, or 2) if the
@@ -753,7 +753,7 @@ Table of Contents
    Crypto Algorithm TLV was part of the initial message from the EAP
    server, and the client negotiated another EAP-POTP version than the
    highest one supported by the EAP server.  When either of these cases
-   apply, the server MUST include the Crypto Algorithm TLV in the first
+   apply, the server <em>MUST</em> include the Crypto Algorithm TLV in the first
    EAP-Request that also contains an OTP TLV with the P bit set
    subsequent to the failed session resumption / protocol version
    negotiation.)  In the Crypto Algorithm TLV, the EAP server suggests
@@ -762,7 +762,7 @@ Table of Contents
    suggestions for the other classes need not be present, since the
    default applies.)
 
-   The peer MUST include a Crypto Algorithm TLV in an EAP-Response if
+   The peer <em>MUST</em> include a Crypto Algorithm TLV in an EAP-Response if
    and only if an EAP-Request of type POTP-X has been received
    containing a Crypto Algorithm TLV, it was legal for that EAP-Request
    to contain a Crypto Algorithm TLV, the peer does not try to resume an
@@ -772,11 +772,11 @@ Table of Contents
    Algorithm TLV, then the default algorithm applies for that class.
    When resuming an existing session (see the next section), there is no
    need for the peer to negotiate since the session already is
-   associated with a set of algorithms.  Servers MUST fail a session
+   associated with a set of algorithms.  Servers <em>MUST</em> fail a session
    (i.e., send an EAP-Failure) if they receive an EAP-Response TLV
    containing both a Resume TLV and a Crypto Algorithm TLV.
 
-   Clearly, EAP servers and peers MUST NOT suggest any other algorithms
+   Clearly, EAP servers and peers <em>MUST NOT</em> suggest any other algorithms
    than the ones their policy allows them to use.  Policies may also
    restrict what combinations of cryptographic algorithms are
    acceptable.
@@ -790,7 +790,7 @@ Table of Contents
    roaming.
 
    In order to help the peer find a session associated with the EAP
-   server, an EAP server that supports session resumption MUST send a
+   server, an EAP server that supports session resumption <em>MUST</em> send a
    Server-Info TLV containing a server identifier in its initial EAP-
    Request of type POTP-X that also contains an OTP TLV.  The identifier
    may then be used by the peer for lookup purposes.
@@ -817,12 +817,12 @@ Table of Contents
    session.
 
    o  If the EAP server is willing to resume a previously established
-      session, it MUST authenticate the peer based on the contents of
+      session, it <em>MUST</em> authenticate the peer based on the contents of
       the Resume TLV.  If the authentication succeeds, the handshake
       will continue in one of two ways:
 
       *  If the session is a protected-mode session, then the server
-         MUST respond with a request containing a Confirm TLV.  If the
+         <em>MUST</em> respond with a request containing a Confirm TLV.  If the
          Confirm TLV authenticates the EAP server, then the peer
          responds with an empty Confirm TLV, to which the EAP server
          responds with an EAP-Success message.  If the Confirm TLV does
@@ -831,12 +831,12 @@ Table of Contents
 
       *  If the session is not a protected-mode session, i.e., it is a
          session created from a basic-mode peer authentication, then the
-         server MUST respond with an EAP-Success message.
+         server <em>MUST</em> respond with an EAP-Success message.
 
-      If the authentication of the peer fails, the EAP server SHOULD
+      If the authentication of the peer fails, the EAP server <em>SHOULD</em>
       send another EAP-Request containing an OTP TLV and a Server-Info
       TLV with the N bit set to indicate that no session resumption is
-      possible.  The EAP server MAY also send an EAP-Failure message,
+      possible.  The EAP server <em>MAY</em> also send an EAP-Failure message,
       possibly preceded by an EAP-Request of type Notification (2), in
       which case, the EAP run will terminate.
 
@@ -845,7 +845,7 @@ Table of Contents
       containing an OTP TLV and a Server-Info TLV with the N bit set
       (indicating no session resumption).
 
-   Sessions SHOULD NOT be maintained longer than the security of the
+   Sessions <em>SHOULD NOT</em> be maintained longer than the security of the
    exchange which created the session permits.  For example, if it is
    estimated that an attacker could be successful in brute-force
    searching for the OTP in 24 hours, then EAP-POTP session lifetimes
@@ -866,8 +866,8 @@ Table of Contents
 
    The EAP-POTP method described herein makes use of a key derivation
    function denoted "PBKDF2".  PBKDF2 is described in [<a href="#ref-6" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">6</a>], Section 5.2.
-   The PBKDF2 PRF SHALL be set to the negotiated MAC algorithm.  The
-   default MAC algorithm, which MUST be supported, is HMAC-SHA256.  HMAC
+   The PBKDF2 PRF <em>SHALL</em> be set to the negotiated MAC algorithm.  The
+   default MAC algorithm, which <em>MUST</em> be supported, is HMAC-SHA256.  HMAC
    is defined in [<a href="#ref-5" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">5</a>], and SHA-256 is defined in [<a href="#ref-3" title="&quot;Secure Hash Standard&quot;">3</a>].  HMAC-SHA256 is the
    HMAC construct from [<a href="#ref-5" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">5</a>] with SHA-256 as the hash function H.  The
    output length of HMAC-SHA256, when used as a PRF for PBKDF2, shall be
@@ -889,12 +889,12 @@ Table of Contents
 
    o  EMSK, an Extended Master Session Key, also as defined in [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>].
 
-      For the default algorithms, K_MAC, K_ENC, and SRK SHALL be 16
+      For the default algorithms, K_MAC, K_ENC, and SRK <em>SHALL</em> be 16
       octets.  For other cases, the key lengths will be as determined by
-      the negotiated algorithms.  The MSK and the EMSK SHALL each be 64
+      the negotiated algorithms.  The MSK and the EMSK <em>SHALL</em> each be 64
       octets, in conformance with [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>].  Therefore, in the case of
       default algorithms, the "dkLen" parameter from Section 5.2 of [<a href="#ref-6" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">6</a>]
-      SHALL be set to 176 (the combined length of K_MAC, K_ENC, SRK,
+      <em>SHALL</em> be set to 176 (the combined length of K_MAC, K_ENC, SRK,
       MSK, and EMSK).
 
    [<a name="ref-1" id="ref-1">1</a>] and [<a href="#ref-16" title="&quot;Extensible Authentication Protocol (EAP) Key Management Framework&quot;">16</a>] define usage of the MSK and the EMSK .  For a particular
@@ -906,7 +906,7 @@ Table of Contents
    within a method after the initial EAP-Request and EAP-Response pair
    of that particular method has been exchanged (see [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>], Section 2.1).
    Instead, when a peer is unable to continue an EAP-POTP session, the
-   peer MAY respond to an outstanding EAP-Request by sending an empty
+   peer <em>MAY</em> respond to an outstanding EAP-Request by sending an empty
    EAP-Response of type POTP-X rather than immediately terminating the
    conversation.  This allows the EAP server to log the cause of the
    error.
@@ -919,8 +919,8 @@ Table of Contents
 
 
    To ensure that the EAP server receives the empty EAP-Response, the
-   peer SHOULD wait for the EAP server to reply before terminating the
-   conversation.  The EAP server MUST reply with an EAP-Failure.
+   peer <em>SHOULD</em> wait for the EAP server to reply before terminating the
+   conversation.  The EAP server <em>MUST</em> reply with an EAP-Failure.
 
    When EAP-POTP is run in protected mode, the exchange of the Confirm
    TLV (<a href="#section-4.11.6">Section 4.11.6</a>) serves as a success result indication; when the
@@ -939,23 +939,23 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.7" href="#section-4.7">4.7</a>.  Use of the EAP Notification Method</span>
 
    Except where explicitly allowed in the following, the EAP
-   Notification method MUST NOT be used within an EAP-POTP session.  The
-   EAP Notification method MAY be used within an EAP-POTP session in the
+   Notification method <em>MUST NOT</em> be used within an EAP-POTP session.  The
+   EAP Notification method <em>MAY</em> be used within an EAP-POTP session in the
    following situations:
 
-   o  The EAP server MAY send an EAP-Request of type Notification (2)
+   o  The EAP server <em>MAY</em> send an EAP-Request of type Notification (2)
       when it has received an EAP-Response containing an OTP TLV and is
       unable to authenticate the user.  In this case, once the EAP-
-      Response of type Notification is received, the EAP server MAY
+      Response of type Notification is received, the EAP server <em>MAY</em>
       retry the authentication and send a new EAP-Request containing an
-      OTP TLV, or it MAY fail the session and send an EAP-Failure
+      OTP TLV, or it <em>MAY</em> fail the session and send an EAP-Failure
       message.
 
-   o  The EAP server MAY send an EAP-Request of type Notification (2)
+   o  The EAP server <em>MAY</em> send an EAP-Request of type Notification (2)
       when it has received an unacceptable New PIN TLV.  In this case,
       once the EAP-Response of type Notification is received, the EAP
-      server MAY retry the PIN update and send a new EAP-Request with a
-      New PIN TLV, or it MAY fail the session and send an EAP-Failure
+      server <em>MAY</em> retry the PIN update and send a new EAP-Request with a
+      New PIN TLV, or it <em>MAY</em> fail the session and send an EAP-Failure
       message.
 
 <span class="h3"><a class="selflink" name="section-4.8" href="#section-4.8">4.8</a>.  Protection against Brute-Force Attacks</span>
@@ -1073,7 +1073,7 @@ Table of Contents
        excluding the EAP "Code", "Identifier", and "Length" fields) of
        each message, msg_1, msg_2, ..., msg_n, is concatenated together.
 
-   c.  User identifier TLVs MUST NOT be included in the hash (this is to
+   c.  User identifier TLVs <em>MUST NOT</em> be included in the hash (this is to
        allow for a backend service that does not know about individual
        user names), i.e., any such TLV is removed from the message in
        which it appeared.
@@ -1160,8 +1160,8 @@ Table of Contents
 
    Reserved
 
-      This octet is reserved for future use.  It SHALL be set to zero
-      for this version.  Recipients SHALL ignore this octet for this
+      This octet is reserved for future use.  It <em>SHALL</em> be set to zero
+      for this version.  Recipients <em>SHALL</em> ignore this octet for this
       version of EAP-POTP.
 
    TLV-based EAP-POTP message
@@ -1199,10 +1199,10 @@ Table of Contents
 
 
       The mandatory bit in a TLV indicates that if the peer or server
-      does not support the TLV, it MUST send a NAK TLV in response; all
-      other TLVs in the message MUST be ignored.  If an EAP peer or
+      does not support the TLV, it <em>MUST</em> send a NAK TLV in response; all
+      other TLVs in the message <em>MUST</em> be ignored.  If an EAP peer or
       server finds an unsupported TLV that is marked as non-mandatory
-      (i.e., optional), it MUST NOT send a NAK TLV on this ground only.
+      (i.e., optional), it <em>MUST NOT</em> send a NAK TLV on this ground only.
 
       The mandatory bit does not imply that the peer or server is
       required to understand the contents of the TLV.  The appropriate
@@ -1211,8 +1211,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of the EAP-POTP.
 
    TLV Type
@@ -1238,7 +1238,7 @@ Table of Contents
       16 - Challenge
 
       These TLVs are defined in the following.  With the exception of
-      the NAK TLV, a particular TLV type MUST NOT appear more than once
+      the NAK TLV, a particular TLV type <em>MUST NOT</em> appear more than once
       in a message of type POTP-X.
 
    Length
@@ -1265,12 +1265,12 @@ Table of Contents
    The Version TLV carries information about the supported EAP-POTP
    method version.
 
-   This TLV MUST be present in the initial EAP-Request of type POTP-X
+   This TLV <em>MUST</em> be present in the initial EAP-Request of type POTP-X
    from the EAP server and in the initial response of type POTP-X from
-   the peer.  It MUST NOT be present in any subsequent EAP-Request or
-   EAP-Response in the session.  The Version TLV MUST be supported by
+   the peer.  It <em>MUST NOT</em> be present in any subsequent EAP-Request or
+   EAP-Response in the session.  The Version TLV <em>MUST</em> be supported by
    all peers, and all EAP servers conforming to this specification and
-   MUST NOT be responded to with a NAK TLV.  The version negotiation
+   <em>MUST NOT</em> be responded to with a NAK TLV.  The version negotiation
    procedure is described in detail in <a href="#section-4.2">Section 4.2</a>.
 
     0                   1                   2                   3
@@ -1287,8 +1287,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -1312,8 +1312,8 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  This octet MUST be set to zero for this
-      version.  Recipients SHALL ignore this octet for this version of
+      Reserved for future use.  This octet <em>MUST</em> be set to zero for this
+      version.  Recipients <em>SHALL</em> ignore this octet for this version of
       EAP-POTP.
 
    Highest
@@ -1327,16 +1327,16 @@ Table of Contents
    Lowest
 
       This field contains an unsigned integer representing the lowest
-      version acceptable by the EAP server.  The field MUST be present
-      in an EAP-Request.  The field MUST NOT be present in an EAP-
-      Response.  A peer SHALL respond to an EAP-Request of type POTP-X
+      version acceptable by the EAP server.  The field <em>MUST</em> be present
+      in an EAP-Request.  The field <em>MUST NOT</em> be present in an EAP-
+      Response.  A peer <em>SHALL</em> respond to an EAP-Request of type POTP-X
       with an EAP-Response of type Nak (3) if the peer's highest
       supported version is lower than the value of this field.
 
    This document defines version 1 of the protocol.  Therefore, EAP
-   server implementations conforming to this document SHALL set the
+   server implementations conforming to this document <em>SHALL</em> set the
    "Highest" field to 1.  Peer implementations conforming to this
-   document SHALL set the "Highest" field to 1.
+   document <em>SHALL</em> set the "Highest" field to 1.
 
 <span class="h4"><a class="selflink" name="section-4.11.2" href="#section-4.11.2">4.11.2</a>.  Server-Info TLV</span>
 
@@ -1344,13 +1344,13 @@ Table of Contents
    session (when applicable).  It provides one piece in the framework
    for fast session resumption.
 
-   This TLV SHOULD always be present in an EAP-Request of type POTP-X
+   This TLV <em>SHOULD</em> always be present in an EAP-Request of type POTP-X
    that also carries an OTP TLV, as long as the peer has not been
-   authenticated, and MUST be present in such a request if the server
-   supports session resumption.  It MUST NOT be present in any other
+   authenticated, and <em>MUST</em> be present in such a request if the server
+   supports session resumption.  It <em>MUST NOT</em> be present in any other
    EAP-Request of type POTP-X or in any EAP-Response packets.  This TLV
-   type MUST be supported by all peers conforming to this specification
-   and MUST NOT be responded to with a NAK TLV (this is not to say that
+   type <em>MUST</em> be supported by all peers conforming to this specification
+   and <em>MUST NOT</em> be responded to with a NAK TLV (this is not to say that
    all peers need to support session resumption, only that they cannot
    respond to this TLV with a NAK TLV).
 
@@ -1386,8 +1386,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -1400,13 +1400,13 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  All 7 bits MUST be set to zero for this
-      version.  Recipients SHALL ignore this bit for this version of
+      Reserved for future use.  All 7 bits <em>MUST</em> be set to zero for this
+      version.  Recipients <em>SHALL</em> ignore this bit for this version of
       EAP-POTP.
 
    N
 
-      The N bit signals that the peer MUST NOT attempt to resume any
+      The N bit signals that the peer <em>MUST NOT</em> attempt to resume any
       session it has stored associated with this server.
 
 
@@ -1437,18 +1437,18 @@ Table of Contents
 
    Server Identifier
 
-      An identifier for the authentication server.  The peer MAY use
+      An identifier for the authentication server.  The peer <em>MAY</em> use
       this identifier to search for a stored session associated with
       this server, or to associate the session to be negotiated with the
-      server.  The value of the identifier SHOULD be chosen so as to
+      server.  The value of the identifier <em>SHOULD</em> be chosen so as to
       reduce the risk of collisions with other EAP server identifiers as
       much as possible.  One possibility is to use the DNS name of the
-      EAP server.  The identifier MAY also be used by the peer to select
+      EAP server.  The identifier <em>MAY</em> also be used by the peer to select
       a suitable key on the OTP token (when there are multiple keys
       available).
 
-      The identifier MUST NOT be longer than 128 octets.  The identifier
-      SHALL be a UTF-8 [<a href="#ref-7" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">7</a>] encoded string of printable characters
+      The identifier <em>MUST NOT</em> be longer than 128 octets.  The identifier
+      <em>SHALL</em> be a UTF-8 [<a href="#ref-7" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">7</a>] encoded string of printable characters
       (without any terminating NULL character).
 
 <span class="h4"><a class="selflink" name="section-4.11.3" href="#section-4.11.3">4.11.3</a>.  OTP TLV</span>
@@ -1457,13 +1457,13 @@ Table of Contents
    derived from an OTP) from the peer.  In an EAP-Response, the OTP TLV
    carries an OTP or a value derived from an OTP.
 
-   This TLV type MUST be supported by all peers and all EAP servers
-   conforming to this specification and MUST NOT be responded to with a
-   NAK TLV.  The OTP TLV MUST NOT be present in an EAP-Request of type
-   POTP-X that contains a New PIN TLV.  Further, the OTP TLV MUST NOT be
+   This TLV type <em>MUST</em> be supported by all peers and all EAP servers
+   conforming to this specification and <em>MUST NOT</em> be responded to with a
+   NAK TLV.  The OTP TLV <em>MUST NOT</em> be present in an EAP-Request of type
+   POTP-X that contains a New PIN TLV.  Further, the OTP TLV <em>MUST NOT</em> be
    present in an EAP-Response of type POTP-X unless the preceding EAP-
    Request of type POTP-X contained an OTP TLV and it was valid for it
-   to do so.  Finally, an OTP TLV MUST NOT be present in an EAP-
+   to do so.  Finally, an OTP TLV <em>MUST NOT</em> be present in an EAP-
    Response of type POTP-X that also contains a Resume TLV.  The OTP TLV
    is defined as follows:
 
@@ -1496,8 +1496,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -1510,20 +1510,20 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  All 9 bits SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore these bits for this version
+      Reserved for future use.  All 9 bits <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore these bits for this version
       of EAP-POTP.
 
    A
 
-      The A bit MUST be set in an EAP-Request if and only if the request
+      The A bit <em>MUST</em> be set in an EAP-Request if and only if the request
       immediately follows an EAP-Response of type POTP-X containing a
       New PIN TLV (see <a href="#section-4.11.5">Section 4.11.5</a>), and the new PIN in the response
       was accepted by the EAP server.  In this case, the A bit signals
-      that the EAP-server has accepted the PIN, and that the peer SHALL
+      that the EAP-server has accepted the PIN, and that the peer <em>SHALL</em>
       use the newly established PIN when calculating the response (when
-      applicable).  The A bit MUST NOT be set if the S bit is set.  If a
-      request has both the S bit and the A bit set, the peer SHALL
+      applicable).  The A bit <em>MUST NOT</em> be set if the S bit is set.  If a
+      request has both the S bit and the A bit set, the peer <em>SHALL</em>
       regard the request as invalid, and return an empty POTP-X EAP-
       Response message.
 
@@ -1536,29 +1536,29 @@ Table of Contents
 
       In an EAP-Response, the A bit, when set, indicates that the OTP
       was calculated with the use of the newly selected user PIN.  The A
-      bit MUST be set in a response if and only if the EAP-Request which
+      bit <em>MUST</em> be set in a response if and only if the EAP-Request which
       triggered the response contained an OTP TLV with the A bit set.
 
    P
 
       In an EAP-Request, the P bit indicates that the OTP in the
-      response MUST be protected.  Use of this bit also indicates that
+      response <em>MUST</em> be protected.  Use of this bit also indicates that
       mutual authentication will take place, as well as generation of
-      keying material.  It is RECOMMENDED to always set the P bit.  If a
+      keying material.  It is <em>RECOMMENDED</em> to always set the P bit.  If a
       peer receives an EAP-Request with an OTP TLV that does not have
       the P bit set, and the peer's policy dictates protected mode, the
-      peer MUST respond with an empty POTP-X EAP-Response message.  All
-      peers MUST support protected mode.
+      peer <em>MUST</em> respond with an empty POTP-X EAP-Response message.  All
+      peers <em>MUST</em> support protected mode.
 
       In an EAP-Response, this bit indicates that the provided OTP has
-      been protected (see below).  The P bit MUST be set in a response
-      (and hence the OTP MUST be protected) if and only if the EAP-
+      been protected (see below).  The P bit <em>MUST</em> be set in a response
+      (and hence the OTP <em>MUST</em> be protected) if and only if the EAP-
       Request that triggered the response contained an OTP TLV with the
       P bit set.
 
       In an 802.1x EAP over LAN (EAPOL) environment (this includes
-      wireless LAN environments), the P bit MUST be set, or,
-      alternatively, the EAP-POTP method MUST be carried out inside an
+      wireless LAN environments), the P bit <em>MUST</em> be set, or,
+      alternatively, the EAP-POTP method <em>MUST</em> be carried out inside an
       authenticated tunnel that provides a cryptographic binding with
       inner EAP methods such as the one provided by PEAPv2 [<a href="#ref-17" title="&quot;Protected EAP Protocol (PEAP) Version 2&quot;">17</a>].
 
@@ -1566,16 +1566,16 @@ Table of Contents
 
       The C bit carries meaning only when the OTP algorithm in question
       makes use of server challenges.  For other OTP algorithms, the C
-      bit SHALL always be set to zero.
+      bit <em>SHALL</em> always be set to zero.
 
       In an EAP-Request, the C bit ("Combine") indicates that the OTP
-      SHALL be calculated using both the provided challenge and internal
-      state (e.g., current token time).  The OTP SHALL be calculated
+      <em>SHALL</em> be calculated using both the provided challenge and internal
+      state (e.g., current token time).  The OTP <em>SHALL</em> be calculated
       based only on the provided challenge (and the shared secret) if
       the C bit is not set, and a challenge is present.  The returned
-      OTP SHALL always be calculated based on the peer's current state
+      OTP <em>SHALL</em> always be calculated based on the peer's current state
       (and the shared secret) if no challenge is present.  If the C bit
-      is set but no challenge is provided, the peer SHALL regard the
+      is set but no challenge is provided, the peer <em>SHALL</em> regard the
       request as invalid, and return an empty POTP-X EAP-Response
       message.
 
@@ -1592,30 +1592,30 @@ Table of Contents
 
       In an EAP response, this bit indicates that the provided OTP has
       been calculated using a provided challenge and the token state.
-      The C bit MUST be set in a response if and only if the EAP-Request
+      The C bit <em>MUST</em> be set in a response if and only if the EAP-Request
       that triggered the response contained an OTP TLV with the C bit
       set and a challenge.
 
    N
 
       In an EAP-Request, the N bit, when set, indicates that the OTP to
-      calculate SHALL be based on the next token "state", and not the
+      calculate <em>SHALL</em> be based on the next token "state", and not the
       current one.  As an example, for a time-based token, this means
       the next time slot.  For an event-based token, this could mean the
       next counter value, if counter values are used.  This bit will
       normally not be set in initial EAP-Request messages, but may be
       set in subsequent ones.  Further, the N bit carries no meaning in
       an EAP-Request if a challenge is present and the C bit is not set,
-      and SHALL be set to 0, in this case.  If a request that has the N
+      and <em>SHALL</em> be set to 0, in this case.  If a request that has the N
       bit set also contains a challenge, but does not have the C bit
-      set, the peer SHALL regard the request as invalid, and return an
+      set, the peer <em>SHALL</em> regard the request as invalid, and return an
       empty POTP-X EAP-Response message.  Note that setting the N bit in
       an EAP-Request will normally advance the internal state of the
       token.
 
       In an EAP-Response, the N bit, when set, indicates that the OTP
       was calculated based on the next token "state" (as explained
-      above), and not the current one.  The N bit MUST be set in a
+      above), and not the current one.  The N bit <em>MUST</em> be set in a
       response if and only if the EAP-Request that triggered the
       response contained an OTP TLV with the N bit set.
 
@@ -1625,14 +1625,14 @@ Table of Contents
       incorporating a user PIN in the OTP computation.
 
       In an EAP-Request, the T bit, when set, indicates that the OTP to
-      calculate MUST NOT include a user PIN.
+      calculate <em>MUST NOT</em> include a user PIN.
 
       In an EAP-Response, the T bit, when set, indicates that the OTP
-      was calculated without the use of a user PIN.  The T bit MUST be
+      was calculated without the use of a user PIN.  The T bit <em>MUST</em> be
       set in a response if and only if the EAP-Request that triggered
       the response contained an OTP TLV with the T bit set.  Note that
       client policy may prohibit PIN-less calculations; in these cases,
-      the client MAY respond with an empty POTP-X EAP response message.
+      the client <em>MAY</em> respond with an empty POTP-X EAP response message.
 
 
 
@@ -1649,18 +1649,18 @@ Table of Contents
    E
 
       In an EAP-Request, the E bit, when set, indicates that the peer
-      MUST NOT use any stored pepper value associated with this server
-      in the PBKDF2 computation.  Rather, it MUST generate a new pepper
+      <em>MUST NOT</em> use any stored pepper value associated with this server
+      in the PBKDF2 computation.  Rather, it <em>MUST</em> generate a new pepper
       (if supported by the peer) and/or use the iteration count
       parameter to protect the OTP (if the server's Max Pepper Length is
-      0, then the peer MUST rely on the iteration count only to protect
+      0, then the peer <em>MUST</em> rely on the iteration count only to protect
       the OTP).  This bit will usually not be set in initial EAP-Request
       messages, but may be set in subsequent ones, e.g., if the server,
       upon receipt of an OTP TLV with a pepper identifier, detects that
       it does not have a pepper with that identifier in storage.  This
-      bit carries no meaning, and MUST be set to zero, when the P bit is
+      bit carries no meaning, and <em>MUST</em> be set to zero, when the P bit is
       not set.  If a request has the E bit set but not the P bit, a peer
-      SHALL regard the request as invalid, and return an empty POTP-X
+      <em>SHALL</em> regard the request as invalid, and return an empty POTP-X
       EAP-Response message.
 
       In an EAP-Response, the E bit indicates that the response has been
@@ -1669,29 +1669,29 @@ Table of Contents
    S
 
       In an EAP-Request, the S bit ("Same"), when set, indicates that
-      the peer SHOULD calculate its response based on the same OTP value
-      as was used for the preceding response.  This bit MAY be set when
+      the peer <em>SHOULD</em> calculate its response based on the same OTP value
+      as was used for the preceding response.  This bit <em>MAY</em> be set when
       the EAP server has received an OTP TLV from the peer protected
       with a pepper, of which the server is no longer in possession.
       Since the server has not attempted validation of the provided
       data, there is no need for the EAP peer to retrieve a new OTP
-      value.  This bit carries no meaning, and MUST be set to zero, when
-      the E bit is not set.  A peer SHALL regard a request where the S
+      value.  This bit carries no meaning, and <em>MUST</em> be set to zero, when
+      the E bit is not set.  A peer <em>SHALL</em> regard a request where the S
       bit is set, but not the E bit, as invalid, and return an empty
-      POTP-X EAP-Response message.  Further, the S bit MUST NOT be set
+      POTP-X EAP-Response message.  Further, the S bit <em>MUST NOT</em> be set
       when the A bit also is set; see above.
 
       In an EAP-Response, the S bit is never set.
 
    Pepper Length
 
-      This octet SHALL be present if and only if the P bit is set.  When
+      This octet <em>SHALL</em> be present if and only if the P bit is set.  When
       present, it contains an unsigned integer, having a value between 0
       and 255 (inclusive).  In an EAP-Request, the integer represents
       the maximum length (in bits) of a client-generated pepper the
-      server is prepared to search for.  Peers MUST NOT generate peppers
+      server is prepared to search for.  Peers <em>MUST NOT</em> generate peppers
       longer than this value.  If the value is set to zero, it means the
-      peer MUST NOT generate a pepper for the PBKDF2 calculation.  In an
+      peer <em>MUST NOT</em> generate a pepper for the PBKDF2 calculation.  In an
       EAP-Response, it indicates the length of the used pepper.
 
 
@@ -1704,40 +1704,40 @@ Table of Contents
 
    Iteration Count
 
-      These 4 octets SHALL be present if and only if the P bit is set.
+      These 4 octets <em>SHALL</em> be present if and only if the P bit is set.
       When present, they contain an unsigned, 4-octet integer in network
       byte order.  In an EAP-Request, the integer represents the maximum
       iteration count the peer may use in the PBKDF2 computation.  Peers
-      MUST NOT use iteration counts higher than this value.  In an EAP-
+      <em>MUST NOT</em> use iteration counts higher than this value.  In an EAP-
       Response, it indicates the actual iteration count used.
 
    Note regarding the Pepper Length and Iteration Count parameters: A
-   peer MUST compare these policy parameters provided by the EAP server
-   with local policy and MUST NOT continue the handshake if use of the
+   peer <em>MUST</em> compare these policy parameters provided by the EAP server
+   with local policy and <em>MUST NOT</em> continue the handshake if use of the
    EAP server's suggested parameters would result in a lower security
    than the client's acceptable policy.  If the security given by the
    EAP server's provided policy parameters surpasses the security level
-   given by the peer's local policy, the client SHOULD use the server's
+   given by the peer's local policy, the client <em>SHOULD</em> use the server's
    parameters (subject to reason - active attackers could otherwise
    mount simple denial-of-service attacks against peers or servers,
    e.g., by providing unreasonably high values for the iteration count).
    Note that the server-provided parameters only apply to the case where
    the peer cannot use or does not have a previously provided server-
    provided pepper.  If a peer cannot continue the handshake due to the
-   server's policy being unacceptable, it MUST return an empty POTP-X
+   server's policy being unacceptable, it <em>MUST</em> return an empty POTP-X
    EAP-Response message.
 
    Authentication Data
 
    EAP-Request:  In an EAP-Request, the Authentication Data field, when
       present, contains an optional "challenge".  The challenge is an
-      octet string that SHOULD be uniquely generated for each request in
-      which it is present (i.e., it is a "nonce"), and SHOULD be 8
+      octet string that <em>SHOULD</em> be uniquely generated for each request in
+      which it is present (i.e., it is a "nonce"), and <em>SHOULD</em> be 8
       octets or longer.  To avoid fragmentation (i.e., EAP messages
-      longer than the minimum EAP MTU size; see [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>]), the challenge MUST
+      longer than the minimum EAP MTU size; see [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>]), the challenge <em>MUST</em>
       NOT be longer than 64 octets.  When the challenge is not present,
       the OTP will be calculated on the current token state only.  The
-      peer MAY ignore a provided challenge if and only if the OTP token
+      peer <em>MAY</em> ignore a provided challenge if and only if the OTP token
       the peer is interacting with is not capable of including a
       challenge in the OTP calculation.  In this case, EAP server
       policies will determine whether or not to accept a provided OTP
@@ -1746,9 +1746,9 @@ Table of Contents
    EAP-Response: The following applies to the Authentication Data field
       in an EAP-Response:
 
-      *  When the P bit is not set, the peer SHALL directly place the
+      *  When the P bit is not set, the peer <em>SHALL</em> directly place the
          OTP value calculated by the token in the Authentication Data
-         field.  In this case, the EAP server MUST NOT send a Confirm
+         field.  In this case, the EAP server <em>MUST NOT</em> send a Confirm
 
 
 
@@ -1761,9 +1761,9 @@ Table of Contents
          TLV upon successful authentication of the peer (instead, it
          sends an EAP-Success message).
 
-      *  When the P bit is set, the peer SHALL populate this field as
+      *  When the P bit is set, the peer <em>SHALL</em> populate this field as
          follows.  After the token has calculated the OTP value, the
-         peer SHALL compute:
+         peer <em>SHALL</em> compute:
 
             K_MAC | K_ENC | MSK | EMSK | SRK = PBKDF2(otp, salt | pepper
             | auth_id, iteration_count, key_length)
@@ -1790,10 +1790,10 @@ Table of Contents
             server's indicated policy and the peer's local policy),
             while an attacker, having observed the response and
             initiating a search for a matching OTP, will be sufficiently
-            slowed down.  The "iteration_count" value MUST be chosen to
+            slowed down.  The "iteration_count" value <em>MUST</em> be chosen to
             provide a suitable level of protection (e.g., at least
             100,000) unless a server-provided pepper is being used, in
-            which case, it SHOULD be 1.
+            which case, it <em>SHOULD</em> be 1.
 
             "key_length" is the combined length of the desired key
             material, in octets.  When the default algorithms are used,
@@ -1814,7 +1814,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4793.html">RFC 4793</a>                        EAP-POTP                   February 2007</span>
 
 
-            multiple of 8, then the pepper value SHALL be padded to the
+            multiple of 8, then the pepper value <em>SHALL</em> be padded to the
             left, with '0' bits to the nearest multiple of 8 before
             being used in the PBKDF2 calculation.  This is to ensure the
             input to the calculation consists only of whole octets.  As
@@ -1822,17 +1822,17 @@ Table of Contents
             value will be padded to the left, with 4 '0' bits to form an
             octet before being used in the PBKDF2 calculation.
 
-            When pepper is used, it is RECOMMENDED that the length of
+            When pepper is used, it is <em>RECOMMENDED</em> that the length of
             the pepper and the iteration count are chosen in such a way
             that it is computationally infeasible/unattractive for an
             attacker to brute-force search for the given OTP within the
             lifetime of that OTP.
 
-            As mentioned previously, a peer MUST NOT include a newly
+            As mentioned previously, a peer <em>MUST NOT</em> include a newly
             generated pepper value in the PBKDF2 computation if the
             server did not indicate its support for pepper searching in
             this session.  If the server did not indicate support for
-            pepper searching, then the PBKDF2 computation MUST be
+            pepper searching, then the PBKDF2 computation <em>MUST</em> be
             carried out with a sufficiently higher number of iterations
             so as to compensate for the lack of pepper (see further
             <a href="#appendix-D">Appendix D</a>).
@@ -1840,8 +1840,8 @@ Table of Contents
             A server may, in an earlier session, have transferred a
             pepper value to the peer in a Confirm TLV (see below).  When
             this is the case, and the peer still has that pepper value
-            stored for this server, the peer MUST NOT generate a new
-            pepper but MUST, instead, use this transferred pepper value
+            stored for this server, the peer <em>MUST NOT</em> generate a new
+            pepper but <em>MUST</em>, instead, use this transferred pepper value
             in the PBKDF2 calculations.  The only exception to this is
             when a local policy (e.g., timer) dictates that the peer
             must switch to a new pepper (and the server indicated
@@ -1849,15 +1849,15 @@ Table of Contents
 
             The following applies to the auth_id component:
 
-            -  For dial-up, "auth_id" SHALL be either the empty string
+            -  For dial-up, "auth_id" <em>SHALL</em> be either the empty string
                or the phone number called by the peer.  The phone number
-               SHALL be specified in the form of a URL conformant with
+               <em>SHALL</em> be specified in the form of a URL conformant with
                <a href="./rfc3966.html">RFC 3966</a> [<a href="#ref-8" title="&quot;The tel URI for Telephone Numbers&quot;">8</a>], e.g., "tel:+16175550101".  Processing of
-               received phone numbers SHALL be conformant with <a href="./rfc3966.html">RFC 3966</a>
+               received phone numbers <em>SHALL</em> be conformant with <a href="./rfc3966.html">RFC 3966</a>
                (this assumes that "tel" URIs will be shorter than 256
                octets, which would normally be the case).
 
-            -  For use with IEEE 802.1X, "auth_id" SHALL be either the
+            -  For use with IEEE 802.1X, "auth_id" <em>SHALL</em> be either the
                empty string or the MAC address of the authenticator in
                canonical binary format (6 octets).
 
@@ -1870,7 +1870,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4793.html">RFC 4793</a>                        EAP-POTP                   February 2007</span>
 
 
-            -  For IP-based EAP, "auth_id" SHALL be either the empty
+            -  For IP-based EAP, "auth_id" <em>SHALL</em> be either the empty
                string or the IPv4 or IPv6 address of the authenticator
                as seen by the peer and in binary format (4 or 16 octets,
                respectively).  As an example, the IPv4 address
@@ -1885,7 +1885,7 @@ Table of Contents
             intercept and forward the Authentication Data in order to
             impersonate the peer at a legitimate authenticator (but see
             also the discussion around spoofed authenticator addresses
-            in <a href="#section-6">Section 6</a>).  For these reasons, a peer SHOULD NOT set the
+            in <a href="#section-6">Section 6</a>).  For these reasons, a peer <em>SHOULD NOT</em> set the
             auth_id component to the empty string unless it is unable to
             learn the identifying information of the authenticator.  In
             these cases, the EAP server's policy will determine whether
@@ -1933,7 +1933,7 @@ Table of Contents
             value in binary form, and optionally followed by a pepper
             identifier (only when the peer made use of a pepper value
             previously provided by the EAP server).  Pepper identifiers,
-            when present, are always 4 octets.  All variables SHALL be
+            when present, are always 4 octets.  All variables <em>SHALL</em> be
             present in the form they were input to the PBKDF2 algorithm.
             This will result in the Authentication Data field being 33 +
             (length of auth_id in octets) + (4, for pepper identifier,
@@ -1950,12 +1950,12 @@ Table of Contents
             successful authentication of the peer by the EAP server will
             be followed by the transmission of an EAP-Request of type
             POTP-X containing a Confirm TLV for mutual authentication,
-            the peer MUST save either all the input parameters to the
+            the peer <em>MUST</em> save either all the input parameters to the
             PBKDF2 computation or the keys K_MAC, K_ENC, SRK, MSK, and
             EMSK (recommended, since they will be used later).  This is
             because the peer cannot be guaranteed to be able to generate
             the same OTP value again.  For the same reason (the Confirm-
-            TLV from the EAP server), the peer MUST also store either
+            TLV from the EAP server), the peer <em>MUST</em> also store either
             the hash of the contents of the sent EAP-Response or the
             EAP-Response itself (but see the note above about not
             including any User Identifier TLVs in the hash computation).
@@ -1989,7 +1989,7 @@ Table of Contents
             If the server already shares a secret pepper value with this
             peer, then obviously there will only be one possible pepper
             value, and the server will find it based on the
-            pepper_identifier provided by the peer.  The server SHALL
+            pepper_identifier provided by the peer.  The server <em>SHALL</em>
             send a new EAP-Request of type POTP-X with an OTP TLV with
             the E bit set if the peer provided a pepper identifier
             unknown to the server.
@@ -2012,8 +2012,8 @@ Table of Contents
             If the authentication is successful, the authentication
             server then attempts to authenticate itself to the peer by
             use of the Confirm TLV (see below).  If the authentication
-            fails, the EAP server MAY send another EAP-Request of type
-            POTP-X containing an OTP TLV to the peer, or it MAY send an
+            fails, the EAP server <em>MAY</em> send another EAP-Request of type
+            POTP-X containing an OTP TLV to the peer, or it <em>MAY</em> send an
             EAP-Failure message (in both cases, possibly preceded by an
             EAP-Request of type Notification).
 
@@ -2024,9 +2024,9 @@ Table of Contents
    times in an EAP-Response of type POTP-X.  Each occurrence flags the
    non-support of a particular received TLV.
 
-   The NAK TLV MUST be supported by all peers and all EAP servers
-   conforming to this specification and MUST NOT be responded to with a
-   NAK TLV.  Receipt of a NAK TLV by an EAP server MAY cause an
+   The NAK TLV <em>MUST</em> be supported by all peers and all EAP servers
+   conforming to this specification and <em>MUST NOT</em> be responded to with a
+   NAK TLV.  Receipt of a NAK TLV by an EAP server <em>MAY</em> cause an
    authentication to fail, and the EAP server to send an EAP-Failure
    message to the peer.
 
@@ -2058,8 +2058,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -2076,13 +2076,13 @@ Table of Contents
       TLV that was not supported.  The high-order octet is 0 and the
       low-order 3 octets are the Structure of Management Information
       (SMI) Network Management Private Enterprise Code of the Vendor in
-      network byte order.  The Vendor-Id field MUST be zero for TLVs
+      network byte order.  The Vendor-Id field <em>MUST</em> be zero for TLVs
       that are not Vendor-Specific TLVs.  For Vendor-Specific TLVs, the
-      Vendor-ID MUST be set to the SMI code.
+      Vendor-ID <em>MUST</em> be set to the SMI code.
 
    NAK-Type
 
-   The type of the unsupported TLV.  The TLV MUST have been included in
+   The type of the unsupported TLV.  The TLV <em>MUST</em> have been included in
    the most recently received EAP message.
 
 
@@ -2096,25 +2096,25 @@ Table of Contents
 
    TLVs
 
-   This field contains a list of TLVs, each of which MUST NOT have the
+   This field contains a list of TLVs, each of which <em>MUST NOT</em> have the
    mandatory bit set.  These optional TLVs can be used in the future to
    communicate why the offending TLV was determined to be unsupported.
 
 <span class="h4"><a class="selflink" name="section-4.11.5" href="#section-4.11.5">4.11.5</a>.  New PIN TLV</span>
 
    In an EAP-Request, the New PIN TLV is used to request a new user PIN
-   from the peer.  The EAP server MAY provide a new PIN, as described
+   from the peer.  The EAP server <em>MAY</em> provide a new PIN, as described
    below.  In an EAP-Response, the New PIN TLV carries a chosen new user
    PIN.  This TLV may be used by an EAP server when policy dictates that
    the peer (user) needs to change a PIN associated with the OTP Token.
 
-   This TLV type SHOULD be supported by peers and EAP servers conforming
-   to this specification.  The New PIN TLV MUST NOT be sent by an EAP
+   This TLV type <em>SHOULD</em> be supported by peers and EAP servers conforming
+   to this specification.  The New PIN TLV <em>MUST NOT</em> be sent by an EAP
    server unless the peer has been authenticated.  If the peer was
-   authenticated in protected mode, then the New PIN TLV MUST NOT be
+   authenticated in protected mode, then the New PIN TLV <em>MUST NOT</em> be
    present in an EAP-Request until after the exchange of the Confirm TLV
    (i.e., until after mutual authentication has occurred and keys are in
-   place to protect the TLV).  The New PIN TLV MUST be sent by a peer if
+   place to protect the TLV).  The New PIN TLV <em>MUST</em> be sent by a peer if
    and only if the EAP-Request that triggered the response contained a
    New PIN TLV, it was valid for the EAP server to send such a TLV in
    that request, and the TLV is supported by the peer.
@@ -2135,8 +2135,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -2163,23 +2163,23 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  All six bits SHALL be set to zero for
-      this version.  Recipients SHALL ignore these bits for this version
+      Reserved for future use.  All six bits <em>SHALL</em> be set to zero for
+      this version.  Recipients <em>SHALL</em> ignore these bits for this version
       of EAP-POTP.
 
    Q
 
       The Q bit, when set in an EAP-Request, indicates that an
       accompanying PIN is required, i.e., the peer (user) is not free to
-      choose another PIN.  When the Q bit is set, there MUST be an
-      accompanying PIN and the provided PIN MUST be used in subsequent
-      OTP generations.  A peer SHALL respond with an empty POTP-X EAP-
+      choose another PIN.  When the Q bit is set, there <em>MUST</em> be an
+      accompanying PIN and the provided PIN <em>MUST</em> be used in subsequent
+      OTP generations.  A peer <em>SHALL</em> respond with an empty POTP-X EAP-
       Response message if the Q bit is set but there is not any
       accompanying PIN.  When the Q bit is not set, any provided PIN is
       suggested only, and the peer is free to choose another PIN,
       subject to local policy.
 
-      The Q bit carries no meaning, and SHALL be set to zero, in an EAP-
+      The Q bit carries no meaning, and <em>SHALL</em> be set to zero, in an EAP-
       Response.
 
    A
@@ -2187,7 +2187,7 @@ Table of Contents
       This bit allows methods that distinguish between two different PIN
       types (e.g., decimal vs. alphanumeric) to designate whether the
       augmented set is to be used (when set) or not (when not set).  The
-      A bit carries no meaning, and SHALL be set to zero, in an EAP-
+      A bit carries no meaning, and <em>SHALL</em> be set to zero, in an EAP-
       Response.
 
    PIN Length
@@ -2209,46 +2209,46 @@ Table of Contents
    PIN
 
       In an EAP-Request, subject to the setting of the Q bit, the PIN
-      field MAY be empty.  If empty, the peer (user) will need to choose
+      field <em>MAY</em> be empty.  If empty, the peer (user) will need to choose
       a PIN subject to local and (any) provided policy.  When the PIN
-      field is not empty, it MUST consist of UTF-8 encoded printable
+      field is not empty, it <em>MUST</em> consist of UTF-8 encoded printable
       characters without a terminating NULL character.
 
-      In an EAP-Response, the PIN value SHALL consist of a UTF-8 encoded
+      In an EAP-Response, the PIN value <em>SHALL</em> consist of a UTF-8 encoded
       string of printable characters without a terminating NULL
       character.
 
       The peer accepts a PIN suggested by the EAP server by replying
-      with the same PIN, but MAY replace it with another one, depending
+      with the same PIN, but <em>MAY</em> replace it with another one, depending
       on the server's setting of the Q bit.  The length of the PIN is
       application-dependent, as are any other requirements for the PIN,
-      e.g., allowed characters.  The peer MUST be prepared to receive a
+      e.g., allowed characters.  The peer <em>MUST</em> be prepared to receive a
       repeated request for a new PIN, as described above, if the EAP
       server, for some reason does not accept the received PIN.  Such a
-      request MAY be preceded by an EAP-Request of type Notification (2)
+      request <em>MAY</em> be preceded by an EAP-Request of type Notification (2)
       providing information to the user about the reason for the
       rejection.  Mechanisms for transferring knowledge about PIN
       requirements from the EAP server to the peer (beyond those
       specified for this TLV, such as maximal and minimal PIN length)
       are outside the scope of this document.  However, some information
-      MAY be provided in notification messages transferred from the EAP
+      <em>MAY</em> be provided in notification messages transferred from the EAP
       server to the peer, as per above.
 
    Min. PIN Length
 
-      This field MAY be present in an EAP-Request.  This field MUST NOT
-      be present in an EAP-Response.  It SHALL be interpreted as an
+      This field <em>MAY</em> be present in an EAP-Request.  This field <em>MUST NOT</em>
+      be present in an EAP-Response.  It <em>SHALL</em> be interpreted as an
       unsigned integer in network byte order representing the minimum
       length allowed for a new PIN.
 
    Max. PIN Length
 
-      This field MUST NOT be present in an EAP-Request unless the Min.
-      PIN Length field is present, in which case it MAY be present.  The
-      field MUST NOT be present in an EAP-Response.  It SHALL be
+      This field <em>MUST NOT</em> be present in an EAP-Request unless the Min.
+      PIN Length field is present, in which case it <em>MAY</em> be present.  The
+      field <em>MUST NOT</em> be present in an EAP-Response.  It <em>SHALL</em> be
       interpreted as an unsigned integer in network byte order
       representing the maximum length allowed for a new PIN.  The value
-      of this field, when present, MUST be equal to, or larger than, the
+      of this field, when present, <em>MUST</em> be equal to, or larger than, the
       value of the Min. PIN Length field.
 
 
@@ -2271,26 +2271,26 @@ Table of Contents
    calculated keys (K_MAC, K_ENC, MSK, EMSK, and SRK) now become
    available for use.
 
-   The Confirm TLV MUST NOT appear together with any other TLV in an
-   EAP-Request message of type POTP-X and MUST NOT be sent unless the
+   The Confirm TLV <em>MUST NOT</em> appear together with any other TLV in an
+   EAP-Request message of type POTP-X and <em>MUST NOT</em> be sent unless the
    peer has been authenticated through an OTP TLV with the P bit set or
    through a Resume TLV for which the underlying session was established
-   in protected mode.  The Confirm TLV MUST be present in an EAP-
+   in protected mode.  The Confirm TLV <em>MUST</em> be present in an EAP-
    Response if and only if the request that triggered the response
    contained a Confirm TLV, it was legal for it to do so, and the
    Confirm TLV authenticated the EAP server to the peer.  If the peer
-   was not able to authenticate the server, then it MUST send an empty
+   was not able to authenticate the server, then it <em>MUST</em> send an empty
    (i.e., no TLVs present) EAP-Response of type POTP-X.
 
-   An EAP server MUST send an EAP-Success message after receiving an
+   An EAP server <em>MUST</em> send an EAP-Success message after receiving an
    EAP-Response of type POTP-X containing a valid Confirm TLV, sent in
    response to an EAP-Request containing a Confirm TLV where the C bit
-   was not set.  A peer MUST NOT accept an EAP-Success message when it
+   was not set.  A peer <em>MUST NOT</em> accept an EAP-Success message when it
    has sent an OTP TLV with the P bit set unless it has received an
    acceptable Confirm TLV from the EAP server.
 
-   This TLV type MUST be supported by all peers and EAP servers
-   conforming to this specification and MUST NOT be responded to with a
+   This TLV type <em>MUST</em> be supported by all peers and EAP servers
+   conforming to this specification and <em>MUST NOT</em> be responded to with a
    NAK TLV.
 
     0                   1                   2                   3
@@ -2320,8 +2320,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -2334,8 +2334,8 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  These 7 bits SHALL be set to zero (0)
-      for this version.  Recipients SHALL ignore these bits for this
+      Reserved for future use.  These 7 bits <em>SHALL</em> be set to zero (0)
+      for this version.  Recipients <em>SHALL</em> ignore these bits for this
       version of EAP-POTP.
 
    C
@@ -2344,16 +2344,16 @@ Table of Contents
       server intends to send more EAP-Requests of type POTP-X in this
       session, after receipt of a Confirm TLV from the peer.
 
-      The C bit carries no meaning in EAP-Responses, and MUST NOT be set
+      The C bit carries no meaning in EAP-Responses, and <em>MUST NOT</em> be set
       within them.
 
       Note: An EAP-Response containing a Confirm TLV, sent in response
       to an EAP-Request containing a Confirm TLV that did not have the C
-      bit set, MUST be followed by an EAP-Success message from the EAP
+      bit set, <em>MUST</em> be followed by an EAP-Success message from the EAP
       server concluding the handshake.  However, when the C bit was set
-      in an EAP-Request, the EAP server MAY send another EAP-Request
+      in an EAP-Request, the EAP server <em>MAY</em> send another EAP-Request
       (containing, for example, a New PIN TLV wrapped in a Protected
-      TLV) rather than an EAP-Success message.  Therefore, peers MUST
+      TLV) rather than an EAP-Success message.  Therefore, peers <em>MUST</em>
       NOT assume that the only EAP message following an EAP-Response of
       type POTP-X containing a Confirm TLV is EAP-Success.  The C bit
       gives EAP servers a way to indicate their intent to follow the
@@ -2401,25 +2401,25 @@ Table of Contents
 
    EAP-Response:
 
-         Not used in this version, and SHALL NOT be present in EAP-
+         Not used in this version, and <em>SHALL NOT</em> be present in EAP-
          Responses.
 
    Pepper Identifier
 
-      In an EAP-Request, the truncated MAC MAY optionally be followed by
+      In an EAP-Request, the truncated MAC <em>MAY</em> optionally be followed by
       an encrypted pepper and its identifier.  This initial, 4-octet
       field identifies a pepper generated by the server.
 
-      For this version of EAP-POTP, this field SHALL NOT be present in
+      For this version of EAP-POTP, this field <em>SHALL NOT</em> be present in
       EAP-Responses.
 
    IV (Initialization Vector)
 
       An initialization vector for the encryption.  The length of the
       vector is dependent on the negotiated encryption algorithm.  For
-      example, for AES-CBC, it SHALL be 16 octets.  The IV is only
+      example, for AES-CBC, it <em>SHALL</em> be 16 octets.  The IV is only
       present if a pepper is present, and the negotiated encryption
-      algorithm makes use of an IV.  This field SHALL NOT be present in
+      algorithm makes use of an IV.  This field <em>SHALL NOT</em> be present in
       EAP-Response messages for this version of EAP-POTP.
 
 
@@ -2437,23 +2437,23 @@ Table of Contents
       EAP server and encrypted with the negotiated encryption algorithm,
       using K_ENC as the encryption key and possibly (depending on the
       encryption algorithm) using an IV (stored in the IV field).  This
-      field MUST be present if and only if the Pepper Identifier field
+      field <em>MUST</em> be present if and only if the Pepper Identifier field
       is present.
 
-      EAP servers are RECOMMENDED to include a freshly generated
+      EAP servers are <em>RECOMMENDED</em> to include a freshly generated
       encrypted pepper (and a corresponding Pepper Identifier) in every
       Confirm TLV.
 
-      This field SHALL NOT be present in EAP-Response messages for this
+      This field <em>SHALL NOT</em> be present in EAP-Response messages for this
       version of EAP-POTP.
 
    When a new pepper is generated by the server and transferred in
    encrypted form to the peer, then this new pepper value will be stored
    in the EAP server upon receipt of the Confirm TLV from the peer, and
-   SHOULD be stored with its identifier and associated with the EAP
+   <em>SHOULD</em> be stored with its identifier and associated with the EAP
    server and the current user in the peer upon receipt of the EAP-
    Success message.  If the peer already had a pepper stored for the EAP
-   server, it SHALL replace it with the newly received one.
+   server, it <em>SHALL</em> replace it with the newly received one.
 
 <span class="h4"><a class="selflink" name="section-4.11.7" href="#section-4.11.7">4.11.7</a>.  Vendor-Specific TLV</span>
 
@@ -2462,17 +2462,17 @@ Table of Contents
    Vendor-Specific TLV can contain one or more inner TLVs, referred to
    as Vendor TLVs.  The TLV-type of a Vendor TLV will be defined by the
    vendor.  All the Vendor TLVs inside a single Vendor-Specific TLV
-   SHALL belong to the same vendor.
+   <em>SHALL</em> belong to the same vendor.
 
-   This TLV type MAY be sent by EAP servers, as well as by peers, and
-   MUST be supported by all entities conforming to this specification.
+   This TLV type <em>MAY</em> be sent by EAP servers, as well as by peers, and
+   <em>MUST</em> be supported by all entities conforming to this specification.
    Conforming implementations may not support specific Vendor TLVs
-   inside a Vendor-Specific TLV, however.  They MAY, in this case,
+   inside a Vendor-Specific TLV, however.  They <em>MAY</em>, in this case,
    respond to the Vendor TLVs with a NAK TLV containing the appropriate
    Vendor-ID and Vendor TLV type.
 
    The presence of a Vendor-Specific TLV in an EAP-Request or EAP-
-   Response of type POTP-X MUST NOT violate any existing rules for
+   Response of type POTP-X <em>MUST NOT</em> violate any existing rules for
    coexistence of TLVs in such requests or responses.  If it does, then
    it will result in an EAP-Failure (when the peer made the violation)
    or an empty EAP-POTP response (when the EAP-server made the
@@ -2511,8 +2511,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -2525,8 +2525,8 @@ Table of Contents
 
    Vendor-ID
 
-      The Vendor-Id field is 4 octets.  The high-order octet SHALL be
-      set to 0, and the low-order 3 octets SHALL be set to the SMI
+      The Vendor-Id field is 4 octets.  The high-order octet <em>SHALL</em> be
+      set to 0, and the low-order 3 octets <em>SHALL</em> be set to the SMI
       Network Management Private Enterprise Code (see [<a href="#ref-18" title="&quot;Private Enterprise Numbers&quot;">18</a>]) of the
       Vendor in network byte order.
 
@@ -2546,28 +2546,28 @@ Table of Contents
 
       This field shall contain vendor-specific TLVs, in a format defined
       by the vendor.  To avoid fragmentation (i.e., EAP messages longer
-      than the minimum EAP MTU size), the field SHOULD NOT be longer
+      than the minimum EAP MTU size), the field <em>SHOULD NOT</em> be longer
       than 256 octets.
 
    To ensure interoperability when an EAP entity (peer or server) from
    vendor A sends a vendor-specific TLV that is not understood by the
-   recipient EAP entity from vendor B, the vendor A entity SHALL, upon
+   recipient EAP entity from vendor B, the vendor A entity <em>SHALL</em>, upon
    receipt of the NAK TLV from the recipient, refrain from usage of the
    vendor-specific TLV in question for the rest of the handshake, and
-   MUST NOT fail the session due to the receipt of the NAK TLV for the
-   Vendor TLV (i.e., it SHALL continue as if the vendor-specific TLV had
+   <em>MUST NOT</em> fail the session due to the receipt of the NAK TLV for the
+   Vendor TLV (i.e., it <em>SHALL</em> continue as if the vendor-specific TLV had
    not been sent).  Additionally, all implementations conformant with
-   this document SHOULD allow use of vendor-specific extensions to be
+   this document <em>SHOULD</em> allow use of vendor-specific extensions to be
    turned off via configuration.
 
 <span class="h4"><a class="selflink" name="section-4.11.8" href="#section-4.11.8">4.11.8</a>.  Resume TLV</span>
 
-   The Resume TLV MAY be sent by a peer to an authentication server to
+   The Resume TLV <em>MAY</em> be sent by a peer to an authentication server to
    attempt session resumption.
 
-   This TLV type MUST only be sent in response to an EAP-Request of type
+   This TLV type <em>MUST</em> only be sent in response to an EAP-Request of type
    POTP-X containing a Server-Info TLV allowing session resumption.  The
-   Resume TLV MUST be supported by all EAP servers that send a Server-
+   Resume TLV <em>MUST</em> be supported by all EAP servers that send a Server-
    Info TLV allowing session resumption.
 
     0                   1                   2                   3
@@ -2600,8 +2600,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -2614,8 +2614,8 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  This octet SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this octet for this version
+      Reserved for future use.  This octet <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this octet for this version
       of EAP-POTP.
 
    Session Identifier
@@ -2662,11 +2662,11 @@ Table of Contents
       176.
 
       The iteration count need only be 1 (one) when resuming a session
-      established in protected mode, but MUST be chosen to provide a
+      established in protected mode, but <em>MUST</em> be chosen to provide a
       suitable level of protection when resuming a session established
       in basic mode (see also <a href="#section-4.11.3">Section 4.11.3</a>).
 
-      Note: Session resumption for basic mode MUST only be carried out
+      Note: Session resumption for basic mode <em>MUST</em> only be carried out
       in a server-authenticated and protected tunnel that also provides
       a cryptographic binding for inner EAP methods.
 
@@ -2694,8 +2694,8 @@ Table of Contents
 
       The server authenticates the peer by performing the corresponding
       calculations.  If the authentication is successful, the server
-      MUST send an EAP-Request of type POTP-X containing a Confirm TLV
-      to the peer.  If the authentication fails, the server MUST either
+      <em>MUST</em> send an EAP-Request of type POTP-X containing a Confirm TLV
+      to the peer.  If the authentication fails, the server <em>MUST</em> either
       send an EAP-Request of type POTP-X containing an OTP TLV and a
       Server-Info TLV, where the Server-Info TLV indicates that session
       resumption is not possible, or send an EAP-Failure.
@@ -2710,7 +2710,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4793.html">RFC 4793</a>                        EAP-POTP                   February 2007</span>
 
 
-      When resuming in basic mode, all calculated keys SHALL be
+      When resuming in basic mode, all calculated keys <em>SHALL</em> be
       discarded after the MAC has been calculated and verified.  When
       resuming in protected mode, the new SRK will replace the stored
       SRK, and the new MSK and EMSK will be exported upon successful
@@ -2722,21 +2722,21 @@ Table of Contents
    username, for the holder of the OTP token used to generate the OTP.
 
    At least one of the User Identifier TLV and the Token Key Identifier
-   TLV SHOULD be present in the session's first EAP-Response of type
+   TLV <em>SHOULD</em> be present in the session's first EAP-Response of type
    POTP-X that also carries an OTP TLV unless a suitable identity has
    been provided in a preceding EAP-Response of type Identity (1) or is
    determined by some other means (see [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>], Section 2).  Use of the User
-   Identifier TLV and/or the Token Key Identifier TLV is RECOMMENDED
+   Identifier TLV and/or the Token Key Identifier TLV is <em>RECOMMENDED</em>
    even when an EAP-Response of type Identity (1) has been sent.  If a
    peer sends both a User Identifier TLV and a Token Key Identifier TLV,
-   then the EAP server SHALL interpret the Token Key Identifier TLV as
+   then the EAP server <em>SHALL</em> interpret the Token Key Identifier TLV as
    specifying a particular token key for the given user.  The EAP server
-   MUST respond with an EAP-Failure if it cannot find a token key for
+   <em>MUST</em> respond with an EAP-Failure if it cannot find a token key for
    the provided user.
 
-   This TLV type is sent by peers and MUST be supported by all EAP
+   This TLV type is sent by peers and <em>MUST</em> be supported by all EAP
    servers conforming to this specification.  The User Identifier TLV
-   MUST NOT be present in a response that does not also carry an OTP
+   <em>MUST NOT</em> be present in a response that does not also carry an OTP
    TLV.
 
     0                   1                   2                   3
@@ -2753,8 +2753,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
 
@@ -2776,8 +2776,8 @@ Table of Contents
 
    User Identifier
 
-      The value SHALL be an UTF-8 encoded string representing the holder
-      of the token (MUST NOT be NULL-terminated).  The string MUST be
+      The value <em>SHALL</em> be an UTF-8 encoded string representing the holder
+      of the token (<em>MUST NOT</em> be NULL-terminated).  The string <em>MUST</em> be
       less than 128 octets in length.
 
 <span class="h4"><a class="selflink" name="section-4.11.10" href="#section-4.11.10">4.11.10</a>.  Token Key Identifier TLV</span>
@@ -2786,21 +2786,21 @@ Table of Contents
    used to generate the OTP.
 
    At least one of the User Identifier TLV and the Token Key Identifier
-   TLV SHOULD be present in the session's first EAP-Response of type
+   TLV <em>SHOULD</em> be present in the session's first EAP-Response of type
    POTP-X, which also carries the OTP TLV unless a suitable identity has
    been provided in a preceding EAP-Response of type Identity (1) or is
    determined by some other means (see [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>], Section 2).  Use of the User
-   Identifier TLV and/or the Token Key Identifier TLV is RECOMMENDED
+   Identifier TLV and/or the Token Key Identifier TLV is <em>RECOMMENDED</em>
    even when an EAP-Response of type Identity (1) has been sent.  If a
    peer sends both a User Identifier TLV and a Token Key Identifier TLV,
-   then the EAP server SHALL interpret the Token Key Identifier TLV as
+   then the EAP server <em>SHALL</em> interpret the Token Key Identifier TLV as
    specifying a particular token key for the given user.  The EAP server
-   MUST respond with an EAP-Failure if it cannot find a token key
+   <em>MUST</em> respond with an EAP-Failure if it cannot find a token key
    corresponding to the provided token key identifier.
 
-   This TLV type is sent by peers and MUST be supported by all EAP
+   This TLV type is sent by peers and <em>MUST</em> be supported by all EAP
    servers conforming to this specification.  The Token Key Identifier
-   TLV MUST NOT be present in a response that does not also carry an OTP
+   TLV <em>MUST NOT</em> be present in a response that does not also carry an OTP
    TLV.
 
     0                   1                   2                   3
@@ -2824,8 +2824,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -2839,18 +2839,18 @@ Table of Contents
    Token Key Identifier
 
       An identifier for the OTP token key used to generate the OTP.  The
-      field MUST be less than 128 octets in length.
+      field <em>MUST</em> be less than 128 octets in length.
 
 <span class="h4"><a class="selflink" name="section-4.11.11" href="#section-4.11.11">4.11.11</a>.  Time Stamp TLV</span>
 
-   The Time Stamp TLV MAY be sent by peers to simplify authentications.
+   The Time Stamp TLV <em>MAY</em> be sent by peers to simplify authentications.
    When present, it carries the time as reported by the OTP Token.
 
-   An EAP server conformant with this specification SHOULD support
+   An EAP server conformant with this specification <em>SHOULD</em> support
    (i.e., recognize) this TLV, but need not be able to process or act on
    it.  An EAP server that does not support this TLV, but receives an
-   EAP-Response with the TLV present, MAY ignore the value.  The Time
-   Stamp TLV MUST NOT be present in any EAP-Responses of type POTP-X
+   EAP-Response with the TLV present, <em>MAY</em> ignore the value.  The Time
+   Stamp TLV <em>MUST NOT</em> be present in any EAP-Responses of type POTP-X
    other than those that also carries an OTP TLV.
 
     0                   1                   2                   3
@@ -2867,8 +2867,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
 
@@ -2889,22 +2889,22 @@ Table of Contents
    Time Stamp
 
       The time, as reported by the OTP token, at which the OTP used for
-      the accompanying OTP TLV was calculated.  The field SHALL contain
+      the accompanying OTP TLV was calculated.  The field <em>SHALL</em> contain
       a UTF-8 encoded value of the XML simple type "dateTime", with time
       zone information and precision down to at least seconds, e.g.,
       "2004-06-16T15:20:02Z".
 
 <span class="h4"><a class="selflink" name="section-4.11.12" href="#section-4.11.12">4.11.12</a>.  Counter TLV</span>
 
-   The Counter TLV MAY be sent by peers to simplify authentications.
+   The Counter TLV <em>MAY</em> be sent by peers to simplify authentications.
    When present, it carries the token counter value, as reported by the
    OTP Token.
 
-   An EAP server conformant with this specification SHOULD support
+   An EAP server conformant with this specification <em>SHOULD</em> support
    (i.e., recognize) this TLV, but need not be able to process or act on
    it.  An EAP server that does not support this TLV, but receives an
-   EAP-Response with the TLV present, MAY ignore the value.  The Counter
-   TLV MUST NOT be present in any EAP-Responses of type POTP-X other
+   EAP-Response with the TLV present, <em>MAY</em> ignore the value.  The Counter
+   TLV <em>MUST NOT</em> be present in any EAP-Responses of type POTP-X other
    than those that also carries an OTP TLV.
 
     0                   1                   2                   3
@@ -2921,8 +2921,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
 
@@ -2946,7 +2946,7 @@ Table of Contents
 
       The counter value, as reported by the OTP token, at which the OTP
       used for the accompanying OTP TLV was calculated.  The counter
-      value SHALL be represented as an unsigned integer in network-byte
+      value <em>SHALL</em> be represented as an unsigned integer in network-byte
       order, e.g., a counter value of 1030 may be sent as the 2 octets
       (in hex) 04 06.
 
@@ -2954,15 +2954,15 @@ Table of Contents
 
    The Challenge TLV carries the challenge used by the token to
    calculate the OTP, as reported by the token to the peer.  The
-   Challenge TLV MUST be sent by a peer if and only if the challenge
+   Challenge TLV <em>MUST</em> be sent by a peer if and only if the challenge
    otherwise would be unknown to the EAP server (e.g., the token or peer
    modified a received challenge or generated its own challenge).
 
-   An EAP server conformant with this specification SHOULD support
+   An EAP server conformant with this specification <em>SHOULD</em> support
    (i.e., recognize) this TLV, but need not be able to process or act on
    it.  An EAP server that does not support this TLV, but receives an
-   EAP-Response with the TLV present, MAY ignore the value.  The
-   Challenge TLV MUST NOT be present in any EAP-Responses of type POTP-X
+   EAP-Response with the TLV present, <em>MAY</em> ignore the value.  The
+   Challenge TLV <em>MUST NOT</em> be present in any EAP-Responses of type POTP-X
    other than those that also carry an OTP TLV.
 
     0                   1                   2                   3
@@ -2979,8 +2979,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
 
@@ -3007,11 +3007,11 @@ Table of Contents
 
    The Keep-Alive is used to avoid EAP-POTP timeouts.
 
-   The Keep-Alive TLV MAY be sent by a peer to avoid timeouts when the
+   The Keep-Alive TLV <em>MAY</em> be sent by a peer to avoid timeouts when the
    peer has received an EAP-Request containing an OTP TLV or a New PIN
    TLV and is waiting for a response from the user.
 
-   An EAP-Request containing a Keep-Alive TLV MUST be sent by an EAP
+   An EAP-Request containing a Keep-Alive TLV <em>MUST</em> be sent by an EAP
    server when the server receives an EAP-Response containing a Keep-
    Alive TLV, and the server has an outstanding request that did not
    contain a Keep-Alive TLV.  In this situation, the server does not
@@ -3019,16 +3019,16 @@ Table of Contents
    synchronous nature of EAP, it needs to send another request.  Re-
    transmission of the latest outstanding request could be confusing for
    the peer since the request would get a new Identifier value.  The
-   Keep-Alive TLV MAY also be sent by an EAP server when the server
+   Keep-Alive TLV <em>MAY</em> also be sent by an EAP server when the server
    detects that its processing time will exceed some locally configured
    threshold and may cause a network timeout.  In this case, the peer
-   MUST respond with an EAP-Response containing a Keep-Alive TLV.
+   <em>MUST</em> respond with an EAP-Response containing a Keep-Alive TLV.
 
-   This TLV type MUST be supported by all peers and all EAP servers
-   conforming to this specification and MUST NOT be responded to with a
-   NAK TLV.  The Keep-Alive TLV MUST NOT be sent in any other situations
-   than the ones described above.  The Keep-Alive TLV MUST NOT be sent
-   together with any other TLVs defined herein.  Implementations SHOULD
+   This TLV type <em>MUST</em> be supported by all peers and all EAP servers
+   conforming to this specification and <em>MUST NOT</em> be responded to with a
+   NAK TLV.  The Keep-Alive TLV <em>MUST NOT</em> be sent in any other situations
+   than the ones described above.  The Keep-Alive TLV <em>MUST NOT</em> be sent
+   together with any other TLVs defined herein.  Implementations <em>SHOULD</em>
    also follow recommendations made in Section 4.3 of [<a href="#ref-1" title="&quot;Extensible Authentication Protocol (EAP)&quot;">1</a>].
 
     0                   1                   2                   3
@@ -3052,8 +3052,8 @@ Table of Contents
 
    R
 
-   Reserved for future use.  This bit SHALL be set to zero (0) for this
-   version.  Recipients SHALL ignore this bit for this version of EAP-
+   Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for this
+   version.  Recipients <em>SHALL</em> ignore this bit for this version of EAP-
    POTP.
 
    TLV Type
@@ -3066,14 +3066,14 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.11.15" href="#section-4.11.15">4.11.15</a>.  Protected TLV</span>
 
-   The Protected TLV SHALL be used to encrypt individual or multiple
+   The Protected TLV <em>SHALL</em> be used to encrypt individual or multiple
    TLVs after successful exchange of the Confirm TLV (i.e., as soon as
    calculated keys have been confirmed).  The Protected TLV therefore
    wraps "ordinary" TLVs.
 
-   This TLV type may be sent by EAP servers as well as by peers and MUST
+   This TLV type may be sent by EAP servers as well as by peers and <em>MUST</em>
    be supported by all peers conforming to this specification.  It
-   SHOULD be supported by all EAP servers conforming to this
+   <em>SHOULD</em> be supported by all EAP servers conforming to this
    specification (it need not be supported if a server never will have a
    need to continue a POTP-X conversation after exchange of the Confirm
    TLV).
@@ -3104,8 +3104,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
    TLV Type
@@ -3118,7 +3118,7 @@ Table of Contents
 
    Message Authentication Code (MAC)
 
-      This field integrity-protects the TLV.  The MAC SHALL be
+      This field integrity-protects the TLV.  The MAC <em>SHALL</em> be
       calculated over the IV and the Encrypted TLVs field in the
       following manner:
 
@@ -3131,8 +3131,8 @@ Table of Contents
       The first 16 octets of the MAC is placed in the Message
       Authentication Code field.
 
-      Recipients MUST verify the MAC.  If the verification fails, the
-      conversation SHALL be terminated (i.e., peers send an empty POTP-X
+      Recipients <em>MUST</em> verify the MAC.  If the verification fails, the
+      conversation <em>SHALL</em> be terminated (i.e., peers send an empty POTP-X
       EAP-Response message, and EAP servers send an EAP-Failure message
       possibly preceded by an EAP-Request of type Notification).
 
@@ -3146,8 +3146,8 @@ Table of Contents
 
    Encrypted TLVs
 
-      This field SHALL contain one or more encrypted POTP-X TLVs.  The
-      encryption algorithm SHALL be as negotiated; use K_ENC as the
+      This field <em>SHALL</em> contain one or more encrypted POTP-X TLVs.  The
+      encryption algorithm <em>SHALL</em> be as negotiated; use K_ENC as the
       encryption key, and use the IV field as the initialization vector
 
 
@@ -3167,21 +3167,21 @@ Table of Contents
    algorithms.  Cryptographic Algorithm negotiation is described in
    detail in <a href="#section-4.3">Section 4.3</a>.
 
-   This TLV MUST be present in the initial EAP-Request of type POTP-X
+   This TLV <em>MUST</em> be present in the initial EAP-Request of type POTP-X
    that also carries an OTP TLV indicating protected mode, assuming the
    EAP server wants to negotiate use of any other algorithms than the
-   default ones.  It MAY also be present in an EAP-Request of type
+   default ones.  It <em>MAY</em> also be present in an EAP-Request of type
    POTP-X that carries an OTP TLV that is sent as a result of a failed
    session resumption (in this case, the peer has not yet responded to
    this TLV), or when the Crypto Algorithm TLV was part of the initial
    message from the EAP server, and the client negotiated another EAP-
    POTP version than the highest one supported by the EAP server.  The
-   Crypto Algorithm TLV MUST NOT be present in any other EAP-Requests.
-   Further, the Crypto Algorithm TLV MUST NOT be present in an EAP-
+   Crypto Algorithm TLV <em>MUST NOT</em> be present in any other EAP-Requests.
+   Further, the Crypto Algorithm TLV <em>MUST NOT</em> be present in an EAP-
    Response of type POTP-X unless the preceding EAP-Request also
-   contained it, and it was legal for it to do so.  This TLV MUST be
+   contained it, and it was legal for it to do so.  This TLV <em>MUST</em> be
    supported by all peers and all EAP servers conforming to this
-   specification and MUST NOT be responded to with a NAK TLV.
+   specification and <em>MUST NOT</em> be responded to with a NAK TLV.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -3201,8 +3201,8 @@ Table of Contents
 
    R
 
-      Reserved for future use.  This bit SHALL be set to zero (0) for
-      this version.  Recipients SHALL ignore this bit for this version
+      Reserved for future use.  This bit <em>SHALL</em> be set to zero (0) for
+      this version.  Recipients <em>SHALL</em> ignore this bit for this version
       of EAP-POTP.
 
 
@@ -3225,8 +3225,8 @@ Table of Contents
 
    Reserved
 
-      Reserved for future use.  This octet MUST be set to zero for this
-      version.  Recipients SHALL ignore this octet for this version of
+      Reserved for future use.  This octet <em>MUST</em> be set to zero for this
+      version.  Recipients <em>SHALL</em> ignore this octet for this version of
       EAP-POTP.
 
    Hash Alg. Length
@@ -3236,9 +3236,9 @@ Table of Contents
    Hash Algorithms
 
       Each octet pair of this field represents a hash algorithm as
-      follows.  An EAP server MAY supply several suggestions for hash
-      algorithms.  Each algorithm MUST appear only once.  The algorithms
-      SHALL be supplied in order of priority.  Peers MUST supply, at
+      follows.  An EAP server <em>MAY</em> supply several suggestions for hash
+      algorithms.  Each algorithm <em>MUST</em> appear only once.  The algorithms
+      <em>SHALL</em> be supplied in order of priority.  Peers <em>MUST</em> supply, at
       most, one algorithm (if none is present, the default applies).
       The defined values are:
 
@@ -3273,9 +3273,9 @@ Table of Contents
    Encryption Algorithms
 
       Each octet pair of this field represents an encryption algorithm
-      as follows.  An EAP server MAY supply several suggestions for
-      encryption algorithms.  Each algorithm MUST appear only once.  The
-      algorithms SHALL be supplied in order of priority.  Peers MUST
+      as follows.  An EAP server <em>MAY</em> supply several suggestions for
+      encryption algorithms.  Each algorithm <em>MUST</em> appear only once.  The
+      algorithms <em>SHALL</em> be supplied in order of priority.  Peers <em>MUST</em>
       supply, at most, one algorithm (if none is present, the default
       applies).  The defined values are:
 
@@ -3298,9 +3298,9 @@ Table of Contents
    MAC Algorithms
 
       Each octet pair of this field represents a MAC algorithm as
-      follows.  An EAP server MAY supply several suggestions for MAC
-      algorithms.  Each algorithm MUST appear only once.  The algorithms
-      SHALL be supplied in order of priority.  Peers MUST supply, at
+      follows.  An EAP server <em>MAY</em> supply several suggestions for MAC
+      algorithms.  Each algorithm <em>MUST</em> appear only once.  The algorithms
+      <em>SHALL</em> be supplied in order of priority.  Peers <em>MUST</em> supply, at
       most, one algorithm (if none is present, the default applies).
       The defined values are:
 
@@ -3315,7 +3315,7 @@ Table of Contents
       proprietary algorithms.  Values in the range 0x0002 - 0x7fff are
       to be assigned through IANA; see <a href="#section-7">Section 7</a>.
 
-      When HMAC is negotiated, the hash algorithm used for HMAC SHALL be
+      When HMAC is negotiated, the hash algorithm used for HMAC <em>SHALL</em> be
       the negotiated hash algorithm.
 
 
@@ -3398,7 +3398,7 @@ Table of Contents
    also the next subsection.  When PIN codes are transmitted, they are
    sent without protection and are also subject to replay attacks.
 
-   In order to protect against these attacks, the peer MUST only use the
+   In order to protect against these attacks, the peer <em>MUST</em> only use the
    basic variant of this method over a server-authenticated and
    confidentiality-protected connection.  This can be achieved via use
    of, PEAPv2 [<a href="#ref-17" title="&quot;Protected EAP Protocol (PEAP) Version 2&quot;">17</a>], for example.
@@ -3416,7 +3416,7 @@ Table of Contents
    a retrieved OTP, even if "old" and invalid, still may divulge some
    information about the user's PIN.  Clearly, this is also true for the
    basic variant.  Implementations of this EAP method, where user PINs
-   are sent with OTPs, are therefore RECOMMENDED to ensure regular user
+   are sent with OTPs, are therefore <em>RECOMMENDED</em> to ensure regular user
    PIN changes, regardless of whether the protected variant or the basic
    variant is employed.
 
@@ -3446,14 +3446,14 @@ Table of Contents
    The OTP protection variant also protects against session hijacking,
    if the derived key material is used (directly or indirectly) to
    protect a subsequent session.  For these reasons, use of the OTP
-   protection variant is RECOMMENDED.
+   protection variant is <em>RECOMMENDED</em>.
 
    However, it should be noted that not even the OTP protection variant
    provides privacy for user names and/or token key identifiers.  EAP-
-   POTP MUST be used within a secure tunnel such as the one provided by
+   POTP <em>MUST</em> be used within a secure tunnel such as the one provided by
    PEAPv2 [<a href="#ref-17" title="&quot;Protected EAP Protocol (PEAP) Version 2&quot;">17</a>] if privacy for these parameters is required.
 
-   When resuming sessions created in the basic variant (which MUST only
+   When resuming sessions created in the basic variant (which <em>MUST</em> only
    take place within a protected tunnel), the peer is authenticated by
    demonstrating knowledge of not just a valid session identifier, but
    also the OTP used when the session was created.  Server nonces
@@ -3462,14 +3462,14 @@ Table of Contents
    OTP value.  Assuming OTPs with entropy about 32 bits, this means that
    the likelihood of succeeding with such an attack is about 1/2^48 due
    to the birthday paradox.  Servers allowing session resumption for the
-   basic variant MUST protect against such attacks, e.g., by keeping
+   basic variant <em>MUST</em> protect against such attacks, e.g., by keeping
    track of the rate of failed resumption attempts.
 
 <span class="h3"><a class="selflink" name="section-6.3" href="#section-6.3">6.3</a>.  Denial-of-Service Attacks</span>
 
    An active attacker may replace the iteration count value in OTP TLVs
    sent by the peer to slow down an authentication server.
-   Authentication servers SHOULD protect against this, e.g., by
+   Authentication servers <em>SHOULD</em> protect against this, e.g., by
    disregarding OTP TLVs with an iteration count value higher than some
    number that is preset or dynamically set (depending on load).
 
@@ -3498,13 +3498,13 @@ Table of Contents
    correct OTP has been found, eavesdropping on the EAP server's Confirm
    TLV will potentially give the attacker access to the longer, server-
    provided pepper for the remaining lifetime of that pepper value.  For
-   this reason, initial exchanges with EAP servers SHOULD occur in a
+   this reason, initial exchanges with EAP servers <em>SHOULD</em> occur in a
    secure environment (e.g., in a PEAPv2 tunnel offering cryptographic
    binding with inner EAP methods).  If initial exchanges do not occur
-   in a secure environment, the iteration count MUST be significantly
+   in a secure environment, the iteration count <em>MUST</em> be significantly
    higher than for messages where a pre-shared pepper is used.  The
    lifetime of the shared pepper must also be calculated with this in
-   mind.  Finally, the peer and the EAP server MUST store the pepper
+   mind.  Finally, the peer and the EAP server <em>MUST</em> store the pepper
    value securely and associated with the user.
 
 <span class="h3"><a class="selflink" name="section-6.5" href="#section-6.5">6.5</a>.  The Race Attack</span>
@@ -3513,9 +3513,9 @@ Table of Contents
    basic variant of this method) for an attacker to listen to most of an
    OTP, guess the remainder, and then race the legitimate user to
    complete the authentication.  Conforming backend authentication
-   server implementations MUST protect against this race condition.  One
+   server implementations <em>MUST</em> protect against this race condition.  One
    defense against this attack is outlined below and borrowed from [<a href="#ref-14" title="&quot;A One-Time Password System&quot;">14</a>];
-   implementations MAY use this approach or MAY select an alternative
+   implementations <em>MAY</em> use this approach or <em>MAY</em> select an alternative
    defense.  Note that the described defense relies on the user
    providing the identity in response to an initial Identity EAP-
    Request.
@@ -3557,7 +3557,7 @@ Table of Contents
    specified in <a href="#section-4.11.16">Section 4.11.16</a>.
 
    Assignment of new values for hash algorithms, encryption algorithms,
-   and MAC algorithms in the Crypto Algorithm TLV MUST be done through
+   and MAC algorithms in the Crypto Algorithm TLV <em>MUST</em> be done through
    IANA with "Specification Required" and "IESG Approval" (see [<a href="#ref-9" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">9</a>] for
    the meaning of these terms).
 
@@ -3728,8 +3728,8 @@ Table of Contents
    POTP is 32.
 
    Peers and EAP servers implementing the SecurID profile of EAP-POTP
-   SHALL conform to all EAP-POTP normative requirements in this
-   Document.  In addition, the New PIN TLV and the Protected TLV MUST be
+   <em>SHALL</em> conform to all EAP-POTP normative requirements in this
+   Document.  In addition, the New PIN TLV and the Protected TLV <em>MUST</em> be
    supported by peers.
 
 

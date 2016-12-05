@@ -288,8 +288,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -305,7 +305,7 @@ Table of Contents
 
    The RDMA Read list, in the RDMA transport header, allows an RPC
    client to marshal RPC call data selectively.  Large chunks of data,
-   such as the file data of an NFS WRITE request, MAY be referenced by
+   such as the file data of an NFS WRITE request, <em>MAY</em> be referenced by
    an RDMA Read list and be moved efficiently and directly placed by an
    RDMA Read operation initiated by the server.
 
@@ -363,16 +363,16 @@ Table of Contents
       };
 
    The sum of the segment lengths yields the total size of the buffer,
-   which MUST be large enough to accept the result.  If the buffer is
-   too small, the server MUST return an XDR encode error.  The server
-   MUST return the result data for a posted buffer by progressively
+   which <em>MUST</em> be large enough to accept the result.  If the buffer is
+   too small, the server <em>MUST</em> return an XDR encode error.  The server
+   <em>MUST</em> return the result data for a posted buffer by progressively
    filling its segments, perhaps leaving some trailing segments unfilled
    or partially full if the size of the result is less than the total
    size of the buffer segments.
 
    The server returns the RDMA Write list to the client with the segment
    length fields overwritten to indicate the amount of data RDMA written
-   to each segment.  Results returned by direct placement MUST NOT be
+   to each segment.  Results returned by direct placement <em>MUST NOT</em> be
    returned by other methods, e.g., by Read chunk list or inline.  If no
    result data at all is returned for the element, the server places no
    data in the buffer(s), but does return zeros in the segment length
@@ -388,21 +388,21 @@ Table of Contents
    necessary to employ the RDMA Read lists in the NFS replies, as
    described in the RPC/RDMA protocol.  This enables more efficient
    operation, by avoiding the need for the server to expose buffers for
-   RDMA, and also avoiding "RDMA_DONE" exchanges.  Clients MAY
+   RDMA, and also avoiding "RDMA_DONE" exchanges.  Clients <em>MAY</em>
    additionally employ RDMA Reply chunks to receive entire messages, as
    described in [<a href="./rfc5666.html" title="&quot;Remote Direct Memory Access Transport for Remote Procedure Call&quot;">RFC5666</a>].
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  NFS Versions 2 and 3 Mapping</span>
 
-   A single RDMA Write list entry MAY be posted by the client to receive
+   A single RDMA Write list entry <em>MAY</em> be posted by the client to receive
    either the opaque file data from a READ request or the pathname from
-   a READLINK request.  The server MUST ignore a Write list for any
+   a READLINK request.  The server <em>MUST</em> ignore a Write list for any
    other NFS procedure, as well as any Write list entries beyond the
    first in the list.
 
-   Similarly, a single RDMA Read list entry MAY be posted by the client
+   Similarly, a single RDMA Read list entry <em>MAY</em> be posted by the client
    to supply the opaque file data for a WRITE request or the pathname
-   for a SYMLINK request.  The server MUST ignore any Read list for
+   for a SYMLINK request.  The server <em>MUST</em> ignore any Read list for
    other NFS procedures, as well as additional Read list entries beyond
    the first in the list.
 
@@ -425,7 +425,7 @@ Table of Contents
    RDMA.  This is implemented in RPC, below NFS, and therefore has no
    effect on the message contents.
 
-   Non-RDMA (inline) WRITE transfers MAY OPTIONALLY employ the
+   Non-RDMA (inline) WRITE transfers <em>MAY</em> <em>OPTIONAL</em>LY employ the
    "RDMA_MSGP" padding method described in the RPC/RDMA protocol, if the
    appropriate value for the server is known to the client.  Padding
    allows the opaque file data to arrive at the server in an aligned
@@ -435,25 +435,25 @@ Table of Contents
    to requests containing less than or equal to 8 kilobytes and 32
    kilobytes of data, respectively.  In these cases, it is often
    practical to support basic operation without employing a
-   configuration exchange as discussed in [<a href="./rfc5666.html" title="&quot;Remote Direct Memory Access Transport for Remote Procedure Call&quot;">RFC5666</a>].  The server MUST
+   configuration exchange as discussed in [<a href="./rfc5666.html" title="&quot;Remote Direct Memory Access Transport for Remote Procedure Call&quot;">RFC5666</a>].  The server <em>MUST</em>
    post buffers large enough to receive the largest possible incoming
    message (approximately 12 KB for NFS version 2, or 36 KB for NFS
    version 3, would be vastly sufficient), and the client can post
    buffers large enough to receive replies based on the "rsize" it is
    using to the server, plus a fixed overhead for the RPC and NFS
-   headers.  Because the server MUST NOT return data in excess of this
+   headers.  Because the server <em>MUST NOT</em> return data in excess of this
    size, the client can be assured of the adequacy of its posted buffer
    sizes.
 
    Flow control is handled dynamically by the RPC RDMA protocol, and
-   write padding is OPTIONAL and therefore MAY remain unused.
+   write padding is <em>OPTIONAL</em> and therefore <em>MAY</em> remain unused.
 
    Alternatively, if the server is administratively configured to values
    appropriate for all its clients, the same assurance of
    interoperability within the domain can be made.
 
    The use of a configuration protocol with NFS v2 and v3 is therefore
-   OPTIONAL.  Employing a configuration exchange may allow some
+   <em>OPTIONAL</em>.  Employing a configuration exchange may allow some
    advantage to server resource management through accurately sizing
    buffers, enabling the server to know exactly how many RDMA Reads may
    be in progress at once on the client connection, and enabling client
@@ -475,29 +475,29 @@ Table of Contents
    4 (NFSv4.0) and any subsequent minor versions that do not override
    this mapping.
 
-   The Write list MUST be considered only for the COMPOUND procedure.
+   The Write list <em>MUST</em> be considered only for the COMPOUND procedure.
    This procedure returns results from a sequence of operations.  Only
    the opaque file data from an NFS READ operation and the pathname from
-   a READLINK operation MUST utilize entries from the Write list.
+   a READLINK operation <em>MUST</em> utilize entries from the Write list.
 
    If there is no Write list, i.e., the list is null, then any READ or
-   READLINK operations in the COMPOUND MUST return their data inline.
-   The NFSv4.0 client MUST ensure in this case that any result of its
+   READLINK operations in the COMPOUND <em>MUST</em> return their data inline.
+   The NFSv4.0 client <em>MUST</em> ensure in this case that any result of its
    READ and READLINK requests will fit within its receive buffers, in
    order to avoid a resulting RDMA transport error upon transfer.  The
    server is not required to detect this.
 
-   The first entry in the Write list MUST be used by the first READ or
+   The first entry in the Write list <em>MUST</em> be used by the first READ or
    READLINK in the COMPOUND request.  The next Write list entry is used
    by the next READ or READLINK, and so on.  If there are more READ or
    READLINK operations than Write list entries, then any remaining
-   operations MUST return their results inline.
+   operations <em>MUST</em> return their results inline.
 
    If a Write list entry is presented, then the corresponding READ or
-   READLINK MUST return its data via an RDMA Write to the buffer
+   READLINK <em>MUST</em> return its data via an RDMA Write to the buffer
    indicated by the Write list entry.  If the Write list entry has zero
    RDMA segments, or if the total size of the segments is zero, then the
-   corresponding READ or READLINK operation MUST return its result
+   corresponding READ or READLINK operation <em>MUST</em> return its result
    inline.
 
    The following example shows an RDMA Write list with three posted
@@ -528,20 +528,20 @@ Table of Contents
    If the client does not want to have the READLINK result returned
    directly, then it provides a zero-length array of segment triplets
    for buffer B or sets the values in the segment triplet for buffer B
-   to zeros so that the READLINK result MUST be returned inline.
+   to zeros so that the READLINK result <em>MUST</em> be returned inline.
 
    The situation is similar for RDMA Read lists sent by the client and
    applies to the NFSv4.0 WRITE and SYMLINK procedures as for v3.
-   Additionally, inline segments too large to fit in posted buffers MAY
+   Additionally, inline segments too large to fit in posted buffers <em>MAY</em>
    be transferred in special "RDMA_NOMSG" messages.
 
-   Non-RDMA (inline) WRITE transfers MAY OPTIONALLY employ the
+   Non-RDMA (inline) WRITE transfers <em>MAY</em> <em>OPTIONAL</em>LY employ the
    "RDMA_MSGP" padding method described in the RPC/RDMA protocol, if the
    appropriate value for the server is known to the client.  Padding
    allows the opaque file data to arrive at the server in an aligned
    fashion, which may improve server performance.  In order to ensure
    accurate alignment for all data, it is likely that the client will
-   restrict its use of OPTIONAL padding to COMPOUND requests containing
+   restrict its use of <em>OPTIONAL</em> padding to COMPOUND requests containing
    only a single WRITE operation.
 
    Unlike NFS versions 2 and 3, the maximum size of an NFS version 4
@@ -569,7 +569,7 @@ Table of Contents
    selected clients, in order to notify them of events such as recalled
    delegations, etc.  These callbacks present no particular issue to
    being framed over RPC/RDMA, since such callbacks do not carry bulk
-   data such as NFS READ or NFS WRITE.  They MAY be transmitted inline
+   data such as NFS READ or NFS WRITE.  They <em>MAY</em> be transmitted inline
    via RDMA_MSG, or if the callback message or its reply overflow the
 
 
@@ -581,26 +581,26 @@ Table of Contents
 <span class="grey"><a href="./rfc5667.html">RFC 5667</a>                NFS Direct Data Placement           January 2010</span>
 
 
-   negotiated buffer sizes for a callback connection, they MAY be
+   negotiated buffer sizes for a callback connection, they <em>MAY</em> be
    transferred via the RDMA_NOMSG method as described above for other
    exchanges.
 
    One special case is noteworthy: in NFS version 4.1, the callback
    channel is optionally negotiated to be on the same connection as one
    used for client requests.  In this case, and because the transaction
-   ID (XID) is present in the RPC/RDMA header, the client MUST ascertain
+   ID (XID) is present in the RPC/RDMA header, the client <em>MUST</em> ascertain
    whether the message is in fact an RPC REPLY, and therefore a reply to
    a prior request and carrying its XID, before processing it as such.
-   By the same token, the server MUST ascertain whether an incoming
+   By the same token, the server <em>MUST</em> ascertain whether an incoming
    message on such a callback-eligible connection is an RPC CALL, before
    optionally processing the XID.
 
    In the callback case, the XID present in the RPC/RDMA header will
    potentially have any value, which may (or may not) collide with an
    XID used by the client for a previous or future request.  The client
-   and server MUST inspect the RPC component of the message to determine
+   and server <em>MUST</em> inspect the RPC component of the message to determine
    its potential disposition as either an RPC CALL or RPC REPLY, prior
-   to processing this XID, and MUST NOT reject or accept it without also
+   to processing this XID, and <em>MUST NOT</em> reject or accept it without also
    determining the proper context.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Port Usage Considerations</span>
@@ -617,14 +617,14 @@ Table of Contents
    TCP port 2049, and they are not required to register.
 
    An NFS version 2 or version 3 server supporting RPC/RDMA on such a
-   network and registering itself with the RPC portmapper MAY choose an
-   arbitrary port, or MAY use the alternative well-known port number for
-   its RPC/RDMA service.  The chosen port MAY be registered with the RPC
+   network and registering itself with the RPC portmapper <em>MAY</em> choose an
+   arbitrary port, or <em>MAY</em> use the alternative well-known port number for
+   its RPC/RDMA service.  The chosen port <em>MAY</em> be registered with the RPC
    portmapper under the netid assigned by the requirement in [<a href="./rfc5666.html" title="&quot;Remote Direct Memory Access Transport for Remote Procedure Call&quot;">RFC5666</a>].
 
-   An NFS version 4 server supporting RPC/RDMA on such a network MUST
+   An NFS version 4 server supporting RPC/RDMA on such a network <em>MUST</em>
    use the alternative well-known port number for its RPC/RDMA service.
-   Clients SHOULD connect to this well-known port without consulting the
+   Clients <em>SHOULD</em> connect to this well-known port without consulting the
    RPC portmapper (as for NFSv4/TCP).
 
    The port number assigned to an NFS service over an RPC/RDMA transport

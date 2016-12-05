@@ -313,7 +313,7 @@ Table of Contents
    "QRESYNC" as one of the supported capabilities to the CAPABILITY
    command.
 
-   Servers supporting this extension MUST implement and advertise
+   Servers supporting this extension <em>MUST</em> implement and advertise
    support for the [<a href="#ref-ENABLE" title="&quot;The IMAP ENABLE Extension&quot;">ENABLE</a>] IMAP extension.  Also, the presence of the
    "QRESYNC" capability implies support for the [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>] IMAP
    extension even if the CONDSTORE capability isn't advertised.  A
@@ -322,17 +322,17 @@ Table of Contents
    enabling commands", as defined in [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>], and have identical
    results), but there is no requirement for a compliant server to
    support "ENABLE CONDSTORE" by itself.  The "ENABLE QRESYNC"/"ENABLE
-   QRESYNC CONDSTORE" command also tells the server that it SHOULD start
+   QRESYNC CONDSTORE" command also tells the server that it <em>SHOULD</em> start
    sending VANISHED responses (see <a href="#section-3.6">Section 3.6</a>) instead of EXPUNGE
    responses.  This change remains in effect until the connection is
    closed.
 
    For compatibility with clients that only support the [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>] IMAP
-   extension, servers SHOULD advertise CONDSTORE in the CAPABILITY
+   extension, servers <em>SHOULD</em> advertise CONDSTORE in the CAPABILITY
    response as well.
 
-   A client making use of this extension MUST issue "ENABLE QRESYNC"
-   once it is authenticated.  A server MUST respond with a tagged BAD
+   A client making use of this extension <em>MUST</em> issue "ENABLE QRESYNC"
+   once it is authenticated.  A server <em>MUST</em> respond with a tagged BAD
    response if the QRESYNC parameter to the SELECT/EXAMINE command or
    the VANISHED UID FETCH modifier is specified and the client hasn't
    issued "ENABLE QRESYNC" in the current connection.
@@ -341,9 +341,9 @@ Table of Contents
    the [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>] extension.  Each mailbox that supports persistent
    storage of mod-sequences, i.e., for which the server has sent a
    HIGHESTMODSEQ untagged OK response code on a successful SELECT/
-   EXAMINE, MUST increment the per-mailbox mod-sequence when one or more
+   EXAMINE, <em>MUST</em> increment the per-mailbox mod-sequence when one or more
    messages are expunged due to EXPUNGE, UID EXPUNGE or CLOSE; the
-   server MUST associate the incremented mod-sequence with the UIDs of
+   server <em>MUST</em> associate the incremented mod-sequence with the UIDs of
    the expunged messages.
 
    A client that supports CONDSTORE but not this extension might
@@ -373,8 +373,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Requirements Notation</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    In examples, "C:" and "S:" indicate lines sent by the client and
@@ -403,7 +403,7 @@ Table of Contents
    o  an optional parenthesized list of known sequence ranges and their
       corresponding UIDs.
 
-   A server MUST respond with a tagged BAD response if the Quick
+   A server <em>MUST</em> respond with a tagged BAD response if the Quick
    Resynchronization parameter to SELECT/EXAMINE command is specified
    and the client hasn't issued "ENABLE QRESYNC" in the current
    connection.
@@ -422,13 +422,13 @@ Table of Contents
    the mailbox remains unselected.  Once the check is done, the server
    opens the mailbox as if no SELECT/EXAMINE parameters are specified
    (this is subject to processing of other parameters as defined in
-   other extensions).  In particular this means that the server MUST
+   other extensions).  In particular this means that the server <em>MUST</em>
    send all untagged responses as specified in Sections <a href="#section-6.3.1">6.3.1</a> and <a href="#section-6.3.2">6.3.2</a>
    of [<a href="./rfc3501.html" title="&quot;INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1&quot;">RFC3501</a>].
 
    After that, the server checks the UIDVALIDITY value provided by the
    client.  If the provided UIDVALIDITY doesn't match the UIDVALIDITY
-   for the mailbox being opened, then the server MUST ignore the
+   for the mailbox being opened, then the server <em>MUST</em> ignore the
    remaining parameters and behave as if no dynamic message data
    changed.  The client can discover this situation by comparing the
    UIDVALIDITY value returned by the server.  This behavior allows the
@@ -455,10 +455,10 @@ Table of Contents
    Modification Sequence and UID Parameters:
 
    A server that doesn't support the persistent storage of mod-sequences
-   for the mailbox MUST send the OK untagged response including the
+   for the mailbox <em>MUST</em> send the OK untagged response including the
    NOMODSEQ response code with every successful SELECT or EXAMINE
    command, as described in [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>].  Such a server doesn't need to
-   remember mod-sequences for expunged messages in the mailbox.  It MUST
+   remember mod-sequences for expunged messages in the mailbox.  It <em>MUST</em>
    ignore the remaining parameters and behave as if no dynamic message
    data changed.
 
@@ -473,7 +473,7 @@ Table of Contents
 
 
    The server sends the client any pending flag changes (using FETCH
-   responses that MUST contain UIDs) and expunges those that have
+   responses that <em>MUST</em> contain UIDs) and expunges those that have
    occurred in this mailbox since the provided modification sequence.
 
    If the list of known UIDs was also provided, the server should only
@@ -516,8 +516,8 @@ Table of Contents
 
    Message sequence match data:
 
-   A client MAY provide a parenthesized list of a message sequence set
-   and the corresponding UID sets.  Both MUST be provided in ascending
+   A client <em>MAY</em> provide a parenthesized list of a message sequence set
+   and the corresponding UID sets.  Both <em>MUST</em> be provided in ascending
    order.  The server uses this data to restrict the range for which it
    provides expunged message information.
 
@@ -616,14 +616,14 @@ Table of Contents
    defines a new UID FETCH modifier: VANISHED.
 
    Note, that the VANISHED UID FETCH modifier is NOT allowed with a
-   FETCH command.  The server MUST return a tagged BAD response if this
+   FETCH command.  The server <em>MUST</em> return a tagged BAD response if this
    response is specified as a modifier to the FETCH command.
 
-   A server MUST respond with a tagged BAD response if the VANISHED UID
+   A server <em>MUST</em> respond with a tagged BAD response if the VANISHED UID
    FETCH modifier is specified and the client hasn't issued "ENABLE
    QRESYNC" in the current connection.
 
-   The VANISHED UID FETCH modifier MUST only be specified together with
+   The VANISHED UID FETCH modifier <em>MUST</em> only be specified together with
    the CHANGEDSINCE UID FETCH modifier.
 
    The VANISHED UID FETCH modifier instructs the server to report those
@@ -642,14 +642,14 @@ Table of Contents
 
    updated when the messages were expunged (as described above).  The
    expunged messages are reported using the VANISHED response as
-   described in <a href="#section-3.6">Section 3.6</a>, which MUST contain the EARLIER tag.  Any
-   VANISHED (EARLIER) responses MUST be returned before any FETCH
+   described in <a href="#section-3.6">Section 3.6</a>, which <em>MUST</em> contain the EARLIER tag.  Any
+   VANISHED (EARLIER) responses <em>MUST</em> be returned before any FETCH
    responses, as otherwise the client might get confused about how
    message numbers map to UIDs.
 
    Note: A server that receives a mod-sequence smaller than &lt;minmodseq&gt;,
    where &lt;minmodseq&gt; is the value of the smallest expunged mod-sequence
-   it remembers minus one, MUST behave as if it was requested to report
+   it remembers minus one, <em>MUST</em> behave as if it was requested to report
    all expunged messages from the provided UID set parameter.
 
    Example 1: Without the VANISHED UID FETCH modifier, a CONDSTORE-aware
@@ -715,11 +715,11 @@ Table of Contents
    reported using a VANISHED response or EXPUNGE responses.
 
    If the server is capable of storing modification sequences for the
-   selected mailbox, it MUST increment the per-mailbox mod-sequence if
+   selected mailbox, it <em>MUST</em> increment the per-mailbox mod-sequence if
    at least one message was permanently removed due to the execution of
    the EXPUNGE command.  For each permanently removed message, the
-   server MUST remember the incremented mod-sequence and corresponding
-   UID.  If at least one message got expunged, the server MUST send the
+   server <em>MUST</em> remember the incremented mod-sequence and corresponding
+   UID.  If at least one message got expunged, the server <em>MUST</em> send the
    updated per-mailbox modification sequence using the HIGHESTMODSEQ
    response code (defined in [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>]) in the tagged OK response.
 
@@ -773,11 +773,11 @@ Table of Contents
    (or VANISHED) responses are sent.
 
    If the server is capable of storing modification sequences for the
-   selected mailbox, it MUST increment the per-mailbox mod-sequence if
+   selected mailbox, it <em>MUST</em> increment the per-mailbox mod-sequence if
    at least one message was permanently removed due to the execution of
    the CLOSE command.  For each permanently removed message, the server
-   MUST remember the incremented mod-sequence and corresponding UID.  If
-   at least one message got expunged, the server MUST send the updated
+   <em>MUST</em> remember the incremented mod-sequence and corresponding UID.  If
+   at least one message got expunged, the server <em>MUST</em> send the updated
    per-mailbox modification sequence using the HIGHESTMODSEQ response
    code (defined in [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>]) in the tagged OK response.
 
@@ -824,11 +824,11 @@ Table of Contents
    are reported using a VANISHED response or EXPUNGE responses.
 
    If the server is capable of storing modification sequences for the
-   selected mailbox, it MUST increment the per-mailbox mod-sequence if
+   selected mailbox, it <em>MUST</em> increment the per-mailbox mod-sequence if
    at least one message was permanently removed due to the execution of
    the UID EXPUNGE command.  For each permanently removed message, the
-   server MUST remember the incremented mod-sequence and corresponding
-   UID.  If at least one message got expunged, the server MUST send the
+   server <em>MUST</em> remember the incremented mod-sequence and corresponding
+   UID.  If at least one message got expunged, the server <em>MUST</em> send the
    updated per-mailbox modification sequence using the HIGHESTMODSEQ
    response code (defined in [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>]) in the tagged OK response.
 
@@ -875,18 +875,18 @@ Table of Contents
    FETCH (VANISHED) or a SELECT/EXAMINE (QRESYNC) command.  This
    response is sent if the UID set parameter to the UID FETCH (VANISHED)
    command includes UIDs of messages that are no longer in the mailbox.
-   When the client sees a VANISHED EARLIER response, it MUST NOT
+   When the client sees a VANISHED EARLIER response, it <em>MUST NOT</em>
    decrement message sequence numbers for each successive message in the
    mailbox.
 
    The second form doesn't contain the EARLIER tag and is described
-   below.  Once a client has issued "ENABLE QRESYNC", the server SHOULD
+   below.  Once a client has issued "ENABLE QRESYNC", the server <em>SHOULD</em>
    use the VANISHED response without the EARLIER tag instead of the
-   EXPUNGE response.  The server SHOULD continue using VANISHED in lieu
+   EXPUNGE response.  The server <em>SHOULD</em> continue using VANISHED in lieu
    of EXPUNGE for the duration of the connection.  In particular, this
    affects the EXPUNGE [<a href="./rfc3501.html" title="&quot;INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1&quot;">RFC3501</a>] and UID EXPUNGE [<a href="#ref-UIDPLUS" title="&quot;Internet Message Access Protocol (IMAP) - UIDPLUS extension&quot;">UIDPLUS</a>] commands, as
    well as messages expunged in other connections.  Such a VANISHED
-   response MUST NOT contain the EARLIER tag.
+   response <em>MUST NOT</em> contain the EARLIER tag.
 
    A VANISHED response sent because of an EXPUNGE or UID EXPUNGE command
    or because messages were expunged in other connections (i.e., the
@@ -896,15 +896,15 @@ Table of Contents
    message sequence numbers for each successive message in the mailbox
    (see the example at the end of this section).  Note that a VANISHED
    response caused by EXPUNGE, UID EXPUNGE, or messages expunged in
-   other connections SHOULD only contain UIDs for messages expunged
+   other connections <em>SHOULD</em> only contain UIDs for messages expunged
    since the last VANISHED/EXPUNGE response sent for the currently
    opened mailbox or since the mailbox was opened.  That is, servers
-   SHOULD NOT send UIDs for previously expunged messages, unless
+   <em>SHOULD NOT</em> send UIDs for previously expunged messages, unless
    explicitly requested to do so by the UID FETCH (VANISHED) command.
 
    Note that client implementors must take care to properly decrement
    the number of messages in the mailbox even if a server violates this
-   last SHOULD or repeats the same UID multiple times in the returned
+   last <em>SHOULD</em> or repeats the same UID multiple times in the returned
    UID set.  In general, this means that a client using this extension
    should either avoid using message numbers entirely, or have a
    complete mapping of UIDs to message sequence numbers for the selected
@@ -921,14 +921,14 @@ Table of Contents
 
 
    Because clients handle the two different forms of the VANISHED
-   response differently, servers MUST NOT report UIDs resulting from a
+   response differently, servers <em>MUST NOT</em> report UIDs resulting from a
    UID FETCH (VANISHED) or a SELECT/EXAMINE (QRESYNC) in the same
    VANISHED response as UIDs of messages expunged now (i.e., messages
-   expunged in other connections).  Instead, the server MUST send
+   expunged in other connections).  Instead, the server <em>MUST</em> send
    separate VANISHED responses: one with the EARLIER tag and one
    without.
 
-   A VANISHED response MUST NOT be sent when no command is in progress,
+   A VANISHED response <em>MUST NOT</em> be sent when no command is in progress,
    nor while responding to a FETCH, STORE, or SEARCH command.  This rule
    is necessary to prevent a loss of synchronization of message sequence
    numbers between client and server.  A command is not "in progress"
@@ -937,12 +937,12 @@ Table of Contents
    continuation.
 
    Note: UID FETCH, UID STORE, and UID SEARCH are different commands
-   from FETCH, STORE, and SEARCH.  A VANISHED response MAY be sent
-   during a UID command.  However, the VANISHED response MUST NOT be
+   from FETCH, STORE, and SEARCH.  A VANISHED response <em>MAY</em> be sent
+   during a UID command.  However, the VANISHED response <em>MUST NOT</em> be
    sent during a UID SEARCH command that contains message numbers in the
    search criteria.
 
-   The update from the VANISHED response MUST be recorded by the client.
+   The update from the VANISHED response <em>MUST</em> be recorded by the client.
 
    Example: Let's assume that there is the following mapping between
    message numbers and UIDs in the currently selected mailbox (here "X"
@@ -989,7 +989,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  CLOSED Response Code</span>
 
    The CLOSED response code has no parameters.  A server implementing
-   the extension defined in this document MUST return the CLOSED
+   the extension defined in this document <em>MUST</em> return the CLOSED
    response code when the currently selected mailbox is closed
    implicitly using the SELECT/EXAMINE command on another mailbox.  The
    CLOSED response code serves as a boundary between responses for the
@@ -1106,7 +1106,7 @@ Table of Contents
 
    Also, note that if the UIDVALIDITY of the mailbox changes or if the
    mailbox is deleted, then any state associated with expunged messages
-   doesn't need to be preserved and SHOULD be deleted.
+   doesn't need to be preserved and <em>SHOULD</em> be deleted.
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Updated Synchronization Sequence</span>
 
@@ -1117,19 +1117,19 @@ Table of Contents
    [<a href="#ref-CONDSTORE" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">CONDSTORE</a>] extensions when they are supported by the server.  The
    client uses the value from the HIGHESTMODSEQ OK response code
    received on mailbox opening to determine if it needs to
-   resynchronize.  Once the synchronization is complete, it MUST cache
+   resynchronize.  Once the synchronization is complete, it <em>MUST</em> cache
    the received value (unless the mailbox UIDVALIDITY value has changed;
-   see below).  The client MUST update its copy of the HIGHESTMODSEQ
+   see below).  The client <em>MUST</em> update its copy of the HIGHESTMODSEQ
    value whenever the server sends a subsequent HIGHESTMODSEQ OK
    response code.
 
-   After completing a full synchronization, the client MUST also take
+   After completing a full synchronization, the client <em>MUST</em> also take
    note of any unsolicited MODSEQ FETCH data items received from the
    server.  Whenever the client receives a tagged response to a command,
    it calculates the highest value among all MODSEQ FETCH data items
    received since the last tagged response.  If this value is bigger
    than the client's copy of the HIGHESTMODSEQ value, then the client
-   MUST use this value as its new HIGHESTMODSEQ value.
+   <em>MUST</em> use this value as its new HIGHESTMODSEQ value.
 
    Note: It is not safe to update the client's copy of the HIGHESTMODSEQ
    value with a MODSEQ FETCH data item value as soon as it is received
@@ -1164,7 +1164,7 @@ Table of Contents
 
    If upon a successful SELECT/EXAMINE (QRESYNC) command the client
    receives a NOMODSEQ OK untagged response (instead of the
-   HIGHESTMODSEQ response code), it MUST remove the last known
+   HIGHESTMODSEQ response code), it <em>MUST</em> remove the last known
    HIGHESTMODSEQ value from its cache and follow the more general
    instructions in <a href="#section-3">Section 3</a> of the [<a href="#ref-IMAP-DISC" title="&quot;Synchronization Operations For Disconnected Imap4 Clients&quot;">IMAP-DISC</a>].
 
@@ -1183,7 +1183,7 @@ Table of Contents
        for more details) after issuing SELECT/EXAMINE (QRESYNC) command.
 
        If the UIDVALIDITY value returned by the server differs, the
-       client MUST
+       client <em>MUST</em>
 
        *   empty the local cache of that mailbox;
 
@@ -1243,7 +1243,7 @@ Table of Contents
 
    Except as noted otherwise, all alphabetic characters are case-
    insensitive.  The use of upper or lower case characters to define
-   token strings is for editorial clarity only.  Implementations MUST
+   token strings is for editorial clarity only.  Implementations <em>MUST</em>
    accept these strings in a case-insensitive fashion.
 
 

@@ -896,7 +896,7 @@ Table of Contents
    interim, the KDC would refuse to validate the ticket, and the thief
    would be foiled.
 
-   The MAY-POSTDATE flag in a ticket is normally only interpreted by the
+   The <em>MAY</em>-POSTDATE flag in a ticket is normally only interpreted by the
    ticket-granting service.  It can be ignored by application servers.
    This flag must be set in a ticket-granting ticket in order to issue a
    postdated ticket based on the presented ticket. It is reset by
@@ -1205,7 +1205,7 @@ Table of Contents
 
    The flags field of the new ticket will have the following options set
    if they have been requested and if the policy of the local realm
-   allows: FORWARDABLE, MAY-POSTDATE, POSTDATED, PROXIABLE, RENEWABLE.
+   allows: FORWARDABLE, <em>MAY</em>-POSTDATE, POSTDATED, PROXIABLE, RENEWABLE.
    If the new ticket is postdated (the start time is in the future), its
    INVALID flag will also be set.
 
@@ -1438,7 +1438,7 @@ Table of Contents
    server need not explicitly reply to the KRB_AP_REQ.  However, if
    mutual authentication (not only authenticating the client to the
    server, but also the server to the client) is being performed, the
-   KRB_AP_REQ message will have MUTUAL-REQUIRED set in its ap-options
+   KRB_AP_REQ message will have MUTUAL-<em>REQUIRED</em> set in its ap-options
    field, and a KRB_AP_REP message is required in response.  As with the
    error message, this message may be encapsulated in the application
    protocol if its "raw" form is not acceptable to the application's
@@ -1720,10 +1720,10 @@ Table of Contents
    If the requested start time is absent or indicates a time in the
    past, then the start time of the ticket is set to the authentication
    server's current time.  If it indicates a time in the future, but the
-   POSTDATED option has not been specified or the MAY-POSTDATE flag is
+   POSTDATED option has not been specified or the <em>MAY</em>-POSTDATE flag is
    not set in the TGT, then the error KDC_ERR_CANNOT_POSTDATE is
    returned.  Otherwise, if the ticket-granting ticket has the
-   MAYPOSTDATE flag set, then the resulting ticket will be postdated and
+   <em>MAY</em>POSTDATE flag set, then the resulting ticket will be postdated and
    the requested starttime is checked against the policy of the local
    realm. If acceptable, the ticket's start time is set as requested,
    and the INVALID flag is set.  The postdated ticket must be validated
@@ -2507,11 +2507,11 @@ EncTicketPart ::=     [APPLICATION 3] SEQUENCE {
                       cname[3]             PrincipalName,
                       transited[4]         TransitedEncoding,
                       authtime[5]          KerberosTime,
-                      starttime[6]         KerberosTime OPTIONAL,
+                      starttime[6]         KerberosTime <em>OPTIONAL</em>,
                       endtime[7]           KerberosTime,
-                      renew-till[8]        KerberosTime OPTIONAL,
-                      caddr[9]             HostAddresses OPTIONAL,
-                      authorization-data[10]   AuthorizationData OPTIONAL
+                      renew-till[8]        KerberosTime <em>OPTIONAL</em>,
+                      caddr[9]             HostAddresses <em>OPTIONAL</em>,
+                      authorization-data[10]   AuthorizationData <em>OPTIONAL</em>
 }
 -- encoded Transited field
 TransitedEncoding ::=         SEQUENCE {
@@ -2597,7 +2597,7 @@ TransitedEncoding ::=         SEQUENCE {
              4         PROXY      When set, this flag indicates that a
                                    ticket is a proxy.
 
-             5         MAY-POSTDATE The MAY-POSTDATE flag is normally
+             5         <em>MAY</em>-POSTDATE The <em>MAY</em>-POSTDATE flag is normally
                                    only interpreted by the TGS, and can
                                    be ignored by end servers.  This flag
                                    tells the ticket-granting server that
@@ -2805,11 +2805,11 @@ Authenticator ::=    [APPLICATION 2] SEQUENCE    {
                authenticator-vno[0]          INTEGER,
                crealm[1]                     Realm,
                cname[2]                      PrincipalName,
-               cksum[3]                      Checksum OPTIONAL,
+               cksum[3]                      Checksum <em>OPTIONAL</em>,
                cusec[4]                      INTEGER,
                ctime[5]                      KerberosTime,
-               subkey[6]                     EncryptionKey OPTIONAL,
-               seq-number[7]                 INTEGER OPTIONAL,
+               subkey[6]                     EncryptionKey <em>OPTIONAL</em>,
+               seq-number[7]                 INTEGER <em>OPTIONAL</em>,
 
 
 
@@ -2818,7 +2818,7 @@ Authenticator ::=    [APPLICATION 2] SEQUENCE    {
 <span class="grey"><a href="./rfc1510.html">RFC 1510</a>                        Kerberos                  September 1993</span>
 
 
-               authorization-data[8]         AuthorizationData OPTIONAL
+               authorization-data[8]         AuthorizationData <em>OPTIONAL</em>
                      }
 
    authenticator-vno This field specifies the version number for the
@@ -2901,7 +2901,7 @@ TGS-REQ ::=        [APPLICATION 12] KDC-REQ
 KDC-REQ ::=        SEQUENCE {
            pvno[1]               INTEGER,
            msg-type[2]           INTEGER,
-           padata[3]             SEQUENCE OF PA-DATA OPTIONAL,
+           padata[3]             SEQUENCE OF PA-DATA <em>OPTIONAL</em>,
            req-body[4]           KDC-REQ-BODY
 }
 
@@ -2913,14 +2913,14 @@ PA-DATA ::=        SEQUENCE {
 
 KDC-REQ-BODY ::=   SEQUENCE {
             kdc-options[0]       KDCOptions,
-            cname[1]             PrincipalName OPTIONAL,
+            cname[1]             PrincipalName <em>OPTIONAL</em>,
                          -- Used only in AS-REQ
             realm[2]             Realm, -- Server's realm
                          -- Also client's in AS-REQ
-            sname[3]             PrincipalName OPTIONAL,
-            from[4]              KerberosTime OPTIONAL,
+            sname[3]             PrincipalName <em>OPTIONAL</em>,
+            from[4]              KerberosTime <em>OPTIONAL</em>,
             till[5]              KerberosTime,
-            rtime[6]             KerberosTime OPTIONAL,
+            rtime[6]             KerberosTime <em>OPTIONAL</em>,
             nonce[7]             INTEGER,
 
 
@@ -2932,10 +2932,10 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
             etype[8]             SEQUENCE OF INTEGER, -- EncryptionType,
                          -- in preference order
-            addresses[9]         HostAddresses OPTIONAL,
-            enc-authorization-data[10]   EncryptedData OPTIONAL,
+            addresses[9]         HostAddresses <em>OPTIONAL</em>,
+            enc-authorization-data[10]   EncryptedData <em>OPTIONAL</em>,
                          -- Encrypted AuthorizationData encoding
-            additional-tickets[11]       SEQUENCE OF Ticket OPTIONAL
+            additional-tickets[11]       SEQUENCE OF Ticket <em>OPTIONAL</em>
 }
 
    The fields in this message are:
@@ -2975,7 +2975,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
    PA-ENC-TS-ENC   ::= SEQUENCE {
            patimestamp[0]               KerberosTime, -- client's time
-           pausec[1]                    INTEGER OPTIONAL
+           pausec[1]                    INTEGER <em>OPTIONAL</em>
    }
 
 
@@ -3087,7 +3087,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
              5       ALLOW-POSTDATE The ALLOW-POSTDATE option indicates
                                   that the ticket to be issued is to
-                                  have its MAY-POSTDATE flag set.  It
+                                  have its <em>MAY</em>-POSTDATE flag set.  It
                                   may only be set on the initial
                                   request, or in a subsequent request if
 
@@ -3099,14 +3099,14 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
 
                                   the ticket-granting ticket on which it
-                                  is based also has its MAY-POSTDATE
+                                  is based also has its <em>MAY</em>-POSTDATE
                                   flag set.
 
              6       POSTDATED    The POSTDATED option indicates that
                                   this is a request for a postdated
                                   ticket.  This option will only be
                                   honored if the ticket-granting ticket
-                                  on which it is based has its MAY-
+                                  on which it is based has its <em>MAY</em>-
                                   POSTDATE flag set.  The resulting
                                   ticket will also have its INVALID flag
                                   set, and that flag may be reset by a
@@ -3301,7 +3301,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
    KDC-REP ::=   SEQUENCE {
                  pvno[0]                    INTEGER,
                  msg-type[1]                INTEGER,
-                 padata[2]                  SEQUENCE OF PA-DATA OPTIONAL,
+                 padata[2]                  SEQUENCE OF PA-DATA <em>OPTIONAL</em>,
                  crealm[3]                  Realm,
                  cname[4]                   PrincipalName,
                  ticket[5]                  Ticket,
@@ -3323,15 +3323,15 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
 
                nonce[2]                     INTEGER,
-               key-expiration[3]            KerberosTime OPTIONAL,
+               key-expiration[3]            KerberosTime <em>OPTIONAL</em>,
                flags[4]                     TicketFlags,
                authtime[5]                  KerberosTime,
-               starttime[6]                 KerberosTime OPTIONAL,
+               starttime[6]                 KerberosTime <em>OPTIONAL</em>,
                endtime[7]                   KerberosTime,
-               renew-till[8]                KerberosTime OPTIONAL,
+               renew-till[8]                KerberosTime <em>OPTIONAL</em>,
                srealm[9]                    Realm,
                sname[10]                    PrincipalName,
-               caddr[11]                    HostAddresses OPTIONAL
+               caddr[11]                    HostAddresses <em>OPTIONAL</em>
    }
 
    NOTE: In EncASRepPart, the application code in the encrypted
@@ -3468,7 +3468,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
                                   option is not specified, the ticket is
                                   encrypted in the server's secret key.
 
-             2       MUTUAL-REQUIREDThe MUTUAL-REQUIRED option tells the
+             2       MUTUAL-<em>REQUIRED</em>The MUTUAL-<em>REQUIRED</em> option tells the
                                   server that the client requires mutual
                                   authentication, and that it must
                                   respond with a KRB_AP_REP message.
@@ -3506,8 +3506,8 @@ KDC-REQ-BODY ::=   SEQUENCE {
    EncAPRepPart ::=   [APPLICATION 27]     SEQUENCE {
               ctime[0]                  KerberosTime,
               cusec[1]                  INTEGER,
-              subkey[2]                 EncryptionKey OPTIONAL,
-              seq-number[3]             INTEGER OPTIONAL
+              subkey[2]                 EncryptionKey <em>OPTIONAL</em>,
+              seq-number[3]             INTEGER <em>OPTIONAL</em>
    }
 
    NOTE: in EncAPRepPart, the application code in the encrypted part of
@@ -3578,11 +3578,11 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
    KRB-SAFE-BODY ::=   SEQUENCE {
                user-data[0]          OCTET STRING,
-               timestamp[1]          KerberosTime OPTIONAL,
-               usec[2]               INTEGER OPTIONAL,
-               seq-number[3]         INTEGER OPTIONAL,
+               timestamp[1]          KerberosTime <em>OPTIONAL</em>,
+               usec[2]               INTEGER <em>OPTIONAL</em>,
+               seq-number[3]         INTEGER <em>OPTIONAL</em>,
                s-address[4]          HostAddress,
-               r-address[5]          HostAddress OPTIONAL
+               r-address[5]          HostAddress <em>OPTIONAL</em>
    }
 
    pvno and msg-type These fields are described above in <a href="#section-5.4.1">section 5.4.1</a>.
@@ -3660,11 +3660,11 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
    EncKrbPrivPart ::=   [APPLICATION 28] SEQUENCE {
                 user-data[0]              OCTET STRING,
-                timestamp[1]              KerberosTime OPTIONAL,
-                usec[2]                   INTEGER OPTIONAL,
-                seq-number[3]             INTEGER OPTIONAL,
+                timestamp[1]              KerberosTime <em>OPTIONAL</em>,
+                usec[2]                   INTEGER <em>OPTIONAL</em>,
+                seq-number[3]             INTEGER <em>OPTIONAL</em>,
                 s-address[4]              HostAddress, -- sender's addr
-                r-address[5]              HostAddress OPTIONAL
+                r-address[5]              HostAddress <em>OPTIONAL</em>
                                                       -- recip's addr
    }
 
@@ -3726,25 +3726,25 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
    EncKrbCredPart   ::= [APPLICATION 29]   SEQUENCE {
                     ticket-info[0]         SEQUENCE OF KrbCredInfo,
-                    nonce[1]               INTEGER OPTIONAL,
-                    timestamp[2]           KerberosTime OPTIONAL,
-                    usec[3]                INTEGER OPTIONAL,
-                    s-address[4]           HostAddress OPTIONAL,
-                    r-address[5]           HostAddress OPTIONAL
+                    nonce[1]               INTEGER <em>OPTIONAL</em>,
+                    timestamp[2]           KerberosTime <em>OPTIONAL</em>,
+                    usec[3]                INTEGER <em>OPTIONAL</em>,
+                    s-address[4]           HostAddress <em>OPTIONAL</em>,
+                    r-address[5]           HostAddress <em>OPTIONAL</em>
    }
 
    KrbCredInfo      ::=                    SEQUENCE {
                     key[0]                 EncryptionKey,
-                    prealm[1]              Realm OPTIONAL,
-                    pname[2]               PrincipalName OPTIONAL,
-                    flags[3]               TicketFlags OPTIONAL,
-                    authtime[4]            KerberosTime OPTIONAL,
-                    starttime[5]           KerberosTime OPTIONAL,
-                    endtime[6]             KerberosTime OPTIONAL
-                    renew-till[7]          KerberosTime OPTIONAL,
-                    srealm[8]              Realm OPTIONAL,
-                    sname[9]               PrincipalName OPTIONAL,
-                    caddr[10]              HostAddresses OPTIONAL
+                    prealm[1]              Realm <em>OPTIONAL</em>,
+                    pname[2]               PrincipalName <em>OPTIONAL</em>,
+                    flags[3]               TicketFlags <em>OPTIONAL</em>,
+                    authtime[4]            KerberosTime <em>OPTIONAL</em>,
+                    starttime[5]           KerberosTime <em>OPTIONAL</em>,
+                    endtime[6]             KerberosTime <em>OPTIONAL</em>
+                    renew-till[7]          KerberosTime <em>OPTIONAL</em>,
+                    srealm[8]              Realm <em>OPTIONAL</em>,
+                    sname[9]               PrincipalName <em>OPTIONAL</em>,
+                    caddr[10]              HostAddresses <em>OPTIONAL</em>
    }
 
 
@@ -3839,17 +3839,17 @@ KDC-REQ-BODY ::=   SEQUENCE {
    KRB-ERROR ::=   [APPLICATION 30] SEQUENCE {
                    pvno[0]               INTEGER,
                    msg-type[1]           INTEGER,
-                   ctime[2]              KerberosTime OPTIONAL,
-                   cusec[3]              INTEGER OPTIONAL,
+                   ctime[2]              KerberosTime <em>OPTIONAL</em>,
+                   cusec[3]              INTEGER <em>OPTIONAL</em>,
                    stime[4]              KerberosTime,
                    susec[5]              INTEGER,
                    error-code[6]         INTEGER,
-                   crealm[7]             Realm OPTIONAL,
-                   cname[8]              PrincipalName OPTIONAL,
+                   crealm[7]             Realm <em>OPTIONAL</em>,
+                   cname[8]              PrincipalName <em>OPTIONAL</em>,
                    realm[9]              Realm, -- Correct realm
                    sname[10]             PrincipalName, -- Correct name
-                   e-text[11]            GeneralString OPTIONAL,
-                   e-data[12]            OCTET STRING OPTIONAL
+                   e-text[11]            GeneralString <em>OPTIONAL</em>,
+                   e-data[12]            OCTET STRING <em>OPTIONAL</em>
    }
 
    pvno and msg-type These fields are described above in <a href="#section-5.4.1">section 5.4.1</a>.
@@ -3890,7 +3890,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
    e-data    This field contains additional data about the error for use
              by the application to help it recover from or handle the
-             error.  If the errorcode is KDC_ERR_PREAUTH_REQUIRED, then
+             error.  If the errorcode is KDC_ERR_PREAUTH_<em>REQUIRED</em>, then
              the e-data field will contain an encoding of a sequence of
              padata fields, each corresponding to an acceptable pre-
              authentication method and optionally containing data for
@@ -3903,7 +3903,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
       METHOD-DATA ::=    SEQUENCE {
                          method-type[0]   INTEGER,
-                         method-data[1]   OCTET STRING OPTIONAL
+                         method-data[1]   OCTET STRING <em>OPTIONAL</em>
        }
 
    method-type will indicate the required alternate method; method-data
@@ -3999,7 +3999,7 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
    EncryptedData ::=   SEQUENCE {
                        etype[0]     INTEGER, -- EncryptionType
-                       kvno[1]      INTEGER OPTIONAL,
+                       kvno[1]      INTEGER <em>OPTIONAL</em>,
                        cipher[2]    OCTET STRING -- ciphertext
    }
 
@@ -4051,10 +4051,10 @@ KDC-REQ-BODY ::=   SEQUENCE {
 
 
 CipherText ::=   ENCRYPTED       SEQUENCE {
-         confounder[0]   UNTAGGED OCTET STRING(conf_length)     OPTIONAL,
-         check[1]        UNTAGGED OCTET STRING(checksum_length) OPTIONAL,
+         confounder[0]   UNTAGGED OCTET STRING(conf_length)     <em>OPTIONAL</em>,
+         check[1]        UNTAGGED OCTET STRING(checksum_length) <em>OPTIONAL</em>,
          msg-seq[2]      MsgSequence,
-         pad             UNTAGGED OCTET STRING(pad_length) OPTIONAL
+         pad             UNTAGGED OCTET STRING(pad_length) <em>OPTIONAL</em>
 }
 
    In the above specification, UNTAGGED OCTET STRING(length) is the
@@ -4914,7 +4914,7 @@ KDC_ERR_KEY_EXPIRED           23   Password has expired - change
                                    password to reset
 KDC_ERR_PREAUTH_FAILED        24   Pre-authentication information
                                    was invalid
-KDC_ERR_PREAUTH_REQUIRED      25   Additional pre-authentication
+KDC_ERR_PREAUTH_<em>REQUIRED</em>      25   Additional pre-authentication
                                    required*
 KRB_AP_ERR_BAD_INTEGRITY      31   Integrity check on decrypted field
                                    failed
@@ -5014,7 +5014,7 @@ KRB_ERR_FIELD_TOOLONG         61   Field is too long for this
    on the initial request. The PA-ENC-TIMESTAMP method must be supported
    by clients but whether it is enabled by default may be determined on
    a realm by realm basis. If not used in the initial request and the
-   error KDC_ERR_PREAUTH_REQUIRED is returned specifying PA-ENCTIMESTAMP
+   error KDC_ERR_PREAUTH_<em>REQUIRED</em> is returned specifying PA-ENCTIMESTAMP
    as an acceptable method, the client should retry the initial request
    using the PA-ENC-TIMESTAMP preauthentication method. Servers need not
    support the PAENC-TIMESTAMP method, but if not supported the server
@@ -5301,7 +5301,7 @@ KRB_ERR_FIELD_TOOLONG         61   Field is too long for this
 
         if(client.pa_enc_timestamp_required and
            pa_enc_timestamp not present) then
-                error_out(KDC_ERR_PREAUTH_REQUIRED(PA_ENC_TIMESTAMP));
+                error_out(KDC_ERR_PREAUTH_<em>REQUIRED</em>(PA_ENC_TIMESTAMP));
         endif
 
         if(pa_enc_timestamp present) then
@@ -5475,7 +5475,7 @@ KRB_ERR_FIELD_TOOLONG         61   Field is too long for this
         decode response into resp;
 
         if (resp.msg-type = KRB_ERROR) then
-                if(error = KDC_ERR_PREAUTH_REQUIRED(PA_ENC_TIMESTAMP))
+                if(error = KDC_ERR_PREAUTH_<em>REQUIRED</em>(PA_ENC_TIMESTAMP))
                         then set pa_enc_timestamp_required;
                         goto KRB_AS_REQ;
                 endif
@@ -6017,9 +6017,9 @@ KRB_ERR_FIELD_TOOLONG         61   Field is too long for this
         packet.msg-type := message type; /* KRB_AP_REQ */
 
         if (desired(MUTUAL_AUTHENTICATION)) then
-                set packet.ap-options.MUTUAL-REQUIRED;
+                set packet.ap-options.MUTUAL-<em>REQUIRED</em>;
         else
-                reset packet.ap-options.MUTUAL-REQUIRED;
+                reset packet.ap-options.MUTUAL-<em>REQUIRED</em>;
         endif
         if (using session key for ticket) then
                 set packet.ap-options.USE-SESSION-KEY;
@@ -6107,7 +6107,7 @@ KRB_ERR_FIELD_TOOLONG         61   Field is too long for this
         endif
         /* caller must check decr_ticket.flags for any pertinent */
         /* details */
-        return(OK, decr_ticket, packet.ap_options.MUTUAL-REQUIRED);
+        return(OK, decr_ticket, packet.ap_options.MUTUAL-<em>REQUIRED</em>);
 
 <span class="h3"><a class="selflink" name="appendix-A.11" href="#appendix-A.11">A.11</a>.  KRB_AP_REP generation</span>
         packet.pvno := protocol version; /* 5 */

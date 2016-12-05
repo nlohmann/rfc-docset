@@ -326,8 +326,8 @@ Table of Contents
    that attempt to modify sender-generated timestamps to falsify test
    results.
 
-   In this document, the key words "MUST", "REQUIRED", "SHOULD",
-   "RECOMMENDED", and "MAY" are to be interpreted as described in
+   In this document, the key words "<em>MUST</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>",
+   "<em>RECOMMENDED</em>", and "<em>MAY</em>" are to be interpreted as described in
    [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Relationship of Test and Control Protocols</span>
@@ -483,7 +483,7 @@ Table of Contents
    The initiator of the measurement session establishes a TCP connection
    to a well-known port, 861, on the target point and this connection
    remains open for the duration of the OWAMP-Test sessions.  An OWAMP
-   server SHOULD listen to this well-known port.
+   server <em>SHOULD</em> listen to this well-known port.
 
    OWAMP-Control messages are transmitted only before OWAMP-Test
    sessions are actually started and after they are completed (with the
@@ -505,11 +505,11 @@ Table of Contents
    computed upon reading its fixed-size part.  No message is shorter
    than 16 octets.
 
-   An implementation SHOULD expunge unused state to prevent denial-of-
+   An implementation <em>SHOULD</em> expunge unused state to prevent denial-of-
    service attacks, or unbounded memory usage, on the server.  For
    example, if the full control message is not received within some
    number of minutes after it is expected, the TCP connection associated
-   with the OWAMP-Control session SHOULD be dropped.  In absence of
+   with the OWAMP-Control session <em>SHOULD</em> be dropped.  In absence of
    other considerations, 30 minutes seems like a reasonable upper bound.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Connection Setup</span>
@@ -558,8 +558,8 @@ Table of Contents
    for authenticated, and 4 for encrypted.  The value of the Modes field
    sent by the server is the bit-wise OR of the mode values that it is
    willing to support during this session.  Thus, the last three bits of
-   the Modes 32-bit value are used.  The first 29 bits MUST be zero.  A
-   client MUST ignore the values in the first 29 bits of the Modes
+   the Modes 32-bit value are used.  The first 29 bits <em>MUST</em> be zero.  A
+   client <em>MUST</em> ignore the values in the first 29 bits of the Modes
    value.  (This way, the bits are available for future protocol
    extensions.  This is the only intended extension mechanism.)
 
@@ -570,11 +570,11 @@ Table of Contents
    Salt and Count are parameters used in deriving a key from a shared
    secret as described below.
 
-   Salt MUST be generated pseudo-randomly (independently of anything
+   Salt <em>MUST</em> be generated pseudo-randomly (independently of anything
    else in this document).
 
-   Count MUST be a power of 2.  Count MUST be at least 1024.  Count
-   SHOULD be increased as more computing power becomes common.
+   Count <em>MUST</em> be a power of 2.  Count <em>MUST</em> be at least 1024.  Count
+   <em>SHOULD</em> be increased as more computing power becomes common.
 
 
 
@@ -585,12 +585,12 @@ Table of Contents
 
 
    If the Modes value is zero, the server does not wish to communicate
-   with the client and MAY close the connection immediately.  The client
-   SHOULD close the connection if it receives a greeting with Modes
-   equal to zero.  The client MAY close the connection if the client's
+   with the client and <em>MAY</em> close the connection immediately.  The client
+   <em>SHOULD</em> close the connection if it receives a greeting with Modes
+   equal to zero.  The client <em>MAY</em> close the connection if the client's
    desired mode is unavailable.
 
-   Otherwise, the client MUST respond with the following Set-Up-Response
+   Otherwise, the client <em>MUST</em> respond with the following Set-Up-Response
    message:
 
       0                   1                   2                   3
@@ -620,14 +620,14 @@ Table of Contents
    Here Mode is the mode that the client chooses to use during this
    OWAMP-Control session.  It will also be used for all OWAMP-Test
    sessions started under control of this OWAMP-Control session.  In
-   Mode, one or zero bits MUST be set within last three bits.  If it is
-   one bit that is set within the last three bits, this bit MUST
+   Mode, one or zero bits <em>MUST</em> be set within last three bits.  If it is
+   one bit that is set within the last three bits, this bit <em>MUST</em>
    indicate a mode that the server agreed to use (i.e., the same bit
-   MUST have been set by the server in the server greeting).  The first
-   29 bits of Mode MUST be zero.  A server MUST ignore the values of the
+   <em>MUST</em> have been set by the server in the server greeting).  The first
+   29 bits of Mode <em>MUST</em> be zero.  A server <em>MUST</em> ignore the values of the
    first 29 bits.  If zero Mode bits are set by the client, the client
    indicates that it will not continue with the session; in this case,
-   the client and the server SHOULD close the TCP connection associated
+   the client and the server <em>SHOULD</em> close the TCP connection associated
    with the OWAMP-Control session.
 
 
@@ -648,7 +648,7 @@ Table of Contents
    a 16-octet AES Session-key used for encryption, and a 32-octet HMAC-
    SHA1 Session-key used for authentication.  The token itself is
    encrypted using the AES (Advanced Encryption Standard) [<a href="#ref-AES">AES</a>] in
-   Cipher Block Chaining (CBC). Encryption MUST be performed using an
+   Cipher Block Chaining (CBC). Encryption <em>MUST</em> be performed using an
    Initialization Vector (IV) of zero and a key derived from the shared
    secret associated with KeyID.  (Both the server and the client use
    the same mappings from KeyIDs to shared secrets.  The server, being
@@ -657,17 +657,17 @@ Table of Contents
    different secret keys for different servers.  The situation is
    analogous to that with passwords.)
 
-   The shared secret is a passphrase; it MUST not contain newlines.  The
+   The shared secret is a passphrase; it <em>MUST</em> not contain newlines.  The
    secret key is derived from the passphrase using a password-based key
    derivation function PBKDF2 (PKCS #5) [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">RFC2898</a>].  The PBKDF2 function
    requires several parameters: the PRF is HMAC-SHA1 [<a href="./rfc2104.html" title="&quot;HMAC: Keyed-Hashing for Message Authentication&quot;">RFC2104</a>]; the salt
    and count are as transmitted by the server.
 
    AES Session-key, HMAC Session-key and Client-IV are generated
-   randomly by the client.  AES Session-key and HMAC Session-key MUST be
+   randomly by the client.  AES Session-key and HMAC Session-key <em>MUST</em> be
    generated with sufficient entropy not to reduce the security of the
    underlying cipher [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  Client-IV merely needs to be unique
-   (i.e., it MUST never be repeated for different sessions using the
+   (i.e., it <em>MUST</em> never be repeated for different sessions using the
    same secret key; a simple way to achieve that without the use of
    cumbersome state is to generate the Client-IV values using a
    cryptographically secure pseudo-random number source:  if this is
@@ -696,7 +696,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4656.html">RFC 4656</a>          One-way Active Measurement Protocol     September 2006</span>
 
 
-   The server MUST respond with the following Server-Start message:
+   The server <em>MUST</em> respond with the following Server-Start message:
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -719,10 +719,10 @@ Table of Contents
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   The MBZ parts MUST be zero.  The client MUST ignore their value.  MBZ
-   (MUST be zero) fields here and after have the same semantics: the
-   party that sends the message MUST set the field so that all bits are
-   equal to zero; the party that interprets the message MUST ignore the
+   The MBZ parts <em>MUST</em> be zero.  The client <em>MUST</em> ignore their value.  MBZ
+   (<em>MUST</em> be zero) fields here and after have the same semantics: the
+   party that sends the message <em>MUST</em> set the field so that all bits are
+   equal to zero; the party that interprets the message <em>MUST</em> ignore the
    value.  (This way, the field could be used for future extensions.)
 
    Server-IV is generated randomly by the server.  In unauthenticated
@@ -737,8 +737,8 @@ Table of Contents
    full list of available Accept values is described in <a href="#section-3.3">Section 3.3</a>,
    "Values of the Accept Field".
 
-   If a negative (non-zero) response is sent, the server MAY (and the
-   client SHOULD) close the connection after this message.
+   If a negative (non-zero) response is sent, the server <em>MAY</em> (and the
+   client <em>SHOULD</em>) close the connection after this message.
 
    Start-Time is a timestamp representing the time when the current
    instantiation of the server started operating.  (For example, in a
@@ -752,14 +752,14 @@ Table of Contents
 <span class="grey"><a href="./rfc4656.html">RFC 4656</a>          One-way Active Measurement Protocol     September 2006</span>
 
 
-   Time SHOULD be set so that all of its bits are zeros.  In
+   Time <em>SHOULD</em> be set so that all of its bits are zeros.  In
    authenticated and encrypted modes, Start-Time is encrypted as
    described in <a href="#section-3.4">Section 3.4</a>, "OWAMP-Control Commands", unless Accept is
    non-zero.  (Authenticated and encrypted mode cannot be entered unless
    the control connection can be initialized.)
 
    Timestamp format is described in <a href="#section-4.1.2">Section 4.1.2</a>.  The same
-   instantiation of the server SHOULD report the same exact Start-Time
+   instantiation of the server <em>SHOULD</em> report the same exact Start-Time
    value to each client in each session.
 
    The previous transactions constitute connection setup.
@@ -771,9 +771,9 @@ Table of Contents
    The HMAC that OWAMP uses is HMAC-SHA1 truncated to 128 bits.  Thus,
    all HMAC fields are 16 octets.  An HMAC needs a key.  The HMAC
    Session-key is communicated along with the AES Session-key during
-   OWAMP-Control connection setup.  The HMAC Session-key SHOULD be
+   OWAMP-Control connection setup.  The HMAC Session-key <em>SHOULD</em> be
    derived independently of the AES Session-key (an implementation, of
-   course, MAY use the same mechanism to generate the random bits for
+   course, <em>MAY</em> use the same mechanism to generate the random bits for
    both keys).  Each HMAC sent covers everything sent in a given
    direction between the previous HMAC (but not including it) and up to
    the beginning of the new HMAC.  This way, once encryption is set up,
@@ -785,7 +785,7 @@ Table of Contents
    decrypting, the order, of course, is reversed: first one decrypts,
    then one checks the HMAC, then one proceeds to use the data.
 
-   The HMAC MUST be checked as early as possible to avoid using and
+   The HMAC <em>MUST</em> be checked as early as possible to avoid using and
    propagating corrupt data.
 
    In open mode, the HMAC fields are unused and have the same semantics
@@ -816,10 +816,10 @@ Table of Contents
 
      5    Cannot perform request due to temporary resource limitations.
 
-   All other values are reserved.  The sender of the message MAY use the
-   value of 1 for all non-zero Accept values.  A message sender SHOULD
+   All other values are reserved.  The sender of the message <em>MAY</em> use the
+   value of 1 for all non-zero Accept values.  A message sender <em>SHOULD</em>
    use the correct Accept value if it is going to use other values.  The
-   message receiver MUST interpret all values of Accept other than these
+   message receiver <em>MUST</em> interpret all values of Accept other than these
    reserved values as 1.  This way, other values are available for
    future extensions.
 
@@ -867,10 +867,10 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Creating Test Sessions</span>
 
    Individual one-way active measurement sessions are established using
-   a simple request/response protocol.  An OWAMP client MAY issue zero
-   or more Request-Session messages to an OWAMP server, which MUST
+   a simple request/response protocol.  An OWAMP client <em>MAY</em> issue zero
+   or more Request-Session messages to an OWAMP server, which <em>MUST</em>
    respond to each with an Accept-Session message.  An Accept-Session
-   message MAY refuse a request.
+   message <em>MAY</em> refuse a request.
 
 
 
@@ -1010,16 +1010,16 @@ Table of Contents
 
    IPVN is the IP version numbers for Sender and Receiver.  When the IP
    version number is 4, 12 octets follow the 4-octet IPv4 address stored
-   in Sender Address and Receiver Address.  These octets MUST be set to
-   zero by the client and MUST be ignored by the server.  Currently
+   in Sender Address and Receiver Address.  These octets <em>MUST</em> be set to
+   zero by the client and <em>MUST</em> be ignored by the server.  Currently
    meaningful IPVN values are 4 and 6.
 
-   Conf-Sender and Conf-Receiver MUST be set to 0 or 1 by the client.
-   The server MUST interpret any non-zero value as 1.  If the value is
+   Conf-Sender and Conf-Receiver <em>MUST</em> be set to 0 or 1 by the client.
+   The server <em>MUST</em> interpret any non-zero value as 1.  If the value is
    1, the server is being asked to configure the corresponding agent
    (sender or receiver).  In this case, the corresponding Port value
-   SHOULD be disregarded by the server.  At least one of Conf-Sender and
-   Conf-Receiver MUST be 1.  (Both can be set, in which case the server
+   <em>SHOULD</em> be disregarded by the server.  At least one of Conf-Sender and
+   Conf-Receiver <em>MUST</em> be 1.  (Both can be set, in which case the server
    is being asked to perform a session between two hosts it can
    configure.)
 
@@ -1095,12 +1095,12 @@ Table of Contents
 
    If Conf-Sender is set and the server does not recognize the Type-P
    Descriptor, or it cannot or does not wish to set the corresponding
-   attributes on OWAMP-Test packets, it SHOULD reject the session
-   request.  If Conf-Sender is not set, the server SHOULD accept or
+   attributes on OWAMP-Test packets, it <em>SHOULD</em> reject the session
+   request.  If Conf-Sender is not set, the server <em>SHOULD</em> accept or
    reject the session, paying no attention to the value of the Type-P
    Descriptor.
 
-   To each Request-Session message, an OWAMP server MUST respond with an
+   To each Request-Session message, an OWAMP server <em>MUST</em> respond with an
    Accept-Session message:
 
       0                   1                   2                   3
@@ -1128,8 +1128,8 @@ Table of Contents
    of the request.  The full list of available Accept values is
    described in <a href="#section-3.3">Section 3.3</a>, "Values of the Accept Field".
 
-   If the server rejects a Request-Session message, it SHOULD not close
-   the TCP connection.  The client MAY close it if it receives a
+   If the server rejects a Request-Session message, it <em>SHOULD</em> not close
+   the TCP connection.  The client <em>MAY</em> close it if it receives a
    negative response to the Request-Session message.
 
    The meaning of Port in the response depends on the values of Conf-
@@ -1151,13 +1151,13 @@ Table of Contents
    Otherwise, SID is a unique server-generated session identifier.  It
    can be used later as handle to fetch the results of a session.
 
-   SIDs SHOULD be constructed by concatenation of the 4-octet IPv4 IP
+   SIDs <em>SHOULD</em> be constructed by concatenation of the 4-octet IPv4 IP
    number belonging to the generating machine, an 8-octet timestamp, and
    a 4-octet random value.  To reduce the probability of collisions, if
    the generating machine has any IPv4 addresses (with the exception of
-   loopback), one of them SHOULD be used for SID generation, even if all
+   loopback), one of them <em>SHOULD</em> be used for SID generation, even if all
    communication is IPv6-based.  If it has no IPv4 addresses at all, the
-   last four octets of an IPv6 address MAY be used instead.  Note that
+   last four octets of an IPv6 address <em>MAY</em> be used instead.  Note that
    SID is always chosen by the receiver.  If truly random values are not
    available, it is important that the SID be made unpredictable, as
    knowledge of the SID might be used for access control.
@@ -1224,7 +1224,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-3.7" href="#section-3.7">3.7</a>.  Starting Test Sessions</span>
 
    Having requested one or more test sessions and received affirmative
-   Accept-Session responses, an OWAMP client MAY start the execution of
+   Accept-Session responses, an OWAMP client <em>MAY</em> start the execution of
    the requested test sessions by sending a Start-Sessions message to
    the server.
 
@@ -1245,7 +1245,7 @@ Table of Contents
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   The server MUST respond with an Start-Ack message (which SHOULD be
+   The server <em>MUST</em> respond with an Start-Ack message (which <em>SHOULD</em> be
    sent as quickly as possible).  Start-Ack messages have the following
    format:
 
@@ -1274,13 +1274,13 @@ Table of Contents
    If Accept is non-zero, the Start-Sessions request was rejected; zero
    means that the command was accepted.  The full list of available
    Accept values is described in <a href="#section-3.3">Section 3.3</a>, "Values of the Accept
-   Field".  The server MAY, and the client SHOULD, close the connection
+   Field".  The server <em>MAY</em>, and the client <em>SHOULD</em>, close the connection
    in the case of a rejection.
 
-   The server SHOULD start all OWAMP-Test streams immediately after it
+   The server <em>SHOULD</em> start all OWAMP-Test streams immediately after it
    sends the response or immediately after their specified start times,
    whichever is later.  If the client represents a Sender, the client
-   SHOULD start its OWAMP-Test streams immediately after it sees the
+   <em>SHOULD</em> start its OWAMP-Test streams immediately after it sees the
    Start-Ack response from the Server (if the Start-Sessions command was
    accepted) or immediately after their specified start times, whichever
    is later.  See more on OWAMP-Test sender behavior in a separate
@@ -1343,8 +1343,8 @@ Table of Contents
      |                       Last Seqno Skipped                      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   Skip Ranges MUST be in order.  The last (possibly full, possibly
-   incomplete) block (16 octets) of data MUST be padded with zeros, if
+   Skip Ranges <em>MUST</em> be in order.  The last (possibly full, possibly
+   incomplete) block (16 octets) of data <em>MUST</em> be padded with zeros, if
    necessary.  This ensures that the next session description record
    starts on a block boundary.
 
@@ -1377,26 +1377,26 @@ Table of Contents
    the Accept Field".
 
    If Accept had a non-zero value (from either party), results of all
-   OWAMP-Test sessions spawned by this OWAMP-Control session SHOULD be
+   OWAMP-Test sessions spawned by this OWAMP-Control session <em>SHOULD</em> be
    considered invalid, even if a Fetch-Session with SID from this
    session works for a different OWAMP-Control session.  If Accept was
    not transmitted at all (for whatever reason, including the TCP
    connection used for OWAMP-Control breaking), the results of all
-   OWAMP-Test sessions spawned by this OWAMP-control session MAY be
+   OWAMP-Test sessions spawned by this OWAMP-control session <em>MAY</em> be
    considered invalid.
 
    Number of Sessions indicates the number of session description
    records that immediately follow the Stop-Sessions header.
 
-   Number of Sessions MUST contain the number of send sessions started
+   Number of Sessions <em>MUST</em> contain the number of send sessions started
    by the local side of the control connection that have not been
    previously terminated by a Stop-Sessions command (i.e., the Control-
-   Client MUST account for each accepted Request-Session where Conf-
-   Receiver was set; the Control-Server MUST account for each accepted
+   Client <em>MUST</em> account for each accepted Request-Session where Conf-
+   Receiver was set; the Control-Server <em>MUST</em> account for each accepted
    Request-Session where Conf-Sender was set).  If the Stop-Sessions
    message does not account for exactly the send sessions controlled by
    that side, then it is to be considered invalid and the connection
-   SHOULD be closed and any results obtained considered invalid.
+   <em>SHOULD</em> be closed and any results obtained considered invalid.
 
    Each session description record represents one OWAMP-Test session.
 
@@ -1425,8 +1425,8 @@ Table of Contents
 
 
    If the OWAMP-Control connection breaks when the Stop-Sessions command
-   is sent, the receiver MAY not completely invalidate the session
-   results.  It MUST discard all record of packets that follow (in other
+   is sent, the receiver <em>MAY</em> not completely invalidate the session
+   results.  It <em>MUST</em> discard all record of packets that follow (in other
    words, that have greater sequence number than) the last packet that
    was actually received before any lost packet records.  This will help
    differentiate between packet losses that occurred in the network and
@@ -1435,10 +1435,10 @@ Table of Contents
    If a receiver of an OWAMP-Test session learns, through an OWAMP-
    Control Stop-Sessions message, that the OWAMP-Test sender's last
    sequence number is lower than any sequence number actually received,
-   the results of the complete OWAMP-Test session MUST be invalidated.
+   the results of the complete OWAMP-Test session <em>MUST</em> be invalidated.
 
    A receiver of an OWAMP-Test session, upon receipt of an OWAMP-Control
-   Stop-Sessions command, MUST discard any packet records -- including
+   Stop-Sessions command, <em>MUST</em> discard any packet records -- including
    lost packet records -- with a (computed) send time that falls between
    the current time minus Timeout and the current time.  This ensures
    statistical consistency for the measurement of loss and duplicates in
@@ -1446,16 +1446,16 @@ Table of Contents
    Stop-Sessions command to take place.
 
    To effect complete sessions, each side of the control connection
-   SHOULD wait until all sessions are complete before sending the Stop-
+   <em>SHOULD</em> wait until all sessions are complete before sending the Stop-
    Sessions message.  The completed time of each session is determined
    as Timeout after the scheduled time for the last sequence number.
-   Endpoints MAY add a small increment to the computed completed time
+   Endpoints <em>MAY</em> add a small increment to the computed completed time
    for send endpoints to ensure that the Stop-Sessions message reaches
    the receiver endpoint after Timeout.
 
    To effect a premature stop of sessions, the party that initiates this
-   command MUST stop its OWAMP-Test send streams to send the Session
-   Packets Sent values before sending this command.  That party SHOULD
+   command <em>MUST</em> stop its OWAMP-Test send streams to send the Session
+   Packets Sent values before sending this command.  That party <em>SHOULD</em>
    wait until receiving the response Stop-Sessions message before
    stopping the receiver streams so that it can use the values from the
    received Stop-Sessions message to validate the data.
@@ -1513,9 +1513,9 @@ Table of Contents
 
    If a complete session is requested and the session is still in
    progress or has terminated in any way other than normally, the
-   request to fetch session results MUST be denied.  If an incomplete
+   request to fetch session results <em>MUST</em> be denied.  If an incomplete
    session is requested, all packets received so far that fall into the
-   requested range SHOULD be returned.  Note that, since no commands can
+   requested range <em>SHOULD</em> be returned.  Note that, since no commands can
    be issued between Start-Sessions and Stop-Sessions, incomplete
    requests can only happen on a different OWAMP-Control connection
    (from the same or different host as Control-Client).
@@ -1536,7 +1536,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4656.html">RFC 4656</a>          One-way Active Measurement Protocol     September 2006</span>
 
 
-   The server MUST respond with a Fetch-Ack message.  The format of this
+   The server <em>MUST</em> respond with a Fetch-Ack message.  The format of this
    server response is as follows:
 
       0                   1                   2                   3
@@ -1557,8 +1557,8 @@ Table of Contents
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    Again, non-zero in the Accept field means a rejection of command.
-   The server MUST specify zero for all remaining fields if Accept is
-   non-zero.  The client MUST ignore all remaining fields (except for
+   The server <em>MUST</em> specify zero for all remaining fields if Accept is
+   non-zero.  The client <em>MUST</em> ignore all remaining fields (except for
    the HMAC) if Accept is non-zero.  The full list of available Accept
    values is described in <a href="#section-3.3">Section 3.3</a>, "Values of the Accept Field".
 
@@ -1568,12 +1568,12 @@ Table of Contents
    sent from this send session.  For completed sessions, this will equal
    NumPackets from the Request-Session.  This information is only
    available if the session has terminated.  If Finished is zero, then
-   Next Seqno MUST be set to zero by the server.
+   Next Seqno <em>MUST</em> be set to zero by the server.
 
    Number of Skip Ranges indicates the number of holes that actually
    occurred in the sending process.  This information is only available
    if the session has terminated.  If Finished is zero, then Skip Ranges
-   MUST be set to zero by the server.
+   <em>MUST</em> be set to zero by the server.
 
    Number of Records is the number of packet records that fall within
    the requested range.  This number might be less than the Number of
@@ -1582,7 +1582,7 @@ Table of Contents
    duplicates.
 
    If Accept was non-zero, this concludes the response to the Fetch-
-   Session message.  If Accept was 0, the server then MUST immediately
+   Session message.  If Accept was 0, the server then <em>MUST</em> immediately
    send the OWAMP-Test session data in question.
 
 
@@ -1624,7 +1624,7 @@ Table of Contents
 
    Skip Range descriptions should be sent out in order, as sorted by
    First Seqno.  If any Skip Ranges overlap or are out of order, the
-   session data is to be considered invalid and the connection SHOULD be
+   session data is to be considered invalid and the connection <em>SHOULD</em> be
    closed and any results obtained considered invalid.
 
    Each packet record is 25 octets and includes 4 octets of sequence
@@ -1668,7 +1668,7 @@ Table of Contents
    received.  Therefore, the data is in arrival order.
 
    Note that lost packets (if any losses were detected during the
-   OWAMP-Test session) MUST appear in the sequence of packets.  They can
+   OWAMP-Test session) <em>MUST</em> appear in the sequence of packets.  They can
    appear either at the point when the loss was detected or at any later
    point.  Lost packet records are distinguished as follows:
 
@@ -1726,12 +1726,12 @@ Table of Contents
    Consider any OWAMP-Test session.  Once Start-Sessions exchange is
    complete, the sender is ready to start sending packets.  Under normal
    OWAMP use circumstances, the time to send the first packet is in the
-   near future (perhaps a fraction of a second away).  The sender SHOULD
+   near future (perhaps a fraction of a second away).  The sender <em>SHOULD</em>
    send packets as close as possible to their scheduled time, with the
    following exception: if the scheduled time to send is in the past,
    and is separated from the present by more than Timeout time, the
-   sender MUST NOT send the packet.  (Indeed, such a packet would be
-   considered lost by the receiver anyway.)  The sender MUST keep track
+   sender <em>MUST NOT</em> send the packet.  (Indeed, such a packet would be
+   considered lost by the receiver anyway.)  The sender <em>MUST</em> keep track
    of which packets it does not send.  It will use this to tell the
    receiver what packets were not sent by setting Skip Ranges in the
    Stop-Sessions message from the sender to the receiver upon completion
@@ -1742,13 +1742,13 @@ Table of Contents
    if the sender could not start serving the OWAMP-Test session on time
    due to internal scheduling problems of the OS.  Packets that are in
    the past but are separated from the present by less than Timeout
-   value SHOULD be sent as quickly as possible.  With normal test rates
+   value <em>SHOULD</em> be sent as quickly as possible.  With normal test rates
    and timeout values, the number of packets in such a burst is limited.
-   Nevertheless, hosts SHOULD NOT intentionally schedule sessions so
+   Nevertheless, hosts <em>SHOULD NOT</em> intentionally schedule sessions so
    that such bursts of packets occur.
 
    Regardless of any scheduling delays, each packet that is actually
-   sent MUST have the best possible approximation of its real time of
+   sent <em>MUST</em> have the best possible approximation of its real time of
    departure as its timestamp (in the packet).
 
 
@@ -1763,7 +1763,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.1.2" href="#section-4.1.2">4.1.2</a>.  OWAMP-Test Packet Format and Content</span>
 
    The sender sends the receiver a stream of packets with the schedule
-   specified in the Request-Session command.  The sender SHOULD set the
+   specified in the Request-Session command.  The sender <em>SHOULD</em> set the
    TTL in IPv4 (or Hop Limit in IPv6) in the UDP packet to 255.  The
    format of the body of a UDP packet in the stream depends on the mode
    being used.
@@ -1881,20 +1881,20 @@ Table of Contents
         |S|Z|   Scale   |   Multiplier  |
         +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   The first bit, S, SHOULD be set if the party generating the timestamp
+   The first bit, S, <em>SHOULD</em> be set if the party generating the timestamp
    has a clock that is synchronized to UTC using an external source
    (e.g., the bit should be set if GPS hardware is used and it indicates
    that it has acquired current position and time or if NTP is used and
    it indicates that it has synchronized to an external source, which
    includes stratum 0 source, etc.).  If there is no notion of external
-   synchronization for the time source, the bit SHOULD NOT be set.  The
-   next bit has the same semantics as MBZ fields elsewhere: it MUST be
+   synchronization for the time source, the bit <em>SHOULD NOT</em> be set.  The
+   next bit has the same semantics as MBZ fields elsewhere: it <em>MUST</em> be
    set to zero by the sender and ignored by everyone else.  The next six
    bits, Scale, form an unsigned integer; Multiplier is an unsigned
    integer as well.  They are interpreted as follows: the error estimate
    is equal to Multiplier*2^(-32)*2^Scale (in seconds).  (Notation
    clarification: 2^Scale is two to the power of Scale.)  Multiplier
-   MUST NOT be set to zero.  If Multiplier is zero, the packet SHOULD be
+   <em>MUST NOT</em> be set to zero.  If Multiplier is zero, the packet <em>SHOULD</em> be
    considered corrupt and discarded.
 
    Sequence numbers start with zero and are incremented by one for each
@@ -1970,7 +1970,7 @@ Table of Contents
    for the CBC encryption is a value with all bits equal to zero.
 
    Implementation note: Naturally, the key schedule for each OWAMP-Test
-   session MAY be set up only once per session, not once per packet.
+   session <em>MAY</em> be set up only once per session, not once per packet.
 
 
 
@@ -1994,9 +1994,9 @@ Table of Contents
 
    In unauthenticated mode, no encryption or authentication is applied.
 
-   Packet Padding in OWAMP-Test SHOULD be pseudo-random (it MUST be
+   Packet Padding in OWAMP-Test <em>SHOULD</em> be pseudo-random (it <em>MUST</em> be
    generated independently of any other pseudo-random numbers mentioned
-   in this document).  However, implementations MUST provide a
+   in this document).  However, implementations <em>MUST</em> provide a
    configuration parameter, an option, or a different means of making
    Packet Padding consist of all zeros.
 
@@ -2041,7 +2041,7 @@ Table of Contents
 
 
    +  in authenticated or encrypted mode, decrypt and authenticate as
-      necessary (packets for which authentication fails MUST be
+      necessary (packets for which authentication fails <em>MUST</em> be
       discarded); and
 
    +  store the packet sequence number, send time, receive time, and the
@@ -2053,20 +2053,20 @@ Table of Contents
    receive time value with all bits being zero, and a TTL (or Hop Limit)
    of 255.
 
-   Implementations SHOULD fetch the TTL/Hop Limit value from the IP
+   Implementations <em>SHOULD</em> fetch the TTL/Hop Limit value from the IP
    header of the packet.  If an implementation does not fetch the actual
    TTL value (the only good reason not to do so is an inability to
-   access the TTL field of arriving packets), it MUST record the TTL
+   access the TTL field of arriving packets), it <em>MUST</em> record the TTL
    value as 255.
 
    Packets that are actually received are recorded in the order of
    arrival.  Lost packet records serve as indications of the send times
-   of lost packets.  They SHOULD be placed either at the point where the
+   of lost packets.  They <em>SHOULD</em> be placed either at the point where the
    receiver learns about the loss or at any later point; in particular,
-   one MAY place all the records that correspond to lost packets at the
+   one <em>MAY</em> place all the records that correspond to lost packets at the
    very end.
 
-   Packets that have send time in the future MUST be recorded normally,
+   Packets that have send time in the future <em>MUST</em> be recorded normally,
    without changing their send timestamp, unless they have to be
    discarded.  (Send timestamps in the future would normally indicate
    clocks that differ by more than the delay.  Some data -- such as
@@ -2076,11 +2076,11 @@ Table of Contents
    session, as well as, possibly, external data.)
 
    Packets with a sequence number that was already observed (duplicate
-   packets) MUST be recorded normally.  (Duplicate packets are sometimes
+   packets) <em>MUST</em> be recorded normally.  (Duplicate packets are sometimes
    introduced by IP networks.  The protocol has to be able to measure
    duplication.)
 
-   If any of the following is true, the packet MUST be discarded:
+   If any of the following is true, the packet <em>MUST</em> be discarded:
 
    +  Send timestamp is more than Timeout in the past or in the future.
 
@@ -2125,7 +2125,7 @@ Table of Contents
 
    Q[k] = (ln2)/(1!) + (ln2)^2/(2!) + ... + (ln2)^k/(k!),  1 &lt;= k &lt;= 11
 
-   are computed in advance.  The exact values which MUST be used by all
+   are computed in advance.  The exact values which <em>MUST</em> be used by all
    implementations are given in the next section.  This is necessary to
    ensure that exactly the same pseudo-random sequences are produced by
    all implementations.
@@ -2177,7 +2177,7 @@ Table of Contents
    implementation.
 
    We specify that the u_int64_t representations of the first 11 values
-   of the Q array in the high-level algorithm MUST be as follows:
+   of the Q array in the high-level algorithm <em>MUST</em> be as follows:
 
    #1      0xB17217F8,
    #2      0xEEF193F7,
@@ -2210,7 +2210,7 @@ Table of Contents
 
       (u, v) |---&gt; (u * v) &gt;&gt; 32.
 
-   Implementations MUST compute the product (u * v) exactly.  For
+   Implementations <em>MUST</em> compute the product (u * v) exactly.  For
    example, a fragment of unsigned 128-bit arithmetic can be implemented
    for this purpose (see the sample implementation in <a href="#appendix-A">Appendix A</a>).
 
@@ -2291,10 +2291,10 @@ Table of Contents
 
    OWAMP-Test sessions directed at an unsuspecting party could be used
    for denial of service (DoS) attacks.  In unauthenticated mode,
-   servers SHOULD limit receivers to hosts they control or to the OWAMP-
+   servers <em>SHOULD</em> limit receivers to hosts they control or to the OWAMP-
    Control client.
 
-   Unless otherwise configured, the default behavior of servers MUST be
+   Unless otherwise configured, the default behavior of servers <em>MUST</em> be
    to decline requests where the Receiver Address field is not equal to
    the address that the control connection was initiated from or an
    address of the server (or an address of a host it controls).  Given
@@ -2306,7 +2306,7 @@ Table of Contents
    request that large amounts of test packets be directed against victim
    nodes somewhere else.
 
-   In any case, OWAMP-Test packets with a given source address MUST only
+   In any case, OWAMP-Test packets with a given source address <em>MUST</em> only
    be sent from the node that has been assigned that address (i.e.,
    address spoofing is not permitted).
 
@@ -2329,7 +2329,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a>.  Requirement to Include AES in Implementations</span>
 
    Notice that AES, in counter mode, is used for pseudo-random number
-   generation, so implementation of AES MUST be included even in a
+   generation, so implementation of AES <em>MUST</em> be included even in a
    server that only supports unauthenticated mode.
 
 <span class="h3"><a class="selflink" name="section-6.5" href="#section-6.5">6.5</a>.  Resource Use Limitations</span>
@@ -2338,11 +2338,11 @@ Table of Contents
    important kinds of resources are network capacity and memory (primary
    or secondary) for storing test results.
 
-   Any implementation of OWAMP server MUST include technical mechanisms
+   Any implementation of OWAMP server <em>MUST</em> include technical mechanisms
    to limit the use of network capacity and memory.  Mechanisms for
    managing the resources consumed by unauthenticated users and users
-   authenticated with a KeyID and passphrase SHOULD be separate.  The
-   default configuration of an implementation MUST enable these
+   authenticated with a KeyID and passphrase <em>SHOULD</em> be separate.  The
+   default configuration of an implementation <em>MUST</em> enable these
    mechanisms and set the resource use limits to conservatively low
    values.
 
@@ -2377,11 +2377,11 @@ Table of Contents
 
 
    deleted.  For unauthenticated sessions, memory consumed by an OWAMP-
-   Test session SHOULD be reclaimed after the OWAMP-Control connection
+   Test session <em>SHOULD</em> be reclaimed after the OWAMP-Control connection
    that initiated the session is closed (gracefully or otherwise).  For
    authenticated sessions, the administrator who configures the service
    should be able to decide the exact policy, but useful policy
-   mechanisms that MAY be implemented are the ability to automatically
+   mechanisms that <em>MAY</em> be implemented are the ability to automatically
    reclaim memory when the data is retrieved and the ability to reclaim
    memory after a certain configurable (based on user class) period of
    time passes after the OWAMP-Test session terminates.
@@ -2566,7 +2566,7 @@ Table of Contents
 
    Should a cipher with a different key size (say, a 256-bit key) become
    needed, a new key derivation function for OWAMP-Test keys would also
-   be needed.  The semantics of change in the cipher SHOULD then in the
+   be needed.  The semantics of change in the cipher <em>SHOULD</em> then in the
    future be tied to the semantics of change in the key derivation
    function (KDF).  One KDF that might be considered for the purpose
    might be a pseudo-random function (PRF) with appropriately sized
@@ -2638,12 +2638,12 @@ Table of Contents
    more resistant to codebook attacks than are ciphers with shorter
    blocks; we use random IV anyway).
 
-   HMAC MUST verify.  It is crucial to check for this before using the
+   HMAC <em>MUST</em> verify.  It is crucial to check for this before using the
    message; otherwise, existential forgery becomes possible.  The
-   complete message for which HMAC verification fails MUST be discarded
+   complete message for which HMAC verification fails <em>MUST</em> be discarded
    (both for short messages consisting of a few blocks and potentially
    for long messages, such as a response to the Fetch-Session command).
-   If such a message is part of OWAMP-Control, the connection MUST be
+   If such a message is part of OWAMP-Control, the connection <em>MUST</em> be
    dropped.
 
    Since OWAMP messages can have different numbers of blocks, the
@@ -2882,7 +2882,7 @@ Table of Contents
 
 Appendix A: Sample C Code for Exponential Deviates
 
-   The values in array Q[] are the exact values that MUST be used by all
+   The values in array Q[] are the exact values that <em>MUST</em> be used by all
    implementations (see Sections <a href="#section-5.1">5.1</a> and <a href="#section-5.2">5.2</a>).  This appendix only
    serves for illustrative purposes.
 
@@ -2945,7 +2945,7 @@ Appendix A: Sample C Code for Exponential Deviates
    **
    ** as described in algorithm S. (The values below have been
    ** multiplied by 2^32 and rounded to the nearest integer.)
-   ** These exact values MUST be used so that different implementation
+   ** These exact values <em>MUST</em> be used so that different implementation
    ** produce the same sequences.
    */
    static u_int64_t Q[K] = {
@@ -3174,10 +3174,10 @@ Appendix B: Test Vectors for Exponential Deviates
    distributed 64-bit deviates are generated as described above.  As
    they are generated, they are all added to each other.  The sum of all
    1,000,000 deviates is given as a hexadecimal number for each SID.  An
-   implementation MUST produce exactly these hexadecimal numbers.  To
+   implementation <em>MUST</em> produce exactly these hexadecimal numbers.  To
    aid in the verification of the conversion of these numbers to values
    of delay in seconds, approximate values are given (assuming
-   lambda=1).  An implementation SHOULD produce delay values in seconds
+   lambda=1).  An implementation <em>SHOULD</em> produce delay values in seconds
    that are close to the ones given below.
 
        SID = 0x2872979303ab47eeac028dab3829dab2

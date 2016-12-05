@@ -373,8 +373,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    Additional terminology used in this document:
@@ -779,10 +779,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.1" href="#section-8.1">8.1</a>.  Client Behavior</span>
 
-   Clients SHOULD keep connections up as long as they are needed.
+   Clients <em>SHOULD</em> keep connections up as long as they are needed.
    Connection reuse works best when the client and the server maintain
    their connections for long periods of time.  Clients, therefore,
-   SHOULD NOT automatically drop connections on completion of a
+   <em>SHOULD NOT</em> automatically drop connections on completion of a
    transaction or termination of a dialog.
 
    The mechanism for connection reuse uses a new Via header field
@@ -792,11 +792,11 @@ Table of Contents
    the Via header field value (in the sent-by production).
 
    If the client places an "alias" header field parameter in the topmost
-   Via header of the request, the client SHOULD keep the connection open
+   Via header of the request, the client <em>SHOULD</em> keep the connection open
    for as long as the resources on the host operating system allow it
-   to, and that the client MUST accept requests over this connection --
+   to, and that the client <em>MUST</em> accept requests over this connection --
    in addition to the default listening port -- from its downstream
-   peer.  And furthermore, the client SHOULD reuse the connection when
+   peer.  And furthermore, the client <em>SHOULD</em> reuse the connection when
    subsequent requests in the same or different transactions are
    destined to the same resolved address.
 
@@ -818,19 +818,19 @@ Table of Contents
    Whether or not to allow an aliased connection ultimately depends on
    the recipient of the request; i.e., the client does not get any
    confirmation that its downstream peer created the alias, or indeed
-   that it even supports this specification.  Thus, clients MUST NOT
+   that it even supports this specification.  Thus, clients <em>MUST NOT</em>
    assume that the acceptance of a request by a server automatically
-   enables connection aliasing.  Clients MUST continue receiving
+   enables connection aliasing.  Clients <em>MUST</em> continue receiving
    requests on their default port.
 
-   Clients MUST authenticate the connection before forming an alias;
+   Clients <em>MUST</em> authenticate the connection before forming an alias;
    <a href="#section-9.1">Section 9.1</a> discusses the authentication steps in more detail.  Once
-   the server has been authenticated, the client MUST cache, in the
+   the server has been authenticated, the client <em>MUST</em> cache, in the
    alias table, the identity (or identities) of the server as determined
-   in <a href="./rfc5922.html#section-7.1">Section&nbsp;7.1 of RFC 5922</a> [<a href="./rfc5922.html" title="&quot;Domain Certificates in the Session Initiation Protocol (SIP)&quot;">RFC5922</a>].  The client MUST also populate
+   in <a href="./rfc5922.html#section-7.1">Section&nbsp;7.1 of RFC 5922</a> [<a href="./rfc5922.html" title="&quot;Domain Certificates in the Session Initiation Protocol (SIP)&quot;">RFC5922</a>].  The client <em>MUST</em> also populate
    the destination IP address, port, and transport of the server in the
    alias table; these fields are retrieved from executing <a href="./rfc3263.html">RFC3263</a> server
-   resolution process on the next-hop URI.  And finally, the client MUST
+   resolution process on the next-hop URI.  And finally, the client <em>MUST</em>
    populate the alias descriptor field with the connection handle (or
    identifier) used to connect to the server.
 
@@ -846,9 +846,9 @@ Table of Contents
        identities stored in the alias table row corresponding to that
        resolved address.
 
-   Clients MUST be prepared for the case that the connection no longer
+   Clients <em>MUST</em> be prepared for the case that the connection no longer
    exists when they are ready to send a subsequent request over it.  In
-   such a case, a new connection MUST be opened to the resolved address
+   such a case, a new connection <em>MUST</em> be opened to the resolved address
    and the alias table updated accordingly.
 
    This behavior has an adverse side effect when a CANCEL request or an
@@ -857,8 +857,8 @@ Table of Contents
    request was sent.  However, if between the sending of the INVITE
    request and subsequent sending of the CANCEL request or ACK request
    to a non-2xx response, the connection was closed, then the client
-   SHOULD open a new connection to the resolved address and send the
-   CANCEL request or ACK request there instead.  The client MAY insert
+   <em>SHOULD</em> open a new connection to the resolved address and send the
+   CANCEL request or ACK request there instead.  The client <em>MAY</em> insert
    the newly opened connection into the alias table.
 
 
@@ -873,10 +873,10 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-8.2" href="#section-8.2">8.2</a>.  Server Behavior</span>
 
-   Servers SHOULD keep connections up unless they need to reclaim
+   Servers <em>SHOULD</em> keep connections up unless they need to reclaim
    resources.  Connection reuse works best when the client and the
    server maintain their connections for long periods of time.  Servers,
-   therefore, SHOULD NOT automatically drop connections on completion of
+   therefore, <em>SHOULD NOT</em> automatically drop connections on completion of
    a transaction or termination of a dialog.
 
    When a server receives a request over TLS whose topmost Via header
@@ -891,7 +891,7 @@ Table of Contents
    with the "alias" Via header field parameter ultimately depends on the
    policies of the server.  It can choose to honor it, and thereby send
    subsequent requests over the aliased connection.  If the server
-   chooses not to honor an aliased connection, the server MUST allow the
+   chooses not to honor an aliased connection, the server <em>MUST</em> allow the
    request to proceed as though the "alias" header field parameter was
    not present in the topmost Via header.
 
@@ -900,21 +900,21 @@ Table of Contents
       fear that the server will reject the SIP request because of its
       presence.
 
-   Servers MUST be prepared to deal with the case that the aliased
+   Servers <em>MUST</em> be prepared to deal with the case that the aliased
    connection no longer exist when they are ready to send a subsequent
    request over it.  This can happen if the peer ran out of operating
    system resources and had to close the connection.  In such a case,
-   the server MUST open a new connection to the resolved address and the
+   the server <em>MUST</em> open a new connection to the resolved address and the
    alias table updated accordingly.
 
    If the sent-by production of the Via header field contains a port,
-   the server MUST use it as a destination port.  Otherwise, the default
+   the server <em>MUST</em> use it as a destination port.  Otherwise, the default
    port is the destination port.
 
-   Servers MUST follow the authentication steps outlined in <a href="#section-9.2">Section 9.2</a>
+   Servers <em>MUST</em> follow the authentication steps outlined in <a href="#section-9.2">Section 9.2</a>
    to authenticate the connection before forming an alias.
 
-   The server, if it decides to reuse the connection, MUST cache in the
+   The server, if it decides to reuse the connection, <em>MUST</em> cache in the
    alias table the identity (or identities) of the client as they appear
    in the X.509 certificate subjectAlternativeName extension field.  The
    server also populates the destination IP address, port, and transport
@@ -949,12 +949,12 @@ Table of Contents
 
    Either the client or the server may terminate a TLS session by
    sending a TLS closure alert.  Before closing a TLS connection, the
-   initiator of the closure MUST either wait for any outstanding SIP
+   initiator of the closure <em>MUST</em> either wait for any outstanding SIP
    transactions to complete, or explicitly abandon them.
 
-   After the initiator of the close has sent a closure alert, it MUST
+   After the initiator of the close has sent a closure alert, it <em>MUST</em>
    discard any TLS messages until it has received a similar alert from
-   its peer.  The receiver of the closure alert MUST NOT start any new
+   its peer.  The receiver of the closure alert <em>MUST NOT</em> start any new
    SIP transactions after the receipt of the closure alert.
 
 <span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Security Considerations</span>
@@ -985,15 +985,15 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  Authenticating TLS Connections: Server View</span>
 
-   A TLS server conformant to this specification MUST ask for a client
+   A TLS server conformant to this specification <em>MUST</em> ask for a client
    certificate; if the client possesses a certificate, it will be
    presented to the server for mutual authentication, and authentication
    proceeds as described in <a href="#section-7.4">Section 7.4</a> ("Server behavior") of <a href="./rfc5922.html">RFC 5922</a>
    [<a href="./rfc5922.html" title="&quot;Domain Certificates in the Session Initiation Protocol (SIP)&quot;">RFC5922</a>].
 
-   If the client does not present a certificate, the server MUST proceed
+   If the client does not present a certificate, the server <em>MUST</em> proceed
    as if the "alias" header field parameter was not present in the
-   topmost Via header.  In this case, the server MUST NOT update the
+   topmost Via header.  In this case, the server <em>MUST NOT</em> update the
    alias table.
 
 <span class="h3"><a class="selflink" name="section-9.3" href="#section-9.3">9.3</a>.  Connection Reuse and Virtual Servers</span>
@@ -1007,8 +1007,8 @@ Table of Contents
    "Destination Identity" column in the alias table has been added to
    aid in such defenses.
 
-   Virtual servers MUST only perform connection reuse for TLS
-   connections; virtual servers MUST NOT perform connection reuse for
+   Virtual servers <em>MUST</em> only perform connection reuse for TLS
+   connections; virtual servers <em>MUST NOT</em> perform connection reuse for
    other connection-oriented transports.  To understand why this is the
    case, note that the alias table caches not only which connections go
    to which destination addresses, but also which connections have
@@ -1074,7 +1074,7 @@ Table of Contents
    P1 should keep separate alias tables for the requests served from the
    UAs in the example.com domain from those served by the UAs in the
    example.net domain.  This is so that the boundary between the two
-   domains is preserved; P1 MUST NOT open a connection on behalf of one
+   domains is preserved; P1 <em>MUST NOT</em> open a connection on behalf of one
    domain and reuse it to send a new request on behalf of another
    domain.
 

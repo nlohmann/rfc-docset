@@ -313,9 +313,9 @@ Table of Contents
 
    *  Mechanism and protocol independence.  The underlying mechanisms
       that realize the security services can be negotiated on the fly
-      and varied over time.  For example, a client and server MAY use
+      and varied over time.  For example, a client and server <em>MAY</em> use
       Kerberos [<a href="./rfc1964.html" title="&quot;The Kerberos Version 5 GSS-API Mechanism&quot;">RFC1964</a>] for one transaction, whereas that same server
-      MAY use SPKM [<a href="./rfc2025.html" title="&quot;The Simple Public-Key GSS-API Mechanism (SPKM)&quot;">RFC2025</a>] with a different client.
+      <em>MAY</em> use SPKM [<a href="./rfc2025.html" title="&quot;The Simple Public-Key GSS-API Mechanism (SPKM)&quot;">RFC2025</a>] with a different client.
 
    *  The protocol developer is removed from the responsibility of
       creating and managing a security infrastructure.  For example, the
@@ -331,8 +331,8 @@ Table of Contents
    also assumed that the reader is familiar with [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>], [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>],
    [<a href="./rfc1034.html" title="&quot;Domain Names - Concepts and Facilities&quot;">RFC1034</a>] and [<a href="./rfc1035.html" title="&quot;Domain Names - Implementation and Specification&quot;">RFC1035</a>].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT",
-   "RECOMMENDED", and "MAY" in this document are to be interpreted as
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>",
+   "<em>RECOMMENDED</em>", and "<em>MAY</em>" in this document are to be interpreted as
    described in <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Algorithm Overview</span>
@@ -383,7 +383,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  GSS Details</span>
 
-   Client and server MUST be locally authenticated and have acquired
+   Client and server <em>MUST</em> be locally authenticated and have acquired
    default credentials before using this protocol as specified in
    <a href="#section-1.1.1">Section 1.1.1</a> "Credentials" in <a href="./rfc2743.html">RFC 2743</a> [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface, Version 2 , Update 1&quot;">RFC2743</a>].
 
@@ -413,18 +413,18 @@ Table of Contents
 <span class="grey"><a href="./rfc3645.html">RFC 3645</a>                        GSS-TSIG                    October 2003</span>
 
 
-   Specifically, <a href="./rfc2845.html#section-4.2">Section&nbsp;4.2 of RFC 2845</a> MUST be modified as follows:
+   Specifically, <a href="./rfc2845.html#section-4.2">Section&nbsp;4.2 of RFC 2845</a> <em>MUST</em> be modified as follows:
 
    Replace:
-      "The server MUST not generate a signed response to an unsigned
+      "The server <em>MUST</em> not generate a signed response to an unsigned
       request."
 
    With:
-      "The server MUST not generate a signed response to an unsigned
+      "The server <em>MUST</em> not generate a signed response to an unsigned
       request, except in case of response to client's unsigned TKEY
       query if secret key is established on server side after server
       processed client's query.  Signing responses to unsigned TKEY
-      queries MUST be explicitly specified in the description of an
+      queries <em>MUST</em> be explicitly specified in the description of an
       individual secret key establishment algorithm."
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Client Protocol Details</span>
@@ -437,13 +437,13 @@ Table of Contents
 
    The value key_name also identifies a context handle.  The key_name is
    the owner name of the TKEY and TSIG records sent between a client and
-   a server to indicate to each other which context MUST be used to
+   a server to indicate to each other which context <em>MUST</em> be used to
    process the current request.
 
-   DNS client and server MAY use various underlying security mechanisms
+   DNS client and server <em>MAY</em> use various underlying security mechanisms
    to establish security context as described in sections <a href="#section-3">3</a> and <a href="#section-4">4</a>.  At
    the same time, in order to guarantee interoperability between DNS
-   clients and servers that support GSS-TSIG it is REQUIRED that
+   clients and servers that support GSS-TSIG it is <em>REQUIRED</em> that
    security mechanism used by client enables use of Kerberos v5 (see
    <a href="#section-9">Section 9</a> for more information).
 
@@ -476,23 +476,23 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-3.1.1" href="#section-3.1.1">3.1.1</a>.  Call GSS_Init_sec_context</span>
 
-   To obtain the first token to be sent to a server, a client MUST call
+   To obtain the first token to be sent to a server, a client <em>MUST</em> call
    GSS_Init_sec_context API.
 
-   The following input parameters MUST be used.  The outcome of the call
+   The following input parameters <em>MUST</em> be used.  The outcome of the call
    is indicated with the output values below.  Consult Sections <a href="#section-2.2.1">2.2.1</a>,
    "GSS_Init_sec_context call", of [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface, Version 2 , Update 1&quot;">RFC2743</a>] for syntax definitions.
 
    INPUTS
      CREDENTIAL HANDLE claimant_cred_handle = NULL (NULL specifies "use
-         default").  Client MAY instead specify some other valid
+         default").  Client <em>MAY</em> instead specify some other valid
          handle to its credentials.
      CONTEXT HANDLE input_context_handle  = 0
      INTERNAL NAME  targ_name             = "DNS@&lt;target_server_name&gt;"
      OBJECT IDENTIFIER mech_type          = Underlying security
          mechanism chosen by implementers.  To guarantee
          interoperability of the implementations of the GSS-TSIG
-         mechanism client MUST specify a valid underlying security
+         mechanism client <em>MUST</em> specify a valid underlying security
          mechanism that enables use of Kerberos v5 (see <a href="#section-9">Section 9</a> for
          more information).
      OCTET STRING   input_token           = NULL
@@ -503,7 +503,7 @@ Table of Contents
      BOOLEAN        anon_req_flag         = FALSE
      BOOLEAN        integ_req_flag        = TRUE
      INTEGER        lifetime_req          = 0 (0 requests a default
-         value).  Client MAY instead specify another upper bound for the
+         value).  Client <em>MAY</em> instead specify another upper bound for the
          lifetime of the context to be established in seconds.
      OCTET STRING   chan_bindings         = Any valid channel bindings
          as specified in <a href="#section-1.1.6">Section 1.1.6</a> "Channel Bindings" in [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface, Version 2 , Update 1&quot;">RFC2743</a>]
@@ -549,11 +549,11 @@ Table of Contents
      GSS_S_BAD_MECH
      GSS_S_FAILURE
 
-   then the client MUST abandon the algorithm and MUST NOT use the GSS-
+   then the client <em>MUST</em> abandon the algorithm and <em>MUST NOT</em> use the GSS-
    TSIG algorithm to establish this security context.  This document
    does not prescribe which other mechanism could be used to establish a
    security context.  Next time when this client needs to establish
-   security context, the client MAY use GSS-TSIG algorithm.
+   security context, the client <em>MAY</em> use GSS-TSIG algorithm.
 
    Success values of major_status are GSS_S_CONTINUE_NEEDED and
    GSS_S_COMPLETE.  The exact success code is important during later
@@ -562,10 +562,10 @@ Table of Contents
    The values of replay_det_state and mutual_state indicate if the
    security package provides replay detection and mutual authentication,
    respectively.  If returned major_status is GSS_S_COMPLETE AND one or
-   both of these values are FALSE, the client MUST abandon this
+   both of these values are FALSE, the client <em>MUST</em> abandon this
    algorithm.
 
-   Client's behavior MAY depend on other OUTPUT parameters according to
+   Client's behavior <em>MAY</em> depend on other OUTPUT parameters according to
    the policy local to the client.
 
    The handle output_context_handle is unique to this negotiation and is
@@ -589,10 +589,10 @@ Table of Contents
    the TKEY resource record in the additional records section of the
    query.  The owner name of the TKEY resource record set queried for
    and the owner name of the supplied TKEY resource record in the
-   additional records section MUST be the same.  This name uniquely
+   additional records section <em>MUST</em> be the same.  This name uniquely
    identifies the security context to both the client and server, and
-   thus the client SHOULD use a value which is globally unique as
-   described in [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>].  To achieve global uniqueness, the name MAY
+   thus the client <em>SHOULD</em> use a value which is globally unique as
+   described in [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>].  To achieve global uniqueness, the name <em>MAY</em>
    contain a UUID/GUID [<a href="#ref-ISO11578" title="&quot;Information technology&quot;">ISO11578</a>].
 
       TKEY Record
@@ -605,19 +605,19 @@ Table of Contents
            Key Data            = output_token
 
    The remaining fields in the TKEY RDATA, i.e., Inception, Expiration,
-   Error, Other Size and Data Fields, MUST be set according to
+   Error, Other Size and Data Fields, <em>MUST</em> be set according to
    [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>].
 
    The query is transmitted to the server.
 
    Note: if the original client call to GSS_Init_sec_context returned
    any major_status other than GSS_S_CONTINUE_NEEDED or GSS_S_COMPLETE,
-   then the client MUST NOT send TKEY query.  Client's behavior in this
+   then the client <em>MUST NOT</em> send TKEY query.  Client's behavior in this
    case is described above in <a href="#section-3.1.1">Section 3.1.1</a>.
 
 <span class="h4"><a class="selflink" name="section-3.1.3" href="#section-3.1.3">3.1.3</a>.  Receive TKEY Query-Response from Server</span>
 
-   Upon the reception of the TKEY query the DNS server MUST respond
+   Upon the reception of the TKEY query the DNS server <em>MUST</em> respond
    according to the description in <a href="#section-4">Section 4</a>.  This section specifies
    the behavior of the client after it receives the matching response to
    its query.
@@ -646,15 +646,15 @@ Table of Contents
 
    Confirmation is in the form of a query response with RCODE=NOERROR
    and with the last client supplied TKEY record in the answer section
-   of the query.  The response MUST be signed with a TSIG record.  Note
+   of the query.  The response <em>MUST</em> be signed with a TSIG record.  Note
    that the server is allowed to sign a response to unsigned client's
    query due to modification to the <a href="./rfc2845.html">RFC 2845</a> specified in <a href="#section-2.2">Section 2.2</a>
-   above.  The signature in the TSIG record MUST be verified using the
+   above.  The signature in the TSIG record <em>MUST</em> be verified using the
    procedure detailed in <a href="#section-5">section 5</a>, Sending and Verifying Signed
    Messages.  If the response is not signed, OR if the response is
    signed but the signature is invalid, then an attacker has tampered
    with the message in transit or has attempted to send the client a
-   false response.  In this case, the client MAY continue waiting for a
+   false response.  In this case, the client <em>MAY</em> continue waiting for a
    response to its last TKEY query until the time period since the
    client sent last TKEY query expires.  Such a time period is specified
    by the policy local to the client.  This is a new option that allows
@@ -672,16 +672,16 @@ Table of Contents
    The server will return to the client a query response with a TKEY
    record in the Answer section.  If the DNS message error is not
    NO_ERROR or error field in the TKEY record is not 0 (i.e., no error),
-   then the client MUST abandon this negotiation sequence.  The client
-   MUST delete an active context by calling GSS_Delete_sec_context
-   providing the associated context_handle.  The client MAY repeat the
+   then the client <em>MUST</em> abandon this negotiation sequence.  The client
+   <em>MUST</em> delete an active context by calling GSS_Delete_sec_context
+   providing the associated context_handle.  The client <em>MAY</em> repeat the
    negotiation sequence starting with the uninitialized state as
    described in <a href="#section-3.1">section 3.1</a>.  To prevent infinite looping the number of
-   attempts to establish a security context MUST be limited to ten or
+   attempts to establish a security context <em>MUST</em> be limited to ten or
    less.
 
    If the DNS message error is NO_ERROR and the error field in the TKEY
-   record is 0 (i.e., no error), then the client MUST pass a token
+   record is 0 (i.e., no error), then the client <em>MUST</em> pass a token
    specified in the Key Data field in the TKEY resource record to
 
 
@@ -711,7 +711,7 @@ Table of Contents
         INTEGER        major_status
         OCTET STRING   output_token
 
-   the client MUST take one of the following actions:
+   the client <em>MUST</em> take one of the following actions:
 
    If OUTPUT major_status is set to one of the following values:
 
@@ -729,16 +729,16 @@ Table of Contents
         GSS_S_BAD_MECH
         GSS_S_FAILURE
 
-   the client MUST abandon this negotiation sequence.  This means that
-   the client MUST delete an active context by calling
+   the client <em>MUST</em> abandon this negotiation sequence.  This means that
+   the client <em>MUST</em> delete an active context by calling
    GSS_Delete_sec_context providing the associated context_handle.  The
-   client MAY repeat the negotiation sequence starting with the
+   client <em>MAY</em> repeat the negotiation sequence starting with the
    uninitialized state as described in <a href="#section-3.1">section 3.1</a>.  To prevent infinite
-   looping the number of attempts to establish a security context MUST
+   looping the number of attempts to establish a security context <em>MUST</em>
    be limited to ten or less.
 
    If OUTPUT major_status is GSS_S_CONTINUE_NEEDED OR GSS_S_COMPLETE
-   then client MUST act as described below.
+   then client <em>MUST</em> act as described below.
 
 
 
@@ -751,26 +751,26 @@ Table of Contents
 
    If the response from the server was signed, and the OUTPUT
    major_status is GSS_S_COMPLETE,then the signature in the TSIG record
-   MUST be verified using the procedure detailed in <a href="#section-5">section 5</a>, Sending
+   <em>MUST</em> be verified using the procedure detailed in <a href="#section-5">section 5</a>, Sending
    and Verifying Signed Messages.  If the signature is invalid, then the
-   client MUST abandon this negotiation sequence.  This means that the
-   client MUST delete an active context by calling
+   client <em>MUST</em> abandon this negotiation sequence.  This means that the
+   client <em>MUST</em> delete an active context by calling
    GSS_Delete_sec_context providing the associated context_handle.  The
-   client MAY repeat the negotiation sequence starting with the
+   client <em>MAY</em> repeat the negotiation sequence starting with the
    uninitialized state as described in <a href="#section-3.1">section 3.1</a>.  To prevent infinite
-   looping the number of attempts to establish a security context MUST
+   looping the number of attempts to establish a security context <em>MUST</em>
    be limited to ten or less.
 
    If major_status is GSS_S_CONTINUE_NEEDED the negotiation is not yet
-   finished.  The token output_token MUST be passed to the server in a
+   finished.  The token output_token <em>MUST</em> be passed to the server in a
    TKEY record by repeating the negotiation sequence beginning with
-   <a href="#section-3.1.2">section 3.1.2</a>.  The client MUST place a limit on the number of
+   <a href="#section-3.1.2">section 3.1.2</a>.  The client <em>MUST</em> place a limit on the number of
    continuations in a context negotiation to prevent endless looping.
-   Such limit SHOULD NOT exceed value of 10.
+   Such limit <em>SHOULD NOT</em> exceed value of 10.
 
    If major_status is GSS_S_COMPLETE and output_token is non-NULL, the
    client-side component of the negotiation is complete but the token
-   output_token MUST be passed to the server by repeating the
+   output_token <em>MUST</em> be passed to the server by repeating the
    negotiation sequence beginning with <a href="#section-3.1.2">section 3.1.2</a>.
 
    If major_status is GSS_S_COMPLETE and output_token is NULL, context
@@ -780,7 +780,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a>.  Context Established</span>
 
-   When context negotiation is complete, the handle context_handle MUST
+   When context negotiation is complete, the handle context_handle <em>MUST</em>
    be used for the generation and verification of transaction
    signatures.
 
@@ -790,9 +790,9 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-3.2.1" href="#section-3.2.1">3.2.1</a>.  Terminating a Context</span>
 
    When the client is not intended to continue using the established
-   security context, the client SHOULD delete an active context by
+   security context, the client <em>SHOULD</em> delete an active context by
    calling GSS_Delete_sec_context providing the associated
-   context_handle, AND client SHOULD delete the established context on
+   context_handle, AND client <em>SHOULD</em> delete the established context on
    the DNS server by using TKEY RR with the Mode field set to 5, i.e.,
    "key deletion" [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>].
 
@@ -811,7 +811,7 @@ Table of Contents
    is a context handle used in future generation and verification of the
    transaction signatures.
 
-   A server MAY be managing several contexts with several clients.
+   A server <em>MAY</em> be managing several contexts with several clients.
    Clients identify their contexts by providing a key name in their
    request.  The server maintains a mapping of key names to handles:
 
@@ -819,12 +819,12 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Negotiating Context</span>
 
-   A server MUST recognize TKEY queries as security context negotiation
+   A server <em>MUST</em> recognize TKEY queries as security context negotiation
    messages.
 
 <span class="h4"><a class="selflink" name="section-4.1.1" href="#section-4.1.1">4.1.1</a>.  Receive TKEY Query from Client</span>
 
-   Upon receiving a query with QTYPE = TKEY, the server MUST examine
+   Upon receiving a query with QTYPE = TKEY, the server <em>MUST</em> examine
    whether the Mode and Algorithm Name fields of the TKEY record in the
    additional records section of the message contain values of 3 and
    gss-tsig, respectively.  If they do, then the (key_name,
@@ -832,7 +832,7 @@ Table of Contents
    the owner name of the TKEY record in the additional records section
    of the query.  If the name is found in the table and the security
    context for this name is established and not expired, then the server
-   MUST respond to the query with BADNAME error in the TKEY error field.
+   <em>MUST</em> respond to the query with BADNAME error in the TKEY error field.
    If the name is found in the table and the security context is not
    established, the corresponding context_handle is used in subsequent
    GSS operations.  If the name is found but the security context is
@@ -846,7 +846,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.1.2" href="#section-4.1.2">4.1.2</a>.  Call GSS_Accept_sec_context</span>
 
    The server performs its side of a context negotiation by calling
-   GSS_Accept_sec_context.  The following input parameters MUST be used.
+   GSS_Accept_sec_context.  The following input parameters <em>MUST</em> be used.
    The outcome of the call is indicated with the output values below.
    Consult Sections <a href="#section-2.2.2">2.2.2</a> "GSS_Accept_sec_context call" of the <a href="./rfc2743.html">RFC 2743</a>
    [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface, Version 2 , Update 1&quot;">RFC2743</a>] for syntax definitions.
@@ -870,7 +870,7 @@ Table of Contents
            the client's query)
 
      CREDENTIAL HANDLE acceptor_cred_handle = NULL (NULL specifies "use
-           default").  Server MAY instead specify some other valid
+           default").  Server <em>MAY</em> instead specify some other valid
            handle to its credentials.
      OCTET STRING   chan_bindings          = Any valid channel bindings
            as specified in <a href="#section-1.1.6">Section 1.1.6</a> "Channel Bindings" in [<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface, Version 2 , Update 1&quot;">RFC2743</a>]
@@ -901,7 +901,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.1.3" href="#section-4.1.3">4.1.3</a>.  Send TKEY Query-Response to Client</span>
 
-   The server MUST respond to the client with a TKEY query response with
+   The server <em>MUST</em> respond to the client with a TKEY query response with
    RCODE = NOERROR, that contains a TKEY record in the answer section.
 
    If OUTPUT major_status is one of the following errors the error field
@@ -930,13 +930,13 @@ Table of Contents
         GSS_S_FAILURE
 
    If OUTPUT major_status is set to  GSS_S_COMPLETE or
-   GSS_S_CONTINUE_NEEDED then server MUST act as described below.
+   GSS_S_CONTINUE_NEEDED then server <em>MUST</em> act as described below.
 
    If major_status is GSS_S_COMPLETE the server component of the
-   negotiation is finished.  If output_token is non-NULL, then it MUST
+   negotiation is finished.  If output_token is non-NULL, then it <em>MUST</em>
    be returned to the client in a Key Data field of the RDATA in TKEY.
    The error field in the TKEY record is set to NOERROR.  The message
-   MUST be signed with a TSIG record as described in <a href="#section-5">section 5</a>, Sending
+   <em>MUST</em> be signed with a TSIG record as described in <a href="#section-5">section 5</a>, Sending
    and Verifying Signed Messages.  Note that server is allowed to sign a
    response to unsigned client's query due to modification to the <a href="./rfc2845.html">RFC</a>
    <a href="./rfc2845.html">2845</a> specified in <a href="#section-2.2">Section 2.2</a> above.  The context state is advanced
@@ -944,8 +944,8 @@ Table of Contents
    security context.
 
    If major_status is GSS_S_COMPLETE and output_token is NULL, then the
-   TKEY record received from the client MUST be returned in the Answer
-   section of the response.  The message MUST be signed with a TSIG
+   TKEY record received from the client <em>MUST</em> be returned in the Answer
+   section of the response.  The message <em>MUST</em> be signed with a TSIG
    record as described in <a href="#section-5">section 5</a>, Sending and Verifying Signed
    Messages.  Note that server is allowed to sign a response to unsigned
    client's query due to modification to the <a href="./rfc2845.html">RFC 2845</a> specified in
@@ -957,9 +957,9 @@ Table of Contents
    negotiation is not yet finished.  The server responds to the TKEY
    query with a standard query response, placing in the answer section a
    TKEY record containing output_token in the Key Data RDATA field.  The
-   error field in the TKEY record is set to NOERROR.  The server MUST
+   error field in the TKEY record is set to NOERROR.  The server <em>MUST</em>
    limit the number of times that a given context is allowed to repeat,
-   to prevent endless looping.  Such limit SHOULD NOT exceed value of
+   to prevent endless looping.  Such limit <em>SHOULD NOT</em> exceed value of
    10.
 
 
@@ -974,7 +974,7 @@ Table of Contents
 
 
    In all cases, except if major_status is GSS_S_COMPLETE and
-   output_token is NULL, other TKEY record fields MUST contain the
+   output_token is NULL, other TKEY record fields <em>MUST</em> contain the
    following values:
 
         NAME = key_name
@@ -984,7 +984,7 @@ Table of Contents
            Key Size            = size of output_token in octets
 
    The remaining fields in the TKEY RDATA, i.e., Inception, Expiration,
-   Error, Other Size and Data Fields, MUST be set according to
+   Error, Other Size and Data Fields, <em>MUST</em> be set according to
    [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>].
 
 <span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Context Established</span>
@@ -992,10 +992,10 @@ Table of Contents
    When context negotiation is complete, the handle context_handle is
    used for the generation and verification of transaction signatures.
    The handle is valid for a finite amount of time determined by the
-   underlying security mechanism.  A server MAY unilaterally terminate a
+   underlying security mechanism.  A server <em>MAY</em> unilaterally terminate a
    context at any time (see <a href="#section-4.2.1">section 4.2.1</a>).
 
-   Server SHOULD limit the amount of memory used to cache established
+   Server <em>SHOULD</em> limit the amount of memory used to cache established
    contexts.
 
    The procedures for sending and receiving signed messages are given in
@@ -1004,7 +1004,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  Terminating a Context</span>
 
    A server can terminate any established context at any time.  The
-   server MAY hint to the client that the context is being deleted by
+   server <em>MAY</em> hint to the client that the context is being deleted by
    including a TKEY RR in a response with the Mode field set to 5, i.e.,
    "key deletion" [<a href="./rfc2930.html" title="&quot;Secret Key Establishment for DNS (TKEY RR)&quot;">RFC2930</a>].  An active context is deleted by calling
    GSS_Delete_sec_context providing the associated context_handle.
@@ -1038,7 +1038,7 @@ Table of Contents
    described in [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>].
 
    The signature is generated by calling GSS_GetMIC.  The following
-   input parameters MUST be used.  The outcome of the call is indicated
+   input parameters <em>MUST</em> be used.  The outcome of the call is indicated
    with the output values specified below.  Consult Sections <a href="#section-2.3.1">2.3.1</a>
    "GSS_GetMIC call" of the <a href="./rfc2743.html">RFC 2743</a>[<a href="./rfc2743.html" title="&quot;Generic Security Service Application Program Interface, Version 2 , Update 1&quot;">RFC2743</a>] for syntax definitions.
 
@@ -1047,7 +1047,7 @@ Table of Contents
      OCTET STRING   message        = outgoing message plus TSIG
                                      variables (per [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>])
      INTEGER qop_req               = 0 (0 requests a default
-         value).  Caller MAY instead specify other valid value (for
+         value).  Caller <em>MAY</em> instead specify other valid value (for
          details see <a href="./rfc2743.html#section-1.2.4">Section&nbsp;1.2.4 in [RFC2743]</a>)
 
    OUTPUTS
@@ -1060,18 +1060,18 @@ Table of Contents
    Signature field of the TSIG RR and the message is transmitted.
 
    If major_status is GSS_S_CONTEXT_EXPIRED, GSS_S_CREDENTIALS_EXPIRED
-   or GSS_S_FAILURE the caller MUST delete the security context, return
-   to the uninitialized state and SHOULD negotiate a new security
+   or GSS_S_FAILURE the caller <em>MUST</em> delete the security context, return
+   to the uninitialized state and <em>SHOULD</em> negotiate a new security
    context, as described above in <a href="#section-3.1">Section 3.1</a>
 
-   If major_status is GSS_S_NO_CONTEXT, the caller MUST remove the entry
+   If major_status is GSS_S_NO_CONTEXT, the caller <em>MUST</em> remove the entry
    for key_name from the (target_ name, key_name, context_handle)
-   mapping table, return to the uninitialized state and SHOULD negotiate
+   mapping table, return to the uninitialized state and <em>SHOULD</em> negotiate
    a new security context, as described above in <a href="#section-3.1">Section 3.1</a>
 
-   If major_status is GSS_S_BAD_QOP, the caller SHOULD repeat the
+   If major_status is GSS_S_BAD_QOP, the caller <em>SHOULD</em> repeat the
    GSS_GetMIC call with allowed QOP value.  The number of such
-   repetitions MUST be limited to prevent infinite loops.
+   repetitions <em>MUST</em> be limited to prevent infinite loops.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Verifying a Signed Message - Call GSS_VerifyMIC</span>
 
@@ -1086,8 +1086,8 @@ Table of Contents
 
 
    The NAME of the TSIG record determines which context_handle maps to
-   the context that MUST be used to verify the signature.  If the NAME
-   does not map to an established context, the server MUST send a
+   the context that <em>MUST</em> be used to verify the signature.  If the NAME
+   does not map to an established context, the server <em>MUST</em> send a
    standard TSIG error response to the client indicating BADKEY in the
    TSIG error field (as described in [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>]).
 
@@ -1107,11 +1107,11 @@ Table of Contents
 
    If major_status is GSS_S_COMPLETE, the signature is authentic and the
    message was delivered intact.  Per [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>], the timer values of the
-   TSIG record MUST also be valid before considering the message to be
-   authentic.  The caller MUST not act on the request or response in the
+   TSIG record <em>MUST</em> also be valid before considering the message to be
+   authentic.  The caller <em>MUST</em> not act on the request or response in the
    message until these checks are verified.
 
-   When a server is processing a client request, the server MUST send a
+   When a server is processing a client request, the server <em>MUST</em> send a
    standard TSIG error response to the client indicating BADKEY in the
    TSIG error field as described in [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>], if major_status is set to
    one of the following values
@@ -1126,10 +1126,10 @@ Table of Contents
         GSS_S_NO_CONTEXT
         GSS_S_FAILURE
 
-   If the timer values of the TSIG record are invalid, the message MUST
+   If the timer values of the TSIG record are invalid, the message <em>MUST</em>
    NOT be considered authentic.  If this error checking fails when a
    server is processing a client request, the appropriate error response
-   MUST be sent to the client according to [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>].
+   <em>MUST</em> be sent to the client according to [<a href="./rfc2845.html" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">RFC2845</a>].
 
 
 
@@ -1271,7 +1271,7 @@ Table of Contents
 
   Since the major_status is set to GSS_S_COMPLETE the client side
   security context is established, but since the output_token is not
-  NULL client MUST send a TKEY query to the server as described below.
+  NULL client <em>MUST</em> send a TKEY query to the server as described below.
 
   VII.  Client sends a query with QTYPE = TKEY to server
 
@@ -1412,7 +1412,7 @@ Table of Contents
    context negotiation.  GSS API using SPNEGO [<a href="./rfc2478.html" title="&quot;The Simple and Protected GSS-API Negotiation Mechanism&quot;">RFC2478</a>] enables client
    and server to negotiate and choose such underlying security
    mechanisms on the fly.  To support such flexibility, DNS clients and
-   servers SHOULD specify SPNEGO mech_type in their GSS API calls.  At
+   servers <em>SHOULD</em> specify SPNEGO mech_type in their GSS API calls.  At
 
 
 
@@ -1429,7 +1429,7 @@ Table of Contents
    -  GSS APIs called by DNS server support SPNEGO [<a href="./rfc2478.html" title="&quot;The Simple and Protected GSS-API Negotiation Mechanism&quot;">RFC2478</a>] and
       Kerberos v5.
 
-   In addition to these, GSS APIs used by DNS client and server MAY also
+   In addition to these, GSS APIs used by DNS client and server <em>MAY</em> also
    support other underlying security mechanisms.
 
 <span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Intellectual Property Statement</span>

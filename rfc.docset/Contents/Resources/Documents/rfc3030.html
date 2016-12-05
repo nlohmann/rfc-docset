@@ -257,8 +257,8 @@ Working Group Summary
 
 Document Conventions
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 Table of Contents
@@ -338,7 +338,7 @@ Table of Contents
 
    4) This extension may be used for SMTP message submission.  [Submit]
 
-   5) Servers that offer the BDAT extension MUST continue to support the
+   5) Servers that offer the BDAT extension <em>MUST</em> continue to support the
       regular SMTP DATA command.  Clients are free to use DATA to
       transfer appropriately encoded to servers that support the
       CHUNKING extension if they wish to do so.
@@ -373,21 +373,21 @@ Table of Contents
 
    The optional LAST parameter on the BDAT command indicates that this
    is the last chunk of message data to be sent.  The last BDAT command
-   MAY have a byte-count of zero indicating there is no additional data
+   <em>MAY</em> have a byte-count of zero indicating there is no additional data
    to be sent.  Any BDAT command sent after the BDAT LAST is illegal and
-   MUST be replied to with a 503 "Bad sequence of commands" reply code.
+   <em>MUST</em> be replied to with a 503 "Bad sequence of commands" reply code.
    The state resulting from this error is indeterminate.  A RSET command
-   MUST be sent to clear the transaction before continuing.
+   <em>MUST</em> be sent to clear the transaction before continuing.
 
-   A 250 response MUST be sent to each successful BDAT data block within
+   A 250 response <em>MUST</em> be sent to each successful BDAT data block within
    a mail transaction.  If a failure occurs after a BDAT command is
-   received, the receiver-SMTP MUST accept and discard the associated
+   received, the receiver-SMTP <em>MUST</em> accept and discard the associated
    message data before sending the appropriate 5XX or 4XX code.  If a
    5XX or 4XX code is received by the sender-SMTP in response to a BDAT
    chunk, the transaction should be considered failed and the sender-
-   SMTP MUST NOT send any additional BDAT segments.  If the receiver-
+   SMTP <em>MUST NOT</em> send any additional BDAT segments.  If the receiver-
    SMTP has declared support for command pipelining [<a href="#ref-PIPE" title="&quot;SMTP Service Extensions for Command Pipelining&quot;">PIPE</a>], the receiver
-   SMTP MUST be prepared to accept and discard additional BDAT chunks
+   SMTP <em>MUST</em> be prepared to accept and discard additional BDAT chunks
    already in the pipeline after the failed BDAT.
 
       Note: An error on the receiver-SMTP such as disk full or imminent
@@ -405,15 +405,15 @@ Table of Contents
       binary data.
 
    The resulting state from a failed BDAT command is indeterminate.  A
-   RSET command MUST be issued to clear the transaction before
+   RSET command <em>MUST</em> be issued to clear the transaction before
    additional commands may be sent.  The RSET command, when issued after
    the first BDAT and before the BDAT LAST, clears all segments sent
    during that transaction and resets the session.
 
    DATA and BDAT commands cannot be used in the same transaction.  If a
    DATA statement is issued after a BDAT for the current transaction, a
-   503 "Bad sequence of commands" MUST be issued.  The state resulting
-   from this error is indeterminate.  A RSET command MUST be sent to
+   503 "Bad sequence of commands" <em>MUST</em> be issued.  The state resulting
+   from this error is indeterminate.  A RSET command <em>MUST</em> be sent to
 
 
 
@@ -429,7 +429,7 @@ Table of Contents
 
    The local storage size of a message may not accurately reflect the
    actual size of the message sent due to local storage conventions.  In
-   particular, text messages sent with the BDAT command MUST be sent in
+   particular, text messages sent with the BDAT command <em>MUST</em> be sent in
    the canonical MIME format with lines delimited with a &lt;CR&gt;&lt;LF&gt;.  It
    may not be possible to convert the entire message to the canonical
    format at once.  CHUNKING provides a mechanism to convert the message
@@ -448,7 +448,7 @@ Table of Contents
       chunk-size, the receiver-SMTP will interpret the remainder of the
       message data as invalid commands.  Note that the remainder of the
       message data may be binary and as such lexicographical parsers
-      MUST be prepared to receive, process, and reject lines of
+      <em>MUST</em> be prepared to receive, process, and reject lines of
       arbitrary octets.
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>. Framework for the Binary Service Extension</span>
@@ -499,24 +499,24 @@ Table of Contents
    MAIL command with the BINARYMIME body-value, it agrees to preserve
    all bits in each octet passed using the BDAT command.  Once a
    receiver-SMTP supporting the BINARYMIME service extension accepts a
-   message containing binary material, the receiver-SMTP MUST deliver or
+   message containing binary material, the receiver-SMTP <em>MUST</em> deliver or
    relay the message in such a way as to preserve all bits in each
    octet.
 
    BINARYMIME cannot be used with the DATA command.  If a DATA command
    is issued after a MAIL command containing the body-value of
-   "BINARYMIME", a 503 "Bad sequence of commands" response MUST be sent.
+   "BINARYMIME", a 503 "Bad sequence of commands" response <em>MUST</em> be sent.
    The resulting state from this error condition is indeterminate and
-   the transaction MUST be reset with the RSET command.
+   the transaction <em>MUST</em> be reset with the RSET command.
 
    It is especially important when using BINARYMIME to ensure that the
    MIME message itself is properly formed.  In particular, it is
    essential that text be canonically encoded with each line properly
    terminated with &lt;CR&gt;&lt;LF&gt;.  Any transformation of text into non-
-   canonical MIME to observe local storage conventions MUST be reversed
+   canonical MIME to observe local storage conventions <em>MUST</em> be reversed
    before sending as BINARYMIME.  Some line-oriented shortcuts will
-   break if used with BINARYMIME.  A sender-SMTP MUST use the canonical
-   encoding for a given MIME content-type.  In particular, text/* MUST
+   break if used with BINARYMIME.  A sender-SMTP <em>MUST</em> use the canonical
+   encoding for a given MIME content-type.  In particular, text/* <em>MUST</em>
    be sent with &lt;CR&gt;&lt;LF&gt; terminated lines.
 
    Note: Although CR and LF do not necessarily represent ends of text
@@ -537,11 +537,11 @@ Table of Contents
 
    The syntax of the extended MAIL command is identical to the MAIL
    command in [<a href="./rfc821.html" title="&quot;Simple Mail Transfer Protocol&quot;">RFC821</a>], except that a BODY=BINARYMIME parameter and
-   value MUST be added.  The complete syntax of this extended command is
+   value <em>MUST</em> be added.  The complete syntax of this extended command is
    defined in [<a href="#ref-ESMTP" title="&quot;SMTP Service Extensions&quot;">ESMTP</a>].
 
    If a receiver-SMTP does not indicate support the BINARYMIME message
-   format then the sender-SMTP MUST NOT, under any circumstances, send
+   format then the sender-SMTP <em>MUST NOT</em>, under any circumstances, send
    binary data.
 
    If the receiver-SMTP does not support BINARYMIME and the message to
@@ -558,12 +558,12 @@ Table of Contents
    not described by this RFC; the conversion is nevertheless constrained
    in the following ways:
 
-      1. The conversion MUST cause no loss of information;  MIME
-         transport encodings MUST be employed as needed to insure this
+      1. The conversion <em>MUST</em> cause no loss of information;  MIME
+         transport encodings <em>MUST</em> be employed as needed to insure this
          is the case.
 
-      2. The resulting message MUST be valid 7bit or 8bit MIME.  In
-         particular, the transformation MUST NOT result in nested Base-
+      2. The resulting message <em>MUST</em> be valid 7bit or 8bit MIME.  In
+         particular, the transformation <em>MUST NOT</em> result in nested Base-
          64 or Quoted-Printable content-transfer-encodings.
 
    Note that at the time of this writing there are no mechanisms for
@@ -572,9 +572,9 @@ Table of Contents
    transfer-encoding.
 
    If the MIME message contains a "Binary" content-transfer-encoding and
-   the BODY parameter does not indicate BINARYMIME, the message MUST be
-   accepted.  The message SHOULD be returned to the sender with an
-   appropriate DSN.  The message contents MAY be returned to the sender
+   the BODY parameter does not indicate BINARYMIME, the message <em>MUST</em> be
+   accepted.  The message <em>SHOULD</em> be returned to the sender with an
+   appropriate DSN.  The message contents <em>MAY</em> be returned to the sender
    if the offending content can be mangled into a legal DSN structure.
    "Fixing" and forwarding the offending content is beyond the scope of
    this document.

@@ -325,15 +325,15 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Extensible Authentication Protocol Support in Diameter</span>
 
 <span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  Advertising Application Support</span>
 
-   Diameter nodes conforming to this specification MUST advertise
+   Diameter nodes conforming to this specification <em>MUST</em> advertise
    support by including the Diameter EAP Application ID value of 5 in
    the Auth-Application-Id AVP of the Capabilities-Exchange-Request and
    Capabilities-Exchange-Answer command [<a href="#ref-BASE" title="&quot;Diameter Base Protocol&quot;">BASE</a>].
@@ -341,8 +341,8 @@ Table of Contents
    If the NAS receives a response with the Result-Code set to
    DIAMETER_APPLICATION_UNSUPPORTED [<a href="#ref-BASE" title="&quot;Diameter Base Protocol&quot;">BASE</a>], it indicates that the
    Diameter server in the home realm does not support EAP.  If possible,
-   the access device MAY attempt to negotiate another authentication
-   protocol, such as PAP or CHAP.  An access device SHOULD be cautious
+   the access device <em>MAY</em> attempt to negotiate another authentication
+   protocol, such as PAP or CHAP.  An access device <em>SHOULD</em> be cautious
    when determining whether a less secure authentication protocol will
    be used, since this could result from a downgrade attack (see
    <a href="#section-8.3">Section 8.3</a>).
@@ -404,7 +404,7 @@ Table of Contents
    AVP, as a Diameter-EAP-Request to the Diameter server (see the
    diagram below).  This alternative reduces the number of Diameter
    message round trips.  When the EAP-Request/Identity message is issued
-   by the access device, it SHOULD interpret the EAP-Response/Identity
+   by the access device, it <em>SHOULD</em> interpret the EAP-Response/Identity
 
 
 
@@ -441,7 +441,7 @@ Table of Contents
    Diameter-EAP-Answer with a Result-Code AVP indicating success or
    failure, and an optional EAP-Payload.  The Result-Code AVP is used by
    the access device to determine whether service is to be provided to
-   the EAP client.  The access device MUST NOT rely on the contents of
+   the EAP client.  The access device <em>MUST NOT</em> rely on the contents of
    the optional EAP-Payload to determine whether service is to be
    provided.
 
@@ -488,25 +488,25 @@ Table of Contents
     |&lt;-------------------------------|                                |
 
    If authorization was requested, a Diameter-EAP-Answer with
-   Result-Code set to DIAMETER_SUCCESS SHOULD also include the
+   Result-Code set to DIAMETER_SUCCESS <em>SHOULD</em> also include the
    appropriate authorization AVPs required for the service requested
    (see <a href="#section-5">Section 5</a> and [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>]).  In some cases, the home server may not
    be able to provide all necessary authorization AVPs; in this case, a
-   separate authorization step MAY be used as described in
+   separate authorization step <em>MAY</em> be used as described in
    <a href="#section-2.3.3">Section 2.3.3</a>.  Diameter-EAP-Answer messages whose Result-Code AVP is
-   set to DIAMETER_MULTI_ROUND_AUTH MAY include authorization AVPs.
+   set to DIAMETER_MULTI_ROUND_AUTH <em>MAY</em> include authorization AVPs.
 
-   A Diameter-EAP-Answer with successful Result-Code MAY also include an
+   A Diameter-EAP-Answer with successful Result-Code <em>MAY</em> also include an
    EAP-Master-Session-Key AVP that contains keying material for
    protecting the communication between the user and the NAS.  Exactly
    how this keying material is used depends on the link layer in
    question, and is beyond the scope of this document.
 
-   A home Diameter server MAY request EAP re-authentication by issuing
+   A home Diameter server <em>MAY</em> request EAP re-authentication by issuing
    the Re-Auth-Request [<a href="#ref-BASE" title="&quot;Diameter Base Protocol&quot;">BASE</a>] message to the Diameter client.
 
    Should an EAP authentication session be interrupted due to a home
-   server failure, the session MAY be directed to an alternate server,
+   server failure, the session <em>MAY</em> be directed to an alternate server,
    but the authentication session will have to be restarted from the
    beginning.
 
@@ -727,7 +727,7 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.4" href="#section-2.4">2.4</a>.  Invalid Packets</span>
 
-   While acting as a pass-through, the NAS MUST validate the EAP header
+   While acting as a pass-through, the NAS <em>MUST</em> validate the EAP header
    fields (Code, Identifier, Length) prior to forwarding an EAP packet
    to or from the Diameter server.  On receiving an EAP packet from the
    peer, the NAS checks the Code (Code 2=Response) and Length fields,
@@ -755,23 +755,23 @@ Table of Contents
    Diameter server.
 
    A Diameter server receiving an EAP-Payload AVP that it does not
-   understand SHOULD determine whether the error is fatal or non-fatal
+   understand <em>SHOULD</em> determine whether the error is fatal or non-fatal
    based on the EAP Type.  A Diameter server determining that a fatal
-   error has occurred MUST send a Diameter-EAP-Answer with a failure
+   error has occurred <em>MUST</em> send a Diameter-EAP-Answer with a failure
    Result-Code and an EAP-Payload AVP encapsulating an EAP Failure
    packet.  A Diameter server determining that a non-fatal error has
-   occurred MUST send a Diameter-EAP-Answer with
+   occurred <em>MUST</em> send a Diameter-EAP-Answer with
    DIAMETER_MULTI_ROUND_AUTH Result-Code, but no EAP-Payload AVP.  To
-   simplify RADIUS translation, this message MUST also include an
+   simplify RADIUS translation, this message <em>MUST</em> also include an
    EAP-Reissued-Payload AVP encapsulating the previous EAP Request sent
    by the server.
 
    When receiving a Diameter-EAP-Answer without an EAP-Payload AVP (and
-   DIAMETER_MULTI_ROUND_AUTH Result-Code), the NAS SHOULD discard the
+   DIAMETER_MULTI_ROUND_AUTH Result-Code), the NAS <em>SHOULD</em> discard the
    EAP-Response packet most recently transmitted to the Diameter server
    and check whether additional EAP Response packets that match the
    current Identifier value have been received.  If so, a new EAP
-   Response packet, if available, MUST be sent to the Diameter server
+   Response packet, if available, <em>MUST</em> be sent to the Diameter server
    within an Diameter-EAP-Request.  If no EAP Response packet is
    available, then the previous EAP Request is resent to the peer, and
    the retransmission timer is reset.
@@ -820,7 +820,7 @@ Table of Contents
    order to provide the Diameter server with this information.
 
    A Diameter server having received a Framed-MTU AVP in a
-   Diameter-EAP-Request message MUST NOT send any subsequent packet in
+   Diameter-EAP-Request message <em>MUST NOT</em> send any subsequent packet in
    this EAP conversation containing EAP-Payload AVP whose length exceeds
    that specified by the Framed-MTU value, taking the link type
    (specified by the NAS-Port-Type AVP) into account.  For example, as
@@ -832,21 +832,21 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-2.7" href="#section-2.7">2.7</a>.  Accounting</span>
 
-   When a user is authenticated using EAP, the NAS MAY include an
+   When a user is authenticated using EAP, the NAS <em>MAY</em> include an
    Accounting-Auth-Method AVP [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>] with value 5 (EAP) in
    Accounting-Request messages.  This document specifies one additional
    AVP for accounting messages.  One or more Accounting-EAP-Auth-Method
-   AVPs (see <a href="#section-4.1.5">Section 4.1.5</a>) MAY be included in Accounting-Request
+   AVPs (see <a href="#section-4.1.5">Section 4.1.5</a>) <em>MAY</em> be included in Accounting-Request
    messages to indicate the EAP method(s) used to authenticate the user.
 
    If the NAS has authenticated the user with a locally implemented EAP
-   method, it knows the method used and SHOULD include it in an
+   method, it knows the method used and <em>SHOULD</em> include it in an
    Accounting-EAP-Auth-Method AVP.
 
    If the authentication was done using Diameter-EAP-Request/Answer
-   messages, the Diameter server SHOULD include one or more
+   messages, the Diameter server <em>SHOULD</em> include one or more
    Accounting-EAP-Auth-Method AVPs in Diameter-EAP-Answer packets with a
-   successful result code.  In this case, the NAS SHOULD include these
+   successful result code.  In this case, the NAS <em>SHOULD</em> include these
    AVPs in Accounting-Request messages.
 
 
@@ -869,25 +869,25 @@ Table of Contents
    returned by the authenticating peer, it will not have access to the
    user's identity.  Furthermore, some EAP methods support identity
    protection where the user's real identity is not included in
-   EAP-Response/Identity.  Therefore, the Diameter Server SHOULD return
+   EAP-Response/Identity.  Therefore, the Diameter Server <em>SHOULD</em> return
    the user's identity by inserting a User-Name AVP to
    Diameter-EAP-Answer messages that have a Result-Code of
-   DIAMETER_SUCCESS.  A separate billing identifier or pseudonym MAY be
+   DIAMETER_SUCCESS.  A separate billing identifier or pseudonym <em>MAY</em> be
    used for privacy reasons (see <a href="#section-8.5">Section 8.5</a>).  If the user's identity
-   is not available to the NAS, the Session-Id AVP MAY be used for
+   is not available to the NAS, the Session-Id AVP <em>MAY</em> be used for
    accounting and billing; however operationally this could be very
    difficult to manage.
 
 <span class="h4"><a class="selflink" name="section-2.8.2" href="#section-2.8.2">2.8.2</a>.  Conflicting AVPs</span>
 
    A Diameter-EAP-Answer message containing an EAP-Payload of type
-   EAP-Success or EAP-Failure MUST NOT have the Result-Code AVP set to
+   EAP-Success or EAP-Failure <em>MUST NOT</em> have the Result-Code AVP set to
    DIAMETER_MULTI_ROUND_AUTH.
 
    Some lower layers assume that the authorization decision is made by
    the EAP server, and thus the peer considers EAP Success as an
    indication that access was granted.  In this case, the Result-Code
-   SHOULD match the contained EAP packet: a successful Result-Code for
+   <em>SHOULD</em> match the contained EAP packet: a successful Result-Code for
    EAP-Success, and a failure Result-Code for EAP-Failure.  If the
    encapsulated EAP packet does not match the result implied by the
    Result-Code AVP, the combination is likely to cause confusion,
@@ -901,7 +901,7 @@ Table of Contents
    make authorization decisions (that is, proxies can change the
    Result-Code AVP sent by the home server).  Because it is the
    responsibility of the Diameter server to avoid conflicts, the NAS
-   MUST NOT "manufacture" EAP result packets in order to correct the
+   <em>MUST NOT</em> "manufacture" EAP result packets in order to correct the
    contradictory messages that it receives.  This behavior, originally
    mandated within [<a href="#ref-IEEE-802.1X" title="&quot;Local and Metropolitan Area Networks: Port-Based Network Access Control&quot;">IEEE-802.1X</a>], is now deprecated.
 
@@ -919,7 +919,7 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-2.8.3" href="#section-2.8.3">2.8.3</a>.  Displayable Messages</span>
 
-   The Reply-Message AVP [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>] MUST NOT be included in any Diameter
+   The Reply-Message AVP [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>] <em>MUST NOT</em> be included in any Diameter
    message containing an EAP-Payload AVP.
 
 <span class="h4"><a class="selflink" name="section-2.8.4" href="#section-2.8.4">2.8.4</a>.  Role Reversal</span>
@@ -931,21 +931,21 @@ Table of Contents
 
    This specification is intended for communication between EAP
    (passthrough) authenticator and backend authentication server.  A
-   Diameter client MUST NOT send a Diameter-EAP-Request encapsulating an
+   Diameter client <em>MUST NOT</em> send a Diameter-EAP-Request encapsulating an
    EAP Request packet, and a Diameter server receiving such a packet
-   MUST respond with a failure Result-Code.
+   <em>MUST</em> respond with a failure Result-Code.
 
 <span class="h4"><a class="selflink" name="section-2.8.5" href="#section-2.8.5">2.8.5</a>.  Identifier Space</span>
 
    In EAP, each session has its own unique Identifier space.  Diameter
-   server implementations MUST be able to distinguish between EAP
+   server implementations <em>MUST</em> be able to distinguish between EAP
    packets with the same Identifier existing within distinct EAP
    sessions and originating on the same NAS.  This is done by using the
    Session-Id AVP.
 
    If a Diameter NAS is in the middle of a multi-round authentication
    exchange, and it detects that the EAP session between the client and
-   the NAS has been terminated, it MUST select a new Diameter Session-Id
+   the NAS has been terminated, it <em>MUST</em> select a new Diameter Session-Id
    for any subsequent EAP sessions.  This is necessary in order to
    distinguish a restarted EAP authentication process from the
    continuation of an ongoing process (by the same user on the same NAS
@@ -961,7 +961,7 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Command-Codes</span>
 
-   This section defines new Command-Code values that MUST be supported
+   This section defines new Command-Code values that <em>MUST</em> be supported
    by all Diameter implementations conforming to this specification.
    The following commands are defined in this section:
 
@@ -997,15 +997,15 @@ Table of Contents
    The Diameter-EAP-Request (DER) command, indicated by the Command-Code
    field set to 268 and the 'R' bit set in the Command Flags field, is
    sent by a Diameter client to a Diameter server, and conveys an
-   EAP-Response from the EAP client.  The Diameter-EAP-Request MUST
+   EAP-Response from the EAP client.  The Diameter-EAP-Request <em>MUST</em>
    contain one EAP-Payload AVP containing the actual EAP payload.  An
-   EAP-Payload AVP with no data MAY be sent to the Diameter server to
+   EAP-Payload AVP with no data <em>MAY</em> be sent to the Diameter server to
    initiate an EAP authentication session.
 
-   The DER message MAY be the result of a multi-round authentication
+   The DER message <em>MAY</em> be the result of a multi-round authentication
    exchange that occurs when the DEA is received with the Result-Code
    AVP set to DIAMETER_MULTI_ROUND_AUTH [<a href="#ref-BASE" title="&quot;Diameter Base Protocol&quot;">BASE</a>].  A subsequent DER
-   message MUST include any State AVPs [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>] that were present in the
+   message <em>MUST</em> include any State AVPs [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>] that were present in the
    DEA.  For re-authentication, it is recommended that the Identity
    request be skipped in order to reduce the number of authentication
    round trips.  This is only possible when the user's identity is
@@ -1072,7 +1072,7 @@ Table of Contents
    1.  The message is part of a multi-round authentication exchange, and
        the server is expecting a subsequent Diameter-EAP-Request.  This
        is indicated by setting the Result-Code to
-       DIAMETER_MULTI_ROUND_AUTH, and MAY include zero or more State
+       DIAMETER_MULTI_ROUND_AUTH, and <em>MAY</em> include zero or more State
        AVPs.
 
 
@@ -1086,18 +1086,18 @@ Table of Contents
 
 
    2.  The EAP client has been successfully authenticated and
-       authorized, in which case the message MUST include the
-       Result-Code AVP indicating success, and SHOULD include an
-       EAP-Payload of type EAP-Success.  This event MUST cause the
+       authorized, in which case the message <em>MUST</em> include the
+       Result-Code AVP indicating success, and <em>SHOULD</em> include an
+       EAP-Payload of type EAP-Success.  This event <em>MUST</em> cause the
        access device to provide service to the EAP client.
 
    3.  The EAP client has not been successfully authenticated and/or
        authorized, and the Result-Code AVP is set to indicate failure.
-       This message SHOULD include an EAP-Payload, but this AVP is not
+       This message <em>SHOULD</em> include an EAP-Payload, but this AVP is not
        used to determine whether service is to be provided.
 
    If the message from the Diameter client included a request for
-   authorization, a successful response MUST include the authorization
+   authorization, a successful response <em>MUST</em> include the authorization
    AVPs that are relevant to the service being provided.
 
    Message format
@@ -1217,10 +1217,10 @@ Table of Contents
    methods do not generate it.  Since the NAS operates in pass-through
    mode, it cannot know the Key-Name before receiving it from the AAA
    server.  As a result, a Key-Name AVP sent in a Diameter-EAP-Request
-   MUST NOT contain any data.  A home Diameter server receiving a
-   Diameter-EAP-Request with a Key-Name AVP with non-empty data MUST
+   <em>MUST NOT</em> contain any data.  A home Diameter server receiving a
+   Diameter-EAP-Request with a Key-Name AVP with non-empty data <em>MUST</em>
    silently discard the AVP.  In addition, the home Diameter server
-   SHOULD include this AVP in Diameter-EAP-Response only if an empty
+   <em>SHOULD</em> include this AVP in Diameter-EAP-Response only if an empty
    EAP-Key-Name AVP was present in Diameter-EAP-Request.
 
 <span class="h4"><a class="selflink" name="section-4.1.5" href="#section-4.1.5">4.1.5</a>.  Accounting-EAP-Auth-Method AVP</span>
@@ -1235,10 +1235,10 @@ Table of Contents
 
    The following tables use these symbols:
 
-    0    The AVP MUST NOT be present in the message
-    0+   Zero or more instances of the AVP MAY be present in the message
-    0-1  Zero or one instance of the AVP MAY be present in the message
-    1    One instance of the AVP MUST be present in the message
+    0    The AVP <em>MUST NOT</em> be present in the message
+    0+   Zero or more instances of the AVP <em>MAY</em> be present in the message
+    0-1  Zero or one instance of the AVP <em>MAY</em> be present in the message
+    1    One instance of the AVP <em>MUST</em> be present in the message
 
    Note that AVPs that can only be present within a Grouped AVP are not
    represented in these tables.
@@ -1369,7 +1369,7 @@ Table of Contents
 
    Section 9 of [<a href="#ref-NASREQ" title="&quot;Diameter Network Access Server Application&quot;">NASREQ</a>] describes basic guidelines for translation
    agents that translate between RADIUS and Diameter protocols.  These
-   guidelines SHOULD be followed for Diameter EAP application as well,
+   guidelines <em>SHOULD</em> be followed for Diameter EAP application as well,
    with some additional guidelines given in this section.  Note that
    this document does not restrict implementations from creating
    additional methods, as long as the translation function does not
@@ -1702,8 +1702,8 @@ Table of Contents
 
 
    authenticated locally by the NAS while other peers are authenticated
-   via Diameter.  In such cases, if any peers of the NAS MUST do EAP,
-   then the NAS MUST attempt to negotiate EAP for every session.  This
+   via Diameter.  In such cases, if any peers of the NAS <em>MUST</em> do EAP,
+   then the NAS <em>MUST</em> attempt to negotiate EAP for every session.  This
    avoids forcing a peer to support more than one authentication type,
    which could weaken security.
 

@@ -364,8 +364,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Conventions Used in This Document</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
    The acronym MSN stands for Message Sequence Numbers (see <a href="#section-2.3.1.2">Section</a>
@@ -429,7 +429,7 @@ Table of Contents
    The effect of a successful NOTIFY command lasts until the next NOTIFY
    command or until the IMAP connection is closed.
 
-   A successful NOTIFY SET command MUST cause the server to immediately
+   A successful NOTIFY SET command <em>MUST</em> cause the server to immediately
    return any accumulated changes to the currently selected mailbox (if
    any), such as flag changes and new or expunged messages.  Thus, a
    successful NOTIFY SET command implies an implicit NOOP command.
@@ -455,10 +455,10 @@ Table of Contents
    If the NOTIFY command enables MessageNew, MessageExpunge,
    AnnotationChange, or FlagChange notifications for a mailbox other
    than the currently selected mailbox, and the client has specified the
-   STATUS indicator parameter, then the server MUST send a STATUS
+   STATUS indicator parameter, then the server <em>MUST</em> send a STATUS
    response for that mailbox before NOTIFY's tagged OK.  If MessageNew
-   is enabled, the STATUS response MUST contain MESSAGES, UIDNEXT, and
-   UIDVALIDITY.  If MessageExpunge is enabled, the STATUS response MUST
+   is enabled, the STATUS response <em>MUST</em> contain MESSAGES, UIDNEXT, and
+   UIDVALIDITY.  If MessageExpunge is enabled, the STATUS response <em>MUST</em>
    contain MESSAGES.  If either AnnotationChange or FlagChange are
 
 
@@ -469,7 +469,7 @@ Table of Contents
 
 
    included and the server also supports the CONDSTORE [<a href="./rfc4551.html" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">RFC4551</a>] and/or
-   QRESYNC [<a href="./rfc5162.html" title="&quot;IMAP4 Extensions for Quick Mailbox Resynchronization&quot;">RFC5162</a>] extensions, the STATUS response MUST contain
+   QRESYNC [<a href="./rfc5162.html" title="&quot;IMAP4 Extensions for Quick Mailbox Resynchronization&quot;">RFC5162</a>] extensions, the STATUS response <em>MUST</em> contain
    UIDVALIDITY and HIGHESTMODSEQ.  Absence of the STATUS indicator
    parameter allows the client to avoid the additional STATUS responses.
    This might be useful if the client already retrieved this information
@@ -484,25 +484,25 @@ Table of Contents
    For each mailbox specified, the server verifies that the client has
    access using the following test:
 
-   -  If the name does not refer to an existing mailbox, the server MUST
+   -  If the name does not refer to an existing mailbox, the server <em>MUST</em>
       ignore it.
 
    -  If the name refers to a mailbox that the client can't LIST, the
-      server MUST ignore it.  For a server that implements [<a href="./rfc4314.html" title="&quot;IMAP4 Access Control List (ACL) Extension&quot;">RFC4314</a>],
+      server <em>MUST</em> ignore it.  For a server that implements [<a href="./rfc4314.html" title="&quot;IMAP4 Access Control List (ACL) Extension&quot;">RFC4314</a>],
       this means that if the client doesn't have the 'l' (lookup) right
-      for the name, then the server MUST ignore the mailbox.  This
+      for the name, then the server <em>MUST</em> ignore the mailbox.  This
       behavior prevents disclosure of potentially confidential
       information to clients who don't have rights to know it.
 
    -  If the name refers to a mailbox that the client can LIST (e.g., it
       has the 'l' right from [<a href="./rfc4314.html" title="&quot;IMAP4 Access Control List (ACL) Extension&quot;">RFC4314</a>]), but the client doesn't have
       another right required for processing of the specified event(s),
-      then the server MUST respond with an untagged extended LIST
+      then the server <em>MUST</em> respond with an untagged extended LIST
       response containing the \NoAccess name attribute.
 
-   The server SHOULD return the tagged OK response if the client has
+   The server <em>SHOULD</em> return the tagged OK response if the client has
    access to at least one of the mailboxes specified in the current list
-   of interesting events.  The server MAY return the tagged NO response
+   of interesting events.  The server <em>MAY</em> return the tagged NO response
    if the client has no access to any of the specified mailboxes and no
    access can ever be granted in the future (e.g., the client specified
    an event for 'Subtree Bar/Foo', 'Bar/Foo' doesn't exist, and LIST
@@ -510,7 +510,7 @@ Table of Contents
 
    If the notification would be prohibitively expensive for the server
    (e.g., "notify me of all flag changes in all mailboxes"), the server
-   MAY refuse the command with a tagged NO [NOTIFICATIONOVERFLOW]
+   <em>MAY</em> refuse the command with a tagged NO [NOTIFICATIONOVERFLOW]
    response.
 
 
@@ -525,9 +525,9 @@ Table of Contents
 
 
    If the client requests information for events of an unsupported type,
-   the server MUST refuse the command with a tagged NO response (not a
-   BAD).  This response SHOULD contain the BADEVENT response code, which
-   MUST list names of all events supported by the server.
+   the server <em>MUST</em> refuse the command with a tagged NO response (not a
+   BAD).  This response <em>SHOULD</em> contain the BADEVENT response code, which
+   <em>MUST</em> list names of all events supported by the server.
 
    Here's an example:
 
@@ -588,7 +588,7 @@ Table of Contents
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Interaction with the IDLE Command</span>
 
    If IDLE [<a href="./rfc2177.html" title="&quot;IMAP4 IDLE command&quot;">RFC2177</a>] (as well as this extension) is supported, then
-   while processing any IDLE command, the server MUST send exactly the
+   while processing any IDLE command, the server <em>MUST</em> send exactly the
    same events as instructed by the client using the NOTIFY command.
 
    NOTIFY makes IDLE unnecessary for some clients.  If a client does not
@@ -609,10 +609,10 @@ Table of Contents
    This section specifies the events of which an IMAP server can notify
    an IMAP client, and how.
 
-   The server SHOULD omit notifying the client if the event is caused by
+   The server <em>SHOULD</em> omit notifying the client if the event is caused by
    this client.  For example, if the client issues CREATE and has
    requested a MailboxName event that would cover the newly created
-   mailbox, the server SHOULD NOT notify the client of the MailboxName
+   mailbox, the server <em>SHOULD NOT</em> notify the client of the MailboxName
    change.
 
    All event types described in this document require the 'l' and 'r'
@@ -621,11 +621,11 @@ Table of Contents
    control model.
 
    If the FlagChange and/or AnnotationChange events are specified,
-   MessageNew and MessageExpunge MUST also be specified by the client.
-   Otherwise, the server MUST respond with the tagged BAD response.
+   MessageNew and MessageExpunge <em>MUST</em> also be specified by the client.
+   Otherwise, the server <em>MUST</em> respond with the tagged BAD response.
 
    If one of MessageNew or MessageExpunge is specified, then both events
-   MUST be specified.  Otherwise, the server MUST respond with the
+   <em>MUST</em> be specified.  Otherwise, the server <em>MUST</em> respond with the
    tagged BAD response.
 
 
@@ -645,14 +645,14 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  FlagChange and AnnotationChange</span>
 
    If the flag and/or message annotation change happens in the selected
-   mailbox, the server MUST notify the client by sending an unsolicited
-   FETCH response, which MUST include UID and FLAGS/ANNOTATION FETCH
-   data items.  It MAY also send new FLAGS and/or OK [PERMANENTFLAGS
+   mailbox, the server <em>MUST</em> notify the client by sending an unsolicited
+   FETCH response, which <em>MUST</em> include UID and FLAGS/ANNOTATION FETCH
+   data items.  It <em>MAY</em> also send new FLAGS and/or OK [PERMANENTFLAGS
    ...] responses.
 
    If a search context is in effect as specified in [<a href="./rfc5267.html" title="&quot;Contexts for IMAP4&quot;">RFC5267</a>], an
    ESEARCH ADDTO or ESEARCH REMOVEFROM will also be generated, if
-   appropriate.  In this case, the FETCH response MUST precede the
+   appropriate.  In this case, the FETCH response <em>MUST</em> precede the
    ESEARCH response.
 
    If the change happens in another mailbox, then the server responds
@@ -661,10 +661,10 @@ Table of Contents
    [<a href="./rfc5162.html" title="&quot;IMAP4 Extensions for Quick Mailbox Resynchronization&quot;">RFC5162</a>] are enabled by the client, then the server sends a STATUS
    response that includes at least HIGHESTMODSEQ and UIDVALIDITY status
    data items.  If the number of messages with the \Seen flag changes,
-   the server MAY also include the UNSEEN data item in the STATUS
+   the server <em>MAY</em> also include the UNSEEN data item in the STATUS
    response.  If CONDSTORE/QRESYNC is not enabled by the client and the
    server chooses not to include the UNSEEN data item, the server does
-   not notify the client.  When this event is requested, the server MUST
+   not notify the client.  When this event is requested, the server <em>MUST</em>
    notify the client about mailbox UIDVALIDITY changes.  This is done by
    sending a STATUS response that includes UIDVALIDITY.
 
@@ -699,11 +699,11 @@ Table of Contents
    If the new/appended message is in the selected mailbox, the server
    notifies the client by sending an unsolicited EXISTS response,
    followed by an unsolicited FETCH response containing the information
-   requested by the client.  A FETCH response SHOULD NOT be generated
+   requested by the client.  A FETCH response <em>SHOULD NOT</em> be generated
    for a new message created by the client on this particular
    connection, for instance, as the result of an APPEND or COPY command
    to the selected mailbox performed by the client itself.  The server
-   MAY also send a RECENT response, if the server marks the message as
+   <em>MAY</em> also send a RECENT response, if the server marks the message as
    \Recent.
 
    Note that a single EXISTS response can be returned for multiple
@@ -711,20 +711,20 @@ Table of Contents
 
    If a search context is in effect as specified in [<a href="./rfc5267.html" title="&quot;Contexts for IMAP4&quot;">RFC5267</a>], an
    ESEARCH ADDTO will also be generated, if appropriate.  In this case,
-   the EXISTS response MUST precede the ESEARCH response.  Both the
+   the EXISTS response <em>MUST</em> precede the ESEARCH response.  Both the
    NOTIFY command and the SEARCH and SORT commands (see <a href="#section-7">Section 7</a>) can
    specify attributes to be returned for new messages.  These attributes
-   SHOULD be combined into a single FETCH response.  The server SHOULD
-   avoid sending duplicate data.  The FETCH response(s) MUST follow any
+   <em>SHOULD</em> be combined into a single FETCH response.  The server <em>SHOULD</em>
+   avoid sending duplicate data.  The FETCH response(s) <em>MUST</em> follow any
    ESEARCH ADDTO responses.
 
    If the new/appended message is in another mailbox, the server sends
    an unsolicited STATUS (UIDNEXT MESSAGES) response for the relevant
    mailbox.  If the CONDSTORE extension [<a href="./rfc4551.html" title="&quot;IMAP Extension for Conditional STORE Operation or Quick Flag Changes Resynchronization&quot;">RFC4551</a>] and/or the QRESYNC
    extension [<a href="./rfc5162.html" title="&quot;IMAP4 Extensions for Quick Mailbox Resynchronization&quot;">RFC5162</a>] is enabled, the HIGHESTMODSEQ status data item
-   MUST be included in the STATUS response.
+   <em>MUST</em> be included in the STATUS response.
 
-   The client SHOULD NOT use FETCH attributes that implicitly set the
+   The client <em>SHOULD NOT</em> use FETCH attributes that implicitly set the
    \seen flag, or that presuppose the existence of a given bodypart.
    UID, MODSEQ, FLAGS, ENVELOPE, BODY.PEEK[HEADER.FIELDS... and
    BODY/BODYSTRUCTURE may be the most useful attributes.
@@ -760,7 +760,7 @@ Table of Contents
    If the expunged message or messages are in another mailbox, the
    server sends an unsolicited STATUS (UIDNEXT MESSAGES) response for
    the relevant mailbox.  If the QRESYNC [<a href="./rfc5162.html" title="&quot;IMAP4 Extensions for Quick Mailbox Resynchronization&quot;">RFC5162</a>] extension is enabled,
-   the HIGHESTMODSEQ data item MUST be included in the STATUS response
+   the HIGHESTMODSEQ data item <em>MUST</em> be included in the STATUS response
    as well.
 
    Note that if a client requests MessageExpunge with the SELECTED
@@ -789,7 +789,7 @@ Table of Contents
    These notifications are sent if an affected mailbox name was created
    (with CREATE), deleted (with DELETE), or renamed (with RENAME).  For
    a server that implements [<a href="./rfc4314.html" title="&quot;IMAP4 Access Control List (ACL) Extension&quot;">RFC4314</a>], granting or revocation of the 'l'
-   right to the current user on the affected mailbox MUST be considered
+   right to the current user on the affected mailbox <em>MUST</em> be considered
    mailbox creation or deletion, respectively.  If a mailbox is created
    or deleted, the mailbox itself and its direct parent (whether it is
    an existing mailbox or not) are considered to be affected.
@@ -807,7 +807,7 @@ Table of Contents
    The server notifies the client by sending an unsolicited LIST
    response for each affected mailbox name.  If, after the event, the
    mailbox name does not refer to a mailbox accessible to the client,
-   the \Nonexistent flag MUST be included.
+   the \Nonexistent flag <em>MUST</em> be included.
 
    For each LISTable mailbox renamed, the server sends an extended LIST
    response [<a href="./rfc5258.html" title="&quot;Internet Message Access Protocol version 4 - LIST Command Extensions&quot;">RFC5258</a>] for the new mailbox name, containing the OLDNAME
@@ -819,8 +819,8 @@ Table of Contents
 
    If the server automatically subscribes a mailbox when it is created
    or renamed, then the unsolicited LIST response for each affected
-   subscribed mailbox name MUST include the \Subscribed attribute (see
-   [<a href="./rfc5258.html" title="&quot;Internet Message Access Protocol version 4 - LIST Command Extensions&quot;">RFC5258</a>]).  The server SHOULD also include \HasChildren or
+   subscribed mailbox name <em>MUST</em> include the \Subscribed attribute (see
+   [<a href="./rfc5258.html" title="&quot;Internet Message Access Protocol version 4 - LIST Command Extensions&quot;">RFC5258</a>]).  The server <em>SHOULD</em> also include \HasChildren or
    \HasNoChildren attributes [<a href="./rfc5258.html" title="&quot;Internet Message Access Protocol version 4 - LIST Command Extensions&quot;">RFC5258</a>] as appropriate.
 
    Example of a newly created mailbox (or granting of the 'l' right on
@@ -840,7 +840,7 @@ Table of Contents
    response for each affected mailbox name.  If and only if the mailbox
    is subscribed after the event, the \Subscribed attribute (see
    [<a href="./rfc5258.html" title="&quot;Internet Message Access Protocol version 4 - LIST Command Extensions&quot;">RFC5258</a>]) is included.  Note that in the LIST response, all mailbox
-   attributes MUST be accurately computed (this differs from the
+   attributes <em>MUST</em> be accurately computed (this differs from the
    behavior of the LSUB command).
 
    Example:
@@ -848,9 +848,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.6" href="#section-5.6">5.6</a>.  MailboxMetadataChange</span>
 
-   Support for this event type is OPTIONAL unless the METADATA extension
+   Support for this event type is <em>OPTIONAL</em> unless the METADATA extension
    [<a href="./rfc5464.html" title="&quot;The IMAP METADATA Extension&quot;">RFC5464</a>] is also supported by the server, in which case support for
-   this event type is REQUIRED.
+   this event type is <em>REQUIRED</em>.
 
 
 
@@ -865,10 +865,10 @@ Table of Contents
    doesn't have to issue ENABLE METADATA.
 
    The server sends an unsolicited METADATA response (as per <a href="#section-4.4.2">Section</a>
-   <a href="#section-4.4.2">4.4.2</a> of [<a href="./rfc5464.html" title="&quot;The IMAP METADATA Extension&quot;">RFC5464</a>]).  If possible, only the changed metadata SHOULD
+   <a href="#section-4.4.2">4.4.2</a> of [<a href="./rfc5464.html" title="&quot;The IMAP METADATA Extension&quot;">RFC5464</a>]).  If possible, only the changed metadata <em>SHOULD</em>
    be included, but if the server can't detect a change to a single
-   metadata item, it MAY include all metadata items set on the mailbox.
-   If a metadata item is deleted (set to NIL), it MUST always be
+   metadata item, it <em>MAY</em> include all metadata items set on the mailbox.
+   If a metadata item is deleted (set to NIL), it <em>MUST</em> always be
    included in the METADATA response.
 
    Example:
@@ -876,9 +876,9 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.7" href="#section-5.7">5.7</a>.  ServerMetadataChange</span>
 
-   Support for this event type is OPTIONAL unless the METADATA or the
+   Support for this event type is <em>OPTIONAL</em> unless the METADATA or the
    METADATA-SERVER extension [<a href="./rfc5464.html" title="&quot;The IMAP METADATA Extension&quot;">RFC5464</a>] is also supported by the server,
-   in which case support for this event type is REQUIRED.
+   in which case support for this event type is <em>REQUIRED</em>.
 
    A client willing to receive unsolicited METADATA responses as a
    result of using the ServerMetadataChange event in the NOTIFY command
@@ -886,8 +886,8 @@ Table of Contents
 
    The server sends an unsolicited METADATA response (as per <a href="#section-4.4.2">Section</a>
    <a href="#section-4.4.2">4.4.2</a> of [<a href="./rfc5464.html" title="&quot;The IMAP METADATA Extension&quot;">RFC5464</a>]).  Only the names of changed metadata entries
-   SHOULD be returned in such METADATA responses.  If a metadata item is
-   deleted (set to NIL), it MUST always be included in the METADATA
+   <em>SHOULD</em> be returned in such METADATA responses.  If a metadata item is
+   deleted (set to NIL), it <em>MUST</em> always be included in the METADATA
    response.
 
    Example:
@@ -897,7 +897,7 @@ Table of Contents
 
    If the server is unable or unwilling to deliver as many notifications
    as it is being asked to, it may disable notifications for some or all
-   clients.  It MUST notify these clients by sending an untagged "OK
+   clients.  It <em>MUST</em> notify these clients by sending an untagged "OK
    [NOTIFICATIONOVERFLOW]" response and behave as if a NOTIFY NONE
    command had just been received.
 
@@ -920,12 +920,12 @@ Table of Contents
 
    Even if NOTIFY succeeds, it is still possible to lose access to the
    mailboxes being monitored at a later time.  If this happens, the
-   server MUST stop monitoring these mailboxes.  If access is later
-   granted, the server MUST restart event monitoring.
+   server <em>MUST</em> stop monitoring these mailboxes.  If access is later
+   granted, the server <em>MUST</em> restart event monitoring.
 
-   The server SHOULD return the LIST response with the \NoAccess name
+   The server <em>SHOULD</em> return the LIST response with the \NoAccess name
    attribute if and when the mailbox loses the 'l' right.  Similarly,
-   the server SHOULD return the LIST response with no \NoAccess name
+   the server <em>SHOULD</em> return the LIST response with no \NoAccess name
    attribute if the mailbox was previously reported as having \NoAccess
    and the 'l' right is later granted.
 
@@ -994,8 +994,8 @@ Table of Contents
    returning information about expunged messages (see <a href="./rfc3501.html#section-7.4.1">Section&nbsp;7.4.1 of
    [RFC3501]</a> for more details), for example, till a NOOP or an IDLE
    command has been issued.  When SELECTED-DELAYED is specified, the
-   server MAY also delay returning other &lt;message-event&gt;s until the
-   client issues one of the commands specified above, or it MAY return
+   server <em>MAY</em> also delay returning other &lt;message-event&gt;s until the
+   client issues one of the commands specified above, or it <em>MAY</em> return
    them immediately.
 
 <span class="h3"><a class="selflink" name="section-6.2" href="#section-6.2">6.2</a>.  Personal</span>
@@ -1009,14 +1009,14 @@ Table of Contents
    namespace(s) to which messages may be delivered by a Message Delivery
    Agent (MDA) (see [<a href="#ref-EMAIL-ARCH" title="&quot;Internet Mail Architecture&quot;">EMAIL-ARCH</a>], particularly <a href="#section-4.3.3">Section 4.3.3</a>).
 
-   If the IMAP server cannot easily compute this set, it MUST treat
+   If the IMAP server cannot easily compute this set, it <em>MUST</em> treat
    "inboxes" as equivalent to "personal".
 
 <span class="h3"><a class="selflink" name="section-6.4" href="#section-6.4">6.4</a>.  Subscribed</span>
 
    Subscribed refers to all mailboxes subscribed to by the user.
 
-   If the subscription list changes, the server MUST reevaluate the
+   If the subscription list changes, the server <em>MUST</em> reevaluate the
    list.
 
 
@@ -1037,7 +1037,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-6.6" href="#section-6.6">6.6</a>.  Mailboxes</span>
 
    Mailboxes is followed by a mailbox name or a list of mailbox names.
-   The server MUST NOT do a wildcard expansion.  This means there is no
+   The server <em>MUST NOT</em> do a wildcard expansion.  This means there is no
    special treatment for the LIST wildcard characters ('*' and '%') if
    they are present in mailbox names.
 
@@ -1066,10 +1066,10 @@ Table of Contents
          S: )
          S: * ESEARCH (TAG "a00") ADDTO (0 93)
 
-   Note that the EXISTS response MUST precede any FETCH responses, and
-   together they MUST precede the ESEARCH response.
+   Note that the EXISTS response <em>MUST</em> precede any FETCH responses, and
+   together they <em>MUST</em> precede the ESEARCH response.
 
-   No untagged FETCH response SHOULD be returned if a message becomes a
+   No untagged FETCH response <em>SHOULD</em> be returned if a message becomes a
    member of UPDATE SEARCH due to flag or annotation changes.
 
 
@@ -1095,7 +1095,7 @@ Table of Contents
 
    Except as noted otherwise, all alphabetic characters are case-
    insensitive.  The use of upper or lower case characters to define
-   token strings is for editorial clarity only.  Implementations MUST
+   token strings is for editorial clarity only.  Implementations <em>MUST</em>
    accept these strings in a case-insensitive fashion.  For example, the
    &lt;filter-mailboxes-selected&gt; non-terminal value "SELECTED" must be
    treated in the same way as "Selected" or "selected".
@@ -1168,10 +1168,10 @@ Table of Contents
                       ;; "MessageRead", "MessageTrash", "FlagsSet",
                       ;; "FlagsClear" [MSGEVENT]. "MessageExpunge"
                       ;; includes "MessageExpire" [MSGEVENT].
-                      ;; MessageNew and MessageExpunge MUST always
+                      ;; MessageNew and MessageExpunge <em>MUST</em> always
                       ;; be specified together.  If FlagChange is
                       ;; specified, then MessageNew and MessageExpunge
-                      ;; MUST be specified as well.
+                      ;; <em>MUST</em> be specified as well.
                       ;; The fett-att list may only be present for the
                       ;; SELECTED/SELECTED-DELAYED mailbox filter
                       ;; (&lt;filter-mailboxes&gt;).

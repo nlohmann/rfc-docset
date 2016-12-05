@@ -480,11 +480,11 @@ Table of Contents
    across the MPLS network.
 
    An Ethernet PW operates in one of two modes: "raw mode" or "tagged
-   mode".  In tagged mode, each frame MUST contain at least one 802.1Q
+   mode".  In tagged mode, each frame <em>MUST</em> contain at least one 802.1Q
    [<a href="#ref-802.1Q" title="&quot;IEEE Standards for Local and Metropolitan Area Networks: Virtual Bridged Local Area Networks&quot;">802.1Q</a>] VLAN tag, and the tag value is meaningful to the NSPs at the
    two PW termination points.  That is, the two PW termination points
    must have some agreement (signaled or manually configured) on how to
-   process the tag.  On a raw mode PW, a frame MAY contain an 802.1Q
+   process the tag.  On a raw mode PW, a frame <em>MAY</em> contain an 802.1Q
    VLAN tag, but if it does, the tag is not meaningful to the NSPs, and
    passes transparently through them.
 
@@ -493,8 +493,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Specification of Requirements</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Applicability Statement</span>
@@ -527,7 +527,7 @@ Table of Contents
 
         to the attachment circuit.  Since the FCS is not transported
         across either Ethernet or Ethernet VLAN PWs, payload integrity
-        transparency may be lost.  The OPTIONAL method described in
+        transparency may be lost.  The <em>OPTIONAL</em> method described in
         [<a href="#ref-FCS" title="&quot;PWE3 Frame Check Sequence Retention&quot;">FCS</a>] can be used to achieve payload integrity transparency on
         Ethernet or Ethernet VLAN PWs.
 
@@ -552,7 +552,7 @@ Table of Contents
         reassembly are used [<a href="#ref-FRAG" title="&quot;PWE3 Fragmentation and Reassembly&quot;">FRAG</a>].
 
       - The packet switched network may reorder, duplicate, or silently
-        drop packets.  Sequencing MAY be enabled in the Ethernet or
+        drop packets.  Sequencing <em>MAY</em> be enabled in the Ethernet or
         Ethernet VLAN PW to detect lost, duplicate, or out-of-order
         packets on a per-PW basis.
 
@@ -569,7 +569,7 @@ Table of Contents
    defined later in this document for tagged mode.  It should be noted
    that if the VLAN identifier is modified by the egress PE, the
    Ethernet spanning tree protocol might fail to work properly.  If this
-   issue is of significance, the VLAN identifier MUST be selected in
+   issue is of significance, the VLAN identifier <em>MUST</em> be selected in
    such a way that it matches on the attachment circuits at both ends of
    the PW.
 
@@ -582,7 +582,7 @@ Table of Contents
 
 
    If the PE detects a failure on the Ethernet physical port, or the
-   port is administratively disabled, it MUST send a PW status
+   port is administratively disabled, it <em>MUST</em> send a PW status
    notification message for all PWs associated with the port.
 
    This mode uses service-delimiting tags to map input Ethernet frames
@@ -594,7 +594,7 @@ Table of Contents
    The Ethernet frame will be encapsulated according to the procedures
    defined later in this document for raw mode.  If the PE detects a
    failure on the Ethernet input port, or the port is administratively
-   disabled, the PE MUST send an appropriate PW status notification
+   disabled, the PE <em>MUST</em> send an appropriate PW status notification
    message to the corresponding remote PE.
 
    In this mode, all Ethernet frames received on the attachment circuit
@@ -604,7 +604,7 @@ Table of Contents
 <span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Ethernet-Specific Interface Parameter LDP Sub-TLV</span>
 
    This LDP sub-Type Length Value [<a href="#ref-LDP" title="&quot;LDP Specification&quot;">LDP</a>] specifies interface-specific
-   parameters.  When applicable, it MUST be used to validate that the
+   parameters.  When applicable, it <em>MUST</em> be used to validate that the
    PEs, and the ingress and egress ports at the edges of the circuit,
    have the necessary capabilities to interoperate with each other.  The
    Interface parameter TLV is defined in [<a href="#ref-PWE3-CTRL" title="&quot;Pseudowire Setup and Maintenance using the Label Distribution Protocol (LDP)&quot;">PWE3-CTRL</a>], the IANA registry
@@ -615,12 +615,12 @@ Table of Contents
       - 0x06 Requested VLAN ID Sub-TLV
 
         An Optional 16-bit value indicating the requested VLAN ID.  This
-        parameter MUST be used by a PE that is incapable of rewriting
+        parameter <em>MUST</em> be used by a PE that is incapable of rewriting
         the 802.1Q Ethernet VLAN tag on output.  If the ingress PE
-        receives this request, it MUST rewrite the VLAN ID contained
+        receives this request, it <em>MUST</em> rewrite the VLAN ID contained
         inside the VLAN Tag at the input to match the requested VLAN ID.
         If this is not possible, and the VLAN ID does not already match
-        the configured ingress VLAN ID, the PW MUST not be enabled.
+        the configured ingress VLAN ID, the PW <em>MUST</em> not be enabled.
         This parameter is applicable only to PW type 0x0004.
 
 
@@ -703,15 +703,15 @@ Table of Contents
    If an Ethernet PW is operating in raw mode, service-delimiting tags
    are NEVER sent over the PW.  If a service-delimiting tag is present
    when the frame is received from the attachment circuit by the PE, it
-   MUST be stripped (by the NSP) from the frame before the frame is sent
+   <em>MUST</em> be stripped (by the NSP) from the frame before the frame is sent
    to the PW.
 
    If an Ethernet PW is operating in tagged mode, every frame sent on
-   the PW MUST have a service-delimiting VLAN tag.  If the frame as
+   the PW <em>MUST</em> have a service-delimiting VLAN tag.  If the frame as
    received by the PE from the attachment circuit does not have a
    service-delimiting VLAN tag, the PE must prepend the frame with a
    dummy VLAN tag before sending the frame on the PW.  This is the
-   default operating mode.  This is the only REQUIRED mode.
+   default operating mode.  This is the only <em>REQUIRED</em> mode.
 
    In both modes, non-service-delimiting tags are passed transparently
    across the PW as part of the payload.  It should be noted that a
@@ -727,7 +727,7 @@ Table of Contents
    or may leave the tag unchanged, depending on its configuration.  When
    raw mode is used, the PE that receives a frame may or may not need to
    add a service-delimiting tag before transmitting the frame on the
-   attachment circuit; however, it MUST not rewrite or remove any tags
+   attachment circuit; however, it <em>MUST</em> not rewrite or remove any tags
    that are already present.
 
    The following table illustrates the operations that might be
@@ -751,12 +751,12 @@ Table of Contents
 
 <span class="h4"><a class="selflink" name="section-4.4.2" href="#section-4.4.2">4.4.2</a>.  MTU Management on the PE/CE Links</span>
 
-   The Ethernet PW MUST NOT be enabled unless it is known that the MTUs
+   The Ethernet PW <em>MUST NOT</em> be enabled unless it is known that the MTUs
    of the CE-PE links are the same at both ends of the PW.  If an egress
    router receives an encapsulated layer 2 PDU whose payload length
    (i.e., the length of the PDU itself without any of the encapsulation
    headers) exceeds the MTU of the destination layer 2 interface, the
-   PDU MUST be dropped.
+   PDU <em>MUST</em> be dropped.
 
 <span class="h4"><a class="selflink" name="section-4.4.3" href="#section-4.4.3">4.4.3</a>.  Frame Ordering</span>
 
@@ -769,7 +769,7 @@ Table of Contents
    control word, provide strict frame ordering.  If this option is
    enabled, any frames that get misordered by the PSN will be dropped or
    reordered by the receiving PW endpoint.  If strict frame ordering is
-   a requirement for a particular PW, this option MUST be enabled.
+   a requirement for a particular PW, this option <em>MUST</em> be enabled.
 
 <span class="h4"><a class="selflink" name="section-4.4.4" href="#section-4.4.4">4.4.4</a>.  Frame Error Processing</span>
 
@@ -781,9 +781,9 @@ Table of Contents
    dropped.
 
    At the ingress of the PW, the native Ethernet frame error processing
-   mechanisms MUST be enabled.  Therefore, if a PE device receives an
+   mechanisms <em>MUST</em> be enabled.  Therefore, if a PE device receives an
    Ethernet frame containing hardware-level Cyclic Redundancy Check
-   (CRC) errors, framing errors, or a runt condition, the frame MUST be
+   (CRC) errors, framing errors, or a runt condition, the frame <em>MUST</em> be
    discarded on input.  Note that defining this processing is part of
    the NSP function and is outside the scope of this document.
 
@@ -792,7 +792,7 @@ Table of Contents
    In a standard Ethernet network, the flow control mechanism is
    optional and typically configured between the two nodes on a point-
    to-point link (e.g., between the CE and the PE).  IEEE 802.3x PAUSE
-   frames MUST NOT be carried across the PW.  See <a href="#appendix-A">Appendix A</a> for notes
+   frames <em>MUST NOT</em> be carried across the PW.  See <a href="#appendix-A">Appendix A</a> for notes
    on CE-PE flow control.
 
 
@@ -823,7 +823,7 @@ Table of Contents
 
    [<a name="ref-PWE3-CW" id="ref-PWE3-CW">PWE3-CW</a>] states, "If a PW is sensitive to packet misordering and is
    being carried over an MPLS PSN that uses the contents of the MPLS
-   payload to select the ECMP path, it MUST employ a mechanism which
+   payload to select the ECMP path, it <em>MUST</em> employ a mechanism which
    prevents packet misordering." This is necessary because ECMP
    implementations may examine the first nibble after the MPLS label
    stack to determine whether the labelled packet is IP or not.  Thus,
@@ -843,10 +843,10 @@ Table of Contents
    is therefore optional.  Early Ethernet PW implementations have been
    deployed that do not include a control word or the ability to process
    one if present.  To aid in backwards compatibility, future
-   implementations MUST be able to send and receive frames without the
+   implementations <em>MUST</em> be able to send and receive frames without the
    control word present.
 
-   In all cases, the egress PE MUST be aware of whether the ingress PE
+   In all cases, the egress PE <em>MUST</em> be aware of whether the ingress PE
    will send a control word over a specific PW.  This may be achieved by
    configuration of the PEs, or by signaling, as defined in [<a href="#ref-PWE3-CTRL" title="&quot;Pseudowire Setup and Maintenance using the Label Distribution Protocol (LDP)&quot;">PWE3-CTRL</a>].
 
@@ -869,14 +869,14 @@ Table of Contents
    |0 0 0 0|   Reserved            |       Sequence Number         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   In the above diagram, the first 4 bits MUST be set to 0 to indicate
+   In the above diagram, the first 4 bits <em>MUST</em> be set to 0 to indicate
    PW data.  The rest of the first 16 bits are reserved for future use.
-   They MUST be set to 0 when transmitting, and MUST be ignored upon
+   They <em>MUST</em> be set to 0 when transmitting, and <em>MUST</em> be ignored upon
    receipt.
 
    The next 16 bits provide a sequence number that can be used to
    guarantee ordered frame delivery.  The processing of the sequence
-   number field is OPTIONAL.
+   number field is <em>OPTIONAL</em>.
 
    The sequence number space is a 16-bit, unsigned circular space.  The
    sequence number value 0 is used to indicate that the sequence number
@@ -885,19 +885,19 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-4.7" href="#section-4.7">4.7</a>.  QoS Considerations</span>
 
-   The ingress PE MAY consider the user priority (PRI) field [<a href="#ref-802.1Q" title="&quot;IEEE Standards for Local and Metropolitan Area Networks: Virtual Bridged Local Area Networks&quot;">802.1Q</a>] of
+   The ingress PE <em>MAY</em> consider the user priority (PRI) field [<a href="#ref-802.1Q" title="&quot;IEEE Standards for Local and Metropolitan Area Networks: Virtual Bridged Local Area Networks&quot;">802.1Q</a>] of
    the VLAN tag header when determining the value to be placed in a QoS
    field of the encapsulating protocol (e.g., the EXP fields of the MPLS
-   label stack).  In a similar way, the egress PE MAY consider the QoS
+   label stack).  In a similar way, the egress PE <em>MAY</em> consider the QoS
    field of the encapsulating protocol (e.g., the EXP fields of the MPLS
    label stack) when queuing the frame for transmission towards the CE.
 
-   A PE MUST support the ability to carry the Ethernet PW as a best-
+   A PE <em>MUST</em> support the ability to carry the Ethernet PW as a best-
    effort service over the MPLS PSN.  PRI bits are kept transparent
    between PE devices, regardless of the QoS support of the PSN.
 
    If an 802.1Q VLAN field is added at the PE, a default PRI setting of
-   zero MUST be supported, a configured default value is recommended, or
+   zero <em>MUST</em> be supported, a configured default value is recommended, or
    the value may be mapped from the QoS field of the PSN, as referred to
    above.
 
@@ -941,16 +941,16 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  PSN MTU Requirements</span>
 
-   The MPLS PSN MUST be configured with an MTU that is large enough to
+   The MPLS PSN <em>MUST</em> be configured with an MTU that is large enough to
    transport a maximum-sized Ethernet frame that has been encapsulated
    with a control word, a pseudowire demultiplexer, and a tunnel
    encapsulation.  With MPLS used as the tunneling protocol, for
    example, this is likely to be 8 or more bytes greater than the
-   largest frame size.  The methodology described in [<a href="#ref-FRAG" title="&quot;PWE3 Fragmentation and Reassembly&quot;">FRAG</a>] MAY be used
+   largest frame size.  The methodology described in [<a href="#ref-FRAG" title="&quot;PWE3 Fragmentation and Reassembly&quot;">FRAG</a>] <em>MAY</em> be used
    to fragment encapsulated frames that exceed the PSN MTU.  However, if
    [<a href="#ref-FRAG" title="&quot;PWE3 Fragmentation and Reassembly&quot;">FRAG</a>] is not used and if the ingress router determines that an
    encapsulated layer 2 PDU exceeds the MTU of the PSN tunnel through
-   which it must be sent, the PDU MUST be dropped.
+   which it must be sent, the PDU <em>MUST</em> be dropped.
 
 
 
@@ -1296,7 +1296,7 @@ Table of Contents
 
    Notes:
 
-        i.  Mode #3 MAY be limited to adding VLAN NULL only, since
+        i.  Mode #3 <em>MAY</em> be limited to adding VLAN NULL only, since
             change of VLAN or association to specific VLAN can be done
             at the PW CE-bound side.
 
@@ -1320,17 +1320,17 @@ Table of Contents
 
    If the receiving node becomes congested, it can send a special frame,
    called the PAUSE frame, to the source node at the opposite end of the
-   connection.  The implementation MUST provide a mechanism for
-   terminating PAUSE frames locally (i.e., at the local PE).  It MUST
+   connection.  The implementation <em>MUST</em> provide a mechanism for
+   terminating PAUSE frames locally (i.e., at the local PE).  It <em>MUST</em>
    operate as follows: PAUSE frames received on a local Ethernet port
-   SHOULD cause the PE device to buffer, or to discard, further Ethernet
+   <em>SHOULD</em> cause the PE device to buffer, or to discard, further Ethernet
    frames for that port until the PAUSE condition is cleared.
-   Optionally, the PE MAY simply discard PAUSE frames.
+   Optionally, the PE <em>MAY</em> simply discard PAUSE frames.
 
    If the PE device wishes to pause data received on a local Ethernet
    port (perhaps because its own buffers are filling up or because it
-   has received notification of congestion within the PSN), then it MAY
-   issue a PAUSE frame on the local Ethernet port, but MUST clear this
+   has received notification of congestion within the PSN), then it <em>MAY</em>
+   issue a PAUSE frame on the local Ethernet port, but <em>MUST</em> clear this
    condition when willing to receive more data.
 
 <span class="h2"><a class="selflink" name="appendix-B" href="#appendix-B">Appendix B</a>.  QoS Details</span>
@@ -1371,7 +1371,7 @@ Table of Contents
    CoS as defined in [<a href="#ref-802.1Q" title="&quot;IEEE Standards for Local and Metropolitan Area Networks: Virtual Bridged Local Area Networks&quot;">802.1Q</a>], and the mapping of 802.1Q CoS to PSN CoS
    is application specific and depends on the agreement between the
    customer and the PW provider.  However, the following principles
-   adopted from 802.1Q, Table 8-2, MUST be met when applying the set of
+   adopted from 802.1Q, Table 8-2, <em>MUST</em> be met when applying the set of
    PSN CoS based on user's PRI bits.
 
                 ----------------------------------

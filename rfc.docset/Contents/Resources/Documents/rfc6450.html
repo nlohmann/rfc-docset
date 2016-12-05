@@ -286,8 +286,8 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Requirements Language</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 
@@ -476,14 +476,14 @@ Table of Contents
    o  Echo Request and Echo Reply messages, which are used for the
       actual measurements.
 
-   o  An Init message, which SHOULD be used to initialise a ping session
+   o  An Init message, which <em>SHOULD</em> be used to initialise a ping session
       and negotiate which group to use.
 
    o  A Server Response message, which is mainly used in response to the
       Init message.
 
-   The messages MUST always be in network byte order.  UDP checksums
-   MUST always be used.
+   The messages <em>MUST</em> always be in network byte order.  UDP checksums
+   <em>MUST</em> always be used.
 
    The messages share a common format: one octet specifying the message
    type, followed by a number of options in TLV (Type, Length, and
@@ -500,20 +500,20 @@ Table of Contents
    groups the server may be able to provide.
 
    For an Echo Request, the client includes a number of options, and a
-   server MAY simply echo the contents (only changing the message type)
+   server <em>MAY</em> simply echo the contents (only changing the message type)
    without inspecting the options if it does not support any options.
    This might be true for a simple Multicast Ping Protocol server, but
    it severely limits what information a client can obtain and hence
-   makes the protocol less useful.  However, the server SHOULD add a TTL
+   makes the protocol less useful.  However, the server <em>SHOULD</em> add a TTL
    option (allowing the client to determine the number of router hops a
    reply has traversed), and there are other options that a server
-   implementation MAY support; e.g., the client may ask for certain
+   implementation <em>MAY</em> support; e.g., the client may ask for certain
    information or a specific behaviour from the server.  The Echo Reply
-   messages (one unicast and one multicast) MUST first contain the exact
+   messages (one unicast and one multicast) <em>MUST</em> first contain the exact
    options from the request (in the same order), and then, immediately
-   following, any options appended by the server.  A server MUST NOT
-   process unknown options, but they MUST still be included in the Echo
-   Reply.  A client MUST ignore any unknown options.
+   following, any options appended by the server.  A server <em>MUST NOT</em>
+   process unknown options, but they <em>MUST</em> still be included in the Echo
+   Reply.  A client <em>MUST</em> ignore any unknown options.
 
 
 
@@ -538,7 +538,7 @@ Table of Contents
    not require processing by servers and are simply returned unmodified
    in the reply.  There are, however, other client options that the
    server may care about, as well as server options that may be
-   requested by a client.  Unless otherwise specified, an option MUST
+   requested by a client.  Unless otherwise specified, an option <em>MUST</em>
    NOT be used multiple times in the same message.
 
 <span class="h3"><a class="selflink" name="section-3.1" href="#section-3.1">3.1</a>.  Option Format</span>
@@ -588,30 +588,30 @@ Table of Contents
 
       Version, type 0
 
-         Length MUST be 1.  This option MUST always be included in all
+         Length <em>MUST</em> be 1.  This option <em>MUST</em> always be included in all
          messages, and for the current specified protocol this value
-         MUST be set to 2 (in decimal).  Note that there are
+         <em>MUST</em> be set to 2 (in decimal).  Note that there are
          implementations of older revisions of this protocol that only
          partly follow this specification.  They can be regarded as
          version 1 and do not use this option.  If a server receives a
          message with a version other than 2 (or missing), the server
-         SHOULD (unless it supports the particular version) send a
+         <em>SHOULD</em> (unless it supports the particular version) send a
          Server Response message back with version set to 2.  This tells
          the client that the server expects version 2 messages.  Client
-         ID and Sequence Number options MUST be echoed if present, so
+         ID and Sequence Number options <em>MUST</em> be echoed if present, so
          that a client can be certain it is a response to one of its
-         messages, and to exactly which message.  The server SHOULD NOT
+         messages, and to exactly which message.  The server <em>SHOULD NOT</em>
          include any other options.  A client receiving a response with
-         a version other than 2 MUST stop sending requests to the server
+         a version other than 2 <em>MUST</em> stop sending requests to the server
          (unless it supports the particular version).
 
       Client ID, type 1
 
-         Length MUST be non-zero.  A client SHOULD always include this
+         Length <em>MUST</em> be non-zero.  A client <em>SHOULD</em> always include this
          option in all messages (both Init and Echo Request).  The
          client may use any value it likes to detect whether a reply is
          a reply to its Init/Echo Request or not.  A server should treat
-         this as opaque data, and MUST echo this option back in the
+         this as opaque data, and <em>MUST</em> echo this option back in the
          reply if present (both Server Response and Echo Reply).  The
          value might be a pseudo-random byte string that is likely to be
          unique, possibly combined with the client IP address.
@@ -623,9 +623,9 @@ Table of Contents
 
       Sequence Number, type 2
 
-         Length MUST be 4.  A client MUST always include this in Echo
-         Request messages and MUST NOT include it in Init messages.  A
-         server replying to an Echo Request message MUST copy it into
+         Length <em>MUST</em> be 4.  A client <em>MUST</em> always include this in Echo
+         Request messages and <em>MUST NOT</em> include it in Init messages.  A
+         server replying to an Echo Request message <em>MUST</em> copy it into
          the Echo Reply (or Server Response message on error).  The
          sequence number is a 32-bit integer.  Values typically start at
          1 and increase by one for each Echo Request in a sequence.
@@ -639,9 +639,9 @@ Table of Contents
 
       Client Timestamp, type 3
 
-         Length MUST be 8.  A client SHOULD include this in Echo Request
-         messages and MUST NOT include it in Init messages.  A server
-         replying to an Echo Request message MUST copy it into the Echo
+         Length <em>MUST</em> be 8.  A client <em>SHOULD</em> include this in Echo Request
+         messages and <em>MUST NOT</em> include it in Init messages.  A server
+         replying to an Echo Request message <em>MUST</em> copy it into the Echo
          Reply.  The timestamp specifies the time when the Echo Request
          message is sent.  The first 4 bytes specify the number of
          seconds since the Epoch (0000 UTC Jan 1, 1970).  The next
@@ -656,13 +656,13 @@ Table of Contents
 
       Multicast Group, type 4
 
-         Length MUST be greater than 2.  It MAY be used in Server
+         Length <em>MUST</em> be greater than 2.  It <em>MAY</em> be used in Server
          Response messages to tell the client what group to use in
-         subsequent Echo Request messages.  It MUST be used in Echo
+         subsequent Echo Request messages.  It <em>MUST</em> be used in Echo
          Request messages to tell the server what group address to
          respond to (this group would typically be previously obtained
-         in a Server Response message).  It MUST be used in Echo Reply
-         messages (copied from the Echo Request message).  It MUST NOT
+         in a Server Response message).  It <em>MUST</em> be used in Echo Reply
+         messages (copied from the Echo Request message).  It <em>MUST NOT</em>
          be used in Init messages.  The format of the option value is as
          below.
 
@@ -679,10 +679,10 @@ Table of Contents
 
       Option Request, type 5
 
-         Length MUST be greater than 1.  This option MAY be used in
+         Length <em>MUST</em> be greater than 1.  This option <em>MAY</em> be used in
          client messages (Init and Echo Request messages).  A server
-         MUST NOT send this option, except that if it is present in an
-         Echo Request message, the server MUST echo it in replies (Echo
+         <em>MUST NOT</em> send this option, except that if it is present in an
+         Echo Request message, the server <em>MUST</em> echo it in replies (Echo
          Reply message) to the Echo Request.  This option contains a
          list of option types for options that the client is requesting
 
@@ -693,7 +693,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6450.html">RFC 6450</a>                 Multicast Ping Protocol           December 2011</span>
 
 
-         from the server.  Support for this option is OPTIONAL for both
+         from the server.  Support for this option is <em>OPTIONAL</em> for both
          clients and servers.  The length of this option will be a
          non-zero even number, since it contains one or more option
          types that are two octets each.  The format of the option value
@@ -708,11 +708,11 @@ Table of Contents
 
          This option might be used by the client to ask the server to
          include options like Server Timestamp or Server Information.  A
-         client MAY request Server Information in Init messages; it MUST
-         NOT request it in other messages.  A client MAY request a
-         Server Timestamp in Echo Request messages; it MUST NOT request
+         client <em>MAY</em> request Server Information in Init messages; it <em>MUST</em>
+         NOT request it in other messages.  A client <em>MAY</em> request a
+         Server Timestamp in Echo Request messages; it <em>MUST NOT</em> request
          it in other messages.  Subject to enforcing the above
-         restrictions, a server supporting this option SHOULD include
+         restrictions, a server supporting this option <em>SHOULD</em> include
          the requested options in responses (Echo Reply messages) to the
          Echo Request containing the Option Request option.  The server
          may, according to implementation or local configuration, not
@@ -722,17 +722,17 @@ Table of Contents
 
       Server Information, type 6
 
-         Length MUST be non-zero.  It MAY be used in Server Response
-         messages and MUST NOT be used in other messages.  Support for
-         this option is OPTIONAL.  A server supporting this option
-         SHOULD add it in Server Response messages if and only if
+         Length <em>MUST</em> be non-zero.  It <em>MAY</em> be used in Server Response
+         messages and <em>MUST NOT</em> be used in other messages.  Support for
+         this option is <em>OPTIONAL</em>.  A server supporting this option
+         <em>SHOULD</em> add it in Server Response messages if and only if
          requested by the client.  The value is a UTF-8 [<a href="./rfc3629.html" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">RFC3629</a>] string
          that might contain vendor and version information for the
          server implementation.  It may also contain information on
-         which options the server supports.  An interactive client MAY
-         support this option, and SHOULD then allow a user to request
+         which options the server supports.  An interactive client <em>MAY</em>
+         support this option, and <em>SHOULD</em> then allow a user to request
          this string and display it.  Although support for this is
-         OPTIONAL, we say that a server SHOULD return it if requested,
+         <em>OPTIONAL</em>, we say that a server <em>SHOULD</em> return it if requested,
          since this may be helpful to a user running the client.  It is,
          however, purely informational; it is not needed for the
          protocol to function.
@@ -753,46 +753,46 @@ Table of Contents
 
          This option code value was used by implementations of version 1
          of this protocol, and is not used in this version.  Servers
-         MUST treat it as an unknown option (not process it if received,
-         but if received in an Echo Request message, it MUST be echoed
+         <em>MUST</em> treat it as an unknown option (not process it if received,
+         but if received in an Echo Request message, it <em>MUST</em> be echoed
          in the Echo Reply message).
 
       Deprecated, type 8
 
          This option code value was used by implementations of version 1
          of this protocol, and is not used in this version.  Servers
-         MUST treat it as an unknown option (not process it if received,
-         but if received in an Echo Request message, it MUST be echoed
+         <em>MUST</em> treat it as an unknown option (not process it if received,
+         but if received in an Echo Request message, it <em>MUST</em> be echoed
          in the Echo Reply message).
 
       TTL, type 9
 
-         Length MUST be 1.  This option contains a single octet
+         Length <em>MUST</em> be 1.  This option contains a single octet
          specifying the TTL of an Echo Reply message.  Every time a
          server sends a unicast or multicast Echo Reply message, it
-         SHOULD include this option specifying the TTL.  This is used by
+         <em>SHOULD</em> include this option specifying the TTL.  This is used by
          clients to determine the number of hops the messages have
-         traversed.  It MUST NOT be used in other messages.  A server
-         SHOULD specify this option if it knows what the TTL of the Echo
+         traversed.  It <em>MUST NOT</em> be used in other messages.  A server
+         <em>SHOULD</em> specify this option if it knows what the TTL of the Echo
          Reply will be.  In general, the server can specify a specific
          TTL to the host stack.  Note that the TTL is not necessarily
          the same for unicast and multicast.  Also note that this option
-         SHOULD be included even when not requested by the client.  The
+         <em>SHOULD</em> be included even when not requested by the client.  The
          protocol will work even if this option is not included, but it
          limits what information a client can obtain.
 
          If the server did not include this TTL option, there is no
          reliable way for the client to know the initial TTL of the Echo
-         Reply, and therefore the client SHOULD NOT attempt to calculate
+         Reply, and therefore the client <em>SHOULD NOT</em> attempt to calculate
          the number of hops the message has traversed.
 
       Multicast Prefix, type 10
 
-         Length MUST be greater than 2.  It MAY be used in Init messages
-         to request a group within the prefix(es), and it MAY be used in
+         Length <em>MUST</em> be greater than 2.  It <em>MAY</em> be used in Init messages
+         to request a group within the prefix(es), and it <em>MAY</em> be used in
          Server Response messages to tell the client from what
-         prefix(es) it may try to obtain a group.  It MUST NOT be used
-         in Echo Request/Reply messages.  Note that this option MAY be
+         prefix(es) it may try to obtain a group.  It <em>MUST NOT</em> be used
+         in Echo Request/Reply messages.  Note that this option <em>MAY</em> be
          included multiple times to specify multiple prefixes.
 
 
@@ -821,30 +821,30 @@ Table of Contents
          octets to cover the prefix length bits (i.e., the group address
          would have to be 3 octets long if the prefix length is 17-24,
          and there need be no group address for the wildcard with prefix
-         length 0).  Any bits past the prefix length MUST be ignored.
+         length 0).  Any bits past the prefix length <em>MUST</em> be ignored.
          For IPv4, the option value length will be 4-7, while for IPv6,
          it will be 4-19, and for the wildcard, it will be 3.
 
       Session ID, type 11
 
-         Length MUST be 4 or larger.  A server SHOULD include this in
+         Length <em>MUST</em> be 4 or larger.  A server <em>SHOULD</em> include this in
          Server Response messages.  If a client receives this option in
-         a message, the client MUST echo the Session ID option in
+         a message, the client <em>MUST</em> echo the Session ID option in
          subsequent Echo Request messages, with the exact same value.
          The Session ID may help the server in keeping track of clients
          and possibly manage per-client state.  The value of a new
-         Session ID SHOULD be a pseudo-random byte string that is hard
-         to predict; see [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  The string MUST be at least 4 bytes
+         Session ID <em>SHOULD</em> be a pseudo-random byte string that is hard
+         to predict; see [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  The string <em>MUST</em> be at least 4 bytes
          long.  The Session ID can be used to mitigate spoofing of the
          source address of Echo Request messages.  We say that this
-         option SHOULD be used, because it is important for security
+         option <em>SHOULD</em> be used, because it is important for security
          reasons.  There may, however, be environments where this is not
          required.  See <a href="#section-8">Section 8</a>, "Security Considerations", for
          details.
 
       Server Timestamp, type 12
 
-         Length MUST be 8 bytes.  A server supporting this option SHOULD
+         Length <em>MUST</em> be 8 bytes.  A server supporting this option <em>SHOULD</em>
          include it in Echo Reply messages, if requested by the client.
          The timestamp specifies the time when the Echo Reply message is
          sent.  The first 4 bytes specify the number of seconds since
@@ -900,9 +900,9 @@ Table of Contents
          This message is sent by a client to request information from a
          server.  It is mainly used for requesting a group address, but
          it may also be used to check which group prefixes the server
-         may provide groups from, or other server information.  It MUST
-         include a Version option, and SHOULD include a Client ID.  It
-         MAY include Option Request and Multicast Prefix options.  This
+         may provide groups from, or other server information.  It <em>MUST</em>
+         include a Version option, and <em>SHOULD</em> include a Client ID.  It
+         <em>MAY</em> include Option Request and Multicast Prefix options.  This
          message is a request for a group address if and only if it
          contains Multicast Prefix options.  If multiple Prefix options
          are included, they should be in prioritised order.  That is,
@@ -925,21 +925,21 @@ Table of Contents
          requested by the client), or it may provide other server
          information.  In response to an Echo Request, the message tells
          the client to stop sending Echo Request messages.  The Version
-         option MUST always be included.  Client ID and Sequence Number
+         option <em>MUST</em> always be included.  Client ID and Sequence Number
          options are echoed if present in the client message.  When
          providing a group to the client, it includes a Multicast Group
-         option.  It SHOULD include Server Information and Prefix
-         options if requested.  It SHOULD also include the Session ID
+         option.  It <em>SHOULD</em> include Server Information and Prefix
+         options if requested.  It <em>SHOULD</em> also include the Session ID
          option.
 
       Echo Request, type 81
 
          This message is sent by a client, asking the server to send
-         unicast and multicast Echo Reply messages.  It MUST include
+         unicast and multicast Echo Reply messages.  It <em>MUST</em> include
          Version, Sequence Number, and Multicast Group options.  If a
          Session ID was received in a Server Response message, then the
-         Session ID MUST be included.  It SHOULD include Client ID and
-         Client Timestamp options.  It MAY include an Option Request
+         Session ID <em>MUST</em> be included.  It <em>SHOULD</em> include Client ID and
+         Client Timestamp options.  It <em>MAY</em> include an Option Request
          option.
 
       Echo Reply, type 65
@@ -950,9 +950,9 @@ Table of Contents
          the same.  The server always echoes all of the options (but
          never the Session ID) from the Echo Request.  Any options in
          the Echo Request that are unsupported by the server are also to
-         be echoed.  The two Echo Reply messages SHOULD both always
+         be echoed.  The two Echo Reply messages <em>SHOULD</em> both always
          contain a TTL option (not necessarily equal).  When requested,
-         both Echo Reply messages SHOULD also contain Server Timestamps
+         both Echo Reply messages <em>SHOULD</em> also contain Server Timestamps
          (not necessarily equal).
 
 
@@ -978,46 +978,46 @@ Table of Contents
           \  Message Type    |  Init  |  Server  |  Echo   |  Echo  |
    Option  \                 |        | Response | Request | Reply  |
    ----------------------   -+--------+----------+---------+--------+
-   Version (0)               |  MUST  |   MUST   |  MUST   |  ECHO  |
-   Client ID (1)             | SHOULD |   ECHO   | SHOULD  |  ECHO  |
-   Sequence Number (2)       |  NOT   |   ECHO   |  MUST   |  ECHO  |
-   Client Timestamp (3)      |  NOT   |   NOT    | SHOULD  |  ECHO  |
-   Multicast Group (4)       |  NOT   |   MAY    |  MUST   |  ECHO  |
-   Option Request (5)        |  MAY   |   NOT    |  MAY    |  ECHO  |
+   Version (0)               |  <em>MUST</em>  |   <em>MUST</em>   |  <em>MUST</em>   |  ECHO  |
+   Client ID (1)             | <em>SHOULD</em> |   ECHO   | <em>SHOULD</em>  |  ECHO  |
+   Sequence Number (2)       |  NOT   |   ECHO   |  <em>MUST</em>   |  ECHO  |
+   Client Timestamp (3)      |  NOT   |   NOT    | <em>SHOULD</em>  |  ECHO  |
+   Multicast Group (4)       |  NOT   |   <em>MAY</em>    |  <em>MUST</em>   |  ECHO  |
+   Option Request (5)        |  <em>MAY</em>   |   NOT    |  <em>MAY</em>    |  ECHO  |
    Server Information (6)    |  NOT   |    RQ    |  NOT    |  NOT   |
    Deprecated (7)            |  NOT   |   NOT    |  NOT    |  ECHO  |
    Deprecated (8)            |  NOT   |   NOT    |  NOT    |  ECHO  |
-   TTL (9)                   |  NOT   |   NOT    |  NOT    | SHOULD |
-   Multicast Prefix (10)     |  MAY   |   MAY    |  NOT    |  NOT   |
-   Session ID (11)           |  NOT   |  SHOULD  |  ECHO   |  NOT   |
+   TTL (9)                   |  NOT   |   NOT    |  NOT    | <em>SHOULD</em> |
+   Multicast Prefix (10)     |  <em>MAY</em>   |   <em>MAY</em>    |  NOT    |  NOT   |
+   Session ID (11)           |  NOT   |  <em>SHOULD</em>  |  ECHO   |  NOT   |
    Server Timestamp (12)     |  NOT   |   NOT    |  NOT    |   RQ   |
    ----------------------   -+--------+----------+---------+--------+
 
-   "NOT" means that the option MUST NOT be included.  "ECHO" for a
+   "NOT" means that the option <em>MUST NOT</em> be included.  "ECHO" for a
    server means that if the option is specified by the client, then the
-   server MUST echo the option in the response, with the exact same
+   server <em>MUST</em> echo the option in the response, with the exact same
    option value.  ECHO for a client only applies to the Session ID
-   option.  If it is present in the Server Response, then it MUST be
+   option.  If it is present in the Server Response, then it <em>MUST</em> be
    present with the exact same option value in the following Echo
-   Request messages.  "RQ" means that the server SHOULD include the
+   Request messages.  "RQ" means that the server <em>SHOULD</em> include the
    option in the response, when requested by the client using the Option
    Request option.
 
 <span class="h3"><a class="selflink" name="section-3.5" href="#section-3.5">3.5</a>.  Rate Limiting</span>
 
-   Clients MUST by default send at most Default-Client-Request-Rate
+   Clients <em>MUST</em> by default send at most Default-Client-Request-Rate
    (<a href="#section-3.5.1">Section 3.5.1</a>) Echo Request messages per second.  Note that the
-   value can be less than 1.  Servers MUST by default perform rate
+   value can be less than 1.  Servers <em>MUST</em> by default perform rate
    limiting, to guard against this protocol being used for denial-of-
-   service (DoS) attacks.  A server MUST by default limit the number of
+   service (DoS) attacks.  A server <em>MUST</em> by default limit the number of
    clients that can be served at the same time, and for a given client,
-   a server MUST also by default respond to, on average, at most
+   a server <em>MUST</em> also by default respond to, on average, at most
    Default-Server-Rate-Limit (see <a href="#section-3.5.1">Section 3.5.1</a>) Echo Request messages
    per second.  Note that the value can be less than 1.  Server
    implementations should provide configuration options allowing certain
    clients to perform more rapid rates of Echo Request messages.  If
    higher rates are allowed for specific client IP addresses, then Init
-   messages and the Session ID option MUST be used to help mitigate
+   messages and the Session ID option <em>MUST</em> be used to help mitigate
    spoofing.
 
 
@@ -1029,7 +1029,7 @@ Table of Contents
 <span class="grey"><a href="./rfc6450.html">RFC 6450</a>                 Multicast Ping Protocol           December 2011</span>
 
 
-   Implementers of applications/tools using this protocol SHOULD
+   Implementers of applications/tools using this protocol <em>SHOULD</em>
    consider the UDP guidelines [<a href="./rfc5405.html" title="&quot;Unicast UDP Usage Guidelines for Application Designers&quot;">RFC5405</a>], in particular if clients are
    to send, or servers are to accept, Echo Request messages at rates
    exceeding the defaults given in this document.  See <a href="#section-8">Section 8</a>,
@@ -1045,7 +1045,7 @@ Table of Contents
          This variable defines the default client echo request rate,
          specifying the number of requests per second.  Note that the
          value may be less than one.  For example, a value of 0.1 means
-         one packet per 10 seconds.  The value 1 is RECOMMENDED, but the
+         one packet per 10 seconds.  The value 1 is <em>RECOMMENDED</em>, but the
          value might be too small or large, depending on the type of
          network in which the client is deployed.  The value 1 is chosen
          because it should be safe in most deployments, and it is
@@ -1056,14 +1056,14 @@ Table of Contents
 
          This variable defines the default per-client rate limit
          that a server uses for responding to Echo Request messages.
-         The average rate of replies MUST NOT exceed
+         The average rate of replies <em>MUST NOT</em> exceed
          Default-Server-Rate-Limit per second.  Note that the value may
          be less than one.  For example, a value of 0.1 means an average
-         of one packet per 10 seconds.  The value 1 is RECOMMENDED, but
+         of one packet per 10 seconds.  The value 1 is <em>RECOMMENDED</em>, but
          the value might be too small or large, depending on the type of
          network in which the client is deployed.  The value 1 is chosen
          because it should be safe in most deployments.  This value
-         SHOULD be high enough to accept the value chosen for the
+         <em>SHOULD</em> be high enough to accept the value chosen for the
          Default-Client-Request-Rate.
 
 <span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Client Behaviour</span>
@@ -1263,7 +1263,7 @@ Table of Contents
    range 0-255.  Message types 0-253 are registered following the
    procedures for Specification Required from <a href="./rfc5226.html">RFC 5226</a> [<a href="./rfc5226.html" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>], while
    types 254 and 255 are for experimental use.  The registry includes
-   the messages defined in <a href="#section-3.4">Section 3.4</a>.  A message specification MUST
+   the messages defined in <a href="#section-3.4">Section 3.4</a>.  A message specification <em>MUST</em>
    describe the behaviour with known option types as well as the default
    behaviour with unknown option types.
 
@@ -1352,8 +1352,8 @@ Table of Contents
    restrict which groups a server responds to.  The administrator should
    then try to configure a set of groups that are not used for other
    purposes.  Another concern is bandwidth.  To limit the bandwidth
-   used, a server MUST by default limit the number of clients that can
-   be served at the same time, and a server MUST also by default perform
+   used, a server <em>MUST</em> by default limit the number of clients that can
+   be served at the same time, and a server <em>MUST</em> also by default perform
    per-client rate limiting.
 
 
@@ -1365,10 +1365,10 @@ Table of Contents
 <span class="grey"><a href="./rfc6450.html">RFC 6450</a>                 Multicast Ping Protocol           December 2011</span>
 
 
-   In order to help mitigate spoofing, a server SHOULD require that the
+   In order to help mitigate spoofing, a server <em>SHOULD</em> require that the
    client send an Init message, and return an unpredictable Session ID
    in the response.  The ID should be associated with the IP address and
-   have a limited lifetime.  The server SHOULD then only respond to Echo
+   have a limited lifetime.  The server <em>SHOULD</em> then only respond to Echo
    Request messages that have a valid Session ID associated with the
    source IP address of the Echo Request.  Note, however, that a server
    is replying with a Server Response message if the Session ID is

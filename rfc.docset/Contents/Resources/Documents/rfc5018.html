@@ -274,8 +274,8 @@ Table of Contents
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
 
 <span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  TCP Connection Establishment</span>
@@ -300,13 +300,13 @@ Table of Contents
 
 
    If the client is provided with the floor control server's host name
-   instead of with its IP address, the client MUST perform a DNS lookup
+   instead of with its IP address, the client <em>MUST</em> perform a DNS lookup
    in order to resolve the host name into an IP address.  Clients
    eventually perform an A or AAAA DNS lookup (or both) on the host
    name.
 
    In order to translate the target to the corresponding set of IP
-   addresses, IPv6-only or dual-stack clients MUST use name resolution
+   addresses, IPv6-only or dual-stack clients <em>MUST</em> use name resolution
    functions that implement the Source and Destination Address Selection
    algorithms specified in [<a href="./rfc3484.html" title="&quot;Default Address Selection for Internet Protocol version 6 (IPv6)&quot;">RFC3484</a>].  (On many hosts that support IPv6,
    APIs like getaddrinfo() provide this functionality and subsume
@@ -337,10 +337,10 @@ Table of Contents
    how the connection was established in the first place.
 
    When the existing TCP connection is closed following the rules in
-   [<a href="./rfc4582.html" title="&quot;The Binary Floor Control Protocol (BFCP)&quot;">RFC4582</a>], the client SHOULD reestablish the connection towards the
+   [<a href="./rfc4582.html" title="&quot;The Binary Floor Control Protocol (BFCP)&quot;">RFC4582</a>], the client <em>SHOULD</em> reestablish the connection towards the
    floor control server.  If a TCP connection cannot deliver a BFCP
    message from the client to the floor control server and times out,
-   the client SHOULD reestablish the TCP connection.
+   the client <em>SHOULD</em> reestablish the TCP connection.
 
 
 
@@ -360,10 +360,10 @@ Table of Contents
    [<a name="ref-RFC4582" id="ref-RFC4582">RFC4582</a>] requires that all BFCP entities implement TLS [<a href="./rfc4346.html" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.1&quot;">RFC4346</a>] and
    recommends that they use it in all their connections.  TLS provides
    integrity and replay protection, and optional confidentiality.  The
-   floor control server MUST always act as the TLS server.
+   floor control server <em>MUST</em> always act as the TLS server.
 
    A floor control server that receives a BFCP message over TCP (no TLS)
-   SHOULD request the use of TLS by generating an Error message with an
+   <em>SHOULD</em> request the use of TLS by generating an Error message with an
    Error code with a value of 9 (Use TLS).
 
 <span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Authentication</span>
@@ -373,21 +373,21 @@ Table of Contents
 
 <span class="h3"><a class="selflink" name="section-5.1" href="#section-5.1">5.1</a>.  Certificate-Based Server Authentication</span>
 
-   At TLS connection establishment, the floor control server MUST
+   At TLS connection establishment, the floor control server <em>MUST</em>
    present its certificate to the client.  The certificate provided at
-   the TLS level MUST either be directly signed by one of the other
+   the TLS level <em>MUST</em> either be directly signed by one of the other
    party's trust anchors or be validated using a certification path that
    terminates at one of the other party's trust anchors [<a href="./rfc3280.html" title="&quot;Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile&quot;">RFC3280</a>].
 
    A client establishing a connection to a server knows the server's
    host name or IP address.  If the client knows the server's host name,
-   the client MUST check it against the server's identity as presented
+   the client <em>MUST</em> check it against the server's identity as presented
    in the server's Certificate message, in order to prevent man-in-the-
    middle attacks.
 
-   If a subjectAltName extension of type dNSName is present, that MUST
+   If a subjectAltName extension of type dNSName is present, that <em>MUST</em>
    be used as the identity.  Otherwise, the (most specific) Common Name
-   field in the Subject field of the certificate MUST be used.  Although
+   field in the Subject field of the certificate <em>MUST</em> be used.  Although
    the use of the Common Name is existing practice, it is deprecated and
    Certification Authorities are encouraged to use the subjectAltName
    instead.
@@ -417,13 +417,13 @@ Table of Contents
    match the IP address known to the client.
 
    If the host name or IP address known to the client does not match the
-   identity in the certificate, user-oriented clients MUST either notify
-   the user (clients MAY give the user the opportunity to continue with
+   identity in the certificate, user-oriented clients <em>MUST</em> either notify
+   the user (clients <em>MAY</em> give the user the opportunity to continue with
    the connection in any case) or terminate the connection with a bad
-   certificate error.  Automated clients MUST log the error to an
-   appropriate audit log (if available) and SHOULD terminate the
-   connection (with a bad certificate error).  Automated clients MAY
-   provide a configuration setting that disables this check, but MUST
+   certificate error.  Automated clients <em>MUST</em> log the error to an
+   appropriate audit log (if available) and <em>SHOULD</em> terminate the
+   connection (with a bad certificate error).  Automated clients <em>MAY</em>
+   provide a configuration setting that disables this check, but <em>MUST</em>
    provide a setting that enables it.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Client Authentication Based on a Pre-Shared Secret</span>
@@ -433,15 +433,15 @@ Table of Contents
 
    The BFCP specification mandates support for the
    TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite.  Additionally, clients and
-   servers supporting this specification MUST support the
+   servers supporting this specification <em>MUST</em> support the
    TLS_RSA_PSK_WITH_AES_128_CBC_SHA ciphersuite as well.
 
 <span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Security Considerations</span>
 
    Client and server authentication as specified in this document are
-   based on the use of TLS.  Therefore, it is strongly RECOMMENDED that
+   based on the use of TLS.  Therefore, it is strongly <em>RECOMMENDED</em> that
    TLS with non-null encryption is always used.  Clients and floor
-   control servers MAY use other security mechanisms as long as they
+   control servers <em>MAY</em> use other security mechanisms as long as they
    provide similar security properties (i.e., replay and integrity
    protection, confidentiality, and client and server authentication).
 
@@ -454,7 +454,7 @@ Table of Contents
    pair can then mount a dictionary attack on the password.  In modes
    without DHE or RSA, an attacker who can record communications between
    a client/server pair can mount a dictionary attack on the password.
-   Accordingly, it is RECOMMENDED that, where possible, clients use
+   Accordingly, it is <em>RECOMMENDED</em> that, where possible, clients use
    certificate-based server authentication ciphersuites with password-
    derived PSKs in order to defend against dictionary attacks.
 
@@ -467,19 +467,19 @@ Table of Contents
 <span class="grey"><a href="./rfc5018.html">RFC 5018</a>                          BFCP                    September 2007</span>
 
 
-   In addition, passwords SHOULD be chosen with enough entropy to
+   In addition, passwords <em>SHOULD</em> be chosen with enough entropy to
    provide some protection against dictionary attacks.  Because the
    entropy of text varies dramatically and is generally far less than
    that of an equivalent random bitstring, no hard and fast rules about
-   password length are possible.  However, in general passwords SHOULD
+   password length are possible.  However, in general passwords <em>SHOULD</em>
    be chosen to be at least 8 characters and selected from a pool
    containing both upper and lower case, numbers, and special keyboard
    characters (note that an 8-character ASCII password has a maximum
    entropy of 56 bits and in general far lower).  FIPS PUB 112 [<a href="#ref-PUB112" title="&quot;Password Usage&quot;">PUB112</a>]
    provides some guidance on the relevant issues.  If possible,
-   passphrases are preferable to passwords.  It is RECOMMENDED that
+   passphrases are preferable to passwords.  It is <em>RECOMMENDED</em> that
    implementations support, at minimum, 16-character passwords or
-   passphrases.  In addition, a cooperating client and server pair MAY
+   passphrases.  In addition, a cooperating client and server pair <em>MAY</em>
    choose to derive the TLS PSK shared key from the passphrase via a
    password-based key derivation function such as PBKDF2 [<a href="./rfc2898.html" title="&quot;PKCS #5: Password-Based Cryptography Specification Version 2.0&quot;">RFC2898</a>].
    Because such key derivation functions may incorporate iteration
@@ -490,8 +490,8 @@ Table of Contents
    When the keys are randomly generated and of sufficient length,
    dictionary attacks are not effective because such keys are highly
    unlikely to be in the attacker's dictionary.  Where possible, keys
-   SHOULD be generated using a strong random number generator as
-   specified in [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  A minimum key length of 80 bits SHOULD be
+   <em>SHOULD</em> be generated using a strong random number generator as
+   specified in [<a href="./rfc4086.html" title="&quot;Randomness Requirements for Security&quot;">RFC4086</a>].  A minimum key length of 80 bits <em>SHOULD</em> be
    used.
 
    The remainder of this section analyzes some of the threats against
@@ -526,7 +526,7 @@ Table of Contents
    Attackers may attempt to pick messages from the network to get access
    to confidential information between the floor control server and a
    client (e.g., why a floor request was denied).  TLS confidentiality
-   prevents this attack.  Therefore, it is RECOMMENDED that TLS is used
+   prevents this attack.  Therefore, it is <em>RECOMMENDED</em> that TLS is used
    with a non-null encryption algorithm.
 
 <span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Acknowledgments</span>

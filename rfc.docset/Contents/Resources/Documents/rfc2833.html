@@ -268,9 +268,9 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a> Terminology</span>
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>] and
+   In this document, the key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>",
+   "<em>SHALL</em>", "<em>SHALL NOT</em>", "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>",
+   and "<em>OPTIONAL</em>" are to be interpreted as described in <a href="./rfc2119.html">RFC 2119</a> [<a href="#ref-2" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">2</a>] and
    indicate requirement levels for compliant implementations.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a> Events vs. Tones</span>
@@ -332,14 +332,14 @@ Abstract
    switch, triggered by the appropriate ISUP message, for analog
    instruments, or the ISDN terminal.
 
-   Gateways which send signaling events via RTP MAY send both named
+   Gateways which send signaling events via RTP <em>MAY</em> send both named
    signals (<a href="#section-3">Section 3</a>) and the tone representation (<a href="#section-4">Section 4</a>) as a
    single RTP session, using the redundancy mechanism defined in <a href="#section-3.7">Section</a>
    <a href="#section-3.7">3.7</a> to interleave the two representations. It is generally a good
    idea to send both, since it allows the receiver to choose the
    appropriate rendering.
 
-   If a gateway cannot present a tone representation, it SHOULD send the
+   If a gateway cannot present a tone representation, it <em>SHOULD</em> send the
    audio tones as regular RTP audio packets (e.g., as payload format
    PCMU), in addition to the named signals.
 
@@ -370,7 +370,7 @@ Abstract
    receiver.
 
    DTMF digits and named telephone events are carried as part of the
-   audio stream, and MUST use the same sequence number and time-stamp
+   audio stream, and <em>MUST</em> use the same sequence number and time-stamp
    base as the regular audio channel to simplify the generation of audio
    waveforms at a gateway. The default clock frequency is 8,000 Hz, but
    the clock frequency can be redefined when assigning the dynamic
@@ -396,9 +396,9 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.2" href="#section-3.2">3.2</a> Simultaneous Generation of Audio and Events</span>
 
-   A source MAY send events and coded audio packets for the same time
+   A source <em>MAY</em> send events and coded audio packets for the same time
    instants, using events as the redundant encoding for the audio
-   stream, or it MAY block outgoing audio while event tones are active
+   stream, or it <em>MAY</em> block outgoing audio while event tones are active
    and only send named events as both the primary and redundant
    encodings.
 
@@ -415,7 +415,7 @@ Abstract
    occur at the onset of a tone and is necessary to avoid possible
    errors in the interpretation of the reproduced tone at the remote
    end.  Implementations supporting this payload format must be prepared
-   to handle the overlap. It is RECOMMENDED that gateways only render
+   to handle the overlap. It is <em>RECOMMENDED</em> that gateways only render
    the encoded tone since the audio may contain spurious tones
    introduced by the audio compression algorithm. However, it is
    anticipated that these extra tones in general should not interfere
@@ -435,7 +435,7 @@ Abstract
 
       o  trunk events (<a href="#section-3.14">Section 3.14</a>).
 
-   A compliant implementation MUST support the events listed in Table 1
+   A compliant implementation <em>MUST</em> support the events listed in Table 1
    with the exception of "flash". If it uses some other, out-of-band
    mechanism for signaling line conditions, it does not have to
    implement the other events.
@@ -446,7 +446,7 @@ Abstract
    SDP "fmtp" parameter within an SDP description to indicate its
    inability to understand a particular event or range of events.
 
-   Depending on the available user interfaces, an implementation MAY
+   Depending on the available user interfaces, an implementation <em>MAY</em>
    render all tones in Table 5 the same or, preferably, use the tones
    conveyed by the concurrent "tone" payload or other RTP audio payload.
    Alternatively, it could provide a textual representation.
@@ -534,12 +534,12 @@ Abstract
            packet contains the end of the event. Thus, the duration
            parameter above measures the complete duration of the event.
 
-           A sender MAY delay setting the end bit until retransmitting
+           A sender <em>MAY</em> delay setting the end bit until retransmitting
            the last packet for a tone, rather than on its first
            transmission. This avoids having to wait to detect whether
            the tone has indeed ended.
 
-           Receiver implementations MAY use different algorithms to
+           Receiver implementations <em>MAY</em> use different algorithms to
            create tones, including the two described here. In the first,
            the receiver simply places a tone of the given duration in
            the audio playout buffer at the location indicated by the
@@ -557,12 +557,12 @@ Abstract
            retransmissions of the last packet in an event are lost.
            Limiting the time period of extending the tone is necessary
            to avoid that a tone "gets stuck". Regardless of the
-           algorithm used, the tone SHOULD NOT be extended by more than
+           algorithm used, the tone <em>SHOULD NOT</em> be extended by more than
            three packet interarrival times. A slight extension of tone
            durations and shortening of pauses is generally harmless.
 
-      R: This field is reserved for future use. The sender MUST set it
-           to zero, the receiver MUST ignore it.
+      R: This field is reserved for future use. The sender <em>MUST</em> set it
+           to zero, the receiver <em>MUST</em> ignore it.
 
 
 
@@ -580,7 +580,7 @@ Abstract
 
 <span class="h3"><a class="selflink" name="section-3.6" href="#section-3.6">3.6</a> Sending Event Packets</span>
 
-   An audio source SHOULD start transmitting event packets as soon as it
+   An audio source <em>SHOULD</em> start transmitting event packets as soon as it
    recognizes an event and every 50 ms thereafter or the packet interval
    for the audio codec used for this session, if known. (The sender does
    not need to maintain precise time intervals between event packets in
@@ -596,7 +596,7 @@ Abstract
    value corresponding to the beginning of the event and the duration of
    the event increased correspondingly. (The RTP sequence number is
    incremented by one for each packet.) If there has been no new event
-   in the last interval, the event SHOULD be retransmitted three times
+   in the last interval, the event <em>SHOULD</em> be retransmitted three times
    or until the next event is recognized. This ensures that the duration
    of the event can be recognized correctly even if the last packet for
    an event is lost.
@@ -618,7 +618,7 @@ Abstract
    a packet gap of 50 ms, two packets in a row can get lost without
    causing a gap in the tones generated at the receiver.
 
-   The audio redundancy mechanism described in <a href="./rfc2198.html">RFC 2198</a> [<a href="#ref-6" title="&quot;RTP Payload for Redundant Audio Data&quot;">6</a>] MAY be used
+   The audio redundancy mechanism described in <a href="./rfc2198.html">RFC 2198</a> [<a href="#ref-6" title="&quot;RTP Payload for Redundant Audio Data&quot;">6</a>] <em>MAY</em> be used
    to recover from packet loss across events. The effective data rate is
    r times 64 bits (32 bits for the redundancy header and 32 bits for
    the telephone-event payload) every 50 ms or r times 1280 bits/second,
@@ -643,7 +643,7 @@ Abstract
       or r digits, whichever is less. Note that for previous digits,
       only an average loudness can be represented.
 
-   An encoder MAY treat the event payload as a highly-compressed version
+   An encoder <em>MAY</em> treat the event payload as a highly-compressed version
    of the current audio frame. In that mode, each RTP packet during an
    event would contain the current audio codec rendition (say, G.723.1
    or G.729) of this digit as well as the representation described in
@@ -725,7 +725,7 @@ Abstract
 
           Figure 2: Example RTP packet after dialing "911"
 
-   Receivers MAY indicate which named events they can handle, for
+   Receivers <em>MAY</em> indicate which named events they can handle, for
    example, by using the Session Description Protocol (<a href="./rfc2327.html">RFC 2327</a> [<a href="#ref-7" title="&quot;SDP: Session Description Protocol&quot;">7</a>]).
    The payload formats use the following fmtp format to list the event
    values that they can receive:
@@ -753,8 +753,8 @@ Abstract
 
    a=fmtp:100 0-15,66,70
 
-   Since all implementations MUST be able to receive events 0 through
-   15, listing these events in the a=fmtp line is OPTIONAL.
+   Since all implementations <em>MUST</em> be able to receive events 0 through
+   15, listing these events in the a=fmtp line is <em>OPTIONAL</em>.
 
    The corresponding MIME parameter is "events", so that the following
    sample media type definition corresponds to the SDP example above:
@@ -1170,7 +1170,7 @@ Abstract
            are sent per frame.
 
            Since this information is a state rather than a changing
-           signal, implementations SHOULD use the following triple-
+           signal, implementations <em>SHOULD</em> use the following triple-
            redundancy mechanism, similar to the one specified in ITU-T
            Rec. I.366.2 [<a href="#ref-16" title="&quot;AAL type 2 service specific convergence sublayer for trunking,&quot;">16</a>], Annex L. At the time of a transition, the
            same ABCD information is sent 3 times at an interval of 5 ms.
@@ -1422,8 +1422,8 @@ Abstract
            indicates silence. A single tone can contain any number of
            frequencies.
 
-      R: This field is reserved for future use. The sender MUST set it
-           to zero, the receiver MUST ignore it.
+      R: This field is reserved for future use. The sender <em>MUST</em> set it
+           to zero, the receiver <em>MUST</em> ignore it.
 
 <span class="h3"><a class="selflink" name="section-4.5" href="#section-4.5">4.5</a> Reliability</span>
 
@@ -1518,7 +1518,7 @@ Abstract
            single integer or two integers separated by a hyphen.  No
            white space is allowed in the argument. The integers
            designate the event numbers supported by the implementation.
-           All implementations MUST support events 0 through 15, so that
+           All implementations <em>MUST</em> support events 0 through 15, so that
            the parameter can be omitted if the implementation only
            supports these events.
 
@@ -1626,7 +1626,7 @@ Abstract
    event and tone, and associated Internet media (MIME) types,
    audio/telephone-event and audio/tone.
 
-   Within the audio/telephone-event type, additional events MUST be
+   Within the audio/telephone-event type, additional events <em>MUST</em> be
    registered with IANA. Registrations are subject to approval by the
    current chair of the IETF audio/video transport working group, or by
    an expert designated by the transport area director if the AVT group
@@ -1642,7 +1642,7 @@ Abstract
 <span class="grey"><a href="./rfc2833.html">RFC 2833</a>                         Tones                          May 2000</span>
 
 
-   The meaning of new events MUST be documented either as an RFC or an
+   The meaning of new events <em>MUST</em> be documented either as an RFC or an
    equivalent standards document produced by another standardization
    body, such as ITU-T.
 

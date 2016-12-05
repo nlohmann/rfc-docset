@@ -327,15 +327,15 @@ Table of Contents
    from sites where only the DHCP servers have been given credentials
    that the DNS servers will accept, to sites where each individual DHCP
    client has been configured with credentials that allow the client to
-   modify its own FQDN.  Compliant implementations MAY support some or
+   modify its own FQDN.  Compliant implementations <em>MAY</em> support some or
    all of these possibilities.  Furthermore, this specification applies
    only to DHCP client and server processes; it does not apply to other
    processes that initiate DNS updates.
 
 <span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   The key words "<em>MUST</em>", "<em>MUST NOT</em>", "<em>REQUIRED</em>", "<em>SHALL</em>", "<em>SHALL NOT</em>",
+   "<em>SHOULD</em>", "<em>SHOULD NOT</em>", "<em>RECOMMENDED</em>", "<em>MAY</em>", and "<em>OPTIONAL</em>" in this
    document are to be interpreted as described in [<a href="#ref-1" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">1</a>].
 
    This document assumes familiarity with DNS terminology defined in [<a href="#ref-6" title="&quot;Domain names - implementation and specification&quot;">6</a>]
@@ -500,12 +500,12 @@ Table of Contents
 
    Certain RCODEs defined in [<a href="#ref-3" title="&quot;Dynamic Updates in the Domain Name System (DNS UPDATE)&quot;">3</a>] indicate that the destination DNS
    server cannot perform an update, i.e., FORMERR, SERVFAIL, REFUSED,
-   NOTIMP.  If one of these RCODEs is returned, the updater MUST
+   NOTIMP.  If one of these RCODEs is returned, the updater <em>MUST</em>
    terminate its update attempt.  Other RCODEs [<a href="#ref-13" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">13</a>] may indicate that
    there are problems with the key being used and may mean to try a
    different key, if available, or to terminate the operation.  Because
    some errors may indicate a misconfiguration of the updater or the DNS
-   server, the updater MAY attempt to signal to its administrator that
+   server, the updater <em>MAY</em> attempt to signal to its administrator that
    an error has occurred, e.g., through a log message.
 
 <span class="h3"><a class="selflink" name="section-5.2" href="#section-5.2">5.2</a>.  Dual IPv4/IPv6 Client Considerations</span>
@@ -519,7 +519,7 @@ Table of Contents
    contain A and AAAA RRs from the same client.
 
    Sites that wish to permit a single FQDN to contain both A and AAAA
-   RRs MUST make use of DHCPv4 clients and servers that support using
+   RRs <em>MUST</em> make use of DHCPv4 clients and servers that support using
    the DHCP Unique Identifier (DUID) for DHCPv4 client identifiers such
 
 
@@ -540,7 +540,7 @@ Table of Contents
    When a DHCP client or server intends to update A and/or AAAA RRs, it
    starts with the UPDATE request in <a href="#section-5.3.1">Section 5.3.1</a>.
 
-   As the update sequence below can result in loops, implementers SHOULD
+   As the update sequence below can result in loops, implementers <em>SHOULD</em>
    limit the total number of attempts for a single transaction.
 
 <span class="h4"><a class="selflink" name="section-5.3.1" href="#section-5.3.1">5.3.1</a>.  Initial DHCID RR Request</span>
@@ -559,7 +559,7 @@ Table of Contents
    conclude that the intended FQDN is in use and proceeds to
    <a href="#section-5.3.2">Section 5.3.2</a>.
 
-   If any other status is returned, the updater SHOULD NOT attempt an
+   If any other status is returned, the updater <em>SHOULD NOT</em> attempt an
    update (see <a href="#section-5.1">Section 5.1</a>).
 
 <span class="h4"><a class="selflink" name="section-5.3.2" href="#section-5.3.2">5.3.2</a>.  DNS UPDATE When FQDN in Use</span>
@@ -620,7 +620,7 @@ Table of Contents
 <span class="h4"><a class="selflink" name="section-5.3.3" href="#section-5.3.3">5.3.3</a>.  FQDN in Use by Another Client</span>
 
    As the FQDN appears to be in use by another client or is not
-   associated with any client, the updater SHOULD either choose another
+   associated with any client, the updater <em>SHOULD</em> either choose another
    FQDN and restart the update process with this new FQDN or terminate
    the update with a failure.
 
@@ -641,7 +641,7 @@ Table of Contents
 <span class="grey"><a href="./rfc4703.html">RFC 4703</a>              Resolution of FQDN Conflicts          October 2006</span>
 
 
-   server MAY also add a DHCID RR as specified in <a href="#section-4">Section 4</a>, in which
+   server <em>MAY</em> also add a DHCID RR as specified in <a href="#section-4">Section 4</a>, in which
    case it would include a delete of all of the DHCID RRs associated
    with the client's assigned IP address and would add a DHCID RR for
    the client.
@@ -659,14 +659,14 @@ Table of Contents
 
    When an address' lease time or valid lifetime expires or a DHCP
    client issues a DHCPRELEASE [<a href="#ref-4" title="&quot;Dynamic Host Configuration Protocol&quot;">4</a>] or Release [<a href="#ref-5" title="&quot;Dynamic Host Configuration Protocol for IPv6 (DHCPv6)&quot;">5</a>] request, the DHCP
-   server SHOULD delete the PTR RR that matches the DHCP binding, if one
-   was successfully added.  The server's UPDATE request SHOULD assert
+   server <em>SHOULD</em> delete the PTR RR that matches the DHCP binding, if one
+   was successfully added.  The server's UPDATE request <em>SHOULD</em> assert
    that the domain name (PTRDNAME field) in the PTR record matches the
    FQDN of the client whose address has expired or been released and
    should delete all RRs for the FQDN.
 
    The entity chosen to handle the A or AAAA records for this client
-   (either the client or the server) SHOULD delete the A or AAAA records
+   (either the client or the server) <em>SHOULD</em> delete the A or AAAA records
    that were added when the address was assigned to the client.
    However, the updater should only remove the DHCID RR if there are no
    A or AAAA RRs remaining for the client.
@@ -684,7 +684,7 @@ Table of Contents
    <a href="#section-4">Section 4</a>.  The second prerequisite asserts that there are no A RRs.
    The third prerequisite asserts that there are no AAAA RRs.
 
-   If either request fails, the updater MUST NOT delete the FQDN.  It
+   If either request fails, the updater <em>MUST NOT</em> delete the FQDN.  It
    may be that the client whose address has expired has moved to another
    network and obtained an address from a different server, which has
    caused the client's A or AAAA RR to be replaced.  Or, the DNS data
@@ -707,7 +707,7 @@ Table of Contents
 
    Administrators should be wary of permitting unsecured DNS updates to
    zones, whether or not they are exposed to the global Internet.  Both
-   DHCP clients and servers SHOULD use some form of update request
+   DHCP clients and servers <em>SHOULD</em> use some form of update request
    authentication (e.g., TSIG [<a href="#ref-13" title="&quot;Secret Key Transaction Authentication for DNS (TSIG)&quot;">13</a>]) when performing DNS updates.
 
    Whether a DHCP client may be responsible for updating an FQDN-to-IP-
