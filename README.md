@@ -23,12 +23,10 @@ Just open file `rfc.docset` with Dash. There will be a new entry "RFC" in the do
 The docset can be built from scratch as follows
 
 ```sh
-# remove current docset
-rm -fr rfc.docset
 # download RFCs
-make -C html -j10
+make download -j10
 # recreate the docset
-./create_docset.py
+make rfc.docset
 ```
 
 ## License
