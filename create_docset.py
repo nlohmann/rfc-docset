@@ -4,8 +4,10 @@ import json
 import sqlite3
 import os
 import glob
-import shutil
 import re
+from bs4 import BeautifulSoup
+import lxml
+import urllib
 
 def prepare_docset():
     os.makedirs('rfc.docset/Contents/Resources/Documents')
@@ -24,27 +26,10 @@ def prepare_docset():
     <true/>
     <key>DashDocSetFallbackURL</key>
     <string>https://tools.ietf.org/html/</string>
+    <key>DashDocSetFamily</key>
+    <string>dashtoc</string>
 </dict>
 </plist>''')
-
-def copy_rfcs():
-    for rfc_file in glob.glob('html/*.html'):
-        print 'processing %s...' % rfc_file
-        rfc_original = open(rfc_file)
-        rfc_output = open('rfc.docset/Contents/Resources/Documents/%s' % os.path.basename(rfc_file), 'w')
-        for l in rfc_original.readlines():
-            l = re.sub(r'href="./([^"#]+)', r'href="./\1.html', l)
-            l = re.sub(r'MUST', '<em>MUST</em>', l)
-            l = re.sub(r'<em>MUST</em> NOT', '<em>MUST NOT</em>', l)
-            l = re.sub(r'SHALL', '<em>SHALL</em>', l)
-            l = re.sub(r'<em>SHALL</em> NOT', '<em>SHALL NOT</em>', l)
-            l = re.sub(r'SHOULD', '<em>SHOULD</em>', l)
-            l = re.sub(r'<em>SHOULD</em> NOT', '<em>SHOULD NOT</em>', l)
-            l = re.sub(r'RECOMMENDED', '<em>RECOMMENDED</em>', l)
-            l = re.sub(r'MAY', '<em>MAY</em>', l)
-            l = re.sub(r'OPTIONAL', '<em>OPTIONAL</em>', l)
-            l = re.sub(r'REQUIRED', '<em>REQUIRED</em>', l)
-            rfc_output.write(l)
 
 def create_index():
     conn = sqlite3.connect('rfc.docset/Contents/Resources/docSet.dsidx')
@@ -57,23 +42,43 @@ def create_index():
     c.execute('''CREATE UNIQUE INDEX IF NOT EXISTS anchor ON searchIndex (name, type, path);''')
 
     # add RFCs
-    for rfc_file in glob.glob('rfc.docset/Contents/Resources/Documents/*.html'):
-        rfc_content = open(rfc_file).readlines()
+    for rfc_file in glob.glob('html/*.html'):
         rfc_filename_base = os.path.basename(rfc_file)
-        pattern = r'[^\n]*<title>([^\n]+)</title>[^\n]*'
-        title = None
-        for line in rfc_content:
-            m = re.match(pattern, line)
-            if m:
-                title = m.group(1)
-                break
+        print 'processing %s...' % rfc_filename_base
 
-        if title is not None:
+        # add database entry; use title
+        soup = BeautifulSoup(open(rfc_file), 'lxml')
+        try:
+            title = soup.title.string
             c.execute('''INSERT OR IGNORE INTO searchIndex(name, type, path) VALUES (?,?,?);''', (title, 'File', rfc_filename_base))
+        except AttributeError:
+            pass
+
+        # add dash anchor to headings
+        for span in soup.find_all('span'):
+            if len(set(span.get('class', [])).intersection(set(['h2', 'h3', 'h4', 'h5', 'h6']))) > 0:
+                span.insert(0, BeautifulSoup('<a name="//apple_ref/cpp/Shortcut/%s" class="dashAnchor"></a>' % urllib.quote(span.text.replace(u'\xa0', u' ')), 'lxml'))
+
+        content = str(soup)
+
+        # fix links
+        content = re.sub(r'href="./([^"#]+)', r'href="./\1.html', content)
+        # emphasize RFC2119 keywords
+        content = re.sub(r'MUST', '<em>MUST</em>', content)
+        content = re.sub(r'<em>MUST</em> NOT', '<em>MUST NOT</em>', content)
+        content = re.sub(r'SHALL', '<em>SHALL</em>', content)
+        content = re.sub(r'<em>SHALL</em> NOT', '<em>SHALL NOT</em>', content)
+        content = re.sub(r'SHOULD', '<em>SHOULD</em>', content)
+        content = re.sub(r'<em>SHOULD</em> NOT', '<em>SHOULD NOT</em>', content)
+        content = re.sub(r'RECOMMENDED', '<em>RECOMMENDED</em>', content)
+        content = re.sub(r'MAY', '<em>MAY</em>', content)
+        content = re.sub(r'OPTIONAL', '<em>OPTIONAL</em>', content)
+        content = re.sub(r'REQUIRED', '<em>REQUIRED</em>', content)
+
+        open('rfc.docset/Contents/Resources/Documents/' + rfc_filename_base, 'w').write(content)
 
     conn.commit()
 
 # scan index
 prepare_docset()
-copy_rfcs()
 create_index()
