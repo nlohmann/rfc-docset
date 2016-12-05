@@ -16,7 +16,11 @@ Within [Dash](https://kapeli.com/dash), the docset has the following features:
 
 ## Installation
 
-Just open file `rfc.docset` with Dash. There will be a new entry "RFC" in the documentation list. You can search for an RFC with the prefix `rfc:`.
+Click on [**this link**](dash-feed://https%3A%2F%2Fraw.githubusercontent.com%2Fnlohmann%2Frfc-docset%2Fmaster%2Frfc.xml) to subscribe to the RFC docset. Dash will oben the "Downloads" dialog with a new entry "RFC". Then press the "Download" button to download the docset. The docset will be updated automatically.
+
+There will be a new entry "RFC" in the documentation list. You can search for an RFC with the prefix `rfc:`.
+
+To install the file locally, just open folder `rfc.docset` with Dash.
 
 ## Update docset
 
