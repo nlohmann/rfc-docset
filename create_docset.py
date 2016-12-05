@@ -29,6 +29,7 @@ def prepare_docset():
 
 def copy_rfcs():
     for rfc_file in glob.glob('html/*.html'):
+        print 'processing %s...' % rfc_file
         rfc_original = open(rfc_file)
         rfc_output = open('rfc.docset/Contents/Resources/Documents/%s' % os.path.basename(rfc_file), 'w')
         for l in rfc_original.readlines():

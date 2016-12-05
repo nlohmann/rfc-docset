@@ -1,0 +1,3442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="creator" content="rfcmarkup version 1.120" />
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+
+    <link rel="icon" href="" type="image/png" />
+    <link rel="shortcut icon" href="" type="image/png" />
+    <title>BCP 127 - Network Address Translation (NAT) Behavioral Requirements for Unicast UDP</title>
+    
+    
+    <style type="text/css">
+	@media only screen 
+	  and (min-width: 992px)
+	  and (max-width: 1199px) {
+	    body { font-size: 14pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-width: 768px)
+	  and (max-width: 991px) {
+            body { font-size: 14pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-width: 480px)
+	  and (max-width: 767px) {
+            body { font-size: 11pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (max-width: 479px) {
+            body { font-size: 8pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-device-width : 375px) 
+	  and (max-device-width : 667px) {
+            body { font-size: 9.5pt; }
+            div.content { width: 96ex; margin: 0 1px; }
+        }
+	@media only screen 
+	  and (min-device-width: 1200px) {
+            body { font-size: 10pt; margin: 0 4em; }
+            div.content { width: 96ex; margin: 0; }
+        }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	    font-weight: bold;
+            line-height: 0pt;
+            display: inline;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 1em;
+	    font-weight: bold;
+        }
+        pre {
+            font-size: 1em;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+	.pre {
+	    white-space: pre;
+	    font-family: monospace;
+	}
+	.header{
+	    font-weight: bold;
+	}
+        .newpage {
+            page-break-before: always;
+        }
+        .invisible {
+            text-decoration: none;
+            color: white;
+        }
+        a.selflink {
+          color: black;
+          text-decoration: none;
+        }
+        @media print {
+            body {
+                font-family: monospace;
+                font-size: 10.5pt;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 1em;
+            }
+        
+            a:link, a:visited {
+                color: inherit;
+                text-decoration: none;
+            }
+            .noprint {
+                display: none;
+            }
+        }
+	@media screen {
+	    .grey, .grey a:link, .grey a:visited {
+		color: #777;
+	    }
+            .docinfo {
+                background-color: #EEE;
+            }
+            .top {
+                border-top: 7px solid #EEE;
+            }
+            .bgwhite  { background-color: white; }
+            .bgred    { background-color: #F44; }
+            .bggrey   { background-color: #666; }
+            .bgbrown  { background-color: #840; }            
+            .bgorange { background-color: #FA0; }
+            .bgyellow { background-color: #EE0; }
+            .bgmagenta{ background-color: #F4F; }
+            .bgblue   { background-color: #66F; }
+            .bgcyan   { background-color: #4DD; }
+            .bggreen  { background-color: #4F4; }
+
+            .legend   { font-size: 90%; }
+            .cplate   { font-size: 70%; border: solid grey 1px; }
+	}
+    </style>
+    <!--[if IE]>
+    <style>
+    body {
+       font-size: 13px;
+       margin: 10px 10px;
+    }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript"><!--
+    function addHeaderTags() {
+	var spans = document.getElementsByTagName("span");
+	for (var i=0; i < spans.length; i++) {
+	    var elem = spans[i];
+	    if (elem) {
+		var level = elem.getAttribute("class");
+                if (level == "h1" || level == "h2" || level == "h3" || level == "h4" || level == "h5" || level == "h6") {
+                    elem.innerHTML = "<"+level+">"+elem.innerHTML+"</"+level+">";		
+                }
+	    }
+	}
+    }
+    var legend_html = "Colour legend:<br />      <table>         <tr><td>Unknown:</td>                   <td><span class='cplate bgwhite'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft:</td>                     <td><span class='cplate bgred'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Informational:</td>             <td><span class='cplate bgorange'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Experimental:</td>              <td><span class='cplate bgyellow'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Best Common Practice:</td>      <td><span class='cplate bgmagenta'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Proposed Standard:</td>         <td><span class='cplate bgblue'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft Standard (old designation):</td> <td><span class='cplate bgcyan'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Internet Standard:</td>         <td><span class='cplate bggreen'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Historic:</td>                  <td><span class='cplate bggrey'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Obsolete:</td>                  <td><span class='cplate bgbrown'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>     </table>";
+    function showElem(id) {
+        var elem = document.getElementById(id);
+        elem.innerHTML = eval(id+"_html");
+        elem.style.visibility='visible';
+    }
+    function hideElem(id) {
+        var elem = document.getElementById(id);
+        elem.style.visibility='hidden';        
+        elem.innerHTML = "";
+    }
+    // -->
+    </script>
+</head>
+<body onload="addHeaderTags()">
+  <div class="content">
+   <div style="height: 13px;">
+      <div onmouseover="this.style.cursor='pointer';"
+         onclick="showElem('legend');"
+         onmouseout="hideElem('legend')"
+	 style="height: 6px; position: absolute;"
+         class="pre noprint docinfo "
+         title="Click for colour legend." >                                                                        </div>
+      <div id="legend"
+           class="docinfo noprint pre legend"
+           style="position:absolute; top: 4px; left: 4ex; visibility:hidden; background-color: white; padding: 4px 9px 5px 7px; border: solid #345 1px; "
+           onmouseover="showElem('legend');"
+           onmouseout="hideElem('legend');">
+      </div>
+   </div>
+<span class="pre noprint docinfo top">[<a href="../html/" title="Document search and retrieval page">Docs</a>] [<a href="/rfc/bcp/bcp127.txt" title="Plaintext version of this document">txt</a>|<a href="/pdf/bcp127" title="PDF version of this document">pdf</a>]                                                        </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<pre>
+[Note that this file is a concatenation of more than one RFC.]
+
+
+
+
+
+Network Working Group                                      F. Audet, Ed.
+Request for Comments: 4787                               Nortel Networks
+BCP: 127                                                     C. Jennings
+Category: Best Current Practice                            Cisco Systems
+                                                            January 2007
+
+
+       <span class="h1">Network Address Translation (NAT) Behavioral Requirements</span>
+                            <span class="h1">for Unicast UDP</span>
+
+Status of This Memo
+
+   This document specifies an Internet Best Current Practices for the
+   Internet Community, and requests discussion and suggestions for
+   improvements.  Distribution of this memo is unlimited.
+
+Copyright Notice
+
+   Copyright (C) The IETF Trust (2007).
+
+Abstract
+
+   This document defines basic terminology for describing different
+   types of Network Address Translation (NAT) behavior when handling
+   Unicast UDP and also defines a set of requirements that would allow
+   many applications, such as multimedia communications or online
+   gaming, to work consistently.  Developing NATs that meet this set of
+   requirements will greatly increase the likelihood that these
+   applications will function properly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 1]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-2" id="page-1-2" href="#page-1-2" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+Table of Contents
+
+   <a href="#section-1">1</a>.  Applicability Statement  . . . . . . . . . . . . . . . . . . .  <a href="#page-1-3">3</a>
+   <a href="#section-2">2</a>.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-1-3">3</a>
+   <a href="#section-3">3</a>.  Terminology  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-1-4">4</a>
+   <a href="#section-4">4</a>.  Network Address and Port Translation Behavior  . . . . . . . .  <a href="#page-1-5">5</a>
+     <a href="#section-4.1">4.1</a>.  Address and Port Mapping . . . . . . . . . . . . . . . . .  <a href="#page-1-5">5</a>
+     <a href="#section-4.2">4.2</a>.  Port Assignment  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-1-9">9</a>
+       <a href="#section-4.2.1">4.2.1</a>.  Port Assignment Behavior . . . . . . . . . . . . . . .  <a href="#page-1-9">9</a>
+       <a href="#section-4.2.2">4.2.2</a>.  Port Parity  . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-11">11</a>
+       <a href="#section-4.2.3">4.2.3</a>.  Port Contiguity  . . . . . . . . . . . . . . . . . . . <a href="#page-1-11">11</a>
+     <a href="#section-4.3">4.3</a>.  Mapping Refresh  . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-12">12</a>
+     <a href="#section-4.4">4.4</a>.  Conflicting Internal and External IP Address Spaces  . . . <a href="#page-1-13">13</a>
+   <a href="#section-5">5</a>.  Filtering Behavior . . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-15">15</a>
+   <a href="#section-6">6</a>.  Hairpinning Behavior . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-16">16</a>
+   <a href="#section-7">7</a>.  Application Level Gateways . . . . . . . . . . . . . . . . . . <a href="#page-1-17">17</a>
+   <a href="#section-8">8</a>.  Deterministic Properties . . . . . . . . . . . . . . . . . . . <a href="#page-1-18">18</a>
+   <a href="#section-9">9</a>.  ICMP Destination Unreachable Behavior  . . . . . . . . . . . . <a href="#page-1-19">19</a>
+   <a href="#section-10">10</a>. Fragmentation of Outgoing Packets  . . . . . . . . . . . . . . <a href="#page-1-20">20</a>
+   <a href="#section-11">11</a>. Receiving Fragmented Packets . . . . . . . . . . . . . . . . . <a href="#page-1-20">20</a>
+   <a href="#section-12">12</a>. Requirements . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-21">21</a>
+   <a href="#section-13">13</a>. Security Considerations  . . . . . . . . . . . . . . . . . . . <a href="#page-1-24">24</a>
+   <a href="#section-14">14</a>. IAB Considerations . . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-25">25</a>
+   <a href="#section-15">15</a>. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-26">26</a>
+   <a href="#section-16">16</a>. References . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-1-26">26</a>
+     <a href="#section-16.1">16.1</a>. Normative References . . . . . . . . . . . . . . . . . . . <a href="#page-1-26">26</a>
+     <a href="#section-16.2">16.2</a>. Informative References . . . . . . . . . . . . . . . . . . <a href="#page-1-26">26</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 2]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-3" id="page-1-3" href="#page-1-3" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+<span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Applicability Statement</span>
+
+   The purpose of this specification is to define a set of requirements
+   for NATs that would allow many applications, such as multimedia
+   communications or online gaming, to work consistently.  Developing
+   NATs that meet this set of requirements will greatly increase the
+   likelihood that these applications will function properly.
+
+   The requirements of this specification apply to Traditional NATs as
+   described in [<a href="./rfc2663.html" title="&quot;IP Network Address Translator (NAT) Terminology and Considerations&quot;">RFC2663</a>].
+
+   This document is meant to cover NATs of any size, from small
+   residential NATs to large Enterprise NATs.  However, it should be
+   understood that Enterprise NATs normally provide much more than just
+   NAT capabilities; for example, they typically provide firewall
+   functionalities.  A comprehensive description of firewall behaviors
+   and associated requirements is specifically out-of-scope for this
+   specification.  However, this specification does cover basic firewall
+   aspects present in NATs (see <a href="#section-5">Section 5</a>).
+
+   Approaches using directly signaled control of middle boxes are out of
+   scope.
+
+   UDP Relays (e.g., Traversal Using Relay NAT [<a href="#ref-TURN" title="&quot;Obtaining Relay Addresses from Simple Traversal Underneath NAT (STUN)&quot;">TURN</a>]) are out of scope.
+
+   Application aspects are out of scope, as the focus here is strictly
+   on the NAT itself.
+
+   This document only covers aspects of NAT traversal related to Unicast
+   UDP [<a href="./rfc0768.html" title="&quot;User Datagram Protocol&quot;">RFC0768</a>] over IP [<a href="./rfc0791.html" title="&quot;Internet Protocol&quot;">RFC0791</a>] and their dependencies on other
+   protocols.
+
+<span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Introduction</span>
+
+   Network Address Translators (NATs) are well known to cause very
+   significant problems with applications that carry IP addresses in the
+   payload (see [<a href="./rfc3027.html" title="&quot;Protocol Complications with the IP Network Address Translator&quot;">RFC3027</a>]).  Applications that suffer from this problem
+   include Voice Over IP and Multimedia Over IP (e.g., SIP [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>] and
+   H.323 [<a href="#ref-ITU.H323" title="&quot;Packet-based Multimedia Communications Systems&quot;">ITU.H323</a>]), as well as online gaming.
+
+   Many techniques are used to attempt to make realtime multimedia
+   applications, online games, and other applications work across NATs.
+   Application Level Gateways [<a href="./rfc2663.html" title="&quot;IP Network Address Translator (NAT) Terminology and Considerations&quot;">RFC2663</a>] are one such mechanism.  STUN
+   [<a href="#ref-RFC3489bis" title="&quot;Simple Traversal Underneath Network Address Translators (NAT) (STUN)&quot;">RFC3489bis</a>] describes a UNilateral Self-Address Fixing (UNSAF)
+   mechanism [<a href="./rfc3424.html" title="&quot;IAB Considerations for UNilateral Self-Address Fixing (UNSAF) Across Network Address Translation&quot;">RFC3424</a>].  Teredo [<a href="./rfc4380.html" title="&quot;Teredo: Tunneling IPv6 over UDP through Network Address Translations (NATs)&quot;">RFC4380</a>] describes an UNSAF mechanism
+   consisting of tunnelling IPv6 [<a href="./rfc2460.html" title="&quot;Internet Protocol, Version 6 (IPv6) Specification&quot;">RFC2460</a>] over UDP/IPv4.  UDP Relays
+   have also been used to enable applications across NATs, but these are
+   generally seen as a solution of last resort.  Interactive
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 3]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-4" id="page-1-4" href="#page-1-4" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   Connectivity Establishment [<a href="#ref-ICE" title="&quot;Interactive Connectivity Establishment (ICE): A Methodology for Network Address Translator (NAT) Traversal for Offer/Answer Protocols&quot;">ICE</a>] describes a methodology for using
+   many of these techniques and avoiding a UDP relay, unless the type of
+   NAT is such that it forces the use of such a UDP relay.  This
+   specification defines requirements for improving NATs.  Meeting these
+   requirements ensures that applications will not be forced to use UDP
+   relay.
+
+   As pointed out in UNSAF [<a href="./rfc3424.html" title="&quot;IAB Considerations for UNilateral Self-Address Fixing (UNSAF) Across Network Address Translation&quot;">RFC3424</a>], "From observations of deployed
+   networks, it is clear that different NAT box implementations vary
+   widely in terms of how they handle different traffic and addressing
+   cases".  This wide degree of variability is one factor in the overall
+   brittleness introduced by NATs and makes it extremely difficult to
+   predict how any given protocol will behave on a network traversing
+   NAT.  Discussions with many of the major NAT vendors have made it
+   clear that they would prefer to deploy NATs that were deterministic
+   and caused the least harm to applications while still meeting the
+   requirements that caused their customers to deploy NATs in the first
+   place.  The problem NAT vendors face is that they are not sure how
+   best to do that or how to document their NATs' behavior.
+
+   The goals of this document are to define a set of common terminology
+   for describing the behavior of NATs and to produce a set of
+   requirements on a specific set of behaviors for NATs.
+
+   This document forms a common set of requirements that are simple and
+   useful for voice, video, and games, which can be implemented by NAT
+   vendors.  This document will simplify the analysis of protocols for
+   deciding whether or not they work in this environment and will allow
+   providers of services that have NAT traversal issues to make
+   statements about where their applications will work and where they
+   will not, as well as to specify their own NAT requirements.
+
+<span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Terminology</span>
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+
+   Readers are urged to refer to [<a href="./rfc2663.html" title="&quot;IP Network Address Translator (NAT) Terminology and Considerations&quot;">RFC2663</a>] for information on NAT
+   taxonomy and terminology.  Traditional NAT is the most common type of
+   NAT device deployed.  Readers may refer to [<a href="./rfc3022.html" title="&quot;Traditional IP Network Address Translator (Traditional NAT)&quot;">RFC3022</a>] for detailed
+   information on traditional NAT.  Traditional NAT has two main
+   varieties -- Basic NAT and Network Address/Port Translator (NAPT).
+
+   NAPT is by far the most commonly deployed NAT device.  NAPT allows
+   multiple internal hosts to share a single public IP address
+   simultaneously.  When an internal host opens an outgoing TCP or UDP
+   session through a NAPT, the NAPT assigns the session a public IP
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 4]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-5" id="page-1-5" href="#page-1-5" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   address and port number, so that subsequent response packets from the
+   external endpoint can be received by the NAPT, translated, and
+   forwarded to the internal host.  The effect is that the NAPT
+   establishes a NAT session to translate the (private IP address,
+   private port number) tuple to a (public IP address, public port
+   number) tuple, and vice versa, for the duration of the session.  An
+   issue of relevance to peer-to-peer applications is how the NAT
+   behaves when an internal host initiates multiple simultaneous
+   sessions from a single (private IP, private port) endpoint to
+   multiple distinct endpoints on the external network.  In this
+   specification, the term "NAT" refers to both "Basic NAT" and "Network
+   Address/Port Translator (NAPT)".
+
+   This document uses the term "session" as defined in <a href="./rfc2663.html">RFC 2663</a>: "TCP/
+   UDP sessions are uniquely identified by the tuple of (source IP
+   address, source TCP/UDP ports, target IP address, target TCP/UDP
+   Port)".
+
+   This document uses the term "address and port mapping" as the
+   translation between an external address and port and an internal
+   address and port.  Note that this is not the same as an "address
+   binding" as defined in <a href="./rfc2663.html">RFC 2663</a>.
+
+   This document uses IANA terminology for port ranges, i.e., "Well
+   Known Ports" is 0-1023, "Registered" is 1024-49151, and "Dynamic
+   and/or Private" is 49152-65535, as defined in
+   <a href="http://www.iana.org/assignments/port-numbers">http://www.iana.org/assignments/port-numbers</a>.
+
+   STUN [<a href="./rfc3489.html" title="&quot;STUN - Simple Traversal of User Datagram Protocol (UDP) Through Network Address Translators (NATs)&quot;">RFC3489</a>] used the terms "Full Cone", "Restricted Cone", "Port
+   Restricted Cone", and "Symmetric" to refer to different variations of
+   NATs applicable to UDP only.  Unfortunately, this terminology has
+   been the source of much confusion, as it has proven inadequate at
+   describing real-life NAT behavior.  This specification therefore
+   refers to specific individual NAT behaviors instead of using the
+   Cone/Symmetric terminology.
+
+<span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Network Address and Port Translation Behavior</span>
+
+   This section describes the various NAT behaviors applicable to NATs.
+
+<span class="h3"><a class="selflink" name="section-4.1" href="#section-4.1">4.1</a>.  Address and Port Mapping</span>
+
+   When an internal endpoint opens an outgoing session through a NAT,
+   the NAT assigns the session an external IP address and port number so
+   that subsequent response packets from the external endpoint can be
+   received by the NAT, translated, and forwarded to the internal
+   endpoint.  This is a mapping between an internal IP address and port
+   IP:port and external IP:port tuple.  It establishes the translation
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 5]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-6" id="page-1-6" href="#page-1-6" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   that will be performed by the NAT for the duration of the session.
+   For many applications, it is important to distinguish the behavior of
+   the NAT when there are multiple simultaneous sessions established to
+   different external endpoints.
+
+   The key behavior to describe is the criteria for reuse of a mapping
+   for new sessions to external endpoints, after establishing a first
+   mapping between an internal X:x address and port and an external
+   Y1:y1 address tuple.  Let's assume that the internal IP address and
+   port X:x are mapped to X1':x1' for this first session.  The endpoint
+   then sends from X:x to an external address Y2:y2 and gets a mapping
+   of X2':x2' on the NAT.  The relationship between X1':x1' and X2':x2'
+   for various combinations of the relationship between Y1:y1 and Y2:y2
+   is critical for describing the NAT behavior.  This arrangement is
+   illustrated in the following diagram:
+
+                                      E
+   +------+                 +------+  x
+   |  Y1  |                 |  Y2  |  t
+   +--+---+                 +---+--+  e
+      | Y1:y1            Y2:y2  |     r
+      +----------+   +----------+     n
+                 |   |                a
+         X1':x1' |   | X2':x2'        l
+              +--+---+-+
+   ...........|   NAT  |...............
+              +--+---+-+              I
+                 |   |                n
+             X:x |   | X:x            t
+                ++---++               e
+                |  X  |               r
+                +-----+               n
+                                      a
+                                      l
+
+                         Address and Port Mapping
+
+   The following address and port mapping behavior are defined:
+
+      Endpoint-Independent Mapping:
+
+         The NAT reuses the port mapping for subsequent packets sent
+         from the same internal IP address and port (X:x) to any
+         external IP address and port.  Specifically, X1':x1' equals
+         X2':x2' for all values of Y2:y2.
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 6]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-7" id="page-1-7" href="#page-1-7" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+      Address-Dependent Mapping:
+
+         The NAT reuses the port mapping for subsequent packets sent
+         from the same internal IP address and port (X:x) to the same
+         external IP address, regardless of the external port.
+         Specifically, X1':x1' equals X2':x2' if and only if, Y2 equals
+         Y1.
+
+      Address and Port-Dependent Mapping:
+
+         The NAT reuses the port mapping for subsequent packets sent
+         from the same internal IP address and port (X:x) to the same
+         external IP address and port while the mapping is still active.
+         Specifically, X1':x1' equals X2':x2' if and only if, Y2:y2
+         equals Y1:y1.
+
+   It is important to note that these three possible choices make no
+   difference to the security properties of the NAT.  The security
+   properties are fully determined by which packets the NAT allows in
+   and which it does not.  This is determined by the filtering behavior
+   in the filtering portions of the NAT.
+
+   REQ-1:  A NAT MUST have an "Endpoint-Independent Mapping" behavior.
+
+   Justification:  In order for UNSAF methods to work, REQ-1 needs to be
+      met.  Failure to meet REQ-1 will force the use of a UDP relay,
+      which is very often impractical.
+
+   Some NATs are capable of assigning IP addresses from a pool of IP
+   addresses on the external side of the NAT, as opposed to just a
+   single IP address.  This is especially common with larger NATs.  Some
+   NATs use the external IP address mapping in an arbitrary fashion
+   (i.e., randomly): one internal IP address could have multiple
+   external IP address mappings active at the same time for different
+   sessions.  These NATs have an "IP address pooling" behavior of
+   "Arbitrary".  Some large Enterprise NATs use an IP address pooling
+   behavior of "Arbitrary" as a means of hiding the IP address assigned
+   to specific endpoints by making their assignment less predictable.
+   Other NATs use the same external IP address mapping for all sessions
+   associated with the same internal IP address.  These NATs have an "IP
+   address pooling" behavior of "Paired".  NATs that use an "IP address
+   pooling" behavior of "Arbitrary" can cause issues for applications
+   that use multiple ports from the same endpoint, but that do not
+   negotiate IP addresses individually (e.g., some applications using
+   RTP and RTCP).
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 7]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-8" id="page-1-8" href="#page-1-8" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   REQ-2:  It is RECOMMENDED that a NAT have an "IP address pooling"
+      behavior of "Paired".  Note that this requirement is not
+      applicable to NATs that do not support IP address pooling.
+
+   Justification:  This will allow applications that use multiple ports
+      originating from the same internal IP address to also have the
+      same external IP address.  This is to avoid breaking peer-to-peer
+      applications that are not capable of negotiating the IP address
+      for RTP and the IP address for RTCP separately.  As such it is
+      envisioned that this requirement will become less important as
+      applications become NAT-friendlier with time.  The main reason why
+      this requirement is here is that in a peer-to-peer application,
+      you are subject to the other peer's mistake.  In particular, in
+      the context of SIP, if my application supports the extensions
+      defined in [<a href="./rfc3605.html" title="&quot;Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)&quot;">RFC3605</a>] for indicating RTP and RTCP addresses and
+      ports separately, but the other peer does not, there may still be
+      breakage in the form of the stream losing RTCP packets.  This
+      requirement will avoid the loss of RTP in this context, although
+      the loss of RTCP may be inevitable in this particular example.  It
+      is also worth noting that <a href="./rfc3605.html">RFC 3605</a> is unfortunately not a
+      mandatory part of SIP [<a href="./rfc3261.html" title="&quot;SIP: Session Initiation Protocol&quot;">RFC3261</a>].  Therefore, this requirement will
+      address a particularly nasty problem that will prevail for a
+      significant period of time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 8]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-9" id="page-1-9" href="#page-1-9" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+<span class="h3"><a class="selflink" name="section-4.2" href="#section-4.2">4.2</a>.  Port Assignment</span>
+
+<span class="h4"><a class="selflink" name="section-4.2.1" href="#section-4.2.1">4.2.1</a>.  Port Assignment Behavior</span>
+
+   This section uses the following diagram for reference.
+
+                                      E
+   +-------+               +-------+  x
+   |  Y1   |               |  Y2   |  t
+   +---+---+               +---+---+  e
+       | Y1:y1          Y2:y2  |      r
+       +---------+   +---------+      n
+                 |   |                a
+         X1':x1' |   | X2':x2'        l
+              +--+---+--+
+   ...........|   NAT   |...............
+              +--+---+--+             I
+                 |   |                n
+       +---------+   +---------+      t
+       | X1:x1           X2:x2 |      e
+   +---+---+               +---+---+  r
+   |  X1   |               |  X2   |  n
+   +-------+               +-------+  a
+                                      l
+
+                              Port Assignment
+
+   Some NATs attempt to preserve the port number used internally when
+   assigning a mapping to an external IP address and port (e.g., x1=x1',
+   x2=x2').  This port assignment behavior is referred to as "port
+   preservation".  In case of port collision, these NATs attempt a
+   variety of techniques for coping.  For example, some NATs will
+   overridden the previous mapping to preserve the same port.  Other
+   NATs will assign a different IP address from a pool of external IP
+   addresses; this is only possible as long as the NAT has enough
+   external IP addresses; if the port is already in use on all available
+   external IP addresses, then these NATs will pick a different port
+   (i.e., they don't do port preservation anymore).
+
+   Some NATs use "Port overloading", i.e., they always use port
+   preservation even in the case of collision (i.e., X1'=X2' and
+   x1=x2=x1'=x2').  Most applications will fail if the NAT uses "Port
+   overloading".
+
+   A NAT that does not attempt to make the external port numbers match
+   the internal port numbers in any case is referred to as "no port
+   preservation".
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                  [Page 9]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-10" id="page-1-10" href="#page-1-10" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   When NATs do allocate a new source port, there is the issue of which
+   IANA-defined range of port to choose.  The ranges are "well-known"
+   from 0 to 1023, "registered" from 1024 to 49151, and "dynamic/
+   private" from 49152 through 65535.  For most protocols, these are
+   destination ports and not source ports, so mapping a source port to a
+   source port that is already registered is unlikely to have any bad
+   effects.  Some NATs may choose to use only the ports in the dynamic
+   range; the only downside of this practice is that it limits the
+   number of ports available.  Other NAT devices may use everything but
+   the well-known range and may prefer to use the dynamic range first,
+   or possibly avoid the actual registered ports in the registered
+   range.  Other NATs preserve the port range if it is in the well-known
+   range.  [<a href="./rfc0768.html" title="&quot;User Datagram Protocol&quot;">RFC0768</a>] specifies that the source port is set to zero if no
+   reply packets are expected.  In this case, it does not matter what
+   the NAT maps it to, as the source port will not be used.  However,
+   many common OS APIs do not allow a user to send from port zero,
+   applications do not use port zero, and the behavior of various
+   existing NATs with regards to a packet with a source of port zero is
+   unknown.  This document does not specify any normative behavior for a
+   NAT when handling a packet with a source port of zero which means
+   that applications cannot count on any sort of deterministic behavior
+   for these packets.
+
+   REQ-3:  A NAT MUST NOT have a "Port assignment" behavior of "Port
+      overloading".
+
+      a) If the host's source port was in the range 0-1023, it is
+         RECOMMENDED the NAT's source port be in the same range.  If the
+         host's source port was in the range 1024-65535, it is
+         RECOMMENDED that the NAT's source port be in that range.
+
+   Justification:  This requirement must be met in order to enable two
+      applications on the internal side of the NAT both to use the same
+      port to try to communicate with the same destination.  NATs that
+      implement port preservation have to deal with conflicts on ports,
+      and the multiple code paths this introduces often result in
+      nondeterministic behavior.  However, it should be understood that
+      when a port is randomly assigned, it may just randomly happen to
+      be assigned the same port.  Applications must, therefore, be able
+      to deal with both port preservation and no port preservation.
+
+      a) Certain applications expect the source UDP port to be in the
+         well-known range.  See the discussion of Network File System
+         port expectations in [<a href="./rfc2623.html" title="&quot;NFS Version 2 and Version 3 Security Issues and the NFS Protocol's Use of RPCSEC_GSS and Kerberos V5&quot;">RFC2623</a>] for an example.
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 10]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-11" id="page-1-11" href="#page-1-11" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+<span class="h4"><a class="selflink" name="section-4.2.2" href="#section-4.2.2">4.2.2</a>.  Port Parity</span>
+
+   Some NATs preserve the parity of the UDP port, i.e., an even port
+   will be mapped to an even port, and an odd port will be mapped to an
+   odd port.  This behavior respects the [<a href="./rfc3550.html" title="&quot;RTP: A Transport Protocol for Real-Time Applications&quot;">RFC3550</a>] rule that RTP use
+   even ports, and RTCP use odd ports.  <a href="./rfc3550.html">RFC 3550</a> allows any port numbers
+   to be used for RTP and RTCP if the two numbers are specified
+   separately; for example, using [<a href="./rfc3605.html" title="&quot;Real Time Control Protocol (RTCP) attribute in Session Description Protocol (SDP)&quot;">RFC3605</a>].  However, some
+   implementations do not include <a href="./rfc3605.html">RFC 3605</a>, and do not recognize when
+   the peer has specified the RTCP port separately using <a href="./rfc3605.html">RFC 3605</a>.  If
+   such an implementation receives an odd RTP port number from the peer
+   (perhaps after having been translated by a NAT), and then follows the
+   <a href="./rfc3550.html">RFC 3550</a> rule to change the RTP port to the next lower even number,
+   this would obviously result in the loss of RTP.  NAT-friendly
+   application aspects are outside the scope of this document.  It is
+   expected that this issue will fade away with time, as implementations
+   improve.  Preserving the port parity allows for supporting
+   communication with peers that do not support explicit specification
+   of both RTP and RTCP port numbers.
+
+   REQ-4:  It is RECOMMENDED that a NAT have a "Port parity
+      preservation" behavior of "Yes".
+
+   Justification:  This is to avoid breaking peer-to-peer applications
+      that do not explicitly and separately specify RTP and RTCP port
+      numbers and that follow the <a href="./rfc3550.html">RFC 3550</a> rule to decrement an odd RTP
+      port to make it even.  The same considerations apply, as per the
+      IP address pooling requirement.
+
+<span class="h4"><a class="selflink" name="section-4.2.3" href="#section-4.2.3">4.2.3</a>.  Port Contiguity</span>
+
+   Some NATs attempt to preserve the port contiguity rule of RTCP=RTP+1.
+   These NATs do things like sequential assignment or port reservation.
+   Sequential port assignment assumes that the application will open a
+   mapping for RTP first and then open a mapping for RTCP.  It is not
+   practical to enforce this requirement on all applications.
+   Furthermore, there is a problem with glare if many applications (or
+   endpoints) are trying to open mappings simultaneously.  Port
+   preservation is also problematic since it is wasteful, especially
+   considering that a NAT cannot reliably distinguish between RTP over
+   UDP and other UDP packets where there is no contiguity rule.  For
+   those reasons, it would be too complex to attempt to preserve the
+   contiguity rule by suggesting specific NAT behavior, and it would
+   certainly break the deterministic behavior rule.
+
+   In order to support both RTP and RTCP, it will therefore be necessary
+   that applications follow rules to negotiate RTP and RTCP separately,
+   and account for the very real possibility that the RTCP=RTP+1 rule
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 11]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-12" id="page-1-12" href="#page-1-12" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   will be broken.  As this is an application requirement, it is outside
+   the scope of this document.
+
+<span class="h3"><a class="selflink" name="section-4.3" href="#section-4.3">4.3</a>.  Mapping Refresh</span>
+
+   NAT mapping timeout implementations vary, but include the timer's
+   value and the way the mapping timer is refreshed to keep the mapping
+   alive.
+
+   The mapping timer is defined as the time a mapping will stay active
+   without packets traversing the NAT.  There is great variation in the
+   values used by different NATs.
+
+   REQ-5:  A NAT UDP mapping timer MUST NOT expire in less than two
+      minutes, unless REQ-5a applies.
+
+      a) For specific destination ports in the well-known port range
+         (ports 0-1023), a NAT MAY have shorter UDP mapping timers that
+         are specific to the IANA-registered application running over
+         that specific destination port.
+
+      b) The value of the NAT UDP mapping timer MAY be configurable.
+
+      c) A default value of five minutes or more for the NAT UDP mapping
+         timer is RECOMMENDED.
+
+   Justification:  This requirement is to ensure that the timeout is
+      long enough to avoid too-frequent timer refresh packets.
+
+      a) Some UDP protocols using UDP use very short-lived connections.
+         There can be very many such connections; keeping them all in a
+         connections table could cause considerable load on the NAT.
+         Having shorter timers for these specific applications is,
+         therefore, an optimization technique.  It is important that the
+         shorter timers applied to specific protocols be used sparingly,
+         and only for protocols using well-known destination ports that
+         are known to have a shorter timer, and that are known not to be
+         used by any applications for other purposes.
+
+      b) Configuration is desirable for adapting to specific networks
+         and troubleshooting.
+
+      c) This default is to avoid too-frequent timer refresh packets.
+
+   Some NATs keep the mapping active (i.e., refresh the timer value)
+   when a packet goes from the internal side of the NAT to the external
+   side of the NAT.  This is referred to as having a NAT Outbound
+   refresh behavior of "True".
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 12]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-13" id="page-1-13" href="#page-1-13" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   Some NATs keep the mapping active when a packet goes from the
+   external side of the NAT to the internal side of the NAT.  This is
+   referred to as having a NAT Inbound Refresh Behavior of "True".
+
+   Some NATs keep the mapping active on both, in which case, both
+   properties are "True".
+
+   REQ-6:  The NAT mapping Refresh Direction MUST have a "NAT Outbound
+      refresh behavior" of "True".
+
+      a) The NAT mapping Refresh Direction MAY have a "NAT Inbound
+         refresh behavior" of "True".
+
+   Justification:  Outbound refresh is necessary for allowing the client
+      to keep the mapping alive.
+
+      a) Inbound refresh may be useful for applications with no outgoing
+         UDP traffic.  However, allowing inbound refresh may allow an
+         external attacker or misbehaving application to keep a mapping
+         alive indefinitely.  This may be a security risk.  Also, if the
+         process is repeated with different ports, over time, it could
+         use up all the ports on the NAT.
+
+<span class="h3"><a class="selflink" name="section-4.4" href="#section-4.4">4.4</a>.  Conflicting Internal and External IP Address Spaces</span>
+
+   Many NATs, particularly consumer-level devices designed to be
+   deployed by nontechnical users, routinely obtain their external IP
+   address, default router, and other IP configuration information for
+   their external interface dynamically from an external network, such
+   as an upstream ISP.  The NAT, in turn, automatically sets up its own
+   internal subnet in one of the private IP address spaces assigned to
+   this purpose in [<a href="./rfc1918.html" title="&quot;Address Allocation for Private Internets&quot;">RFC1918</a>], typically providing dynamic IP
+   configuration services for hosts on this internal network.
+
+   Auto-configuration of NATs and private networks can be problematic,
+   however, if the NAT's external network is also in <a href="./rfc1918.html">RFC 1918</a> private
+   address space.  In a common scenario, an ISP places its customers
+   behind a NAT and hands out private <a href="./rfc1918.html">RFC 1918</a> addresses to them.  Some
+   of these customers, in turn, deploy consumer-level NATs, which, in
+   effect, act as "second-level" NATs, multiplexing their own private
+   <a href="./rfc1918.html">RFC 1918</a> IP subnets onto the single <a href="./rfc1918.html">RFC 1918</a> IP address provided by
+   the ISP.  There is no inherent guarantee, in this case, that the
+   ISP's "intermediate" privately-addressed network and the customer's
+   internal privately-addressed network will not use numerically
+   identical or overlapping <a href="./rfc1918.html">RFC 1918</a> IP subnets.  Furthermore, customers
+   of consumer-level NATs cannot be expected to have the technical
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 13]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-14" id="page-1-14" href="#page-1-14" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   knowledge to prevent this scenario from occurring by manually
+   configuring their internal network with non-conflicting <a href="./rfc1918.html">RFC 1918</a>
+   subnets.
+
+   NAT vendors need to design their NATs to ensure that they function
+   correctly and robustly even in such problematic scenarios.  One
+   possible solution is for the NAT to ensure that whenever its external
+   link is configured with an <a href="./rfc1918.html">RFC 1918</a> private IP address, the NAT
+   automatically selects a different, non-conflicting <a href="./rfc1918.html">RFC 1918</a> IP subnet
+   for its internal network.  A disadvantage of this solution is that,
+   if the NAT's external interface is dynamically configured or re-
+   configured after its internal network is already in use, then the NAT
+   may have to renumber its entire internal network dynamically if it
+   detects a conflict.
+
+   An alternative solution is for the NAT to be designed so that it can
+   translate and forward traffic correctly, even when its external and
+   internal interfaces are configured with numerically overlapping IP
+   subnets.  In this scenario, for example, if the NAT's external
+   interface has been assigned an IP address P in <a href="./rfc1918.html">RFC 1918</a> space, then
+   there might also be an internal node I having the same <a href="./rfc1918.html">RFC 1918</a>
+   private IP address P.  An IP packet with destination address P on the
+   external network is directed at the NAT, whereas an IP packet with
+   the same destination address P on the internal network is directed at
+   node I.  The NAT therefore needs to maintain a clear operational
+   distinction between "external IP addresses" and "internal IP
+   addresses" to avoid confusing internal node I with its own external
+   interface.  In general, the NAT needs to allow all internal nodes
+   (including I) to communicate with all external nodes having public
+   (non-RFC 1918) IP addresses, or having private IP addresses that do
+   not conflict with the addresses used by its internal network.
+
+   REQ-7:  A NAT device whose external IP interface can be configured
+      dynamically MUST either (1) automatically ensure that its internal
+      network uses IP addresses that do not conflict with its external
+      network, or (2) be able to translate and forward traffic between
+      all internal nodes and all external nodes whose IP addresses
+      numerically conflict with the internal network.
+
+   Justification:  If a NAT's external and internal interfaces are
+      configured with overlapping IP subnets, then there is, of course,
+      no way for an internal host with <a href="./rfc1918.html">RFC 1918</a> IP address Q to initiate
+      a direct communication session to an external node having the same
+      <a href="./rfc1918.html">RFC 1918</a> address Q, or to other external nodes with IP addresses
+      that numerically conflict with the internal subnet.  Such nodes
+      can still open communication sessions indirectly via NAT traversal
+      techniques, however, with the help of a third-party server, such
+      as a STUN server having a public, non-RFC 1918 IP address.  In
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 14]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-15" id="page-1-15" href="#page-1-15" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+      this case, nodes with conflicting private <a href="./rfc1918.html">RFC 1918</a> addresses on
+      opposite sides of the second-level NAT can communicate with each
+      other via their respective temporary public endpoints on the main
+      Internet, as long as their common, first-level NAT (e.g., the
+      upstream ISP's NAT) supports hairpinning behavior, as described in
+      <a href="#section-6">Section 6</a>.
+
+<span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Filtering Behavior</span>
+
+   This section describes various filtering behaviors observed in NATs.
+
+   When an internal endpoint opens an outgoing session through a NAT,
+   the NAT assigns a filtering rule for the mapping between an internal
+   IP:port (X:x) and external IP:port (Y:y) tuple.
+
+   The key behavior to describe is what criteria are used by the NAT to
+   filter packets originating from specific external endpoints.
+
+      Endpoint-Independent Filtering:
+
+         The NAT filters out only packets not destined to the internal
+         address and port X:x, regardless of the external IP address and
+         port source (Z:z).  The NAT forwards any packets destined to
+         X:x.  In other words, sending packets from the internal side of
+         the NAT to any external IP address is sufficient to allow any
+         packets back to the internal endpoint.
+
+      Address-Dependent Filtering:
+
+         The NAT filters out packets not destined to the internal
+         address X:x.  Additionally, the NAT will filter out packets
+         from Y:y destined for the internal endpoint X:x if X:x has not
+         sent packets to Y:any previously (independently of the port
+         used by Y).  In other words, for receiving packets from a
+         specific external endpoint, it is necessary for the internal
+         endpoint to send packets first to that specific external
+         endpoint's IP address.
+
+      Address and Port-Dependent Filtering:
+
+         This is similar to the previous behavior, except that the
+         external port is also relevant.  The NAT filters out packets
+         not destined for the internal address X:x.  Additionally, the
+         NAT will filter out packets from Y:y destined for the internal
+         endpoint X:x if X:x has not sent packets to Y:y previously.  In
+         other words, for receiving packets from a specific external
+         endpoint, it is necessary for the internal endpoint to send
+         packets first to that external endpoint's IP address and port.
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 15]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-16" id="page-1-16" href="#page-1-16" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   REQ-8:  If application transparency is most important, it is
+      RECOMMENDED that a NAT have an "Endpoint-Independent Filtering"
+      behavior.  If a more stringent filtering behavior is most
+      important, it is RECOMMENDED that a NAT have an "Address-Dependent
+      Filtering" behavior.
+
+      a) The filtering behavior MAY be an option configurable by the
+         administrator of the NAT.
+
+   Justification:  The recommendation to use Endpoint-Independent
+      Filtering is aimed at maximizing application transparency; in
+      particular, for applications that receive media simultaneously
+      from multiple locations (e.g., gaming), or applications that use
+      rendezvous techniques.  However, it is also possible that, in some
+      circumstances, it may be preferable to have a more stringent
+      filtering behavior.  Filtering independently of the external
+      endpoint is not as secure: An unauthorized packet could get
+      through a specific port while the port was kept open if it was
+      lucky enough to find the port open.  In theory, filtering based on
+      both IP address and port is more secure than filtering based only
+      on the IP address (because the external endpoint could, in
+      reality, be two endpoints behind another NAT, where one of the two
+      endpoints is an attacker).  However, such a policy could interfere
+      with applications that expect to receive UDP packets on more than
+      one UDP port.  Using Endpoint-Independent Filtering or Address-
+      Dependent Filtering instead of Address and Port-Dependent
+      Filtering on a NAT (say, NAT-A) also has benefits when the other
+      endpoint is behind a non-BEHAVE compliant NAT (say, NAT-B) that
+      does not support REQ-1.  When the endpoints use ICE, if NAT-A uses
+      Address and Port-Dependent Filtering, connectivity will require a
+      UDP relay.  However, if NAT-A uses Endpoint-Independent Filtering
+      or Address-Dependent Filtering, ICE will ultimately find
+      connectivity without requiring a UDP relay.  Having the filtering
+      behavior being an option configurable by the administrator of the
+      NAT ensures that a NAT can be used in the widest variety of
+      deployment scenarios.
+
+<span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Hairpinning Behavior</span>
+
+   If two hosts (called X1 and X2) are behind the same NAT and
+   exchanging traffic, the NAT may allocate an address on the outside of
+   the NAT for X2, called X2':x2'.  If X1 sends traffic to X2':x2', it
+   goes to the NAT, which must relay the traffic from X1 to X2.  This is
+   referred to as hairpinning and is illustrated below.
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 16]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-17" id="page-1-17" href="#page-1-17" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+     NAT
+   +----+ from X1:x1 to X2':x2'   +-----+ X1':x1'
+   | X1 |&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;--+---
+   +----+                         |  v  |
+                                  |  v  |
+                                  |  v  |
+                                  |  v  |
+   +----+ from X1':x1' to X2:x2   |  v  | X2':x2'
+   | X2 |&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;--+---
+   +----+                         +-----+
+
+                           Hairpinning Behavior
+
+   Hairpinning allows two endpoints on the internal side of the NAT to
+   communicate even if they only use each other's external IP addresses
+   and ports.
+
+   More formally, a NAT that supports hairpinning forwards packets
+   originating from an internal address, X1:x1, destined for an external
+   address X2':x2' that has an active mapping to an internal address
+   X2:x2, back to that internal address, X2:x2.  Note that typically X1'
+   is the same as X2'.
+
+   Furthermore, the NAT may present the hairpinned packet with either an
+   internal (X1:x1) or an external (X1':x1') source IP address and port.
+   Therefore, the hairpinning NAT behavior can be either "External
+   source IP address and port" or "Internal source IP address and port".
+   "Internal source IP address and port" may cause problems by confusing
+   implementations that expect an external IP address and port.
+
+   REQ-9:  A NAT MUST support "Hairpinning".
+
+      a) A NAT Hairpinning behavior MUST be "External source IP address
+         and port".
+
+   Justification:  This requirement is to allow communications between
+      two endpoints behind the same NAT when they are trying each
+      other's external IP addresses.
+
+      a) Using the external source IP address is necessary for
+         applications with a restrictive policy of not accepting packets
+         from IP addresses that differ from what is expected.
+
+<span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Application Level Gateways</span>
+
+   Certain NATs have implemented Application Level Gateways (ALGs) for
+   various protocols, including protocols for negotiating peer-to-peer
+   sessions, such as SIP.
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 17]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-18" id="page-1-18" href="#page-1-18" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   Certain NATs have these ALGs turned on permanently, others have them
+   turned on by default but allow them to be turned off, and others have
+   them turned off by default but allow them be turned on.
+
+   NAT ALGs may interfere with UNSAF methods or protocols that try to be
+   NAT-aware and therefore must be used with extreme caution.
+
+   REQ-10:  To eliminate interference with UNSAF NAT traversal
+      mechanisms and allow integrity protection of UDP communications,
+      NAT ALGs for UDP-based protocols SHOULD be turned off.  Future
+      standards track specifications that define ALGs can update this to
+      recommend the defaults for the ALGs that they define.
+
+      a) If a NAT includes ALGs, it is RECOMMENDED that the NAT allow
+         the NAT administrator to enable or disable each ALG separately.
+
+   Justification:  NAT ALGs may interfere with UNSAF methods.
+
+      a) This requirement allows the user to enable those ALGs that are
+         necessary to aid in the operation of some applications without
+         enabling ALGs, which interfere with the operation of other
+         applications.
+
+<span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Deterministic Properties</span>
+
+   The classification of NATs is further complicated by the fact that,
+   under some conditions, the same NAT will exhibit different behaviors.
+   This has been seen on NATs that preserve ports or have specific
+   algorithms for selecting a port other than a free one.  If the
+   external port that the NAT wishes to use is already in use by another
+   session, the NAT must select a different port.  This results in
+   different code paths for this conflict case, which results in
+   different behavior.
+
+   For example, if three hosts X1, X2, and X3 all send from the same
+   port x, through a port preserving NAT with only one external IP
+   address, called X1', the first one to send (i.e., X1) will get an
+   external port of x, but the next two will get x2' and x3' (where
+   these are not equal to x).  There are NATs where the External NAT
+   mapping characteristics and the External Filter characteristics
+   change between the X1:x and the X2:x mapping.  To make matters worse,
+   there are NATs where the behavior may be the same on the X1:x and
+   X2:x mappings, but different on the third X3:x mapping.
+
+   Another example is that some NATs have an "Endpoint-Independent
+   Mapping", combined with "Port Overloading", as long as two endpoints
+   are not establishing sessions to the same external direction, but
+   then switch their behavior to "Address and Port-Dependent Mapping"
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 18]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-19" id="page-1-19" href="#page-1-19" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   without "Port Preservation" upon detection of these conflicting
+   sessions establishments.
+
+   Any NAT that changes the NAT Mapping or the Filtering behavior
+   without configuration changes, at any point in time, under any
+   particular conditions, is referred to as a "non-deterministic" NAT.
+   NATs that don't are called "deterministic".
+
+   Non-deterministic NATs generally change behavior when a conflict of
+   some sort happens, i.e., when the port that would normally be used is
+   already in use by another mapping.  The NAT mapping and External
+   Filtering in the absence of conflict is referred to as the Primary
+   behavior.  The behavior after the first conflict is referred to as
+   Secondary and after the second conflict is referred to as Tertiary.
+   No NATs have been observed that change on further conflicts, but it
+   is certainly possible that they exist.
+
+   REQ-11:  A NAT MUST have deterministic behavior, i.e., it MUST NOT
+      change the NAT translation (<a href="#section-4">Section 4</a>) or the Filtering
+      (<a href="#section-5">Section 5</a>) Behavior at any point in time, or under any particular
+      conditions.
+
+   Justification:  Non-deterministic NATs are very difficult to
+      troubleshoot because they require more intensive testing.  This
+      non-deterministic behavior is the root cause of much of the
+      uncertainty that NATs introduce about whether or not applications
+      will work.
+
+<span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  ICMP Destination Unreachable Behavior</span>
+
+   When a NAT sends a packet toward a host on the other side of the NAT,
+   an ICMP message may be sent in response to that packet.  That ICMP
+   message may be sent by the destination host or by any router along
+   the network path.  The NAT's default configuration SHOULD NOT filter
+   ICMP messages based on their source IP address.  Such ICMP messages
+   SHOULD be rewritten by the NAT (specifically, the IP headers and the
+   ICMP payload) and forwarded to the appropriate internal or external
+   host.  The NAT needs to perform this function for as long as the UDP
+   mapping is active.  Receipt of any sort of ICMP message MUST NOT
+   destroy the NAT mapping.  A NAT that performs the functions described
+   in the paragraph above is referred to as "support ICMP Processing".
+
+   There is no significant security advantage to blocking ICMP
+   Destination Unreachable packets.  Additionally, blocking ICMP
+   Destination Unreachable packets can interfere with application
+   failover, UDP Path MTU Discovery (see [<a href="./rfc1191.html" title="&quot;Path MTU discovery&quot;">RFC1191</a>] and [<a href="./rfc1435.html" title="&quot;IESG Advice from Experience with Path MTU Discovery&quot;">RFC1435</a>]), and
+   traceroute.  Blocking any ICMP message is discouraged, and blocking
+   ICMP Destination Unreachable is strongly discouraged.
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 19]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-20" id="page-1-20" href="#page-1-20" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   REQ-12:  Receipt of any sort of ICMP message MUST NOT terminate the
+      NAT mapping.
+
+      a) The NAT's default configuration SHOULD NOT filter ICMP messages
+         based on their source IP address.
+
+      b) It is RECOMMENDED that a NAT support ICMP Destination
+         Unreachable messages.
+
+   Justification:  This is easy to do and is used for many things
+      including MTU discovery and rapid detection of error conditions,
+      and has no negative consequences.
+
+<span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  Fragmentation of Outgoing Packets</span>
+
+   When the MTU of the adjacent link is too small, fragmentation of
+   packets going from the internal side to the external side of the NAT
+   may occur.  This can occur if the NAT is doing Point-to-Point over
+   Ethernet (PPPoE), or if the NAT has been configured with a small MTU
+   to reduce serialization delay when sending large packets and small
+   higher-priority packets, or for other reasons.
+
+   It is worth noting that many IP stacks do not use Path MTU Discovery
+   with UDP packets.
+
+   The packet could have its Don't Fragment bit set to 1 (DF=1) or 0
+   (DF=0).
+
+   REQ-13:  If the packet received on an internal IP address has DF=1,
+      the NAT MUST send back an ICMP message "Fragmentation needed and
+      DF set" to the host, as described in [<a href="./rfc0792.html" title="&quot;Internet Control Message Protocol&quot;">RFC0792</a>].
+
+      a) If the packet has DF=0, the NAT MUST fragment the packet and
+         SHOULD send the fragments in order.
+
+   Justification:  This is as per <a href="./rfc792.html">RFC 792</a>.
+
+      a) This is the same function a router performs in a similar
+         situation [<a href="./rfc1812.html" title="&quot;Requirements for IP Version 4 Routers&quot;">RFC1812</a>].
+
+<span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  Receiving Fragmented Packets</span>
+
+   For a variety of reasons, a NAT may receive a fragmented packet.  The
+   IP packet containing the header could arrive in any fragment,
+   depending on network conditions, packet ordering, and the
+   implementation of the IP stack that generated the fragments.
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 20]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-21" id="page-1-21" href="#page-1-21" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   A NAT that is capable only of receiving fragments in order (that is,
+   with the header in the first packet) and forwarding each of the
+   fragments to the internal host is described as "Received Fragments
+   Ordered".
+
+   A NAT that is capable of receiving fragments in or out of order and
+   forwarding the individual fragments (or a reassembled packet) to the
+   internal host is referred to as "Receive Fragments Out of Order".
+   See the Security Considerations section of this document for a
+   discussion of this behavior.
+
+   A NAT that is neither of these is referred to as "Receive Fragments
+   None".
+
+   REQ-14:  A NAT MUST support receiving in-order and out-of-order
+      fragments, so it MUST have "Received Fragment Out of Order"
+      behavior.
+
+      a) A NAT's out-of-order fragment processing mechanism MUST be
+         designed so that fragmentation-based DoS attacks do not
+         compromise the NAT's ability to process in-order and
+         unfragmented IP packets.
+
+   Justification:  See Security Considerations.
+
+<span class="h2"><a class="selflink" name="section-12" href="#section-12">12</a>.  Requirements</span>
+
+   The requirements in this section are aimed at minimizing the
+   complications caused by NATs to applications, such as realtime
+   communications and online gaming.  The requirements listed earlier in
+   the document are consolidated here into a single section.
+
+   It should be understood, however, that applications normally do not
+   know in advance if the NAT conforms to the recommendations defined in
+   this section.  Peer-to-peer media applications still need to use
+   normal procedures, such as ICE [<a href="#ref-ICE" title="&quot;Interactive Connectivity Establishment (ICE): A Methodology for Network Address Translator (NAT) Traversal for Offer/Answer Protocols&quot;">ICE</a>].
+
+   A NAT that supports all the mandatory requirements of this
+   specification (i.e., the "MUST"), is "compliant with this
+   specification".  A NAT that supports all the requirements of this
+   specification (i.e., including the "RECOMMENDED") is "fully compliant
+   with all the mandatory and recommended requirements of this
+   specification".
+
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 21]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-22" id="page-1-22" href="#page-1-22" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   REQ-1:  A NAT MUST have an "Endpoint-Independent Mapping" behavior.
+
+   REQ-2:  It is RECOMMENDED that a NAT have an "IP address pooling"
+      behavior of "Paired".  Note that this requirement is not
+      applicable to NATs that do not support IP address pooling.
+
+   REQ-3:  A NAT MUST NOT have a "Port assignment" behavior of "Port
+      overloading".
+
+      a) If the host's source port was in the range 0-1023, it is
+         RECOMMENDED the NAT's source port be in the same range.  If the
+         host's source port was in the range 1024-65535, it is
+         RECOMMENDED that the NAT's source port be in that range.
+
+   REQ-4:  It is RECOMMENDED that a NAT have a "Port parity
+      preservation" behavior of "Yes".
+
+   REQ-5:  A NAT UDP mapping timer MUST NOT expire in less than two
+      minutes, unless REQ-5a applies.
+
+      a) For specific destination ports in the well-known port range
+         (ports 0-1023), a NAT MAY have shorter UDP mapping timers that
+         are specific to the IANA-registered application running over
+         that specific destination port.
+
+      b) The value of the NAT UDP mapping timer MAY be configurable.
+
+      c) A default value of five minutes or more for the NAT UDP mapping
+         timer is RECOMMENDED.
+
+   REQ-6:  The NAT mapping Refresh Direction MUST have a "NAT Outbound
+      refresh behavior" of "True".
+
+      a) The NAT mapping Refresh Direction MAY have a "NAT Inbound
+         refresh behavior" of "True".
+
+   REQ-7  A NAT device whose external IP interface can be configured
+      dynamically MUST either (1) Automatically ensure that its internal
+      network uses IP addresses that do not conflict with its external
+      network, or (2) Be able to translate and forward traffic between
+      all internal nodes and all external nodes whose IP addresses
+      numerically conflict with the internal network.
+
+   REQ-8:  If application transparency is most important, it is
+      RECOMMENDED that a NAT have "Endpoint-Independent Filtering"
+      behavior.  If a more stringent filtering behavior is most
+      important, it is RECOMMENDED that a NAT have "Address-Dependent
+      Filtering" behavior.
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 22]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-23" id="page-1-23" href="#page-1-23" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+      a) The filtering behavior MAY be an option configurable by the
+         administrator of the NAT.
+
+   REQ-9:  A NAT MUST support "Hairpinning".
+
+      a) A NAT Hairpinning behavior MUST be "External source IP address
+         and port".
+
+   REQ-10:  To eliminate interference with UNSAF NAT traversal
+      mechanisms and allow integrity protection of UDP communications,
+      NAT ALGs for UDP-based protocols SHOULD be turned off.  Future
+      standards track specifications that define an ALG can update this
+      to recommend the ALGs on which they define default.
+
+      a) If a NAT includes ALGs, it is RECOMMENDED that the NAT allow
+         the NAT administrator to enable or disable each ALG separately.
+
+   REQ-11:  A NAT MUST have deterministic behavior, i.e., it MUST NOT
+      change the NAT translation (<a href="#section-4">Section 4</a>) or the Filtering
+      (<a href="#section-5">Section 5</a>) Behavior at any point in time, or under any particular
+      conditions.
+
+   REQ-12:  Receipt of any sort of ICMP message MUST NOT terminate the
+      NAT mapping.
+
+      a) The NAT's default configuration SHOULD NOT filter ICMP messages
+         based on their source IP address.
+
+      b) It is RECOMMENDED that a NAT support ICMP Destination
+         Unreachable messages.
+
+   REQ-13  If the packet received on an internal IP address has DF=1,
+      the NAT MUST send back an ICMP message "Fragmentation needed and
+      DF set" to the host, as described in [<a href="./rfc0792.html" title="&quot;Internet Control Message Protocol&quot;">RFC0792</a>].
+
+      a) If the packet has DF=0, the NAT MUST fragment the packet and
+         SHOULD send the fragments in order.
+
+   REQ-14:  A NAT MUST support receiving in-order and out-of-order
+      fragments, so it MUST have "Received Fragment Out of Order"
+      behavior.
+
+      a) A NAT's out-of-order fragment processing mechanism MUST be
+         designed so that fragmentation-based DoS attacks do not
+         compromise the NAT's ability to process in-order and
+         unfragmented IP packets.
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 23]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-24" id="page-1-24" href="#page-1-24" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+<span class="h2"><a class="selflink" name="section-13" href="#section-13">13</a>.  Security Considerations</span>
+
+   NATs are often deployed to achieve security goals.  Most of the
+   recommendations and requirements in this document do not affect the
+   security properties of these devices, but a few of them do have
+   security implications and are discussed in this section.
+
+   This document recommends that the timers for mapping be refreshed on
+   outgoing packets (see REQ-6) and does not make recommendations about
+   whether or not inbound packets should update the timers.  If inbound
+   packets update the timers, an external attacker can keep the mapping
+   alive forever and attack future devices that may end up with the same
+   internal address.  A device that was also the DHCP server for the
+   private address space could mitigate this by cleaning any mappings
+   when a DHCP lease expired.  For unicast UDP traffic (the scope of
+   this document), it may not seem relevant to support inbound timer
+   refresh; however, for multicast UDP, the question is harder.  It is
+   expected that future documents discussing NAT behavior with multicast
+   traffic will refine the requirements around handling of the inbound
+   refresh timer.  Some devices today do update the timers on inbound
+   packets.
+
+   This document recommends that the NAT filters be specific to the
+   external IP address only (see REQ-8) and not to the external IP
+   address and UDP port.  It can be argued that this is less secure than
+   using the IP and port.  Devices that wish to filter on IP and port do
+   still comply with these requirements.
+
+   Non-deterministic NATs are risky from a security point of view.  They
+   are very difficult to test because they are, well, non-deterministic.
+   Testing by a person configuring one may result in the person thinking
+   it is behaving as desired, yet under different conditions, which an
+   attacker can create, the NAT may behave differently.  These
+   requirements recommend that devices be deterministic.
+
+   This document requires that NATs have an "external NAT mapping is
+   endpoint independent" behavior.  This does not reduce the security of
+   devices.  Which packets are allowed to flow across the device is
+   determined by the external filtering behavior, which is independent
+   of the mapping behavior.
+
+   When a fragmented packet is received from the external side, and the
+   packets are out of order so that the initial fragment does not arrive
+   first, many systems simply discard the out-of-order packets.
+   Moreover, since some networks deliver small packets ahead of large
+   ones, there can be many out-of-order fragments.  NATs that are
+   capable of delivering these out-of-order packets are possible, but
+   they need to store the out-of-order fragments, which can open up a
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 24]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-25" id="page-1-25" href="#page-1-25" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   Denial-of-Service (DoS) opportunity, if done incorrectly.
+   Fragmentation has been a tool used in many attacks, some involving
+   passing fragmented packets through NATs, and others involving DoS
+   attacks based on the state needed to reassemble the fragments.  NAT
+   implementers should be aware of [<a href="./rfc3128.html" title="&quot;Protection Against a Variant of the Tiny Fragment Attack (RFC 1858)&quot;">RFC3128</a>] and [<a href="./rfc1858.html" title="&quot;Security Considerations for IP Fragment Filtering&quot;">RFC1858</a>].
+
+<span class="h2"><a class="selflink" name="section-14" href="#section-14">14</a>.  IAB Considerations</span>
+
+   The IAB has studied the problem of "Unilateral Self Address Fixing",
+   which is the general process by which a client attempts to determine
+   its address in another realm on the other side of a NAT through a
+   collaborative protocol reflection mechanism [<a href="./rfc3424.html" title="&quot;IAB Considerations for UNilateral Self-Address Fixing (UNSAF) Across Network Address Translation&quot;">RFC3424</a>].
+
+   This specification does not, in itself, constitute an UNSAF
+   application.  It consists of a series of requirements for NATs aimed
+   at minimizing the negative impact that those devices have on peer-to-
+   peer media applications, especially when those applications are using
+   UNSAF methods.
+
+   <a href="#section-3">Section 3</a> of UNSAF lists several practical issues with solutions to
+   NAT problems.  This document makes recommendations to reduce the
+   uncertainty and problems introduced by these practical issues with
+   NATs.  In addition, UNSAF lists five architectural considerations.
+   Although this is not an UNSAF proposal, it is interesting to consider
+   the impact of this work on these architectural considerations.
+
+   Arch-1:  The scope of this is limited to UDP packets in NATs like the
+            ones widely deployed today.  The "fix" helps constrain the
+            variability of NATs for true UNSAF solutions such as STUN.
+
+   Arch-2:  This will exit at the same rate that NATs exit.  It does not
+            imply any protocol machinery that would continue to live
+            after NATs were gone, or make it more difficult to remove
+            them.
+
+   Arch-3:  This does not reduce the overall brittleness of NATs, but
+            will hopefully reduce some of the more outrageous NAT
+            behaviors and make it easer to discuss and predict NAT
+            behavior in given situations.
+
+   Arch-4:  This work and the results [<a href="#ref-RESULTS" title="&quot;NAT Classification Test Results&quot;">RESULTS</a>] of various NATs
+            represent the most comprehensive work at IETF on what the
+            real issues are with NATs for applications like VoIP.  This
+            work and STUN have pointed out, more than anything else, the
+            brittleness NATs introduce and the difficulty of addressing
+            these issues.
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 25]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-26" id="page-1-26" href="#page-1-26" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   Arch-5:  This work and the test results [<a href="#ref-RESULTS" title="&quot;NAT Classification Test Results&quot;">RESULTS</a>] provide a reference
+            model for what any UNSAF proposal might encounter in
+            deployed NATs.
+
+<span class="h2"><a class="selflink" name="section-15" href="#section-15">15</a>.  Acknowledgments</span>
+
+   The editor would like to acknowledge Bryan Ford, Pyda Srisuresh, and
+   Dan Kegel for their multiple contributions on peer-to-peer
+   communications across a NAT.  Dan Wing contributed substantial text
+   on IP fragmentation and ICMP behavior.  Thanks to Rohan Mahy,
+   Jonathan Rosenberg, Mary Barnes, Melinda Shore, Lyndsay Campbell,
+   Geoff Huston, Jiri Kuthan, Harald Welte, Steve Casner, Robert
+   Sanders, Spencer Dawkins, Saikat Guha, Christian Huitema, Yutaka
+   Takeda, Paul Hoffman, Lisa Dusseault, Pekka Savola, Peter Koch, Jari
+   Arkko, and Alfred Hoenes for their contributions.
+
+<span class="h2"><a class="selflink" name="section-16" href="#section-16">16</a>.  References</span>
+
+<span class="h3"><a class="selflink" name="section-16.1" href="#section-16.1">16.1</a>.  Normative References</span>
+
+   [<a name="ref-RFC0768" id="ref-RFC0768">RFC0768</a>]     Postel, J., "User Datagram Protocol", STD 6, <a href="./rfc768.html">RFC 768</a>,
+                 August 1980.
+
+   [<a name="ref-RFC0791" id="ref-RFC0791">RFC0791</a>]     Postel, J., "Internet Protocol", STD 5, <a href="./rfc791.html">RFC 791</a>,
+                 September 1981.
+
+   [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]     Bradner, S., "Key words for use in RFCs to Indicate
+                 Requirement Levels", <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>, March 1997.
+
+<span class="h3"><a class="selflink" name="section-16.2" href="#section-16.2">16.2</a>.  Informative References</span>
+
+   [<a name="ref-RFC0792" id="ref-RFC0792">RFC0792</a>]     Postel, J., "Internet Control Message Protocol", STD 5,
+                 <a href="./rfc792.html">RFC 792</a>, September 1981.
+
+   [<a name="ref-RFC1191" id="ref-RFC1191">RFC1191</a>]     Mogul, J. and S. Deering, "Path MTU discovery",
+                 <a href="./rfc1191.html">RFC 1191</a>, November 1990.
+
+   [<a name="ref-RFC1435" id="ref-RFC1435">RFC1435</a>]     Knowles, S., "IESG Advice from Experience with Path MTU
+                 Discovery", <a href="./rfc1435.html">RFC 1435</a>, March 1993.
+
+   [<a name="ref-RFC1812" id="ref-RFC1812">RFC1812</a>]     Baker, F., "Requirements for IP Version 4 Routers",
+                 <a href="./rfc1812.html">RFC 1812</a>, June 1995.
+
+   [<a name="ref-RFC1858" id="ref-RFC1858">RFC1858</a>]     Ziemba, G., Reed, D., and P. Traina, "Security
+                 Considerations for IP Fragment Filtering", <a href="./rfc1858.html">RFC 1858</a>,
+                 October 1995.
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 26]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-27" id="page-1-27" href="#page-1-27" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   [<a name="ref-RFC1918" id="ref-RFC1918">RFC1918</a>]     Rekhter, Y., Moskowitz, R., Karrenberg, D., Groot, G.,
+                 and E. Lear, "Address Allocation for Private
+                 Internets", <a href="./bcp5.html">BCP 5</a>, <a href="./rfc1918.html">RFC 1918</a>, February 1996.
+
+   [<a name="ref-RFC2460" id="ref-RFC2460">RFC2460</a>]     Deering, S. and R. Hinden, "Internet Protocol, Version
+                 6 (IPv6) Specification", <a href="./rfc2460.html">RFC 2460</a>, December 1998.
+
+   [<a name="ref-RFC2623" id="ref-RFC2623">RFC2623</a>]     Eisler, M., "NFS Version 2 and Version 3 Security
+                 Issues and the NFS Protocol's Use of RPCSEC_GSS and
+                 Kerberos V5", <a href="./rfc2623.html">RFC 2623</a>, June 1999.
+
+   [<a name="ref-RFC2663" id="ref-RFC2663">RFC2663</a>]     Srisuresh, P. and M. Holdrege, "IP Network Address
+                 Translator (NAT) Terminology and Considerations",
+                 <a href="./rfc2663.html">RFC 2663</a>, August 1999.
+
+   [<a name="ref-RFC3022" id="ref-RFC3022">RFC3022</a>]     Srisuresh, P. and K. Egevang, "Traditional IP Network
+                 Address Translator (Traditional NAT)", <a href="./rfc3022.html">RFC 3022</a>,
+                 January 2001.
+
+   [<a name="ref-RFC3027" id="ref-RFC3027">RFC3027</a>]     Holdrege, M. and P. Srisuresh, "Protocol Complications
+                 with the IP Network Address Translator", <a href="./rfc3027.html">RFC 3027</a>,
+                 January 2001.
+
+   [<a name="ref-RFC3128" id="ref-RFC3128">RFC3128</a>]     Miller, I., "Protection Against a Variant of the Tiny
+                 Fragment Attack (<a href="./rfc1858.html">RFC 1858</a>)", <a href="./rfc3128.html">RFC 3128</a>, June 2001.
+
+   [<a name="ref-RFC3261" id="ref-RFC3261">RFC3261</a>]     Rosenberg, J., Schulzrinne, H., Camarillo, G.,
+                 Johnston, A., Peterson, J., Sparks, R., Handley, M.,
+                 and E. Schooler, "SIP: Session Initiation Protocol",
+                 <a href="./rfc3261.html">RFC 3261</a>, June 2002.
+
+   [<a name="ref-RFC3424" id="ref-RFC3424">RFC3424</a>]     Daigle, L. and IAB, "IAB Considerations for UNilateral
+                 Self-Address Fixing (UNSAF) Across Network Address
+                 Translation", <a href="./rfc3424.html">RFC 3424</a>, November 2002.
+
+   [<a name="ref-RFC3489" id="ref-RFC3489">RFC3489</a>]     Rosenberg, J., Weinberger, J., Huitema, C., and R.
+                 Mahy, "STUN - Simple Traversal of User Datagram
+                 Protocol (UDP) Through Network Address Translators
+                 (NATs)", <a href="./rfc3489.html">RFC 3489</a>, March 2003.
+
+   [<a name="ref-RFC3550" id="ref-RFC3550">RFC3550</a>]     Schulzrinne, H., Casner, S., Frederick, R., and V.
+                 Jacobson, "RTP: A Transport Protocol for Real-Time
+                 Applications", STD 64, <a href="./rfc3550.html">RFC 3550</a>, July 2003.
+
+   [<a name="ref-RFC3605" id="ref-RFC3605">RFC3605</a>]     Huitema, C., "Real Time Control Protocol (RTCP)
+                 attribute in Session Description Protocol (SDP)",
+                 <a href="./rfc3605.html">RFC 3605</a>, October 2003.
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 27]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-28" id="page-1-28" href="#page-1-28" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+   [<a name="ref-RFC4380" id="ref-RFC4380">RFC4380</a>]     Huitema, C., "Teredo: Tunneling IPv6 over UDP through
+                 Network Address Translations (NATs)", <a href="./rfc4380.html">RFC 4380</a>,
+                 February 2006.
+
+   [<a name="ref-RFC3489bis" id="ref-RFC3489bis">RFC3489bis</a>]  Rosenberg, J., "Simple Traversal Underneath Network
+                 Address Translators (NAT) (STUN)", Work in Progress,
+                 October 2006.
+
+   [<a name="ref-ICE" id="ref-ICE">ICE</a>]         Rosenberg, J., "Interactive Connectivity Establishment
+                 (ICE): A Methodology for Network Address Translator
+                 (NAT) Traversal for Offer/Answer Protocols", Work
+                 in Progress, October 2006.
+
+   [<a name="ref-RESULTS" id="ref-RESULTS">RESULTS</a>]     Jennings, C., <a style="text-decoration: none" href='https://www.google.com/search?sitesearch=tools.ietf.org%2Fhtml%2F&amp;q=inurl:draft-+%22NAT+Classification+Test+Results%22'>"NAT Classification Test Results"</a>, Work
+                 in Progress, October 2006.
+
+   [<a name="ref-TURN" id="ref-TURN">TURN</a>]        Rosenberg, J., "Obtaining Relay Addresses from Simple
+                 Traversal Underneath NAT (STUN)", Work in Progress,
+                 October 2006.
+
+   [<a name="ref-ITU.H323" id="ref-ITU.H323">ITU.H323</a>]    "Packet-based Multimedia Communications Systems", ITU-
+                 T Recommendation H.323, July 2003.
+
+Authors' Addresses
+
+   Francois Audet (editor)
+   Nortel Networks
+   4655 Great America Parkway
+   Santa Clara, CA  95054
+   US
+
+   Phone: +1 408 495 2456
+   EMail: audet@nortel.com
+
+
+   Cullen Jennings
+   Cisco Systems
+   170 West Tasman Drive
+   MS: SJC-21/2
+   San Jose, CA  95134
+   US
+
+   Phone: +1 408 902 3341
+   EMail: fluffy@cisco.com
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 28]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-1-29" id="page-1-29" href="#page-1-29" class="invisible"> </a>
+<span class="grey"><a href="./rfc4787.html">RFC 4787</a>              NAT UDP Unicast Requirements          January 2007</span>
+
+
+Full Copyright Statement
+
+   Copyright (C) The IETF Trust (2007).
+
+   This document is subject to the rights, licenses and restrictions
+   contained in <a href="./bcp78.html">BCP 78</a>, and except as set forth therein, the authors
+   retain all their rights.
+
+   This document and the information contained herein are provided on an
+   "AS IS" basis and THE CONTRIBUTOR, THE ORGANIZATION HE/SHE REPRESENTS
+   OR IS SPONSORED BY (IF ANY), THE INTERNET SOCIETY, THE IETF TRUST AND
+   THE INTERNET ENGINEERING TASK FORCE DISCLAIM ALL WARRANTIES, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF
+   THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED
+   WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+Intellectual Property
+
+   The IETF takes no position regarding the validity or scope of any
+   Intellectual Property Rights or other rights that might be claimed to
+   pertain to the implementation or use of the technology described in
+   this document or the extent to which any license under such rights
+   might or might not be available; nor does it represent that it has
+   made any independent effort to identify any such rights.  Information
+   on the procedures with respect to rights in RFC documents can be
+   found in <a href="./bcp78.html">BCP 78</a> and <a href="./bcp79.html">BCP 79</a>.
+
+   Copies of IPR disclosures made to the IETF Secretariat and any
+   assurances of licenses to be made available, or the result of an
+   attempt made to obtain a general license or permission for the use of
+   such proprietary rights by implementers or users of this
+   specification can be obtained from the IETF on-line IPR repository at
+   <a href="http://www.ietf.org/ipr">http://www.ietf.org/ipr</a>.
+
+   The IETF invites any interested party to bring to its attention any
+   copyrights, patents or patent applications, or other proprietary
+   rights that may cover technology that may be required to implement
+   this standard.  Please address the information to the IETF at
+   ietf-ipr@ietf.org.
+
+Acknowledgement
+
+   Funding for the RFC Editor function is currently provided by the
+   Internet Society.
+
+
+
+
+
+
+
+<span class="grey">Audet &amp; Jennings         Best Current Practice                 [Page 29]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><span class="grey">=========================================================================</span>
+
+
+
+
+
+Internet Engineering Task Force (IETF)                 S. Perreault, Ed.
+Request for Comments: 6888                                      Viagenie
+BCP: 127                                                     I. Yamagata
+Updates: <a href="./rfc4787.html">4787</a>                                                S. Miyakawa
+Category: Best Current Practice                       NTT Communications
+ISSN: 2070-1721                                              A. Nakagawa
+                                          Japan Internet Exchange (JPIX)
+                                                               H. Ashida
+                                                           Cisco Systems
+                                                              April 2013
+
+
+           Common Requirements for Carrier-Grade NATs (CGNs)
+
+Abstract
+
+   This document defines common requirements for Carrier-Grade NATs
+   (CGNs).  It updates <a href="./rfc4787.html">RFC 4787</a>.
+
+Status of This Memo
+
+   This memo documents an Internet Best Current Practice.
+
+   This document is a product of the Internet Engineering Task Force
+   (IETF).  It represents the consensus of the IETF community.  It has
+   received public review and has been approved for publication by the
+   Internet Engineering Steering Group (IESG).  Further information on
+   BCPs is available in <a href="./rfc5741.html#section-2">Section&nbsp;2 of RFC 5741</a>.
+
+   Information about the current status of this document, any errata,
+   and how to provide feedback on it may be obtained at
+   <a href="http://www.rfc-editor.org/info/rfc6888">http://www.rfc-editor.org/info/rfc6888</a>.
+
+Copyright Notice
+
+   Copyright (c) 2013 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to <a href="./bcp78.html">BCP 78</a> and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 1]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-2" id="page-2-2" href="#page-2-2" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+Table of Contents
+   <a href="#section-1">1</a>. Introduction . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-2-2">2</a>
+   <a href="#section-2">2</a>. Terminology  . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-2-3">3</a>
+   <a href="#section-3">3</a>. Requirements for CGNs  . . . . . . . . . . . . . . . . . . .  <a href="#page-2-4">4</a>
+   <a href="#section-4">4</a>. Logging  . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-2-10">10</a>
+   <a href="#section-5">5</a>. Port Allocation Scheme . . . . . . . . . . . . . . . . . . . <a href="#page-2-11">11</a>
+   <a href="#section-6">6</a>. Deployment Considerations  . . . . . . . . . . . . . . . . . <a href="#page-2-11">11</a>
+   <a href="#section-7">7</a>. Security Considerations  . . . . . . . . . . . . . . . . . . <a href="#page-2-12">12</a>
+   <a href="#section-8">8</a>. Acknowledgements . . . . . . . . . . . . . . . . . . . . . . <a href="#page-2-12">12</a>
+   <a href="#section-9">9</a>. References . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-2-12">12</a>
+      <a href="#section-9.1">9.1</a>. Normative References  . . . . . . . . . . . . . . . . . <a href="#page-2-12">12</a>
+      <a href="#section-9.2">9.2</a>. Informative Reference . . . . . . . . . . . . . . . . . <a href="#page-2-13">13</a>
+
+<span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Introduction</span>
+
+   With the shortage of IPv4 addresses, it is expected that more
+   Internet Service Providers (ISPs) may want to provide a service where
+   a public IPv4 address would be shared by many subscribers.  Each
+   subscriber is assigned a private address, and a Network Address
+   Translator (NAT) [<a href="./rfc2663.html" title="&quot;IP Network Address Translator (NAT) Terminology and Considerations&quot;">RFC2663</a>] situated in the ISP's network translates
+   the traffic between private and public addresses.  When a second IPv4
+   NAT is located at the customer edge, this results in two layers of
+   NAT.
+
+   This service can conceivably be offered alongside others, such as
+   IPv6 services or regular IPv4 service assigning public addresses to
+   subscribers.  Some ISPs started offering such a service long before
+   there was a shortage of IPv4 addresses, showing that there are
+   driving forces other than the shortage of IPv4 addresses.  One
+   approach to CGN deployment is described in [<a href="./rfc6264.html" title="&quot;An Incremental Carrier-Grade NAT (CGN) for IPv6 Transition&quot;">RFC6264</a>].
+
+   This document describes behavior that is required of those multi-
+   subscriber NATs for interoperability.  It is not an IETF endorsement
+   of CGNs or a real specification for CGNs; rather, it is just a
+   minimal set of requirements that will increase the likelihood of
+   applications working across CGNs.
+
+   Because subscribers do not receive unique IPv4 addresses, Carrier-
+   Grade NATs introduce substantial limitations in communications
+   between subscribers and with the rest of the Internet.  In
+   particular, it is considerably more involved to establish proxy
+   functionality at the border between internal and external realms.
+   Some applications may require substantial enhancements, while some
+   others may not function at all in such an environment.  Please see
+   "Issues with IP Address Sharing" [<a href="./rfc6269.html" title="&quot;Issues with IP Address Sharing&quot;">RFC6269</a>] for details.
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 2]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-3" id="page-2-3" href="#page-2-3" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   This document builds upon previous works describing requirements for
+   generic NATs [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>][RFC5382][<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].  These documents, and their
+   updates if any, still apply in this context.  What follows are
+   additional requirements, to be satisfied on top of previous ones.
+
+<span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  Terminology</span>
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+
+   Readers are expected to be familiar with "Network Address Translation
+   (NAT) Behavioral Requirements for Unicast UDP" [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>] and the
+   terms defined there.  The following additional term is used in this
+   document:
+
+   Carrier-Grade NAT (CGN):  A NAT-based [<a href="./rfc2663.html" title="&quot;IP Network Address Translator (NAT) Terminology and Considerations&quot;">RFC2663</a>] logical function used
+      to share the same IPv4 address among several subscribers.  A CGN
+      is not managed by the subscribers.
+
+         Note that the term "carrier-grade" has nothing to do with the
+         quality of the NAT; that is left to discretion of implementers.
+         Rather, it is to be understood as a topological qualifier: the
+         NAT is placed in an ISP's network and translates the traffic of
+         potentially many subscribers.  Subscribers have limited or no
+         control over the CGN, whereas they typically have full control
+         over a NAT placed on their premises.
+
+         Note also that the CGN described in this document is IPv4-only.
+         IPv6 address translation is not considered.
+
+         However, the scenario in which the IPv4-only CGN logical
+         function is used may include IPv6 elements.  For example, Dual-
+         Stack Lite (DS-Lite) [<a href="./rfc6333.html" title="&quot;Dual- Stack Lite Broadband Deployments Following IPv4 Exhaustion&quot;">RFC6333</a>] uses an IPv4-only CGN logical
+         function in a scenario making use of IPv6 encapsulation.
+         Therefore, this document would also apply to the CGN part of
+         DS-Lite.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 3]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-4" id="page-2-4" href="#page-2-4" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   Figure 1 summarizes a common network topology in which a CGN
+   operates.
+
+                                   .
+                                   :
+                                   |       Internet
+                   ............... | ...................
+                                   |       ISP network
+                   External pool:  |
+                   192.0.2.1/26    |
+                               ++------++  External realm
+                   ........... |  CGN   |...............
+                               ++------++  Internal realm
+                        10.0.0.1 |    |
+                                 |    |
+                                 |    |    ISP network
+                   ............. | .. | ................
+                                 |    |  Customer premises
+                      10.0.0.100 |    | 10.0.0.101
+                         ++------++  ++------++
+                         |  CPE1  |  |  CPE2  |  etc.
+                         ++------++  ++------++
+
+               (IP addresses are only for example purposes)
+
+                      Figure 1: CGN Network Topology
+
+   Another possible topology is one for hotspots, where there is no
+   customer premise or customer premises equipment (CPE), but where a
+   CGN serves a bunch of customers who don't trust each other; hence,
+   fairness is an issue.  One important difference with the previous
+   topology is the absence of a second layer of NAT.  This, however, has
+   no impact on CGN requirements since they are driven by fairness and
+   robustness in the service provided to customers, which applies in
+   both cases.
+
+<span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Requirements for CGNs</span>
+
+   What follows is a list of requirements for CGNs.  They are in
+   addition to those found in other documents such as [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>],
+   [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>], and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].
+
+   REQ-1:  If a CGN forwards packets containing a given transport
+      protocol, then it MUST fulfill that transport protocol's
+      behavioral requirements.  Current applicable documents are as
+      follows:
+
+      a.  "NAT Behavioral Requirements for Unicast UDP" [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>]
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 4]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-5" id="page-2-5" href="#page-2-5" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+      b.  "Network Address Translation (NAT) Behavioral Requirements for
+          TCP" [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>]
+
+      c.  "NAT Behavioral Requirements for ICMP" [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>]
+
+      d.  "Network Address Translation (NAT) Behavioral Requirements for
+          the Datagram Congestion Control Protocol (DCCP)" [<a href="./rfc5597.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for the Datagram Congestion Control Protocol&quot;">RFC5597</a>]
+
+      Any future NAT behavioral requirements documents for IPv4
+      transport protocols will impose additional requirements for CGNs
+      on top of those stated here.
+
+   Justification:  It is crucial for CGNs to maximize the set of
+      applications that can function properly across them.  The IETF has
+      documented the best current practices for UDP, TCP, ICMP, and
+      DCCP.
+
+   REQ-2:  A CGN MUST have a default "IP address pooling" behavior of
+      "Paired" (as defined in <a href="./rfc4787.html#section-4.1">Section&nbsp;4.1 of [RFC4787]</a>).  A CGN MAY
+      provide a mechanism for administrators to change this behavior on
+      an application protocol basis.
+
+      *  When multiple overlapping internal IP address ranges share the
+         same external IP address pool (e.g., DS-Lite [<a href="./rfc6333.html" title="&quot;Dual- Stack Lite Broadband Deployments Following IPv4 Exhaustion&quot;">RFC6333</a>]), the
+         "IP address pooling" behavior applies to mappings between
+         external IP addresses and internal subscribers rather than
+         between external and internal IP addresses.
+
+   Justification:  This stronger form of REQ-2 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>] is
+      justified by the stronger need for not breaking applications that
+      depend on the external address remaining constant.
+
+      Note that this requirement applies regardless of the transport
+      protocol.  In other words, a CGN must use the same external IP
+      address mapping for all sessions associated with the same internal
+      IP address, be they TCP, UDP, ICMP, something else, or a mix of
+      different protocols.
+
+      The justification for allowing other behaviors is to allow the
+      administrator to save external addresses and ports for application
+      protocols that are known to work fine with other behaviors in
+      practice.  However, the default behavior MUST be "Paired".
+
+   REQ-3:  The CGN function SHOULD NOT have any limitations on the size
+      or the contiguity of the external address pool.  In particular,
+      the CGN function MUST be configurable with contiguous or non-
+      contiguous external IPv4 address ranges.
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 5]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-6" id="page-2-6" href="#page-2-6" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   Justification:  Given the increasing rarity of IPv4 addresses, it is
+      becoming harder for an operator to provide large contiguous
+      address pools to CGNs.  Additionally, operational flexibility may
+      require non-contiguous address pools for reasons such as
+      differentiated services, routing management, etc.
+
+      The reason for having SHOULD instead of MUST is to account for
+      limitations imposed by available resources as well as constraints
+      imposed for security reasons.
+
+   REQ-4:  A CGN MUST support limiting the number of external ports (or,
+      equivalently, "identifiers" for ICMP) that are assigned per
+      subscriber.
+
+      a.  Per-subscriber limits MUST be configurable by the CGN
+          administrator.
+
+      b.  Per-subscriber limits MAY be configurable independently per
+          transport protocol.
+
+      c.  Additionally, it is RECOMMENDED that the CGN include
+          administrator-adjustable thresholds to prevent a single
+          subscriber from consuming excessive CPU resources from the CGN
+          (e.g., rate-limit the subscriber's creation of new mappings).
+
+   Justification:  A CGN can be considered a network resource that is
+      shared by competing subscribers.  Limiting the number of external
+      ports assigned to each subscriber mitigates the denial-of-service
+      (DoS) attack that a subscriber could launch against other
+      subscribers through the CGN in order to get a larger share of the
+      resource.  It ensures fairness among subscribers.  Limiting the
+      rate of allocation mitigates a similar attack where the CPU is the
+      resource being targeted instead of port numbers.  However, this
+      requirement is not a MUST because it is very hard to explicitly
+      call out all CPU-consuming events.
+
+   REQ-5:  A CGN SHOULD support limiting the amount of state memory
+      allocated per mapping and per subscriber.  This may include
+      limiting the number of sessions, the number of filters, etc.,
+      depending on the NAT implementation.
+
+      a.  Limits SHOULD be configurable by the CGN administrator.
+
+      b.  Additionally, it SHOULD be possible to limit the rate at which
+          memory-consuming state elements are allocated.
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 6]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-7" id="page-2-7" href="#page-2-7" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   Justification:  A NAT needs to keep track of TCP sessions associated
+      with each mapping.  This state consumes resources for which, in
+      the case of a CGN, subscribers may compete.  It is necessary to
+      ensure that each subscriber has access to a fair share of the
+      CGN's resources.  Limiting the rate of allocation is intended to
+      prevent CPU resource exhaustion.  Item "B" is at the SHOULD level
+      to account for the fact that means other than rate limiting may be
+      used to attain the same goal.
+
+   REQ-6:  It MUST be possible to administratively turn off translation
+      for specific destination addresses and/or ports.
+
+   Justification:  It is common for a CGN administrator to provide
+      access for subscribers to servers installed in the ISP's network
+      in the external realm.  When such a server is able to reach the
+      internal realm via normal routing (which is entirely controlled by
+      the ISP), translation is unneeded.  In that case, the CGN may
+      forward packets without modification, thus acting like a plain
+      router.  This may represent an important efficiency gain.
+
+      Figure 2 illustrates this use-case.
+
+                  X1:x1            X1':x1'            X2:x2
+                  +---+from X1:x1  +---+from X1:x1    +---+
+                  | C |  to X2:x2  |   |  to X2:x2    | S |
+                  | l |&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;| C |&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;| e |
+                  | i |            | G |              | r |
+                  | e |&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;| N |&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;| v |
+                  | n |from X2:x2  |   |from X2:x2    | e |
+                  | t |  to X1:x1  |   |  to X1:x1    | r |
+                  +---+            +---+              +---+
+
+                        Figure 2: CGN Pass-Through
+
+   REQ-7:  It is RECOMMENDED that a CGN use an "endpoint-independent
+      filtering" behavior (as defined in <a href="./rfc4787.html#section-5">Section&nbsp;5 of [RFC4787]</a>).  If it
+      is known that "Address-Dependent Filtering" does not cause the
+      application-layer protocol to break (how to determine this is out
+      of scope for this document), then it MAY be used instead.
+
+   Justification:  This is a stronger form of REQ-8 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>].
+      This is based on the observation that some games and peer-to-peer
+      applications require EIF for the NAT traversal to work.  In the
+      context of a CGN, it is important to minimize application
+      breakage.
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 7]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-8" id="page-2-8" href="#page-2-8" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   REQ-8:  Once an external port is deallocated, it SHOULD NOT be
+      reallocated to a new mapping until at least 120 seconds have
+      passed, with the exceptions being:
+
+      a.  If the CGN tracks TCP sessions (e.g., with a state machine, as
+          in <a href="./rfc6146.html#section-3.5.2.2">Section&nbsp;3.5.2.2 of [RFC6146]</a>), TCP ports MAY be reused
+          immediately.
+
+      b.  If external ports are statically assigned to internal
+          addresses (e.g., address X with port range 1000-1999 is
+          assigned to subscriber A, 2000-2999 to subscriber B, etc.),
+          and the assignment remains constant across state loss, then
+          ports MAY be reused immediately.
+
+      c.  If the allocated external ports used address-dependent or
+          address-and-port-dependent filtering before state loss, they
+          MAY be reused immediately.
+
+      The length of time and the maximum number of ports in this state
+      MUST be configurable by the CGN administrator.
+
+   Justification:  This is necessary in order to prevent collisions
+      between old and new mappings and sessions.  It ensures that all
+      established sessions are broken instead of redirected to a
+      different peer.
+
+      The exceptions are for cases where reusing a port immediately does
+      not create a possibility that packets would be redirected to the
+      wrong peer.  One can imagine other exceptions where mapping
+      collisions are avoided, thus justifying the SHOULD level for this
+      requirement.
+
+      The 120 seconds value corresponds to the Maximum Segment Lifetime
+      (MSL) from [<a href="./rfc0793.html" title="&quot;Transmission Control Protocol&quot;">RFC0793</a>].
+
+      Note that this requirement also applies to the case when a CGN
+      loses state (due to a crash, reboot, failover to a cold standby,
+      etc.).  In that case, ports that were in use at the time of state
+      loss SHOULD NOT be reallocated until at least 120 seconds have
+      passed.
+
+   REQ-9:  A CGN MUST implement a protocol giving subscribers explicit
+      control over NAT mappings.  That protocol SHOULD be the Port
+      Control Protocol [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>].
+
+   Justification:  Allowing subscribers to manipulate the NAT state
+      table with PCP greatly increases the likelihood that applications
+      will function properly.
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 8]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-9" id="page-2-9" href="#page-2-9" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+      A study of PCP-less CGN impacts can be found in [<a href="#ref-NAT444" title="&quot;Assessing the Impact of Carrier-Grade NAT on Network Applications&quot;">NAT444</a>].  Another
+      study considering the effects of PCP on a peer-to-peer file
+      sharing protocol can be found in [<a href="#ref-BITTORRENT">BITTORRENT</a>].
+
+   REQ-10: CGN implementers SHOULD make their equipment manageable.
+      Standards-based management using standards such as "Definitions of
+      Managed Objects for NAT" [<a href="./rfc4008.html" title="&quot;Definitions of Managed Objects for Network Address Translators (NAT)&quot;">RFC4008</a>] is RECOMMENDED.
+
+   Justification:  It is anticipated that CGNs will be primarily
+      deployed in ISP networks where the need for management is
+      critical.  This requirement is at the SHOULD level to account for
+      the fact that some CGN operators may not need management
+      functionality.
+
+      Note also that there are efforts within the IETF toward creating a
+      MIB tailored for CGNs (e.g., [<a href="#ref-NAT-MIB" title="&quot;Additional Managed Objects for Network Address Translators (NAT)&quot;">NAT-MIB</a>]).
+
+   REQ-11: When a CGN is unable to create a dynamic mapping due to
+      resource constraints or administrative restrictions (i.e.,
+      quotas):
+
+      a.  it MUST drop the original packet;
+
+      b.  it SHOULD send an ICMP Destination Unreachable message with
+          code 1 (Host Unreachable) to the sender;
+
+      c.  it SHOULD send a notification (e.g., SNMP trap) towards a
+          management system (if configured to do so); and
+
+      d.  it MUST NOT delete existing mappings in order to "make room"
+          for the new one.  (This only applies to normal CGN behavior,
+          not to manual operator intervention.)
+
+   Justification:  This is a slightly different form of REQ-8 from
+      [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].  Code 1 is preferred to code 13 because it is listed as
+      a "soft error" in [<a href="./rfc1122.html" title="&quot;Requirements for Internet Hosts - Communication Layers&quot;">RFC1122</a>], which is important because we don't
+      want TCP stacks to abort the connection attempt in this case.  See
+      [<a href="./rfc5461.html" title="&quot;TCP's Reaction to Soft Errors&quot;">RFC5461</a>] for details on TCP's reaction to soft errors.
+
+      Sending ICMP errors and SNMP traps may be rate-limited for
+      security reasons, which is why requirements B and C are SHOULDs,
+      not MUSTs.
+
+      Applications generally handle connection establishment failure
+      better than established connection failure.  This is why dropping
+      the packet initiating the new connection is preferred over
+      deleting existing mappings.  See also the rationale in <a href="./rfc5508.html#section-6">Section&nbsp;6
+      of [RFC5508]</a>.
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                 [Page 9]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-10" id="page-2-10" href="#page-2-10" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+<span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Logging</span>
+
+   It may be necessary for CGN administrators to be able to identify a
+   subscriber based on external IPv4 address, port, and timestamp in
+   order to deal with abuse.  When multiple subscribers share a single
+   external address, the source address and port that are visible at the
+   destination host have been translated from the ones originated by the
+   subscriber.
+
+   In order to be able to do this, the CGN would need to log the
+   following information for each mapping created (this list is for
+   informational purposes only and does not constitute a requirement):
+
+   o  transport protocol
+
+   o  subscriber identifier (e.g., internal source address or tunnel
+      endpoint identifier)
+
+   o  external source address
+
+   o  external source port
+
+   o  timestamp
+
+   By "subscriber identifier" we mean information that uniquely
+   identifies a subscriber.  For example, in a traditional NAT scenario,
+   the internal source address would be sufficient.  In the case of DS-
+   Lite, many subscribers share the same internal address and the
+   subscriber identifier is the tunnel endpoint identifier (i.e., the
+   B4's IPv6 address).
+
+   A disadvantage of logging mappings is that CGNs under heavy usage may
+   produce large amounts of logs, which may require large storage
+   volume.
+
+   REQ-12: A CGN SHOULD NOT log destination addresses or ports unless
+      required to do so for administrative reasons.
+
+   Justification:  Destination logging at the CGN creates privacy
+      issues.  Furthermore, readers should be aware of logging
+      recommendations for Internet-facing servers [<a href="./rfc6302.html" title="&quot;Logging Recommendations for Internet-Facing Servers&quot;">RFC6302</a>].  With
+      compliant servers, the destination address and port do not need to
+      be logged by the CGN.  This can help reduce the amount of logging.
+
+      This requirement is at the SHOULD level to account for the fact
+      that there may be other reasons for logging destination addresses
+      or ports.  One such reason might be that the remote server is not
+      following [<a href="./rfc6302.html" title="&quot;Logging Recommendations for Internet-Facing Servers&quot;">RFC6302</a>].
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                [Page 10]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-11" id="page-2-11" href="#page-2-11" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+<span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Port Allocation Scheme</span>
+
+   A CGN's port allocation scheme is subject to three competing
+   requirements:
+
+   REQ-13: A CGN's port allocation scheme SHOULD maximize port
+      utilization.
+
+   Justification:  External ports are one of the resources being shared
+      by a CGN.  Efficient management of that resource directly impacts
+      the quality of a subscriber's Internet connection.
+
+      Some schemes are very efficient in their port utilization.  In
+      that sense, they have good scaling properties (nothing is wasted).
+      Others will systematically waste ports.
+
+   REQ-14: A CGN's port allocation scheme SHOULD minimize log volume.
+
+   Justification:  Huge log volumes can be problematic to CGN operators.
+
+      Some schemes create one log entry per mapping.  Others allow
+      multiple mappings to generate a single log entry, which sometimes
+      can be expressed very compactly.  With some schemes, the logging
+      frequency can approach that of DHCP servers.
+
+   REQ-15: A CGN's port allocation scheme SHOULD make it hard for
+      attackers to guess port numbers.
+
+   Justification:  Easily guessed port numbers put subscribers at risk
+      of the attacks described in [<a href="./rfc6056.html" title="&quot;Recommendations for Transport- Protocol Port Randomization&quot;">RFC6056</a>].
+
+      Some schemes provide very good security in that ports numbers are
+      not easily guessed.  Others provide poor security to subscribers.
+
+   A CGN implementation's choice of port allocation scheme optimizes to
+   satisfy one requirement at the expense of another.  Therefore, these
+   are soft requirements (SHOULD as opposed to MUST).
+
+<span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Deployment Considerations</span>
+
+   Several issues are encountered when CGNs are used [<a href="./rfc6269.html" title="&quot;Issues with IP Address Sharing&quot;">RFC6269</a>].  There
+   is current work in the IETF toward alleviating some of these issues.
+   For example, see [<a href="#ref-NAT-REVEAL">NAT-REVEAL</a>].
+
+
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                [Page 11]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-12" id="page-2-12" href="#page-2-12" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+<span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Security Considerations</span>
+
+   If a malicious subscriber can spoof another subscriber's CPE, it may
+   cause a DoS to that subscriber by creating mappings up to the allowed
+   limit.  An ISP can prevent this with ingress filtering, as described
+   in [<a href="./rfc2827.html" title="&quot;Network Ingress Filtering: Defeating Denial of Service Attacks which employ IP Source Address Spoofing&quot;">RFC2827</a>].
+
+   This document recommends endpoint-independent filtering (EIF) as the
+   default filtering behavior for CGNs.  EIF has security considerations
+   that are discussed in [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>].
+
+   NATs sometimes perform fragment reassembly.  CGNs would do so at
+   presumably high data rates.  Therefore, the reader should be familiar
+   with the potential security issues described in [<a href="./rfc4963.html" title="&quot;IPv4 Reassembly Errors at High Data Rates&quot;">RFC4963</a>].
+
+<span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Acknowledgements</span>
+
+   Thanks for the input and review by Alexey Melnikov, Arifumi
+   Matsumoto, Barry Leiba, Benson Schliesser, Dai Kuwabara, Dan Wing,
+   Dave Thaler, David Harrington, Francis Dupont, Jean-Francois
+   Tremblay, Joe Touch, Lars Eggert, Kousuke Shishikura, Mohamed
+   Boucadair, Martin Stiemerling, Meng Wei, Nejc Skoberne, Pete Resnick,
+   Reinaldo Penno, Ron Bonica, Sam Hartman, Sean Turner, Senthil
+   Sivakumar, Stephen Farrell, Stewart Bryant, Takanori Mizuguchi,
+   Takeshi Tomochika, Tina Tsou, Tomohiro Fujisaki, Tomohiro Nishitani,
+   Tomoya Yoshida, Wes George, Wesley Eddy, and Yasuhiro Shirasaki.
+
+<span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  References</span>
+
+<span class="h3"><a class="selflink" name="section-9.1" href="#section-9.1">9.1</a>.  Normative References</span>
+
+   [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>, March 1997.
+
+   [<a name="ref-RFC4008" id="ref-RFC4008">RFC4008</a>]  Rohit, R., Srisuresh, P., Raghunarayan, R., Pai, N., and
+              C. Wang, "Definitions of Managed Objects for Network
+              Address Translators (NAT)", <a href="./rfc4008.html">RFC 4008</a>, March 2005.
+
+   [<a name="ref-RFC4787" id="ref-RFC4787">RFC4787</a>]  Audet, F. and C. Jennings, "Network Address Translation
+              (NAT) Behavioral Requirements for Unicast UDP", <a href="./bcp127.html">BCP 127</a>,
+              <a href="./rfc4787.html">RFC 4787</a>, January 2007.
+
+   [<a name="ref-RFC5382" id="ref-RFC5382">RFC5382</a>]  Guha, S., Biswas, K., Ford, B., Sivakumar, S., and P.
+              Srisuresh, "NAT Behavioral Requirements for TCP", <a href="./bcp142.html">BCP 142</a>,
+              <a href="./rfc5382.html">RFC 5382</a>, October 2008.
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                [Page 12]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-13" id="page-2-13" href="#page-2-13" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   [<a name="ref-RFC5508" id="ref-RFC5508">RFC5508</a>]  Srisuresh, P., Ford, B., Sivakumar, S., and S. Guha, "NAT
+              Behavioral Requirements for ICMP", <a href="./bcp148.html">BCP 148</a>, <a href="./rfc5508.html">RFC 5508</a>,
+              April 2009.
+
+   [<a name="ref-RFC5597" id="ref-RFC5597">RFC5597</a>]  Denis-Courmont, R., "Network Address Translation (NAT)
+              Behavioral Requirements for the Datagram Congestion
+              Control Protocol", <a href="./bcp150.html">BCP 150</a>, <a href="./rfc5597.html">RFC 5597</a>, September 2009.
+
+   [<a name="ref-RFC6887" id="ref-RFC6887">RFC6887</a>]  Wing, D., Ed., Cheshire, S., Boucadair, M., Penno, R., and
+              P.  Selkirk, "Port Control Protocol (PCP)", <a href="./rfc6887.html">RFC 6887</a>,
+              April 2013.
+
+<span class="h3"><a class="selflink" name="section-9.2" href="#section-9.2">9.2</a>.  Informative Reference</span>
+
+   [<a name="ref-RFC0793" id="ref-RFC0793">RFC0793</a>]  Postel, J., "Transmission Control Protocol", STD 7, <a href="./rfc793.html">RFC</a>
+              <a href="./rfc793.html">793</a>, September 1981.
+
+   [<a name="ref-RFC1122" id="ref-RFC1122">RFC1122</a>]  Braden, R., "Requirements for Internet Hosts -
+              Communication Layers", STD 3, <a href="./rfc1122.html">RFC 1122</a>, October 1989.
+
+   [<a name="ref-RFC2663" id="ref-RFC2663">RFC2663</a>]  Srisuresh, P. and M. Holdrege, "IP Network Address
+              Translator (NAT) Terminology and Considerations", <a href="./rfc2663.html">RFC</a>
+              <a href="./rfc2663.html">2663</a>, August 1999.
+
+   [<a name="ref-RFC2827" id="ref-RFC2827">RFC2827</a>]  Ferguson, P. and D. Senie, "Network Ingress Filtering:
+              Defeating Denial of Service Attacks which employ IP Source
+              Address Spoofing", <a href="./bcp38.html">BCP 38</a>, <a href="./rfc2827.html">RFC 2827</a>, May 2000.
+
+   [<a name="ref-RFC4963" id="ref-RFC4963">RFC4963</a>]  Heffner, J., Mathis, M., and B. Chandler, "IPv4 Reassembly
+              Errors at High Data Rates", <a href="./rfc4963.html">RFC 4963</a>, July 2007.
+
+   [<a name="ref-RFC5461" id="ref-RFC5461">RFC5461</a>]  Gont, F., "TCP's Reaction to Soft Errors", <a href="./rfc5461.html">RFC 5461</a>,
+              February 2009.
+
+   [<a name="ref-RFC6056" id="ref-RFC6056">RFC6056</a>]  Larsen, M. and F. Gont, "Recommendations for Transport-
+              Protocol Port Randomization", <a href="./bcp156.html">BCP 156</a>, <a href="./rfc6056.html">RFC 6056</a>, January
+              2011.
+
+   [<a name="ref-RFC6146" id="ref-RFC6146">RFC6146</a>]  Bagnulo, M., Matthews, P., and I. van Beijnum, "Stateful
+              NAT64: Network Address and Protocol Translation from IPv6
+              Clients to IPv4 Servers", <a href="./rfc6146.html">RFC 6146</a>, April 2011.
+
+   [<a name="ref-RFC6264" id="ref-RFC6264">RFC6264</a>]  Jiang, S., Guo, D., and B. Carpenter, "An Incremental
+              Carrier-Grade NAT (CGN) for IPv6 Transition", <a href="./rfc6264.html">RFC 6264</a>,
+              June 2011.
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                [Page 13]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-14" id="page-2-14" href="#page-2-14" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   [<a name="ref-RFC6269" id="ref-RFC6269">RFC6269</a>]  Ford, M., Boucadair, M., Durand, A., Levis, P., and P.
+              Roberts, "Issues with IP Address Sharing", <a href="./rfc6269.html">RFC 6269</a>, June
+              2011.
+
+   [<a name="ref-RFC6302" id="ref-RFC6302">RFC6302</a>]  Durand, A., Gashinsky, I., Lee, D., and S. Sheppard,
+              "Logging Recommendations for Internet-Facing Servers", <a href="./bcp162.html">BCP</a>
+              <a href="./bcp162.html">162</a>, <a href="./rfc6302.html">RFC 6302</a>, June 2011.
+
+   [<a name="ref-RFC6333" id="ref-RFC6333">RFC6333</a>]  Durand, A., Droms, R., Woodyatt, J., and Y. Lee, "Dual-
+              Stack Lite Broadband Deployments Following IPv4
+              Exhaustion", <a href="./rfc6333.html">RFC 6333</a>, August 2011.
+
+   [<a name="ref-NAT-MIB" id="ref-NAT-MIB">NAT-MIB</a>]  Perreault, S., Tsou, T., and S. Sivakumar, "Additional
+              Managed Objects for Network Address Translators (NAT)",
+              Work in Progress, February 2013.
+
+   [<a name="ref-NAT-REVEAL" id="ref-NAT-REVEAL">NAT-REVEAL</a>]
+              Boucadair, M., Touch, J., Levis, P., and R. Penno,
+              "Analysis of Solution Candidates to Reveal a Host
+              Identifier (HOST_ID) in Shared Address Deployments", Work
+              in Progress, April 2013.
+
+   [<a name="ref-NAT444" id="ref-NAT444">NAT444</a>]   Donley, C., Ed., Howard, L., Kuarsingh, V., Berg, J., and
+              J. Doshi, "Assessing the Impact of Carrier-Grade NAT on
+              Network Applications", Work in Progress, April 2013.
+
+   [<a name="ref-BITTORRENT" id="ref-BITTORRENT">BITTORRENT</a>]
+              Boucadair, M., Zheng, T., Deng, X., and J. Queiroz,
+              "Behavior of BitTorrent service in PCP-enabled networks
+              with Address Sharing", Work in Progress, May 2012.
+
+Authors' Addresses
+
+   Simon Perreault (editor)
+   Viagenie
+   246 Aberdeen
+   Quebec, QC  G1R 2E1
+   Canada
+
+   Phone: +1 418 656 9254
+   EMail: simon.perreault@viagenie.ca
+   URI:   <a href="http://www.viagenie.ca">http://www.viagenie.ca</a>
+
+
+
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                [Page 14]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-2-15" id="page-2-15" href="#page-2-15" class="invisible"> </a>
+<span class="grey"><a href="./rfc6888.html">RFC 6888</a>                    CGN Requirements                  April 2013</span>
+
+
+   Ikuhei Yamagata
+   NTT Communications Corporation
+   Gran Park Tower 17F, 3-4-1 Shibaura, Minato-ku
+   Tokyo  108-8118
+   Japan
+
+   Phone: +81 50 3812 4704
+   EMail: ikuhei@nttv6.jp
+
+
+   Shin Miyakawa
+   NTT Communications Corporation
+   Gran Park Tower 17F, 3-4-1 Shibaura, Minato-ku
+   Tokyo  108-8118
+   Japan
+
+   Phone: +81 50 3812 4695
+   EMail: miyakawa@nttv6.jp
+
+
+   Akira Nakagawa
+   Japan Internet Exchange Co., Ltd. (JPIX)
+   Otemachi Building 21F, 1-8-1 Otemachi, Chiyoda-ku
+   Tokyo  100-0004
+   Japan
+
+   Phone: +81 90 9242 2717
+   EMail: a-nakagawa@jpix.ad.jp
+
+
+   Hiroyuki Ashida
+   Cisco Systems
+   Midtown Tower, 9-7-1, Akasaka
+   Minato-Ku, Tokyo  107-6227
+   Japan
+
+   EMail: hiashida@cisco.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Perreault, et al.         Best Current Practice                [Page 15]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><span class="grey">=========================================================================</span>
+
+
+
+
+
+Internet Engineering Task Force (IETF)                          R. Penno
+Request for Comments: 7857                                         Cisco
+BCP: 127                                                    S. Perreault
+Updates: 4787, 5382, 5508                            Jive Communications
+Category: Best Current Practice                        M. Boucadair, Ed.
+ISSN: 2070-1721                                                   Orange
+                                                            S. Sivakumar
+                                                                   Cisco
+                                                                K. Naito
+                                                                     NTT
+                                                              April 2016
+
+
+  Updates to Network Address Translation (NAT) Behavioral Requirements
+
+Abstract
+
+   This document clarifies and updates several requirements of RFCs
+   4787, 5382, and 5508 based on operational and development experience.
+   The focus of this document is Network Address Translation from IPv4
+   to IPv4 (NAT44).
+
+   This document updates RFCs 4787, 5382, and 5508.
+
+Status of This Memo
+
+   This memo documents an Internet Best Current Practice.
+
+   This document is a product of the Internet Engineering Task Force
+   (IETF).  It represents the consensus of the IETF community.  It has
+   received public review and has been approved for publication by the
+   Internet Engineering Steering Group (IESG).  Further information on
+   BCPs is available in <a href="./rfc5741.html#section-2">Section&nbsp;2 of RFC 5741</a>.
+
+   Information about the current status of this document, any errata,
+   and how to provide feedback on it may be obtained at
+   <a href="http://www.rfc-editor.org/info/rfc7857">http://www.rfc-editor.org/info/rfc7857</a>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 1]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-2" id="page-3-2" href="#page-3-2" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+Copyright Notice
+
+   Copyright (c) 2016 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to <a href="./bcp78.html">BCP 78</a> and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+   This document may contain material from IETF Documents or IETF
+   Contributions published or made publicly available before November
+   10, 2008.  The person(s) controlling the copyright in some of this
+   material may not have granted the IETF Trust the right to allow
+   modifications of such material outside the IETF Standards Process.
+   Without obtaining an adequate license from the person(s) controlling
+   the copyright in such materials, this document may not be modified
+   outside the IETF Standards Process, and derivative works of it may
+   not be created outside the IETF Standards Process, except to format
+   it for publication as an RFC or to translate it into languages other
+   than English.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 2]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-3" id="page-3-3" href="#page-3-3" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+Table of Contents
+
+   <a href="#section-1">1</a>.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-3">3</a>
+     <a href="#section-1.1">1.1</a>.  Scope . . . . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-3">3</a>
+     <a href="#section-1.2">1.2</a>.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-4">4</a>
+   <a href="#section-2">2</a>.  TCP Session Tracking  . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-4">4</a>
+     <a href="#section-2.1">2.1</a>.  TCP Transitory Connection Idle-Timeout  . . . . . . . . .   <a href="#page-3-6">6</a>
+     <a href="#section-2.2">2.2</a>.  TCP RST . . . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-6">6</a>
+   <a href="#section-3">3</a>.  Port Overlapping Behavior . . . . . . . . . . . . . . . . . .   <a href="#page-3-6">6</a>
+   <a href="#section-4">4</a>.  Address Pooling Paired (APP)  . . . . . . . . . . . . . . . .   <a href="#page-3-7">7</a>
+   <a href="#section-5">5</a>.  Endpoint-Independent Mapping (EIM) Protocol Independence  . .   <a href="#page-3-8">8</a>
+   6.  Endpoint-Independent Filtering (EIF) Protocol Independence  .   8
+   <a href="#section-7">7</a>.  Endpoint-Independent Filtering (EIF) Mapping Refresh  . . . .   <a href="#page-3-8">8</a>
+     <a href="#section-7.1">7.1</a>.  Outbound Mapping Refresh and Error Packets  . . . . . . .   <a href="#page-3-9">9</a>
+   <a href="#section-8">8</a>.  Port Parity . . . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-9">9</a>
+   <a href="#section-9">9</a>.  Port Randomization  . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3-9">9</a>
+   <a href="#section-10">10</a>. IP Identification (IP ID) . . . . . . . . . . . . . . . . . .  <a href="#page-3-10">10</a>
+   <a href="#section-11">11</a>. ICMP Query Mappings Timeout . . . . . . . . . . . . . . . . .  <a href="#page-3-10">10</a>
+   <a href="#section-12">12</a>. Hairpinning Support for ICMP Packets  . . . . . . . . . . . .  <a href="#page-3-10">10</a>
+   <a href="#section-13">13</a>. Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="#page-3-11">11</a>
+   <a href="#section-14">14</a>. References  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-3-12">12</a>
+     <a href="#section-14.1">14.1</a>.  Normative References . . . . . . . . . . . . . . . . . .  <a href="#page-3-12">12</a>
+     <a href="#section-14.2">14.2</a>.  Informative References . . . . . . . . . . . . . . . . .  <a href="#page-3-12">12</a>
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-3-13">13</a>
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-3-14">14</a>
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-3-14">14</a>
+
+<span class="h2"><a class="selflink" name="section-1" href="#section-1">1</a>.  Introduction</span>
+
+   [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>], and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>] contributed to enhance Network
+   Address Translation (NAT) interoperability and conformance.
+   Operational experience gained through widespread deployment and
+   evolution of NAT indicates that some areas of the original documents
+   need further clarification or updates.  This document provides such
+   clarifications and updates.
+
+<span class="h3"><a class="selflink" name="section-1.1" href="#section-1.1">1.1</a>.  Scope</span>
+
+   The goal of this document is to clarify and update the set of
+   requirements listed in [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>], and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].  The
+   document focuses exclusively on NAT44.
+
+   The scope of this document has been set so that it does not create
+   new requirements beyond those specified in the documents cited above.
+
+   Requirements related to Carrier-Grade NAT (CGN) are defined in
+   [<a href="./rfc6888.html" title="&quot;Common Requirements for Carrier-Grade NATs (CGNs)&quot;">RFC6888</a>].
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 3]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-4" id="page-3-4" href="#page-3-4" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+<span class="h3"><a class="selflink" name="section-1.2" href="#section-1.2">1.2</a>.  Terminology</span>
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [<a href="./rfc2119.html" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+
+   The reader is assumed to be familiar with the terminology defined in
+   [<a href="./rfc2663.html" title="&quot;IP Network Address Translator (NAT) Terminology and Considerations&quot;">RFC2663</a>], [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>], and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].
+
+   In this document, the term "NAT" refers to both "Basic NAT" and
+   "Network Address/Port Translator (NAPT)" (see <a href="./rfc4787.html#section-3">Section&nbsp;3 of
+   [RFC4787]</a>).  As a reminder, Basic NAT and NAPT are two variations of
+   traditional NAT in that translation in Basic NAT is limited to IP
+   addresses alone, whereas translation in NAPT is extended to include
+   IP addresses and transport identifiers (such as a TCP/UDP port or
+   ICMP query ID); refer to <a href="./rfc3022.html#section-2">Section&nbsp;2 of [RFC3022]</a>.
+
+<span class="h2"><a class="selflink" name="section-2" href="#section-2">2</a>.  TCP Session Tracking</span>
+
+   [<a name="ref-RFC5382" id="ref-RFC5382">RFC5382</a>] specifies TCP timers associated with various connection
+   states but does not specify the TCP state machine a NAT44 should
+   follow as a basis to apply such timers.
+
+   Update:  The TCP state machine depicted in Figure 1, adapted from
+      [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>], SHOULD be implemented by a NAT for TCP session tracking
+      purposes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 4]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-5" id="page-3-5" href="#page-3-5" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+                    +----------------------------+
+                    |                            |
+                    V                            |
+                 +------+   Client               |
+                 |CLOSED|-----SYN------+         |
+                 +------+              |         |
+                     ^                 |         |
+                     |TCP_TRANS T.O.   |         |
+                     |                 V         |
+                 +-------+          +-------+    |
+                 | TRANS |          |  INIT |    |
+                 +-------+          +-------+    |
+                   |    ^               |        |
+             data pkt   |               |        |
+                   | Server/Client RST  |        |
+                   |  TCP_EST T.O.      |        |
+                   V    |           Server SYN   |
+              +--------------+          |        |
+              | ESTABLISHED  |&lt;---------+        |
+              +--------------+                   |
+               |           |                     |
+         Client FIN    Server FIN                |
+               |           |                     |
+               V           V                     |
+        +---------+   +----------+               |
+        |  C FIN  |   |  S FIN   |               |
+        |   RCV   |   |    RCV   |               |
+        +---------+   +----------+               |
+            |             |                      |
+        Server FIN      Client FIN            TCP_TRANS
+            |             |                    T.O.
+            V             V                      |
+        +----------------------+                 |
+        |   C FIN + S FIN RCV  |-----------------+
+        +----------------------+
+    Legend:
+      * Messages sent or received from the server are
+        prefixed with "Server".
+      * Messages sent or received from the client are
+        prefixed with "Client".
+      * "C" means "Client-side".
+      * "S" means "Server-side".
+      * TCP_EST T.O. refers to the established connection
+        idle-timeout as defined in [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>].
+      * TCP_TRANS T.O. refers to the transitory connection
+        idle-timeout as defined in [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>].
+
+           Figure 1: Simplified Version of the TCP State Machine
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 5]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-6" id="page-3-6" href="#page-3-6" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+<span class="h3"><a class="selflink" name="section-2.1" href="#section-2.1">2.1</a>.  TCP Transitory Connection Idle-Timeout</span>
+
+   The transitory connection idle-timeout is defined as the minimum time
+   a TCP connection in the partially open or closing phases must remain
+   idle before the NAT considers the associated session a candidate for
+   removal (REQ-5 of [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>]).  However, [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>] does not clearly
+   state whether these can be configured separately.
+
+   Clarification:  This document clarifies that a NAT SHOULD provide
+      different configurable parameters for configuring the open and
+      closing idle timeouts.
+
+      To accommodate deployments that consider a partially open timeout
+      of 4 minutes as being excessive from a security standpoint, a NAT
+      MAY allow the configured timeout to be less than 4 minutes.
+      However, a minimum default transitory connection idle-timeout of 4
+      minutes is RECOMMENDED.
+
+<span class="h3"><a class="selflink" name="section-2.2" href="#section-2.2">2.2</a>.  TCP RST</span>
+
+   [<a name="ref-RFC5382" id="ref-RFC5382">RFC5382</a>] leaves the handling of TCP RST packets unspecified.
+
+   Update:  This document adopts a similar default behavior as in
+      [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>].  Concretely, when the NAT receives a TCP RST matching
+      an existing mapping, it MUST translate the packet according to the
+      NAT mapping entry.  Moreover, the NAT SHOULD wait for 4 minutes
+      before deleting the session and removing any state associated with
+      it if no packets are received during that 4-minute timeout.
+
+      Notes:
+
+      *  Admittedly, the NAT has to verify whether received TCP RST
+         packets belong to a connection.  This verification check is
+         required to avoid off-path attacks.
+
+      *  If the NAT immediately removes the NAT mapping upon receipt of
+         a TCP RST message, stale connections may be maintained by
+         endpoints if the first RST message is lost between the NAT and
+         the recipient.
+
+<span class="h2"><a class="selflink" name="section-3" href="#section-3">3</a>.  Port Overlapping Behavior</span>
+
+   REQ-1 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>] and REQ-1 from [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>] specify a specific port
+   overlapping behavior; that is, the external IP address and port can
+   be reused for connections originating from the same internal source
+   IP address and port irrespective of the destination.  This is known
+   as Endpoint-Independent Mapping (EIM).
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 6]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-7" id="page-3-7" href="#page-3-7" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+   Update:  This document clarifies that this port overlapping behavior
+      may be extended to connections originating from different internal
+      source IP addresses and ports as long as their destinations are
+      different.
+
+      The following mechanism MAY be implemented by a NAT:
+
+         If destination addresses and ports are different for outgoing
+         connections started by local clients, a NAT MAY assign the same
+         external port as the source ports for the connections.  The
+         port overlapping mechanism manages mappings between external
+         packets and internal packets by looking at and storing their
+         5-tuple (protocol, source address, source port, destination
+         address, and destination port).
+
+      This enables concurrent use of a single NAT external port for
+      multiple transport sessions, which allows a NAT to successfully
+      process packets in a network that has a limited number of IP
+      addresses (e.g., deployment with a high address space
+      multiplicative factor (refer to <a href="./rfc6269.html#appendix-B">Appendix&nbsp;B of [RFC6269]</a>)).
+
+<span class="h2"><a class="selflink" name="section-4" href="#section-4">4</a>.  Address Pooling Paired (APP)</span>
+
+   The "IP address pooling" behavior of "Paired" (APP) was recommended
+   in REQ-2 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], but the behavior when an external IPv4 runs
+   out of ports was left undefined.
+
+   Clarification:  This document clarifies that if APP is enabled, new
+      sessions from a host that already has a mapping associated with an
+      external IP that ran out of ports SHOULD be dropped.  A
+      configuration parameter MAY be provided to allow a NAT to start
+      using ports from another external IP address when the one that
+      anchored the APP mapping ran out of ports.  Tweaking this
+      configuration parameter is a trade-off between service continuity
+      and APP strict enforcement.  Note, this behavior is sometimes
+      referred to as "soft-APP".
+
+      As a reminder, the recommendation for the particular case of a CGN
+      is that an implementation must use the same external IP address
+      mapping for all sessions associated with the same internal IP
+      address, be they TCP, UDP, ICMP, something else, or a mix of
+      different protocols [<a href="./rfc6888.html" title="&quot;Common Requirements for Carrier-Grade NATs (CGNs)&quot;">RFC6888</a>].
+
+   Update:  This behavior SHOULD apply also for TCP.
+
+
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 7]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-8" id="page-3-8" href="#page-3-8" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+<span class="h2"><a class="selflink" name="section-5" href="#section-5">5</a>.  Endpoint-Independent Mapping (EIM) Protocol Independence</span>
+
+   REQ-1 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>] and REQ-1 from [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>] do not specify whether
+   EIM are protocol dependent or protocol independent.  For example, if
+   an outbound TCP SYN creates a mapping, it is left undefined whether
+   outbound UDP packets can reuse such mapping.
+
+   Update:  EIM mappings SHOULD be protocol dependent.  A configuration
+      parameter MAY be provided to allow protocols that multiplex TCP
+      and UDP over the same source IP address and port number to use a
+      single mapping.  The default value of this configuration parameter
+      MUST be protocol-dependent EIM.
+
+      This update is consistent with the stateful Network Address and
+      Protocol Translation from IPv6 Clients to IPv4 Servers (NAT64)
+      [<a href="./rfc6146.html" title="&quot;Stateful NAT64: Network Address and Protocol Translation from IPv6 Clients to IPv4 Servers&quot;">RFC6146</a>] that clearly specifies three binding information bases
+      (TCP, UDP, and ICMP).
+
+<span class="h2"><a class="selflink" name="section-6" href="#section-6">6</a>.  Endpoint-Independent Filtering (EIF) Protocol Independence</span>
+
+   REQ-8 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>] and REQ-3 from [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>] do not specify whether
+   mappings with Endpoint-Independent Filtering (EIF) are protocol
+   independent or protocol dependent.  For example, if an outbound TCP
+   SYN creates a mapping, it is left undefined whether inbound UDP
+   packets matching that mapping should be accepted or rejected.
+
+   Update:  EIF filtering SHOULD be protocol dependent.  A configuration
+      parameter MAY be provided to make it protocol independent.  The
+      default value of this configuration parameter MUST be protocol-
+      dependent EIF.
+
+      This behavior is aligned with the update in <a href="#section-5">Section 5</a>.
+
+      Applications that can be transported over a variety of transport
+      protocols and/or support transport fallback schemes won't
+      experience connectivity failures if the NAT is configured with
+      protocol-independent EIM and protocol-independent EIF.
+
+<span class="h2"><a class="selflink" name="section-7" href="#section-7">7</a>.  Endpoint-Independent Filtering (EIF) Mapping Refresh</span>
+
+   The NAT mapping Refresh direction may have a "NAT Inbound refresh
+   behavior" of "True" according to REQ-6 from [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], but [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>]
+   does not clarify how this behavior applies to EIF mappings.  The
+   issue in question is whether inbound packets that match an EIF
+   mapping but do not create a new session due to a security policy
+   should refresh the mapping timer.
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 8]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-9" id="page-3-9" href="#page-3-9" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+   Clarification:  This document clarifies that even when a NAT has an
+      inbound refresh behavior set to "TRUE", such packets SHOULD NOT
+      refresh the mapping.  Otherwise, a simple attack of a packet every
+      two minutes can keep the mapping indefinitely.
+
+   Update:  This behavior SHOULD apply also for TCP.
+
+<span class="h3"><a class="selflink" name="section-7.1" href="#section-7.1">7.1</a>.  Outbound Mapping Refresh and Error Packets</span>
+
+   Update:  In the case of NAT outbound refresh behavior, ICMP Errors or
+      TCP RST outbound packets sent as a response to inbound packets
+      SHOULD NOT refresh the mapping.  Other packets that indicate the
+      host is not interested in receiving packets MAY be configurable to
+      also not refresh state, such as a Session Traversal Utilities for
+      NAT (STUN) error response [<a href="./rfc5389.html" title="&quot;Session Traversal Utilities for NAT (STUN)&quot;">RFC5389</a>] or IKE INVALID_SYNTAX
+      [<a href="./rfc7296.html" title="&quot;Internet Key Exchange Protocol Version 2 (IKEv2)&quot;">RFC7296</a>].
+
+<span class="h2"><a class="selflink" name="section-8" href="#section-8">8</a>.  Port Parity</span>
+
+   Update:  A NAT MAY disable port parity preservation for all dynamic
+      mappings.  Nevertheless, A NAT SHOULD support means to explicitly
+      request to preserve port parity (e.g., [<a href="./rfc7753.html" title="&quot;Port Control Protocol (PCP) Extension for Port-Set Allocation&quot;">RFC7753</a>]).
+
+      Note: According to [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>], dynamic mappings are said to be
+      dynamic in the sense that they are created on demand, either
+      implicitly or explicitly:
+
+      1.  Implicit dynamic mappings refer to mappings that are created
+          as a side effect of traffic such as an outgoing TCP SYN or
+          outgoing UDP packet.  Implicit dynamic mappings usually have a
+          finite lifetime, though this lifetime is generally not known
+          to the client using them.
+
+      2.  Explicit dynamic mappings refer to mappings that are created
+          as a result, for example, of explicit Port Control Protocol
+          (PCP) MAP and PEER requests.  Explicit dynamic mappings have a
+          finite lifetime, and this lifetime is communicated to the
+          client.
+
+<span class="h2"><a class="selflink" name="section-9" href="#section-9">9</a>.  Port Randomization</span>
+
+   Update:  A NAT SHOULD follow the recommendations specified in
+      <a href="./rfc6056.html#section-4">Section&nbsp;4 of [RFC6056]</a>, especially:
+
+         A NAPT that does not implement port preservation [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>]
+         [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>] SHOULD obfuscate selection of the ephemeral port of a
+         packet when it is changed during translation of that packet.
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                 [Page 9]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-10" id="page-3-10" href="#page-3-10" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+         A NAPT that does implement port preservation SHOULD obfuscate
+         the ephemeral port of a packet only if the port must be changed
+         as a result of the port being already in use for some other
+         session.
+
+         A NAPT that performs parity preservation and that must change
+         the ephemeral port during translation of a packet SHOULD
+         obfuscate the ephemeral ports.  The algorithms described in
+         this document could be easily adapted such that the parity is
+         preserved (i.e., force the lowest order bit of the resulting
+         port number to 0 or 1 according to whether even or odd parity
+         is desired).
+
+<span class="h2"><a class="selflink" name="section-10" href="#section-10">10</a>.  IP Identification (IP ID)</span>
+
+   Update:  A NAT SHOULD handle the Identification field of translated
+      IPv4 packets as specified in <a href="./rfc6864.html#section-5.3.1">Section&nbsp;5.3.1 of [RFC6864]</a>.
+
+<span class="h2"><a class="selflink" name="section-11" href="#section-11">11</a>.  ICMP Query Mappings Timeout</span>
+
+   <a href="./rfc5508.html#section-3.1">Section&nbsp;3.1 of [RFC5508]</a> specifies that ICMP Query mappings are to be
+   maintained by a NAT.  However, the specification doesn't discuss
+   Query mapping timeout values.  <a href="./rfc5508.html#section-3.2">Section&nbsp;3.2 of [RFC5508]</a> only
+   discusses ICMP Query session timeouts.
+
+   Update:  ICMP Query mappings MAY be deleted once the last session
+      using the mapping is deleted.
+
+<span class="h2"><a class="selflink" name="section-12" href="#section-12">12</a>.  Hairpinning Support for ICMP Packets</span>
+
+   REQ-7 from [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>] specifies that a NAT enforcing Basic NAT must
+   support traversal of hairpinned ICMP Query sessions.
+
+   Clarification:  This implicitly means that address mappings from
+      external address to internal address (similar to Endpoint-
+      Independent Filters) must be maintained to allow inbound ICMP
+      Query sessions.  If an ICMP Query is received on an external
+      address, a NAT can then translate to an internal IP.
+
+   REQ-7 from [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>] specifies that all NATs must support the
+   traversal of hairpinned ICMP Error messages.
+
+   Clarification:  This behavior requires a NAT to maintain address
+      mappings from external IP address to internal IP address in
+      addition to the ICMP Query mappings described in <a href="./rfc5508.html#section-3.1">Section&nbsp;3.1 of
+      [RFC5508]</a>.
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                [Page 10]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-11" id="page-3-11" href="#page-3-11" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+<span class="h2"><a class="selflink" name="section-13" href="#section-13">13</a>.  Security Considerations</span>
+
+   NAT behavioral considerations are discussed in [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>],
+   and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].
+
+   Because some of the clarifications and updates (e.g., <a href="#section-2">Section 2</a>) are
+   inspired from NAT64, the security considerations discussed in
+   <a href="./rfc6146.html#section-5">Section&nbsp;5 of [RFC6146]</a> apply also for this specification.
+
+   The update in <a href="#section-3">Section 3</a> allows for an optimized NAT resource usage.
+   In order to avoid service disruption, the NAT must not invoke this
+   functionality unless the packets are to be sent to distinct
+   destination addresses.
+
+   Some of the updates (e.g., Sections <a href="#section-7">7</a>, <a href="#section-9">9</a>, and <a href="#section-11">11</a>) allow for increased
+   security compared to [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>], and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].
+   Particularly,
+
+   o  the updates in Sections <a href="#section-7">7</a> and <a href="#section-11">11</a> prevent an illegitimate node to
+      maintain mappings activated in the NAT while these mappings should
+      be cleared, and
+
+   o  port randomization (<a href="#section-9">Section 9</a>) complicates tracking hosts located
+      behind a NAT.
+
+   Sections <a href="#section-4">4</a> and <a href="#section-12">12</a> propose updates that increase the serviceability of
+   a host located behind a NAT.  These updates do not introduce any
+   additional security concerns to [<a href="./rfc4787.html" title="&quot;Network Address Translation (NAT) Behavioral Requirements for Unicast UDP&quot;">RFC4787</a>], [<a href="./rfc5382.html" title="&quot;NAT Behavioral Requirements for TCP&quot;">RFC5382</a>], and [<a href="./rfc5508.html" title="&quot;NAT Behavioral Requirements for ICMP&quot;">RFC5508</a>].
+
+   The updates in Sections <a href="#section-5">5</a> and <a href="#section-6">6</a> allow for a better NAT transparency
+   from an application standpoint.  Hosts that require a restricted
+   filtering behavior should enable specific policies (e.g., Access
+   Control List (ACL)) either locally or by soliciting a dedicated
+   security device (e.g., firewall).  How a host updates its filtering
+   policies is out of scope of this document.
+
+   The update in <a href="#section-8">Section 8</a> induces security concerns that are specific
+   to the protocol used to interact with the NAT.  For example, if PCP
+   is used to explicitly request parity preservation for a given
+   mapping, the security considerations discussed in [<a href="./rfc6887.html" title="&quot;Port Control Protocol (PCP)&quot;">RFC6887</a>] should be
+   taken into account.
+
+   The update in <a href="#section-10">Section 10</a> may have undesired effects on the
+   performance of the NAT in environments in which fragmentation is
+   massively experienced.  Such an issue may be used as an attack vector
+   against NATs.
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                [Page 11]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-12" id="page-3-12" href="#page-3-12" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+<span class="h2"><a class="selflink" name="section-14" href="#section-14">14</a>.  References</span>
+
+<span class="h3"><a class="selflink" name="section-14.1" href="#section-14.1">14.1</a>.  Normative References</span>
+
+   [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", <a href="./bcp14.html">BCP 14</a>, <a href="./rfc2119.html">RFC 2119</a>,
+              DOI 10.17487/RFC2119, March 1997,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>&gt;.
+
+   [<a name="ref-RFC4787" id="ref-RFC4787">RFC4787</a>]  Audet, F., Ed. and C. Jennings, "Network Address
+              Translation (NAT) Behavioral Requirements for Unicast
+              UDP", <a href="./bcp127.html">BCP 127</a>, <a href="./rfc4787.html">RFC 4787</a>, DOI 10.17487/RFC4787, January
+              2007, &lt;<a href="http://www.rfc-editor.org/info/rfc4787">http://www.rfc-editor.org/info/rfc4787</a>&gt;.
+
+   [<a name="ref-RFC5382" id="ref-RFC5382">RFC5382</a>]  Guha, S., Ed., Biswas, K., Ford, B., Sivakumar, S., and P.
+              Srisuresh, "NAT Behavioral Requirements for TCP", <a href="./bcp142.html">BCP 142</a>,
+              <a href="./rfc5382.html">RFC 5382</a>, DOI 10.17487/RFC5382, October 2008,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5382">http://www.rfc-editor.org/info/rfc5382</a>&gt;.
+
+   [<a name="ref-RFC5508" id="ref-RFC5508">RFC5508</a>]  Srisuresh, P., Ford, B., Sivakumar, S., and S. Guha, "NAT
+              Behavioral Requirements for ICMP", <a href="./bcp148.html">BCP 148</a>, <a href="./rfc5508.html">RFC 5508</a>,
+              DOI 10.17487/RFC5508, April 2009,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5508">http://www.rfc-editor.org/info/rfc5508</a>&gt;.
+
+   [<a name="ref-RFC6056" id="ref-RFC6056">RFC6056</a>]  Larsen, M. and F. Gont, "Recommendations for Transport-
+              Protocol Port Randomization", <a href="./bcp156.html">BCP 156</a>, <a href="./rfc6056.html">RFC 6056</a>,
+              DOI 10.17487/RFC6056, January 2011,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc6056">http://www.rfc-editor.org/info/rfc6056</a>&gt;.
+
+   [<a name="ref-RFC6146" id="ref-RFC6146">RFC6146</a>]  Bagnulo, M., Matthews, P., and I. van Beijnum, "Stateful
+              NAT64: Network Address and Protocol Translation from IPv6
+              Clients to IPv4 Servers", <a href="./rfc6146.html">RFC 6146</a>, DOI 10.17487/RFC6146,
+              April 2011, &lt;<a href="http://www.rfc-editor.org/info/rfc6146">http://www.rfc-editor.org/info/rfc6146</a>&gt;.
+
+   [<a name="ref-RFC6864" id="ref-RFC6864">RFC6864</a>]  Touch, J., "Updated Specification of the IPv4 ID Field",
+              <a href="./rfc6864.html">RFC 6864</a>, DOI 10.17487/RFC6864, February 2013,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc6864">http://www.rfc-editor.org/info/rfc6864</a>&gt;.
+
+<span class="h3"><a class="selflink" name="section-14.2" href="#section-14.2">14.2</a>.  Informative References</span>
+
+   [<a name="ref-RFC2663" id="ref-RFC2663">RFC2663</a>]  Srisuresh, P. and M. Holdrege, "IP Network Address
+              Translator (NAT) Terminology and Considerations",
+              <a href="./rfc2663.html">RFC 2663</a>, DOI 10.17487/RFC2663, August 1999,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc2663">http://www.rfc-editor.org/info/rfc2663</a>&gt;.
+
+
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                [Page 12]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-13" id="page-3-13" href="#page-3-13" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+   [<a name="ref-RFC3022" id="ref-RFC3022">RFC3022</a>]  Srisuresh, P. and K. Egevang, "Traditional IP Network
+              Address Translator (Traditional NAT)", <a href="./rfc3022.html">RFC 3022</a>,
+              DOI 10.17487/RFC3022, January 2001,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc3022">http://www.rfc-editor.org/info/rfc3022</a>&gt;.
+
+   [<a name="ref-RFC5389" id="ref-RFC5389">RFC5389</a>]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
+              "Session Traversal Utilities for NAT (STUN)", <a href="./rfc5389.html">RFC 5389</a>,
+              DOI 10.17487/RFC5389, October 2008,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5389">http://www.rfc-editor.org/info/rfc5389</a>&gt;.
+
+   [<a name="ref-RFC6269" id="ref-RFC6269">RFC6269</a>]  Ford, M., Ed., Boucadair, M., Durand, A., Levis, P., and
+              P. Roberts, "Issues with IP Address Sharing", <a href="./rfc6269.html">RFC 6269</a>,
+              DOI 10.17487/RFC6269, June 2011,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc6269">http://www.rfc-editor.org/info/rfc6269</a>&gt;.
+
+   [<a name="ref-RFC6887" id="ref-RFC6887">RFC6887</a>]  Wing, D., Ed., Cheshire, S., Boucadair, M., Penno, R., and
+              P. Selkirk, "Port Control Protocol (PCP)", <a href="./rfc6887.html">RFC 6887</a>,
+              DOI 10.17487/RFC6887, April 2013,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc6887">http://www.rfc-editor.org/info/rfc6887</a>&gt;.
+
+   [<a name="ref-RFC6888" id="ref-RFC6888">RFC6888</a>]  Perreault, S., Ed., Yamagata, I., Miyakawa, S., Nakagawa,
+              A., and H. Ashida, "Common Requirements for Carrier-Grade
+              NATs (CGNs)", <a href="./bcp127.html">BCP 127</a>, <a href="./rfc6888.html">RFC 6888</a>, DOI 10.17487/RFC6888,
+              April 2013, &lt;<a href="http://www.rfc-editor.org/info/rfc6888">http://www.rfc-editor.org/info/rfc6888</a>&gt;.
+
+   [<a name="ref-RFC7296" id="ref-RFC7296">RFC7296</a>]  Kaufman, C., Hoffman, P., Nir, Y., Eronen, P., and T.
+              Kivinen, "Internet Key Exchange Protocol Version 2
+              (IKEv2)", STD 79, <a href="./rfc7296.html">RFC 7296</a>, DOI 10.17487/RFC7296, October
+              2014, &lt;<a href="http://www.rfc-editor.org/info/rfc7296">http://www.rfc-editor.org/info/rfc7296</a>&gt;.
+
+   [<a name="ref-RFC7753" id="ref-RFC7753">RFC7753</a>]  Sun, Q., Boucadair, M., Sivakumar, S., Zhou, C., Tsou, T.,
+              and S. Perreault, "Port Control Protocol (PCP) Extension
+              for Port-Set Allocation", <a href="./rfc7753.html">RFC 7753</a>, DOI 10.17487/RFC7753,
+              February 2016, &lt;<a href="http://www.rfc-editor.org/info/rfc7753">http://www.rfc-editor.org/info/rfc7753</a>&gt;.
+
+Acknowledgements
+
+   Thanks to Dan Wing, Suresh Kumar, Mayuresh Bakshi, Rajesh Mohan, Lars
+   Eggert, Gorry Fairhurst, Brandon Williams, and David Black for their
+   review and discussion.
+
+   Many thanks to Ben Laurie for the SecDir review and Dan Romascanu for
+   the Gen-ART review.
+
+   Dan Wing proposed some text for the configurable errors in
+   <a href="#section-7.1">Section 7.1</a>.
+
+
+
+
+
+<span class="grey">Penno, et al.             Best Current Practice                [Page 13]</span></pre>
+<hr class='noprint' style='width: 96ex;' align='left'/><!--NewPage--><pre class='newpage'><a name="page-3-14" id="page-3-14" href="#page-3-14" class="invisible"> </a>
+<span class="grey"><a href="./rfc7857.html">RFC 7857</a>         Updates to NAT Behavioral Requirements       April 2016</span>
+
+
+Contributors
+
+   The following individual contributed text to the document:
+
+      Sarat Kamiset
+      Insieme Networks
+      United States
+
+Authors' Addresses
+
+   Reinaldo Penno
+   Cisco Systems, Inc.
+   170 West Tasman Drive
+   San Jose, California  95134
+   United States
+
+   Email: repenno@cisco.com
+
+
+   Simon Perreault
+   Jive Communications
+   Canada
+
+   Email: sperreault@jive.com
+
+
+   Mohamed Boucadair (editor)
+   Orange
+   Rennes  35000
+   France
+
+   Email: mohamed.boucadair@orange.com
+
+
+   Senthil Sivakumar
+   Cisco Systems, Inc.
+   United States
+
+   Email: ssenthil@cisco.com
+
+
+   Kengo Naito
+   NTT
+   Tokyo
+   Japan
+
+   Email: k.naito@nttv6.jp
+
+
+
+
+Penno, et al.             Best Current Practice                [Page 14]
+
+</pre><br />
+    <span class="noprint"><small><small>Html markup produced by rfcmarkup 1.120, available from
+      <a href="https://tools.ietf.org/tools/rfcmarkup/">https://tools.ietf.org/tools/rfcmarkup/</a>
+    </small></small></span>
+  </div>
+</body>
+</html>
